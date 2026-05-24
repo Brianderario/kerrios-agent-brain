@@ -40,6 +40,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-05-24-google-tasks-approval]] — inbox sweep approval moved to Google Tasks
 - [[wiki/decisions/2026-05-24-superhuman-sw-mailbox]] — S/W mailbox added under Superhuman
 - [[wiki/decisions/2026-05-24-brain-architecture]] — LLM-wiki-on-git architecture (this one)
+- [[wiki/decisions/2026-05-24-cold-outreach-launch]] — sub-agent #1 (cold outreach) shipped with hard volume caps
 
 ## Deals · Meetings · Candidates · Raw
 

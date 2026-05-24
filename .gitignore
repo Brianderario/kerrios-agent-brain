@@ -12,6 +12,12 @@ data/.kerrios-api-token.local
 data/jobs.json
 data/job-counters.json
 data/gtasks-lists.json
+data/cold-outreach-queue.json
+data/cold-outreach-state.json
+data/cold-do-not-contact.json
+data/cold-outreach-fallback-*.json
+data/eod-state.json
+data/eod-fallback-*.json
 
 # Coverage + build artifacts
 coverage/

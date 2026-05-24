@@ -16,7 +16,21 @@ Every active or planned team agent that reads/writes this brain. Source of truth
 |---|---|---|
 | `kerri-inbox-sweep` | `*/10 6-21 * * *` | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
 | `kerri-eod-meetings-review` | `0 19 * * *` | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
+| `kerri-cold-outreach` | `7 9 * * 1` (Mon AM batch + on-demand) | `agent-prompts/kerri-cold-outreach/SKILL.md` |
 | `kerri-brain-push` | `0 22 * * *` | `agent-prompts/kerri-brain-push/SKILL.md` |
+
+## Sub-agent roadmap (under Kerri's identity)
+
+All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for founder threads). Externally invisible — counterparties see one face. Internally, each logs as its own slug for auditability.
+
+| # | Sub-agent | Status | Build order |
+|---|---|---|---|
+| 1 | Cold Outreach | **Active** (2026-05-24) | 1st |
+| 2 | S&W Newsletter Writer | Planned (Mon/Wed cadence, drafts into beehiiv via Chrome) | 2nd |
+| 3 | Inbound Sales Triage | Planned (enhancement to inbox sweep) | 3rd |
+| 4 | Event Logistics | Planned (on-demand) | 4th |
+| 5 | Pipeline Follow-Up | Planned (daily nudge) | 5th |
+| 6 | Partner Research | Planned (monthly Apollo batch) | 6th |
 
 ## Planned (not yet activated)
 

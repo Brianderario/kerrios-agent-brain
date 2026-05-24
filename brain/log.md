@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-24 07:00 ET] sub-agent-shipped | kerri-cold-outreach | Kerri
+
+Sub-agent #1 of 6 live. Cron `7 9 * * 1` (Mondays ~9am ET, scheduler nudged to 09:16) + on-demand invocation. Hard caps 10/day, 50/week. Apollo-enriches every target; SKIPS any target where no concrete personalization hook exists (no generic cold). Dedup against `brain/wiki/people/`, `data/jobs.json`, do-not-contact list, and 90-day cold-history. Drafts only — never sends — route through Google Tasks `❄️ COLD-` prefix to the matching list (HardwareFYI or KerriMG; S/W out of scope). Canonical at `agent-prompts/kerri-cold-outreach/SKILL.md`. Decision page: [[wiki/decisions/2026-05-24-cold-outreach-launch]]. Registry updated. Build order: Brian overrode my recommendation to build last — wants top-of-funnel agent online while he can actively monitor week one. Safety rails non-negotiable per the decision page.
+
 ## [2026-05-24 06:50 ET] fix | superhuman-list-threads-filter-combo + list-title-matcher | Kerri
 
 Closed-loop on a 💡 SUGGESTION the sweep flagged in the KerriMG Google Tasks list (task `WTNETlBIUzc4eHBNcHNReA`). Two issues, one fix-pass:
@@ -49,3 +53,9 @@ Replaced Google Doc approval channel with three Google Tasks lists. See [[wiki/d
 ## [2026-05-23] decision | kerrios-rebuild | Brian + Kerri
 
 Clean rebuild of KerriOS. OpenClaw retired. Notion eliminated. Hudson collapsed into Kerri. KMG name finalized. Kerri's external email = kerri@hardwarefyi.com. See [[wiki/decisions/2026-05-23-kerrios-rebuild]].
+
+## 2026-05-24 — Kinetic 2026 surveys analyzed; sponsor roster drafted
+
+- Analyzed both Kinetic 2026 post-conference Google Forms (Sponsor + Attendee) and produced final-spec optimization for Brian to apply in the Forms editor (Drive MCP is read-only for Forms). Key edits: drop redundant satisfaction questions, convert open-text segmentation questions to multi-choice, add NPS to sponsor form, add role + channel to attendee form, replace soft "would you attend again" with renewal-at-same-price commit signal.
+- Derived Kinetic 2026 sponsor roster from Brian's outbound "THANK YOU - Kinetic 2026" thread set (brian@hardwarefyi.com sent items, 2026-05-14 → 2026-05-23). 23 companies, ~38 contacts. Saved as candidate: [candidates/2026-05-24-kinetic-2026-sponsor-roster.md].
+- Brian confirmed (2026-05-24): Celedon + Hellbender are NOT 2026 sponsors (prospects for 2027); use one primary contact per sponsor for survey send; Brian was sole sender of HWFYI sponsor thank-yous (Benji/Kerri did not send).
