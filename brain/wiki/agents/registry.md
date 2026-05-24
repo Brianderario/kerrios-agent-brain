@@ -15,6 +15,7 @@ Every active or planned team agent that reads/writes this brain. Source of truth
 | Task | Cron | Canonical prompt |
 |---|---|---|
 | `kerri-inbox-sweep` | `*/10 6-21 * * *` | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
+| `kerri-eod-meetings-review` | `0 19 * * *` | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-brain-push` | `0 22 * * *` | `agent-prompts/kerri-brain-push/SKILL.md` |
 
 ## Planned (not yet activated)

@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-24 04:00 ET] task-shipped | kerri-eod-meetings-review | Kerri
+
+New scheduled task. Cron `0 19 * * *` daily. Pulls today's calendar (Reclaim + Google + Outlook fallback), matches each meeting against Granola transcripts. Meetings WITH transcripts → writes a per-meeting recap to `brain/wiki/meetings/<date>-<slug>.md`, updates affected person/company pages, drafts a follow-up email, posts as a Google Task `🌙 EOD-<prefix>NN` in the matching list (HWFYI / S&W / Kerri MG). Meetings WITHOUT transcripts → flagged as `⚠️ NO TRANSCRIPT:` tasks in Kerri MG list. Slack digest to Brian. Granola tool discovery happens at runtime via ToolSearch. Per-day dedup via `data/eod-state.json`. S/W boundary respected — S meetings go to `brain/.local/meetings/` (gitignored). Canonical at `agent-prompts/kerri-eod-meetings-review/SKILL.md`. Registry updated.
+
 ## [2026-05-24 03:30 ET] voice-rewrite | brian-hardwarefyi-sent-corpus | Kerri
 
 Rewrote canonical [[wiki/workflows/llm-wiki-pattern]]-referenced voice.md from a sample of 8 sent emails from brian@hardwarefyi.com (2026-05-21 to 2026-05-23). Several prior rules were speculative and contradicted Brian's actual sends — corrected (see [[wiki/workflows/draft-learnings]] §2026-05-24-voice-rewrite for the full delta). Canonical now at `agent-prompts/kerri-skill/references/voice.md`.
