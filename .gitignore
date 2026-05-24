@@ -4,8 +4,20 @@ node_modules/
 .env.production
 !.env.local.example
 .DS_Store
-data/*.local.json
+
+# Live runtime state — per-machine, never canonical
 data/kerrios.json
+data/*.local.json
 data/.kerrios-api-token.local
+data/jobs.json
+data/job-counters.json
+data/gtasks-lists.json
+
+# Coverage + build artifacts
 coverage/
 output/
+
+# Local-only brain content (S/W boundary, per-machine learnings, etc.)
+brain/.local/
+brain/.obsidian/workspace*.json
+brain/.obsidian/graph.json

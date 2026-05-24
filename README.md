@@ -1,17 +1,20 @@
 # KerriOS
 
-KerriOS is the sanitized company brain for Kerri Media Group agents.
+KerriOS is the durable company brain for Kerri Media Group agents.
 
-This repository is intentionally limited to durable company context:
+Scope of this repository (updated 2026-05-24):
 
-- agent entry instructions
-- a human-readable brain index
-- source-of-truth routing notes
-- a sanitized structured seed for approved agents
+- the Karpathy-style LLM wiki (`brain/`) — people, companies, properties, decisions, workflows, agents, meetings, deals
+- canonical agent prompts (`agent-prompts/`) — every team agent's SKILL.md, so prompt evolution lives in git history
+- sanitized structured seed (`data/kerrios.agent-seed.json`) for fast cross-cutting context
+- supporting scripts (`scripts/`) — export, lint, future brain compilation
 
-It is not the place for old runtime experiments, inbox workflows, connector
-credentials, text-message plumbing, or recurring task instructions. Those
-systems should be rebuilt separately from a clean spec.
+Not in scope: runtime state (jobs queue, counters, live data store), credentials,
+text-message plumbing, S/W internal content. Those stay local-only (gitignored)
+on individual laptops.
+
+See `brain/wiki/workflows/llm-wiki-pattern.md` for the architecture pattern,
+`brain/wiki/workflows/multi-agent-write-rules.md` for how the team shares this brain.
 
 ## Quick Start
 

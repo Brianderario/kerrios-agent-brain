@@ -10,6 +10,12 @@ Start here:
 4. Read `brain/routing.md`.
 5. Load only the routed company or workflow records needed for the task.
 
+If you are running an agent (Kerri, Ari's CFO agent, Benji's CDO agent, future):
+- Your canonical prompt lives in `agent-prompts/<agent-slug>/SKILL.md`.
+- See `brain/wiki/workflows/agent-brain-protocol.md` for the read/write contract.
+- See `brain/wiki/workflows/multi-agent-write-rules.md` for branch/PR rules.
+- See `brain/wiki/agents/registry.md` for the full agent roster.
+
 Data rules:
 
 - `data/kerrios.agent-seed.json` is the sanitized GitHub seed for agents.

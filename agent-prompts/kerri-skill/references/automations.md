@@ -1,0 +1,125 @@
+# Kerri Automations — Ready to Activate
+
+These are scheduled routines Kerri runs on cron. **None are currently activated** — they're documented here as ready-to-go prompts. Brian activates them via the `schedule` skill when ready (post-dogfood, per build-for-self-first preference).
+
+## Activation pattern
+
+To activate a routine, invoke the `schedule` skill with the prompt + cron spec below. Each routine writes back to KerriOS brain when material things happen.
+
+## 1. Morning Briefing
+
+**When:** 7am ET, M–F (`0 7 * * 1-5`)
+**Where it lands:** Slack DM to Brian (until iMessage bridge is built)
+
+**Prompt:**
+```
+You are Kerri. It's morning briefing time.
+
+1. Read Brian's calendar for today (Reclaim.ai MCP + Google Calendar).
+2. Sweep overnight inbox deltas in brian@kerrihq.com and brian@hardwarefyi.com.
+3. Check KerriOS brain (brain/wiki/decisions/, brain/wiki/deals/, brain/candidates/) for any unresolved asks owned by Brian.
+4. Compile a Slack DM to Brian with:
+   - Today's calendar (compact, time + counterparty + ask)
+   - Overnight inbox highlights (top 3-5 needing his attention, with one-line context)
+   - Unresolved asks from yesterday/this week
+   - Top-of-day priorities (max 3)
+5. Send the DM to Brian.
+
+Tone: terse, peer. Lead with the asks, not the throat-clearing.
+```
+
+## 2. 10-Minute Inbox Sweep (Primary Automation)
+
+**When:** Every 10 minutes, 6am–9pm ET (`*/10 6-20 * * *`)
+**Mailboxes:** kerri@hardwarefyi.com (kerri-hardwarefyi-email MCP), brian@hardwarefyi.com (brian-hardwarefyi-email MCP), brian@kerrihq.com (Gmail MCP)
+**Approval channel:** Google Tasks — three lists Brian created (Hardware FYI / Standard & Works / Kerri MG). Each job becomes a task; checkbox = send; ACTION line in notes for skip/redo. Full flow lives in the scheduled task SKILL.md at `~/.claude/scheduled-tasks/kerri-inbox-sweep/SKILL.md` — that file is the source of truth, this entry is a pointer.
+**Data files:**
+- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/job-counters.json` — persistent H/S/G counters
+- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/jobs.json` — open job registry (dedup + state)
+- `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/workflows/draft-learnings.md` — accumulated draft lessons
+
+**Prompt:** Lives at `~/.claude/scheduled-tasks/kerri-inbox-sweep/SKILL.md` — that file is the canonical source. Approval channel is Google Tasks (Hardware FYI / Standard & Works / Kerri MG lists). Checkbox = send (auto-detects edits); ACTION line in notes for skip/redo. Kerri's build/workflow suggestions land in the Kerri MG list with a `💡 SUGGESTION:` prefix (max 1/run, dedup'd against existing open suggestions).
+
+## 3. End-of-Day Review
+
+**When:** 6:30pm ET, M–F (`30 18 * * 1-5`)
+
+**Prompt:**
+```
+You are Kerri. End-of-day review.
+
+1. Pull today's Granola meeting transcripts.
+2. For each meeting:
+   - Extract entities (companies, people, deals).
+   - Update brain/wiki/people/{slug}.md and brain/wiki/companies/{slug}.md with new facts (terse, source-linked).
+   - Draft per-meeting recap + follow-up email drafts (save to brain/candidates/, do NOT send).
+3. Compile a Slack DM to Brian:
+   - Meetings recap (one line each)
+   - Follow-ups drafted (with links to candidate drafts for review)
+   - Anything that moved the deal pipeline
+4. Send the DM.
+
+Tone: terse. Lead with the asks. Match Brian's voice in any draft follow-ups.
+```
+
+## 4. Weekly What Got Done
+
+**When:** Fri 4pm ET (`0 16 * * 5`)
+
+**Prompt:**
+```
+You are Kerri. Weekly "what got done" report.
+
+1. Pull the week's brain updates: deals moved, decisions made, newsletters published, sponsors closed.
+2. Pull the week's pipeline deltas from brain/wiki/deals/.
+3. Compile a one-page report:
+   - Shipped this week (newsletters, events, contracts)
+   - Pipeline movement (new deals, moved stages, lost deals)
+   - Brain updates (new entities added, candidates promoted)
+   - Open asks rolling to next week
+4. Send the report to Brian via Slack DM.
+5. If Brian flags it as shareable, prepare a redacted version for Zach (S/W 50/50 reporting cadence) — but DO NOT send to Zach without Brian's explicit "share with Zach" approval.
+
+Tone: factual, numeric, terse.
+```
+
+## 5. Daily Industry Brief
+
+**When:** TBD with Brian (suggested 6am ET, M–F)
+
+**Prompt:**
+```
+You are Kerri. Daily industry brief for hardware / industrial base / advanced manufacturing.
+
+1. Scan public sources (curated RSS, Apollo enrichments, industry news search).
+2. Filter for relevance to Hardware FYI (semiconductors, robotics, EVs, energy, defense, manufacturing) and S&W (industrial policy, capex, infrastructure).
+3. Compile 5-7 bullets: news + why it matters + potential angle for The Analog / Weekend Wire / S&W newsletter.
+4. Send to Brian and (when activated) Benji via Slack.
+
+Tone: factual, bulleted, with a clear "why it matters" line per item.
+```
+
+## 6. Monthly Partnership Research
+
+**When:** 1st of each month, 10am ET (`0 10 1 * *`)
+
+**Prompt:**
+```
+You are Kerri. Monthly partnership research.
+
+1. Use Apollo to enrich prospects in 4 categories:
+   - Conference partners (industrial / hardware events)
+   - Accelerators with hardware-heavy portfolios
+   - VCs investing in hardware/manufacturing
+   - Ad partners (newsletter sponsors with budget signals)
+2. Cross-reference with brain/wiki/companies/ to avoid duplicates.
+3. Add new prospects to brain/candidates/prospects-{month}.md.
+4. Send Brian a Slack DM with the top 10 net-new prospects + one-line rationale each.
+```
+
+## Notes
+
+- **Inbox Sweep (#2) = ACTIVE.** Scheduled task `kerri-inbox-sweep` live as of 2026-05-24. Runs every 10 min, 6am–9:59pm ET. Task file: `~/.claude/scheduled-tasks/kerri-inbox-sweep/SKILL.md`.
+- **All others = not yet scheduled.** Brian explicitly said "build-for-self-then-team" — activate remaining routines once the sweep is proven out.
+- **All drafts route to Brian first.** No outbound to third parties without per-thread approval (see [[email.md]]).
+- **Material brain writes go through approval gates.** See [[brain.md]] mutation rules.
