@@ -34,9 +34,9 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 | 2 | S&W Newsletter Writer | **Active** (2026-05-24) — Mon+Wed 8pm draft for Tue+Thu PM publish. Kerri owns the writing; Brian + Zach ingest suggestions via [SW]-tagged emails. | 2nd ✅ |
 | 2b | S&W Newsletter Editor | **Active** (2026-05-24) — Mon+Wed 10pm voice + anti-pattern + fact-check pass on the writer's draft | shipped alongside #2 |
 | 2c | S&W Newsletter Marketing | **Active** (2026-05-24) — Tue+Thu 2:17pm. Detects published issue, drafts Twitter thread + LinkedIn post + short blurb. Never auto-posts. | shipped alongside #2 |
-| 3 | Inbound Sales Triage | Planned (enhancement to inbox sweep) | 3rd |
-| 4 | Event Logistics | Planned (on-demand) | 4th |
-| 5 | Pipeline Follow-Up | Planned (daily nudge) | 5th |
+| 4 | Event Logistics | **Active** (2026-05-24) — on-demand. Venue/vendor research, inquiry drafting, RoS. Project-scoped per event. Seeded with stubs for sf-tech-week-2026, dc-maritime-defense-2026, kinetic-2027. | 3rd ✅ |
+| 3 | Inbound Sales Triage | Planned (enhancement to inbox sweep) | next |
+| 5 | Pipeline Follow-Up | Planned (daily nudge) | pending |
 | ~~6~~ | ~~Partner Research~~ — folded into Lead Research above | — | superseded |
 
 ## Planned (not yet activated)

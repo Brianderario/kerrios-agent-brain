@@ -35,6 +35,11 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 - `wiki/deals/<slug>.md`
 
+## "What's the status of <event>?" / "Venues / vendors for X event"
+
+- `wiki/events/<slug>.md` — durable per-event summary
+- On-demand sub-agent: `agent-prompts/kerri-event-logistics/SKILL.md` — fires on "find venues", "AV options", "draft inquiry", "RoS", etc.
+
 ## "What agents do we have?"
 
 - [[wiki/agents/registry]] — index
