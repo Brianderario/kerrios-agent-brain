@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-24 03:30 ET] voice-rewrite | brian-hardwarefyi-sent-corpus | Kerri
+
+Rewrote canonical [[wiki/workflows/llm-wiki-pattern]]-referenced voice.md from a sample of 8 sent emails from brian@hardwarefyi.com (2026-05-21 to 2026-05-23). Several prior rules were speculative and contradicted Brian's actual sends — corrected (see [[wiki/workflows/draft-learnings]] §2026-05-24-voice-rewrite for the full delta). Canonical now at `agent-prompts/kerri-skill/references/voice.md`.
+
 ## [2026-05-24 02:00 ET] decision | brain-architecture | Kerri
 
 Promoted KerriOS from scaffolding to live LLM-wiki on git. See [[wiki/decisions/2026-05-24-brain-architecture]]. Local KerriOS dir is now a working clone of `Brianderario/kerrios-agent-brain`. `agent-prompts/` directory added with canonical Kerri prompts (sweep, skill, brain-push). Initial wiki populated with KMG/properties/people/decisions/agents pages. Nightly `kerri-brain-push` task to run at 22:00 ET keeps the brain alive in git.
