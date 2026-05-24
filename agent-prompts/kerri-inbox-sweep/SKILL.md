@@ -84,10 +84,12 @@ STEP 0 — RESOLVE TASK-LIST IDS
 1. Try to read `data/gtasks-lists.json`.
 2. If it does NOT exist OR is missing any of H/S/G keys:
    a. Call `gtasks_list_lists` → array of {id, title}
-   b. Match titles case-insensitively to fill the map:
-      • "Hardware FYI" / "HWFYI" / "Hardware F.Y.I." → H
-      • "Standard & Works" / "Standard and Works" / "S&W" / "S/W" → S
-      • "Kerri MG" / "KMG" / "Kerri Media Group" → G
+   b. Normalize each list title for matching: lowercase, strip whitespace, strip punctuation (`&` → `and`, `/` → `and`, drop `.`). Then match against the normalized aliases below:
+      • H: `hardwarefyi` / `hwfyi`
+      • S: `standardandworks` / `sandw` / `sw`
+      • G: `kerrimg` / `kmg` / `kerrimediagroup`
+      • Skip any list that doesn't match (Brian's personal "Person" list and any other lists are not in scope)
+   c. Brian's actual list titles as of 2026-05-24: `HardwareFYI`, `Standard&Works`, `KerriMG`. These all normalize to the aliases above. If Brian renames a list, the matcher should still resolve as long as the normalized form contains the slug.
    c. If any of H/S/G can't be matched, post a single Slack DM to U09TLEXF70V:
         "⚠️ Sweep can't find Google Tasks list for [prefixes]. Need lists titled Hardware FYI / Standard & Works / Kerri MG."
       Halt this sweep (do not send anything).
@@ -158,7 +160,7 @@ Search all four mailboxes:
   1. kerri-hardwarefyi-email → search_email for recent inbound
   2. brian-hardwarefyi-email → search_email for recent inbound
   3. gmail → search_threads for recent inbound to brian@kerrihq.com
-  4. superhuman (760b1f3b…) → list_threads with `to: ["brian@standardandworks.com"]`, `start_date: <ISO lookback>`, `labels: ["INBOX"]`. For each returned thread, call get_thread to retrieve the latest message and its message_id, body, and internet message ID.
+  4. superhuman (760b1f3b…) → list_threads with `start_date: <ISO lookback>` and `labels: ["INBOX"]`. **Do NOT pass `to:` here** — Superhuman's backend uses Microsoft Graph under the hood, which returns a 400 ("$filter not supported with $search") when both filters are combined. The MCP is already scoped to brian@standardandworks.com as the primary account (verified 2026-05-24), so date-bounded inbox listing is sufficient and safe. For each returned thread, call get_thread to retrieve the latest message and its message_id, body, and internet message ID.
 
 For each email:
   a. Apply AUTO-SKIP → skip if matches

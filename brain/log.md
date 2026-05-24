@@ -2,6 +2,16 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-24 06:50 ET] fix | superhuman-list-threads-filter-combo + list-title-matcher | Kerri
+
+Closed-loop on a 💡 SUGGESTION the sweep flagged in the KerriMG Google Tasks list (task `WTNETlBIUzc4eHBNcHNReA`). Two issues, one fix-pass:
+
+1. **Superhuman `list_threads` 400 error.** The sweep's STEP 3 called `list_threads({ to: ["brian@standardandworks.com"], start_date: ..., labels: ["INBOX"] })`. Superhuman's backend is Microsoft Graph, which rejects `$filter` + `$search` together (returns 400: "The query parameter '$filter' is not supported with '$search'."). The sweep self-recovered by dropping `to` and querying by date — but Kerri correctly flagged the pattern as needing a permanent fix. Applied verbatim: removed `to:` from the call, documented the limitation inline. Safe because the MCP is already scoped to brian@standardandworks.com as primary (verified 2026-05-24).
+
+2. **List-title matcher drift.** Brian's actual Google Tasks list titles are `HardwareFYI`, `Standard&Works`, `KerriMG` (no spaces). My STEP 0 matcher expected `Hardware FYI` / `Standard & Works` / `Kerri MG`. The first run worked because the LLM matched leniently, but scheduling expects determinism. Replaced the literal-alias list with a normalize-and-substring algorithm (lowercase, strip whitespace + punctuation, `&` → `and`).
+
+The Google Tasks suggestion task was marked completed with the applied-fix details, so the audit trail lives in both Tasks and the brain. Kerri's "flag-don't-break" pattern from STEP 4 of the sweep prompt worked exactly as designed — this is the loop in motion.
+
 ## [2026-05-24 19:35 ET] fix | kerri-gdocs-mcp-gtasks-handlers | Kerri
 
 Diagnosed + fixed inbox sweep failure ("Unknown tool: gtasks_list_lists"). Root cause: the prior session added 5 gtasks tool DEFINITIONS to `src/index.ts` (ListToolsRequestSchema) but never wrote the corresponding CASE branches in the CallToolRequestSchema handler. Result: MCP advertised the tools but had no code to execute them, so every gtasks_* call fell through to the default `throw new McpError(ErrorCode.MethodNotFound, "Unknown tool: ${name}")`.
