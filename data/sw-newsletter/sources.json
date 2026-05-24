@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-24",
+  "notes": "Source feeds the S&W writer scans Mon/Wed nights to build the Industrialist issue. Add/edit as Brian + Zach find better signal-to-noise sources. The writer pulls headlines, filters for capex-relevance, dedups against last issue, then drafts.",
+  "byCategory": {
+    "defense-and-space": [
+      { "name": "Breaking Defense", "url": "https://breakingdefense.com/", "rssHint": "https://breakingdefense.com/feed/" },
+      { "name": "Defense One", "url": "https://www.defenseone.com/", "rssHint": "https://www.defenseone.com/rss/" },
+      { "name": "Defense News", "url": "https://www.defensenews.com/", "rssHint": "https://www.defensenews.com/arc/outboundfeeds/rss/" },
+      { "name": "Aviation Week", "url": "https://aviationweek.com/", "rssHint": null },
+      { "name": "SpaceNews", "url": "https://spacenews.com/", "rssHint": "https://spacenews.com/feed/" }
+    ],
+    "semiconductors-and-electronics": [
+      { "name": "SemiWiki", "url": "https://semiwiki.com/", "rssHint": "https://semiwiki.com/feed/" },
+      { "name": "EE Times", "url": "https://www.eetimes.com/", "rssHint": "https://www.eetimes.com/feed/" },
+      { "name": "SIA press releases", "url": "https://www.semiconductors.org/news/", "rssHint": null },
+      { "name": "Reuters Tech", "url": "https://www.reuters.com/technology/", "rssHint": null }
+    ],
+    "energy-and-materials": [
+      { "name": "Utility Dive", "url": "https://www.utilitydive.com/", "rssHint": "https://www.utilitydive.com/feeds/news/" },
+      { "name": "Energy Storage News", "url": "https://www.energy-storage.news/", "rssHint": null },
+      { "name": "S&P Global Commodity Insights", "url": "https://www.spglobal.com/commodityinsights/", "rssHint": null },
+      { "name": "Reuters Energy", "url": "https://www.reuters.com/business/energy/", "rssHint": null }
+    ],
+    "manufacturing-and-automation": [
+      { "name": "IndustryWeek", "url": "https://www.industryweek.com/", "rssHint": null },
+      { "name": "Manufacturing Dive", "url": "https://www.manufacturingdive.com/", "rssHint": "https://www.manufacturingdive.com/feeds/news/" },
+      { "name": "Modern Machine Shop", "url": "https://www.mmsonline.com/", "rssHint": null },
+      { "name": "Robotics & Automation News", "url": "https://roboticsandautomationnews.com/", "rssHint": "https://roboticsandautomationnews.com/feed/" }
+    ],
+    "maritime-and-shipbuilding": [
+      { "name": "USNI News", "url": "https://news.usni.org/", "rssHint": "https://news.usni.org/feed" },
+      { "name": "Naval News", "url": "https://www.navalnews.com/", "rssHint": "https://www.navalnews.com/feed/" },
+      { "name": "Marine Log", "url": "https://www.marinelog.com/", "rssHint": "https://www.marinelog.com/feed/" }
+    ],
+    "supply-chain-and-freight": [
+      { "name": "Supply Chain Dive", "url": "https://www.supplychaindive.com/", "rssHint": "https://www.supplychaindive.com/feeds/news/" },
+      { "name": "FreightWaves", "url": "https://www.freightwaves.com/", "rssHint": "https://www.freightwaves.com/feed" },
+      { "name": "Journal of Commerce", "url": "https://www.joc.com/", "rssHint": null }
+    ]
+  },
+  "dealbook": [
+    { "name": "Crunchbase Daily", "url": "https://news.crunchbase.com/", "rssHint": "https://news.crunchbase.com/feed/" },
+    { "name": "PitchBook News", "url": "https://pitchbook.com/news", "rssHint": null },
+    { "name": "TechCrunch Hardware", "url": "https://techcrunch.com/category/hardware/", "rssHint": "https://techcrunch.com/category/hardware/feed/" },
+    { "name": "Reuters Deals", "url": "https://www.reuters.com/business/finance/", "rssHint": null }
+  ],
+  "leadHooks": [
+    "Funding rounds >= $50M in hardware / industrial / defense / energy",
+    "Factory or fab announcements with disclosed capex >= $100M",
+    "Major government contracts (DoD, DoE, Commerce) >= $50M",
+    "Industrial-policy mechanism launches (coalitions, tax incentives, designated zones)",
+    "Cross-story thesis we can name (e.g., 'New Factory Middle') — always preferred when available"
+  ],
+  "marketsTickers": [
+    { "label": "Aerospace & Defense ETF", "ticker": "ITA", "yahooUrl": "https://finance.yahoo.com/quote/ITA" },
+    { "label": "Semiconductor ETF", "ticker": "SOXX", "yahooUrl": "https://finance.yahoo.com/quote/SOXX" },
+    { "label": "Industrials ETF", "ticker": "XLI", "yahooUrl": "https://finance.yahoo.com/quote/XLI" },
+    { "label": "WTI crude", "ticker": "CL=F", "yahooUrl": "https://finance.yahoo.com/quote/CL=F" },
+    { "label": "Copper", "ticker": "HG=F", "yahooUrl": "https://finance.yahoo.com/quote/HG=F", "unit": "cents/lb" }
+  ]
+}

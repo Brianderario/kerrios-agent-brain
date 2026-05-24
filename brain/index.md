@@ -42,6 +42,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-05-24-brain-architecture]] — LLM-wiki-on-git architecture (this one)
 - [[wiki/decisions/2026-05-24-cold-outreach-launch]] — sub-agent #1 (cold outreach) shipped with hard volume caps
 - [[wiki/decisions/2026-05-24-lead-research-launch]] — discovery sub-agent that feeds cold-outreach with multi-source enriched prospects (conferences, lookalikes, funding, hiring)
+- [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]] — sub-agent #2: S&W Industrialist newsletter chain (writer + editor + marketing). Kerri owns the writing Mon/Wed nights for Tue/Thu publish.
 
 ## Deals · Meetings · Candidates · Raw
 

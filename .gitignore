@@ -19,6 +19,8 @@ data/cold-outreach-fallback-*.json
 data/eod-state.json
 data/eod-fallback-*.json
 data/lead-research/batches/
+brain/.local/sw-newsletter-drafts/
+data/sw-newsletter/state.json
 
 # Coverage + build artifacts
 coverage/
