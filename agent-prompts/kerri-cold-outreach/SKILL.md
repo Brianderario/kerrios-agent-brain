@@ -240,24 +240,16 @@ When Brian checks a `❄️ COLD-` task, the inbox sweep picks it up at its next
 (That post-send brain write is a future enhancement to the inbox sweep. For v1 of cold outreach: drafts are created, Brian sends them via Tasks approval, and brain pages get backfilled in a future pass or when a reply arrives.)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ON-DEMAND DISCOVERY (sub-flow)
+ON-DEMAND DISCOVERY (now delegated)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-When Brian says "Kerri, find me N cold prospects in <ICP>":
+Discovery is a separate sub-agent's job: [[kerri-lead-research]] (canonical at `agent-prompts/kerri-lead-research/SKILL.md`).
 
-1. Translate the ICP into Apollo search criteria. Common ICPs:
-   - "Advanced manufacturing" → industry: industrial, mechanical engineering, manufacturing, electrical equipment, electronics
-   - "Hardware startup marketers" → person_titles: VP Marketing, Head of Growth, CMO; industry: hardware/electronics/manufacturing; employee count: 11-200
-   - "Conference partners" → industry: events services; person_titles: Head of Partnerships, BD
-   - "Hardware VCs" → industry: venture capital; person_keywords: hardware OR manufacturing OR deep tech
+When Brian says "Kerri, find me N cold prospects in <ICP>" or "Kerri, scrape DesignCon for prospects", that invocation belongs to kerri-lead-research, which writes to `data/cold-outreach-queue.json` and then this cold-outreach agent drains it on the next scheduled run (or on-demand if Brian says "also draft them now").
 
-2. Call `apollo_mixed_people_api_search` with the criteria + page size = N*2 (extras for dedup attrition).
+The lead-research agent runs Sunday 6:13pm ET cron ahead of the Mon 9:07am cold-outreach batch, so the queue is pre-populated weekly without manual seeding.
 
-3. Filter results through STEP 3 dedup rules.
-
-4. Append surviving N to `data/cold-outreach-queue.json` with `addedBy: "apollo-discovery"`.
-
-5. Then run STEPS 2-8 as normal (will draft up to today's budget).
+This cold-outreach agent stays focused on DRAFTING. If the queue is empty at fire time, post the "queue empty" task per STEP 1 — that's the signal to either run lead-research or seed manually.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ERROR HANDLING

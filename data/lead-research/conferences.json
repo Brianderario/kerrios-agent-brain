@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-24",
+  "notes": "Conference sponsor/exhibitor pages to scrape for hardware-aligned prospects. Each entry: name, type, sponsor/exhibitor list URL, scrape strategy, lastScrapedAt. Add/edit as Brian discovers more relevant events. Defense-only and S/W-only conferences are intentionally excluded — those would belong in a separate S/W lead-research agent.",
+  "conferences": [
+    {
+      "slug": "designcon",
+      "name": "DesignCon",
+      "type": "chip+electronics-design",
+      "url": "https://designcon.com",
+      "sponsorsUrlHint": "https://www.designcon.com/en/sponsors-exhibitors.html",
+      "geography": "US (Santa Clara)",
+      "notes": "Chip design, PCB, signal integrity. Strong ICP overlap with HWFYI subscribers.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "reindustrialize",
+      "name": "Reindustrialize",
+      "type": "manufacturing-rebuilding",
+      "url": "https://www.reindustrialize.com",
+      "sponsorsUrlHint": "https://www.reindustrialize.com/sponsors",
+      "geography": "US (rotating)",
+      "notes": "Manufacturing renaissance, industrial-base policy. Backed by New American Industrial Alliance. High signal for HWFYI sponsorship intent.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "sensors-converge",
+      "name": "Sensors Converge",
+      "type": "sensors-IoT",
+      "url": "https://www.sensorsconverge.com",
+      "sponsorsUrlHint": "https://www.sensorsconverge.com/exhibitors",
+      "geography": "US (Santa Clara)",
+      "notes": "Sensors, IoT, embedded. Hardware-engineering audience.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "automate",
+      "name": "AUTOMATE",
+      "type": "automation-robotics",
+      "url": "https://www.automateshow.com",
+      "sponsorsUrlHint": "https://www.automateshow.com/exhibitor-list",
+      "geography": "US (Detroit)",
+      "notes": "Industrial automation, robotics, machine vision. Run by A3.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "semiconwest",
+      "name": "SEMICON West",
+      "type": "semiconductor-manufacturing",
+      "url": "https://www.semiconwest.org",
+      "sponsorsUrlHint": "https://www.semiconwest.org/exhibitors",
+      "geography": "US (Phoenix)",
+      "notes": "Semiconductor manufacturing equipment + materials. SEMI association.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "embedded-world",
+      "name": "embedded world",
+      "type": "embedded-systems",
+      "url": "https://www.embedded-world.de/en",
+      "sponsorsUrlHint": "https://www.embedded-world.de/en/exhibitors-products",
+      "geography": "Germany (Nuremberg)",
+      "notes": "Largest embedded-systems conference globally. Microcontrollers, RTOS, embedded AI.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "hannover-messe",
+      "name": "Hannover Messe",
+      "type": "industrial-international",
+      "url": "https://www.hannovermesse.de/en",
+      "sponsorsUrlHint": "https://www.hannovermesse.de/en/exhibitors-products",
+      "geography": "Germany (Hannover)",
+      "notes": "Largest industrial trade show globally. Industry 4.0, energy, logistics.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "imts",
+      "name": "IMTS",
+      "type": "manufacturing-technology",
+      "url": "https://www.imts.com",
+      "sponsorsUrlHint": "https://www.imts.com/exhibitors",
+      "geography": "US (Chicago, biennial)",
+      "notes": "Biennial — next 2026. Largest manufacturing tech show in the Americas.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "productronica",
+      "name": "productronica",
+      "type": "electronics-production",
+      "url": "https://productronica.com/en",
+      "sponsorsUrlHint": "https://productronica.com/en/exhibitors",
+      "geography": "Germany (Munich)",
+      "notes": "Electronics manufacturing — PCB, assembly, test.",
+      "lastScrapedAt": null
+    },
+    {
+      "slug": "mdm-west",
+      "name": "MD&M West",
+      "type": "medical-device-manufacturing",
+      "url": "https://www.imengineeringwest.com",
+      "sponsorsUrlHint": "https://www.imengineeringwest.com/exhibitors",
+      "geography": "US (Anaheim)",
+      "notes": "Medical device design + manufacturing. High-precision, regulated.",
+      "lastScrapedAt": null
+    }
+  ]
+}

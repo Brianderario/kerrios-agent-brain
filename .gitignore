@@ -18,6 +18,7 @@ data/cold-do-not-contact.json
 data/cold-outreach-fallback-*.json
 data/eod-state.json
 data/eod-fallback-*.json
+data/lead-research/batches/
 
 # Coverage + build artifacts
 coverage/
