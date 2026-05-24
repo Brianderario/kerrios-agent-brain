@@ -2,6 +2,20 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-24 19:35 ET] fix | kerri-gdocs-mcp-gtasks-handlers | Kerri
+
+Diagnosed + fixed inbox sweep failure ("Unknown tool: gtasks_list_lists"). Root cause: the prior session added 5 gtasks tool DEFINITIONS to `src/index.ts` (ListToolsRequestSchema) but never wrote the corresponding CASE branches in the CallToolRequestSchema handler. Result: MCP advertised the tools but had no code to execute them, so every gtasks_* call fell through to the default `throw new McpError(ErrorCode.MethodNotFound, "Unknown tool: ${name}")`.
+
+Fix: added 5 handlers (gtasks_list_lists / list_tasks / get_task / create_task / update_task) using the `tasksClient` that was already imported and instantiated. Rebuilt `dist/index.js` (1 file at `~/.kerri-chief/kerri-gdocs-mcp/dist/index.js`, mtime now 2026-05-24 02:32 PT). Scheduled tasks spawn fresh MCPs per run, so the next inbox sweep picks up the fix automatically. Interactive sessions need a Claude Code restart or `/mcp` reconnect.
+
+**Process improvement:** when adding MCP tools, the LLM-wiki-pattern checklist must verify (a) tool DEF in ListToolsRequestSchema, (b) CASE branch in CallToolRequestSchema, (c) `npm run build` succeeded, (d) `grep -c "name === \"<tool>\"" dist/index.js` ≥ 1. Added to `wiki/workflows/mcp-tool-add-checklist.md` (TBD).
+
+**Side note:** `~/.kerri-chief/kerri-gdocs-mcp/` is not under git locally. Hardening item — should be its own private repo so source changes have version history.
+
+## [2026-05-24 19:00 ET] eod-review | 0 meetings, 0 drafts, 0 flagged | Kerri
+
+No meetings found today (Sunday / Memorial Day weekend). Checked Reclaim, Google Calendar (all calendars), and Outlook — all returned zero events in the 00:00–19:00 ET window. Granola cache empty. No Slack digest sent (all-zero rule). State bootstrapped to `data/eod-state.json`.
+
 ## [2026-05-24 04:00 ET] task-shipped | kerri-eod-meetings-review | Kerri
 
 New scheduled task. Cron `0 19 * * *` daily. Pulls today's calendar (Reclaim + Google + Outlook fallback), matches each meeting against Granola transcripts. Meetings WITH transcripts → writes a per-meeting recap to `brain/wiki/meetings/<date>-<slug>.md`, updates affected person/company pages, drafts a follow-up email, posts as a Google Task `🌙 EOD-<prefix>NN` in the matching list (HWFYI / S&W / Kerri MG). Meetings WITHOUT transcripts → flagged as `⚠️ NO TRANSCRIPT:` tasks in Kerri MG list. Slack digest to Brian. Granola tool discovery happens at runtime via ToolSearch. Per-day dedup via `data/eod-state.json`. S/W boundary respected — S meetings go to `brain/.local/meetings/` (gitignored). Canonical at `agent-prompts/kerri-eod-meetings-review/SKILL.md`. Registry updated.
