@@ -4,7 +4,11 @@ scope: decision · updated: 2026-05-24
 
 ## Decision
 
-Add `brian@standardandworks.com` as a verified alias on Brian's Superhuman account (MCP UUID `760b1f3b-fde4-493d-a586-7b3da09fcbe9`). Wire it as the **fourth mailbox** in the Kerri inbox sweep.
+Wire `brian@standardandworks.com` (Brian's S/W primary Superhuman account, MCP UUID `760b1f3b-fde4-493d-a586-7b3da09fcbe9`) as the **fourth mailbox** in the Kerri inbox sweep.
+
+Verified 2026-05-24 by calling `query_email_and_calendar` on the MCP — it reported brian@standardandworks.com as the primary account address.
+
+The previously-installed `superhuman-mail` connector (HTTP at `https://mcp.mail.superhuman.com/mcp`, unauthenticated placeholder) was redundant and was removed from the Claude config on the same day.
 
 ## Why
 
@@ -14,7 +18,7 @@ S/W partnership work was being done outside the sweep. Bringing the mailbox in g
 
 - Search: `list_threads({ to: ["brian@standardandworks.com"], start_date: <lookback>, labels: ["INBOX"] })`.
 - Read: `get_thread({ thread_id })` for the latest message body + message ID.
-- Send: `create_or_update_draft({ type: "reply", thread_id, message_id, from: "brian@standardandworks.com", body: <HTML> })` then `send_draft({ draft_id })`.
+- Send: `create_or_update_draft({ type: "reply", thread_id, message_id, body: <HTML> })` then `send_draft({ draft_id })`. The MCP is connected as brian@standardandworks.com — the `from` field can be omitted (it'll default to that account).
 - Identity: always Brian (never Kerri's HWFYI address).
 - **No auto-CC to HWFYI** (boundary).
 

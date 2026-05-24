@@ -22,7 +22,7 @@ External partnership entity. **Separate legal entity from KMG.** Boundary rules 
 
 ## Mailbox
 
-- `brian@standardandworks.com` — Brian's S/W alias under Superhuman. Added 2026-05-24. Used for S-prefix sends.
+- `brian@standardandworks.com` — Brian's S/W primary email, native on Superhuman. The Superhuman MCP (UUID `760b1f3b-fde4-493d-a586-7b3da09fcbe9`) is connected directly as this account. Added to the inbox sweep 2026-05-24.
 - `zach@standardandworks.com` — Zach (external — boundary applies).
 
 ## Sends from brian@standardandworks.com
