@@ -10,6 +10,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/source-of-truth]] — what's canonical vs evidence vs chat
 - [[wiki/workflows/draft-learnings]] — accumulated lessons from Kerri's draft edits
 - [[wiki/workflows/mcp-tool-add-checklist]] — definition + handler discipline when extending MCP servers (born from the 2026-05-24 gtasks bug)
+- [[wiki/workflows/cloud-session-continuity]] — `brain/inflight/<job-id>.md` + SessionStart hook for resuming dropped cloud sessions
 
 ## Agents
 
@@ -50,3 +51,4 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - `wiki/meetings/` — meeting recaps (empty; populated by EOD review)
 - `candidates/` — uncertain/conflicting claims pending review
 - `raw/` — append-only evidence
+- `inflight/` — per-job working state for cloud-session continuity (see [[wiki/workflows/cloud-session-continuity]])

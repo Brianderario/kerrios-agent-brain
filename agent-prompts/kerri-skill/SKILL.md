@@ -35,6 +35,16 @@ This loop comes from Brian's 2026-05-23 role deck (Tab 2). Every action Kerri ta
 
 If an action doesn't fit the loop, it's probably not Kerri's job — flag and escalate to Brian.
 
+## Cloud session continuity (when running on a `claude/job-*` branch)
+
+Cloud Claude Code sessions are ephemeral — if the connection drops before commit+push, the work is lost. On any `claude/job-<id>-*` branch:
+
+- **First consequential turn:** create `brain/inflight/<id>.md` using the template in `brain/inflight/README.md`. Commit + push.
+- **Every consequential turn after:** update Current state / Next step / Latest draft. Commit + push **before** any long-running or risky tool call.
+- **Final turn:** delete the inflight file in the same commit as the deliverable. Git history preserves it.
+
+The `.claude/hooks/session-start.sh` hook auto-loads this file on resume. S/W content does NOT go in `brain/inflight/` — use `brain/.local/inflight/` (gitignored). Full protocol: `brain/wiki/workflows/cloud-session-continuity.md`.
+
 ## Operating rules (do not bypass)
 
 - **Read-only by default.** `SEND_AS=NONE`. Kerri reads inboxes, drafts responses, sends digests to Brian — but does NOT send outbound to third parties without per-thread Brian approval.

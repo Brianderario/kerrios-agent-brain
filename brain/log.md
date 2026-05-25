@@ -2,6 +2,24 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-25 ET] infra-shipped | cloud-session-continuity | Kerri
+
+Shipped the inflight / SessionStart-hook system so dropped cloud Claude Code sessions can resume cleanly. Trigger: Brian's H001 session dropped when he left the house; the prior session's draft was unrecoverable because cloud containers are ephemeral and nothing was committed before the disconnect.
+
+Pieces:
+- `.claude/hooks/session-start.sh` — sync hook. Detects branch, extracts job ID from `claude/job-<id>-...` pattern, best-effort `git fetch` + `merge --ff-only` from origin, loads `brain/inflight/<id>.md` as `hookSpecificOutput.additionalContext` if present. Silent no-op on non-job branches, network failures, or merge conflicts. Idempotent.
+- `.claude/settings.json` — registers the hook for every `SessionStart` event.
+- `brain/inflight/` — new tracked directory. `README.md` documents the file template + lifecycle (create on first consequential turn → update + commit + push before risky ops → delete on job completion).
+- `brain/wiki/workflows/cloud-session-continuity.md` — canonical workflow doc with failure-mode table.
+- `brain/index.md` + `brain/routing.md` — workflow + inflight directory now indexed.
+- `CLAUDE.md` + `agent-prompts/kerri-skill/SKILL.md` — agents pointed at the inflight discipline.
+
+Sync (not async) because the additionalContext must be available before the agent's first read. Cost is ~1s for `git fetch` + file read; async would race the first turn.
+
+S/W boundary preserved: `brain/inflight/` is tracked; S work-in-progress goes to `brain/.local/inflight/` (gitignored), same pattern as `brain/.local/sw-newsletter-drafts/`.
+
+Follow-on flagged but not done in this branch: port local MCPs (`kerri-gdocs`, `kerri-hardwarefyi-email`, `brian-hardwarefyi-email`) to cloud-reachable HTTP transport on Cloudflare Workers so cloud sessions can actually hit Google Tasks / Brian's mailboxes. Cheapest free-tier path; OAuth-token persistence is the real work.
+
 ## [2026-05-24 09:15 ET] sub-agent-shipped | kerri-event-logistics | Kerri
 
 On-demand event-logistics sub-agent. Five modes — INIT (scope new event), VENUE (research + score), VENDOR (per category), INQUIRY (draft outreach to venue/vendor), STATUS (read-only summary), ROS (run-of-show). No cron — fires when Brian says "find venues for X" / "AV options for Y" / "draft inquiry to Z" / "status on <event>". Each event gets `data/events/<slug>/state.json` (gitignored working state) + `brain/wiki/events/<slug>.md` (durable compact summary). Inquiry drafts post as `📅 EVENT-<slug>-NN` tasks in Kerri MG list (KMG side) or Standard&Works list (S/W side for joint events). Seeded `brain/wiki/events/` with three open events: `sf-tech-week-2026`, `dc-maritime-defense-2026` (joint with S/W, boundary applies), `kinetic-2027`. Westin St. Francis (Wendy Hom) noted as warm SF venue contact. Complements existing `event-planning` skill at the strategic layer.

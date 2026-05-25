@@ -62,4 +62,5 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 ## "What's currently being worked on?"
 
 - [[log]] — chronological recent events
+- `brain/inflight/<job-id>.md` — live working state for in-progress cloud jobs (see [[wiki/workflows/cloud-session-continuity]])
 - Open Google Tasks lists (Hardware FYI / Standard & Works / Kerri MG) — in Brian's Google account, not in this repo

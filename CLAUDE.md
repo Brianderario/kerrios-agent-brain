@@ -50,6 +50,10 @@ Every interaction:
 3. **Record** — write key facts back to brain (wiki or candidate, compact + source-linked)
 4. **Improve** — flag patterns, repeated corrections, broken workflows
 
+## Cloud session continuity
+
+Cloud Claude Code sessions are ephemeral. If running on a `claude/job-<id>-*` branch, maintain `brain/inflight/<id>.md` (template in `brain/inflight/README.md`). Update + commit + push on every consequential turn and before any risky/long-running tool call so a dropped connection doesn't lose the work. The `.claude/hooks/session-start.sh` hook auto-loads this file on session start. Full protocol: `brain/wiki/workflows/cloud-session-continuity.md`.
+
 ## Brain write rules
 
 - Wiki = compiled durable truth. Edit when truth changes; keep compact + source-linked.
