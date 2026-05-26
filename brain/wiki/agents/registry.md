@@ -24,12 +24,23 @@ As of [[../decisions/2026-05-25-agent-architecture-and-role-pods]], agents are o
 
 All pods share the same KerriOS loop: perceive -> propose -> approve/act -> record -> improve.
 
+## Local automation context folders
+
+Future Codex automations can start from local context packs before loading the canonical brain:
+
+- Master: `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master`
+- Brian/Kerri pod: `01-brian-kerri-agent/`
+- Benji/CDO pod: `02-benji-cdo-agent/`
+- Ari/CFO pod: `03-ari-cfo-agent/`
+- Standard & Works production: `04-standard-works-production/`
+
+These folders are ergonomic automation entrypoints, not canonical truth. Durable facts and decisions still write back to KerriOS.
+
 ## Scheduled tasks (Kerri runs these)
 
 | Task | Cron | Canonical prompt |
 |---|---|---|
-| `kerri-inbox-sweep` | `*/10 6-21 * * 1-5` (weekdays only) | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
-| `kerri-inbox-sweep-weekend` | `0 9,12,17 * * 0,6` (Sat+Sun at 9am, 12pm, 5pm) | shim → same canonical |
+| `kerri-inbox-sweep` | every 15 minutes, Codex automation, GPT-5.5 high | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
 | `kerri-eod-meetings-review` | `0 19 * * *` | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-cold-outreach` | `7 9 * * 1` (Mon AM batch + on-demand) | `agent-prompts/kerri-cold-outreach/SKILL.md` |
 | `kerri-lead-research` | `13 18 * * 0` (Sun PM batch + on-demand) | `agent-prompts/kerri-lead-research/SKILL.md` |

@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-26 00:15 ET] operating-surface | agent-folder-master | Brian + Codex
+
+Created `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master` with shared context plus role-pod folders for Brian/Kerri, Benji/CDO, Ari/CFO, and Standard & Works production. Each subagent folder now has a compact README with purpose, canonical KerriOS reads, approval gate, and write-back expectations so future automations can point at a folder before loading the brain. Decision: [[wiki/decisions/2026-05-26-agent-folder-master]].
+
 ## [2026-05-26 00:05 ET] automation-update | inbox-sweep-cadence-model | Brian + Codex
 
 Collapsed the temporary six-record Codex inbox sweep setup into one active automation: `kerri-inbox-sweep`. Cadence changed from six offset hourly runners to a single every-15-minutes runner. Model upgraded to GPT-5.5 with high reasoning.
