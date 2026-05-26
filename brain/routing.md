@@ -28,6 +28,13 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 - `wiki/workflows/<slug>.md`
 
+## "Which email tool should I use?"
+
+- `brian@kerrihq.com` → Gmail plugin.
+- `brian@standardandworks.com` → Superhuman.
+- `brian@hardwarefyi.com` and `kerri@hardwarefyi.com` → custom local Outlook MCP.
+- Match the exact account Brian names before searching or reading mail. Do not treat Gmail, Superhuman, and Outlook as interchangeable.
+
 ## "How should we reply to a sponsor asking what products include?"
 
 - [[wiki/workflows/hwfyi-sponsor-reply-templates]] — product-education reply shape based on Brian's H0001 Aris Machina send
@@ -66,6 +73,7 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/companies/standard-and-works]] — partnership boundary
 - [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — not an internal KMG pod, but S&W newsletter remains an active Kerri production workflow
 - [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]] — writer + editor + marketing chain
+- [[wiki/decisions/2026-05-26-agent-folder-master]] — local folder is `Codex Kerri Agent Master/S&W Writing Agent`, not `04-standard-works-production`
 
 ## "Is Codex or Claude running Kerri?"
 

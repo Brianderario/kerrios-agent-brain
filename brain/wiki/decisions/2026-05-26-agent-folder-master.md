@@ -16,7 +16,7 @@ Local master folder:
 - `01-brian-kerri-agent/` - Kerri chief-of-staff, sales, inbox, events, pipeline, brain maintenance
 - `02-benji-cdo-agent/` - Benji content/growth pod
 - `03-ari-cfo-agent/` - Ari finance/legal/M&A pod
-- `04-standard-works-production/` - S&W newsletter production workflows with partnership boundary
+- `S&W Writing Agent/` - the correct Standard & Works newsletter writing-agent folder with partnership boundary
 - `99-archive/` - retired context packs
 
 Each agent folder has a `README.md`. Each subagent folder has a `README.md` with purpose, status, canonical KerriOS prompt/context pointers, approval gate, and write-back expectations.
@@ -38,7 +38,7 @@ The folder gives the runner an ergonomic local context entrypoint. KerriOS remai
 - Do not duplicate the whole brain into the master folder.
 - Do not store raw email, Slack, transcripts, credentials, private partner internals, or runtime state there.
 - Write durable company truth back into KerriOS.
-- Keep Standard & Works as production workflow context, not an internal KMG role pod.
+- Keep Standard & Works as the `S&W Writing Agent/` context pack, not as `04-standard-works-production/` and not as an internal KMG role pod.
 
 ## Related
 

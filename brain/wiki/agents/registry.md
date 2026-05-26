@@ -32,7 +32,7 @@ Future Codex automations can start from local context packs before loading the c
 - Brian/Kerri pod: `01-brian-kerri-agent/`
 - Benji/CDO pod: `02-benji-cdo-agent/`
 - Ari/CFO pod: `03-ari-cfo-agent/`
-- Standard & Works production: `04-standard-works-production/`
+- S&W Writing Agent: `S&W Writing Agent/`
 
 These folders are ergonomic automation entrypoints, not canonical truth. Durable facts and decisions still write back to KerriOS.
 
@@ -81,7 +81,15 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 
 ## Standard & Works automation boundary
 
-Standard & Works is not an internal KMG role pod. It remains an external partnership/boundary entity under [[../companies/standard-and-works]]. The S&W Industrialist newsletter chain is still an active Kerri-owned production workflow because Brian/Kerri are responsible for the work product:
+Standard & Works is not an internal KMG role pod. It remains an external partnership/boundary entity under [[../companies/standard-and-works]]. The S&W Industrialist newsletter chain is still an active Kerri-owned writing workflow because Brian/Kerri are responsible for the work product.
+
+Local context pack:
+
+- `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/S&W Writing Agent`
+
+Use that folder for future S&W writing automations. Do not recreate `04-standard-works-production`.
+
+Canonical prompts:
 
 - `kerri-sw-newsletter-writer`
 - `kerri-sw-newsletter-editor`
