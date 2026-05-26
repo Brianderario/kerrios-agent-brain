@@ -1,0 +1,78 @@
+# Decision: Inbox Sweep Primary Automation
+
+scope: decision · updated: 2026-05-26 · author: Brian + Codex
+
+## Decision
+
+The inbox sweep is the first rebuilt Codex automation and the primary world-intake loop for KerriOS.
+
+It scans Brian/Kerri email surfaces, routes new human mail to the right company/job record, enriches only as much context as the thread requires, reads the full thread before drafting, creates Google Tasks for Brian approval, sends only after approval, records compact durable memory back into KerriOS, and self-grades its own performance.
+
+Canonical prompt: [[../../../agent-prompts/kerri-inbox-sweep/SKILL.md]]
+
+Live Codex automation records:
+
+- `kerri-inbox-sweep`
+- `kerri-inbox-sweep-10`
+- `kerri-inbox-sweep-20`
+- `kerri-inbox-sweep-30`
+- `kerri-inbox-sweep-40`
+- `kerri-inbox-sweep-50`
+
+Codex cron records currently run hourly, so the sweep is sharded across six offset records to create the desired 10-minute cadence while keeping one canonical prompt.
+
+## Mailboxes
+
+- `kerri@hardwarefyi.com` via custom Hardware FYI email MCP
+- `brian@hardwarefyi.com` via custom Hardware FYI email MCP
+- `brian@kerrihq.com` via Gmail, draft-only by default
+- `brian@standardandworks.com` via Superhuman, with S/W boundary rules
+
+## Approval Surface
+
+Google Tasks remains the approval rail:
+
+- Hardware FYI list for `H####`
+- Standard & Works list for `S####`
+- Kerri MG list for `G####` and `💡 SUGGESTION:` improvements
+
+Checkbox means approved to send, subject to the sender/boundary rules in the sweep prompt. Task edits become draft edits and training signals.
+
+## Context Strategy
+
+The sweep uses progressive enrichment to avoid both shallow replies and context bloat.
+
+- `none`: known company, current wiki/deal state is enough.
+- `light`: default for real human inbound; captures identity, company, mailbox, jobId, why it matters, and source pointers.
+- `deep`: triggered by sponsor/customer/prospect signals, pricing/packages/contracts/legal/finance/events/invoices/commitments, active deals, high-value companies, named owner asks, attachments/proposals/meetings/decisions, or any case where Kerri cannot draft safely without more context.
+
+Raw evidence remains pointer-based. Durable writes are compact: company/contact facts, thread state, deal state, Brian edits, approvals, sent/skipped/redone actions, and process improvements.
+
+## Grading
+
+The automation grades itself every run on:
+
+- coverage
+- dedup/state
+- context quality
+- draft quality
+- approval safety
+- brain write-back
+
+It also runs daily and weekly reviews. Daily review turns the top repeated misses into a Kerri MG improvement task or safe workflow learning. Weekly review promotes repeated Brian edits into draft learnings and flags MCP/workflow gaps.
+
+## Boundaries
+
+- Brian remains approval authority for external sends and material commitments.
+- Gmail/Kerri HQ threads are draft-only unless Brian explicitly routes the send through Kerri.
+- S/W internal content is not copied into the shared brain.
+- No raw emails or private thread dumps enter the repo.
+- Failed Google Tasks read means fail closed: no sends.
+
+## Related
+
+- [[2026-05-25-living-brain-and-autonomy-ladder]]
+- [[2026-05-25-agent-architecture-and-role-pods]]
+- [[2026-05-24-google-tasks-approval]]
+- [[../workflows/customer-id-protocol]]
+- [[../workflows/draft-learnings]]

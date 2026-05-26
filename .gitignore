@@ -10,6 +10,8 @@ data/kerrios.json
 data/*.local.json
 data/.kerrios-api-token.local
 data/jobs.json
+data/inbox-sweep-state.json
+data/inbox-sweep-grades.json
 data/job-counters.json
 data/gtasks-lists.json
 data/cold-outreach-queue.json

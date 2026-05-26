@@ -1,6 +1,6 @@
-# Kerri Automations — Ready to Activate
+# Kerri Automations — Codex Primary
 
-These are scheduled routines Kerri runs on cron. **None are currently activated** — they're documented here as ready-to-go prompts. Brian activates them via the `schedule` skill when ready (post-dogfood, per build-for-self-first preference).
+These are scheduled routines Kerri runs through Codex. Old Claude and legacy Codex business schedules were removed on 2026-05-25. Rebuild each routine from the KerriOS living-brain model, not from old schedule names.
 
 ## Universal rule: Customer ID Protocol applies to every automation here
 
@@ -8,7 +8,7 @@ These are scheduled routines Kerri runs on cron. **None are currently activated*
 
 ## Activation pattern
 
-To activate a routine, invoke the `schedule` skill with the prompt + cron spec below. Each routine writes back to KerriOS brain when material things happen.
+To activate a routine, create a Codex automation pointed at this repo and the canonical `agent-prompts/<agent>/SKILL.md`. Each routine writes back to KerriOS brain when material things happen.
 
 **Loop requirement:** whenever Kerri schedules a task, builds an automation, rewrites an automation, or creates a recurring runner, the prompt must explicitly include the KerriOS loop from [[../../../brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods]]: perceive -> propose -> approve/act -> record -> improve. If the routine creates drafts, tasks, sends, CRM/source-of-truth updates, or deal/content state, it must say exactly what gets written back into KerriOS and where. No automation is complete if it only does the action and does not define the memory write-back.
 
@@ -36,15 +36,19 @@ Tone: terse, peer. Lead with the asks, not the throat-clearing.
 
 ## 2. 10-Minute Inbox Sweep (Primary Automation)
 
-**When:** Every 10 minutes, 6am–9pm ET (`*/10 6-20 * * *`)
-**Mailboxes:** kerri@hardwarefyi.com (kerri-hardwarefyi-email MCP), brian@hardwarefyi.com (brian-hardwarefyi-email MCP), brian@kerrihq.com (Gmail MCP)
-**Approval channel:** Google Tasks — three lists Brian created (Hardware FYI / Standard & Works / Kerri MG). Each job becomes a task; checkbox = send; ACTION line in notes for skip/redo. Full flow lives in the scheduled task SKILL.md at `~/.claude/scheduled-tasks/kerri-inbox-sweep/SKILL.md` — that file is the source of truth, this entry is a pointer.
+**When:** Every 10 minutes via six active Codex hourly shards (`kerri-inbox-sweep`, `kerri-inbox-sweep-10`, `-20`, `-30`, `-40`, `-50`). The prompt self-silences when there is nothing to do.
+**Mailboxes:** kerri@hardwarefyi.com and brian@hardwarefyi.com (custom Hardware FYI email MCPs), brian@kerrihq.com (Gmail MCP, draft-only), brian@standardandworks.com (Superhuman MCP).
+**Approval channel:** Google Tasks — three lists Brian created (Hardware FYI / Standard & Works / Kerri MG). Each job becomes a task; checkbox = send; ACTION line in notes for skip/redo. Full flow lives at `agent-prompts/kerri-inbox-sweep/SKILL.md` — that file is the source of truth.
 **Data files:**
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/job-counters.json` — persistent H/S/G counters
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/jobs.json` — open job registry (dedup + state)
+- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/inbox-sweep-state.json` — per-mailbox cursors + seen message IDs
+- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/inbox-sweep-grades.json` — per-run/daily/weekly self-grades
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/workflows/draft-learnings.md` — accumulated draft lessons
 
-**Prompt:** Lives at `~/.claude/scheduled-tasks/kerri-inbox-sweep/SKILL.md` — that file is the canonical source. Approval channel is Google Tasks (Hardware FYI / Standard & Works / Kerri MG lists). Checkbox = send (auto-detects edits); ACTION line in notes for skip/redo. Kerri's build/workflow suggestions land in the Kerri MG list with a `💡 SUGGESTION:` prefix (max 1/run, dedup'd against existing open suggestions).
+**Prompt:** Lives at `agent-prompts/kerri-inbox-sweep/SKILL.md`. Approval channel is Google Tasks (Hardware FYI / Standard & Works / Kerri MG lists). Checkbox = send (auto-detects edits); ACTION line in notes for skip/redo. Kerri's build/workflow suggestions land in the Kerri MG list with a `💡 SUGGESTION:` prefix (max 1/run, dedup'd against existing open suggestions).
+
+**Self-grading:** Every sweep writes a compact quality score covering mailbox coverage, dedup/state, context quality, draft quality, approval safety, and brain write-back. Daily and weekly grade passes turn repeated misses into draft learnings, workflow updates, or Kerri MG improvement tasks.
 
 ## 3. End-of-Day Review
 
@@ -125,7 +129,7 @@ You are Kerri. Monthly partnership research.
 
 ## Notes
 
-- **Inbox Sweep (#2) = ACTIVE.** Scheduled task `kerri-inbox-sweep` live as of 2026-05-24. Runs every 10 min, 6am–9:59pm ET. Task file: `~/.claude/scheduled-tasks/kerri-inbox-sweep/SKILL.md`.
-- **All others = not yet scheduled.** Brian explicitly said "build-for-self-then-team" — activate remaining routines once the sweep is proven out.
+- **Inbox Sweep (#2) = ACTIVE in Codex as the first rebuilt automation.** Six active hourly shards create the 10-minute cadence. Canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
+- **All others = not yet scheduled in the rebuilt Codex layer.** Brian explicitly said "build-for-self-then-team" — activate remaining routines once the sweep is proven out.
 - **All drafts route to Brian first.** No outbound to third parties without per-thread approval (see [[email.md]]).
 - **Material brain writes go through approval gates.** See [[brain.md]] mutation rules.

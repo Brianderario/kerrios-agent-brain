@@ -1,0 +1,31 @@
+{
+  "schema": "inbox-sweep-grades-v1",
+  "runs": [
+    {
+      "startedAt": "2026-05-26T14:00:00Z",
+      "finishedAt": "2026-05-26T14:01:00Z",
+      "scores": {
+        "coverage": 5,
+        "dedupState": 5,
+        "context": 4,
+        "draftQuality": 4,
+        "approvalSafety": 5,
+        "brainWriteBack": 4
+      },
+      "metrics": {
+        "jobsCreated": 1,
+        "jobsSent": 0,
+        "jobsEditedAndSent": 0,
+        "redosRequested": 0,
+        "skips": 0,
+        "errors": 0
+      },
+      "confidence": "high",
+      "observations": [
+        "Example only. Live grade data belongs in data/inbox-sweep-grades.json."
+      ]
+    }
+  ],
+  "daily": [],
+  "weekly": []
+}

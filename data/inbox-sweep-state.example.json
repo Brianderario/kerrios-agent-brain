@@ -1,0 +1,28 @@
+{
+  "schema": "inbox-sweep-state-v1",
+  "updatedAt": "2026-05-26T00:00:00Z",
+  "mailboxes": {
+    "kerri@hardwarefyi.com": {
+      "lastSuccessfulSweepAt": null,
+      "seenMessageIds": [],
+      "lastErrorAt": null
+    },
+    "brian@hardwarefyi.com": {
+      "lastSuccessfulSweepAt": null,
+      "seenMessageIds": [],
+      "lastErrorAt": null
+    },
+    "brian@kerrihq.com": {
+      "lastSuccessfulSweepAt": null,
+      "seenMessageIds": [],
+      "lastErrorAt": null
+    },
+    "brian@standardandworks.com": {
+      "lastSuccessfulSweepAt": null,
+      "seenMessageIds": [],
+      "lastErrorAt": null
+    }
+  },
+  "lastDailyGradeAt": null,
+  "lastWeeklyGradeAt": null
+}

@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-26 00:00 ET] automation | inbox-sweep-primary | Brian + Codex
+
+Built the first rebuilt Codex automation around the inbox sweep and activated six offset Codex cron records (`kerri-inbox-sweep`, `-10`, `-20`, `-30`, `-40`, `-50`) for a 10-minute cadence. Canonical prompt now includes the KerriOS perceive -> contextualize -> propose -> approve/act -> record -> improve loop, progressive enrichment (`none`/`light`/`deep`), mandatory full-thread reads before drafting, Gmail draft-only handling, Google Tasks approvals, compact KerriOS write-back, per-mailbox cursor state, and per-run/daily/weekly self-grading. Decision: [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]].
+
 ## [2026-05-25 23:45 ET] sent-learning | H0001-aris-machina | Brian + Codex
 
 Brian sent the H0001 Aris Machina reply from `brian@hardwarefyi.com` at 23:39 ET. Compared the live Google Tasks draft to Brian's sent version and saved reusable lessons to [[wiki/workflows/draft-learnings]] plus a template at [[wiki/workflows/hwfyi-sponsor-reply-templates]]. Key delta: Brian kept the product-education / direct-answer structure, but made it more conversational, removed the 3-package menu, reintroduced custom content/Drafter proof, grouped SF Tech Week + happy hours, and used a private-performance caveat before the CoLab proof point. H0001 Google Task marked completed so future sweeps do not treat it as pending.

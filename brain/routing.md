@@ -76,6 +76,13 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — personal assistant first, autonomous email second, full decision authority last
 - [[wiki/workflows/agent-brain-protocol]] — current approval gates
 
+## "How does the inbox sweep work?" / "What is the first rebuilt automation?"
+
+- [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — primary Codex inbox loop, progressive enrichment, approval rail, and self-grading
+- [[../agent-prompts/kerri-inbox-sweep/SKILL.md]] — canonical runnable prompt
+- [[wiki/decisions/2026-05-24-google-tasks-approval]] — Google Tasks approval mechanics
+- [[wiki/workflows/customer-id-protocol]] — company/jobId lookup before every logged company action
+
 ## "What's uncertain or pending review?"
 
 - `candidates/<slug>.md`
