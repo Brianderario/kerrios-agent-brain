@@ -51,6 +51,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — Brian's agent architecture distilled into role pods, feedback loops, and automation rebuild priorities.
 - [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — first rebuilt Codex automation; inbox sweep routes email into KerriOS, Google Tasks approvals, and self-grading improvement loops.
 - [[wiki/decisions/2026-05-26-agent-folder-master]] — local Codex Kerri Agent Master folder gives each role pod and subagent a pickable context pack for future automations.
+- [[wiki/decisions/2026-05-26-parallel-core-automation-bundle]] — second rebuild wave: EOD Meetings Review, Morning Brief, and Brain Push/Knowledge Hygiene activated together.
 
 ## Deals · Meetings · Candidates · Raw
 

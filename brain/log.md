@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-26 00:30 ET] automation-bundle | morning-eod-brain-push | Brian + Codex
+
+Rebuilt and activated the next three Codex automations in parallel: `kerri-morning-brief` (weekdays 7:00am ET), `kerri-eod-meetings-review` (weekdays 6:30pm ET), and `kerri-brain-push` (daily 10:00pm ET). All run on GPT-5.5 high, start from the Codex Kerri Agent Master subagent folders, write compact state/grades, and route external follow-ups through approval gates. Decision: [[wiki/decisions/2026-05-26-parallel-core-automation-bundle]].
+
 ## [2026-05-26 00:19 ET] correction | sw-writing-agent-folder | Brian + Codex
 
 Deleted the mistaken `04-standard-works-production` folder from the local Codex Kerri Agent Master and moved the existing `S&W Writing Agent` folder into the master as the correct Standard & Works writing-agent context pack. Updated the master README, agent registry, routing, and folder-master decision so future S&W writing automations point at `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/S&W Writing Agent`.

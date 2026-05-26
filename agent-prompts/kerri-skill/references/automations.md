@@ -15,24 +15,10 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 ## 1. Morning Briefing
 
 **When:** 7am ET, M–F (`0 7 * * 1-5`)
-**Where it lands:** Slack DM to Brian (until iMessage bridge is built)
-
-**Prompt:**
-```
-You are Kerri. It's morning briefing time.
-
-1. Read Brian's calendar for today (Reclaim.ai MCP + Google Calendar).
-2. Sweep overnight inbox deltas in brian@kerrihq.com and brian@hardwarefyi.com.
-3. Check KerriOS brain (brain/wiki/decisions/, brain/wiki/deals/, brain/candidates/) for any unresolved asks owned by Brian.
-4. Compile a Slack DM to Brian with:
-   - Today's calendar (compact, time + counterparty + ask)
-   - Overnight inbox highlights (top 3-5 needing his attention, with one-line context)
-   - Unresolved asks from yesterday/this week
-   - Top-of-day priorities (max 3)
-5. Send the DM to Brian.
-
-Tone: terse, peer. Lead with the asks, not the throat-clearing.
-```
+**Where it lands:** Slack DM to Brian
+**Canonical prompt:** `agent-prompts/kerri-morning-brief/SKILL.md`
+**Model:** GPT-5.5 high
+**Loop:** calendar + tasks + inbox state + KerriOS open loops -> top 3 priorities -> compact Brian brief -> state/grade write-back.
 
 ## 2. 10-Minute Inbox Sweep (Primary Automation)
 
@@ -53,24 +39,16 @@ Tone: terse, peer. Lead with the asks, not the throat-clearing.
 ## 3. End-of-Day Review
 
 **When:** 6:30pm ET, M–F (`30 18 * * 1-5`)
+**Canonical prompt:** `agent-prompts/kerri-eod-meetings-review/SKILL.md`
+**Model:** GPT-5.5 high
+**Loop:** calendar + Granola -> meeting/entity memory -> follow-up Google Tasks -> Slack digest -> state/grade write-back.
 
-**Prompt:**
-```
-You are Kerri. End-of-day review.
+## 3b. Brain Push / Knowledge Hygiene
 
-1. Pull today's Granola meeting transcripts.
-2. For each meeting:
-   - Extract entities (companies, people, deals).
-   - Update brain/wiki/people/{slug}.md and brain/wiki/companies/{slug}.md with new facts (terse, source-linked).
-   - Draft per-meeting recap + follow-up email drafts (save to brain/candidates/, do NOT send).
-3. Compile a Slack DM to Brian:
-   - Meetings recap (one line each)
-   - Follow-ups drafted (with links to candidate drafts for review)
-   - Anything that moved the deal pipeline
-4. Send the DM.
-
-Tone: terse. Lead with the asks. Match Brian's voice in any draft follow-ups.
-```
+**When:** 10pm ET daily (`0 22 * * *`)
+**Canonical prompt:** `agent-prompts/kerri-brain-push/SKILL.md`
+**Model:** GPT-5.5 high
+**Loop:** detect eligible brain/prompt changes -> validate safety/tests -> commit/push -> log -> hygiene grade.
 
 ## 4. Weekly What Got Done
 
@@ -129,7 +107,7 @@ You are Kerri. Monthly partnership research.
 
 ## Notes
 
-- **Inbox Sweep (#2) = ACTIVE in Codex as the first rebuilt automation.** One active runner, `kerri-inbox-sweep`, runs every 15 minutes on GPT-5.5 high. Canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
-- **All others = not yet scheduled in the rebuilt Codex layer.** Brian explicitly said "build-for-self-then-team" — activate remaining routines once the sweep is proven out.
+- **Inbox Sweep (#2) = ACTIVE in Codex.** One active runner, `kerri-inbox-sweep`, runs every 15 minutes on GPT-5.5 high. Canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
+- **First parallel bundle = ACTIVE in Codex.** `kerri-eod-meetings-review`, `kerri-morning-brief`, and `kerri-brain-push` are rebuilt together on GPT-5.5 high.
 - **All drafts route to Brian first.** No outbound to third parties without per-thread approval (see [[email.md]]).
 - **Material brain writes go through approval gates.** See [[brain.md]] mutation rules.

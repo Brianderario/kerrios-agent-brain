@@ -41,14 +41,15 @@ These folders are ergonomic automation entrypoints, not canonical truth. Durable
 | Task | Cron | Canonical prompt |
 |---|---|---|
 | `kerri-inbox-sweep` | every 15 minutes, Codex automation, GPT-5.5 high | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
-| `kerri-eod-meetings-review` | `0 19 * * *` | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
+| `kerri-morning-brief` | 7:00am ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-morning-brief/SKILL.md` |
+| `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
+| `kerri-brain-push` | 10:00pm ET, daily, Codex automation, GPT-5.5 high | `agent-prompts/kerri-brain-push/SKILL.md` |
 | `kerri-cold-outreach` | `7 9 * * 1` (Mon AM batch + on-demand) | `agent-prompts/kerri-cold-outreach/SKILL.md` |
 | `kerri-lead-research` | `13 18 * * 0` (Sun PM batch + on-demand) | `agent-prompts/kerri-lead-research/SKILL.md` |
 | `kerri-sw-newsletter-writer` | `7 20 * * 1,3` (Mon + Wed 8pm) | `agent-prompts/kerri-sw-newsletter-writer/SKILL.md` |
 | `kerri-sw-newsletter-editor` | `13 22 * * 1,3` (Mon + Wed 10pm, 2h after writer) | `agent-prompts/kerri-sw-newsletter-editor/SKILL.md` |
 | `kerri-sw-newsletter-marketing` | `17 14 * * 2,4` (Tue + Thu 2:17pm, after publish) | `agent-prompts/kerri-sw-newsletter-marketing/SKILL.md` |
 | `kerri-pipeline-followup` | `33 8 * * 2` (Tuesday 8:33am ET, weekly — scale up if active-deal count grows) | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
-| `kerri-brain-push` | `0 22 * * *` | `agent-prompts/kerri-brain-push/SKILL.md` |
 
 ## Sub-agent roadmap (under Kerri's identity)
 

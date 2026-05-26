@@ -17,7 +17,11 @@ agent-prompts/
 │       ├── brain.md
 │       ├── email.md
 │       └── voice.md
-├── kerri-inbox-sweep/   # 10-min sweep across 4 mailboxes
+├── kerri-inbox-sweep/   # 15-min sweep across 4 mailboxes
+│   └── SKILL.md
+├── kerri-morning-brief/ # Weekday Brian command brief
+│   └── SKILL.md
+├── kerri-eod-meetings-review/ # Evening meeting-to-memory review
 │   └── SKILL.md
 └── kerri-brain-push/    # Nightly git commit + push of brain changes
     └── SKILL.md

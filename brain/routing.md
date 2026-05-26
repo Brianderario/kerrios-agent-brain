@@ -93,6 +93,13 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/decisions/2026-05-24-google-tasks-approval]] — Google Tasks approval mechanics
 - [[wiki/workflows/customer-id-protocol]] — company/jobId lookup before every logged company action
 
+## "What daily automations are active after inbox sweep?"
+
+- [[wiki/decisions/2026-05-26-parallel-core-automation-bundle]] — Morning Brief, EOD Meetings Review, and Brain Push/Knowledge Hygiene
+- [[../agent-prompts/kerri-morning-brief/SKILL.md]] — morning command brief
+- [[../agent-prompts/kerri-eod-meetings-review/SKILL.md]] — meeting-to-memory and follow-up drafts
+- [[../agent-prompts/kerri-brain-push/SKILL.md]] — nightly knowledge hygiene and git push
+
 ## "What's uncertain or pending review?"
 
 - `candidates/<slug>.md`
