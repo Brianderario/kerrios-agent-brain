@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-25 22:38 ET] decision | living-brain-and-autonomy-ladder | Brian + Codex
+
+Brian clarified the core KerriOS bet: the repo is the constant living brain of the company, fed by email, Slack, Codex/iMessage conversations, meetings, docs, sales work, and team corrections. Humans are the data gatherer/execution layer; Kerri becomes the context director and recommended-action layer. Autonomy ladder locked: (1) approval-gated personal assistant with Brian approval for every email send, (2) autonomous email after trust is earned, (3) full decision authority only after Brian explicitly promotes Kerri. Removed old Claude scheduled-task shims and old Codex business automations so the automation layer can be rebuilt from scratch. Decision: [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]].
+
 ## [2026-05-25 21:43 ET] decision | codex-primary-operating-layer | Brian + Codex
 
 Brian switched the Kerri operating posture to Codex-primary while keeping Claude Code available as a fallback runner during comparison. Kerri identity and approval gates stay unchanged; KerriOS remains the source of truth. Added decision [[wiki/decisions/2026-05-25-codex-primary-operating-layer]], routed the "Codex vs Claude runner" question, and noted the posture in the agent registry + top-level agent entrypoint. Codex-side MCP audit found the custom Kerri email MCP installed under `~/.kerri-chief/kerri-hardwarefyi-email-mcp`; Codex config was patched to point at that live path and to add a Brian HWFYI alias.

@@ -7,6 +7,7 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/llm-wiki-pattern]]
 - [[wiki/workflows/agent-brain-protocol]]
 - [[wiki/workflows/multi-agent-write-rules]]
+- [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]]
 
 ## "Who is X?" (person)
 
@@ -48,7 +49,13 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 ## "Is Codex or Claude running Kerri?"
 
 - [[wiki/decisions/2026-05-25-codex-primary-operating-layer]] — Codex is primary; Claude Code is fallback during switch-over
+- [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — why KerriOS is the living brain and how autonomy advances
 - [[wiki/agents/registry]] — agent roster and canonical prompt locations
+
+## "How autonomous is Kerri allowed to be?"
+
+- [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — personal assistant first, autonomous email second, full decision authority last
+- [[wiki/workflows/agent-brain-protocol]] — current approval gates
 
 ## "What's uncertain or pending review?"
 

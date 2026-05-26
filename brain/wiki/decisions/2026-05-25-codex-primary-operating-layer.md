@@ -11,11 +11,11 @@ Kerri's identity does not change: Kerri is still Brian's chief of staff and the 
 ## Operating posture
 
 - **Primary runner:** Codex.
-- **Fallback runner:** Claude Code processes may remain active and can be switched back to if Codex misses or blocks.
+- **Fallback runner:** Claude Code can be used manually if Codex misses or blocks, but old Claude scheduled tasks were removed on 2026-05-25.
 - **Source of truth:** KerriOS wiki + seed + local runtime state, not either runner's chat history.
 - **Comparison bar:** Codex will be constantly compared against the existing Claude Code behavior; the expected posture is complete execution, not partial plans.
 - **Surface ownership target:** Codex should own interactive Kerri conversations, inbox drafting, approval/task routing, iMessage/Slack status surfaces, scheduled work, and brain maintenance once each surface is verified.
-- **Immediate guardrail:** do not blindly reactivate or port paused old Codex automations. Audit path, MCP availability, approval gates, and current repo location first.
+- **Immediate guardrail:** do not blindly reactivate or port old Codex automations. They were removed on 2026-05-25 and should be rebuilt from scratch after MCP/approval rails are confirmed.
 
 ## MCP posture
 
@@ -33,6 +33,8 @@ Any external send still requires Brian approval through the applicable approval 
 ## What this replaces
 
 This supersedes older assumptions that KerriOS work should default to Claude Code simply because the current shims and scheduled tasks were originally built there. Canonical prompts remain in this repo; runner-specific shims are replaceable.
+
+Old Claude scheduled tasks and old Codex business automations were removed on 2026-05-25 so the new automation layer can be rebuilt around the KerriOS living-brain model instead of inherited stale paths.
 
 ## Related
 

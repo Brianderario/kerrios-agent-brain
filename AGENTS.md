@@ -7,6 +7,13 @@ Current runner posture: Codex is Brian's primary Kerri operating layer as of
 switch-over. This changes the runner, not the agent identity: Kerri remains
 Brian's chief of staff + KMG org brain, and this repo remains canonical.
 
+KerriOS is the living company brain. Every meaningful interaction from email,
+Slack, Codex/iMessage, meetings, Drive docs, and operational work should feed
+back into this repo as compact wiki truth, candidates, raw evidence pointers, or
+log entries. Brian remains the CEO decision maker until he explicitly advances
+Kerri up the autonomy ladder in
+`brain/wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder.md`.
+
 Start here:
 
 1. Read `README.md`.
