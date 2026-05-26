@@ -36,7 +36,7 @@ Tone: terse, peer. Lead with the asks, not the throat-clearing.
 
 ## 2. 10-Minute Inbox Sweep (Primary Automation)
 
-**When:** Every 10 minutes via six active Codex hourly shards (`kerri-inbox-sweep`, `kerri-inbox-sweep-10`, `-20`, `-30`, `-40`, `-50`). The prompt self-silences when there is nothing to do.
+**When:** Every 15 minutes via one active Codex automation: `kerri-inbox-sweep`. Model: GPT-5.5 high. The prompt self-silences when there is nothing to do.
 **Mailboxes:** kerri@hardwarefyi.com and brian@hardwarefyi.com (custom Hardware FYI email MCPs), brian@kerrihq.com (Gmail MCP, draft-only), brian@standardandworks.com (Superhuman MCP).
 **Approval channel:** Google Tasks — three lists Brian created (Hardware FYI / Standard & Works / Kerri MG). Each job becomes a task; checkbox = send; ACTION line in notes for skip/redo. Full flow lives at `agent-prompts/kerri-inbox-sweep/SKILL.md` — that file is the source of truth.
 **Data files:**
@@ -129,7 +129,7 @@ You are Kerri. Monthly partnership research.
 
 ## Notes
 
-- **Inbox Sweep (#2) = ACTIVE in Codex as the first rebuilt automation.** Six active hourly shards create the 10-minute cadence. Canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
+- **Inbox Sweep (#2) = ACTIVE in Codex as the first rebuilt automation.** One active runner, `kerri-inbox-sweep`, runs every 15 minutes on GPT-5.5 high. Canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
 - **All others = not yet scheduled in the rebuilt Codex layer.** Brian explicitly said "build-for-self-then-team" — activate remaining routines once the sweep is proven out.
 - **All drafts route to Brian first.** No outbound to third parties without per-thread approval (see [[email.md]]).
 - **Material brain writes go through approval gates.** See [[brain.md]] mutation rules.

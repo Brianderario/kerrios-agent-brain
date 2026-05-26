@@ -10,16 +10,11 @@ It scans Brian/Kerri email surfaces, routes new human mail to the right company/
 
 Canonical prompt: [[../../../agent-prompts/kerri-inbox-sweep/SKILL.md]]
 
-Live Codex automation records:
+Live Codex automation record:
 
 - `kerri-inbox-sweep`
-- `kerri-inbox-sweep-10`
-- `kerri-inbox-sweep-20`
-- `kerri-inbox-sweep-30`
-- `kerri-inbox-sweep-40`
-- `kerri-inbox-sweep-50`
 
-Codex cron records currently run hourly, so the sweep is sharded across six offset records to create the desired 10-minute cadence while keeping one canonical prompt.
+Cadence: every 15 minutes. Model: GPT-5.5 high.
 
 ## Mailboxes
 

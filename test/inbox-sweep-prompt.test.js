@@ -57,6 +57,9 @@ test('automation reference points at Codex primary inbox sweep', () => {
   assert.match(automationDoc, /Inbox Sweep \(#2\) = ACTIVE in Codex/);
   assert.match(automationDoc, /agent-prompts\/kerri-inbox-sweep\/SKILL\.md/);
   assert.match(automationDoc, /inbox-sweep-grades\.json/);
+  assert.match(automationDoc, /every 15 minutes/i);
+  assert.match(automationDoc, /GPT-5\.5 high/);
+  assert.doesNotMatch(automationDoc, /six active .*shards/i);
 });
 
 function escapeRegExp(value) {

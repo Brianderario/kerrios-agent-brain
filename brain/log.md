@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-26 00:05 ET] automation-update | inbox-sweep-cadence-model | Brian + Codex
+
+Collapsed the temporary six-record Codex inbox sweep setup into one active automation: `kerri-inbox-sweep`. Cadence changed from six offset hourly runners to a single every-15-minutes runner. Model upgraded to GPT-5.5 with high reasoning.
+
 ## [2026-05-26 00:00 ET] automation | inbox-sweep-primary | Brian + Codex
 
 Built the first rebuilt Codex automation around the inbox sweep and activated six offset Codex cron records (`kerri-inbox-sweep`, `-10`, `-20`, `-30`, `-40`, `-50`) for a 10-minute cadence. Canonical prompt now includes the KerriOS perceive -> contextualize -> propose -> approve/act -> record -> improve loop, progressive enrichment (`none`/`light`/`deep`), mandatory full-thread reads before drafting, Gmail draft-only handling, Google Tasks approvals, compact KerriOS write-back, per-mailbox cursor state, and per-run/daily/weekly self-grading. Decision: [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]].
