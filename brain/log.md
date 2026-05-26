@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-25 22:59 ET] decision | agent-architecture-and-role-pods | Brian + Codex
+
+Brian supplied a 3-page agent architecture PDF. Distilled it into [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] and preserved the extracted page text in [[raw/2026-05-25-agent-architecture-pdf]]. Core model: KerriOS is the company brain; Brian/Kerri, Benji/CDO, and Ari/CFO pods interact with the world and write useful interaction data back to the brain. Every agent follows perceive -> propose -> approve/act -> record -> improve. Standard & Works remains outside the internal org chart because it is contract/partnership work with Zach, but the S&W Industrialist newsletter chain stays active as a Kerri-owned production automation with boundary rules.
+
 ## [2026-05-25 22:38 ET] decision | living-brain-and-autonomy-ladder | Brian + Codex
 
 Brian clarified the core KerriOS bet: the repo is the constant living brain of the company, fed by email, Slack, Codex/iMessage conversations, meetings, docs, sales work, and team corrections. Humans are the data gatherer/execution layer; Kerri becomes the context director and recommended-action layer. Autonomy ladder locked: (1) approval-gated personal assistant with Brian approval for every email send, (2) autonomous email after trust is earned, (3) full decision authority only after Brian explicitly promotes Kerri. Removed old Claude scheduled-task shims and old Codex business automations so the automation layer can be rebuilt from scratch. Decision: [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]].

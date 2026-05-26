@@ -45,6 +45,19 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 - [[wiki/agents/registry]] — index
 - `wiki/agents/<slug>.md` — per-agent profile (e.g. [[wiki/agents/kerri]])
+- [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — role-pod architecture and rebuild priorities
+
+## "How should the company-agent architecture work?" / "Where do Benji/Ari/Brian agents fit?"
+
+- [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — Brian/Kerri, Benji/CDO, Ari/CFO pods and the perceive/propose/record/improve loop
+- [[wiki/agents/registry]] — active and planned agents
+- [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — autonomy ladder and living-brain bet
+
+## "Where does Standard & Works fit?"
+
+- [[wiki/companies/standard-and-works]] — partnership boundary
+- [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — not an internal KMG pod, but S&W newsletter remains an active Kerri production workflow
+- [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]] — writer + editor + marketing chain
 
 ## "Is Codex or Claude running Kerri?"
 

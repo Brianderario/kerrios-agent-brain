@@ -1,6 +1,6 @@
 # KMG Agent Registry
 
-scope: agent index · updated: 2026-05-24
+scope: agent index · updated: 2026-05-25
 
 Every active or planned team agent that reads/writes this brain. Source of truth for "who is Kerri / who is Ari's agent / etc."
 
@@ -13,6 +13,16 @@ Every active or planned team agent that reads/writes this brain. Source of truth
 ## Current runner posture
 
 As of [[../decisions/2026-05-25-codex-primary-operating-layer]], Codex is Brian's primary operating runner for Kerri. Claude Code may remain active as a fallback during the switch-over, but the agent identity and source of truth remain Kerri + KerriOS, not a runner-specific chat history.
+
+## Role-pod architecture
+
+As of [[../decisions/2026-05-25-agent-architecture-and-role-pods]], agents are organized by role pod:
+
+- **Brian / Kerri pod:** Kerri, chief-of-staff brain, digital newsletter sales, event sales, inbound sales, outbound sales, pipeline follow-up, and company strategy/growth support.
+- **Benji / CDO pod:** copywriting/email assistant, social-focused copywriting, technical newsletter writing, editor agent, and content/newsletter marketing support.
+- **Ari / CFO pod:** primary CFO agent, accounting agent, M&A agent, and legal agent.
+
+All pods share the same KerriOS loop: perceive -> propose -> approve/act -> record -> improve.
 
 ## Scheduled tasks (Kerri runs these)
 
@@ -49,8 +59,24 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 
 | Agent | Owner | Scope | Activates when |
 |---|---|---|---|
-| Ari's CFO agent | [[ari-lewis]] | Finance, vendor mgmt, books | Ari picks |
-| Benji's CDO agent | [[benji-chia]] | Distribution, growth, automation | Benji picks |
+| Benji primary copywriting/email assistant | [[benji-chia]] | Content, email copy, newsletter/content marketing | Benji pod starts |
+| Benji social-focused copywriting agent | [[benji-chia]] | Social copy variants, channel-specific posts, reuse of shipped content | Benji pod starts |
+| Benji technical newsletter writing agent | [[benji-chia]] | Technical content/newsletter drafting and research | Benji pod starts |
+| Benji editor agent | [[benji-chia]] | Editorial QA, style cleanup, source/claim flags | Benji pod starts |
+| Ari primary CFO agent | [[ari-lewis]] | Finance, vendor management, books, budget support | Ari picks and approval gates are designed |
+| Ari accounting agent | [[ari-lewis]] | Bookkeeping support, invoice/payment follow-up, monthly close prep | Ari picks and approval gates are designed |
+| Ari M&A agent | [[ari-lewis]] | Acquisition diligence, deal rooms, buyer/seller research | Ari picks and approval gates are designed |
+| Ari legal agent | [[ari-lewis]] | Contract review support and legal workflow triage | Ari picks and approval gates are designed |
+
+## Standard & Works automation boundary
+
+Standard & Works is not an internal KMG role pod. It remains an external partnership/boundary entity under [[../companies/standard-and-works]]. The S&W Industrialist newsletter chain is still an active Kerri-owned production workflow because Brian/Kerri are responsible for the work product:
+
+- `kerri-sw-newsletter-writer`
+- `kerri-sw-newsletter-editor`
+- `kerri-sw-newsletter-marketing`
+
+Do not treat Zach's S&W internal operations as KerriOS company-brain data. Do preserve published issue facts, source notes, Brian/Zach suggestions, and production lessons according to the S&W boundary rules.
 
 ## Retired
 

@@ -47,6 +47,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]] — sub-agent #2: S&W Industrialist newsletter chain (writer + editor + marketing). Kerri owns the writing Mon/Wed nights for Tue/Thu publish.
 - [[wiki/decisions/2026-05-25-codex-primary-operating-layer]] — Codex becomes Brian's primary Kerri operating runner; Claude Code remains a fallback during switch-over.
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — KerriOS is the living company brain; Kerri climbs from approval-gated assistant to eventual decision authority.
+- [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — Brian's agent architecture distilled into role pods, feedback loops, and automation rebuild priorities.
 
 ## Deals · Meetings · Candidates · Raw
 
