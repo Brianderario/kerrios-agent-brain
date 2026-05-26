@@ -2,6 +2,11 @@
 
 KerriOS is the agent-readable company brain and policy layer for Kerri Media Group.
 
+Current runner posture: Codex is Brian's primary Kerri operating layer as of
+2026-05-25. Claude Code may remain available as a fallback runner during the
+switch-over. This changes the runner, not the agent identity: Kerri remains
+Brian's chief of staff + KMG org brain, and this repo remains canonical.
+
 Start here:
 
 1. Read `README.md`.

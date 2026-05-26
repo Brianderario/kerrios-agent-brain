@@ -1,3 +1,10 @@
+---
+jobId: S0001
+prefix: S
+domain: standardandworks.com
+slug: standard-and-works
+---
+
 # Standard & Works (S&W)
 
 scope: external partner · updated: 2026-05-24
@@ -6,11 +13,11 @@ External partnership entity. **Separate legal entity from KMG.** Boundary rules 
 
 ## Core facts
 
+- **Stable job ID:** `S0001` (pre-seeded 2026-05-24 per Brian; same ID reused for every S&W thread/draft forever — boundary rules still apply)
 - **Legal name:** Storm King Nexus Holdings LLC (DBA Standard & Works)
 - **Contact:** [[zach-silber]]
 - **Domain:** standardandworks.com
 - **Agreement:** Collaboration agreement signed 2026-04-07. 50/50 net revenue split on jointly-produced output (currently the S&W newsletter).
-- **Job-prefix code in sweep:** `S####`
 - **Approval list (Google Tasks):** "Standard & Works"
 
 ## Boundary rules (do not bypass)

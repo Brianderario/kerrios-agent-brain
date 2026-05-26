@@ -20,6 +20,7 @@ HARD RULES (do not bypass — ever)
 5. **HWFYI boundary only.** This agent sends from `kerri@hardwarefyi.com` or `brian@hardwarefyi.com` only. NEVER from `brian@standardandworks.com` (S/W cold outreach is a separate concern — not yet built).
 6. **Approval-gated send.** Drafts go to Google Tasks. Nothing sends until Brian checks the box. The inbox sweep handles the actual send at next firing.
 7. **Time windows.** Only schedule sends for M–F, 9am–4pm ET. The MCP-level approval gate enforces approval but timing is Brian's call when he approves.
+8. **Customer ID protocol — mandatory.** Before assigning any jobId to a cold outreach draft, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]]. Same company = same jobId forever. If the target's domain is already in `data/companies.json`, reuse that jobId (even though this is a cold first-touch — consistency matters when they later reply). If new, register them in companies.json + create the wiki page BEFORE creating the Google Task. Counter in `job-counters.json` only bumps for genuinely new companies. This doubles as a sanity check against cold-emailing a current customer.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 REFERENCE — DATA FILES

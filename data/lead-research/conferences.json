@@ -11,7 +11,9 @@
       "sponsorsUrlHint": "https://www.designcon.com/en/sponsors-exhibitors.html",
       "geography": "US (Santa Clara)",
       "notes": "Chip design, PCB, signal integrity. Strong ICP overlap with HWFYI subscribers.",
-      "lastScrapedAt": null
+      "lastScrapedAt": "2026-05-24",
+      "degraded": true,
+      "degradedReason": "Both sponsorsUrlHint and main /sponsors-exhibitors path returned HTTP 404 on 2026-05-24 — page likely behind auth or moved. Needs manual URL refresh."
     },
     {
       "slug": "reindustrialize",
@@ -21,7 +23,9 @@
       "sponsorsUrlHint": "https://www.reindustrialize.com/sponsors",
       "geography": "US (rotating)",
       "notes": "Manufacturing renaissance, industrial-base policy. Backed by New American Industrial Alliance. High signal for HWFYI sponsorship intent.",
-      "lastScrapedAt": null
+      "lastScrapedAt": "2026-05-24",
+      "degraded": true,
+      "degradedReason": "Page is JS-rendered — WebFetch returned only the title with no sponsor content on 2026-05-24. Needs a Puppeteer/Chrome scrape path, not WebFetch."
     },
     {
       "slug": "sensors-converge",
@@ -31,7 +35,9 @@
       "sponsorsUrlHint": "https://www.sensorsconverge.com/exhibitors",
       "geography": "US (Santa Clara)",
       "notes": "Sensors, IoT, embedded. Hardware-engineering audience.",
-      "lastScrapedAt": null
+      "lastScrapedAt": "2026-05-24",
+      "degraded": true,
+      "degradedReason": "sponsorsUrlHint returned HTTP 404 on 2026-05-24 — exhibitor list likely behind /show-info or event-specific path. Needs manual URL refresh."
     },
     {
       "slug": "automate",

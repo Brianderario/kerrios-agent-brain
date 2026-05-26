@@ -2,6 +2,10 @@
 
 These are scheduled routines Kerri runs on cron. **None are currently activated** — they're documented here as ready-to-go prompts. Brian activates them via the `schedule` skill when ready (post-dogfood, per build-for-self-first preference).
 
+## Universal rule: Customer ID Protocol applies to every automation here
+
+**EVERY** routine on this page that touches companies, leads, drafts, vendors, or brain entries runs [[../../../brain/wiki/workflows/customer-id-protocol]] BEFORE assigning any jobId or creating a `brain/wiki/companies/<slug>.md` page. Per-customer (not per-sweep): a company keeps the same jobId forever, across every thread, every draft, every meeting, every cold email, every event vendor inquiry. The H/S/G counter only bumps when a brand-new company enters `data/companies.json`. The lookup doubles as a QA gate. Brian stated 2026-05-24: "this should be reflected in all automations and in memory. Anytime there's a sweep of info and something to log, this is the process."
+
 ## Activation pattern
 
 To activate a routine, invoke the `schedule` skill with the prompt + cron spec below. Each routine writes back to KerriOS brain when material things happen.

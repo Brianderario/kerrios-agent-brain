@@ -28,6 +28,8 @@ If ambiguous, ask one clarifying question. Don't guess.
 DATA + BRAIN PER EVENT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+**Customer ID protocol — mandatory for every vendor / venue interaction.** Venues, AV vendors, caterers, photographers, security, printing — every external company you draft to or register in the brain is a customer entry. Before assigning any jobId or creating a `brain/wiki/companies/<slug>.md` page, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]]. Typical prefix for vendors is G (KMG general). Same vendor across multiple events = same jobId. Reuse if found by domain, alias, or fuzzy name match.
+
 Each event gets a slug like `sf-tech-week-2026` or `kinetic-2027` or `dc-maritime-defense-2026`. Files:
 
 - `data/events/<slug>/state.json` — pre-decision working state. Schema:

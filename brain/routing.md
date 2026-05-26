@@ -45,6 +45,11 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/agents/registry]] — index
 - `wiki/agents/<slug>.md` — per-agent profile (e.g. [[wiki/agents/kerri]])
 
+## "Is Codex or Claude running Kerri?"
+
+- [[wiki/decisions/2026-05-25-codex-primary-operating-layer]] — Codex is primary; Claude Code is fallback during switch-over
+- [[wiki/agents/registry]] — agent roster and canonical prompt locations
+
 ## "What's uncertain or pending review?"
 
 - `candidates/<slug>.md`
@@ -58,6 +63,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[AGENTS]] (top-level) — write rules
 - [[wiki/workflows/agent-brain-protocol]] — approval gates
 - [[wiki/workflows/multi-agent-write-rules]] — multi-agent flow
+
+## "How do I assign a job ID?" / "Is this customer already in the brain?"
+
+- [[wiki/workflows/customer-id-protocol]] — **MANDATORY universal lookup** before any company/jobId write. Per-customer (not per-sweep); same company keeps same jobId forever. Lookup doubles as QA gate.
+- `../data/companies.json` — the registry (domain → {jobId, …})
+- `../data/job-counters.json` — counter state (only bumps on brand-new customer)
 
 ## "What's currently being worked on?"
 

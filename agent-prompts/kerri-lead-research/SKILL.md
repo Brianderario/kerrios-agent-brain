@@ -11,7 +11,7 @@ HARD RULES
 
 1. **Output is the queue.** This agent's deliverable is `data/cold-outreach-queue.json`. It does not draft, send, or contact anyone directly.
 2. **Multi-source bias.** Prefer candidates that surface from ≥2 sources. They get scored higher and queued first.
-3. **Dedup is absolute.** Skip anyone in `brain/wiki/people/`, `data/jobs.json` history, `data/cold-do-not-contact.json`, or `data/cold-outreach-state.json#sent` within 90 days. Also skip anyone already in `data/cold-outreach-queue.json`.
+3. **Dedup is absolute.** Skip anyone whose **company** is in `data/companies.json` (matched by domain OR alias OR fuzzy name) — that company is an existing customer/relationship and shouldn't be cold-prospected through this queue. Also skip anyone in `brain/wiki/people/`, `data/jobs.json` history, `data/cold-do-not-contact.json`, or `data/cold-outreach-state.json#sent` within 90 days. Also skip anyone already in `data/cold-outreach-queue.json`. The companies.json check is the **primary** dedup — see [[../../brain/wiki/workflows/customer-id-protocol]].
 4. **HWFYI side only.** No S/W targets, no defense-only contractors that lack a HWFYI angle.
 5. **Personalization hook required.** Every queued entry must have a `hookSeed` populated with at least one concrete fact (funding round, conf exhibitor, hiring role, lookalike-to-X-sponsor). Generic entries don't queue.
 6. **Budget per run:** add max 20 new candidates per scheduled run. On-demand can override with explicit count.

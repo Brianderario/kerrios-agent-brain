@@ -15,6 +15,14 @@ Format:
 
 <!-- Lessons will be appended here by the sweep automation -->
 
+## [2026-05-25] Job H0001 — Aris Machina
+
+**What changed:** Brian noted I should have his Calendly link in memory and inserted it himself in his guidance after my draft offered "a 15-min call" with no booking URL. Same link is referenced multiple times in [[../agents/kerri]] voice rules and recent log entries — it's already in the brain, I just didn't reach for it.
+
+**Why:** When the close of a draft is a meeting offer, the natural next click is the calendar. Making Brian remind me to drop it in adds a manual step every send. The Calendly link is a fixed reflex, not a per-draft decision.
+
+**Rule:** **Any draft that offers a call, demo, intro, or meeting MUST include Brian's Calendly link inline.** Standard URL: `https://calendly.com/brian-hardwarefyi/30min`. Phrasing for Brian-as-sender: "My calendar's here: <url>" or "Grab time here: <url>". Phrasing for Kerri-as-sender: "Here's Brian's calendar link: <url>" (locked phrasing per [[../../agent-prompts/kerri-skill/references/voice]]). Never offer a call without the URL.
+
 ## [2026-05-24] Voice-rewrite from sent-mail corpus — not a job-specific lesson, a baseline reset
 
 **Sample:** 8 emails read from brian@hardwarefyi.com Sent folder, dates 2026-05-21 to 2026-05-23. Counterparts: Ian Slamen (Celedon — sponsor re-engagement), Sid Khullar (Aris Machina — webinar pricing), Brandon Bourn (Zenode — partnership re-engagement), Gigi Schadrack (Dirac — post-event + future events), Janine Khraishah (Flow — photo deliverable), David Tusick (Hellbender — routing to Benji), James Redd (Complement — scheduling fix), Nicole Latva (SendCutSend — post-event sponsor follow-up), Wendy Hom (Westin — vendor ack).

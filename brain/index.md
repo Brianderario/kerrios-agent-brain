@@ -10,6 +10,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/source-of-truth]] — what's canonical vs evidence vs chat
 - [[wiki/workflows/draft-learnings]] — accumulated lessons from Kerri's draft edits
 - [[wiki/workflows/mcp-tool-add-checklist]] — definition + handler discipline when extending MCP servers (born from the 2026-05-24 gtasks bug)
+- [[wiki/workflows/customer-id-protocol]] — universal per-customer jobId lookup; ALL automations + ad-hoc drafts run this before any company/jobId write
 
 ## Agents
 
@@ -32,7 +33,8 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 
 ## Companies
 
-- [[wiki/companies/standard-and-works]] — external 50/50 partnership (boundary applies)
+- [[wiki/companies/aris-machina]] — H0001 — HWFYI sponsor prospect (Protos campaign in flight)
+- [[wiki/companies/standard-and-works]] — S0001 — external 50/50 partnership (boundary applies)
 
 ## Decisions
 
@@ -43,6 +45,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-05-24-cold-outreach-launch]] — sub-agent #1 (cold outreach) shipped with hard volume caps
 - [[wiki/decisions/2026-05-24-lead-research-launch]] — discovery sub-agent that feeds cold-outreach with multi-source enriched prospects (conferences, lookalikes, funding, hiring)
 - [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]] — sub-agent #2: S&W Industrialist newsletter chain (writer + editor + marketing). Kerri owns the writing Mon/Wed nights for Tue/Thu publish.
+- [[wiki/decisions/2026-05-25-codex-primary-operating-layer]] — Codex becomes Brian's primary Kerri operating runner; Claude Code remains a fallback during switch-over.
 
 ## Deals · Meetings · Candidates · Raw
 

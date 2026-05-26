@@ -28,9 +28,11 @@ REFERENCE — DATA FILES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Read + write every sweep:
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/job-counters.json`
-    → { "H": <int>, "S": <int>, "G": <int> }
+    → { "H": <int>, "S": <int>, "G": <int> } — last-assigned counter per prefix. Only bumps when a NEW company gets its first jobId.
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/jobs.json`
-    → Array of job objects (schema below)
+    → Array of job objects (schema below). One entry per draft action. Multiple entries may share the same jobId if it's the same customer.
+  `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/companies.json`
+    → Customer registry. `{ schema, companies: { "<domain>": { jobId, name, slug, prefix, primaryContact, firstSeenAt, wikiPage } } }`. **jobId is per-customer, persistent forever.** Same Aris Machina thread or new Aris Machina thread → same jobId. Source of truth for the domain→jobId lookup. Mirror the jobId in the company's wiki page frontmatter (`brain/wiki/companies/<slug>.md`).
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/gtasks-lists.json`
     → List-ID map (auto-bootstrapped — see STEP 0)
 
@@ -100,8 +102,9 @@ STEP 1 — LOAD STATE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 1. Read job-counters.json → hold H, S, G values in memory
 2. Read jobs.json → hold all jobs in memory
-3. Read draft-learnings.md → hold all lessons (you MUST apply these to every draft)
-4. For each list (H/S/G), call `gtasks_list_tasks` with `show_completed: true` → hold all tasks in memory
+3. Read companies.json → hold the domain→{jobId, …} map in memory (source of truth for customer ID lookup)
+4. Read draft-learnings.md → hold all lessons (you MUST apply these to every draft)
+5. For each list (H/S/G), call `gtasks_list_tasks` with `show_completed: true` → hold all tasks in memory
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — PROCESS DECISIONS FROM GOOGLE TASKS
@@ -153,27 +156,38 @@ STEP 3 — SWEEP NEW EMAILS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 LOOKBACK WINDOW:
+  • Cold-start (one-time): if jobs.json is empty AND job-counters.json shows H=0 AND S=0 AND G=0, this sweep has never processed any inbound. Switch lookback to "all unread INBOX items, cap 30 messages per mailbox, max age 14 days." Apply AUTO-SKIP + dedup normally. The cap exists so that worst-case Brian gets ~10–30 stale-but-valid jobs on this one run instead of months of backlog. Once any new job lands in jobs.json or any counter bumps, jobs.json is no longer empty and the next sweep falls through to the Normal/Morning windows. Cold-start fires once and only once per fresh install / wipe.
   • Normal: last 15 minutes
   • Morning first sweep (local time 6:00–6:20am): last 12 hours (overnight catch-up)
 
-Search all four mailboxes:
-  1. kerri-hardwarefyi-email → search_email for recent inbound
-  2. brian-hardwarefyi-email → search_email for recent inbound
-  3. gmail → search_threads for recent inbound to brian@kerrihq.com
-  4. superhuman (760b1f3b…) → list_threads with `start_date: <ISO lookback>` and `labels: ["INBOX"]`. **Do NOT pass `to:` here** — Superhuman's backend uses Microsoft Graph under the hood, which returns a 400 ("$filter not supported with $search") when both filters are combined. The MCP is already scoped to brian@standardandworks.com as the primary account (verified 2026-05-24), so date-bounded inbox listing is sufficient and safe. For each returned thread, call get_thread to retrieve the latest message and its message_id, body, and internet message ID.
+Search all four mailboxes (apply the LOOKBACK WINDOW resolved above):
+  1. kerri-hardwarefyi-email → search_email for recent inbound. Cold-start: filter to `is:unread in:inbox`, sort newest-first, hard-cap at 30 results, drop anything older than 14 days.
+  2. brian-hardwarefyi-email → search_email for recent inbound. Same cold-start treatment.
+  3. gmail → search_threads for recent inbound to brian@kerrihq.com. Cold-start: query `is:unread in:inbox newer_than:14d`, cap at 30.
+  4. superhuman (760b1f3b…) → list_threads with `start_date: <ISO lookback>` and `labels: ["INBOX"]`. Cold-start: set `start_date` to 14 days ago and cap returned threads at 30 (slice after fetch if the MCP returns more). **Do NOT pass `to:` here** — Superhuman's backend uses Microsoft Graph under the hood, which returns a 400 ("$filter not supported with $search") when both filters are combined. The MCP is already scoped to brian@standardandworks.com as the primary account (verified 2026-05-24), so date-bounded inbox listing is sufficient and safe. For each returned thread, call get_thread to retrieve the latest message and its message_id, body, and internet message ID.
 
 For each email:
   a. Apply AUTO-SKIP → skip if matches
   b. Check internetMessageId against all IDs in jobs.json → if already tracked, skip (dedup)
   c. Check if an open job (status=pending) already exists for this sender's domain → if yes, add internetMessageId to that job's array; no new task. Optionally append a one-line "new reply received <time>" note to the existing task's notes via `gtasks_update_task`.
-  d. New company/thread → proceed to DRAFT
+  d. New thread (no open job) → proceed to CUSTOMER LOOKUP then DRAFT
+
+CUSTOMER LOOKUP (run before assigning any jobId — this is mandatory; it's the QA gate that forces brain alignment):
+  1. Extract sender domain, lowercase. **Always normalize obvious mail/marketing subdomains to the root** — `mail.acme.com` / `marketing.acme.com` / `email.acme.com` / `news.acme.com` / `notifications.acme.com` → `acme.com`. Use judgment for ambiguous subdomains that might be a distinct business unit (rare — when in doubt, normalize to root and flag in a draft note).
+  2. Look up `companies.json.companies[domain]` directly. If miss, scan every entry's `aliases` array for the domain — if a hit, use that entry. (Company is the identity, not the domain; one company can have multiple domains.)
+  3. If found AND has a `jobId` → **reuse that jobId** for this draft. Do NOT increment any counter. Confirm the wiki page at `brain/wiki/companies/<slug>.md` exists; if missing, create it from the entry's `name`/`slug`/`jobId`.
+  4. If found but missing `jobId` → assign the next counter value for the prefix (e.g. next H = `H` + zero-pad(counter+1)), write it back into the companies.json entry, increment counter, and update the wiki page frontmatter.
+  5. If NOT found → before creating a new entry, **sanity-check that this isn't an existing company under a new domain**. Quick checks: scan companies.json `name` values for fuzzy matches; if the sender's display name or email signature mentions an existing company, treat as a domain ALIAS — add the new domain to that entry's `aliases` array and reuse the existing jobId. Only assign a fresh jobId if you're confident this is genuinely a new company.
+  6. New company path: assign next counter value, create a new companies.json entry (`{ jobId, name, slug, prefix, primaryContact: senderEmail, aliases: [], firstSeenAt: receivedAt, wikiPage: "brain/wiki/companies/<slug>.md" }`), create the wiki page `brain/wiki/companies/<slug>.md` with frontmatter (`jobId`, `prefix`, `domain`, `slug`) + a minimal `# <Name>` body + a one-line "scope: prospect/sponsor/vendor · updated: <date>" header, then increment counter.
+
+  Slug rule: lowercase the company name, replace whitespace + `&`/`+`/`/` with `-`, strip punctuation, max 60 chars. Examples: `Aris Machina AB` → `aris-machina`, `Standard & Works` → `standard-and-works`, `SendCutSend` → `sendcutsend`.
 
   S/W boundary check (Superhuman thread): if a thread was returned via the S/W mailbox query but the latest message body contains S/W INTERNAL content (financials, staff comp, vendor invoices, content drafts authored by the S/W side), still create the job + task so Brian sees it, but use the CONTEXT field minimally ("S/W internal — see thread in Superhuman") and do NOT copy the inbound body text into draft-learnings.md, jobs.json contextual fields, or any wiki note. The job exists only as a queue marker, not as durable S/W content in Kerri's brain.
 
 DRAFTING:
   1. Apply ALL lessons from draft-learnings.md
   2. Choose send identity per SEND IDENTITY rules
-  3. Assign jobId: increment the right counter (H/S/G), format `<prefix><4-digit zero-padded>` (H0001, H0002, …)
+  3. jobId — already resolved in CUSTOMER LOOKUP above (either reused from companies.json or freshly assigned + registered). Use exactly that value; do NOT re-increment.
   4. Write the reply:
      - Terse. Lead with the ask or the answer. No throat-clearing.
      - 3–5 sentences unless the email genuinely requires more.
@@ -248,6 +262,8 @@ STEP 5 — SAVE STATE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Write updated job-counters.json to disk.
 Write updated jobs.json to disk.
+Write updated companies.json to disk (if any new entries or jobId backfills happened in CUSTOMER LOOKUP).
+Write any new/updated `brain/wiki/companies/<slug>.md` pages.
 Cleanup: remove any jobs where (status=sent OR status=skipped) AND (sentAt or createdAt) is >7 days ago.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

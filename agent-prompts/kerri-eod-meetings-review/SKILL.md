@@ -31,8 +31,9 @@ The Granola cloud MCP is connected at `https://mcp.granola.ai/mcp`. The exact to
 **Brain (wiki writes):**
 - Per-meeting recap → `brain/wiki/meetings/<YYYY-MM-DD>-<slug>.md`
 - Person/company updates → `brain/wiki/people/<slug>.md`, `brain/wiki/companies/<slug>.md`
+- **Before creating or updating ANY `brain/wiki/companies/<slug>.md`, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]].** Same company = same jobId forever; register new companies in `data/companies.json` (with `aliases: []`) AND bump `data/job-counters.json` ONLY if genuinely new. Reuse existing jobId if found by domain, alias, or fuzzy name match. This is mandatory and doubles as a QA gate.
 - Append a log line to `brain/log.md` (one entry per run, not per meeting)
-- Follow [[brain/wiki/workflows/agent-brain-protocol]] for read/write rules
+- Follow [[../../brain/wiki/workflows/agent-brain-protocol]] for read/write rules
 
 **Voice (apply to every draft):**
 - Canonical voice file: `agent-prompts/kerri-skill/references/voice.md` (read at start; apply every rule)

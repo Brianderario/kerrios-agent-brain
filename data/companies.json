@@ -1,0 +1,160 @@
+{
+  "schema": "companies-v1",
+  "description": "Customer registry. Domain -> stable jobId per the 2026-05-24 customer-ID rule (a company keeps the same jobId across all threads forever). Lookup: lowercase sender domain, normalize obvious mail/marketing subdomains (mail.acme.com -> acme.com), then look up directly OR scan `aliases` arrays for a match. Company is the identity — multiple domains/aliases can map to one jobId; never split one company across two jobIds.",
+  "updatedAt": "2026-05-25T22:35:00Z",
+  "companies": {
+    "arismachina.com": {
+      "jobId": "H0001",
+      "name": "Aris Machina",
+      "slug": "aris-machina",
+      "prefix": "H",
+      "primaryContact": "sid@arismachina.com",
+      "aliases": [],
+      "firstSeenAt": "2026-04-19T20:02:00Z",
+      "wikiPage": "brain/wiki/companies/aris-machina.md"
+    },
+    "standardandworks.com": {
+      "jobId": "S0001",
+      "name": "Standard & Works",
+      "slug": "standard-and-works",
+      "prefix": "S",
+      "primaryContact": "zach@standardandworks.com",
+      "aliases": [],
+      "firstSeenAt": "2026-04-07T00:00:00Z",
+      "wikiPage": "brain/wiki/companies/standard-and-works.md",
+      "note": "Pre-seeded 2026-05-24 per Brian. S/W boundary rules still apply on every interaction — see wiki page."
+    },
+    "bananaz.ai": {
+      "jobId": "H0002",
+      "name": "Bananaz.ai",
+      "slug": "bananaz-ai",
+      "prefix": "H",
+      "primaryContact": "noy@bananaz.ai",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T12:37:40Z",
+      "wikiPage": "brain/wiki/companies/bananaz-ai.md",
+      "note": "Kinetic 2026 sponsor (per sponsor roster candidate 2026-05-24). Contacts: Noy Nave (Business Ops), Or Israel (Co-founder/CEO), Tal Koelewyn."
+    },
+    "machinalabs.ai": {
+      "jobId": "H0003",
+      "name": "Machina Labs",
+      "slug": "machina-labs",
+      "prefix": "H",
+      "primaryContact": "michael.neal@machinalabs.ai",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/machina-labs.md",
+      "note": "Cold outreach prospect (lead-research lookalike to First Resonance, Kinetic 2026 sponsor). $124M Series C Feb 2026."
+    },
+    "eyelit.com": {
+      "jobId": "H0004",
+      "name": "Eyelit Technologies",
+      "slug": "eyelit-technologies",
+      "prefix": "H",
+      "primaryContact": "pnilsson@eyelit.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/eyelit-technologies.md",
+      "note": "Cold outreach prospect (lead-research lookalike to First Resonance). MES / factory-OS; acquired Adexa Jan 2025."
+    },
+    "bmf3d.com": {
+      "jobId": "H0005",
+      "name": "Boston Micro Fabrication",
+      "slug": "boston-micro-fabrication",
+      "prefix": "H",
+      "primaryContact": "lgalloway@bmf3d.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/boston-micro-fabrication.md",
+      "note": "Cold outreach prospect (lead-research lookalike to Fictiv, Kinetic 2026 sponsor). Micro-precision 3D printing (PμSL)."
+    },
+    "divergent3d.com": {
+      "jobId": "H0006",
+      "name": "Divergent",
+      "slug": "divergent",
+      "prefix": "H",
+      "primaryContact": "nryan@divergent3d.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/divergent.md",
+      "note": "Cold outreach prospect (lead-research lookalike to Fictiv). $250M Series E Sep 2025; $2.3B valuation; aerospace + auto digital manufacturing."
+    },
+    "sager.com": {
+      "jobId": "H0007",
+      "name": "Sager Electronics",
+      "slug": "sager-electronics",
+      "prefix": "H",
+      "primaryContact": "mstack@sager.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/sager-electronics.md",
+      "note": "Cold outreach prospect (lead-research hiring signal). $250M rev electronics distributor; TTI / Berkshire Hathaway subsidiary."
+    },
+    "path-robotics.com": {
+      "jobId": "H0008",
+      "name": "Path Robotics",
+      "slug": "path-robotics",
+      "prefix": "H",
+      "primaryContact": "erejto@path-robotics.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/path-robotics.md",
+      "note": "Cold outreach prospect (lead-research hiring signal). AI robotic welding; $271M total funding incl $100M Series D Oct 2024."
+    },
+    "asteralabs.com": {
+      "jobId": "H0009",
+      "name": "Astera Labs",
+      "slug": "astera-labs",
+      "prefix": "H",
+      "primaryContact": "paroma.sen@asteralabs.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/astera-labs.md",
+      "note": "Cold outreach prospect (lead-research hiring signal). NASDAQ: ALAB ~$40B mcap; AI infra connectivity ICs."
+    },
+    "berkshiregrey.com": {
+      "jobId": "H0010",
+      "name": "Berkshire Grey",
+      "slug": "berkshire-grey",
+      "prefix": "H",
+      "primaryContact": "angela.whiteford@berkshiregrey.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/berkshire-grey.md",
+      "note": "Cold outreach prospect (lead-research hiring signal). AI warehouse robotics; $3B+ total funding; SoftBank acquired Mar 2023."
+    },
+    "ibaset.com": {
+      "jobId": "H0011",
+      "name": "iBase-t",
+      "slug": "ibase-t",
+      "prefix": "H",
+      "primaryContact": "thennessey@ibaset.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/ibase-t.md",
+      "note": "Cold outreach prospect (lead-research hiring signal). MES / MRO / QMS (Solumina) for aerospace + defense + medical; TA Associates Mar 2026."
+    },
+    "marvintest.com": {
+      "jobId": "H0012",
+      "name": "Marvin Test Solutions",
+      "slug": "marvin-test-solutions",
+      "prefix": "H",
+      "primaryContact": "jon.semancik@marvintest.com",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T13:20:00Z",
+      "wikiPage": "brain/wiki/companies/marvin-test-solutions.md",
+      "note": "Cold outreach prospect (lead-research hiring signal). Aerospace/defense ATE (AS9100D); PXI test platforms for armament / semi / mmWave."
+    },
+    "zenode.ai": {
+      "jobId": "H0013",
+      "name": "Zenode",
+      "slug": "zenode",
+      "prefix": "H",
+      "primaryContact": "brandon@zenode.ai",
+      "aliases": [],
+      "firstSeenAt": "2026-05-25T21:32:09Z",
+      "wikiPage": "brain/wiki/companies/zenode.md",
+      "note": "HWFYI partner re-engagement (thread \"Re: Getting back on Hardware FYI\"). Brandon asked about renewal + Brian's writeup rate. 2026-05-25 reply confirms 10am 5/26 slot."
+    }
+  }
+}
