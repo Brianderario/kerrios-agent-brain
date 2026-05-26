@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-26 01:05 ET] automation-update | morning-plus-eod-calendar-first | Brian + Codex
+
+Tightened the active morning and EOD runners from Brian's feedback. Morning brief now keeps the required HTML sections (meetings, yesterday's Chase spend, pending Tasks) and adds an optional `Kerri's Read` lane for useful CEO-level context, risks, opportunities, or system gaps. EOD review is now explicitly calendar-first: every included calendar meeting must be accounted for even if Granola missed it, proposed meeting drafts must go to Google Tasks, and no-transcript meetings create manual-recap Tasks when substantive.
+
 ## [2026-05-26 00:45 ET] automation-update | morning-brief-html | Brian + Codex
 
 Updated `kerri-morning-brief` to generate a repeatable HTML brief focused on three sections Brian asked for: today's meetings with attendees/context, yesterday's Chase spend parsed from `brian@kerrihq.com` Gmail alerts, and pending Google Tasks needing attention. The runner writes `output/morning-brief/<date>.html` plus `latest.html` and sends Brian a short pointer/summary.

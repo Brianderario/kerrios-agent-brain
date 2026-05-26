@@ -35,6 +35,12 @@ That means:
 - 4-6 Dealbook items when the funding tape supports it
 - internal source notes and claims-to-check preserved outside the reader-facing body
 
+## Brian-Approved May 26 Rule
+
+Brian approved the May 26, 2026 Celestica/AMD/AI hardware buildout draft style as the rule for future S&W issues.
+
+When Brian or Zach has already written the opening or lead, preserve it exactly unless explicitly asked to change it. Fill below the lead by expanding each relevant category with sourced one-sentence bullets, prioritizing company fundraises, announced deals, contracts, factory/capacity moves, customer wins, and other concrete commercial activity.
+
 ## Voice Rules
 
 Write like a sharp industrial editor, not a policy memo and not a press-release aggregator.
@@ -77,4 +83,3 @@ For production issues:
 ## Boundary
 
 Published issues are shareable S&W output. Pre-publish drafts and editorial deliberation stay local or in the agreed draft surface until Brian/Zach approve staging or sending.
-

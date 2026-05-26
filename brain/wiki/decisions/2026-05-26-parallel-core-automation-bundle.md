@@ -16,8 +16,8 @@ All three run in Codex on GPT-5.5 high and use the Codex Kerri Agent Master fold
 
 These three cover the core company-brain rhythm around the inbox sweep:
 
-- **EOD Meetings Review:** turns calls into meeting memory, entity updates, follow-up tasks, and transcript coverage signals.
-- **Morning Brief:** turns today's meetings, yesterday's Chase spend alerts from `brian@kerrihq.com`, pending Tasks, and recent brain activity into a Brian-facing HTML brief.
+- **EOD Meetings Review:** uses the calendar as the source of truth, turns calls into meeting memory, entity updates, follow-up Tasks, and transcript coverage/manual-recap signals.
+- **Morning Brief:** turns today's meetings, yesterday's Chase spend alerts from `brian@kerrihq.com`, pending Tasks, recent brain activity, and optional Kerri's Read context into a Brian-facing HTML brief.
 - **Brain Push / Knowledge Hygiene:** validates, commits, pushes, logs, and grades the brain so KerriOS does not drift.
 
 Together with the inbox sweep, they create a daily loop:
@@ -44,7 +44,7 @@ Each uses GPT-5.5 high.
 ## Write-Back
 
 - Morning writes a polished local HTML brief, compact state/grades, and only logs material escalations or system gaps. Chase transaction details stay out of wiki/log truth.
-- EOD writes meeting pages, entity updates, follow-up Google Tasks, state, grades, and a digest.
+- EOD writes meeting pages, entity updates, follow-up Google Tasks for every proposed draft, missing-recording/manual-recap Tasks, state, grades, and a digest.
 - Brain Push writes commits, push logs, hygiene state, and failure alerts only when needed.
 
 ## Boundaries

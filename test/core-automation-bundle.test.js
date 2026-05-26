@@ -23,6 +23,7 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
     "Today's Meetings",
     "Yesterday's Chase Spend",
     'Pending Tasks',
+    "Kerri's Read",
     'brian@kerrihq.com',
     'output/morning-brief/<YYYY-MM-DD>.html',
     'Never send external emails',
@@ -38,7 +39,10 @@ test('EOD meetings review queues drafts instead of sending', () => {
   for (const required of [
     '6:30pm ET',
     'Granola',
+    'Calendar is the source of truth',
+    'Every included calendar meeting',
     'Google Tasks',
+    'mandatory for every proposed meeting follow-up',
     'Do NOT send any email',
     'data/eod-grades.json',
     'SELF-GRADE'

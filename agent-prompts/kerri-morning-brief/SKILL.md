@@ -131,6 +131,12 @@ KerriOS open loops:
 - Read `brain/log.md` recent entries.
 - Read `brain/wiki/deals/` index/pages only for active deals referenced by tasks or recent logs.
 - Read `brain/candidates/` only for candidates updated in the last 7 days or explicitly referenced by today's agenda.
+- Add one optional "Kerri's read" item when there is a genuinely useful pattern, risk, or opportunity Brian should see this morning:
+  - an overnight inbox/Slack/meeting thread that changes priorities
+  - a sponsor, partner, or editorial opportunity that needs a CEO read
+  - a system/process gap that is likely to cost time today
+  - a notable completion or unblock from yesterday
+- Keep this section sparse. If nothing materially changes Brian's morning, omit it or show a quiet empty state.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3 — PRIORITIZE AND SHAPE
@@ -141,6 +147,8 @@ The brief has three primary sections in this order:
 1. Meetings today.
 2. Yesterday's Chase spend.
 3. Pending tasks needing Brian's attention.
+
+It may include a fourth section, `Kerri's Read`, only when there is relevant context Brian would reasonably expect Kerri to surface without being asked.
 
 Within Pending Tasks, rank by impact and time sensitivity:
 
@@ -176,6 +184,7 @@ Design requirements:
   - section 1: `Today's Meetings`
   - section 2: `Yesterday's Chase Spend`
   - section 3: `Pending Tasks`
+  - optional section 4: `Kerri's Read`
   - small footer with generated time and degraded-source notes
 - Responsive mobile layout.
 - No raw email bodies.
@@ -205,6 +214,11 @@ Required HTML content shape:
 <section id="tasks">
   <h2>Pending Tasks</h2>
   <!-- task cards with list/source, action, why it matters -->
+</section>
+
+<section id="kerris-read">
+  <h2>Kerri's Read</h2>
+  <!-- optional: 1-3 CEO-relevant observations, risks, or opportunities -->
 </section>
 ```
 
@@ -253,6 +267,7 @@ Also record:
 - `chaseTransactionsCount`
 - `chaseSpendKnownTotal`
 - `pendingTasksCount`
+- `kerrisReadCount`
 - `dataSourceIssues`
 - `improvementCandidate`: one line or null
 

@@ -18,7 +18,7 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **Where it lands:** Slack DM to Brian
 **Canonical prompt:** `agent-prompts/kerri-morning-brief/SKILL.md`
 **Model:** GPT-5.5 high
-**Loop:** today's meetings + yesterday's Chase alerts in `brian@kerrihq.com` Gmail + pending Google Tasks -> polished local HTML brief -> Slack pointer/summary -> state/grade write-back.
+**Loop:** today's meetings + yesterday's Chase alerts in `brian@kerrihq.com` Gmail + pending Google Tasks + optional Kerri's Read -> polished local HTML brief -> Slack pointer/summary -> state/grade write-back.
 **HTML artifact:** `output/morning-brief/<YYYY-MM-DD>.html` and `output/morning-brief/latest.html`
 
 ## 2. 10-Minute Inbox Sweep (Primary Automation)
@@ -42,7 +42,7 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **When:** 6:30pm ET, M–F (`30 18 * * 1-5`)
 **Canonical prompt:** `agent-prompts/kerri-eod-meetings-review/SKILL.md`
 **Model:** GPT-5.5 high
-**Loop:** calendar + Granola -> meeting/entity memory -> follow-up Google Tasks -> Slack digest -> state/grade write-back.
+**Loop:** calendar-first meeting ledger + Granola evidence -> meeting/entity memory -> follow-up Google Tasks for every proposed draft -> missing-recording/manual-recap Tasks -> Slack digest -> state/grade write-back.
 
 ## 3b. Brain Push / Knowledge Hygiene
 
