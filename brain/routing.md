@@ -73,6 +73,7 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/companies/standard-and-works]] — partnership boundary
 - [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — not an internal KMG pod, but S&W newsletter remains an active Kerri production workflow
 - [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]] — writer + editor + marketing chain
+- [[wiki/workflows/sw-newsletter-production-rules]] — canonical newsletter writing rules, Gmail voice examples, mailbox routing, and more-comprehensive format direction
 - [[wiki/decisions/2026-05-26-agent-folder-master]] — local folder is `Codex Kerri Agent Master/S&W Writing Agent`, not `04-standard-works-production`
 
 ## "Is Codex or Claude running Kerri?"

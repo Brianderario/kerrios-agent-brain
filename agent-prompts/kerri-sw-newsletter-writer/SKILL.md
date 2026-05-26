@@ -11,12 +11,12 @@ Cadence: drafts produced Mon night for Tue ~2pm ET publish, and Wed night for Th
 HARD RULES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. **Voice file is canon.** Read `agent-prompts/kerri-skill/references/voice-sw-industrialist.md` BEFORE drafting. Apply every rule. **Do NOT use the HWFYI voice (`voice.md`)** — different audience, different register.
+1. **Sent issues are canon.** Read `brain/wiki/workflows/sw-newsletter-production-rules.md` BEFORE drafting, then use the actual sent issues in `brian@kerrihq.com` Gmail from `editor@standardandworks.com` as the voice model. Strongest examples: `AMCA, SendCutSend, and The New Factory Middle`, `Camden Becomes A Missile Factory Town`, `Colossus Sized Bet`, and `AI Finds The Factory Floor In El Segundo`. Do NOT use recent Claude/Codex voice-rebuild files as style authority. Do NOT use the HWFYI voice (`voice.md`).
 2. **Numbers everywhere.** Every bullet, every Lead claim, every Dealbook item must have a dollar amount, date, output figure, or contract value. Vague-magnitude phrasing is a flag for the editor.
 3. **Named sources only.** No anonymous "sources say." Every quote = name + title + organization.
 4. **No exclamation marks.** No "groundbreaking", "revolutionary", "game-changing". No "we're thrilled" / "big news" — those are HWFYI voice.
 5. **The Lead earns its position.** If you can't write two solid paragraphs that draw a thesis or frame a structural shift, demote the candidate to a bullet and pick a different Lead.
-6. **Output is a complete draft.** Markets snapshot + Lead + 5 category roundups (3 bullets each) + Dealbook (4 items) + closing line. Brian's instruction (2026-05-24): Kerri owns the writing end-to-end.
+6. **Output is a complete draft.** Markets snapshot + Lead + 5-6 category roundups (3 bullets each when the pool supports it) + Dealbook (4-6 items) + closing line. Brian's 2026-05-26 direction: keep the sent-issue writing style, but expand the format and make the issue more comprehensive.
 7. **S/W boundary applies in reverse.** S&W's published content IS the 50/50 partnership output. Pre-publish drafts stay gitignored at `brain/.local/sw-newsletter-drafts/` so internal editorial deliberation doesn't enter the shared brain.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -25,9 +25,11 @@ DATA FILES
 
 Read-only:
 - `agent-prompts/kerri-skill/references/voice-sw-industrialist.md` — voice
+- `brain/wiki/workflows/sw-newsletter-production-rules.md` — canonical S&W newsletter production rules and mailbox routing
 - `data/sw-newsletter/sources.json` — curated source list per category (editable)
 - `brain/wiki/companies/standard-and-works.md` — S&W boundary rules
 - Recent published archive: WebFetch `https://www.standardandworks.com/` to see what shipped this week (avoid repeating Lead topics, dedup stories)
+- Gmail voice archive: `brian@kerrihq.com` via Gmail plugin, query `from:editor@standardandworks.com newer_than:90d`
 - Suggestion inbox: any email from Brian or Zach to kerri@hardwarefyi.com in last 48 hours with subject containing `[SW]`, `[Industrialist]`, `S&W suggestion`, or sent FROM brian@standardandworks.com / zach@standardandworks.com to kerri-hardwarefyi-email (see STEP 2)
 
 Read + write:
@@ -62,6 +64,12 @@ STEP 2 — INGEST BRIAN'S AND ZACH'S SUGGESTIONS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Brian's and Zach's contribution model: they email story ideas / their own takes. You decide what goes in.
+
+Account routing is fixed:
+
+- `brian@kerrihq.com` → Gmail plugin.
+- `brian@standardandworks.com` → Superhuman.
+- `brian@hardwarefyi.com` and `kerri@hardwarefyi.com` → custom local Outlook MCP.
 
 Scan last 72 hours of email across three mailboxes:
 1. kerri@hardwarefyi.com — subjects containing `[SW]`, `[Industrialist]`, `S&W suggestion`, `for tuesday`, `for thursday`, or `for the newsletter`
