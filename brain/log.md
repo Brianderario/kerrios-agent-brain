@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-26 00:45 ET] automation-update | morning-brief-html | Brian + Codex
+
+Updated `kerri-morning-brief` to generate a repeatable HTML brief focused on three sections Brian asked for: today's meetings with attendees/context, yesterday's Chase spend parsed from `brian@kerrihq.com` Gmail alerts, and pending Google Tasks needing attention. The runner writes `output/morning-brief/<date>.html` plus `latest.html` and sends Brian a short pointer/summary.
+
 ## [2026-05-26 00:30 ET] automation-bundle | morning-eod-brain-push | Brian + Codex
 
 Rebuilt and activated the next three Codex automations in parallel: `kerri-morning-brief` (weekdays 7:00am ET), `kerri-eod-meetings-review` (weekdays 6:30pm ET), and `kerri-brain-push` (daily 10:00pm ET). All run on GPT-5.5 high, start from the Codex Kerri Agent Master subagent folders, write compact state/grades, and route external follow-ups through approval gates. Decision: [[wiki/decisions/2026-05-26-parallel-core-automation-bundle]].

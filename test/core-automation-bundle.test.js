@@ -19,8 +19,12 @@ const files = {
 
 test('morning brief prompt is approval-safe and writes compact state', () => {
   for (const required of [
-    'weekday morning command brief',
-    'Top 3',
+    'weekday HTML morning brief',
+    "Today's Meetings",
+    "Yesterday's Chase Spend",
+    'Pending Tasks',
+    'brian@kerrihq.com',
+    'output/morning-brief/<YYYY-MM-DD>.html',
     'Never send external emails',
     'data/morning-brief-state.json',
     'SELF-GRADE',

@@ -18,7 +18,8 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **Where it lands:** Slack DM to Brian
 **Canonical prompt:** `agent-prompts/kerri-morning-brief/SKILL.md`
 **Model:** GPT-5.5 high
-**Loop:** calendar + tasks + inbox state + KerriOS open loops -> top 3 priorities -> compact Brian brief -> state/grade write-back.
+**Loop:** today's meetings + yesterday's Chase alerts in `brian@kerrihq.com` Gmail + pending Google Tasks -> polished local HTML brief -> Slack pointer/summary -> state/grade write-back.
+**HTML artifact:** `output/morning-brief/<YYYY-MM-DD>.html` and `output/morning-brief/latest.html`
 
 ## 2. 10-Minute Inbox Sweep (Primary Automation)
 
