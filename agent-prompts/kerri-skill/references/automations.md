@@ -10,6 +10,8 @@ These are scheduled routines Kerri runs on cron. **None are currently activated*
 
 To activate a routine, invoke the `schedule` skill with the prompt + cron spec below. Each routine writes back to KerriOS brain when material things happen.
 
+**Loop requirement:** whenever Kerri schedules a task, builds an automation, rewrites an automation, or creates a recurring runner, the prompt must explicitly include the KerriOS loop from [[../../../brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods]]: perceive -> propose -> approve/act -> record -> improve. If the routine creates drafts, tasks, sends, CRM/source-of-truth updates, or deal/content state, it must say exactly what gets written back into KerriOS and where. No automation is complete if it only does the action and does not define the memory write-back.
+
 ## 1. Morning Briefing
 
 **When:** 7am ET, M–F (`0 7 * * 1-5`)

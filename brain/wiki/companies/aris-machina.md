@@ -7,7 +7,7 @@ slug: aris-machina
 
 # Aris Machina
 
-scope: prospect (HWFYI sponsor pipeline) · updated: 2026-05-24
+scope: prospect (HWFYI sponsor pipeline) · updated: 2026-05-25
 
 Swedish AI hardware/dev tools company. Active sponsor conversation with Hardware FYI for their Protos product.
 
@@ -55,10 +55,11 @@ Swedish AI hardware/dev tools company. Active sponsor conversation with Hardware
 - **2026-05-25 (Brian):** Locked all 4 decisions. Theme = (B) "From 30 Days to 2 Hours: The Tactical R&D Playbook". Lead guarantees = 400 custom report downloads + 125 SF Tech Week registrations. Partner Program example = same "what the datasheets don't say" issue, scroll-to-bottom for "Tools From Our Sponsors". Case study = Brian asked Kerri to research sponsors and pick the best fit
 - **2026-05-25 (Kerri):** Redo'd draft. Re-read William's 5/25 email, verified the Substack issue contains both Colab Primary Placement (mid-issue) AND "Tools From Our Sponsors" block (bottom — nTop, Onshape, Fictiv, Quilter, Doss, Loombotic, Express Manufacturing, Summit Interconnect). Selected CoLab Software as case study (B2B SaaS, AI for hardware engineering teams, closest live analog to Aris Machina, ran the visible Primary Placement, back at Kinetic 2026)
 - **2026-05-25 (Brian):** Two follow-ups — (1) Calendly link is in memory at https://calendly.com/brian-hardwarefyi/30min; (2) SF Tech Week registration guarantee dropped from 125 → **100** (playing safe vs expected actual). Draft updated; ready for send
+- **2026-05-25 23:39 ET (Brian):** Sent reply to William, cc Sid/Benji/Jacinta/Kerri. Final send used product education rather than package pricing: answered Primary Placement / Partner Program / CoLab questions, clarified send-out/publication terminology, introduced custom content (Drafter piece with 5,000+ form fills/downloads), and grouped SF Tech Week + happy hours as lead-gen/event options. Asked for a call and linked Brian's Calendly. Lessons/template saved to [[../workflows/hwfyi-sponsor-reply-templates]].
 
-## Open questions Brian needs to close before send
+## Current next step
 
-- Whether to attach a screenshot of the Partner Program block (Kerri can grab via Chrome DevTools if Brian wants an image vs the scroll-to-bottom URL)
+- Waiting for Aris Machina response / call booking. No package, lead guarantee, or SF Tech Week commitment is active until they signal which products interest them and budget/timing are discussed live.
 
 ## SF Tech Week — post-sale risk to track
 

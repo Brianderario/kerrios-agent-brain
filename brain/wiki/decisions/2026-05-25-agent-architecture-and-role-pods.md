@@ -101,6 +101,15 @@ Agents should not write raw private thread dumps, confidential partner internals
 
 The next automation rebuild should be organized by role pod and operating loop, not by old Claude schedule names.
 
+Every scheduled task and automation must bring work back into the loop. A runnable prompt is not complete unless it defines:
+
+- what live surface it perceives
+- what action or draft it proposes
+- what approval gate applies
+- what action it may take after approval
+- what durable memory it records back into KerriOS
+- how repeated misses become workflow or prompt improvements
+
 Priority rebuild order:
 
 1. Brian/Kerri assistant loop: inbox sweep, Google Tasks approval, send-after-approval, brain write-back.

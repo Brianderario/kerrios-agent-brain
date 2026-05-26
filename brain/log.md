@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-25 23:45 ET] sent-learning | H0001-aris-machina | Brian + Codex
+
+Brian sent the H0001 Aris Machina reply from `brian@hardwarefyi.com` at 23:39 ET. Compared the live Google Tasks draft to Brian's sent version and saved reusable lessons to [[wiki/workflows/draft-learnings]] plus a template at [[wiki/workflows/hwfyi-sponsor-reply-templates]]. Key delta: Brian kept the product-education / direct-answer structure, but made it more conversational, removed the 3-package menu, reintroduced custom content/Drafter proof, grouped SF Tech Week + happy hours, and used a private-performance caveat before the CoLab proof point. H0001 Google Task marked completed so future sweeps do not treat it as pending.
+
 ## [2026-05-25 22:59 ET] decision | agent-architecture-and-role-pods | Brian + Codex
 
 Brian supplied a 3-page agent architecture PDF. Distilled it into [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] and preserved the extracted page text in [[raw/2026-05-25-agent-architecture-pdf]]. Core model: KerriOS is the company brain; Brian/Kerri, Benji/CDO, and Ari/CFO pods interact with the world and write useful interaction data back to the brain. Every agent follows perceive -> propose -> approve/act -> record -> improve. Standard & Works remains outside the internal org chart because it is contract/partnership work with Zach, but the S&W Industrialist newsletter chain stays active as a Kerri-owned production automation with boundary rules.

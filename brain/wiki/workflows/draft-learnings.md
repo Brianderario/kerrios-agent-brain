@@ -15,6 +15,16 @@ Format:
 
 <!-- Lessons will be appended here by the sweep automation -->
 
+## [2026-05-25] Job H0001 — Aris Machina sent-version comparison
+
+**What changed:** Brian sent a version that kept Kerri's product-education frame and direct numbered answers, but made the prose more conversational and less like a formal memo. He removed the explicit package menu and did not quote fresh package pricing. He led with "best to discuss this all on a call" because the right mix depends on budget, target audience, and goals. He answered the three format questions directly, added a human terminology aside, used CoLab as the comparable sponsor with a private-performance caveat, then introduced custom content and happy-hour/SF-Tech-Week products as additional options.
+
+**Why:** The buyer was not ready for a package proposal. William and Sid first needed to understand what the products actually look like. Brian's final send educates and steers toward a call without prematurely locking scope, price, guarantees, or the three-package menu. It preserves the consultative posture: answer the question, show proof, broaden the product set, then build the package live.
+
+**Rule:** For warm sponsor threads where the buyer asks "what does this include?" and already has rough pricing, draft a **product-education reply**, not a proposal. Open with the call frame, answer their numbered questions in their order, include live examples, deconfuse terms plainly, use a comparable sponsor without revealing private performance, then introduce adjacent lead-gen products as "other products you may be interested in." Save package pricing and guarantees for the call or a later proposal unless Brian explicitly asks to include them.
+
+**Template:** Use [[hwfyi-sponsor-reply-templates]] § Product-education reply after sponsor asks "what does this actually include?"
+
 ## [2026-05-25] Job H0001 — Aris Machina
 
 **What changed:** Brian noted I should have his Calendly link in memory and inserted it himself in his guidance after my draft offered "a 15-min call" with no booking URL. Same link is referenced multiple times in [[../agents/kerri]] voice rules and recent log entries — it's already in the brain, I just didn't reach for it.
@@ -43,4 +53,3 @@ Format:
 **Rule:** Voice extraction has to be grounded in actual sends. Prior voice.md was speculative — derived from generalized "good email" advice, not from Brian's behavior. The new voice.md is observational, with the source corpus cited and example emails quoted verbatim. Refresh this rewrite quarterly or when Brian flags more than 3 drafts in a row for tone reasons.
 
 **Implication for sweeps:** Drafts that feel "too clean / too sterile / butler-toned" should be checked against this voice.md before sending. Especially: don't strip "I hope you're doing well" from re-engagement openers; don't strip "Happy to..." offer phrasing; don't replace `Brian` with `Best, Brian`.
-

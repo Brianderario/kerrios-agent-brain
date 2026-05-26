@@ -9,6 +9,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/multi-agent-write-rules]] — how team agents share the brain without stepping on each other
 - [[wiki/workflows/source-of-truth]] — what's canonical vs evidence vs chat
 - [[wiki/workflows/draft-learnings]] — accumulated lessons from Kerri's draft edits
+- [[wiki/workflows/hwfyi-sponsor-reply-templates]] — reusable Hardware FYI sponsor reply structures based on Brian's sent emails
 - [[wiki/workflows/mcp-tool-add-checklist]] — definition + handler discipline when extending MCP servers (born from the 2026-05-24 gtasks bug)
 - [[wiki/workflows/customer-id-protocol]] — universal per-customer jobId lookup; ALL automations + ad-hoc drafts run this before any company/jobId write
 

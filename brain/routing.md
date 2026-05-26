@@ -28,6 +28,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 - `wiki/workflows/<slug>.md`
 
+## "How should we reply to a sponsor asking what products include?"
+
+- [[wiki/workflows/hwfyi-sponsor-reply-templates]] — product-education reply shape based on Brian's H0001 Aris Machina send
+- [[wiki/workflows/draft-learnings]] — reusable Brian-edit lessons from task drafts
+- [[wiki/properties/hardware-fyi]] — current sponsor products, product-selection rules, and lead-gen positioning
+
 ## "What happened in meeting X?"
 
 - `wiki/meetings/<YYYY-MM-DD>-<slug>.md`
