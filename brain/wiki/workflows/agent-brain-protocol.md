@@ -29,6 +29,7 @@ The minimum read/write contract every team agent honors. Implements [[llm-wiki-p
 - **Source-link every non-obvious claim.** Use `(src: raw/<file>.md L<line>)` or `(src: meetings/<file>.md)`.
 - **No raw transcripts in the wiki.** Compact + source-linked. Raw bodies live in `raw/`.
 - **No chat-as-truth.** Slack/iMessage/email history is evidence, not canonical. Write it to the brain or it didn't happen.
+- **No double emails.** Before any email send, prove the thread/task has not already been sent, skipped, or handled. A second email on the same thread requires fresh explicit Brian approval for that second send.
 - **External sends, CRM mutations, pricing, legal commitments, finance decisions, refunds >$2,500, permission changes, identity changes:** Brian approval required (or per-domain owner — Ari for finance, Benji for digital).
 - **S/W partnership boundary:** S-prefix learnings, S/W internal financials, S/W staff comp, S/W content drafts go into `brain/.local/s-*.md` which is gitignored. Never enters the shared repo.
 

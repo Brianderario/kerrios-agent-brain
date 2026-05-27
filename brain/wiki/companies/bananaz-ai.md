@@ -7,7 +7,7 @@ slug: bananaz-ai
 
 # Bananaz.ai
 
-scope: sponsor · updated: 2026-05-25
+scope: sponsor · updated: 2026-05-26
 
 Kinetic 2026 sponsor. Israel-based (Or Israel, CEO, is the founder; ops in Tel Aviv per his +972 phone).
 
@@ -20,8 +20,7 @@ Kinetic 2026 sponsor. Israel-based (Or Israel, CEO, is the founder; ops in Tel A
 ## Status
 
 - Sponsor of Kinetic 2026 (per [[2026-05-24-kinetic-2026-sponsor-roster]] candidate).
-- **Outstanding:** Mercury invoice **INV-128** for **$3,750** — due 2026-05-15, now 10 days overdue as of 2026-05-25.
-- Their AR has tried bank transfer 3x; payments keep getting rejected. They're asking for either correct wire details or a credit-card payment option.
+- **Paid:** Mercury invoice **INV-128** for **$3,750** was paid by card on 2026-05-26. H0002's stale wire/card troubleshooting draft is skipped and must not be sent.
 
 ## Related
 

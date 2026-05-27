@@ -64,7 +64,7 @@ Avoid:
 1. Headline.
 2. Preview text beginning with `Plus:`.
 3. Short opener.
-4. `Markets`.
+4. `Markets`, in the stacked Beehiiv-safe format from `AMCA, SendCutSend, and The New Factory Middle`, with S&P 500 first.
 5. `The Lead`.
 6. Industry sections with one-sentence linked bullets.
 7. `Dealbook`.
@@ -79,6 +79,10 @@ For production issues:
 - include 40+ raw candidates when a full production run is requested
 - include links for every selected item
 - verify live news, markets, dates, funding rounds, contracts, policy moves, and company status
+
+## Markets Rule
+
+Always put S&P 500 at the top of the markets block. Use the Beehiiv-safe stacked market format from `AMCA, SendCutSend, and The New Factory Middle`, not a native table: `Markets` heading, then one paragraph per row with a blue linked market/security name, a line break, and a bold displayed price plus one green up arrow or red down arrow based on the displayed period's move. Do not add a date label, commentary, watch note, percentage move, or decorative wrapper. Refresh markets live before staging or sending, then choose the remaining rows for industrial relevance.
 
 ## Boundary
 

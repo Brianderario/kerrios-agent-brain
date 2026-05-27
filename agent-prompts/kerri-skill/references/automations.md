@@ -12,20 +12,22 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 
 **Loop requirement:** whenever Kerri schedules a task, builds an automation, rewrites an automation, or creates a recurring runner, the prompt must explicitly include the KerriOS loop from [[../../../brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods]]: perceive -> propose -> approve/act -> record -> improve. If the routine creates drafts, tasks, sends, CRM/source-of-truth updates, or deal/content state, it must say exactly what gets written back into KerriOS and where. No automation is complete if it only does the action and does not define the memory write-back.
 
+**2026-05-26 activation gate:** do not activate additional scheduled revenue agents until the first-day core automation audit passes after the 22:00 ET brain push and connector availability is verified. Cold outreach, lead research, and pipeline follow-up may run on demand; scheduled activation waits until Kerri proves the inbox sweep, morning brief, EOD review, and brain push can run without duplicate/noisy Tasks.
+
 ## 1. Morning Briefing
 
 **When:** 7am ET, M–F (`0 7 * * 1-5`)
-**Where it lands:** Slack DM to Brian
+**Where it lands:** HTML email from `kerri@hardwarefyi.com` to `brian@kerrihq.com`
 **Canonical prompt:** `agent-prompts/kerri-morning-brief/SKILL.md`
 **Model:** GPT-5.5 high
-**Loop:** today's meetings + yesterday's Chase alerts in `brian@kerrihq.com` Gmail + pending Google Tasks + optional Kerri's Read -> polished local HTML brief -> Slack pointer/summary -> state/grade write-back.
+**Loop:** today's meetings + yesterday's Chase alerts in `brian@kerrihq.com` Gmail + pending Google Tasks + optional Kerri's Read -> polished local HTML brief -> HTML email delivery to Brian's KerriHQ inbox -> state/grade write-back.
 **HTML artifact:** `output/morning-brief/<YYYY-MM-DD>.html` and `output/morning-brief/latest.html`
 
-## 2. 10-Minute Inbox Sweep (Primary Automation)
+## 2. 15-Minute Inbox Sweep (Primary Automation)
 
-**When:** Every 15 minutes via one active Codex automation: `kerri-inbox-sweep`. Model: GPT-5.5 high. The prompt self-silences when there is nothing to do.
+**When:** Every 15 minutes via one active Codex automation: `kerri-inbox-sweep`. Model: GPT-5.5 high. The prompt self-silences when there is nothing to do and must acquire `scripts/inbox-sweep-lock.mjs` before loading context, so overlapping runs exit silently instead of piling up.
 **Mailboxes:** kerri@hardwarefyi.com and brian@hardwarefyi.com (custom Hardware FYI email MCPs), brian@kerrihq.com (Gmail MCP, draft-only), brian@standardandworks.com (Superhuman MCP).
-**Approval channel:** Google Tasks — three lists Brian created (Hardware FYI / Standard & Works / Kerri MG). Each job becomes a task; checkbox = send; ACTION line in notes for skip/redo. Full flow lives at `agent-prompts/kerri-inbox-sweep/SKILL.md` — that file is the source of truth.
+**Approval channel:** Google Tasks — three lists Brian created (Hardware FYI / Standard & Works / Kerri MG). Each job becomes a task; checkbox = send; ACTION line in notes for skip/redo. When the sweep creates a new task, it sends Brian one brief Sendblue/text heads-up through `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`; if no task is created, it sends no text. This Sendblue adapter is separate from iMessage Handoff. Full flow lives at `agent-prompts/kerri-inbox-sweep/SKILL.md` — that file is the source of truth.
 **Data files:**
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/job-counters.json` — persistent H/S/G counters
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/jobs.json` — open job registry (dedup + state)
@@ -51,7 +53,7 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **Model:** GPT-5.5 high
 **Loop:** detect eligible brain/prompt changes -> validate safety/tests -> commit/push -> log -> hygiene grade.
 
-## 4. Weekly What Got Done
+## 4. Weekly What Got Done (prompt only)
 
 **When:** Fri 4pm ET (`0 16 * * 5`)
 
@@ -72,7 +74,7 @@ You are Kerri. Weekly "what got done" report.
 Tone: factual, numeric, terse.
 ```
 
-## 5. Daily Industry Brief
+## 5. Daily Industry Brief (not scheduled)
 
 **When:** TBD with Brian (suggested 6am ET, M–F)
 
@@ -88,7 +90,7 @@ You are Kerri. Daily industry brief for hardware / industrial base / advanced ma
 Tone: factual, bulleted, with a clear "why it matters" line per item.
 ```
 
-## 6. Monthly Partnership Research
+## 6. Monthly Partnership Research (prompt only)
 
 **When:** 1st of each month, 10am ET (`0 10 1 * *`)
 
@@ -110,5 +112,6 @@ You are Kerri. Monthly partnership research.
 
 - **Inbox Sweep (#2) = ACTIVE in Codex.** One active runner, `kerri-inbox-sweep`, runs every 15 minutes on GPT-5.5 high. Canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
 - **First parallel bundle = ACTIVE in Codex.** `kerri-eod-meetings-review`, `kerri-morning-brief`, and `kerri-brain-push` are rebuilt together on GPT-5.5 high.
+- **Revenue agents = ON DEMAND until core audit passes.** `kerri-cold-outreach`, `kerri-lead-research`, and `kerri-pipeline-followup` have prompts/state/context packs but should not be scheduled until the 2026-05-27 first-day audit confirms the core bundle is stable and the required connector/tool surface is available.
 - **All drafts route to Brian first.** No outbound to third parties without per-thread approval (see [[email.md]]).
 - **Material brain writes go through approval gates.** See [[brain.md]] mutation rules.

@@ -1,6 +1,6 @@
 # KMG Agent Registry
 
-scope: agent index · updated: 2026-05-25
+scope: agent index · updated: 2026-05-26
 
 Every active or planned team agent that reads/writes this brain. Source of truth for "who is Kerri / who is Ari's agent / etc."
 
@@ -44,12 +44,8 @@ These folders are ergonomic automation entrypoints, not canonical truth. Durable
 | `kerri-morning-brief` | 7:00am ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-morning-brief/SKILL.md` |
 | `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-brain-push` | 10:00pm ET, daily, Codex automation, GPT-5.5 high | `agent-prompts/kerri-brain-push/SKILL.md` |
-| `kerri-cold-outreach` | `7 9 * * 1` (Mon AM batch + on-demand) | `agent-prompts/kerri-cold-outreach/SKILL.md` |
-| `kerri-lead-research` | `13 18 * * 0` (Sun PM batch + on-demand) | `agent-prompts/kerri-lead-research/SKILL.md` |
-| `kerri-sw-newsletter-writer` | `7 20 * * 1,3` (Mon + Wed 8pm) | `agent-prompts/kerri-sw-newsletter-writer/SKILL.md` |
-| `kerri-sw-newsletter-editor` | `13 22 * * 1,3` (Mon + Wed 10pm, 2h after writer) | `agent-prompts/kerri-sw-newsletter-editor/SKILL.md` |
-| `kerri-sw-newsletter-marketing` | `17 14 * * 2,4` (Tue + Thu 2:17pm, after publish) | `agent-prompts/kerri-sw-newsletter-marketing/SKILL.md` |
-| `kerri-pipeline-followup` | `33 8 * * 2` (Tuesday 8:33am ET, weekly — scale up if active-deal count grows) | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
+
+2026-05-26 audit note: no active Codex automation records were found for cold outreach, lead research, the S&W newsletter chain, or pipeline follow-up. Follow-up decision: keep cold outreach, lead research, and pipeline follow-up on-demand until the first-day core automation audit passes after the 22:00 ET brain push and connector availability is verified. S&W newsletter chain remains task/local-draft driven until Brian/Zach confirm cadence.
 
 ## Sub-agent roadmap (under Kerri's identity)
 
@@ -57,14 +53,14 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 
 | # | Sub-agent | Status | Build order |
 |---|---|---|---|
-| 1 | Cold Outreach | **Active** (2026-05-24) | 1st |
-| 1b | Lead Research | **Active** (2026-05-24) — feeds Cold Outreach queue with multi-source enriched prospects (replaces what was scoped as "Partner Research") | shipped alongside #1 |
-| 2 | S&W Newsletter Writer | **Active** (2026-05-24) — Mon+Wed 8pm draft for Tue+Thu PM publish. Kerri owns the writing; Brian + Zach ingest suggestions via [SW]-tagged emails. | 2nd ✅ |
-| 2b | S&W Newsletter Editor | **Active** (2026-05-24) — Mon+Wed 10pm voice + anti-pattern + fact-check pass on the writer's draft | shipped alongside #2 |
-| 2c | S&W Newsletter Marketing | **Active** (2026-05-24) — Tue+Thu 2:17pm. Detects published issue, drafts Twitter thread + LinkedIn post + short blurb. Never auto-posts. | shipped alongside #2 |
-| 4 | Event Logistics | **Active** (2026-05-24) — on-demand. Venue/vendor research, inquiry drafting, RoS. Project-scoped per event. Seeded with stubs for sf-tech-week-2026, dc-maritime-defense-2026, kinetic-2027. | 3rd ✅ |
+| 1 | Cold Outreach | On-demand only until first-day core automation audit passes and tool availability is verified. Approval-gated; never sends without Brian. | 1st |
+| 1b | Lead Research | On-demand only until first-day core automation audit passes and tool availability is verified. Feeds Cold Outreach queue when invoked. | shipped alongside #1 |
+| 2 | S&W Newsletter Writer | Prompt/state exist; no active Codex automation found in 2026-05-26 audit. Current delivery is task/local-draft driven. | 2nd ✅ |
+| 2b | S&W Newsletter Editor | Prompt exists; no active Codex automation found in 2026-05-26 audit. | shipped alongside #2 |
+| 2c | S&W Newsletter Marketing | Prompt exists; no active Codex automation found in 2026-05-26 audit. Never auto-posts. | shipped alongside #2 |
+| 4 | Event Logistics | Active on demand. Venue/vendor research, inquiry drafting, RoS. Project-scoped per event. Seeded with stubs for sf-tech-week-2026, dc-maritime-defense-2026, kinetic-2027. | 3rd ✅ |
 | 3 | Inbound Sales Triage | Deferred (no inbound flow yet — Brian holds until volume justifies the playbook) | TBD |
-| 5 | Pipeline Follow-Up | **Active** (2026-05-24) — Tuesday 8:33am ET weekly nudge cron. Kinetic 2026 sponsor roster seeded as dormant deals. Conflict rule with inbox-sweep by last_sender. Approval-gated; never sends. Cadence weekly until active-deal volume justifies scaling up. | shipped |
+| 5 | Pipeline Follow-Up | On-demand only until first-day core automation audit passes. Kinetic 2026 sponsor roster intended as dormant deals. Approval-gated; never sends. | shipped |
 | ~~6~~ | ~~Partner Research~~ — folded into Lead Research above | — | superseded |
 
 ## Planned (not yet activated)

@@ -94,6 +94,11 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/decisions/2026-05-24-google-tasks-approval]] — Google Tasks approval mechanics
 - [[wiki/workflows/customer-id-protocol]] — company/jobId lookup before every logged company action
 
+## "How should Kerri or Codex suggest build improvements?"
+
+- [[wiki/workflows/google-tasks-improvement-suggestions]] — Kerri MG `💡 SUGGESTION:` task format, relevance gate, dedup rules, and Codex interactive redo provenance
+- [[wiki/decisions/2026-05-24-google-tasks-approval]] — Google Tasks approval mechanics
+
 ## "What daily automations are active after inbox sweep?"
 
 - [[wiki/decisions/2026-05-26-parallel-core-automation-bundle]] — Morning Brief, EOD Meetings Review, and Brain Push/Knowledge Hygiene

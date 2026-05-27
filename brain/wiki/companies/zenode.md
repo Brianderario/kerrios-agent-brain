@@ -7,7 +7,7 @@ slug: zenode
 
 # Zenode
 
-scope: HWFYI partner (re-engagement) · updated: 2026-05-25
+scope: HWFYI partner (re-engagement) · updated: 2026-05-26
 
 ## Primary contact
 
@@ -20,6 +20,7 @@ scope: HWFYI partner (re-engagement) · updated: 2026-05-25
 - Brandon asked for Brian's editorial feedback on a 3-part blog series (Component Search history / what AI can do today / future of AI in components).
 - Benji looped Brian in as head of Partnerships 2026-05-06.
 - Time was held post-2026-05-25; Brandon's 2026-05-25 17:32 ET reply confirms "10am tomorrow" (5/26).
+- 2026-05-26: Brandon said Zenode has grown to about 1,000 registered users and wants Hardware FYI help with content-led growth around Alts, API/AOI tooling, and electrical-engineering topics. Brian positioned custom content and partner-program/newsletter placements as the right next package and committed to send product/price options (src: meetings/2026-05-26-zenode-hardware-fyi.md).
 
 ## Threads
 

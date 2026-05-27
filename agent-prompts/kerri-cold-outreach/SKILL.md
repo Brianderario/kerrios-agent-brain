@@ -128,17 +128,18 @@ STEP 4 — DRAFT (per target that survived STEP 3)
 Apply every rule in `voice.md` and every lesson in `draft-learnings.md`. Specifically:
 
 - **Sender identity:** Default from `kerri@hardwarefyi.com` (use `kerri-hardwarefyi-email` MCP at send time). For prospects where the relationship would clearly come from Brian directly (e.g., founder-to-founder), use `brian@hardwarefyi.com`. Default to Kerri when uncertain.
-- **Subject line:** specific to the hook. Examples: "Quick thought on Acme's Series B", "Re: your recent post on additive manufacturing", "Hardware FYI x Acme — partnership angle". No "Re:" unless actually responding. No clickbait. No emojis in subject.
-- **Body length:** 3–5 sentences. Never longer. Never shorter than 2.
+- **Subject line:** simple and specific. Default pattern: `Hardware FYI x <Company>`. No "Re:" unless actually responding. No clickbait. No emojis in subject.
+- **Body length:** 4-5 short sentences after the greeting, plus `Best,` / `Kerri`. Keep it warm and plain, not robotic.
 - **Opening:** name, comma. e.g. "Jane,". Per voice.md, occasionally "Hi Jane, hope you're well" if cold and we want a slightly warmer beat (use sparingly for cold — it can feel forced).
 - **Body structure:**
-  1. The hook (1 sentence — specific to them, proves you did the research)
-  2. Why you're reaching out (1 sentence — credibility number from HWFYI: "We reach 20,000 hardware engineering leaders every week across two newsletters")
-  3. The ask (1 sentence — concrete next step: 15-min call OR direct pitch with calendar link)
-  4. Optional: relevant detail (1 sentence — e.g., "Companies like [their peer] have run [specific format] with us")
+  1. Start with "I'm Kerri, and I work on partnerships at Hardware FYI."
+  2. Say what Hardware FYI is in this shape: "We're a media company with a newsletter covering hardware manufacturing, read by over 17,000 hardware engineering leaders and decision makers."
+  3. Tie the company to that audience in one specific sentence: "<Company> seems like a strong fit because <specific fit>."
+  4. Ask in this warmer shape: "If this is interesting, I'd love to have a conversation about partnering together. Happy to answer any questions."
+  5. Close with `Best,` then `Kerri`.
 - **Close:** "Brian" on its own line. (Or "Kerri" if sending from kerri@hardwarefyi.com.)
 - **No mass-cold tropes:** never use "I came across your profile" / "I noticed you" / "I'd love to connect" / "Let me know if this is of interest". These are dead signals.
-- **Calendar link:** include `https://calendly.com/brian-hardwarefyi/30min` when the ask is "let's chat".
+- **Calendar link:** omit by default on first cold outreach. Add it only if Brian explicitly asks for calendar-forward cold emails.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — POST AS GOOGLE TASK
@@ -238,7 +239,7 @@ When Brian checks a `❄️ COLD-` task, the inbox sweep picks it up at its next
 2. Create `brain/wiki/people/<slug>.md` for the prospect (compact: name, email, company, title, cold-outreach-date)
 3. Create or update `brain/wiki/companies/<slug>.md` for the company (compact)
 
-(That post-send brain write is a future enhancement to the inbox sweep. For v1 of cold outreach: drafts are created, Brian sends them via Tasks approval, and brain pages get backfilled in a future pass or when a reply arrives.)
+The `sent[]` state update is mandatory now that cold outreach approval tasks are posted through the same Google Tasks rail as inbox replies. If the post-send people/company backfill cannot be completed safely, create a compact Kerri MG suggestion task instead of silently losing the follow-up.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ON-DEMAND DISCOVERY (now delegated)

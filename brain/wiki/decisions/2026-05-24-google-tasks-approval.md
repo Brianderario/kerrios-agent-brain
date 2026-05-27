@@ -1,6 +1,6 @@
 # Decision: Google Tasks as Inbox Sweep Approval Channel
 
-scope: decision · updated: 2026-05-24
+scope: decision · updated: 2026-05-26
 
 ## Decision
 
@@ -20,6 +20,8 @@ Switch the Kerri inbox sweep approval channel from a single Google Doc to **thre
 - Skip / redo = edit the ACTION line to `skip` or `redo`.
 - After send: title gets `✅ sent HH:MM ET` prefix; task marked completed.
 - Kerri's own workflow suggestions land in the Kerri MG list with `💡 SUGGESTION:` prefix (dedup'd, max 1/run).
+- Task-created attention alert: when the inbox sweep actually creates a new Google Task, Brian gets one very brief Sendblue/text heads-up. This is separate from iMessage Handoff and does not require handoff to be active. If the sweep creates no task, it sends no text.
+- Interactive Codex sessions use the same Kerri MG suggestion rail for build improvements, after checking current KerriOS relevance so Claude-era or retired-runner suggestions are not blindly carried forward. Full mechanics: [[../workflows/google-tasks-improvement-suggestions]].
 
 ## Bootstrap
 
@@ -30,9 +32,9 @@ Switch the Kerri inbox sweep approval channel from a single Google Doc to **thre
 - The approval Google Doc (`1KQHfRJ4c0bueOwCXlh69Uiqn3Uzv7lRivT_RkJ-tst0`) — no longer read or written.
 - Slack DM approvals — only used now for fail-closed error alerts.
 
-## Open
+## Resolved Setup Item
 
-- Brian must re-run OAuth for `kerri-gdocs` MCP to grant the `tasks` scope. Command: `cd ~/.kerri-chief/kerri-gdocs-mcp && node setup-auth.mjs`.
+- 2026-05-26 audit confirmed `gtasks_list_lists`, `gtasks_list_tasks`, `gtasks_create_task`, and `gtasks_update_task` work from Codex. No current OAuth-scope action is open.
 
 ## Related
 

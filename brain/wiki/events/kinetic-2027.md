@@ -32,4 +32,6 @@ scope: event · status: planning · updated: 2026-05-24 · seeded by: kerri-even
 See [[../candidates/2026-05-24-kinetic-2026-sponsor-roster]] — 23 sponsor companies + ~38 contacts confirmed for 2026. Renewal outreach is in flight via Brian's "THANK YOU - Kinetic 2026" thread.
 
 ## Log
+- 2026-05-26: Wendy Hom / Westin St. Francis followed up on the Marriott post-event survey for Kinetic 2026. Kerri registered Westin St. Francis as H0020 and queued an approval task asking Brian to complete the survey before sending the acknowledgment.
+- 2026-05-26: Phirum Men / Westin St. Francis sent a separate post-event thank-you and confirmed the Area GM survey remains open through June 2, 2026. Kerri updated H0020 instead of creating a duplicate task.
 - 2026-05-24: seeded; sponsor renewal pipeline active

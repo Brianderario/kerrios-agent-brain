@@ -8,13 +8,15 @@ The inbox sweep is the first rebuilt Codex automation and the primary world-inta
 
 It scans Brian/Kerri email surfaces, routes new human mail to the right company/job record, enriches only as much context as the thread requires, reads the full thread before drafting, creates Google Tasks for Brian approval, sends only after approval, records compact durable memory back into KerriOS, and self-grades its own performance.
 
+When it creates a new Google Task, it sends Brian a very brief Sendblue/text heads-up through the configured text path. This alert is one-way and independent of iMessage Handoff. If the sweep creates no new task, it sends no text.
+
 Canonical prompt: [[../../../agent-prompts/kerri-inbox-sweep/SKILL.md]]
 
 Live Codex automation record:
 
 - `kerri-inbox-sweep`
 
-Cadence: every 15 minutes. Model: GPT-5.5 high.
+Cadence: every 15 minutes. Model: GPT-5.5 high. The first action is an atomic local lock (`scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 90`); overlapping runs exit silently before loading context.
 
 ## Mailboxes
 

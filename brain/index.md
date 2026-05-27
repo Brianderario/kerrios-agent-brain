@@ -24,6 +24,9 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/people/ari-lewis]] — CFO, KMG
 - [[wiki/people/benji-chia]] — CDO, KMG
 - [[wiki/people/zach-silber]] — S/W counterpart (boundary)
+- [[wiki/people/brandon-bourn]] — Zenode contact for Hardware FYI partnership/content discussions
+- [[wiki/people/nehemoyia-young]] — Duro event/marketing contact
+- [[wiki/people/james-redd]] — Complement founder/CEO contact
 
 ## Properties
 
@@ -35,7 +38,9 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 ## Companies
 
 - [[wiki/companies/aris-machina]] — H0001 — HWFYI sponsor prospect (Protos campaign in flight)
+- [[wiki/companies/duro-labs]] — H0014 — HWFYI / Kinetic sponsor relationship (pricing thread queued)
 - [[wiki/companies/standard-and-works]] — S0001 — external 50/50 partnership (boundary applies)
+- [[wiki/companies/complement]] — H0022 — HWFYI sponsor prospect for manufacturing AI agent product-led trial
 
 ## Decisions
 
@@ -56,6 +61,8 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 ## Deals · Meetings · Candidates · Raw
 
 - `wiki/deals/` — open + closed deals (empty; populated as work happens)
-- `wiki/meetings/` — meeting recaps (empty; populated by EOD review)
+- [[wiki/meetings/2026-05-26-zenode-hardware-fyi]] — Zenode x Hardware FYI content-led partnership discussion
+- [[wiki/meetings/2026-05-26-nehemoyia-young-and-brian-derario]] — Duro post-Kinetic events/content planning
+- [[wiki/meetings/2026-05-26-james-redd-and-brian-derario]] — Complement partner-program trial discussion
 - `candidates/` — uncertain/conflicting claims pending review
 - `raw/` — append-only evidence
