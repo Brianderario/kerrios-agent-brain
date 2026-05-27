@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-26 22:04 ET] brain-push | 7456878 | Kerri
+
+Pushed the nightly KerriOS brain/prompt update: active automation guardrails, Google Tasks suggestion workflow, sponsor/company memory, three meeting recaps, and routed agent registry corrections.
+
 ## [2026-05-26 21:40 ET] inbox-sweep | H0023 created + daily grade | Kerri
 
 - H0023 / Modelwise: Florian Grigoleit replied to Benji's Hardware FYI intro with meeting options for a Modelwise / Hardware FYI partnership call. Kerri registered Modelwise as H0023, checked Brian's primary calendar for the offered windows, created Hardware FYI approval task `ZXdGYTNQbUFnY1gzT3hWZQ`, and wrote [[wiki/companies/modelwise]]. No email was sent.
