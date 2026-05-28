@@ -1,6 +1,6 @@
 # DC Maritime Defense 2026 (joint Standard & Works + HWFYI)
 
-scope: event · status: scoping · updated: 2026-05-24 · seeded by: kerri-event-logistics · **boundary: joint S/W + KMG event**
+scope: event · status: scoping · updated: 2026-05-27 · seeded by: kerri-event-logistics · **boundary: joint S/W + KMG event**
 
 - **Type:** Defense industry event (panels + reception)
 - **Theme:** Evolution of shipbuilding, autonomous maritime weapons, Navy-focused industrial base
@@ -36,4 +36,6 @@ scope: event · status: scoping · updated: 2026-05-24 · seeded by: kerri-event
 TBD
 
 ## Log
+- 2026-05-27: The Main dates now known from Esther Vera: Thu 10/01, Wed 10/07, Wed 10/21, and Thu 10/27. G0008 queued a Gmail-draft-only task to ask whether Oct. 7 can be held temporarily and what deposit/decision deadline applies.
+- 2026-05-27: Zach answered the Hampton Roads `NNS Update` thread that Brian has availability from The Main and should receive The Cavalier's availability today; next step is picking the date once both venue options are in. No Brian reply was needed in the sweep.
 - 2026-05-24: seeded from Brian's outbound to Gigi Schadrack (Dirac) describing the event

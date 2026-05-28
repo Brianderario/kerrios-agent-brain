@@ -31,9 +31,15 @@ That means:
 
 - fuller lead when the lead can carry a real industrial thesis
 - 5-6 strong sections when the candidate pool supports them
-- 3 one-sentence bullets per section by default
-- 4-6 Dealbook items when the funding tape supports it
+- 3-5 one-sentence bullets per active section when the issue window supports them
+- 6-10 Dealbook items when the funding, M&A, financing, facility, or contract tape supports it
 - internal source notes and claims-to-check preserved outside the reader-facing body
+
+Bottom-of-issue coverage should be fuller rather than sparse. Include every credible in-window story that fits Standard & Works, especially fundraises, M&A, facility/capacity moves, contracts, public financing, workforce programs, supply-chain infrastructure, and regional economic-development items. Omit only when the story is stale, off-topic, soft thought leadership, conference-only, earnings-only, consumer-only, or too weak for a serious industrial reader.
+
+TBPN-informed layer: Brian pointed to TBPN's `The New Situational Awareness 13F Is Here` as a useful model for pacing and shape. Do not copy TBPN's voice, but borrow the mechanics: a quick current-thing setup, a fuller lead that explains the discourse and operating implication, and a fast run of linked items underneath. For S&W, the lead should name what is weird, mispriced, misunderstood, or newly visible in an industrial story, then land on capacity, procurement, capital formation, supply chains, power, or buyer behavior.
+
+Default lead lens: economic development. The lead should usually pull the chosen story back to how a specific company, factory, contract, defense award, energy project, chip facility, data-center buildout, logistics project, or funding round is developing a named region. Look for jobs, local supplier formation, workforce pathways, facility reuse, capex, tax base, power, ports, training, infrastructure, and opportunity. The story should feel less random when it is tied to how a place is becoming more industrially capable.
 
 ## Brian-Approved May 26 Rule
 
@@ -48,6 +54,7 @@ Write like a sharp industrial editor, not a policy memo and not a press-release 
 Prefer:
 
 - concrete actors, dollars, facilities, contracts, dates, customers, locations
+- currency symbols for non-dollar amounts, such as `€17.5M`, instead of letter codes like `EUR17.5M`
 - plain verbs such as `raised`, `won`, `opened`, `selected`, `expanded`, `began`, `filed`
 - analysis that lands on production, procurement, supply chain, capital, power, or buyer behavior
 
@@ -80,9 +87,17 @@ For production issues:
 - include links for every selected item
 - verify live news, markets, dates, funding rounds, contracts, policy moves, and company status
 
+## Argument Soundness Gate
+
+Before staging or showing a Standard & Works issue, audit the lead thesis. Verify the factual spine and the economic-development spine against primary sources when possible, including jobs, facility location, capex, suppliers, workforce, infrastructure, public incentives, tax base, or regional opportunity. Use at least one credible context source for broader market or operating-model claims, separate supported facts from bounded inference and speculation, rewrite any inference stated as certainty, and save a compact argument audit in `research/argument-audit-YYYY-MM-DD.md` or the candidate pool. Do not stage a draft if the lead sounds clever but the sourcing does not support the mechanism.
+
 ## Markets Rule
 
 Always put S&P 500 at the top of the markets block. Use the Beehiiv-safe stacked market format from `AMCA, SendCutSend, and The New Factory Middle`, not a native table: `Markets` heading, then one paragraph per row with a blue linked market/security name, a line break, and a bold displayed price plus one green up arrow or red down arrow based on the displayed period's move. Do not add a date label, commentary, watch note, percentage move, or decorative wrapper. Refresh markets live before staging or sending, then choose the remaining rows for industrial relevance.
+
+## Beehiiv Draft Setup Rule
+
+Recurring S&W automation runs should create the review draft from Beehiiv's template library: Beehiiv -> Newsletter -> Template Library -> The Industrialist -> Use Template. Then replace the template title, preview/subtitle, and body with the current issue. Stage only the reader-facing body in Beehiiv; source notes, claims-to-check, handoff email, and LinkedIn copy stay in the local draft. Remove stale template body/image content unless Brian explicitly asks to keep it. Leave the post as an unscheduled synced draft for review.
 
 ## Boundary
 

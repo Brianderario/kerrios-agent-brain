@@ -14,9 +14,9 @@ Before reading any other KerriOS files, calling any MCP, or loading mailbox/task
 
 `node scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 90`
 
-If the command exits with code 2 / `reason: "busy"`, another sweep is already running. Stop immediately and silently: do not read more files, do not call email/Tasks/Slack, and do not post a status message. If the command exits nonzero for any other reason, fail closed and send the one Slack error alert described in STEP 7.
+If the command exits with code 2 / `reason: "busy"`, another sweep is already running. Stop immediately and silently: do not read more files, do not call email/Tasks/Slack, and do not post a status message. If the command exits nonzero for any other reason, fail closed and send the one Sendblue/text error alert described in STEP 7.
 
-Release the lock with `node scripts/inbox-sweep-lock.mjs release` after STEP 7 finishes, after any fail-closed Slack alert, or before any intentional early exit. The 90-minute TTL is only a crash fuse; it is not permission for overlapping sweeps.
+Release the lock with `node scripts/inbox-sweep-lock.mjs release` after STEP 7 finishes, after any fail-closed Sendblue/text alert, or before any intentional early exit. The 90-minute TTL is only a crash fuse; it is not permission for overlapping sweeps.
 
 Operating loop for this automation:
   1. Perceive live email + Google Tasks decisions.
@@ -34,8 +34,8 @@ REFERENCE — MAILBOXES & MCPs
 • brian@kerrihq.com → MCP: gmail / mcp__6ec88450 (search_threads, get_thread, create_draft — NO send_email; drafts only)
 • brian@standardandworks.com → MCP: superhuman / mcp__760b1f3b-fde4-493d-a586-7b3da09fcbe9 (list_threads, get_thread, get_message, create_or_update_draft, send_draft). This MCP is connected as brian@standardandworks.com directly (verified 2026-05-24 via query_email_and_calendar). The `from` field on create_or_update_draft can be omitted — defaults to that account.
 • Google Tasks + Docs → MCP: kerri-gdocs (gtasks_list_lists, gtasks_list_tasks, gtasks_get_task, gtasks_create_task, gtasks_update_task)
-• Sendblue/text alert path → brief one-way task-created notifications to Brian only; use `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`. This is separate from iMessage Handoff and does not require handoff to be active.
-• Slack (error alerts only) → MCP: mcp__735b06a1 (slack_send_message)
+• Sendblue/text alert path → brief one-way notifications to Brian for newly-created tasks and any automation output that needs Brian's attention; use `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`. This is separate from iMessage Handoff and does not require handoff to be active.
+• Slack (supporting error detail only) → MCP: mcp__735b06a1 (slack_send_message)
 
 APPROVAL CHANNEL: Google Tasks. Three lists Brian created:
   • Hardware FYI  → receives H#### jobs
@@ -109,6 +109,8 @@ JOB SCHEMA:
   "taskAlertedAt": null,        // ISO8601 once Brian has been texted about this newly-created task
   "superhumanThreadId": null,   // S-prefix jobs only: Superhuman's thread_id for the reply
   "superhumanMessageId": null,  // S-prefix jobs only: Superhuman's message_id of the message being replied to
+  "source": "kerri-inbox-sweep",
+  "routing": null,              // EOD/pipeline jobs may provide { existingChain, sendMode, threadId, latestMessageId, threadSubject }
   "createdAt": "ISO8601",
   "sentAt": null
 }
@@ -144,8 +146,8 @@ STEP 0 — RESOLVE TASK-LIST IDS
       • G: `kerrimg` / `kmg` / `kerrimediagroup`
       • Skip any list that doesn't match (Brian's personal "Person" list and any other lists are not in scope)
    c. Brian's actual list titles as of 2026-05-24: `HardwareFYI`, `Standard&Works`, `KerriMG`. These all normalize to the aliases above. If Brian renames a list, the matcher should still resolve as long as the normalized form contains the slug.
-   c. If any of H/S/G can't be matched, post a single Slack DM to U09TLEXF70V:
-        "⚠️ Sweep can't find Google Tasks list for [prefixes]. Need lists titled Hardware FYI / Standard & Works / Kerri MG."
+   c. If any of H/S/G can't be matched, send Brian one Sendblue/text heads-up:
+        "Kerri sweep error: can't find Google Tasks list for [prefixes]. No sends executed."
       Halt this sweep (do not send anything).
    d. Write the resolved map to `data/gtasks-lists.json` with `updatedAt = now`.
 
@@ -167,6 +169,7 @@ STEP 2 — PROCESS DECISIONS FROM GOOGLE TASKS
 
 For every task in the three lists, find the matching job in jobs.json by `gtasksTaskId`.
 Ignore Kerri's own suggestion tasks (title starts with `💡 `) — those have no job and need no action.
+If the task title starts with `🌙 EOD-` and no matching job exists in jobs.json, fail closed: do not send, update the task notes/title for routing repair, and log the process miss. EOD approval tasks are only sendable when the EOD runner wrote the matching jobs.json entry with thread routing metadata.
 If job is already status=sent or status=skipped, ignore.
 
 HARD NO-DOUBLE-EMAIL GATE:
@@ -188,10 +191,16 @@ A) status == "completed" (Brian checked the box) → SEND
        **What changed:** [describe the edit specifically]
        **Why (inferred):** [your best read on WHY Brian changed it]
        **Rule:** [concise actionable rule for future drafts]
+   - Existing-chain routing gate:
+     • If `job.source == "eod-meetings-review"` OR task notes `ROUTING` says `Existing chain: yes`, the send MUST stay on the stored chain. Use the connector's reply/thread-draft path only. Never fall back to a fresh `send_email` with the same subject.
+     • For HWFYI/Kerri Graph mailboxes, require `routing.latestMessageId`, `routing.threadId`, or at least one live `internetMessageIds[]` value that can be re-read into a connector message. Re-read the stored thread, then call `reply_email` against the latest eligible message/thread.
+     • For Gmail, create a draft in the existing Gmail thread when the connector supports thread/conversation id. If it cannot create a threaded draft, update the task to routing review and send nothing.
+     • For Superhuman, require `superhumanThreadId` and `superhumanMessageId`, re-read the thread, then use `create_or_update_draft({ type: "reply", thread_id, message_id, ... })`.
+     • If the stored route is missing, ambiguous, stale, or the live latest message shows Brian/Kerri already handled it, send nothing. Update the task to `ACTION: redo`, prefix title with `⚠️ route needed — `, and explain that Brian wants this kept on the existing email chain.
    - Send mechanics by mailbox:
-     • kerri@hardwarefyi.com threads → kerri-hardwarefyi-email send_email/reply_email (approved=true, approvalSource as above)
-     • brian@hardwarefyi.com threads → brian-hardwarefyi-email (same)
-     • brian@kerrihq.com threads → gmail create_draft only (note in task that Brian must hit send), UNLESS the ACTION line says "send from kerri" — then send from kerri-hardwarefyi-email
+     • kerri@hardwarefyi.com threads → kerri-hardwarefyi-email reply_email when an existing chain is known; send_email only for jobs whose routing explicitly says `existingChain: false` / `Send mode: new-message` and whose thread search found no verified chain (approved=true, approvalSource as above).
+     • brian@hardwarefyi.com threads → brian-hardwarefyi-email with the same reply-first rule.
+     • brian@kerrihq.com threads → gmail create_draft only (threaded draft when routing metadata exists; note in task that Brian must hit send), UNLESS the ACTION line says "send from kerri" — then send from kerri-hardwarefyi-email only when routing explicitly permits a new Kerri send.
      • brian@standardandworks.com threads (S-prefix) → Superhuman MCP. Two calls:
          1. create_or_update_draft({ type: "reply", thread_id, message_id: <latest in thread>, body: <HTML — convert plain-text newlines to <br>, wrap in <div>> }) → capture draft_id. (`from` is implicit — the MCP is the S/W account.)
          2. send_draft({ draft_id }) — accept default 1-min undo window
@@ -358,6 +367,14 @@ SEND THE TASK-CREATED TEXT ALERT:
     • Record `taskAlertedAt = now` on the job immediately after the alert succeeds. If the Sendblue/text path is unavailable, do not fall back to Slack and do not retry in a way that could spam Brian; leave `taskAlertedAt = null`, record the miss in the run grade, and continue preserving the Google Task as the source of truth.
     • Never include raw email bodies, private S/W internal details, pricing/legal/finance detail, or the full draft in the text. The text is only a heads-up that a task exists.
 
+BRIAN ATTENTION OUTPUTS:
+  Any other automation output that requires Brian's attention — approval needed, decision needed, blocker, failed coverage, missing permission, routing repair, or a concrete improvement task — must use the same Sendblue/text path for the short heads-up. The source of truth remains Google Tasks, the local ledger, or the written output file; the text only says what needs attention and where to look.
+
+  Text format, one short line:
+    `Kerri needs your attention: <short issue>. Check <Tasks|brief|run log>.`
+
+  Do not send Slack or iMessage as the primary Brian attention channel. Slack remains for supporting error detail only when a prompt explicitly requires it, and iMessage Handoff remains interactive-only.
+
 Gmail (brian@kerrihq.com) note: in the "What I need you to do" line write:
   "This is a brian@kerrihq.com thread. Default action will create a Gmail draft for you to send manually. Add 'send from kerri' anywhere in the notes if you want Kerri to send from kerri@ instead."
 
@@ -461,27 +478,41 @@ Weekly grade (Friday first sweep after 16:00 ET, or next available run):
   6. Store the weekly grade in `weekly[]` and set `lastWeeklyGradeAt`.
 
 Quality bar:
-  - A run with a send that bypassed approval, wrong sender identity, wrong thread, or copied S/W internal content into shared brain gets score 0 for Approval safety and must Slack-alert Brian.
+  - A run with a send that bypassed approval, wrong sender identity, wrong thread, or copied S/W internal content into shared brain gets score 0 for Approval safety and must send Brian one Sendblue/text heads-up.
   - A run that cannot read Google Tasks must send nothing and record `fail_closed`.
   - A no-op run can still score high if coverage, state, and silence were correct.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 7 — SILENT IF QUIET
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-If no new emails found AND no new Google Tasks created AND no actionable approvals in any task list AND no suggestion worth adding AND the self-grade found no alert-worthy issue: post NOTHING anywhere. Stay quiet.
+If no new emails found AND no new Google Tasks created AND no actionable approvals in any task list AND no suggestion worth adding AND the self-grade found no alert-worthy issue: do not send texts, Slack messages, emails, Google Tasks, or any other Brian-facing alert. Still continue to STEP 8 and emit the required closing directives so the automation chat can archive. In other words, "quiet" means no external attention channel, not "omit the final archive cleanup."
 
-Texting rule: Sendblue/text alerts are task-created alerts only. If the sweep did not add a Google Task, do not text Brian.
+Texting rule: Sendblue/text alerts are the Brian attention path. If the sweep did not add a Google Task and did not hit a decision, blocker, error, or other concrete Brian action, do not text Brian.
 
-Errors only: if any mailbox, the Tasks API, or a data file is unreachable, send ONE brief Slack DM to U09TLEXF70V:
-  "⚠️ Sweep error [time]: [what failed]. No sends executed."
+Errors only: if any mailbox, the Tasks API, or a data file is unreachable, send ONE brief Sendblue/text heads-up:
+  "Kerri sweep error [time]: [what failed]. No sends executed."
 Do NOT send any emails if you cannot read the task lists first — fail closed.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 8 — ARCHIVE AUTOMATION CHAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The inbox sweep's durable surfaces are Google Tasks, `data/jobs.json`, `data/inbox-sweep-state.json`, `data/inbox-sweep-grades.json`, KerriOS brain/log updates, mailbox sends/drafts, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete and the lock is released, archive the automation chat so Brian does not accumulate notification-only automation threads.
+
+Codex scheduled runs currently require exactly one `::inbox-item{...}` directive. Satisfy both the required inbox item and Brian's auto-archive preference by ending with exactly two raw directive lines:
+
+1. One `::inbox-item{...}` directive.
+2. `::archive{reason="Durable inbox sweep output already written outside this chat"}`
+
+Do not wrap either directive in backticks or a code block. Do not write anything after the archive directive.
+
+Do not auto-archive only if the chat itself is the only deliverable, Brian explicitly needs to continue in this automation chat, or the run is blocked before it can write durable state/fallback or send the required alert. If the sweep exits early because the lock is busy, stay silent as directed in STEP -1 because that path intentionally creates no run output.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SESSION NOTES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-• kerri-gdocs MCP runs OAuth as Brian (kerrihq-alfred project). Scopes: docs, drive.file, tasks. If `gtasks_*` calls return 403/insufficient scope, surface a Slack alert and halt — Brian must re-run `~/.kerri-chief/kerri-gdocs-mcp/setup-auth.mjs`.
+  • kerri-gdocs MCP runs OAuth as Brian (kerrihq-alfred project). Scopes: docs, drive.file, tasks. If `gtasks_*` calls return 403/insufficient scope, send Brian one Sendblue/text heads-up and halt — Brian must re-run `~/.kerri-chief/kerri-gdocs-mcp/setup-auth.mjs`.
 • kerri-hardwarefyi-email and brian-hardwarefyi-email run in approved_external mode: every send REQUIRES approved=true + approvalSource.
 • Never cross the S/W boundary: S-prefix jobs are coordination only; never include S&W internal financials or content in the brain.
 • S/W partnership is 50/50 net rev; Zach Silber is the S/W contact.
-• Slack DM U09TLEXF70V is reserved for fail-closed error alerts only.
+• Slack DM U09TLEXF70V is reserved for supporting fail-closed error detail only when a short Sendblue/text heads-up is not enough.
 • Retired approval channel: the Google Doc `1KQHfRJ4c0bueOwCXlh69Uiqn3Uzv7lRivT_RkJ-tst0` ("Kerri Inbox Sweep") is NO LONGER USED. Do not read it, do not append to it.

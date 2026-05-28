@@ -50,9 +50,10 @@ The Granola cloud MCP is connected at `https://mcp.granola.ai/mcp`. The exact to
 - Canonical voice file: `agent-prompts/kerri-skill/references/voice.md` (read at start; apply every rule)
 - Accumulated lessons: `brain/wiki/workflows/draft-learnings.md` (read at start)
 
-**Slack (digest):**
+**Sendblue notifications:**
+- Brian attention heads-up: `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`
 - Brian DM channel: U09TLEXF70V
-- Use the connected Slack tool discovered in the run. Slack is for the Brian digest and errors only.
+- Use Sendblue for the short Brian-facing heads-up whenever EOD creates follow-up/manual-recap tasks, needs a decision, or hits a blocker. Slack is only for supporting error detail when text succeeds but the error needs more context than a short heads-up can carry; it is not the primary Brian attention channel.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DATA FILES
@@ -60,6 +61,7 @@ DATA FILES
 
 Read + write:
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/gtasks-lists.json` — list-ID map for H/S/G (bootstrap if missing per inbox sweep's STEP 0)
+- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/jobs.json` — approval/send queue shared with the inbox sweep. Every EOD draft task MUST append a matching pending job entry so the approved send path has thread routing metadata.
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/eod-state.json` — per-day idempotency state. Schema:
   ```
   { "<YYYY-MM-DD>": { "meetingsProcessed": ["<calendar event id>", ...], "tasksCreated": ["<google task id>", ...], "lastRunAt": "ISO8601" } }
@@ -86,9 +88,10 @@ STEP 2 — LOAD STATE + REFERENCES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. Read `data/eod-state.json` for today's entry. If present, hold `meetingsProcessed` and `tasksCreated` arrays — they're the dedup keys.
-2. Read `data/gtasks-lists.json`. If missing or incomplete, bootstrap per inbox-sweep STEP 0 (`gtasks_list_lists`, match titles, write the map). If you can't resolve all 3 lists, Slack-alert Brian and halt.
-3. Read `draft-learnings.md` and `voice.md` fully.
-4. Read:
+2. Read `data/jobs.json`. Hold all pending/sent/skipped jobs in memory so EOD does not create a duplicate approval task for a thread or company already waiting on Brian.
+3. Read `data/gtasks-lists.json`. If missing or incomplete, bootstrap per inbox-sweep STEP 0 (`gtasks_list_lists`, match titles, write the map). If you can't resolve all 3 lists, send Brian one Sendblue/text heads-up and halt.
+4. Read `draft-learnings.md` and `voice.md` fully.
+5. Read:
    - `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/00-shared-context/README.md`
    - `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/01-brian-kerri-agent/subagents/eod-meetings-review/README.md`
    - `brain/wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder.md`
@@ -205,13 +208,25 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
   - S/W counterparty → from brian@standardandworks.com (Superhuman MCP)
   - Internal team → from brian@hardwarefyi.com (most common)
 - Pull the recipient's email from the calendar attendee list.
+- **Revenue/sponsor context merge is mandatory before drafting.** If the meeting involves a Hardware FYI sponsor, advertiser, partner, event sponsor, paid media buyer, or sales prospect, do not draft from today's transcript alone. Before writing copy:
+  - Read the counterparty company page plus the 1-3 most relevant person pages.
+  - Search meeting memory for the same company and same non-Brian attendees from the last 30 days, especially sales/catalog/budget/timing calls.
+  - Search sent mail for Brian's most recent message to the company/contact and for any promised catalog, package rundown, pricing, event, or content example.
+  - Merge the current meeting with that prior context into a one-line recommendation thesis before drafting.
+  - If the prior context changes the action from "soft follow-up" to "commercial recommendation," the draft must name the concrete product surfaces, proof points, sequence, and next decision. Do not collapse it to "let's compare notes" or a vague "we can put together options."
+  - If prior context cannot be checked, fail closed to `ACTION: redo` with `CONTEXT REVIEW REQUIRED`; list the missing searches rather than creating a weak send-ready draft.
+- **Existing-chain routing is mandatory before drafting.** Brian's preference is to keep client communication on one email chain. Before writing the draft, search the chosen sender mailbox for the counterparty/company plus likely subject terms from the calendar title, transcript, and company page. Read the best matching full thread oldest-to-newest.
+  - If Brian/Kerri/Benji was already emailing the client about this matter, the EOD draft MUST be a reply on that exact chain. Preserve the existing `Re:` subject and capture the mailbox's thread identifiers in the task and `jobs.json`.
+  - If multiple plausible chains exist, do not guess. Create the Google Task with `ACTION: redo`, put `ROUTING REVIEW REQUIRED` in the routing block, list the candidate subjects/participants, and do not mark it send-ready until Brian or a later sweep chooses the chain.
+  - If no existing chain is found after a real search, state `Existing chain: no verified chain found` in the routing block. New-message routing is allowed only when the search found no prior chain and the meeting context does not imply one.
+  - If the mailbox/thread lookup is unavailable, fail closed: create no send-ready draft. Instead create a Kerri MG task titled `⚠️ ROUTE THREAD: <Counterparty> — <Meeting title>` with the meeting summary and ask Brian to identify the chain.
 - Lead with the most concrete commitment (the deliverable, the date, or the answer).
 - Match length to relationship temperature (see voice.md table).
 - Sign off `Brian` on its own line.
 
 **E) Post the draft as a Google Task in the matching list:**
 
-This is mandatory for every proposed meeting follow-up. Do not leave proposed drafts only in Slack, local files, candidate notes, or the digest. If Google Tasks is down, write the full draft packet to `data/eod-fallback-<YYYY-MM-DD>.json` and Slack-alert Brian that approval packets could not be posted.
+This is mandatory for every proposed meeting follow-up. Do not leave proposed drafts only in Slack, local files, candidate notes, or the digest. If Google Tasks is down, write the full draft packet to `data/eod-fallback-<YYYY-MM-DD>.json` and send Brian one Sendblue/text heads-up that approval packets could not be posted.
 
 Determine the list per counterparty:
 - HWFYI advertiser/partner/contact → "Hardware FYI" list (H prefix)
@@ -234,9 +249,17 @@ Use `gtasks_create_task`:
   ━━━ WHY YOU'RE SENDING THIS ━━━
   <one-line trigger: e.g. "you committed to send the sponsor menu by Friday">
 
+  ━━━ ROUTING ━━━
+  Existing chain: <yes — reply in existing chain | no verified chain found | ROUTING REVIEW REQUIRED>
+  Mailbox: <kerri@hardwarefyi.com | brian@hardwarefyi.com | brian@kerrihq.com | brian@standardandworks.com>
+  Send mode: <reply | new-message | gmail-draft-only | review-required>
+  Thread subject: <existing subject, or proposed new subject>
+  Thread IDs: <mailbox thread/conversation id, latest message id, and/or internetMessageIds captured from the connector; "none" only when no verified chain exists>
+  Routing note: <one line explaining why this is the right chain, or what Brian must choose>
+
   ━━━ DRAFT ━━━
   To: <recipient email>
-  Subject: <subject line — usually "Following up on <meeting topic>" or threaded reply if applicable>
+  Subject: <existing `Re:` subject when replying, otherwise a new subject only if no verified chain exists>
   From: <Kerri / Brian — and which mailbox>
 
   >>>>>>>
@@ -247,6 +270,48 @@ Use `gtasks_create_task`:
 
 Record the returned task ID in today's `eod-state.json` under `tasksCreated`.
 
+**F) Append the EOD draft to `data/jobs.json` immediately after task creation.**
+
+This is what lets the inbox sweep process Brian's checked task safely. Use the stable company `jobId` resolved through the customer-id protocol; do not use the day's `EOD-H01` counter as the customer jobId. If the company is genuinely new, register it through `data/companies.json` before writing the job.
+
+Append:
+```
+{
+  "jobId": "<stable customer jobId, e.g. H0022>",
+  "prefix": "<H | S | G>",
+  "company": "<counterparty company>",
+  "domain": "<counterparty domain if known>",
+  "subject": "<existing Re: subject, or proposed new subject only if no verified chain exists>",
+  "receivedAt": "<meeting end ISO8601>",
+  "mailbox": "<sender mailbox>",
+  "internetMessageIds": ["<all connector message ids/internet ids for the existing chain, newest included>"],
+  "status": "pending",
+  "sendFrom": "<sender mailbox>",
+  "replyTo": "<primary recipient email>",
+  "originalDraft": "<full draft body>",
+  "gtasksListKey": "<H | S | G>",
+  "gtasksTaskId": "<returned from gtasks_create_task>",
+  "superhumanThreadId": "<thread id for S-prefix replies, else null>",
+  "superhumanMessageId": "<latest message id for S-prefix replies, else null>",
+  "createdAt": "<now ISO8601>",
+  "sentAt": null,
+  "source": "eod-meetings-review",
+  "eodTaskCode": "EOD-<prefix><NN>",
+  "calendarEventId": "<meeting.id>",
+  "meetingPage": "brain/wiki/meetings/<YYYY-MM-DD>-<slug>.md",
+  "routing": {
+    "existingChain": <true | false>,
+    "sendMode": "<reply | new-message | gmail-draft-only | review-required>",
+    "threadSubject": "<subject>",
+    "threadId": "<connector thread/conversation id or null>",
+    "latestMessageId": "<connector latest message id or null>",
+    "routingNote": "<same one-line note from the task>"
+  }
+}
+```
+
+If `routing.existingChain` is true, `threadId` or `latestMessageId` must be non-null. If you cannot store enough metadata to reply on the chain, change the task to `ACTION: redo` / `Send mode: review-required` instead of appending a send-ready job.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5B — TRANSCRIPT PENDING (recent meeting still processing)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -255,7 +320,7 @@ For each meeting where Granola hasn't finished processing yet:
 
 - Do NOT write a meeting page (wait for the transcript).
 - Do NOT mark this meeting as processed in `eod-state.json` (tomorrow morning's first run should retry).
-- Post ONE summary line to the Slack digest (STEP 7): "<title> @ <time> — transcript processing, will retry tomorrow."
+- Add ONE summary line to the run digest (STEP 7): "<title> @ <time> — transcript processing, will retry tomorrow."
 - Skip task creation.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -306,10 +371,18 @@ Write the updated `data/eod-state.json` back to disk. Schema again:
 Prune entries older than 14 days from this file.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-STEP 7 — SLACK DIGEST
+STEP 7 — RUN DIGEST
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Compose ONE concise Slack DM to Brian (U09TLEXF70V). Format:
+When there are drafts, no-transcript manual-recap tasks, pending transcript retries, or a blocker that needs Brian's attention, send ONE concise Sendblue/text heads-up to Brian. Keep it under 320 characters and point him to Google Tasks or the local EOD output, not Slack.
+
+Text format:
+
+```text
+Kerri EOD needs attention: <draft count> draft task(s), <no-transcript count> recap task(s), <pending count> pending. Check Google Tasks.
+```
+
+Write the full digest into the run log / EOD state notes in this format for auditability:
 
 ```
 🌙 EOD <YYYY-MM-DD> · <N> meetings reviewed
@@ -331,7 +404,7 @@ Compose ONE concise Slack DM to Brian (U09TLEXF70V). Format:
 Check Google Tasks lists to approve / edit / skip.
 ```
 
-If everything was zero across the board (no meetings today): post nothing. Stay quiet.
+If everything was zero across the board (no meetings today): send no Brian-facing text, Slack, email, or task. Still continue through log/state/self-grade as applicable and finish with the required closing directives so the automation chat can archive.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 8 — APPEND BRAIN LOG
@@ -375,13 +448,28 @@ Also record:
 If transcript-missing rate is high for 3 runs, or follow-up drafts are repeatedly skipped/redone by Brian, create one deduped Kerri MG `💡 SUGGESTION:` task with the observed pattern and proposed fix.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 10 — ARCHIVE AUTOMATION CHAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The EOD review's durable surfaces are Google Tasks, `data/jobs.json`, `data/eod-state.json`, `data/eod-grades.json`, KerriOS meeting/entity memory, `brain/log.md`, fallback files, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
+
+Codex scheduled runs currently require exactly one `::inbox-item{...}` directive. Satisfy both the required inbox item and Brian's auto-archive preference by ending with exactly two raw directive lines:
+
+1. One `::inbox-item{...}` directive.
+2. `::archive{reason="Durable EOD review output already written outside this chat"}`
+
+Do not wrap either directive in backticks or a code block. Do not write anything after the archive directive.
+
+Do not auto-archive only if the chat itself is the only deliverable, Brian explicitly needs to continue in this automation chat, or the run is blocked before it can write durable state/fallback or send the required alert.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ERROR HANDLING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-- If both calendar sources fail → Slack-alert "EOD error: no calendar reachable" and halt.
+- If both calendar sources fail → send Brian one Sendblue/text heads-up: "Kerri EOD error: no calendar reachable. No tasks created." Then halt.
 - If Granola is reachable but returns 0 meetings for today → proceed; ALL meetings hit STEP 5C path (legit if Granola was off).
-- If Google Tasks API fails → write everything to a fallback file `data/eod-fallback-<YYYY-MM-DD>.json` and Slack-alert.
-- If the brain wiki write fails → don't roll back the Google Tasks; flag in Slack but proceed (drafts are more time-sensitive than wiki).
+- If Google Tasks API fails → write everything to a fallback file `data/eod-fallback-<YYYY-MM-DD>.json` and send Brian one Sendblue/text heads-up.
+- If the brain wiki write fails → don't roll back the Google Tasks; record the failure in the run log and send a Sendblue/text heads-up if Brian action is needed.
 - Never send emails directly. Drafts ONLY go to Google Tasks. Inbox sweep picks up checked tasks and executes sends per its approval flow.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

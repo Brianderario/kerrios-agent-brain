@@ -19,6 +19,7 @@ Cohen & Ostler is external counsel for Shah Capital Ventures in the Project Spru
 
 ## Recent Activity
 
+- 2026-05-26: Brian completed the G0003 Google Task with `ACTION: skip`. Kerri marked the stale Project Spruce Gmail-draft job skipped; no Gmail draft was created and no reply was sent.
 - 2026-05-26: Mihir replied that he did a wire for formality, paid the minimum wire allowed, and congratulated everyone. David replied "Thanks." Kerri updated the existing `🆕 G0003` approval task again and kept the stale draft blocked for edit/redo; no email was sent.
 - 2026-05-26: David sent the three fully signed Project Spruce agreements, said Mihir will Venmo $2 to Brian/Ari, and asked Brian/Ari to confirm when the $500K wire has been initiated. Kerri updated the existing `🆕 G0003` approval task again and kept the stale draft blocked for edit/redo; no email was sent.
 - 2026-05-26: David said he sent Docusign to Brian, Mihir, and Benji for the SPA, CSPA, and A&R Shareholder Agreement; attached SCV-side signed documents to hold in escrow pending closing; and asked wires to start once Docusigns are complete. Kerri updated the existing `🆕 G0003` approval task again and kept the stale draft blocked for edit/redo; no email was sent.

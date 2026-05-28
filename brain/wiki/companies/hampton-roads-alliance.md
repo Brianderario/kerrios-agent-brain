@@ -7,7 +7,7 @@ slug: hampton-roads-alliance
 
 # Hampton Roads Alliance
 
-scope: economic development / event partner · updated: 2026-05-26
+scope: economic development / event partner · updated: 2026-05-27
 
 ## Context
 
@@ -20,6 +20,8 @@ Hampton Roads Alliance is a regional economic development organization for Hampt
 
 ## Recent Activity
 
+- 2026-05-27: Zach replied on the `NNS Update` Gmail thread that the Hampton Roads plan sounds strong, Brian has availability from The Main, and The Cavalier's availability should arrive today; once venue dates are in, Brian/Zach can pick a date and proceed. No reply task was created because Zach already answered the group and promised to follow up shortly.
+- 2026-05-27: Brian completed the G0004 Google Task with `ACTION: skip`. Kerri marked the stale Gmail-draft job skipped and did not create a Gmail draft or reply.
 - 2026-05-26: Doug reported that Newport News Shipbuilding is interested in aligning its planned October 20-21 Industry Day with the Ironclad Summit, that the core planning group is expanding, and that maritime/defense speaker leads are being tested. Kerri queued G0004 as a Gmail-draft-only approval task for Brian.
 - 2026-05-07: Intro call with Brian, Zach, Jared, and Doug. HRA shared an early summit concept, target size, and stakeholder/speaker access.
 

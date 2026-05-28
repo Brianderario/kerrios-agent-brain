@@ -18,6 +18,12 @@ The umbrella entity for all owned KMG media properties. Renamed from KerriHQ Inc
 
 - `G####` — general KMG ops (vendors, legal, finance, cross-property)
 
+## Recent Ops Notes
+
+- 2026-05-27: Ari Lewis sent Brian a finance/admin worklist for KMG and
+  Hardware FYI. Kerri routed the thread as G0006 to the Kerri MG Google Tasks
+  approval rail with a Gmail draft-only reply; no email was sent.
+
 ## Approval list (Google Tasks)
 
 - "Kerri MG"

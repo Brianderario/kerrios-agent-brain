@@ -12,6 +12,8 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 
 **Loop requirement:** whenever Kerri schedules a task, builds an automation, rewrites an automation, or creates a recurring runner, the prompt must explicitly include the KerriOS loop from [[../../../brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods]]: perceive -> propose -> approve/act -> record -> improve. If the routine creates drafts, tasks, sends, CRM/source-of-truth updates, or deal/content state, it must say exactly what gets written back into KerriOS and where. No automation is complete if it only does the action and does not define the memory write-back.
 
+**Automation chat archive policy:** scheduled Codex automations are not Brian's operating surface. Their durable output must land in the external surface named by the prompt: Google Tasks, Sendblue/text, email, HTML artifact, repo log, run ledger, CRM/source-of-truth note, or KerriOS state. Codex scheduled runs currently inject a higher-priority requirement to return exactly one `::inbox-item{...}` directive, so the archive rule must satisfy both directives: end with exactly one required inbox-item directive, then a raw `::archive{reason="Durable automation output already written outside this chat"}` directive on the next line as the final line. Do this even for no-op/quiet runs that sent no external alert. Do not wrap either directive in backticks or a code block, and do not write anything after the archive directive. Do not auto-archive only when the chat itself is the only deliverable, Brian explicitly needs to continue inside that automation chat, or the run is blocked before it can write any durable state or alert.
+
 **2026-05-26 activation gate:** do not activate additional scheduled revenue agents until the first-day core automation audit passes after the 22:00 ET brain push and connector availability is verified. Cold outreach, lead research, and pipeline follow-up may run on demand; scheduled activation waits until Kerri proves the inbox sweep, morning brief, EOD review, and brain push can run without duplicate/noisy Tasks.
 
 ## 1. Morning Briefing
@@ -20,14 +22,14 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **Where it lands:** HTML email from `kerri@hardwarefyi.com` to `brian@kerrihq.com`
 **Canonical prompt:** `agent-prompts/kerri-morning-brief/SKILL.md`
 **Model:** GPT-5.5 high
-**Loop:** today's meetings + yesterday's Chase alerts in `brian@kerrihq.com` Gmail + pending Google Tasks + optional Kerri's Read -> polished local HTML brief -> HTML email delivery to Brian's KerriHQ inbox -> state/grade write-back.
+**Loop:** today's meetings + yesterday's Chase alerts in `brian@kerrihq.com` Gmail + pending Google Tasks + optional Kerri's Read -> polished local HTML brief -> HTML email delivery to Brian's KerriHQ inbox -> Sendblue heads-up only when the brief needs Brian attention -> state/grade write-back -> auto-archive the automation chat.
 **HTML artifact:** `output/morning-brief/<YYYY-MM-DD>.html` and `output/morning-brief/latest.html`
 
 ## 2. 15-Minute Inbox Sweep (Primary Automation)
 
-**When:** Every 15 minutes via one active Codex automation: `kerri-inbox-sweep`. Model: GPT-5.5 high. The prompt self-silences when there is nothing to do and must acquire `scripts/inbox-sweep-lock.mjs` before loading context, so overlapping runs exit silently instead of piling up.
+**When:** Every 15 minutes via one active Codex automation: `kerri-inbox-sweep`. Model: GPT-5.5 high. The prompt sends no Brian-facing text/email/Slack noise when there is nothing to do, but still emits the required closing directives so the automation chat can archive. It must acquire `scripts/inbox-sweep-lock.mjs` before loading context, so overlapping runs exit silently instead of piling up.
 **Mailboxes:** kerri@hardwarefyi.com and brian@hardwarefyi.com (custom Hardware FYI email MCPs), brian@kerrihq.com (Gmail MCP, draft-only), brian@standardandworks.com (Superhuman MCP).
-**Approval channel:** Google Tasks — three lists Brian created (Hardware FYI / Standard & Works / Kerri MG). Each job becomes a task; checkbox = send; ACTION line in notes for skip/redo. When the sweep creates a new task, it sends Brian one brief Sendblue/text heads-up through `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`; if no task is created, it sends no text. This Sendblue adapter is separate from iMessage Handoff. Full flow lives at `agent-prompts/kerri-inbox-sweep/SKILL.md` — that file is the source of truth.
+**Approval channel:** Google Tasks — three lists Brian created (Hardware FYI / Standard & Works / Kerri MG). Each job becomes a task; checkbox = send; ACTION line in notes for skip/redo. When the sweep creates a new task or any automation output needs Brian's attention, it sends Brian one brief Sendblue/text heads-up through `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`; if there is no task, decision, blocker, error, or other Brian action, it sends no text. This Sendblue adapter is separate from iMessage Handoff. Full flow lives at `agent-prompts/kerri-inbox-sweep/SKILL.md` — that file is the source of truth.
 **Data files:**
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/job-counters.json` — persistent H/S/G counters
 - `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/jobs.json` — open job registry (dedup + state)
@@ -44,14 +46,14 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **When:** 6:30pm ET, M–F (`30 18 * * 1-5`)
 **Canonical prompt:** `agent-prompts/kerri-eod-meetings-review/SKILL.md`
 **Model:** GPT-5.5 high
-**Loop:** calendar-first meeting ledger + Granola evidence -> meeting/entity memory -> follow-up Google Tasks for every proposed draft -> missing-recording/manual-recap Tasks -> Slack digest -> state/grade write-back.
+**Loop:** calendar-first meeting ledger + Granola evidence -> meeting/entity memory -> existing email-chain lookup for every client follow-up -> follow-up Google Tasks plus matching `data/jobs.json` routing metadata for every proposed draft -> missing-recording/manual-recap Tasks -> Sendblue heads-up when Brian attention is needed -> state/grade write-back -> auto-archive the automation chat.
 
 ## 3b. Brain Push / Knowledge Hygiene
 
 **When:** 10pm ET daily (`0 22 * * *`)
 **Canonical prompt:** `agent-prompts/kerri-brain-push/SKILL.md`
 **Model:** GPT-5.5 high
-**Loop:** detect eligible brain/prompt changes -> validate safety/tests -> commit/push -> log -> hygiene grade.
+**Loop:** detect eligible brain/prompt changes -> validate safety/tests -> commit/push -> log -> hygiene grade -> Sendblue heads-up only on failure -> auto-archive the automation chat.
 
 ## 4. Weekly What Got Done (prompt only)
 

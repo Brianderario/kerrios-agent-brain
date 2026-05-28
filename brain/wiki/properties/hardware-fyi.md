@@ -38,7 +38,7 @@ Two packages on The Analog. Use these consistently in sponsor conversations.
 ### Current format
 
 - **Primary Placement** — $1,500 line-item placement anchor for quote-menu conversations. Older package anchors were $10K / 6 sends or $6K / 3 sends; use the current line-item anchor when Brian asks for product-by-product pricing. Full ad unit (image + copy + CTA) inside The Analog. Reference example: [Colab ad in "what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say).
-- **Partner Program** — $12.5K / 6 months. Sponsor logo in the partner lockup image + inclusion in the "Tools from our sponsors" section. 26 consecutive weekly sends, 3 of which upgrade to the full Primary Placement format.
+- **Partner Program** — $12.5K / 6 months unless Brian approves a custom monthly/trial structure in-thread. Sales-list format: Partner Program (6 Months); 2x per week feature in Tools We Love; 3x Primary Placement, with one usable during an approved one-month trial; logo in the Partner Program sponsor image + on the website. Reference example: use the same ["what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say) issue when helpful; the CoLab unit shows Primary Placement format, and the recurring sponsor/logo section shows Partner Program format.
 - **Custom article** — $2.5K.
 - **Custom content** — price depends on execution when the deliverable is not a standard custom article or research report.
 - **Custom research report** — starts at $6K.

@@ -15,6 +15,14 @@ Format:
 
 <!-- Lessons will be appended here by the sweep automation -->
 
+## [2026-05-27] EOD-H02 — Duro Labs
+
+**What changed:** The original EOD draft treated Nehemoyia's meeting as a standalone post-call note: dinner went well, two strong dinners, broader content before each, send SF Tech Week details, check the Renaissance invoice, and regroup after Duro compares notes. Brian's sent email instead merged the Nehemoyia call, the prior Robert Woo sales call, and Duro's current partnership history. It addressed Nehemoyia, Shaun, and Robert; cc'd Benji; used the subject `Hardware FYI x Duro 2026`; named concrete surfaces (6-month Partner Program, custom content, dinner series, SF Tech Week); included a Drafter-style custom-content proof point with 10,000+ downloads/leads; suggested two content angles; and sequenced custom content first, always-on partner visibility throughout the year, and SF Tech Week as the broader event surface.
+
+**Why:** This was not a generic "thanks for meeting" follow-up. It was a warm sponsor expansion note after Duro's Kinetic dinner, with Robert already asking for Hardware FYI product options and lead-generation fit. A useful draft had to synthesize the account thread and multiple meetings into a commercial recommendation. The weak draft lost buyer context, omitted Robert/Shaun, skipped proof points, and failed to turn Brian's thinking into a package recommendation.
+
+**Rule:** For Hardware FYI sponsor/customer EOD follow-ups, run an **account-context merge** before drafting: current transcript + same-company meeting notes from the last 30 days + latest sent email/catalog + company/person pages. If the merged context shows budget/timing/product discussion, draft a concrete recommendation with product surfaces, proof point(s), proposed sequence, and the next decision. Do not ship a soft "compare notes and circle back" draft when the account is ready for a package recommendation.
+
 ## [2026-05-25] Job H0001 — Aris Machina sent-version comparison
 
 **What changed:** Brian sent a version that kept Kerri's product-education frame and direct numbered answers, but made the prose more conversational and less like a formal memo. He removed the explicit package menu and did not quote fresh package pricing. He led with "best to discuss this all on a call" because the right mix depends on budget, target audience, and goals. He answered the three format questions directly, added a human terminology aside, used CoLab as the comparable sponsor with a private-performance caveat, then introduced custom content and happy-hour/SF-Tech-Week products as additional options.

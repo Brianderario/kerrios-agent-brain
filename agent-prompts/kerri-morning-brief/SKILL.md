@@ -236,6 +236,14 @@ Subject: Kerri Morning Brief — <Weekday, Month D>
 
 Use the custom Hardware FYI email MCP/local wrapper for `kerri@hardwarefyi.com`, not Gmail or the standard Outlook connector. This is an internal Kerri-to-Brian delivery and does not count as an external email send. Do not CC `brian@hardwarefyi.com` unless Brian explicitly asks; the morning brief belongs in `brian@kerrihq.com`.
 
+If the brief contains pending tasks, a blocker, degraded data coverage, or any other concrete Brian action, send one short Sendblue/text heads-up after the HTML artifact is written:
+
+```text
+Kerri morning brief needs attention: <pending task count> task(s), <blocker/data issue if any>. Check the brief.
+```
+
+Use `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`. Do not use Slack or iMessage as the primary morning-brief attention channel. If the brief has no Brian action and no degraded coverage, do not text.
+
 If email delivery fails, write `data/morning-brief-fallback-<YYYY-MM-DD>.md` containing the HTML path, intended sender/recipient, subject, summary, and failure reason.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -279,6 +287,21 @@ Also record:
 - `improvementCandidate`: one line or null
 
 If three consecutive briefs have low `actionability` or high noise, create a Kerri MG `💡 SUGGESTION:` task proposing the fix.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 7 — ARCHIVE AUTOMATION CHAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The morning brief's durable surfaces are the delivered email, `output/morning-brief/<YYYY-MM-DD>.html`, `output/morning-brief/latest.html`, `data/morning-brief-state.json`, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
+
+Codex scheduled runs currently require exactly one `::inbox-item{...}` directive. Satisfy both the required inbox item and Brian's auto-archive preference by ending with exactly two raw directive lines:
+
+1. One `::inbox-item{...}` directive.
+2. `::archive{reason="Durable morning brief output already written outside this chat"}`
+
+Do not wrap either directive in backticks or a code block. Do not write anything after the archive directive.
+
+Do not auto-archive only if the chat itself is the only deliverable, Brian explicitly needs to continue in this automation chat, or the run is blocked before it can write the fallback/state file or send the required alert.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ERROR HANDLING

@@ -30,7 +30,7 @@ git pull --ff-only origin main
 If fast-forward fails (local commits exist):
   - Check `git status` to see what's locally committed.
   - Try `git pull --rebase origin main`.
-  - If that fails (real conflict), STOP. Send a Slack DM to Brian (U09TLEXF70V): "⚠️ kerri-brain-push: merge conflict on <files>. Brain not pushed." Do not force-push.
+  - If that fails (real conflict), STOP. Send Brian one Sendblue/text heads-up: "Kerri brain push failed: merge conflict on <files>. Brain not pushed. Check run log." Do not force-push.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — STAGE ELIGIBLE CHANGES
@@ -59,7 +59,7 @@ Verify nothing sensitive is staged:
 ```
 git diff --cached --stat
 ```
-If you see suspect filenames (env, secret, token, credential, .key, .pem), unstage them immediately with `git reset HEAD <file>` and Slack-alert Brian.
+If you see suspect filenames (env, secret, token, credential, .key, .pem), unstage them immediately with `git reset HEAD <file>` and send Brian one Sendblue/text heads-up.
 
 Run these checks before committing:
 
@@ -69,13 +69,13 @@ npm test
 git diff --check
 ```
 
-If checks fail, do not commit. Create `data/brain-push-fallback-<YYYY-MM-DD>.md` with the failure summary and Slack-alert Brian.
+If checks fail, do not commit. Create `data/brain-push-fallback-<YYYY-MM-DD>.md` with the failure summary and send Brian one Sendblue/text heads-up.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3 — COMMIT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-If nothing is staged after Step 2, exit silently (no commit, no push, no notification).
+If nothing is staged after Step 2, make no commit, no push, and no Brian-facing notification. Still write the compact automation memory/state expected for the run and finish with the required closing directives in Step 7 so the automation chat can archive.
 
 Otherwise compose a commit message that summarizes the day's changes. Format:
 
@@ -103,7 +103,7 @@ STEP 4 — PUSH
 git push origin main
 ```
 
-If push is rejected (remote moved ahead between pull and push), repeat from Step 1. Maximum 2 retries; on third failure, Slack-alert Brian and exit.
+If push is rejected (remote moved ahead between pull and push), repeat from Step 1. Maximum 2 retries; on third failure, send Brian one Sendblue/text heads-up and exit.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — APPEND THIS RUN TO LOG
@@ -162,7 +162,28 @@ If the same validation or push failure recurs 3 times, create a Kerri MG `💡 S
 STEP 6 — SILENT ON SUCCESS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Do not Slack-notify on success. Brian sees the GitHub activity feed. Only alert on failure.
+Do not notify Brian on success. Brian sees the GitHub activity feed. Only alert on failure.
+
+Failure alerts use the Sendblue/text path as the primary Brian attention channel:
+
+`node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`
+
+Slack is only for supporting error detail when text succeeds but the error needs more context than a short heads-up can carry.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 7 — ARCHIVE AUTOMATION CHAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The brain push's durable surfaces are git commits/pushes, `brain/log.md`, `data/brain-push-state.json`, fallback files, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
+
+Codex scheduled runs currently require exactly one `::inbox-item{...}` directive. Satisfy both the required inbox item and Brian's auto-archive preference by ending with exactly two raw directive lines:
+
+1. One `::inbox-item{...}` directive.
+2. `::archive{reason="Durable brain push output already written outside this chat"}`
+
+Do not wrap either directive in backticks or a code block. Do not write anything after the archive directive.
+
+Do not auto-archive only if the chat itself is the only deliverable, Brian explicitly needs to continue in this automation chat, or the run is blocked before it can write durable state/fallback or send the required alert.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 NOTES

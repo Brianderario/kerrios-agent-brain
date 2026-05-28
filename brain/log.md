@@ -2,6 +2,279 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-27 21:48 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-27 21:33 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-27 21:17 ET] inbox-sweep | quiet no-op | Kerri
+
+- Google Tasks H/S/G were readable first; no completed pending send/skip/redo approval was actionable.
+- Mailboxes were checked from the cursor overlap: Kerri and Brian HWFYI latest visible items remained earlier Werqwise/Complement/Shah/venue threads already tracked or queued, Gmail had no new task-worthy inbox item, and Superhuman S/W returned no inbox threads. No email was sent and no Google Task was created.
+- Daily grade was already current from 2026-05-27 20:33 ET; weekly grade was not due on Thursday.
+
+## [2026-05-27 21:03 ET] inbox-sweep | quiet no-op | Kerri
+
+- Google Tasks H/S/G were readable first; no completed pending send/skip/redo approval was actionable.
+- Mailboxes were checked from the cursor overlap: Kerri and Brian HWFYI latest visible item remained Werqwise/H0019 before the active window, Gmail had no inbox results in the last hour, and Superhuman S/W returned no inbox threads. No email was sent and no Google Task was created.
+- Daily grade was already current from 2026-05-27 20:33 ET; weekly grade was not due on Thursday.
+
+## [2026-05-27 20:48 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-27 20:30 ET] inbox-sweep | quiet no-op + daily grade | Kerri
+
+- Google Tasks H/S/G were readable first; no completed pending send/skip/redo task required action.
+- Mailboxes were checked with the cursor overlap: Hardware FYI latest visible item remained Werqwise/H0019, Gmail items were already tracked or auto-skip, and Superhuman S/W returned no inbox threads. No email was sent and no Google Task was created.
+- Daily grade ran for the 2026-05-26 20:30 ET to 2026-05-27 20:30 ET window. Existing Sendblue and EOD-routing suggestions cover the only concrete misses, so no duplicate suggestion task was created.
+
+## [2026-05-27 20:17 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-27 19:19 ET] inbox-sweep | H0019 Werqwise task created | Kerri
+
+- H0019 / Werqwise: Betsy LaPointe replied with North Beach venue pricing and Oct. 5-9 availability for the SF Tech Week event. Kerri created Hardware FYI Google Task `NEVCd2w3U09XdEp0YjhTQQ` with a Brian-as-sender approval draft asking about F&B/catering/bar economics and temporary holds. No email was sent.
+- Safety: blocked duplicate Ken EOD task `eVdhTzZKSWkzUV9EWkRIVw` so only task `dWpjZ3JVanFBVENLV1MwTA` remains as the open Gmail-draft approval path for that thread.
+- Alert miss: required Sendblue task-created heads-up failed because text-alert runtime config is still missing.
+
+## [2026-05-27 19:04 ET] inbox-sweep | H0022 Complement acknowledgement task queued | Kerri
+
+- H0022 / Complement: James Redd replied that the one-month Partner Program trial plan sounds great, Complement is setting up infrastructure over the next few weeks, and he will ping Brian when ready to start.
+- Kerri reused the existing Complement jobId, created Hardware FYI Google Task `NS01VmVBNWVBMDdRVURvaw` with a short Brian-as-sender acknowledgement draft, and added the latest message to the cursor state. No email was sent.
+- Sendblue task-created heads-up failed because text-alert config is still missing; existing Kerri MG suggestion `Sk41OXVfbGxqYVlndUNUUw` already tracks that fix.
+
+## [2026-05-27 18:37 ET] eod-review | 4 meetings, 2 drafts, 1 flagged | Kerri
+
+🌙 EOD 2026-05-27 · 4 meetings reviewed
+
+✅ Drafts ready (2):
+  • EOD-H01 CoLab — send prior campaign report and content/newsletter options.
+  • EOD-G01 Ken Biberaj — schedule June collaboration planning follow-up.
+
+⚠️ No transcript (1):
+  • Brian / Benji 1:1 @ 16:00 — likely unknown.
+
+⏳ Pending (0):
+  • none
+
+📓 Brain updates: 3 meeting pages, 6 entity edits. Summit follow-up was deduped against existing H0028 instead of creating a duplicate task.
+
+Check Google Tasks lists to approve / edit / skip.
+
+Alert note: Sendblue text alert failed during EOD because runtime credentials/phone env vars are missing; existing Kerri MG suggestion task tracks this setup gap.
+
+## [2026-05-27 18:37 ET] eod-review | 4 meetings, 1 draft, 1 flagged | Kerri
+
+Reviewed Summit, CoLab, Brian/Benji, and Ken calendar meetings; wrote Summit/CoLab meeting memory plus local Ken recap, queued CoLab review-required follow-up, Ken Gmail-draft-only follow-up, and Brian/Benji no-transcript recap task. Sendblue alert attempt failed because the runtime is missing Sendblue credentials/phone config.
+
+## [2026-05-27 18:34 ET] inbox-sweep | H0029 Shah Capital Ventures strategy task queued | Kerri
+
+- H0029 / Shah Capital Ventures: Mihir Shah sent Brian, Benji, and Ari a Hardware FYI strategy note about compounding the engineering-audience asset through events, technical media, podcast/factory-tour content, and community products. Kerri created Hardware FYI Google Task `Mkg3NjdfNlJUemlQRGx6TA` with a Brian-as-sender acknowledgement/follow-up draft; no email was sent. Sendblue task alert failed because text-alert config is missing, matching the existing open Sendblue configuration suggestion.
+- 2026-05-27T22:48:28Z — Inbox sweep checked Tasks + four mailboxes; no sends/new jobs. Closed duplicate CoLab EOD task MHp3Z3UwVmNrOGxCdmFlMg fail-closed because it lacked a jobs.json route; valid H0030 task remains open. Auto-skipped Gmail DigitalOcean newsletter.
+
+## [2026-05-27 17:32 ET] inbox-sweep | G0006 stale task closed | Kerri
+
+- G0006 / Kerri Media Group: Ari Lewis replied in the `Next Steps` Gmail thread after Brian had already replied from `brian@kerrihq.com`. Her reply clarified that she had edited herself and did not add a new ask.
+- Kerri closed Kerri MG Google Task `ajBKbkJ1V0dYdUpSYXNXRA` as handled/skipped, marked the matching `data/jobs.json` entry skipped, and blocked the stale finance/admin Gmail draft.
+- Safety: no sends, Gmail drafts, new Google Tasks, or text alerts were created.
+
+## [2026-05-27 17:18 ET] inbox-sweep | G0008 task updated | Kerri
+
+- G0008 / Hilton Norfolk The Main: Jeff Holland replied on the separate `October Conference - The Main` Gmail thread that Esther Vera followed up because the director was out, and asked whether any outstanding items remain for Brian's decision.
+- Kerri updated the existing Kerri MG Google Task `QUhXVGZHOGtGQmdiY05ydg` with a new-reply marker and added Gmail message `19e6b3f864f4b10f` to the existing G0008 job instead of creating a duplicate task.
+- Safety: no sends, Gmail drafts, new Google Tasks, or text alerts were created.
+
+## [2026-05-27 17:02 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-overlap task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-27 15:47 ET] inbox-sweep | Duro invoice noted | Kerri
+
+- Google Tasks H/S/G were read first. No completed approval task was actionable, and no outbound email or Gmail draft was created.
+- Post-cursor sweep covered Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, and Superhuman S/W. Gmail's new Every newsletter was auto-skipped under bulk/newsletter rules.
+- H0014 / Duro Labs: Benji sent the Hardware FYI Custom Dinner invoice package to Altium payables/finance with Brian and Nehemoyia copied. Kerri recorded the compact account-history note on [[wiki/companies/duro-labs]] and created no Google Task because Brian was cc'd for visibility and no action was requested.
+
+## [2026-05-27 15:38 ET] inbox-sweep | H0028 task created | Kerri
+
+- H0028 / Summit Interconnect: Carrie Gonzales followed up after a same-day call with Brian about a 2026 Hardware FYI partnership. She named August-September timing, a budget around or under $10K, brand-awareness/thought-leadership goals around Summit's multi-facility footprint, and possible gated-content lead-generation interest.
+- Kerri registered Summit Interconnect, wrote [[wiki/companies/summit-interconnect]], and created Hardware FYI Google Task `alZ2Z0FkVDJOS0xMMGpNSg` with a Brian-as-sender approval draft. No email was sent.
+- Sendblue task-created heads-up failed because the runtime is missing Sendblue config; existing Kerri MG suggestion `Sk41OXVfbGxqYVlndUNUUw` already tracks that fix.
+
+## [2026-05-27 15:18 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, one Gmail newsletter was auto-skipped and recorded as seen, and no text alert was sent.
+
+## [2026-05-27 15:03 ET] inbox-sweep | G0008 Hilton Norfolk task + G0007 handled | Kerri
+
+Closed stale G0007 Romano scheduling draft after Ari created the Joe calendar invite for 2026-05-29 12:00 ET. Created G0008 for Hilton Norfolk The Main in Kerri MG Google Tasks after Esther sent October availability (10/01, 10/07, 10/21, 10/27); draft asks about a temporary hold/deposit deadline for Oct. 7 and remains Gmail-draft-only. Sendblue task alert failed because runtime Sendblue credentials are still missing; no fallback alert sent.
+
+## [2026-05-27 14:32 ET] inbox-sweep | H0027 SHACK15 venue reply queued | Kerri
+
+SHACK15 replied to the SF Tech Week venue inquiry with possible Oct. 5/6 availability, existing holds, an initial 3-hour / 100-guest proposal, and term/load-in/signage details. Created Hardware FYI approval task H0027 for Kerri to ask about temporary hold timing before Brian chooses whether to pursue a call; no email sent. Sendblue task-created text failed because the runtime is still missing Sendblue credentials.
+
+## [2026-05-27 14:14 ET] inbox-sweep | H0018 BuzzWorks task created | Kerri
+
+- H0018 / BuzzWorks: Vlad Cood replied to Kerri's SF Tech Week venue thread with weekday 9am-4pm PT call availability and two catering paths: BuzzWorks can coordinate catering for a small fee or introduce preferred caterers directly. Kerri created Hardware FYI approval task `WWgwbGczbmRqdV9FTXc2TQ` with an existing-thread reply from `kerri@hardwarefyi.com` asking for the rough catering coordination fee/range before the setup call. No email was sent.
+- Safety: Google Tasks were processed first and no completed approval task was actionable. Sendblue task-created heads-up failed because text alert credentials remain missing; existing Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` tracks that configuration gap.
+
+## [2026-05-27 13:33 ET] inbox-sweep | G0007 task updated | Kerri
+
+- G0007 / Romano & Associates: Ari and Joe continued scheduling in the same Gmail thread after the task was created. Joe offered Friday 5 or 6 PM CET, and Ari asked Brian whether Friday 5 PM CET / 11 AM ET works.
+- Kerri updated the existing Google Task `Y0JfSEhvOTNnbTRnNlB5bQ` with a `🆕` marker and new-reply summary instead of creating a duplicate. No email was sent and no text alert was needed because no new task was created.
+
+## [2026-05-27 13:18 ET] inbox-sweep | G0007 task created | Kerri
+
+- G0007 / Romano & Associates: Joe Romano replied to Ari and Brian on the KerriHQ tax/accounting thread with May 28 call slots. Kerri created Kerri MG Google Task `Y0JfSEhvOTNnbTRnNlB5bQ` with a Gmail draft-only scheduling reply for Brian approval; no email was sent.
+- Safety: finance/tax guidance stayed approval-gated and compact. Sendblue task-created heads-up failed because text-alert config is still missing; existing Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` already tracks that fix.
+
+## [2026-05-27 13:04 ET] inbox-sweep | H0026 AllSpice task queued | Kerri
+
+- Google Tasks H/S/G were checked first. H0013 / Zenode, G0005 / Pursue Biz, and G0006 / Kerri Media Group remain pending; no completed approval required send/skip/redo.
+- Post-cursor sweep covered Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, and S/W Superhuman. Brian HWFYI received Jacqueline Wang / AllSpice asking for Valentina Ratner's Kinetic session recording update; full-thread review showed Brian had promised to send the recording once the video team returned it.
+- Created H0026 / AllSpice approval task `MnJtbWloWUNYT1RnYldGRg`, registered `allspice.io`, and wrote `brain/wiki/companies/allspice.md`. No email was sent. Required Sendblue task-created alert failed because Sendblue env vars are missing; existing Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` tracks that config gap.
+
+## [2026-05-27 12:47 ET] inbox-sweep | Westin acknowledgement handled | Kerri
+
+- Google Tasks H/S/G were read first. H0013 / EOD-H01 Zenode, G0005 / Pursue Biz, and G0006 / Kerri Media Group remain `needsAction`; no completed approval was sendable and no outbound email was sent.
+- Mailbox sweep covered Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, and Superhuman S/W. The only post-overlap human inbound was Phirum Men / Westin thanking Brian for the name mentions after Brian had already replied that he filled out the survey, so Kerri recorded it as handled/no-action and created no duplicate task.
+- Quiet run: no new Google Task, no Sendblue/text alert, no Slack/email/iMessage notification.
+
+## [2026-05-27 12:32 ET] inbox-sweep | quiet no-op | Kerri
+
+Google Tasks H/S/G were checked first: H0013 / EOD-H01 Zenode, G0005 / Pursue Biz, and G0006 / Kerri Media Group remain pending; no completed pending approval required send/skip/redo. Mailbox sweep found no post-overlap human inbound across Kerri HWFYI, Brian HWFYI, Gmail, or S/W Superhuman. State and run grade were updated; no Sendblue/text alert was warranted.
+
+## [2026-05-27 12:18 ET] inbox-sweep | G0006 created | Kerri
+
+- G0006 / Kerri Media Group: Ari Lewis sent a finance/admin/legal-sensitive worklist to brian@kerrihq.com. Kerri registered [[wiki/companies/kerri-media-group]], created Kerri MG approval task `ajBKbkJ1V0dYdUpSYXNXRA`, and queued a Gmail draft-only reply that asks Brian to approve or edit before any direction goes back to Ari. No email was sent.
+- Coverage: Google Tasks H/S/G were checked first. H0013 / EOD-H01 Zenode and G0005 / Pursue Biz remain pending needsAction; Kerri HWFYI and Brian HWFYI had no post-overlap inbox messages; S/W Superhuman returned no inbox threads.
+- Alert miss: required Sendblue task-created text failed because the runtime is still missing Sendblue API/from/recipient env config. Existing Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` continues to track that setup.
+
+## [2026-05-27 12:04 ET] inbox-sweep | G0005 created | Kerri
+
+- G0005 / Pursue Biz: Emily Carter sent a cold creative-services pitch to brian@kerrihq.com asking whether Brian wants examples or a short conversation. Kerri registered [[wiki/companies/pursue-biz]], created Kerri MG approval task `M1A0Q3hXZ2JSR0hXMkhrMQ`, and queued a Gmail draft-only polite decline. No email was sent.
+- Coverage: Google Tasks H/S/G were checked first. H0013 / EOD-H01 Zenode remains pending needsAction; S/W Superhuman and Brian HWFYI had no post-cursor inbox hits; Kerri HWFYI latest inbox item was before the active cursor overlap.
+- Alert miss: required Sendblue task-created text failed because the runtime is still missing Sendblue API/from/recipient env config. Existing Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` continues to track that setup.
+
+## [2026-05-27 11:45 ET] inbox-sweep | Duro survey reply recorded | Kerri
+
+- Google Tasks H/S/G were read first. H0013 / EOD-H01 Zenode remains pending `needsAction` with `ACTION: send`; no completed approval was sendable and no outbound email was sent.
+- Mailbox sweep covered Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, and S/W Superhuman. Michael Corr replied on the Duro x HardwareFYI check-in thread that he filled out Brian's survey and offered anything else if needed; full-thread review showed this was informational, so Kerri updated `brain/wiki/companies/duro-labs.md` and created no duplicate task.
+- Quiet run: no new Google Task, no blocker, no text alert, and no Slack/email/iMessage notification.
+
+## [2026-05-27 11:33 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, H0013 / EOD-H01 Zenode remains waiting for Brian approval, no post-cursor task-worthy inbox item appeared, Gmail recovered after one transient 429 retry, and no text alert was sent.
+
+## [2026-05-27 11:18 ET] inbox-sweep | quiet no-op | Kerri
+
+- Google Tasks H/S/G were read first. H0013 / EOD-H01 Zenode remains pending needsAction; no completed approval was sendable and no outbound email was sent.
+- Mailbox sweep covered Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, and S/W Superhuman. Post-cursor hits were Brian self/sent-copy messages and WSJ/Substack newsletters only, so Kerri recorded them as seen and created no task.
+- Quiet run: no new Google Task, no blocker, no text alert, and no Slack/email/iMessage notification.
+
+## [2026-05-27 11:02 ET] inbox-sweep | quiet no-op | Kerri
+
+- Google Tasks H/S/G were read first. H0013 / EOD-H01 Zenode remains `needsAction` with `ACTION: send`; no completed approval was sendable and no outbound email was sent.
+- Mailbox sweep covered Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, and S/W Superhuman. The only new Hardware FYI hit was a Superhuman reminder copy of the old AllSpice/Kinetic thread, so Kerri read the full thread, treated it as a reminder notification rather than new human inbound, recorded it as seen, and created no task.
+- Quiet run: no new Google Task, no blocker, no text alert, and no Slack/email/iMessage notification.
+
+## [2026-05-27 10:42 ET] inbox-sweep | fail-closed S/W connector unavailable | Kerri
+
+- Google Tasks H/S/G were read first. H0013 / Zenode remains pending `needsAction`; no completed approval was sendable and no outbound email was sent.
+- Kerri HWFYI and Brian HWFYI searches returned no post-cursor inbox results. Gmail had one post-cursor Tectonic newsletter (`19e69d097ac4f1a3`), auto-skipped and recorded as seen.
+- S/W Superhuman was not available in this Codex tool surface, so the sweep failed closed for `brian@standardandworks.com`, set `lastErrorAt`, and executed no S/W action. The required Sendblue error heads-up was attempted but failed because Sendblue env config is still missing; existing Kerri MG task `Sk41OXVfbGxqYVlndUNUUw` tracks that fix.
+
+## [2026-05-27 10:04 ET] inbox-sweep | Listo vendor thread recorded, no task | Kerri
+
+- Google Tasks H/S/G were readable first; H0013 / EOD-H01 Zenode remains `needsAction`, so no approval send was executed.
+- Post-cursor mailbox sweep checked Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, and S/W Superhuman. Matt Piniol / Listo Media replied to Benji offering future content/editing support after Kinetic; Brian and Kerri were copied, but the ask is directed to Benji, so no Brian approval task or text alert was created.
+- Registered [[wiki/companies/listo-media]], advanced cursors, auto-skipped a Neural Concept calendar/OOO pair and a cold Gmail vendor pitch, and recorded the run grade.
+
+## [2026-05-27 08:32 ET] inbox-sweep | Hampton Roads update recorded | Kerri
+
+- Google Tasks H/S/G were readable first; H0013 / EOD-H01 Zenode remains needsAction and no completed pending task required send, skip, or redo.
+- Post-cursor mailbox sweep checked Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, and S/W Superhuman. Gmail surfaced Zach's 12:18 ET `NNS Update` reply; Zach already answered Doug's group and promised to follow up after venue availability lands, so no reply task or alert was created.
+- Updated [[wiki/companies/hampton-roads-alliance]] and [[wiki/events/dc-maritime-defense-2026]], advanced cursors, and sent no text because the run created no new task and produced no Brian action.
+
+## [2026-05-27 07:48 ET] inbox-sweep | fail-closed Kerri mailbox | Kerri
+
+- No sends, drafts, new tasks, skips, or redos executed. H0013 / Zenode remains pending in Google Tasks because Brian has not checked the task.
+- Checked Google Tasks H/S/G, brian@hardwarefyi.com via guarded local CLI, brian@kerrihq.com Gmail, and S/W Superhuman; no new task-worthy messages landed after the active cursor overlap.
+- kerri@hardwarefyi.com was unreachable through the local custom MCP and Outlook shared-mailbox fallback, so the sweep failed closed for that mailbox. Required Sendblue alert was attempted once but failed because text-alert env vars are missing; Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` already tracks the config gap.
+
+## [2026-05-27 06:34 ET] fail-closed | kerri-mailbox-unreadable-neural-concept | Kerri
+
+- Google Tasks H/S/G were readable first; no completed pending inbox-sweep job required send/skip/redo, and H0013 / EOD-H01 Zenode remains waiting for Brian approval.
+- `kerri@hardwarefyi.com` still could not be read through the exposed Outlook shared-mailbox connector: message listing failed on default `AllItems`, and folder listing failed on default `Root`. Kerri did not advance that mailbox cursor and sent no email.
+- Brian HWFYI had one post-cursor human thread: Theo Allard at Neural Concept replied to Benji with May 29 / June 1 / June 3 meeting windows while Brian was cc'd. Registered [[wiki/companies/neural-concept]] as H0024 and created no Google Task because the latest ask is directed to Benji.
+- Gmail had a new Mercury bank notification for a $10 Mihir Shah payment, treated as an automated bank notification for drafting purposes; S/W Superhuman returned no inbox threads.
+- Required Sendblue error alert failed because text-alert credentials/phone env vars were missing; Kerri updated existing Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` with the latest miss and did not fall back to Slack or email.
+
+## [2026-05-27 06:17 ET] fail-closed | kerri-mailbox-unreadable | Kerri
+
+- Google Tasks H/S/G were readable first; no completed pending task required send/skip/redo, and H0013 / EOD-H01 Zenode remains waiting for Brian approval.
+- Brian HWFYI, brian@kerrihq.com Gmail, and S/W Superhuman checks completed with no new task-worthy human inbound after the cursor overlap. Gmail only surfaced auto-skip newsletter/bulk items after the cursor.
+- `kerri@hardwarefyi.com` could not be read through the exposed Outlook shared-mailbox connector: message listing failed on default `AllItems`, and folder listing failed on default `Root`. Kerri did not advance that mailbox cursor, sent no email, and recorded fail-closed grade/state.
+- Required Sendblue error alert also failed because text-alert credentials/phone env vars were missing; Kerri updated existing Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` with the latest miss and did not fall back to Slack or email.
+
+## [2026-05-27 00:18 ET] inbox-sweep | H0018/H0020 handled + G0004 skipped | Kerri
+
+- H0018 / BuzzWorks: Kerri verified the approved reply was already sent from `kerri@hardwarefyi.com` at 00:05 ET in the existing BuzzWorks thread, then marked the job sent and updated the Google Task title. The sent reply asks for a setup call, open evening dates, and bundled light-bites pricing for roughly 100-125 people.
+- H0020 / Westin St. Francis: Brian had already completed the Marriott survey and replied directly to Wendy and Phirum at 23:54 ET, so Kerri marked the stale approval task handled to block a duplicate send.
+- G0004 / Hampton Roads Alliance: Brian completed the task with `ACTION: skip`; Kerri marked the Gmail-draft job skipped and sent no Gmail draft or reply.
+- Post-cursor sweep found no new task-worthy inbound across Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, or S/W Superhuman.
+
+## [2026-05-27 00:03 ET] inbox-sweep | Werqwise updated, no task | Kerri
+
+- Google Tasks H/S/G were readable; no completed pending task required send/skip/redo action. Open H0018, H0020, H0013/EOD-H01, G0004, and Kerri MG decision tasks remain waiting for Brian.
+- Post-cursor mailbox sweep found Brian's own reply in the Werqwise SF Tech Week venue thread at 23:59 ET, copied into both Hardware FYI mailboxes. Brian asked Betsy for Oct. 5-11 evening date availability and pricing for North Beach, with one hour setup and light/prompt breakdown assumptions.
+- Updated [[wiki/companies/werqwise]] and [[wiki/events/sf-tech-week-2026]], advanced cursors, and created no Google Task or Sendblue/text alert because Brian already handled the thread and no Brian action is needed.
+
+## [2026-05-26 23:48 ET] EOD-H01 Zenode draft repaired | Codex
+
+- Rewrote Google Task `enhKY1pBRExXTC1wNWRkUQ` as an ACTION: send approval for Brian's existing `Re: Getting back on Hardware FYI` thread with Brandon Bourn, preserving Benji Chia on cc.
+- Added the matching pending `data/jobs.json` route for H0013 with Brian's mailbox, the conversation/message IDs, reply-all metadata, and a revised draft that recommends a content-led Zenode sequence with rough Hardware FYI pricing. No email was sent.
+
+## [2026-05-26 23:47 ET] inbox-sweep | G0003 skipped | Kerri
+
+- G0003 / Cohen & Ostler: Brian completed Google Task `RGJlQks5MUJ6TGRldWlDTg` with `ACTION: skip`. Kerri marked the Project Spruce Gmail-draft job skipped, updated the task title/notes as blocked, and sent no Gmail draft or reply.
+- Post-cursor mailbox sweep found no new task-worthy human inbound across Kerri HWFYI, Brian HWFYI, brian@kerrihq.com Gmail, or S/W Superhuman.
+
+## [2026-05-26 23:40 ET] automation-update | auto-archive-default | Brian/Codex
+
+Updated the active Kerri automation prompts and automation reference so scheduled Codex runs archive their chat after durable output lands in the real operating surface: Google Tasks, Sendblue/text, email, HTML artifacts, repo logs, run ledgers, CRM/source-of-truth notes, or KerriOS state. Exceptions are limited to runs where the chat itself is the only deliverable, Brian explicitly needs to continue in that chat, or the run is blocked before durable state/alerting can happen.
+
+## [2026-05-26 23:37 ET] automation-update | eod-sponsor-context-merge | Brian/Codex
+
+Compared EOD-H02's weak Duro draft against Brian's sent `Hardware FYI x Duro 2026` email, the Nehemoyia meeting page, the Robert Woo sales-call notes, and Duro account memory. Updated `kerri-eod-meetings-review` so Hardware FYI sponsor/customer follow-ups must merge current transcript, same-company recent meetings, latest sent email/catalog, and company/person pages before drafting; weak send-ready drafts now fail closed to context review. Added the Duro lesson to `brain/wiki/workflows/draft-learnings.md` and covered the new rule in `test/core-automation-bundle.test.js`. Validated with `npm run check` and `npm test`.
+
+## [2026-05-26 23:29 ET] automation-update | sendblue-attention-path | Brian/Codex
+
+Closed Kerri MG suggestion task `M0JSY2pXRVlrdVV3Y0ZPcA` after implementing the EOD routing-job handoff and Sendblue attention-path repair. EOD now requires matching `data/jobs.json` routing metadata for every send-ready follow-up task, inbox sweep fails closed on EOD tasks without that route, the Sendblue adapter loads the live KerriOS env aliases, and Brian-facing attention notifications now route through Sendblue instead of email/iMessage. Validated with runtime `npm test`, runtime `npm run check`, KerriOS `npm test`, KerriOS `npm run check`, and a dry Sendblue smoke test.
+
+## [2026-05-26 23:04 ET] inbox-sweep | EOD routing gap blocked | Kerri
+
+- No outbound emails sent and no new inbound reply tasks created. Hardware FYI post-cursor hits were Brian-sent Modelwise/Complement confirmations; Gmail and S/W had no untracked task-worthy messages.
+- Marked EOD-H01 Zenode (`enhKY1pBRExXTC1wNWRkUQ`) and EOD-H02 Duro (`c05jeXRuZm9Xa3lZWUs0Sw`) as route-needed/ACTION: redo because the EOD runner did not write matching `data/jobs.json` records with thread routing metadata. This blocks unsafe sends until repaired.
+- Created Kerri MG suggestion task `M0JSY2pXRVlrdVV3Y0ZPcA` to update the EOD runner so follow-up approval tasks include matching jobs.json routing records. Sendblue alert failed because text-alert env vars are still missing.
+
+## [2026-05-26 22:56 ET] automation-update | eod-thread-routing | Brian/Codex
+
+Brian clarified that EOD review follow-ups must stay on the existing client email chain when he was already emailing the counterparty. Updated `kerri-eod-meetings-review` to require existing-chain mailbox search, routing metadata in Google Tasks, and matching `data/jobs.json` entries for every send-ready EOD draft. Updated the inbox sweep send path to fail closed if an EOD approval lacks thread metadata or would fall back to a fresh email.
+
+## [2026-05-26 22:50 ET] approved-send | EOD-H03 Complement | Brian/Codex
+
+Brian approved `EOD-H03` with "good to send." Sent the Complement partner-program follow-up from `brian@hardwarefyi.com` to James Redd at `james@complement.ai` with subject `Following up on Complement x Hardware FYI`; included the Partner Program package, the $1,666.67 one-month test, one-month post-activation revisit, and the shared `what-the-datasheets-dont-say` Primary Placement / Partner Program example. Verified in Brian HWFYI Sent and completed Google Task `Q0JuOF9DeXNMczJZVGUzTQ`.
+
+## [2026-05-26 22:48 ET] inbox-sweep | H0023 closed from live sent reply | Kerri
+
+- H0023 / Modelwise: Brian had already replied from `brian@hardwarefyi.com` at 22:36 ET accepting Thursday 11am PT and saying he would send a Zoom invite. The sweep detected the live sent reply before sending, marked the Google Task `ZXdGYTNQbUFnY1gzT3hWZQ` as sent, and updated `data/jobs.json` without sending a duplicate.
+- Safety: no sends executed by this sweep. The kerri@hardwarefyi.com mailbox remained unavailable through the configured/custom MCP surface in this Codex run, so the sweep failed closed for that mailbox and sent the required Slack alert.
+
 ## [2026-05-26 22:04 ET] brain-push | 7456878 | Kerri
 
 Pushed the nightly KerriOS brain/prompt update: active automation guardrails, Google Tasks suggestion workflow, sponsor/company memory, three meeting recaps, and routed agent registry corrections.
@@ -62,6 +335,12 @@ Reviewed four included calendar meetings through 19:00 ET. Wrote three Granola-b
 
 Brian sent the `Shiv x Hardware FYI` calendar invite from `brian@hardwarefyi.com` to Shiv Patel and Benji at 16:30 ET, and Benji accepted it. Kerri marked Google Task `N3V4MDJFWlNsWHg3bmsyNA` completed as handled/skipped, updated [[wiki/companies/atoms]], and blocked the stale confirmation draft to prevent a duplicate email.
 
+## [2026-05-26 16:20 ET] inbox-sweep | H0021 created + G0003 updated | Kerri
+
+- H0021 / Flow Engineering: Gabriel Louis-Kayen replied to Brian's Kinetic sponsor-survey thread asking whether Flow's panel recording is available, even as a rough cut, so Flow can pull a transcript. Kerri registered Flow as H0021, created Hardware FYI approval task `MWVyUE5tMWhRWnZRVHJ6VA`, and wrote [[wiki/companies/flow-engineering]].
+- G0003 / Cohen & Ostler: Hailey Lonsdale replied that Voyer is happy to close today, attached executed copies, and asked whether anything else is outstanding. Kerri updated the existing `🆕 G0003` Google Task instead of creating a duplicate.
+- Safety: no sends executed. kerri@hardwarefyi.com was unreachable via local CLI and Outlook fallback, so Kerri sent the required Slack fail-closed alert. The H0021 Sendblue/text heads-up also failed because Sendblue env vars are still missing; the existing Kerri MG suggestion task already tracks that config gap.
+
 ## [2026-05-26 16:03 ET] inbox-sweep | H0020 Westin survey task queued | Kerri
 
 Wendy Hom at Westin St. Francis followed up on Brian's promised Kinetic post-event Marriott survey response before it expires. Registered Westin St. Francis as `H0020`, added [[wiki/companies/westin-st-francis]], updated [[wiki/events/kinetic-2027]], and queued Hardware FYI Google Task `WG9yeUZlWjk3cFdwVGg3dQ` with a Brian-as-sender acknowledgment draft that tells Brian to complete the survey before approving. No email was sent. The Sendblue text-alert command failed because required Sendblue config was missing, so `taskAlertedAt` remains null and the miss is recorded in the run grade. Because this is a repeated task-alert failure, Kerri also queued Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` to configure the Sendblue runtime; its text alert failed for the same missing config.
@@ -69,6 +348,12 @@ Wendy Hom at Westin St. Francis followed up on Brian's promised Kinetic post-eve
 ## [2026-05-26 15:33 ET] inbox-sweep | G0003 Project Spruce new reply marked | Kerri
 
 Mihir Shah replied on the Project Spruce closing thread: Benji and SCV have signed internal board docs, wire instructions were supplied in-thread, and Hailey is out until June 1 so KerriHQ may need to coordinate with Lucas and/or Zach at Voyer if the deal needs to close today. Existing Kerri MG Google Task `RGJlQks5MUJ6TGRldWlDTg` was prefixed `🆕` and annotated with the new reply; no duplicate task, text alert, Gmail draft, or email send was created.
+
+## [2026-05-26 14:49 ET] inbox-sweep | Werqwise handled by Brian, no task | Kerri
+
+- Werqwise / H0019: Betsy LaPointe replied to the SF Tech Week venue inquiry with location-capacity guidance: Financial District maxes at 80 guests; North Beach can accommodate about 100-120 and needs clarification on neighborhood preference plus load-in/setup/breakdown timing before quoting.
+- Brian replied directly in-thread at 14:46 ET with call availability for May 27-29, so Kerri did not create a duplicate Google Task or send a text alert.
+- Kerri registered Werqwise in `data/companies.json`, created [[wiki/companies/werqwise]], updated [[wiki/events/sf-tech-week-2026]], advanced the inbox-sweep cursor, and recorded the run grade.
 
 ## [2026-05-26 14:34 ET] inbox-sweep | H0018 BuzzWorks venue task queued | Kerri
 
@@ -85,6 +370,20 @@ Vlad Cood replied to Kerri's SF Tech Week venue inquiry for BuzzWorks, clarifyin
 - H0017 / Harborview Restaurant & Bar: Brian completed hidden Google Task `Ti1zUU1Rb01oNVRnVDhXTw`; Kerri re-read the live Brian HWFYI mailbox, confirmed no newer Brian/Kerri reply, and sent the exact approved scheduling reply from `brian@hardwarefyi.com` to Tiffany Li / Harborview with Brian's Calendly link.
 - H0015 / ATOMS: Shiv Patel replied that Thursday 4:30pm ET / 1:30pm PT works. Kerri reused the existing ATOMS customer ID, created Hardware FYI Google Task `N3V4MDJFWlNsWHg3bmsyNA` with a short Brian-as-sender confirmation draft, and flagged that Brian still needs to send the calendar invite after approval.
 - The Sendblue task-created alert for H0015 returned HTTP 400, so Kerri did not retry or fall back to Slack; the miss is recorded in `data/inbox-sweep-grades.json`.
+
+## [2026-05-26 13:19 ET] inbox-sweep | H0017 Harborview venue task queued | Kerri
+
+Created H0017 for Harborview Restaurant & Bar after a new `brian@hardwarefyi.com` venue reply confirmed October 8, 2026 availability and asked for a call/site visit before proposal. Added [[wiki/companies/harborview-restaurant-bar]], noted Harborview under [[wiki/events/sf-tech-week-2026]], queued Hardware FYI Google Task `Ti1zUU1Rb01oNVRnVDhXTw` with a Brian-as-sender scheduling reply, and sent Brian the one brief Sendblue task-created heads-up. No email was sent.
+
+Brian flagged the daily-weekday cadence as overkill given current state (1 active deal = sweep-territory, 23 dormant Kinetic sponsors = no-nudge by design). Changed schedule from `33 8 * * 1-5` → `33 8 * * 2` (weekly Tuesday 8:33am ET). Updated `mcp__scheduled-tasks` config, canonical SKILL.md frontmatter + opening paragraph, HARD RULE 3 wording ("per run" semantics noted), and registry. Cadence to scale up to twice-weekly or daily when active-deal volume justifies — pipeline agent can self-flag via a 💡 SUGGESTION task when it observes a burst of eligible deals piling up.
+
+## [2026-05-26 12:50 ET] inbox-sweep | H0015 sent + G0002 discarded | Kerri
+
+- H0015 / ATOMS: Brian completed Google Task `c3MwVFNrTEtIYkt6WWswbQ`; Kerri re-read the live thread, confirmed no newer Brian/Kerri reply, and sent the exact approved scheduling reply from `brian@hardwarefyi.com` to Shiv Patel asking whether Thursday 4:30pm ET / 1:30pm PT works. Sent message ID: `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEMAAAtSTsYtUoQT6MqRxoKF3BIAABbgt8kAAA=`.
+- G0002 / J-Reach: Brian completed Google Task `OEY0dTEzTm55bDNvWUs5Uw` with `ACTION: discard, spam email`; Kerri marked the job skipped/discarded and sent no reply or Gmail draft.
+- Post-cursor mailbox sweep found no new task-worthy human inbound; Superhuman S/W returned no inbox threads for the window.
+
+2026-05-26: Verified Brian already sent House of AI reply from brian@hardwarefyi.com to Christian Byza at 12:43 ET. Closed recreated H0016 Google Task as handled/skipped and marked data/jobs.json H0016 skipped to block a duplicate send after the Hardware FYI task-list rewire.
 
 ## [2026-05-26 12:33 ET] inbox-sweep | H0015-H0016-new-approval-tasks | Kerri
 
@@ -238,6 +537,11 @@ Brian (via iMessage handoff) pivoted the Aris Machina reply away from line-item 
 
 Monday cold-outreach fire pulled the top-10 scored prospects from `data/cold-outreach-queue.json` (all seeded by lead-research 2026-05-24, Apollo-enriched). Customer-ID lookups assigned H0003–H0012 across 10 new companies (Machina Labs, Eyelit Technologies, Boston Micro Fabrication, Divergent, Sager Electronics, Path Robotics, Astera Labs, Berkshire Grey, iBase-t, Marvin Test Solutions); companies.json + job-counters.json updated; wiki stubs written under `brain/wiki/companies/`. Drafts use the locked 2026-05-25 Kerri voice (role intro `"I'm Kerri, and I work on partnerships at Hardware FYI."`, 17,000 reader number, value-framed soft pitch, `"Here's Brian's calendar link."` Calendly routing, `Kerri` sign-off, `kerri@hardwarefyi.com` sender). Each draft anchors on a distinct concrete hook (funding round, acquisition, hire signal, prior-role connection, public-cap context) — no template phrases repeated. **Apollo re-enrichment skipped** this run: lead-research enriched the same companies 24h ago and the hookSeeds carry verified specific facts (amounts/dates/named investors/prior roles); Apollo MCP also requires per-call Brian approval to spend credits, which isn't available in scheduled mode. **Google Tasks MCP not loaded in this run** → triggered SKILL error-handling: drafts written to `data/cold-outreach-fallback-2026-05-25.json`, Slack-alerted Brian (DM U09TLEXF70V), cap counters NOT bumped, queue NOT drained, state stays consistent for a clean re-run once `kerri-gdocs__gtasks_create_task` is available.
 
+## 2026-05-25 — 23 Kinetic 2026 sponsor survey drafts staged + writing-style rules captured
+
+- Staged 23 individual sponsor survey send drafts in brian@hardwarefyi.com (Outlook Drafts folder), one per sponsor primary contact, each personalized with first name and pointing to the existing sponsor form public URL. Drafts only, no sends. Approval source: Brian chat 2026-05-25 "draft the survey send email" + "The draft looked good".
+- Captured two new outbound writing rules in [[brian-derario#Writing-style-for-outbound]]: no em dashes (—) in any external send or as-Brian writing; brief-but-complete sentences (no staccato fragments). Both applied to the survey drafts staged today.
+
 ## [2026-05-25 ET] brain | hwfyi-lead-gen-products | Brian → Kerri
 
 Brian recorded HWFYI's lead-gen products (vs newsletter awareness products) and the canonical bundle play for lead-volume prospects. **Webinars:** 125 attendees floor (guaranteed), up to 250 ceiling with strong content. **Happy hours:** 200–500 leads per event, HWFYI's highest-yield lead-gen surface. **Bundle pattern:** for lead-gen prospects with a hard numeric target, offer **2 webinars + Partner Program at a discount in the ~$17K range** as a "near-lead-guarantee" package. Combines guaranteed warm leads from webinars with sustained newsletter presence to convert the long tail. **Product-selection rule:** lead with happy hours when timing permits, webinar bundle when it doesn't; never lead with standalone Primary Placement or Partner Program in a lead-gen conversation. Triggered by the H0001 Sid/Aris Machina thread — original draft was newsletter-only and didn't move the needle on his 1000-Protos-users goal. Written to [[wiki/properties/hardware-fyi]] § Lead-gen products. Webinar standalone price + happy hour standalone price still TBD in brain — flag to fill in next sponsor conversation.
@@ -264,11 +568,15 @@ Brian approved a 10-company net-new cold outreach roster to start sending Tuesda
 
 ## [2026-05-25 ET] cadence-adjust | kerri-pipeline-followup | Brian + Kerri
 
-## [2026-05-26 13:19 ET] inbox-sweep | H0017 Harborview venue task queued | Kerri
+## [2026-05-24 19:35 ET] fix | kerri-gdocs-mcp-gtasks-handlers | Kerri
 
-Created H0017 for Harborview Restaurant & Bar after a new `brian@hardwarefyi.com` venue reply confirmed October 8, 2026 availability and asked for a call/site visit before proposal. Added [[wiki/companies/harborview-restaurant-bar]], noted Harborview under [[wiki/events/sf-tech-week-2026]], queued Hardware FYI Google Task `Ti1zUU1Rb01oNVRnVDhXTw` with a Brian-as-sender scheduling reply, and sent Brian the one brief Sendblue task-created heads-up. No email was sent.
+Diagnosed + fixed inbox sweep failure ("Unknown tool: gtasks_list_lists"). Root cause: the prior session added 5 gtasks tool DEFINITIONS to `src/index.ts` (ListToolsRequestSchema) but never wrote the corresponding CASE branches in the CallToolRequestSchema handler. Result: MCP advertised the tools but had no code to execute them, so every gtasks_* call fell through to the default `throw new McpError(ErrorCode.MethodNotFound, "Unknown tool: ${name}")`.
 
-Brian flagged the daily-weekday cadence as overkill given current state (1 active deal = sweep-territory, 23 dormant Kinetic sponsors = no-nudge by design). Changed schedule from `33 8 * * 1-5` → `33 8 * * 2` (weekly Tuesday 8:33am ET). Updated `mcp__scheduled-tasks` config, canonical SKILL.md frontmatter + opening paragraph, HARD RULE 3 wording ("per run" semantics noted), and registry. Cadence to scale up to twice-weekly or daily when active-deal volume justifies — pipeline agent can self-flag via a 💡 SUGGESTION task when it observes a burst of eligible deals piling up.
+Fix: added 5 handlers (gtasks_list_lists / list_tasks / get_task / create_task / update_task) using the `tasksClient` that was already imported and instantiated. Rebuilt `dist/index.js` (1 file at `~/.kerri-chief/kerri-gdocs-mcp/dist/index.js`, mtime now 2026-05-24 02:32 PT). Scheduled tasks spawn fresh MCPs per run, so the next inbox sweep picks up the fix automatically. Interactive sessions need a Claude Code restart or `/mcp` reconnect.
+
+**Process improvement:** when adding MCP tools, the LLM-wiki-pattern checklist must verify (a) tool DEF in ListToolsRequestSchema, (b) CASE branch in CallToolRequestSchema, (c) `npm run build` succeeded, (d) `grep -c "name === \"<tool>\"" dist/index.js` ≥ 1. Added to `wiki/workflows/mcp-tool-add-checklist.md` (TBD).
+
+**Side note:** `~/.kerri-chief/kerri-gdocs-mcp/` is not under git locally. Hardening item — should be its own private repo so source changes have version history.
 
 ## [2026-05-24 19:30 ET] task-shipped | kerri-pipeline-followup + inbox-sweep-coldstart | Kerri
 
@@ -277,6 +585,10 @@ Two changes shipped from the KerriMG suggestions backlog. (1) Cold-start backfil
 ## [2026-05-24 19:04 ET] eod-review | 0 meetings, 0 drafts, 0 flagged | Kerri
 
 First scheduled run of `kerri-eod-meetings-review`. All four calendar sources (Reclaim, Google primary `brian@kerrihq.com`, two Google import calendars, Outlook brian@hardwarefyi.com) returned empty for the 00:00–19:00 ET window on Saturday 2026-05-24. Granola cloud MCP not present in this session's tool list; local cache at `~/Library/Application Support/Granola/cache-v6.json` is 1.9KB and contains no transcripts/documents anyway. Per skill's "everything zero — stay quiet" rule, no Slack digest posted. State file `data/eod-state.json` updated with `lastRunAt`. No brain wiki writes, no Google Tasks created.
+
+## [2026-05-24 19:00 ET] eod-review | 0 meetings, 0 drafts, 0 flagged | Kerri
+
+No meetings found today (Sunday / Memorial Day weekend). Checked Reclaim, Google Calendar (all calendars), and Outlook — all returned zero events in the 00:00–19:00 ET window. Granola cache empty. No Slack digest sent (all-zero rule). State bootstrapped to `data/eod-state.json`.
 
 ## [2026-05-24 18:30 ET] lead-research | 55 surfaced, 15 queued, 40 skipped | Kerri
 
@@ -310,12 +622,6 @@ Brian corrected Kerri for delivering a draft inline over iMessage instead of rou
 
 On-demand event-logistics sub-agent. Five modes — INIT (scope new event), VENUE (research + score), VENDOR (per category), INQUIRY (draft outreach to venue/vendor), STATUS (read-only summary), ROS (run-of-show). No cron — fires when Brian says "find venues for X" / "AV options for Y" / "draft inquiry to Z" / "status on <event>". Each event gets `data/events/<slug>/state.json` (gitignored working state) + `brain/wiki/events/<slug>.md` (durable compact summary). Inquiry drafts post as `📅 EVENT-<slug>-NN` tasks in Kerri MG list (KMG side) or Standard&Works list (S/W side for joint events). Seeded `brain/wiki/events/` with three open events: `sf-tech-week-2026`, `dc-maritime-defense-2026` (joint with S/W, boundary applies), `kinetic-2027`. Westin St. Francis (Wendy Hom) noted as warm SF venue contact. Complements existing `event-planning` skill at the strategic layer.
 
-## [2026-05-26 14:49 ET] inbox-sweep | Werqwise handled by Brian, no task | Kerri
-
-- Werqwise / H0019: Betsy LaPointe replied to the SF Tech Week venue inquiry with location-capacity guidance: Financial District maxes at 80 guests; North Beach can accommodate about 100-120 and needs clarification on neighborhood preference plus load-in/setup/breakdown timing before quoting.
-- Brian replied directly in-thread at 14:46 ET with call availability for May 27-29, so Kerri did not create a duplicate Google Task or send a text alert.
-- Kerri registered Werqwise in `data/companies.json`, created [[wiki/companies/werqwise]], updated [[wiki/events/sf-tech-week-2026]], advanced the inbox-sweep cursor, and recorded the run grade.
-
 ## [2026-05-24 08:30 ET] sub-agent-chain-shipped | kerri-sw-newsletter (writer + editor + marketing) | Kerri
 
 Three-agent chain for the S&W Industrialist newsletter. Writer drafts Mon + Wed 8:14pm ET for Tue + Thu ~2pm ET publish. Editor polishes 2 hours later (10:21pm). Marketing fires Tue + Thu 2:24pm ET to draft Twitter thread + LinkedIn post + short blurb from the published issue. All agents respect `voice-sw-industrialist.md` (new — distinct from HWFYI's `voice.md`). Format reverse-engineered from 10 archived issues: Markets snapshot + 2-graf Lead + 5–6 category roundups (Defense & Space / Semis & Electronics / Energy & Materials / Mfg & Automation / Maritime & Shipbuilding / Supply Chain & Freight) + Dealbook + "Back Tue/Thu." Brian's instruction: Kerri owns the writing end-to-end; Brian and Zach contribute via `[SW]`-tagged email suggestions. beehiiv paste primary path = Chrome MCP automating `/posts/template-library → "S&w industrialist" template`; fallback when Chrome bridge fails = full Markdown posted to a Google Task in Standard&Works list. Pre-publish drafts gitignored at `brain/.local/sw-newsletter-drafts/`. Decision: [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]].
@@ -338,20 +644,6 @@ Closed-loop on a 💡 SUGGESTION the sweep flagged in the KerriMG Google Tasks l
 
 The Google Tasks suggestion task was marked completed with the applied-fix details, so the audit trail lives in both Tasks and the brain. Kerri's "flag-don't-break" pattern from STEP 4 of the sweep prompt worked exactly as designed — this is the loop in motion.
 
-## [2026-05-24 19:35 ET] fix | kerri-gdocs-mcp-gtasks-handlers | Kerri
-
-Diagnosed + fixed inbox sweep failure ("Unknown tool: gtasks_list_lists"). Root cause: the prior session added 5 gtasks tool DEFINITIONS to `src/index.ts` (ListToolsRequestSchema) but never wrote the corresponding CASE branches in the CallToolRequestSchema handler. Result: MCP advertised the tools but had no code to execute them, so every gtasks_* call fell through to the default `throw new McpError(ErrorCode.MethodNotFound, "Unknown tool: ${name}")`.
-
-Fix: added 5 handlers (gtasks_list_lists / list_tasks / get_task / create_task / update_task) using the `tasksClient` that was already imported and instantiated. Rebuilt `dist/index.js` (1 file at `~/.kerri-chief/kerri-gdocs-mcp/dist/index.js`, mtime now 2026-05-24 02:32 PT). Scheduled tasks spawn fresh MCPs per run, so the next inbox sweep picks up the fix automatically. Interactive sessions need a Claude Code restart or `/mcp` reconnect.
-
-**Process improvement:** when adding MCP tools, the LLM-wiki-pattern checklist must verify (a) tool DEF in ListToolsRequestSchema, (b) CASE branch in CallToolRequestSchema, (c) `npm run build` succeeded, (d) `grep -c "name === \"<tool>\"" dist/index.js` ≥ 1. Added to `wiki/workflows/mcp-tool-add-checklist.md` (TBD).
-
-**Side note:** `~/.kerri-chief/kerri-gdocs-mcp/` is not under git locally. Hardening item — should be its own private repo so source changes have version history.
-
-## [2026-05-24 19:00 ET] eod-review | 0 meetings, 0 drafts, 0 flagged | Kerri
-
-No meetings found today (Sunday / Memorial Day weekend). Checked Reclaim, Google Calendar (all calendars), and Outlook — all returned zero events in the 00:00–19:00 ET window. Granola cache empty. No Slack digest sent (all-zero rule). State bootstrapped to `data/eod-state.json`.
-
 ## [2026-05-24 04:00 ET] task-shipped | kerri-eod-meetings-review | Kerri
 
 New scheduled task. Cron `0 19 * * *` daily. Pulls today's calendar (Reclaim + Google + Outlook fallback), matches each meeting against Granola transcripts. Meetings WITH transcripts → writes a per-meeting recap to `brain/wiki/meetings/<date>-<slug>.md`, updates affected person/company pages, drafts a follow-up email, posts as a Google Task `🌙 EOD-<prefix>NN` in the matching list (HWFYI / S&W / Kerri MG). Meetings WITHOUT transcripts → flagged as `⚠️ NO TRANSCRIPT:` tasks in Kerri MG list. Slack digest to Brian. Granola tool discovery happens at runtime via ToolSearch. Per-day dedup via `data/eod-state.json`. S/W boundary respected — S meetings go to `brain/.local/meetings/` (gitignored). Canonical at `agent-prompts/kerri-eod-meetings-review/SKILL.md`. Registry updated.
@@ -372,31 +664,12 @@ Added brian@standardandworks.com as fourth mailbox in inbox sweep, via Superhuma
 
 Replaced Google Doc approval channel with three Google Tasks lists. See [[wiki/decisions/2026-05-24-google-tasks-approval]]. Sweep skill rewritten; `kerri-gdocs` MCP rebuilt with `gtasks_*` tools; setup-auth.mjs extended to request the `tasks` OAuth scope. Pending: Brian re-runs setup-auth to grant scope.
 
-## [2026-05-23] decision | kerrios-rebuild | Brian + Kerri
-
-Clean rebuild of KerriOS. OpenClaw retired. Notion eliminated. Hudson collapsed into Kerri. KMG name finalized. Kerri's external email = kerri@hardwarefyi.com. See [[wiki/decisions/2026-05-23-kerrios-rebuild]].
-
 ## 2026-05-24 — Kinetic 2026 surveys analyzed; sponsor roster drafted
 
 - Analyzed both Kinetic 2026 post-conference Google Forms (Sponsor + Attendee) and produced final-spec optimization for Brian to apply in the Forms editor (Drive MCP is read-only for Forms). Key edits: drop redundant satisfaction questions, convert open-text segmentation questions to multi-choice, add NPS to sponsor form, add role + channel to attendee form, replace soft "would you attend again" with renewal-at-same-price commit signal.
 - Derived Kinetic 2026 sponsor roster from Brian's outbound "THANK YOU - Kinetic 2026" thread set (brian@hardwarefyi.com sent items, 2026-05-14 → 2026-05-23). 23 companies, ~38 contacts. Saved as candidate: [candidates/2026-05-24-kinetic-2026-sponsor-roster.md].
 - Brian confirmed (2026-05-24): Celedon + Hellbender are NOT 2026 sponsors (prospects for 2027); use one primary contact per sponsor for survey send; Brian was sole sender of HWFYI sponsor thank-yous (Benji/Kerri did not send).
 
-## 2026-05-25 — 23 Kinetic 2026 sponsor survey drafts staged + writing-style rules captured
+## [2026-05-23] decision | kerrios-rebuild | Brian + Kerri
 
-- Staged 23 individual sponsor survey send drafts in brian@hardwarefyi.com (Outlook Drafts folder), one per sponsor primary contact, each personalized with first name and pointing to the existing sponsor form public URL. Drafts only, no sends. Approval source: Brian chat 2026-05-25 "draft the survey send email" + "The draft looked good".
-- Captured two new outbound writing rules in [[brian-derario#Writing-style-for-outbound]]: no em dashes (—) in any external send or as-Brian writing; brief-but-complete sentences (no staccato fragments). Both applied to the survey drafts staged today.
-
-## [2026-05-26 12:50 ET] inbox-sweep | H0015 sent + G0002 discarded | Kerri
-
-- H0015 / ATOMS: Brian completed Google Task `c3MwVFNrTEtIYkt6WWswbQ`; Kerri re-read the live thread, confirmed no newer Brian/Kerri reply, and sent the exact approved scheduling reply from `brian@hardwarefyi.com` to Shiv Patel asking whether Thursday 4:30pm ET / 1:30pm PT works. Sent message ID: `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEMAAAtSTsYtUoQT6MqRxoKF3BIAABbgt8kAAA=`.
-- G0002 / J-Reach: Brian completed Google Task `OEY0dTEzTm55bDNvWUs5Uw` with `ACTION: discard, spam email`; Kerri marked the job skipped/discarded and sent no reply or Gmail draft.
-- Post-cursor mailbox sweep found no new task-worthy human inbound; Superhuman S/W returned no inbox threads for the window.
-
-2026-05-26: Verified Brian already sent House of AI reply from brian@hardwarefyi.com to Christian Byza at 12:43 ET. Closed recreated H0016 Google Task as handled/skipped and marked data/jobs.json H0016 skipped to block a duplicate send after the Hardware FYI task-list rewire.
-
-## [2026-05-26 16:20 ET] inbox-sweep | H0021 created + G0003 updated | Kerri
-
-- H0021 / Flow Engineering: Gabriel Louis-Kayen replied to Brian's Kinetic sponsor-survey thread asking whether Flow's panel recording is available, even as a rough cut, so Flow can pull a transcript. Kerri registered Flow as H0021, created Hardware FYI approval task `MWVyUE5tMWhRWnZRVHJ6VA`, and wrote [[wiki/companies/flow-engineering]].
-- G0003 / Cohen & Ostler: Hailey Lonsdale replied that Voyer is happy to close today, attached executed copies, and asked whether anything else is outstanding. Kerri updated the existing `🆕 G0003` Google Task instead of creating a duplicate.
-- Safety: no sends executed. kerri@hardwarefyi.com was unreachable via local CLI and Outlook fallback, so Kerri sent the required Slack fail-closed alert. The H0021 Sendblue/text heads-up also failed because Sendblue env vars are still missing; the existing Kerri MG suggestion task already tracks that config gap.
+Clean rebuild of KerriOS. OpenClaw retired. Notion eliminated. Hudson collapsed into Kerri. KMG name finalized. Kerri's external email = kerri@hardwarefyi.com. See [[wiki/decisions/2026-05-23-kerrios-rebuild]].

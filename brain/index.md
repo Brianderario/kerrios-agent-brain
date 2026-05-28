@@ -20,6 +20,10 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 
 ## People
 
+- [[wiki/people/ken-biberaj]] — Savills / Coffee with Ken contact for media-event collaboration
+- [[wiki/people/caroline-gonzales]] — Summit Interconnect marketing contact for 2026 Hardware FYI partnership
+- [[wiki/people/peter-attia]] — CoLab demand-gen contact for Hardware FYI content/newsletter partnership
+- [[wiki/people/mihir-shah]] — Shah Capital Ventures contact tied to Project Spruce / Hardware FYI strategy
 - [[wiki/people/brian-derario]] — CEO, KMG
 - [[wiki/people/ari-lewis]] — CFO, KMG
 - [[wiki/people/benji-chia]] — CDO, KMG
@@ -41,6 +45,11 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/companies/duro-labs]] — H0014 — HWFYI / Kinetic sponsor relationship (pricing thread queued)
 - [[wiki/companies/standard-and-works]] — S0001 — external 50/50 partnership (boundary applies)
 - [[wiki/companies/complement]] — H0022 — HWFYI sponsor prospect for manufacturing AI agent product-led trial
+- [[wiki/companies/listo-media]] — H0025 — Kinetic / Hardware FYI video and content vendor
+- [[wiki/companies/summit-interconnect]] — H0028 — HWFYI sponsor prospect for 2026 partnership / custom article
+- [[wiki/companies/shah-capital-ventures]] — H0029 — Hardware FYI / KMG strategic partner context
+- [[wiki/companies/colab]] — H0030 — HWFYI sponsor/customer exploring content + newsletter experiments
+- [[wiki/companies/kerri-media-group]] — G0006 — internal KMG finance/admin thread identity for `kerrihq.com`
 
 ## Decisions
 
@@ -60,9 +69,12 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 
 ## Deals · Meetings · Candidates · Raw
 
+- [[wiki/meetings/2026-05-27-brian-ken-catch-up]] — Coffee with Ken media/event collaboration discussion
+- [[wiki/meetings/2026-05-27-hardware-fyi-colab]] — CoLab content/newsletter experiment discussion
 - `wiki/deals/` — open + closed deals (empty; populated as work happens)
 - [[wiki/meetings/2026-05-26-zenode-hardware-fyi]] — Zenode x Hardware FYI content-led partnership discussion
 - [[wiki/meetings/2026-05-26-nehemoyia-young-and-brian-derario]] — Duro post-Kinetic events/content planning
 - [[wiki/meetings/2026-05-26-james-redd-and-brian-derario]] — Complement partner-program trial discussion
+- [[wiki/meetings/2026-05-27-summit-interconnect-hardware-fyi]] — Summit Interconnect 2026 HWFYI partnership scoping
 - `candidates/` — uncertain/conflicting claims pending review
 - `raw/` — append-only evidence
