@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 17:50 ET] inbox-sweep | H0019 Werqwise redo queued | Kerri
+
+Processed Google Tasks H/S/G first, then swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T21:33:00Z cursor overlap. H0019 Werqwise had `ACTION: redo`, so Kerri rewrote the task as a Kerri-sender existing-thread reply asking only for catering and A/V vendor info; no email was sent. The H0022 Complement approved-send copy was already handled, ATOMS was a Superhuman reminder/self-copy, Gmail WSJ was auto-skipped, and S/W had no inbox threads.
+
 ## [2026-05-28 17:38 ET] inbox-sweep | H0022 sent; H0019 route review; H0031 skipped | Kerri
 
 Processed Google Tasks H/S/G first, then swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T21:13:15Z cursor overlap. H0022 Complement was sent from `brian@hardwarefyi.com` after approval and live-thread verification. H0019 Werqwise was reopened because approved-send blocked the Brian-sender route while Kerri is already participating in the thread; no Werqwise email was sent. H0031 San Francisco Brewing Co. was skipped because Brian marked that Benji will reply. No new task-worthy inbound appeared. Required Sendblue heads-up for H0019 failed because runtime Sendblue config is still missing.
