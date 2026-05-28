@@ -5,13 +5,13 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 18:04 ET · **by:** Kerri (Codex)
+**Last touched:** 2026-05-28 18:22 ET · **by:** Kerri (Codex)
 
 ## In flight
 - EOD-H01 CoLab follow-up (job H0030, task QXNQV2NGRTBHeGJVTVZlTQ): draft REWRITTEN from Granola transcript per Brian's request — pending his approval. Do NOT auto-send; awaiting Brian checking the task.
 
 ## Last action
-- Inbox sweep processed Google Tasks first, swept all four mailboxes from the 21:45 UTC cursor overlap, and recorded Katrina Yeh's AllSpice dinner/HH reply as already handled because Brian replied live with scheduling availability. No task, draft, send, or text alert was created.
+- Inbox sweep processed Google Tasks first, swept all four mailboxes from the 21:59 UTC cursor overlap, and marked Sara Fischer's Gmail reply to Ari Lewis as seen/no-task because Brian was cc'd but Ari is the direct respondent. No task, draft, send, suggestion, or text alert was created.
 
 ## Next action
 - Wait for Brian's approvals on pending Google Tasks before any send. H0019 is now sendable only after Brian approves the Kerri-sender rewrite. G0008 still likely needs review/redo because Esther changed the venue economics after the call.
