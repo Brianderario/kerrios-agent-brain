@@ -7,7 +7,7 @@ slug: hilton-norfolk-the-main
 
 # Hilton Norfolk The Main
 
-scope: venue prospect / event logistics · updated: 2026-05-27
+scope: venue prospect / event logistics · updated: 2026-05-28
 
 ## Context
 

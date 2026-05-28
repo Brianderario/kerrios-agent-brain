@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 18:37 ET] eod-review | 4 meetings, 3 drafts, 1 flagged | Kerri
+
+Processed today's EOD meeting window: Modelwise, Flow, and ATOMS got send-ready existing-thread HWFYI approval packets; Esther/Hilton got a no-transcript manual-recap task while G0008 remains the venue follow-up surface. A duplicate EOD task set from an overlapping runner was closed, and `jobs.json` now points at the canonical open tasks.
+
 ## [2026-05-28 18:22 ET] inbox-sweep | Gmail cc thread noted, no task | Kerri
 
 - Google Tasks H/S/G were readable first; no checked pending job required send, skip, or redo, and the blocked duplicate CoLab task stayed blocked.

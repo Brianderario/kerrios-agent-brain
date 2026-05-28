@@ -31,6 +31,10 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/people/brandon-bourn]] — Zenode contact for Hardware FYI partnership/content discussions
 - [[wiki/people/nehemoyia-young]] — Duro event/marketing contact
 - [[wiki/people/james-redd]] — Complement founder/CEO contact
+- [[wiki/people/florian-grigoleit]] — Modelwise founder contact
+- [[wiki/people/gabriel-louis-kayen]] — Flow Engineering launch/event contact
+- [[wiki/people/janine-khraishah]] — Flow Engineering event/launch contact
+- [[wiki/people/shiv-patel]] — ATOMS founder contact
 
 ## Properties
 
@@ -77,5 +81,8 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/meetings/2026-05-26-nehemoyia-young-and-brian-derario]] — Duro post-Kinetic events/content planning
 - [[wiki/meetings/2026-05-26-james-redd-and-brian-derario]] — Complement partner-program trial discussion
 - [[wiki/meetings/2026-05-27-summit-interconnect-hardware-fyi]] — Summit Interconnect 2026 HWFYI partnership scoping
+- [[wiki/meetings/2026-05-28-modelwise-hardware-fyi]] — Modelwise HWFYI content/newsletter trial scoping
+- [[wiki/meetings/2026-05-28-gabriel-louis-kayen-and-brian-derario]] — Flow Engineering HWFYI digital launch planning
+- [[wiki/meetings/2026-05-28-shiv-hardware-fyi]] — ATOMS HWFYI requirements-management GTM discussion
 - `candidates/` — uncertain/conflicting claims pending review
 - `raw/` — append-only evidence
