@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 16:48 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks H/S/G first and swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T20:28:15Z cursor overlap. No completed approval task was actionable, no post-window task-worthy human inbound appeared, no email/draft/task/text was created, and durable state/grade were updated.
+
 ## [2026-05-28 16:30 ET] approval-edit | H0019 Werqwise draft simplified | Codex
 
 Read the full Brian Hardware FYI Werqwise thread for H0019 and updated the open Hardware FYI Google Task `NEVCd2w3U09XdEp0YjhTQQ` plus `data/jobs.json` to replace the older F&B/temporary-hold draft with a shorter Brian-as-sender reply asking only for rough catering costs and preferred A/V vendors if additional A/V is needed. No email was sent.
