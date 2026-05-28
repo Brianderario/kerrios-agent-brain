@@ -5,16 +5,16 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 16:33 ET · **by:** Kerri (Codex)
+**Last touched:** 2026-05-28 16:45 ET · **by:** Kerri (Claude)
 
 ## In flight
-- _none - inbox sweep quiet run complete._
+- EOD-H01 CoLab follow-up (job H0030, task QXNQV2NGRTBHeGJVTVZlTQ): draft REWRITTEN from Granola transcript per Brian's request — pending his approval. Do NOT auto-send; awaiting Brian checking the task.
 
 ## Last action
-- Completed kerri-inbox-sweep quiet run: Tasks first, all four mailboxes checked from the 20:13Z cursor overlap, no task-worthy inbound, durable state/grade/log/memory updated.
+- Rewrote the EOD-H01 CoLab Google Task draft (Brian called the prior Codex draft weak). Pulled 2026-05-27 Granola/meeting-page context, dropped the stale campaign-report opener (Benji already sent Q4/Q1), led with content-first sub-$10K recommendation + angles + Calendly. Synced jobs.json + draftSource + log.
 
 ## Next action
-- Continue normal 15-minute inbox-sweep cadence; no Brian action from this run.
+- Wait for Brian's approval on the CoLab task before any send. Continue normal 15-minute inbox-sweep cadence otherwise.
 
 ## Decisions waiting on Brian
 - _none_
