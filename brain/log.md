@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 17:03 ET] inbox-sweep | G0008 The Main new reply noted | Kerri
+
+Checked Google Tasks H/S/G first and swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T20:43:23Z cursor overlap. Esther Vera's new Hilton Norfolk The Main reply was routed into the existing G0008 task with a new-reply note instead of creating a duplicate; the Brian HWFYI ATOMS hit was a Superhuman reminder/self-copy and was marked seen only. No email/draft/task/text was created.
+
 ## [2026-05-28 16:48 ET] inbox-sweep | quiet no-op | Kerri
 
 Checked Google Tasks H/S/G first and swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T20:28:15Z cursor overlap. No completed approval task was actionable, no post-window task-worthy human inbound appeared, no email/draft/task/text was created, and durable state/grade were updated.

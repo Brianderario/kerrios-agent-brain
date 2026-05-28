@@ -5,16 +5,16 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 16:48 ET · **by:** Kerri (Codex)
+**Last touched:** 2026-05-28 17:03 ET · **by:** Kerri (Codex)
 
 ## In flight
 - EOD-H01 CoLab follow-up (job H0030, task QXNQV2NGRTBHeGJVTVZlTQ): draft REWRITTEN from Granola transcript per Brian's request — pending his approval. Do NOT auto-send; awaiting Brian checking the task.
 
 ## Last action
-- Repriced the EOD-H01 CoLab draft to $10K flat in Brian's itemized package format ("CoLab Content Experiment ($10K)" = 1x Custom Article + 5x Primary Placement). Synced jobs.json[H0030] + log. Still pending Brian approval.
+- Inbox sweep appended Esther Vera's new The Main / G0008 reply to the existing Gmail-draft-only Google Task instead of creating a duplicate. No email/draft/task/text was created.
 
 ## Next action
-- Wait for Brian's approval on the CoLab task before any send. Continue normal 15-minute inbox-sweep cadence otherwise.
+- Wait for Brian's approvals on pending Google Tasks before any send. G0008 now likely needs review/redo because Esther changed the venue economics after the call.
 
 ## Decisions waiting on Brian
 - _none_

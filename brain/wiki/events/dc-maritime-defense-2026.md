@@ -36,6 +36,7 @@ scope: event · status: scoping · updated: 2026-05-27 · seeded by: kerri-event
 TBD
 
 ## Log
+- 2026-05-28: The Main follow-up improved the venue economics: Esther said Hilton Norfolk The Main can waive the $5,500 room rental fee while keeping the F&B minimum, with banquet checks/menus attached and added break/appetizer spend suggested to reach the minimum. G0008 remains the active Gmail-draft-only task, now marked with the new reply.
 - 2026-05-27: The Main dates now known from Esther Vera: Thu 10/01, Wed 10/07, Wed 10/21, and Thu 10/27. G0008 queued a Gmail-draft-only task to ask whether Oct. 7 can be held temporarily and what deposit/decision deadline applies.
 - 2026-05-27: Zach answered the Hampton Roads `NNS Update` thread that Brian has availability from The Main and should receive The Cavalier's availability today; next step is picking the date once both venue options are in. No Brian reply was needed in the sweep.
 - 2026-05-24: seeded from Brian's outbound to Gigi Schadrack (Dirac) describing the event
