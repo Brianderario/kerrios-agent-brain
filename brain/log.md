@@ -2,6 +2,16 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-27 22:08 ET] brain-push | 3fe645f | Kerri
+
+Pushed the nightly KerriOS brain/prompt update: automation archive + Sendblue guardrails, Hardware FYI account memory, three meeting recaps, entity index hygiene, and concurrent H0031 venue memory.
+
+## [2026-05-27 22:03 ET] inbox-sweep | H0031 San Francisco Brewing Co. task created | Kerri
+
+- Google Tasks H/S/G were readable first; no completed pending send/skip/redo approval was actionable.
+- Brian HWFYI received a new San Francisco Brewing Co. venue reply about July availability for another SF Hardware & Manufacturing Happy Hour. Kerri registered [[wiki/companies/san-francisco-brewing-co]], created Hardware FYI approval task `R2lySW5PVm9nRkRJdkE0UQ`, and stored reply-thread routing metadata. No email was sent.
+- Required Sendblue task-created alert failed because runtime Sendblue API/from/recipient config is still missing; existing Kerri MG suggestion task tracks that setup gap.
+
 ## [2026-05-27 21:48 ET] inbox-sweep | quiet no-op | Kerri
 
 Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
