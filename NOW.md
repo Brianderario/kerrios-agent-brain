@@ -5,13 +5,13 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 16:18 ET · **by:** Kerri (Codex)
+**Last touched:** 2026-05-28 16:33 ET · **by:** Kerri (Codex)
 
 ## In flight
-- _none — inbox sweep quiet run complete._
+- _none - inbox sweep quiet run complete._
 
 ## Last action
-- Completed kerri-inbox-sweep quiet run: Tasks first, all four mailboxes checked, no task-worthy inbound, durable state/grade/log updated.
+- Completed kerri-inbox-sweep quiet run: Tasks first, all four mailboxes checked from the 20:13Z cursor overlap, no task-worthy inbound, durable state/grade/log/memory updated.
 
 ## Next action
 - Continue normal 15-minute inbox-sweep cadence; no Brian action from this run.
