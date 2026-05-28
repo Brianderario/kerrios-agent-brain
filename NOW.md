@@ -5,17 +5,17 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 18:37 ET · **by:** Kerri (Codex)
+**Last touched:** 2026-05-28 18:50 ET · **by:** Kerri (Codex)
 
 ## In flight
 - EOD-H01 CoLab follow-up (job H0030, task QXNQV2NGRTBHeGJVTVZlTQ): draft REWRITTEN from Granola transcript per Brian's request — pending his approval. Do NOT auto-send; awaiting Brian checking the task.
-- EOD 2026-05-28 created send-ready HWFYI drafts for Modelwise (H0023, task WlNJOVVOSzhnWmloalpQbg), Flow (H0021, task Y0daNW5oWFFnbGtpNHBDdA), and ATOMS (H0015, task eXRVemdTVy16OHVJU1AyUQ).
+- EOD 2026-05-28 created send-ready HWFYI drafts for Modelwise (H0023, task R0p0NkJnUlRheFk0WC11cQ), Flow (H0021, task Y0daNW5oWFFnbGtpNHBDdA), and ATOMS (H0015, task U3YwM05iRWpqNTMyM2NGQg).
 
 ## Last action
-- EOD meetings review processed four included meetings, wrote three meeting pages, created three HWFYI follow-up approval tasks plus one no-transcript recap task, and appended two send-ready jobs.json entries for verified existing-thread replies.
+- EOD meetings review processed four included meetings, wrote three meeting pages, created three HWFYI follow-up approval tasks plus one no-transcript recap task, and reconciled `data/jobs.json` to exactly one pending send-ready row for each live EOD draft task.
 
 ## Next action
-- Wait for Brian's approvals on pending Google Tasks before any send. G0008 still likely needs review/redo because Esther changed the venue economics after the call.
+- Wait for Brian's approvals on pending Google Tasks before any send. G0008 still likely needs review/redo because Esther changed the venue economics after the call; Sendblue alert delivery is still blocked by missing runtime credentials.
 
 ## Decisions waiting on Brian
 - _none_
