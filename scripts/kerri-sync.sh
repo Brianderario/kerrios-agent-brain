@@ -40,8 +40,8 @@ ELIGIBLE=(
 CHANGES="$(git status --porcelain -- "${ELIGIBLE[@]}" 2>/dev/null)"
 [ -z "$CHANGES" ] && exit 0   # nothing brain-relevant changed → silent no-op
 
-RUNNER="${KERRI_RUNNER:-$(basename "${0%/*}" 2>/dev/null)}"
-[ -z "$RUNNER" ] && RUNNER="local"
+# Hooks set KERRI_RUNNER (claude|codex); manual runs fall back to "manual".
+RUNNER="${KERRI_RUNNER:-manual}"
 
 # Stage only eligible paths.
 git add -- "${ELIGIBLE[@]}" 2>/dev/null
