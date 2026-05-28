@@ -5,16 +5,16 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 16:05 ET · **by:** Kerri (Claude)
+**Last touched:** 2026-05-28 16:18 ET · **by:** Kerri (Codex)
 
 ## In flight
-- _none — sync system shipped._
+- _none — inbox sweep quiet run complete._
 
 ## Last action
-- Shipped cross-runner sync: `NOW.md` baton + `scripts/kerri-{pull,sync}.sh` + SessionStart/Stop hooks in both runners. Committed + pushed (47b0317).
+- Completed kerri-inbox-sweep quiet run: Tasks first, all four mailboxes checked, no task-worthy inbound, durable state/grade/log updated.
 
 ## Next action
-- Sanity check: open Codex, confirm it pulled and reads this file first. Then start using NOW.md as the day-to-day baton.
+- Continue normal 15-minute inbox-sweep cadence; no Brian action from this run.
 
 ## Decisions waiting on Brian
 - _none_

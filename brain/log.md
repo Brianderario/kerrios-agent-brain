@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 16:18 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks H/S/G first and swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T19:57:35Z cursor overlap. Auto-skipped one Dow Jones Gmail marketing item, created no tasks, sent no emails/texts, and updated durable state/grade.
+
 ## [2026-05-28 14:49 ET] inbox-sweep | quiet no-op | Kerri
 
 Checked Google Tasks H/S/G first and swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T18:28:08Z cursor overlap. Auto-skipped internal/outbound Hardware FYI copy plus marketing noise, created no tasks, sent no emails/texts, and updated durable state/grade.
@@ -779,3 +783,5 @@ Google Tasks H/S/G were readable with no actionable checked approvals; existing 
 Processed Google Tasks approvals first, then Kerri Hardware FYI, Brian Hardware FYI, brian@kerrihq.com Gmail, and Superhuman S/W with cursor overlap from 2026-05-28T18:44:10Z. No completed approval, task-worthy inbound, send, draft, skip, redo, suggestion, or Sendblue/text alert was needed. Advanced inbox-sweep state and recorded the run grade.
 
 - 2026-05-28T19:18:32Z - kerri-inbox-sweep quiet run: processed Google Tasks approvals first, swept all four configured mailboxes from the 2026-05-28T18:58:34Z cursor overlap, found no sendable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts, then advanced state and grade.
+
+- 2026-05-28T20:02:35Z - kerri-inbox-sweep quiet run: processed Google Tasks approvals first, swept all four configured mailboxes from the 2026-05-28T19:42:54Z cursor overlap, found no actionable approvals, post-overlap task-worthy inbound, new tasks, sends, skips, redos, suggestions, errors, or Brian-facing alerts, then advanced state and grade.
