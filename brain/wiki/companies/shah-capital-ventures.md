@@ -7,7 +7,7 @@ slug: shah-capital-ventures
 
 # Shah Capital Ventures
 
-scope: Hardware FYI / KMG strategic partner context · updated: 2026-05-27
+scope: Hardware FYI / KMG strategic partner context · updated: 2026-05-28
 
 ## Overview
 
@@ -16,8 +16,10 @@ Shah Capital Ventures is represented in KerriOS through [[../people/mihir-shah|M
 ## Recent Activity
 
 - 2026-05-27: Mihir sent Brian, Benji, and Ari a strategic Hardware FYI growth note arguing that the core asset is the hard-to-reach engineering audience, and suggested focused event expansion, engineer-first media/podcast work, factory-tour content, and community-driven products. Kerri queued H0029 for Brian approval; no email was sent.
+- 2026-05-28: Mihir sent a follow-on Hardware FYI founding-story note for archive/article context. He recapped The Analog's 2021 launch, growth to roughly 5,000 readers and early sponsors, Benji's outreach and first-year salary/investment arrangement, The Analog becoming HardwareFYI, and the current 20K+ subscriber / sold-out event proof point. Kerri updated the existing H0029 approval task instead of creating a duplicate; no email was sent.
 
 ## Source Pointers
 
 - 2026-05-27 brian@hardwarefyi.com inbox thread `HardwareFYI, doubling-down on the most valuable audience in hardware:`
 - Same message also visible in brian@kerrihq.com Gmail as message `19e6b8f75e3c0faf`.
+- 2026-05-28 brian@kerrihq.com Gmail message `19e6fa620a1276f3` (`HardwareFYI founding story`)

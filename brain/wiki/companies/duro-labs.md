@@ -7,7 +7,7 @@ slug: duro-labs
 
 # Duro Labs
 
-scope: Hardware FYI sponsor / prospect · updated: 2026-05-27
+scope: Hardware FYI sponsor / prospect · updated: 2026-05-28
 
 ## Overview
 
@@ -30,10 +30,12 @@ Duro Labs is a cloud-native PLM/PDM company for hardware teams. The relationship
 - 2026-05-26: Nehemoyia said Duro has more budget/resources post-acquisition, but also more red tape, and wants more targeted dinners/happy hours after Kinetic went well. Brian suggested two high-quality Duro dinners outside Kinetic, supported by a broader content piece before each dinner, and offered to send SF Tech Week details and check the Renaissance invoice status (src: meetings/2026-05-26-nehemoyia-young-and-brian-derario.md).
 - 2026-05-27: Michael Corr replied on the Duro x HardwareFYI check-in thread that he filled out Brian's Kinetic survey and offered to help with anything else. No reply was needed from the sweep.
 - 2026-05-27: Benji sent the Hardware FYI Custom Dinner partnership invoice to Altium payables/finance with Brian and Nehemoyia copied. Attachments included the SOW/contract, invoice, bank letter, vendor information form, and W-9. The message was informational for Brian, so no approval task or reply was created (src: `brian@hardwarefyi.com` message `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEMAAAtSTsYtUoQT6MqRxoKF3BIAABbgt-NAAA=`).
+- 2026-05-28: Nehemoyia replied "Great, thank you Benji!" on the Duro invoice thread, with payables/finance, Brian, and Shaun copied. Full-thread reread found a receipt acknowledgment only, no new ask for Brian/Kerri, and no approval task or reply was created (src: `brian@hardwarefyi.com` message `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEMAAAtSTsYtUoQT6MqRxoKF3BIAABbgt-jAAA=`).
+- 2026-05-28: Nehemoyia replied on Brian's `Hardware FYI x Duro 2026` package-recap thread that it was great connecting, thanked Brian for the recap, and said Duro will circle back with budget and timing details shortly. Full-thread reread found no new ask for Brian/Kerri, so no approval task or reply was created (src: `brian@hardwarefyi.com` message `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEMAAAtSTsYtUoQT6MqRxoKF3BIAABbgt-oAAA=`).
 
 ## Current Thread State
 
-Robert is evaluating which Hardware FYI options are feasible. Brian sent line-item prices: Primary placement $1,500, webinar $5,000, custom content depends on execution, custom article $2,500, custom research report starting at $6,000, and Partner Program $12,500 for six months per the pricing model. Robert acknowledged the pricing with a short thank-you and has not added a new ask yet. Separately, Michael completed Brian's Kinetic survey on 2026-05-26/27; Duro has not asked for a new reply in that survey thread. Benji has sent the Custom Dinner invoice package to Altium payables/finance with Nehemoyia and Brian copied.
+Robert is evaluating which Hardware FYI options are feasible. Brian sent line-item prices: Primary placement $1,500, webinar $5,000, custom content depends on execution, custom article $2,500, custom research report starting at $6,000, and Partner Program $12,500 for six months per the pricing model. Robert acknowledged the pricing with a short thank-you. Brian later sent Nehemoyia/Shaun/Robert a package recap recommending custom content first, always-on Partner Program visibility, dinner series, and SF Tech Week; Nehemoyia said Duro will return with budget and timing details. Separately, Michael completed Brian's Kinetic survey on 2026-05-26/27; Duro has not asked for a new reply in that survey thread. Benji has sent the Custom Dinner invoice package to Altium payables/finance with Nehemoyia and Brian copied; Nehemoyia acknowledged receipt on 2026-05-28 with no new ask.
 
 ## Source Pointers
 

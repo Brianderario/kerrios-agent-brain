@@ -5,16 +5,16 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 16:00 ET · **by:** Kerri (Claude)
+**Last touched:** 2026-05-28 16:05 ET · **by:** Kerri (Claude)
 
 ## In flight
-- Cross-runner sync system ("the baton") — NOW.md + auto pull/push hooks for Claude & Codex. Just built.
+- _none — sync system shipped._
 
 ## Last action
-- Created `NOW.md`, `scripts/kerri-sync.sh`, `scripts/kerri-pull.sh`; wired Stop/SessionStart hooks in both runners.
+- Shipped cross-runner sync: `NOW.md` baton + `scripts/kerri-{pull,sync}.sh` + SessionStart/Stop hooks in both runners. Committed + pushed (47b0317).
 
 ## Next action
-- Confirm the hooks fire on a real session switch (open Codex, verify it pulled this file).
+- Sanity check: open Codex, confirm it pulled and reads this file first. Then start using NOW.md as the day-to-day baton.
 
 ## Decisions waiting on Brian
 - _none_

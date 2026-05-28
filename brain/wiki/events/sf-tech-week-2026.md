@@ -1,6 +1,6 @@
 # SF Tech Week 2026 (KMG happy hour + panels)
 
-scope: event · status: scoping · updated: 2026-05-27 · seeded by: kerri-event-logistics
+scope: event · status: scoping · updated: 2026-05-28 · seeded by: kerri-event-logistics
 
 - **Type:** Networking happy hour + 1–2 panels on manufacturing/investment
 - **Date:** October 2026 (specific dates TBD with SF Tech Week schedule)
@@ -40,6 +40,8 @@ Until the minimum viable event plan below is filled in, Kerri may describe SF Te
 - Werqwise — Betsy LaPointe replied on 2026-05-26 that the Financial District location maxes at 80 guests and the North Beach location can accommodate about 100-120. Brian replied that North Beach is worth pricing if it supports the 100-120 range, with roughly one hour setup before the event and light/prompt breakdown afterward. Needs pricing, availability, A/V, and terms before comparison. See [[../companies/werqwise]] / H0019.
 - SHACK15 — Cheyenne Rose replied on 2026-05-27 that Oct. 5 or 6 may be available, but both have existing holds. Initial 3-hour / 100-guest proposal is linked in-thread; needs hold-deadline clarity and Brian's venue-path decision before scheduling a call. See [[../companies/shack15]] / H0027.
 
+- The Pearl SF — Alex Silva replied on 2026-05-28 that The Pearl cannot work within the current $40K hard ceiling because the blank-canvas venue requires built-in A/V; suggested SFUVA.com for alternate venue sourcing. See [[../companies/the-pearl-sf]] / H0032.
+
 ## Vendors
 (none yet)
 
@@ -47,6 +49,7 @@ Until the minimum viable event plan below is filled in, Kerri may describe SF Te
 TBD
 
 ## Log
+- 2026-05-28: The Pearl SF replied that the venue cannot fit the current $40K hard ceiling because each event needs built-in A/V; Kerri queued H0032 as a short courtesy close-out and marked The Pearl out of the active comparison unless budget changes.
 - 2026-05-26: Brian replied directly to Werqwise asking for Oct. 5-11 evening date availability and pricing for the North Beach option, with one hour setup and light/prompt breakdown assumptions. No approval task needed because Brian handled the thread.
 - 2026-05-27: SHACK15 replied with limited Oct. 5/6 availability, initial proposal links, and term/load-in/signage details. Queued H0027 approval task for Kerri to ask about temporary holds and deadline timing; no venue commitment made.
 - 2026-05-26: Werqwise replied with location-capacity guidance for the SF Tech Week hardware/AI venue inquiry. Brian replied directly with call availability, so Kerri registered the vendor and did not create a duplicate approval task.

@@ -2,6 +2,62 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 14:49 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks H/S/G first and swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T18:28:08Z cursor overlap. Auto-skipped internal/outbound Hardware FYI copy plus marketing noise, created no tasks, sent no emails/texts, and updated durable state/grade.
+
+## [2026-05-28 14:33 ET] inbox-sweep | quiet no-op | Kerri
+
+Processed Google Tasks H/S/G first, checked all configured mailboxes from the 18:16:30Z cursor overlap, found no actionable approvals or new task-worthy inbound, updated durable state/grade, and sent no text or email.
+
+## [2026-05-28 14:02 ET] inbox-sweep | H0029 new reply noted | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the cursor overlap after 2026-05-28T17:29:41Z. No completed approval task was actionable and no email was sent. Mihir Shah's new Hardware FYI founding-story Gmail note was routed into the existing H0029 Shah Capital Ventures task with a new-reply marker instead of creating a duplicate; SESCO webinar, Superhuman reminder, and calendar invite items were auto-skipped/seen-only.
+
+## [2026-05-28 11:48 ET] inbox-sweep | Duro ack no-reply | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-28T13:43:00Z cursor overlap. No completed approval task was actionable, no new Google Task or suggestion was created, no email was sent, and no text alert was needed. Recorded Nehemoyia's Duro invoice-thread receipt acknowledgment as no-reply-needed.
+
+## [2026-05-28 07:08 ET] morning-brief | delivered with default-CC anomaly | Kerri
+
+Delivered the Thursday morning HTML brief to brian@kerrihq.com and wrote output/morning-brief/2026-05-28.html plus latest.html. Sent-folder verification found the custom Kerri mailbox MCP still injected default cc brian@hardwarefyi.com despite explicit empty cc, so no repair email was sent and the state entry records the delivery gap. Required Sendblue heads-up was attempted and failed because runtime Sendblue credentials/Brian phone aliases are still missing.
+
+## [2026-05-28 06:48 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the cursor overlap after 2026-05-28T10:27:32Z. No completed approval task was actionable, no post-cursor task-worthy human inbox item appeared, one Gmail newsletter was auto-skipped and recorded in state, no email was sent, no Google Task was created, and no text alert was needed.
+
+## [2026-05-28 05:47 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. All four mailbox sources were readable through the configured paths; no completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no email was sent, and no text alert was needed. Cursor/state, self-grade, and automation memory were updated.
+
+## [2026-05-28 04:02 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the cursor overlap after 2026-05-28T07:43:08Z. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-28 03:02 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the cursor overlap after 2026-05-28T06:42:58Z. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-28 02:18 ET] inbox-sweep | H0033 Xometry task created | Kerri
+
+- H0033 / Xometry: Benji introduced Brian to Stephany Verstraete and Shahan Rabbani after meeting them at Kinetic, recapping a prior $17.5K starting proposal of 6 Primary Newsletter Placements plus 2 co-hosted webinars and pointing to SF Tech Week / Q3-Q4 planning as possible activation surfaces.
+- Kerri registered [[wiki/companies/xometry]], created Hardware FYI Google Task `OUhvWXFEUy1OV1V5N1ZGRQ` with a short Brian-as-sender intro reply, and wrote the job/state/grade entries. No email was sent.
+- Required Sendblue task-created alert failed because runtime Sendblue API/from/recipient config is still missing; existing Kerri MG suggestion task `Sk41OXVfbGxqYVlndUNUUw` tracks that setup gap.
+
+## [2026-05-28 01:32 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-28 01:02 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-28 00:18 ET] inbox-sweep | H0032 The Pearl SF task created | Kerri
+
+- H0032 / The Pearl SF: Alex Silva replied that The Pearl cannot work within the current $40K SF Tech Week venue budget because the blank-canvas venue requires built-in A/V, and suggested SFUVA.com for alternate venue sourcing.
+- Kerri registered [[wiki/companies/the-pearl-sf]], updated [[wiki/events/sf-tech-week-2026]], and created Hardware FYI Google Task `cnZtOUFkU2lVTmxndmxoTw` with a short Kerri-as-sender close-out draft. No email was sent.
+- Required Sendblue task-created alert failed because runtime Sendblue API/from/recipient config is still missing; existing Kerri MG suggestion task tracks that setup gap.
+
 ## [2026-05-27 22:08 ET] brain-push | 3fe645f | Kerri
 
 Pushed the nightly KerriOS brain/prompt update: automation archive + Sendblue guardrails, Hardware FYI account memory, three meeting recaps, entity index hygiene, and concurrent H0031 venue memory.
@@ -683,3 +739,43 @@ Replaced Google Doc approval channel with three Google Tasks lists. See [[wiki/d
 ## [2026-05-23] decision | kerrios-rebuild | Brian + Kerri
 
 Clean rebuild of KerriOS. OpenClaw retired. Notion eliminated. Hudson collapsed into Kerri. KMG name finalized. Kerri's external email = kerri@hardwarefyi.com. See [[wiki/decisions/2026-05-23-kerrios-rebuild]].
+
+## [2026-05-28 00:32 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+
+## [2026-05-28 01:15 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks first, then kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the cursor overlap after 2026-05-28T04:57:42Z. No completed approval task was actionable, no post-cursor task-worthy inbox item appeared, no new task or suggestion was created, no email was sent, and no text alert was needed.
+- 2026-05-28T05:48:09Z — kerri-inbox-sweep quiet run: checked Google Tasks H/S/G and all four configured mailboxes; no actionable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts.
+- 2026-05-28T06:03:02Z - kerri-inbox-sweep quiet run: checked Google Tasks H/S/G and all four configured mailboxes; no actionable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts.
+- 2026-05-28T06:33:33Z - kerri-inbox-sweep updated existing H0030 CoLab approval task after Benji replied in-thread with prior campaign reports/assets; prefixed the Google Task with new-reply marker, updated jobs/state/grades, and sent no text because no new task or alert-worthy blocker was created.
+
+- 2026-05-28T06:47:58Z - kerri-inbox-sweep quiet run: checked Google Tasks H/S/G and all four configured mailboxes; no actionable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts.
+- 2026-05-28T07:32:46Z - kerri-inbox-sweep quiet run: checked Google Tasks H/S/G and all four configured mailboxes from the 07:12:23Z cursor overlap; no actionable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts.
+- 2026-05-28T08:17:38Z - kerri-inbox-sweep quiet run: checked Google Tasks H/S/G and all four configured mailboxes from the 07:57:53Z cursor overlap; no actionable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts.
+
+- 2026-05-28T08:47:35Z - kerri-inbox-sweep fail-closed coverage miss: Google Tasks plus brian@hardwarefyi.com, brian@kerrihq.com, and S/W were checked with no actionable approvals or new jobs; kerri@hardwarefyi.com mailbox read failed through the available Outlook path, no emails were sent, and the required Sendblue alert missed because text config is still unavailable.
+- 2026-05-28T09:32:24Z - kerri-inbox-sweep fail-closed coverage miss: Google Tasks plus brian@hardwarefyi.com, brian@kerrihq.com, and S/W were checked with no actionable approvals or new jobs; kerri@hardwarefyi.com mailbox read failed through the available Outlook path, no emails were sent, and the required Sendblue alert missed because text config is still unavailable.
+- 2026-05-28T10:32:32Z - kerri-inbox-sweep quiet run: checked Google Tasks H/S/G and all four configured mailboxes from the 2026-05-28T10:12:45Z cursor overlap; no actionable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts.
+- 2026-05-28T12:18:32Z - kerri-inbox-sweep quiet run: checked Google Tasks H/S/G and all four configured mailboxes from the 2026-05-28T11:57:38Z cursor overlap; no actionable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts.
+
+- 2026-05-28T13:18:52Z - kerri-inbox-sweep fail-closed coverage miss: Google Tasks plus brian@hardwarefyi.com, brian@kerrihq.com, and S/W were checked with no actionable approvals or new jobs; kerri@hardwarefyi.com mailbox read failed through the available Outlook delegated path, no emails were sent, and the required Sendblue alert missed because text config is still unavailable.
+
+## [2026-05-28 12:00 ET] inbox-sweep | quiet no-op | Kerri
+
+Google Tasks H/S/G were readable with no actionable checked approvals; existing open approval tasks remain waiting. kerri@hardwarefyi.com and brian@hardwarefyi.com were reachable with no post-overlap human inbound requiring a new task or draft; Gmail only showed newsletter/automation noise outside the active overlap; Superhuman S/W had no INBOX threads. Updated cursor state and run grade; no tasks, sends, texts, suggestions, daily grade, or weekly grade.
+
+- 2026-05-28T16:50:56Z - kerri-inbox-sweep updated existing Duro Labs H0014 account state after Nehemoyia replied on Brian's Hardware FYI x Duro 2026 recap that Duro will circle back with budget/timing details. Full-thread reread found no new ask, so no approval task, reply, send, or text alert was created.
+
+- 2026-05-28T17:34:41Z - kerri-inbox-sweep created G0009 Foundusa Nova approval task for a cold working-capital pitch to brian@kerrihq.com; Gmail draft-only decline queued in Google Tasks (cy1Pajh1T2tCUGppeXhySg), no email sent, Sendblue task alert missed due missing config.
+
+- 2026-05-28T18:19:42Z - inbox-sweep sent approved H0032 The Pearl SF close-out from Kerri in the existing venue thread after Brian completed the Hardware FYI Google Task; sent message verified in Kerri sent items.
+- 2026-05-28T18:20:27Z - inbox-sweep marked H0033 Xometry skipped after Brian completed the Hardware FYI Google Task with ACTION: skip; no reply sent.
+- 2026-05-28T18:21:30Z - kerri-inbox-sweep processed approvals first, swept all configured mailboxes, auto-skipped post-cursor noise, updated durable state/grade, and created no new tasks or attention alerts.
+
+## [2026-05-28 19:03:34 UTC] kerri-inbox-sweep | quiet no-op | Kerri
+
+Processed Google Tasks approvals first, then Kerri Hardware FYI, Brian Hardware FYI, brian@kerrihq.com Gmail, and Superhuman S/W with cursor overlap from 2026-05-28T18:44:10Z. No completed approval, task-worthy inbound, send, draft, skip, redo, suggestion, or Sendblue/text alert was needed. Advanced inbox-sweep state and recorded the run grade.
+
+- 2026-05-28T19:18:32Z - kerri-inbox-sweep quiet run: processed Google Tasks approvals first, swept all four configured mailboxes from the 2026-05-28T18:58:34Z cursor overlap, found no sendable approvals, new jobs, sends, skips, redos, suggestions, errors, or Brian-facing alerts, then advanced state and grade.
