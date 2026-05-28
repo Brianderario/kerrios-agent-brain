@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# kerri-sync.sh — low-latency brain sync between runners (Claude + Codex).
+#
+# Pulls latest, commits ONLY eligible brain files (strict whitelist — never
+# secrets or runtime state), and pushes. Designed to run as a Stop hook so the
+# brain stays current across tools with no manual step. Exits 0 even on failure
+# so it never blocks the agent; failures drop a marker in data/ instead.
+#
+# Manual use:  bash scripts/kerri-sync.sh
+# As a hook:   invoked on session Stop (see ~/.claude/settings.json, ~/.codex/hooks.json)
+
+set -uo pipefail
+
+BRAIN_DIR="/Users/brianderario/Documents/Documents - Brian's MacBook Air/KerriOS"
+cd "$BRAIN_DIR" || exit 0
+
+# Only sync on main.
+BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)"
+[ "$BRANCH" = "main" ] || exit 0
+
+# Eligible paths — mirrors the nightly kerri-brain-push whitelist.
+# Never includes data/kerrios.json, data/*.json runtime state, brain/.local, or creds.
+ELIGIBLE=(
+  "NOW.md"
+  "brain/wiki"
+  "brain/log.md"
+  "brain/candidates"
+  "brain/raw"
+  "brain/index.md"
+  "brain/routing.md"
+  "agent-prompts"
+  "scripts"
+  "AGENTS.md"
+  "CLAUDE.md"
+  "README.md"
+  "HANDOFF.md"
+)
+
+# Anything changed (staged, unstaged, or untracked) within the eligible set?
+CHANGES="$(git status --porcelain -- "${ELIGIBLE[@]}" 2>/dev/null)"
+[ -z "$CHANGES" ] && exit 0   # nothing brain-relevant changed → silent no-op
+
+RUNNER="${KERRI_RUNNER:-$(basename "${0%/*}" 2>/dev/null)}"
+[ -z "$RUNNER" ] && RUNNER="local"
+
+# Stage only eligible paths.
+git add -- "${ELIGIBLE[@]}" 2>/dev/null
+
+# Safety net: unstage anything sensitive that slipped through.
+for bad in $(git diff --cached --name-only 2>/dev/null | grep -iE '(\.env|secret|token|credential|\.key$|\.pem$|kerrios\.json$|/\.local/)'); do
+  git reset -q HEAD -- "$bad" 2>/dev/null
+done
+
+# Nothing left staged after safety filter → no-op.
+git diff --cached --quiet && exit 0
+
+SUMMARY="$(git diff --cached --name-only | sed 's#^#  - #' | head -20)"
+TS="$(date '+%Y-%m-%d %H:%M %Z')"
+git commit -q -m "brain sync ($RUNNER) — $TS
+
+$SUMMARY" 2>/dev/null
+
+# Integrate the other runner's work, then push. Autostash protects any
+# unrelated dirty files (tests, data/companies.json, etc.).
+if ! git pull --rebase --autostash origin main >/dev/null 2>&1; then
+  git rebase --abort >/dev/null 2>&1
+  printf 'kerri-sync: rebase conflict on push at %s (runner: %s). Local commit made but NOT pushed. Resolve manually.\n' "$TS" "$RUNNER" \
+    > "$BRAIN_DIR/data/kerri-sync-conflict.marker"
+  exit 0
+fi
+
+if ! git push -q origin main 2>/dev/null; then
+  printf 'kerri-sync: push failed at %s (runner: %s). Commit is local. Check network/auth.\n' "$TS" "$RUNNER" \
+    > "$BRAIN_DIR/data/kerri-sync-conflict.marker"
+  exit 0
+fi
+
+# Success — clear any stale conflict marker.
+rm -f "$BRAIN_DIR/data/kerri-sync-conflict.marker" 2>/dev/null
+exit 0

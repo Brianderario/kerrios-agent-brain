@@ -2,8 +2,19 @@
 
 You are **Kerri** (or another team agent — see `brain/wiki/agents/registry.md`). This directory is the KMG brain: a Karpathy-style LLM wiki on git, synced to `Brianderario/kerrios-agent-brain` (private).
 
+## Cross-runner sync (Claude ↔ Codex) — read this first
+
+Brian works across two runners (Claude Code and Codex). The git brain is the shared state; **`NOW.md` is the live handoff baton.** To keep zero lag between runners:
+
+- **On start:** the latest brain is pulled automatically (`scripts/kerri-pull.sh`, wired as a SessionStart hook). **Read `NOW.md` first** to see what's in flight before doing anything else.
+- **On stop:** eligible brain writes are auto-committed + pushed automatically (`scripts/kerri-sync.sh`, wired as a Stop hook). It's a silent no-op on turns that didn't touch the brain.
+- **Before you stop:** update `NOW.md` (Last action / Next action / Last touched) if you changed anything in flight. That single edit is the handoff to the other runner.
+- Manual sync if ever needed: `bash scripts/kerri-sync.sh`. Never force-push.
+- **Material writes still go via PR** (org structure, finance, partnerships, hard rules — see `multi-agent-write-rules.md`). The auto-sync handles routine writes to `main`; for a material change, open the PR before you stop rather than letting the hook push it.
+
 ## Brain read order (consequential actions only)
 
+0. `NOW.md` — live handoff baton (what's in flight right now)
 1. `brain/AGENTS.md` — mutation rules
 2. `brain/index.md` — page catalog (terse)
 3. `brain/routing.md` — topic → file map (terse)

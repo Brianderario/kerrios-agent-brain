@@ -14,13 +14,24 @@ log entries. Brian remains the CEO decision maker until he explicitly advances
 Kerri up the autonomy ladder in
 `brain/wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder.md`.
 
+## Cross-runner sync (Codex ↔ Claude) — read this first
+
+Brian works across two runners (Codex and Claude Code). The git brain is the shared state; **`NOW.md` is the live handoff baton.** To keep zero lag between runners:
+
+- **On start:** the latest brain is pulled automatically (`scripts/kerri-pull.sh`, wired as a SessionStart hook). **Read `NOW.md` first** to see what's in flight before doing anything else.
+- **On stop:** eligible brain writes are auto-committed + pushed automatically (`scripts/kerri-sync.sh`, wired as a Stop hook). Silent no-op on turns that didn't touch the brain.
+- **Before you stop:** update `NOW.md` (Last action / Next action / Last touched) if you changed anything in flight. That single edit is the handoff to the other runner.
+- Manual sync if ever needed: `bash scripts/kerri-sync.sh`. Never force-push.
+- **Material writes still go via PR** (org structure, finance, partnerships, hard rules — see `multi-agent-write-rules.md`). The auto-sync handles routine writes to `main`; for a material change, open the PR before you stop rather than letting the hook push it.
+
 Start here:
 
-1. Read `README.md`.
-2. Read `brain/AGENTS.md`.
-3. Read `brain/index.md`.
-4. Read `brain/routing.md`.
-5. Load only the routed company or workflow records needed for the task.
+1. Read `NOW.md` — live handoff baton (what's in flight right now).
+2. Read `README.md`.
+3. Read `brain/AGENTS.md`.
+4. Read `brain/index.md`.
+5. Read `brain/routing.md`.
+6. Load only the routed company or workflow records needed for the task.
 
 If you are running an agent (Kerri, Ari's CFO agent, Benji's CDO agent, future):
 - Your canonical prompt lives in `agent-prompts/<agent-slug>/SKILL.md`.
