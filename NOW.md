@@ -11,7 +11,7 @@
 - EOD-H01 CoLab follow-up (job H0030, task QXNQV2NGRTBHeGJVTVZlTQ): draft REWRITTEN from Granola transcript per Brian's request — pending his approval. Do NOT auto-send; awaiting Brian checking the task.
 
 ## Last action
-- Ran the 16:45 ET inbox sweep: Tasks H/S/G were checked first, all four mailboxes were covered from the 2026-05-28T20:28:15Z overlap, no approval/send/skip/redo/new-task action was needed, and state/grade/log were updated quietly.
+- Repriced the EOD-H01 CoLab draft to $10K flat in Brian's itemized package format ("CoLab Content Experiment ($10K)" = 1x Custom Article + 5x Primary Placement). Synced jobs.json[H0030] + log. Still pending Brian approval.
 
 ## Next action
 - Wait for Brian's approval on the CoLab task before any send. Continue normal 15-minute inbox-sweep cadence otherwise.
