@@ -15,6 +15,14 @@ Format:
 
 <!-- Lessons will be appended here by the sweep automation -->
 
+## [2026-05-29] SEND-IDENTITY RULE — post-call client follow-ups always send from Brian (Brian-flagged)
+
+**What changed:** On the H0015 ATOMS / Shiv Patel post-call follow-up, Brian had me send from `brian@hardwarefyi.com`, signed Brian — not Kerri — and then stated the general rule.
+
+**Why:** Brian's explicit instruction: *"As a rule, whenever I do a call with a client, the follow-up email always comes from me, not from Kerri."* A call is a personal relationship Brian owns; the follow-up has to read as coming from the person they just spoke with, not an assistant.
+
+**Rule:** **Any follow-up email after Brian has had a call/meeting with a client or prospect sends from `brian@hardwarefyi.com` and is signed `Brian` — never from Kerri.** Apply a Brian-sender lock automatically to all post-meeting/post-call follow-up drafts (EOD-review drafts, inbox-sweep replies on a thread where Brian just met the counterpart). Kerri may still send the cold/logistics/scheduling mail she owns (e.g. venue inquiries), but the moment a draft is the follow-up to a Brian call, it's Brian's send. If the send guard blocks a Brian-sender draft, leave it for Brian to send manually — do NOT auto-convert it to a Kerri send.
+
 ## [2026-05-29] H0034 — Jiga — ANSWER EVERY ASK (recurring gap, Brian-flagged)
 
 **What changed:** Brian caught that the Jiga reply only addressed ~half of Khay's email. Her message had 8 distinct items (re-run "Build Real Supplier Relationships"; **use the exact UTM link she specified**; she'll send the rest of the placements in June; align on 9 remaining = 8 + Protolabs make-good; event exact date?; venue finalized?; send materials + Feb/May results + promo details; any materials to review). The draft hit the schedule + count + a vague event blurb but **missed the explicit link request and the "she'll send placements" acknowledgement, and folded the specific Feb/May results into a generic line.** Rewrote to answer all 8, and added a COVERAGE CHECKLIST to the task notes mapping every ask → its answer.

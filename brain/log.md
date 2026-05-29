@@ -2,6 +2,14 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-29] send + rule | H0015 ATOMS Shiv Patel follow-up | Kerri
+
+Brian approved sending the H0015 ATOMS post-call follow-up from `brian@hardwarefyi.com`, signed Brian ("Can you send this from Brian and sign it Brian?"). No-double-send verified: only Superhuman self-reminders sat after Shiv's last message — package follow-up had never gone out. Sent to Shiv Patel <shiv.patel@gmail.com>, cc Benji + Kerri, subject "RE: Intro: Benji (HardwareFYI) <> Shiv (ATOMS)". `reply_email`/createReplyAll failed with Graph `ErrorInvalidIdMalformed` on the current valid message ID (tool bug in brian-hardwarefyi-email reply path) — fell back to subject-threaded `send_email`. Task U3YwM05iRWpqNTMyM2NGQg marked sent. NEW SEND-IDENTITY RULE recorded to [[wiki/workflows/draft-learnings]]: every post-call client follow-up sends from Brian, signed Brian — never Kerri.
+
+## [2026-05-29 02:45 ET] gap-sweep | auto:0 pr:1 task:0 | Kerri
+
+First independent gap-sweep run; classes A/B/D/E/F/G(tracked)/H/I came back clean. Three material C+G findings (registry runner-attribution drift after the Codex→Claude migration, missing `## Runner` sections on the 4 core scheduled prompts per `agent-prompts/CLAUDE-ROUTINES.md` L35 spec, and gap-sweep ledger not gitignored) bundled into PR https://github.com/Brianderario/kerrios-agent-brain/pull/1 for Brian review. Ledger written to `data/gap-sweep-state.json`.
+
 ## [2026-05-29 02:17 ET] eod-review | 0 meetings (off-schedule fire) | Kerri
 
 Scheduled EOD task fired at 02:17 ET, ~16 hours before the canonical 18:28 ET slot. Google Calendar window 00:00–02:17 ET contained no human meetings — today's 12:00 ET Joe Romano call and 15:00 ET Axios call are still future. Reclaim returned empty for 5/29. No wiki writes, no Google Tasks, no jobs.json append, no Brian text alert. eod-state.json deliberately left untouched for 2026-05-29 so the canonical 18:28 ET run processes today's meetings fresh.
