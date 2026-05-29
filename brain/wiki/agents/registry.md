@@ -44,6 +44,9 @@ These folders are ergonomic automation entrypoints, not canonical truth. Durable
 | `kerri-morning-brief` | 7:00am ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-morning-brief/SKILL.md` |
 | `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-brain-push` | 10:00pm ET, daily, Codex automation, GPT-5.5 high | `agent-prompts/kerri-brain-push/SKILL.md` |
+| `kerri-gap-sweep` | ~9:41pm ET, daily, local Claude Code durable cron (planned) | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+
+2026-05-29 note: Claude-side routine architecture spec'd in [`agent-prompts/CLAUDE-ROUTINES.md`](../../../agent-prompts/CLAUDE-ROUTINES.md) — routines move to local Claude Code durable cron, organized by role pod + loop. `kerri-gap-sweep` added as a new independent code/workflow hygiene agent (Brian/Kerri pod). Not yet activated: re-arm mechanism + Codex-directive stripping must land first.
 
 2026-05-26 audit note: no active Codex automation records were found for cold outreach, lead research, the S&W newsletter chain, or pipeline follow-up. Follow-up decision: keep cold outreach, lead research, and pipeline follow-up on-demand until the first-day core automation audit passes after the 22:00 ET brain push and connector availability is verified. S&W newsletter chain remains task/local-draft driven until Brian/Zach confirm cadence.
 

@@ -5,9 +5,10 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-29 01:49 ET · **by:** Kerri (Codex inbox sweep)
+**Last touched:** 2026-05-29 ET · **by:** Kerri (Claude interactive — routine migration)
 
 ## In flight
+- ROUTINE MIGRATION (Claude): Codex automations being ported to local Claude Code durable cron. New spec `agent-prompts/CLAUDE-ROUTINES.md` (pod-organized, 6-field loop contract per routine). NEW agent `agent-prompts/kerri-gap-sweep/SKILL.md` — independent daily code/workflow hygiene agent (~21:41 ET, before brain push). Registry scheduled-tasks table updated (material-ish edit — Brian may want a PR). Plan-only on actually creating crons. OPEN DECISIONS: (1) re-arm vs scheduled-tasks MCP for the 7-day expiry, (2) strip Codex `::` directives via `## Runner` block, (3) keep/drop brain-push given Stop-hook sync, (4) parallel-run vs hard-swap cutover. GAPS found: Inbound-sales + Event-sales prompts don't exist.
 - H0034 Jiga (task SnR1REdJMVYyMk5Ebm9USQ): Brian-sender draft for Khay Garcia's June placement thread now lists the Brian-approved 9-placement spread — June 6/9,6/16,6/20,6/27 + July 7/4,7/11,7/14,7/21,7/25 (4 June / 5 July), leading with "Build Real Supplier Relationships." Pending Brian approval; no send. On approval: book these 9 slots in the HWFYI schedule sheet (1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk; mounted as canonical schedule SoT in properties/hardware-fyi.md). Count caveat: Jiga has no contract row in the sheet, so "9 remaining" is Khay-asserted.
 - NEW package-email logic: brain/wiki/workflows/hwfyi-package-quote-playbook.md (built from Brian's gold-standard Modelwise send). properties/hardware-fyi.md + draft-learnings.md updated. Sponsor package drafts redrafted into A/B/C bundle style: H0030 CoLab now marked sent manually by Brian at 01:31 ET; H0013 Zenode (A/B/C, prices templated from Modelwise — CONFIRM), H0015 ATOMS (Brian's $15/$10/$6 kept + content titles + example link). Remaining package drafts are Brian-sender w/ sender locks; pending approval, no sends.
 - PENDING Brian decision: item 5 — wire the playbook into kerri-inbox-sweep / eod / kerri-skill prompts (send-adjacent → wants a PR). Not done yet.
