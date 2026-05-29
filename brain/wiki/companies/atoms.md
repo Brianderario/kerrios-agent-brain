@@ -17,6 +17,7 @@ scope: Hardware FYI sponsor prospect · updated: 2026-05-28
 - 2026-05-26: Shiv confirmed Thursday 4:30pm ET / 1:30pm PT works. Kerri queued a new H0015 Hardware FYI task asking Brian to approve the short confirmation and then send the actual calendar invite.
 - 2026-05-26: Brian sent the `Shiv x Hardware FYI` calendar invite to Shiv and Benji at 16:30 ET. Kerri closed the stale H0015 confirmation task as handled/skipped to prevent a duplicate email.
 - 2026-05-28: Shiv met with Brian and Benji. ATOMS is targeting startups and Excel/Confluence users before entrenched DOORS/Siemens teams; current GTM need is story-driven technical content and broad audience capture. Brian owes pricing options and campaign descriptions. (src: meetings/2026-05-28-shiv-hardware-fyi.md)
+- 2026-05-29: Brian completed the ATOMS package-options task, but the job carries `senderLock=brian`. Kerri reopened H0015 as manual-send-needed instead of route-repairing to Kerri; no email was sent.
 
 ## Context
 
@@ -25,4 +26,4 @@ scope: Hardware FYI sponsor prospect · updated: 2026-05-28
 
 ## Open Loop
 
-- Brian owes follow-up pricing/campaign options from the 2026-05-28 call.
+- Brian needs to manually send the approved follow-up pricing/campaign options from `brian@hardwarefyi.com`, or explicitly edit/skip H0015.

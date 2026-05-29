@@ -23,6 +23,7 @@ Hardware FYI / Kinetic sponsor and participant relationship.
 
 ## Recent Activity
 - 2026-05-28: Katrina Yeh completed the Kinetic sponsor survey and asked when to resume the conversation about an EE-audience dinner or happy hour. Brian replied on the same thread with availability and a booking link, so Kerri recorded the thread as handled and created no duplicate approval task.
+- 2026-05-29: Brian completed H0026 with ACTION: skip. Kerri closed the recording-status approval without sending; keep the recording open loop until the final Kinetic video is available.
 - 2026-05-27: Jacqueline Wang followed up on the promised recording for Valentina Ratner's Kinetic session after Brian said recordings would be sent once returned by the video team. Kerri queued H0026 for Brian approval with a conservative status reply.
 
 ## Open Questions

@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-29 02:08 ET] inbox-sweep | approvals processed | Kerri
+
+Checked Google Tasks H/S/G first. Brian-approved H0013 Zenode and H0019 Werqwise were live-thread re-read and sent on their existing threads. H0026 AllSpice and H0029 Shah Capital Ventures were closed as ACTION: skip with no sends. H0015 ATOMS was reopened as manual-send-needed because `senderLock=brian` overrides Kerri route repair; no ATOMS email was sent. Fresh mailbox sweep found only sent copies or already-tracked items after the cursor overlap; H0034 Jiga remains pending, Gmail had no task-worthy post-cursor inbox item, and Superhuman S/W had no inbox threads. Durable state, grade, company memory, and automation memory were updated. Required Sendblue heads-up for H0015 was attempted but failed because runtime text config is still missing.
+
 ## [2026-05-29 01:49 ET] inbox-sweep | quiet no-op | Kerri
 
 Checked Google Tasks H/S/G first, then swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-29T05:28:51Z cursor overlap. No completed approval task was actionable, no new post-cursor task-worthy inbound appeared, no email/draft/task/text was created, and durable state/grade/memory were updated.
