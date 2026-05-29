@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-29 02:17 ET] eod-review | 0 meetings (off-schedule fire) | Kerri
+
+Scheduled EOD task fired at 02:17 ET, ~16 hours before the canonical 18:28 ET slot. Google Calendar window 00:00–02:17 ET contained no human meetings — today's 12:00 ET Joe Romano call and 15:00 ET Axios call are still future. Reclaim returned empty for 5/29. No wiki writes, no Google Tasks, no jobs.json append, no Brian text alert. eod-state.json deliberately left untouched for 2026-05-29 so the canonical 18:28 ET run processes today's meetings fresh.
+
 ## [2026-05-29 02:08 ET] inbox-sweep | approvals processed | Kerri
 
 Checked Google Tasks H/S/G first. Brian-approved H0013 Zenode and H0019 Werqwise were live-thread re-read and sent on their existing threads. H0026 AllSpice and H0029 Shah Capital Ventures were closed as ACTION: skip with no sends. H0015 ATOMS was reopened as manual-send-needed because `senderLock=brian` overrides Kerri route repair; no ATOMS email was sent. Fresh mailbox sweep found only sent copies or already-tracked items after the cursor overlap; H0034 Jiga remains pending, Gmail had no task-worthy post-cursor inbox item, and Superhuman S/W had no inbox threads. Durable state, grade, company memory, and automation memory were updated. Required Sendblue heads-up for H0015 was attempted but failed because runtime text config is still missing.
