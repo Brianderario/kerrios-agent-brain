@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 23:49 ET] inbox-sweep | H0015 ATOMS route redo queued | Kerri
+
+Checked Google Tasks H/S/G first. H0015 ATOMS had `ACTION: redo` after the prior Brian-sender approval was blocked by the guarded route because Kerri participates in the thread, so Kerri re-read the full ATOMS thread from both Kerri and Brian Hardware FYI mailboxes, rewrote the approval packet as a Kerri-sender existing-thread reply, and left it pending Brian approval. No email was sent. Swept Kerri HWFYI, Brian HWFYI, Gmail, and S/W from the cursor overlap; no new post-cursor task-worthy inbound appeared, no new task/text was created, and durable state/grade/memory were updated.
+
 ## [2026-05-28 23:04 ET] inbox-sweep | quiet no-op | Kerri
 
 Checked Google Tasks H/S/G first, then swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-29T02:43:14Z cursor overlap. No completed approval task was actionable, no new task-worthy post-overlap human inbound appeared, no email/draft/task/text was created, and durable state/grade/memory were updated.
