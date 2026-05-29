@@ -1,6 +1,14 @@
 # Hardware FYI (HWFYI)
 
-scope: property · updated: 2026-05-26
+scope: property · updated: 2026-05-29
+
+## Newsletter schedule — SOURCE OF TRUTH
+
+The Analog editorial/ad calendar + contracts + revenue + Partner Program tracker live in one Google Sheet (Brian-designated canonical, 2026-05-29):
+
+- **Sheet:** https://docs.google.com/spreadsheets/d/1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk/edit (fileId `1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`)
+- **Tabs/sections:** Contracts list · Product/revenue ledger · **Ad calendar** (Tue/Sat issues, `Status` TRUE=booked / FALSE=available) · Partner Program tracker · monthly event/webinar/panel rollups.
+- **Read this before answering any "what's booked / what's open / when does X run" question.** It supersedes memory of placement dates — always re-read live, since slots get booked between sessions.
 
 KMG-owned media property. Industry newsletter + community + events for hardware / industrial base / advanced manufacturing.
 
@@ -38,10 +46,19 @@ Two packages on The Analog. Use these consistently in sponsor conversations.
 ### Current format
 
 - **Primary Placement** — $1,500 line-item placement anchor for quote-menu conversations. Older package anchors were $10K / 6 sends or $6K / 3 sends; use the current line-item anchor when Brian asks for product-by-product pricing. Full ad unit (image + copy + CTA) inside The Analog. Reference example: [Colab ad in "what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say).
-- **Partner Program** — $12.5K / 6 months unless Brian approves a custom monthly/trial structure in-thread. Sales-list format: Partner Program (6 Months); 2x per week feature in Tools We Love; 3x Primary Placement, with one usable during an approved one-month trial; logo in the Partner Program sponsor image + on the website. Reference example: use the same ["what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say) issue when helpful; the CoLab unit shows Primary Placement format, and the recurring sponsor/logo section shows Partner Program format.
-- **Custom article** — $2.5K.
+- **Partner Program** — $12.5K / 6 months standard. **Sold in flexible durations** — Brian uses **2-month and 3-month** terms inside package bundles (observed in the 2026-05-29 Modelwise quote), not only the 6-mo standard. Sales-list format: Partner Program (6 Months); 2x per week feature in Tools We Love; 3x Primary Placement, with one usable during an approved one-month trial; logo in the Partner Program sponsor image + on the website. Reference examples below.
+- **Custom article / Custom Content Article** — $2.5K.
 - **Custom content** — price depends on execution when the deliverable is not a standard custom article or research report.
 - **Custom research report** — starts at $6K.
+
+### Package quoting (observed practice, 2026-05-29)
+
+When Brian quotes a post-call sponsor, he sends **2–3 mixed-product bundles (Package A/B/C), anchored high → low**, with **rate-card anchoring on the top tier** (e.g., `$20K ($25K rate card pricing)`). Pricing is holistic/rounded, not strict line-item (e.g., **3x Primary Placements ≈ $5K**). Full pattern: [[../workflows/hwfyi-package-quote-playbook]].
+
+### Reference example issues
+
+- **"industry-40-was-early-not-wrong"** (current, 2026-05): Jiga ad = Primary Placement; "Tools From Our Sponsors" = Partner Program slot. Best current visual example for sponsor quotes.
+- ["what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say): CoLab unit = Primary Placement; recurring sponsor/logo section = Partner Program.
 
 ### Format shift — starts August 2026
 

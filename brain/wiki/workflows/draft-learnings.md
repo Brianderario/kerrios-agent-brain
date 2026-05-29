@@ -15,6 +15,14 @@ Format:
 
 <!-- Lessons will be appended here by the sweep automation -->
 
+## [2026-05-29] H0023 — Modelwise — sent vs. draft (package-email gold standard)
+
+**What changed:** Brian sent his own Modelwise reply instead of Kerri's draft. Kerri's draft (and Codex's pattern) used abstract single-product "tiers" with branded names (Category Authority / Always-On / Pipeline Engine), strict list pricing with no anchor, a low→high order, an invented webinar tier, a "Drafter 10K downloads" proof stat, the strategy labeled out loud ("the way I'd think about ROI here…"), and a Calendly close. Brian's actual send: a warm counter-positioning opener (the audience *is* their buyer), two concrete working article titles, **three mixed-product bundles (Package A/B/C) anchored high→low** with **rate-card anchoring on top** ($20K/$25K rate card), real product names + flexible Partner Program durations (2-mo, 3-mo), a **live example issue link** pointing to where their units would sit, and a simple "Let me know if I can answer any other questions! / Brian" close with **no Calendly**.
+
+**Why:** Models default to abstract/named/single-product/list-priced/strategy-narrated and over-stuff the offer (a webinar for an early-GTM prospect Brian had said should start with content). Brian sells with concrete bundles, real product names, rate-card value framing, shown-not-told proof, and a low-friction "review and reply" close.
+
+**Rule:** For post-call sponsor package quotes, follow [[hwfyi-package-quote-playbook]]: 2–3 mixed-product bundles named Package A/B/C, anchored high→low with rate-card on the top tier; real product names + flexible Partner Program durations; lead with content and don't bolt on webinars/events unless the buyer's goal calls for it; give concrete article titles; link a live issue and point to the slots; close with "Let me know if I can answer any other questions!" and **Calendly only when the ask is a meeting**, not when the ask is "review these and reply."
+
 ## [2026-05-27] EOD-H02 — Duro Labs
 
 **What changed:** The original EOD draft treated Nehemoyia's meeting as a standalone post-call note: dinner went well, two strong dinners, broader content before each, send SF Tech Week details, check the Renaissance invoice, and regroup after Duro compares notes. Brian's sent email instead merged the Nehemoyia call, the prior Robert Woo sales call, and Duro's current partnership history. It addressed Nehemoyia, Shaun, and Robert; cc'd Benji; used the subject `Hardware FYI x Duro 2026`; named concrete surfaces (6-month Partner Program, custom content, dinner series, SF Tech Week); included a Drafter-style custom-content proof point with 10,000+ downloads/leads; suggested two content angles; and sequenced custom content first, always-on partner visibility throughout the year, and SF Tech Week as the broader event surface.
