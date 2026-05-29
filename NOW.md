@@ -14,14 +14,16 @@
 - PENDING Brian decision: item 5 — wire the playbook into kerri-inbox-sweep / eod / kerri-skill prompts (send-adjacent → wants a PR). Not done yet.
 
 ## Last action
+- 2026-05-29 21:50 ET Claude kerri-gap-sweep first independent run — A/B/D/E/F/G(tracked)/H/I clean. 3 material findings (C1 registry runner-attribution drift after Codex→Claude migration, C3 missing `## Runner` sections on 4 core canonical prompts per CLAUDE-ROUTINES.md L35, G1 gap-sweep ledger not gitignored) bundled into PR https://github.com/Brianderario/kerrios-agent-brain/pull/1 for Brian review. Ledger written to data/gap-sweep-state.json (untracked on main; gitignore line is part of the PR). 0 auto-fixes, 0 new MG tasks. Sendblue text alert failed (same missing-config gap NOW.md already tracks).
 - 2026-05-29 Brian approved + Kerri SENT the H0015 ATOMS / Shiv Patel post-call follow-up from brian@hardwarefyi.com (signed Brian), cc Benji + Kerri. Task U3YwM05iRWpqNTMyM2NGQg closed as sent. reply_email hit Graph ErrorInvalidIdMalformed (tool bug) → fell back to subject-threaded send_email. NEW STANDING RULE from Brian: every post-call client follow-up sends from Brian, never Kerri — recorded in brain/wiki/workflows/draft-learnings.md + log.md + Claude memory. ⚠️ FOLLOW-UP: fix the malformed-ID bug in brian-hardwarefyi-email reply_email/createReplyAll path.
 - 2026-05-29 07:00 ET Claude kerri-morning-brief ran — HTML brief written (output/morning-brief/2026-05-29.html + latest.html) and emailed kerri@hardwarefyi.com → brian@kerrihq.com. 2 meetings (Romano tax 12:00, Ari/Sara-Axios 15:00), Chase $205.19 / 5 txns yesterday, 11 pending tasks (7 highlighted). Required Sendblue text heads-up FAILED again due missing config — recurring failure already tracked in open SUGGESTION task Sk41OXVfbGxqYVlndUNUUw. State, grade, brain/log updated.
 
 ## Next action
-- Wait for Brian approval/edit/skip on H0034 Jiga + H0021 Flow. (H0015 ATOMS is DONE — sent from Brian 2026-05-29, do not re-send.) Get Brian's go-ahead on item 5 (prompt wiring via PR).
+- Wait for Brian approval/edit/skip on H0034 Jiga + H0021 Flow. (H0015 ATOMS is DONE — sent from Brian 2026-05-29, do not re-send.) Get Brian's go-ahead on item 5 (prompt wiring via PR). Brian to review gap-sweep PR #1 (https://github.com/Brianderario/kerrios-agent-brain/pull/1) for the runner-attribution + Runner-section + ledger-gitignore bundle.
 
 ## Decisions waiting on Brian
 - Item 5: wire package playbook into the automation prompts (PR)?
+- Gap-sweep PR #1: review runner-attribution + `## Runner` section + ledger gitignore changes.
 
 ## Notes
 - codex sync test 2026-05-28 16:30:03 EDT
