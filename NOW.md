@@ -5,7 +5,7 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-29 04:03 ET · **by:** Kerri (Claude inbox-sweep)
+**Last touched:** 2026-05-29 04:20 ET · **by:** Kerri (Claude inbox-sweep)
 
 ## In flight
 - ROUTINE MIGRATION (Claude) — LIVE: 5 routines now created as PERSISTENT Claude scheduled-tasks MCP jobs (~/.claude/scheduled-tasks/, survive sessions, no 7-day expiry): kerri-inbox-sweep (*/15), kerri-morning-brief (wkday 6:57), kerri-eod-meetings-review (wkday 18:28), kerri-brain-push (22:00), kerri-gap-sweep (21:41, new independent code/workflow hygiene agent). Each is a shim that loads its canonical agent-prompts/*/SKILL.md with a Claude-runner override (skip Codex ::inbox-item/::archive; honor approval gates). Spec: agent-prompts/CLAUDE-ROUTINES.md. ⚠️ ACTION FOR CODEX/BRIAN: DISABLE the Codex equivalents (inbox-sweep, morning-brief, eod, brain-push) — they now run in BOTH runners and will double-send/double-task. Inbox-sweep file lock + shared cursor state partially dedupe but contention is real. GAPS: Inbound-sales + Event-sales prompts still don't exist.
@@ -14,6 +14,7 @@
 - PENDING Brian decision: item 5 — wire the playbook into kerri-inbox-sweep / eod / kerri-skill prompts (send-adjacent → wants a PR). Not done yet.
 
 ## Last action
+- 2026-05-29 04:20 ET Claude kerri-inbox-sweep — quiet sweep. All 4 mailboxes cursor-first (since 07:58:02Z); 0 new external inbound. STEP 2 no-op: same 8 pending H/G jobs (H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, H0021 Flow, G0001 Ken, G0005 Pursue, G0008 Hilton) still ACTION: send, waiting on Brian. Caught one pre-cursor pre-seenMessageIds drift: brian@hardwarefyi.com 06:05Z self-cc echo of the Zenode H0013 send (from=brian@hwfyi to Brandon Bourn, Brian Cc'd). Added that Graph ID to brian@'s seenMessageIds; no task created (job already status=sent). State cursors advanced to 08:20:44Z, grade recorded (runs=205), no Sendblue alert (no Brian action needed).
 - 2026-05-29 04:03 ET Claude kerri-inbox-sweep — quiet sweep. All 4 mailboxes searched cursor-first (since 07:48:16Z); 0 new inbound. STEP 2 no-op: 8 pending H/G jobs (H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, H0021 Flow, G0001 Ken, G0005 Pursue, G0008 Hilton) still ACTION: send, waiting on Brian. Manual Moonshot3D task (no jobId) untouched. State cursors advanced, grade recorded (runs=204), no Sendblue alert (no Brian action needed).
 - 2026-05-29 03:48 ET Claude kerri-inbox-sweep — quiet sweep. All 4 mailboxes searched cursor-first (since 07:28:14Z); 0 new inbound. STEP 2 no-op: 8 pending H/G jobs (H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, H0021 Flow, G0001 Ken, G0005 Pursue, G0008 Hilton) still ACTION: send, waiting on Brian. Manual Moonshot3D task (no jobId) untouched. State cursors advanced, grade recorded (runs=203), no Sendblue alert (no Brian action needed).
 - 2026-05-29 02:34–03:18 ET Claude kerri-inbox-sweep — 4 consecutive quiet sweeps. Reconciled H0015 ATOMS jobs.json status pending→sent (02:34). 8 pending H/G jobs holding steady, no new external inbound across all 4 mailboxes. State cursors advanced each run, grades recorded, no Sendblue alerts (no Brian action needed).
