@@ -5,7 +5,7 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-29 05:02 ET · **by:** Kerri (Claude inbox-sweep)
+**Last touched:** 2026-05-29 05:17 ET · **by:** Kerri (Claude inbox-sweep)
 
 ## In flight
 - ROUTINE MIGRATION (Claude) — LIVE: 5 routines now created as PERSISTENT Claude scheduled-tasks MCP jobs (~/.claude/scheduled-tasks/, survive sessions, no 7-day expiry): kerri-inbox-sweep (*/15), kerri-morning-brief (wkday 6:57), kerri-eod-meetings-review (wkday 18:28), kerri-brain-push (22:00), kerri-gap-sweep (21:41, new independent code/workflow hygiene agent). Each is a shim that loads its canonical agent-prompts/*/SKILL.md with a Claude-runner override (skip Codex ::inbox-item/::archive; honor approval gates). Spec: agent-prompts/CLAUDE-ROUTINES.md. ⚠️ ACTION FOR CODEX/BRIAN: DISABLE the Codex equivalents (inbox-sweep, morning-brief, eod, brain-push) — they now run in BOTH runners and will double-send/double-task. Inbox-sweep file lock + shared cursor state partially dedupe but contention is real. GAPS: Inbound-sales + Event-sales prompts still don't exist.
@@ -14,6 +14,7 @@
 - PENDING Brian decision: item 5 — wire the playbook into kerri-inbox-sweep / eod / kerri-skill prompts (send-adjacent → wants a PR). Not done yet.
 
 ## Last action
+- 2026-05-29 05:17 ET Claude kerri-inbox-sweep — quiet sweep + H0021 reconcile. All 4 mailboxes cursor-first (since 08:57:42Z); 0 new external inbound (one Beehiiv newsletter auto-skipped, Gmail id 19e72fbcf4723bfb). Reconciled H0021 Flow Engineering: Brian closed Google Task Y0daNW5oWFFnbGtpNHBDdA with ACTION: skip at 05:14 ET (~3 min before this sweep, after prior sweep ran show_completed:false and missed it); jobs.json updated pending→skipped, task title prefixed `⏭️ skipped 05:14 ET — `. Pending H/G queue now 7: H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, G0001 Ken, G0005 Pursue, G0008 Hilton (all needsAction default ACTION=send, waiting on Brian); plus Moonshot3D manual task and 2 💡 SUGGESTION + 1 🧪 audit task on the Kerri MG list. State cursors advanced to 09:17:27Z, grade recorded (runs=209), no Sendblue alert (no Brian action needed).
 - 2026-05-29 05:02 ET Claude kerri-inbox-sweep — quiet sweep. All 4 mailboxes cursor-first (since 08:49:03Z); 0 new post-cursor inbound. STEP 2 no-op: same 8 pending H/G jobs (H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, H0021 Flow, G0001 Ken, G0005 Pursue, G0008 Hilton) still needsAction default ACTION=send — waiting on Brian. State cursors advanced to 09:02:42Z, grade recorded (runs=208), no Sendblue alert (no Brian action needed).
 - 2026-05-29 04:49 ET Claude kerri-inbox-sweep — quiet sweep. All 4 mailboxes cursor-first (since 08:28:16Z); 0 new post-cursor inbound. STEP 2 no-op: same 8 pending H/G jobs (H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, H0021 Flow, G0001 Ken, G0005 Pursue, G0008 Hilton) still needsAction default ACTION=send — waiting on Brian. brian-hardwarefyi-email hit a one-off Graph 504, retry succeeded. State cursors advanced to 08:49:03Z, grade recorded (runs=207), no Sendblue alert (no Brian action needed).
 - 2026-05-29 04:33 ET Claude kerri-inbox-sweep — quiet sweep. All 4 mailboxes cursor-first (since 08:15:44Z); 0 new post-cursor inbound (Gmail returned only pre-cursor newsletters + Ari calendar invites + Hilton/Mihir/Zach editor noise, all already-seen or AUTO-SKIP). STEP 2 no-op: same 8 pending H/G jobs (H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, H0021 Flow, G0001 Ken, G0005 Pursue, G0008 Hilton) still needsAction default ACTION=send — waiting on Brian. State cursors advanced to 08:33:16Z, grade recorded (runs=206), no Sendblue alert (no Brian action needed).
@@ -26,7 +27,7 @@
 - 2026-05-29 07:00 ET Claude kerri-morning-brief ran — HTML brief written (output/morning-brief/2026-05-29.html + latest.html) and emailed kerri@hardwarefyi.com → brian@kerrihq.com. 2 meetings (Romano tax 12:00, Ari/Sara-Axios 15:00), Chase $205.19 / 5 txns yesterday, 11 pending tasks (7 highlighted). Required Sendblue text heads-up FAILED again due missing config — recurring failure already tracked in open SUGGESTION task Sk41OXVfbGxqYVlndUNUUw. State, grade, brain/log updated.
 
 ## Next action
-- Wait for Brian approval/edit/skip on H0034 Jiga + H0021 Flow. (H0015 ATOMS is DONE — sent from Brian 2026-05-29, do not re-send.) Get Brian's go-ahead on item 5 (prompt wiring via PR). Brian to review gap-sweep PR #1 (https://github.com/Brianderario/kerrios-agent-brain/pull/1) for the runner-attribution + Runner-section + ledger-gitignore bundle.
+- Wait for Brian approval/edit/skip on H0034 Jiga (H0021 Flow now closed as skipped, H0015 ATOMS sent from Brian 2026-05-29 — do not re-send). Get Brian's go-ahead on item 5 (prompt wiring via PR). Brian to review gap-sweep PR #1 (https://github.com/Brianderario/kerrios-agent-brain/pull/1) for the runner-attribution + Runner-section + ledger-gitignore bundle.
 
 ## Decisions waiting on Brian
 - Item 5: wire package playbook into the automation prompts (PR)?
