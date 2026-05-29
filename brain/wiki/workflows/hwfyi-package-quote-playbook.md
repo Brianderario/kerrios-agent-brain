@@ -21,6 +21,8 @@ How Brian writes a **post-call sponsor package quote**. Use this whenever the ne
 - **Anchor high → low with rate card.** Lead with the richest package and show value on it, e.g. `$20K ($25K rate card pricing)`. Stepping down to a clean entry package is fine ($5–6K).
 - **Lead with content; don't over-stuff.** For early-GTM / first campaigns, keep it to content + newsletter products. Don't bolt on a webinar/event unless the buyer's goal calls for it — that was a model failure on Modelwise.
 - **Pricing is holistic, not strict line-item.** Brian rounds and bundles for a clean number (e.g., 3x Primary ≈ $5K). Don't force exact line-item sums; don't refuse to bundle/discount. Quote the package price.
+- **Check the ad-calendar Sheet before committing run timing.** The Analog Tue/Sat slot availability lives in the canonical Sheet (see [[../properties/hardware-fyi]] "Newsletter schedule — SOURCE OF TRUTH"). Re-read it live before promising specific publish/run dates; don't quote dates from memory.
+- **New package prices need Brian's confirmation.** If you're templating prices Brian hasn't set for that account, flag it in the task PRICING NOTE and don't treat the draft as auto-sendable.
 
 ## Reference: Brian's Modelwise packages (2026-05-29)
 
