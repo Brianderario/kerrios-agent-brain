@@ -167,6 +167,12 @@ STEP 1 — LOAD STATE
 STEP 2 — PROCESS DECISIONS FROM GOOGLE TASKS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+LIVE-STATUS CROSS-CHECK (run FIRST, before trusting any task listing):
+- The per-job `gtasks_get_task` lookup is the source of truth for a job's decision state — NOT the list view. A list call scoped to open tasks (`show_completed:false`, or a stale list cache) will silently miss an approval Brian already checked.
+- For every job in jobs.json with `status == pending`, call `gtasks_get_task(tasklist_id = job.gtasksListKey→listId, task_id = job.gtasksTaskId)` directly and read its live `status` + notes.
+- If the per-job lookup shows `completed` (or an ACTION line of `skip`/`redo`) that the list view did not surface, the per-job lookup wins: process it through the normal decision logic below this sweep — do not wait for a later run.
+- This is belt-and-suspenders for `show_completed` adherence. It catches both "Brian-checked-but-listing-missed-it" (the G0005 incident: a checked approval went unprocessed for ~3.5h across ~16 sweeps) and "task-edited-after-list-cache" cases. Cost is N extra task GETs per sweep where N = pending count (currently 6–8 — cheap, pure read).
+
 For every task in the three lists, find the matching job in jobs.json by `gtasksTaskId`.
 Ignore Kerri's own suggestion tasks (title starts with `💡 `) — those have no job and need no action.
 If the task title starts with `🌙 EOD-` or the notes contain `EOD source tag:` and no matching job exists in jobs.json, fail closed: do not send, update the task notes/title for routing repair, and log the process miss. EOD approval tasks are only sendable when the EOD runner wrote the matching jobs.json entry with thread routing metadata. If an EOD task still has a visible `🌙 EOD-H01`-style title, rewrite the title to `🌙 <job.jobId> — <Company> — <subject/meeting>` after the matching job is found; keep the `EOD-H01` value only as a source tag in notes.
@@ -301,6 +307,11 @@ DRAFTING:
   1. Apply ALL lessons from draft-learnings.md
   2. Choose send identity per SEND IDENTITY rules
   3. jobId — already resolved in CUSTOMER LOOKUP above (either reused from companies.json or freshly assigned + registered). Use exactly that value; do NOT re-increment.
+  3a. ANSWER EVERY ASK (mandatory coverage pass — do this BEFORE writing a word of the reply):
+     - Enumerate EVERY distinct ask, question, instruction, and embedded request in the inbound — including imperative instructions ("use this link"), FYIs that want acknowledgement, and each sub-bullet. Number them.
+     - Write the reply so every numbered item is answered, or explicitly deferred — never silently omitted. Folding two asks into one vague line counts as a miss.
+     - Self-check before you set `ACTION: send`: do not mark a draft send-ready until every enumerated item maps to a line (or an explicit deferral) in the draft. If any item can't be answered, surface it under Missing facts / risks rather than dropping it.
+     - Why: Brian flagged (2026-05-29, H0034 Jiga) that drafts from both Kerri and Codex routinely answer only half a sponsor's email. Canonical rule lives in draft-learnings.md (2026-05-29 H0034 entry). Applies to ALL sponsor/customer replies.
   4. Write the reply:
      - Terse. Lead with the ask or the answer. No throat-clearing.
      - 3–5 sentences unless the email genuinely requires more.
@@ -336,6 +347,13 @@ CREATE THE GOOGLE TASK (one `gtasks_create_task` call per new job):
   Missing facts / risks: <one line, or "None obvious">
   Send from: <Kerri (kerri@hardwarefyi.com) | Brian (brian@hardwarefyi.com) | Brian (brian@kerrihq.com — Gmail draft only)>
   Internal CC suggestion: <None | add Name <email> — why | missing Name email>
+
+  ━━━ COVERAGE CHECKLIST (every ask in the inbound must map to a draft line) ━━━
+  (Required when the inbound has 2+ distinct asks/questions/instructions. One line per enumerated item from step 3a, each marked ✓ addressed or → deferred, with the deferral reason. Omit only for a single-ask thread.)
+  [1] <ask> → <how the draft answers it>. ✓ addressed
+  [2] <ask> → <answered | deferred because …>. <✓ addressed | → deferred>
+  ...
+  INTERNAL FLAG for Brian (if any): <anything the draft promises/asserts that Brian must verify before send>
 
   ━━━ WHAT I NEED YOU TO DO ━━━
   <one line: e.g., "Approve to send; or edit + approve; or skip if you'll handle directly." If an internal CC suggestion is present, say "Leave the Internal CC line in place if you want Kerri to include it; delete it before checking if not.">
