@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 23:04 ET] inbox-sweep | quiet no-op | Kerri
+
+Checked Google Tasks H/S/G first, then swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-29T02:43:14Z cursor overlap. No completed approval task was actionable, no new task-worthy post-overlap human inbound appeared, no email/draft/task/text was created, and durable state/grade/memory were updated.
+
 ## [2026-05-28 22:18 ET] automation-update | eod-stable-jobid-titles | Codex
 
 Brian flagged that the end-of-day job number was repeating. Root cause: EOD used `EOD-H01` / `EOD-H02` / `EOD-G01` as visible Google Task titles even though those are run-local batch counters that reset each EOD run; the stable customer IDs were already in `data/jobs.json` and `data/companies.json` as H/G jobIds. Updated `kerri-eod-meetings-review` so visible approval task titles must start with the stable customer jobId and keep any `EOD-*` value only as a source tag. Updated inbox-sweep to recognize and repair old `🌙 EOD-*` titles after matching `jobs.json`, and added tests for both contracts. Renamed the current open EOD approval tasks in Google Tasks from EOD labels to stable IDs: H0030 CoLab, H0023 Modelwise, H0021 Flow Engineering, H0015 ATOMS, H0013 Zenode, and G0001 Ken Biberaj. No email was sent.
