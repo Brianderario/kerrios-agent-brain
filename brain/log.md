@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-28 22:18 ET] automation-update | eod-stable-jobid-titles | Codex
+
+Brian flagged that the end-of-day job number was repeating. Root cause: EOD used `EOD-H01` / `EOD-H02` / `EOD-G01` as visible Google Task titles even though those are run-local batch counters that reset each EOD run; the stable customer IDs were already in `data/jobs.json` and `data/companies.json` as H/G jobIds. Updated `kerri-eod-meetings-review` so visible approval task titles must start with the stable customer jobId and keep any `EOD-*` value only as a source tag. Updated inbox-sweep to recognize and repair old `🌙 EOD-*` titles after matching `jobs.json`, and added tests for both contracts. Renamed the current open EOD approval tasks in Google Tasks from EOD labels to stable IDs: H0030 CoLab, H0023 Modelwise, H0021 Flow Engineering, H0015 ATOMS, H0013 Zenode, and G0001 Ken Biberaj. No email was sent.
+
 ## [2026-05-28 21:18 ET] inbox-sweep | quiet no-op | Kerri
 
 Checked Google Tasks H/S/G first, then swept kerri@hardwarefyi.com, brian@hardwarefyi.com, brian@kerrihq.com Gmail, and Superhuman S/W from the 2026-05-29T00:57:37Z cursor overlap. No completed approval task was actionable, no new task-worthy human inbound appeared, the already-seen Judge.me Gmail review request remained auto-skipped, no email/draft/task/text was created, and durable state/grade/memory were updated.
@@ -849,5 +853,7 @@ Processed Google Tasks approvals first, then Kerri Hardware FYI, Brian Hardware 
 - 2026-05-29T01:48:10Z - kerri-inbox-sweep quiet run: processed Google Tasks approvals first, swept all four configured mailboxes from the 2026-05-29T01:27:56Z cursor overlap, found no actionable approvals, post-overlap task-worthy inbound, new tasks, sends, skips, redos, suggestions, errors, or Brian-facing alerts, then advanced state, grade, NOW, and automation memory.
 
 - 2026-05-29T02:04:01Z - kerri-inbox-sweep quiet run: processed Google Tasks approvals first, swept all four configured mailboxes from the 2026-05-29T01:43:10Z cursor overlap, found no actionable approvals, post-overlap task-worthy inbound, new tasks, sends, skips, redos, suggestions, errors, or Brian-facing alerts, then advanced state, grade, NOW, and automation memory.
+
+- 2026-05-29T02:18:30Z - kerri-inbox-sweep quiet run: processed Google Tasks approvals first, swept all four configured mailboxes from the 2026-05-29T01:59:01Z cursor overlap, found no actionable approvals, post-overlap task-worthy inbound, new tasks, sends, skips, redos, suggestions, errors, or Brian-facing alerts, then advanced state, grade, NOW, and automation memory.
 
 - 2026-05-28T21:06:00Z - redo+fix | H0030-colab | Kerri (Claude interactive): Brian asked for a thread-grounded rewrite of the EOD-H01 CoLab draft + pricing confirmation. Read the full email thread: Benji already sent reports (Q4'25 8x/$13K, Q1'25 13x/$18K) + AllSpice-style custom-content pitch (mechanical design review) + "packages shortly." Rewrote draft to DELIVER the package, built on Benji's framing: "CoLab Content Experiment ($10K)" = 1x Custom Article ($2,500) + 5x Primary Placement ($7,500). Verified pricing vs properties/hardware-fyi.md. Corrected colab.md factual error (was "six fall placements"; actual Q4 = 8x). Synced jobs.json[H0030]. Pending Brian approval — no send.

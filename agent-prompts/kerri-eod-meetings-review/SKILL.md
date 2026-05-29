@@ -234,11 +234,13 @@ Determine the list per counterparty:
 - KMG / internal / vendor / general → "Kerri MG" list (G prefix)
 
 Use `gtasks_create_task`:
-- `title`: `🌙 EOD-<prefix><NN> — <Counterparty> — <Meeting title (truncate at 50)>`  (NN = day's running counter within the EOD batch, e.g. EOD-H01, EOD-H02, EOD-G01)
+- `title`: `🌙 <stable customer jobId> — <Counterparty> — <Meeting title (truncate at 50)>` (for example, `🌙 H0030 — CoLab — Hardware FYI x CoLab`). The visible Google Task title MUST use the stable customer `jobId` from the customer-id protocol. Do not title approval tasks with `EOD-H01`, `EOD-H02`, or any other run-local counter; those labels reset by batch and look like duplicate job numbers.
 - `notes`: exactly this format
   ```
   ACTION: send
   (to skip type `skip`; to regenerate type `redo`; to send edits, edit the DRAFT block below and check the task)
+
+  EOD source tag: EOD-<prefix><NN> for <YYYY-MM-DD> only. This is a run-local source tag, not the customer jobId.
 
   ━━━ MEETING ━━━
   Title: <meeting title>
@@ -278,6 +280,7 @@ Append:
 ```
 {
   "jobId": "<stable customer jobId, e.g. H0022>",
+  "eodSourceTag": "<run-local source tag, e.g. EOD-H01; never use as the customer jobId>",
   "prefix": "<H | S | G>",
   "company": "<counterparty company>",
   "domain": "<counterparty domain if known>",
@@ -388,8 +391,8 @@ Write the full digest into the run log / EOD state notes in this format for audi
 🌙 EOD <YYYY-MM-DD> · <N> meetings reviewed
 
 ✅ Drafts ready (<count>):
-  • EOD-H01 <Counterparty> — <one-line trigger>
-  • EOD-G01 <Counterparty> — <one-line trigger>
+  • H0030 <Counterparty> (EOD-H01 source tag) — <one-line trigger>
+  • G0008 <Counterparty> (EOD-G01 source tag) — <one-line trigger>
   • ...
 
 ⚠️ No transcript (<count>):

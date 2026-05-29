@@ -169,7 +169,7 @@ STEP 2 — PROCESS DECISIONS FROM GOOGLE TASKS
 
 For every task in the three lists, find the matching job in jobs.json by `gtasksTaskId`.
 Ignore Kerri's own suggestion tasks (title starts with `💡 `) — those have no job and need no action.
-If the task title starts with `🌙 EOD-` and no matching job exists in jobs.json, fail closed: do not send, update the task notes/title for routing repair, and log the process miss. EOD approval tasks are only sendable when the EOD runner wrote the matching jobs.json entry with thread routing metadata.
+If the task title starts with `🌙 EOD-` or the notes contain `EOD source tag:` and no matching job exists in jobs.json, fail closed: do not send, update the task notes/title for routing repair, and log the process miss. EOD approval tasks are only sendable when the EOD runner wrote the matching jobs.json entry with thread routing metadata. If an EOD task still has a visible `🌙 EOD-H01`-style title, rewrite the title to `🌙 <job.jobId> — <Company> — <subject/meeting>` after the matching job is found; keep the `EOD-H01` value only as a source tag in notes.
 If job is already status=sent or status=skipped, ignore.
 
 HARD NO-DOUBLE-EMAIL GATE:
