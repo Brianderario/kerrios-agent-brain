@@ -5,7 +5,7 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-29 11:48 ET · **by:** Kerri (Claude kerri-inbox-sweep — Sara/Axios reschedule heads-up texted to Brian)
+**Last touched:** 2026-05-29 12:01 ET · **by:** Kerri (Claude kerri-inbox-sweep — Sara/Axios reschedule now resolved at 4pm, Ari accepted + cal invite updated; no new Sendblue)
 
 ## In flight
 - ROUTINE MIGRATION (Claude) — LIVE: 5 routines now created as PERSISTENT Claude scheduled-tasks MCP jobs (~/.claude/scheduled-tasks/, survive sessions, no 7-day expiry): kerri-inbox-sweep (*/15), kerri-morning-brief (wkday 6:57), kerri-eod-meetings-review (wkday 18:28), kerri-brain-push (22:00), kerri-gap-sweep (21:41, new independent code/workflow hygiene agent). Each is a shim that loads its canonical agent-prompts/*/SKILL.md with a Claude-runner override (skip Codex ::inbox-item/::archive; honor approval gates). Spec: agent-prompts/CLAUDE-ROUTINES.md. ⚠️ ACTION FOR CODEX/BRIAN: DISABLE the Codex equivalents (inbox-sweep, morning-brief, eod, brain-push) — they now run in BOTH runners and will double-send/double-task. Inbox-sweep file lock + shared cursor state partially dedupe but contention is real. GAPS: Inbound-sales + Event-sales prompts still don't exist.
