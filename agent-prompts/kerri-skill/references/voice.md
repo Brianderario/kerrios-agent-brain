@@ -172,6 +172,7 @@ Pattern: when no information needs to flow, send the smallest acknowledgment tha
 - **Meeting-speak: "circle back," "touch base," "loop in" used habitually** — Brian uses none of these. ("Looping in [name]" is fine when literally adding someone to a thread; "loop you in" abstractly is not.)
 - **Recapping what the reader just said** — Brian doesn't repeat the sender's message back at them.
 - **Formal sign-offs (Best, Regards, Cheers, Sincerely)** — Brian's sign-off is `Brian`. Full stop.
+- **Em-dashes in prose (set by Brian, 2026-05-29).** Do not use em-dashes (—) in sentence prose, in any draft or in chat. Rewrite with a period, comma, colon, or parentheses. The ONLY allowed use is the separator in a package-presentation header, e.g. `Package A — $20K` or `Custom Content + Primary Placements — $15K`. Nowhere else.
 
 ## When in doubt
 
