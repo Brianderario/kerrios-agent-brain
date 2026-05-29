@@ -5,14 +5,14 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 20:48 ET · **by:** Kerri (Codex)
+**Last touched:** 2026-05-28 21:02 ET · **by:** Kerri (Codex)
 
 ## In flight
 - EOD-H01 CoLab follow-up (job H0030, task QXNQV2NGRTBHeGJVTVZlTQ): draft REWRITTEN from Granola transcript per Brian's request — pending his approval. Do NOT auto-send; awaiting Brian checking the task.
 - EOD 2026-05-28 created send-ready HWFYI drafts for Modelwise (H0023, task R0p0NkJnUlRheFk0WC11cQ), Flow (H0021, task Y0daNW5oWFFnbGtpNHBDdA), and ATOMS (H0015, task U3YwM05iRWpqNTMyM2NGQg).
 
 ## Last action
-- 2026-05-28 20:48 ET inbox sweep completed quietly: Tasks H/S/G checked, all four configured mailboxes checked from the 2026-05-29T00:28:52Z cursor overlap; older AllSpice/Katrina thread was verified already handled by Brian; no sends/drafts/tasks/texts created; state, run grade, log, NOW, and automation memory updated.
+- 2026-05-28 21:02 ET inbox sweep completed quietly: Tasks H/S/G checked; all four configured mailboxes checked from the 2026-05-29T00:43:35Z cursor overlap; one Gmail product-review automation was auto-skipped; no sends/drafts/tasks/texts created; state, run grade, log, NOW, and automation memory updated.
 
 ## Next action
 - Wait for Brian's approvals on pending Google Tasks before any send. G0008 still likely needs review/redo because Esther changed the venue economics after the call; Sendblue alert delivery is still blocked by missing runtime credentials.
