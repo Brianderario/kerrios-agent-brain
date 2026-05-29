@@ -15,6 +15,14 @@ Format:
 
 <!-- Lessons will be appended here by the sweep automation -->
 
+## [2026-05-29] H0034 — Jiga — ANSWER EVERY ASK (recurring gap, Brian-flagged)
+
+**What changed:** Brian caught that the Jiga reply only addressed ~half of Khay's email. Her message had 8 distinct items (re-run "Build Real Supplier Relationships"; **use the exact UTM link she specified**; she'll send the rest of the placements in June; align on 9 remaining = 8 + Protolabs make-good; event exact date?; venue finalized?; send materials + Feb/May results + promo details; any materials to review). The draft hit the schedule + count + a vague event blurb but **missed the explicit link request and the "she'll send placements" acknowledgement, and folded the specific Feb/May results into a generic line.** Rewrote to answer all 8, and added a COVERAGE CHECKLIST to the task notes mapping every ask → its answer.
+
+**Why:** Brian's explicit note: *"This is something I notice both you and Codex don't do. We need to make sure all the comments in each are addressed when replying to a sponsor."* Models latch onto the headline ask (here: scheduling) and drop the smaller embedded requests — especially explicit instructions ("please use this link"), informational acknowledgements, and itemized sub-bullets buried in formatting.
+
+**Rule:** **Before drafting ANY reply, enumerate every distinct ask/question/instruction/embedded request in the inbound — including imperative instructions ("use this link"), FYIs that want acknowledgement, and each sub-bullet — then write the draft so each one is answered, and include the enumerated checklist (ask → answer, ✓) in the task CONTEXT.** Do not ship a reply until every item maps to a line in the draft. If an item can't be answered yet, say so explicitly rather than omitting it. This applies to all sponsor/customer replies (and is good practice everywhere).
+
 ## [2026-05-29] H0023 — Modelwise — sent vs. draft (package-email gold standard)
 
 **What changed:** Brian sent his own Modelwise reply instead of Kerri's draft. Kerri's draft (and Codex's pattern) used abstract single-product "tiers" with branded names (Category Authority / Always-On / Pipeline Engine), strict list pricing with no anchor, a low→high order, an invented webinar tier, a "Drafter 10K downloads" proof stat, the strategy labeled out loud ("the way I'd think about ROI here…"), and a Calendly close. Brian's actual send: a warm counter-positioning opener (the audience *is* their buyer), two concrete working article titles, **three mixed-product bundles (Package A/B/C) anchored high→low** with **rate-card anchoring on top** ($20K/$25K rate card), real product names + flexible Partner Program durations (2-mo, 3-mo), a **live example issue link** pointing to where their units would sit, and a simple "Let me know if I can answer any other questions! / Brian" close with **no Calendly**.
