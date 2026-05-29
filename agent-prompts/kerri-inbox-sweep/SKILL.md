@@ -242,11 +242,14 @@ If the ACTION line is missing or unparseable, treat as `send` (waiting).
 STEP 3 — SWEEP NEW EMAILS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+SCHEDULE CONTEXT:
+  Sweeps run every 15 minutes from 6:00am to ~10:45pm ET and are PAUSED overnight (~10:45pm–6:00am ET). Nothing runs in that gap, so the first sweep each morning must absorb the overnight backlog (see FIRST-SWEEP-OF-DAY CATCH-UP below).
+
 LOOKBACK WINDOW:
-  • Cursor-first: use `data/inbox-sweep-state.json` as the primary dedup/cursor layer. For each mailbox, search since its `lastSuccessfulSweepAt` minus a 5-minute overlap, then dedup by `seenMessageIds`, internetMessageId, and jobs.json.
-  • Cold-start (one-time): if jobs.json is empty AND job-counters.json shows H=0 AND S=0 AND G=0, this sweep has never processed any inbound. Switch lookback to "all unread INBOX items, cap 30 messages per mailbox, max age 14 days." Apply AUTO-SKIP + dedup normally. The cap exists so that worst-case Brian gets ~10–30 stale-but-valid jobs on this one run instead of months of backlog. Once any new job lands in jobs.json or any counter bumps, jobs.json is no longer empty and the next sweep falls through to the Cursor/Morning windows. Cold-start fires once and only once per fresh install / wipe.
+  • Cursor-first: use `data/inbox-sweep-state.json` as the primary dedup/cursor layer. For each mailbox, search since its `lastSuccessfulSweepAt` minus a 5-minute overlap, then dedup by `seenMessageIds`, internetMessageId, and jobs.json. Because the cursor persists across the overnight pause, this alone reaches back to last night's final sweep and covers the gap — the catch-up rule below is an explicit backstop, not a separate code path.
+  • First-sweep-of-day catch-up (overnight backlog): if a mailbox's `lastSuccessfulSweepAt` is more than 60 minutes ago (the signature of the first run after the overnight pause), widen that mailbox's search to run from `lastSuccessfulSweepAt` minus a 30-minute overlap, capped at a 14-hour window, so the entire overnight backlog is swept in this one run. Detect by the gap, not by wall-clock time, so a delayed or missed 6:00am start still catches up correctly. Apply AUTO-SKIP + dedup normally — a wide window must never produce duplicates.
+  • Cold-start (one-time): if jobs.json is empty AND job-counters.json shows H=0 AND S=0 AND G=0, this sweep has never processed any inbound. Switch lookback to "all unread INBOX items, cap 30 messages per mailbox, max age 14 days." Apply AUTO-SKIP + dedup normally. The cap exists so that worst-case Brian gets ~10–30 stale-but-valid jobs on this one run instead of months of backlog. Once any new job lands in jobs.json or any counter bumps, jobs.json is no longer empty and the next sweep falls through to the Cursor/catch-up windows. Cold-start fires once and only once per fresh install / wipe.
   • Normal fallback if state is missing/corrupt: last 15 minutes.
-  • Morning first sweep (local time 6:00–6:20am): last 12 hours (overnight catch-up)
 
 Search all four mailboxes (apply the LOOKBACK WINDOW resolved above):
   1. kerri-hardwarefyi-email → search_email for recent inbound. Cold-start: filter to `is:unread in:inbox`, sort newest-first, hard-cap at 30 results, drop anything older than 14 days.
