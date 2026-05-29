@@ -5,7 +5,7 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-29 02:19 ET · **by:** Kerri (Claude inbox sweep — quiet)
+**Last touched:** 2026-05-29 07:00 ET · **by:** Kerri (Claude morning brief)
 
 ## In flight
 - ROUTINE MIGRATION (Claude) — LIVE: 5 routines now created as PERSISTENT Claude scheduled-tasks MCP jobs (~/.claude/scheduled-tasks/, survive sessions, no 7-day expiry): kerri-inbox-sweep (*/15), kerri-morning-brief (wkday 6:57), kerri-eod-meetings-review (wkday 18:28), kerri-brain-push (22:00), kerri-gap-sweep (21:41, new independent code/workflow hygiene agent). Each is a shim that loads its canonical agent-prompts/*/SKILL.md with a Claude-runner override (skip Codex ::inbox-item/::archive; honor approval gates). Spec: agent-prompts/CLAUDE-ROUTINES.md. ⚠️ ACTION FOR CODEX/BRIAN: DISABLE the Codex equivalents (inbox-sweep, morning-brief, eod, brain-push) — they now run in BOTH runners and will double-send/double-task. Inbox-sweep file lock + shared cursor state partially dedupe but contention is real. GAPS: Inbound-sales + Event-sales prompts still don't exist.
@@ -14,7 +14,7 @@
 - PENDING Brian decision: item 5 — wire the playbook into kerri-inbox-sweep / eod / kerri-skill prompts (send-adjacent → wants a PR). Not done yet.
 
 ## Last action
-- 2026-05-29 02:19 ET Claude inbox sweep ran — quiet. No new mail across all 4 mailboxes since cursor 2026-05-29T06:03:32Z; no Google Tasks crossed send/skip/redo. All open approval tasks still WAITING on Brian: H0015 ATOMS (sender-locked manual), H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, G0008 Hilton (Gmail draft), 🌙 G0001 Ken, G0005 Pursue Biz. State cursors + grades updated; lock released.
+- 2026-05-29 07:00 ET Claude kerri-morning-brief ran — HTML brief written (output/morning-brief/2026-05-29.html + latest.html) and emailed kerri@hardwarefyi.com → brian@kerrihq.com. 2 meetings (Romano tax 12:00, Ari/Sara-Axios 15:00), Chase $205.19 / 5 txns yesterday, 11 pending tasks (7 highlighted). Required Sendblue text heads-up FAILED again due missing config — recurring failure already tracked in open SUGGESTION task Sk41OXVfbGxqYVlndUNUUw. State, grade, brain/log updated.
 
 ## Next action
 - Wait for Brian approval/edit/skip on H0034 Jiga + remaining redrafted sponsor follow-ups (H0015 ATOMS, H0021 Flow). ATOMS requires Brian manual send from brian@hardwarefyi.com or explicit edit/skip. Get Brian's go-ahead on item 5 (prompt wiring via PR).
