@@ -5,7 +5,7 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-29 02:08 ET · **by:** Kerri (Codex inbox sweep)
+**Last touched:** 2026-05-29 02:19 ET · **by:** Kerri (Claude inbox sweep — quiet)
 
 ## In flight
 - ROUTINE MIGRATION (Claude) — LIVE: 5 routines now created as PERSISTENT Claude scheduled-tasks MCP jobs (~/.claude/scheduled-tasks/, survive sessions, no 7-day expiry): kerri-inbox-sweep (*/15), kerri-morning-brief (wkday 6:57), kerri-eod-meetings-review (wkday 18:28), kerri-brain-push (22:00), kerri-gap-sweep (21:41, new independent code/workflow hygiene agent). Each is a shim that loads its canonical agent-prompts/*/SKILL.md with a Claude-runner override (skip Codex ::inbox-item/::archive; honor approval gates). Spec: agent-prompts/CLAUDE-ROUTINES.md. ⚠️ ACTION FOR CODEX/BRIAN: DISABLE the Codex equivalents (inbox-sweep, morning-brief, eod, brain-push) — they now run in BOTH runners and will double-send/double-task. Inbox-sweep file lock + shared cursor state partially dedupe but contention is real. GAPS: Inbound-sales + Event-sales prompts still don't exist.
@@ -14,7 +14,7 @@
 - PENDING Brian decision: item 5 — wire the playbook into kerri-inbox-sweep / eod / kerri-skill prompts (send-adjacent → wants a PR). Not done yet.
 
 ## Last action
-- Inbox sweep processed completed approvals: sent H0013 Zenode from brian@hardwarefyi.com and H0019 Werqwise from kerri@hardwarefyi.com after live-thread checks; skipped H0026 AllSpice and H0029 Shah Capital Ventures; reopened H0015 ATOMS as manual-send-needed because senderLock=brian must be honored. Sendblue alert for H0015 failed due missing runtime config. H0034 Jiga remains pending.
+- 2026-05-29 02:19 ET Claude inbox sweep ran — quiet. No new mail across all 4 mailboxes since cursor 2026-05-29T06:03:32Z; no Google Tasks crossed send/skip/redo. All open approval tasks still WAITING on Brian: H0015 ATOMS (sender-locked manual), H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, G0008 Hilton (Gmail draft), 🌙 G0001 Ken, G0005 Pursue Biz. State cursors + grades updated; lock released.
 
 ## Next action
 - Wait for Brian approval/edit/skip on H0034 Jiga + remaining redrafted sponsor follow-ups (H0015 ATOMS, H0021 Flow). ATOMS requires Brian manual send from brian@hardwarefyi.com or explicit edit/skip. Get Brian's go-ahead on item 5 (prompt wiring via PR).
