@@ -12,10 +12,10 @@
 - EOD 2026-05-28 created send-ready HWFYI drafts for Modelwise (H0023, task R0p0NkJnUlRheFk0WC11cQ), Flow (H0021, task Y0daNW5oWFFnbGtpNHBDdA), and ATOMS (H0015, task U3YwM05iRWpqNTMyM2NGQg). Visible Google Task titles now use stable jobIds instead of repeating EOD-H01/H02/H03 batch labels.
 
 ## Last action
-- 2026-05-28 22:18 ET inbox sweep completed quietly: Tasks H/S/G checked; all four configured mailboxes checked from the 2026-05-29T01:59:01Z cursor overlap; no actionable approvals, no new task-worthy inbound, no sends/drafts/tasks/texts; state, run grade, log, NOW, and automation memory updated.
+- QA pass on all open reply drafts (Brian request). Fixed 5: H0013 Zenode (dropped legacy $10K/6 bundle), H0021 Flow (webinar 100→125 attendees), H0023 Modelwise (softened unverified click stat), H0029 Shah (added Calendly + ack 2nd note), G0008 Hilton (refreshed stale draft post Esther's fee waiver). 8 others reviewed clean. Synced jobs.json + log. All pending Brian approval — no sends.
 
 ## Next action
-- Wait for Brian's approvals on pending Google Tasks before any send. G0008 still likely needs review/redo because Esther changed the venue economics after the call; Sendblue alert delivery remains tracked by the open Kerri MG configuration suggestion.
+- Wait for Brian's approvals on pending Google Tasks before any send. Modelwise task has a NOTE FOR BRIAN: re-add a real placement click range if he knows it. Sendblue alert delivery still tracked by the open Kerri MG configuration suggestion.
 
 ## Decisions waiting on Brian
 - _none_
