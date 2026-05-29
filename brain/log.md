@@ -2,6 +2,11 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-29 05:31 ET] quiet sweep | kerri-inbox-sweep run 210 | Kerri (Claude)
+- All 4 mailboxes cursor-first (since 09:12:27Z); 0 new external inbound. Gmail returned a Beehiiv newsletter (19e72fbcf4723bfb @ 09:06Z) — pre-cursor + auto-skip; everything else pre-cursor.
+- STEP 2 no-op: same 7 pending H/G jobs (H0034 Jiga, H0028 Summit, H0027 SHACK15, H0018 BuzzWorks, G0001 Ken, G0005 Pursue, G0008 Hilton) still needsAction default ACTION=send, waiting on Brian.
+- State cursors advanced to 09:31:38Z, grade recorded, no Sendblue alert (no Brian action needed).
+
 ## [2026-05-29] send + rule | H0015 ATOMS Shiv Patel follow-up | Kerri
 
 Brian approved sending the H0015 ATOMS post-call follow-up from `brian@hardwarefyi.com`, signed Brian ("Can you send this from Brian and sign it Brian?"). No-double-send verified: only Superhuman self-reminders sat after Shiv's last message — package follow-up had never gone out. Sent to Shiv Patel <shiv.patel@gmail.com>, cc Benji + Kerri, subject "RE: Intro: Benji (HardwareFYI) <> Shiv (ATOMS)". `reply_email`/createReplyAll failed with Graph `ErrorInvalidIdMalformed` on the current valid message ID (tool bug in brian-hardwarefyi-email reply path) — fell back to subject-threaded `send_email`. Task U3YwM05iRWpqNTMyM2NGQg marked sent. NEW SEND-IDENTITY RULE recorded to [[wiki/workflows/draft-learnings]]: every post-call client follow-up sends from Brian, signed Brian — never Kerri.
