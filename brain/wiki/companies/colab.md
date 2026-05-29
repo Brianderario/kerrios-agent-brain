@@ -18,7 +18,8 @@ Design-review / engineering collaboration software company and recurring Hardwar
 
 ## Relationship Notes
 
-- CoLab previously ran Q4/Q1 newsletter placements with Hardware FYI, including six fall placements and 13 Q1 placements. (src: meetings/2026-05-27-hardware-fyi-colab.md)
+- CoLab previously ran brand-awareness newsletter campaigns with Hardware FYI: Q4 2025 = 8x Newsletter Placements ($13K); Q1 2025 = 13x Newsletter Placements ($18K). (src: brian@hardwarefyi.com thread `Re: CoLab Newsletter Sponsorship in 2026`, Benji 2026-05-28)
+- 2026-05-28: Benji pitched a custom-content review (AllSpice engineer-perspective style) of CoLab's mechanical design review workflow, and told Peter "we'll send over a set of proposed packages shortly." Brian's pending follow-up (task H0030) delivers that package. (src: same thread)
 - CoLab has also been used internally as a sponsor example for Hardware FYI product education and Primary Placement format discussions.
 
 ## Open Questions

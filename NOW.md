@@ -8,7 +8,7 @@
 **Last touched:** 2026-05-28 22:04 ET · **by:** Kerri (Codex)
 
 ## In flight
-- EOD-H01 CoLab follow-up (job H0030, task QXNQV2NGRTBHeGJVTVZlTQ): draft REWRITTEN from Granola transcript per Brian's request — pending his approval. Do NOT auto-send; awaiting Brian checking the task.
+- EOD-H01 CoLab follow-up (job H0030, task QXNQV2NGRTBHeGJVTVZlTQ): draft rewritten thread-grounded — now DELIVERS Benji's promised package ("CoLab Content Experiment ($10K)" = 1x Custom Article + 5x Primary Placement). Pricing verified vs properties/hardware-fyi.md. Pending Brian approval; do NOT auto-send.
 - EOD 2026-05-28 created send-ready HWFYI drafts for Modelwise (H0023, task R0p0NkJnUlRheFk0WC11cQ), Flow (H0021, task Y0daNW5oWFFnbGtpNHBDdA), and ATOMS (H0015, task U3YwM05iRWpqNTMyM2NGQg).
 
 ## Last action
