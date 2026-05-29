@@ -10,6 +10,10 @@ const automationDoc = fs.readFileSync(
   new URL('../agent-prompts/kerri-skill/references/automations.md', import.meta.url),
   'utf8'
 );
+const coldOutreachPrompt = fs.readFileSync(
+  new URL('../agent-prompts/kerri-cold-outreach/SKILL.md', import.meta.url),
+  'utf8'
+);
 
 test('inbox sweep prompt preserves approval gates and mailbox routing', () => {
   for (const required of [
@@ -24,6 +28,22 @@ test('inbox sweep prompt preserves approval gates and mailbox routing', () => {
   ]) {
     assert.match(prompt, new RegExp(escapeRegExp(required)));
   }
+});
+
+test('inbox sweep prompt blocks overlapping scheduled runs before loading context', () => {
+  for (const required of [
+    'STEP -1 — SINGLE-RUN GUARD',
+    'node scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 90',
+    'Before reading any other KerriOS files',
+    'reason: "busy"',
+    'Stop immediately and silently',
+    'node scripts/inbox-sweep-lock.mjs release'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+
+  assert.match(automationDoc, /inbox-sweep-lock\.mjs/);
+  assert.match(automationDoc, /overlapping runs exit silently/i);
 });
 
 test('inbox sweep prompt requires context, enrichment, and full thread reads before drafting', () => {
@@ -47,6 +67,165 @@ test('inbox sweep prompt includes self-grading and KerriOS write-back', () => {
     'Daily grade',
     'Weekly grade',
     'Write compact KerriOS memory updates'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
+test('inbox sweep prompt routes suggestions through relevance-gated Google Tasks', () => {
+  for (const required of [
+    'google-tasks-improvement-suggestions.md',
+    'BUILD RELEVANCE',
+    'Source runner',
+    'obsolete',
+    'Claude-era',
+    'Codex interactive',
+    '💡 SUGGESTION:'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
+test('inbox sweep prompt sends brief Sendblue alerts only for newly-created tasks', () => {
+  for (const required of [
+    'Sendblue/text alert path',
+    'node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message',
+    'brief one-way notifications to Brian for newly-created tasks',
+    "any automation output that needs Brian's attention",
+    'separate from iMessage Handoff',
+    'Do not call `/Users/brianderario/.codex/skills/imessage-handoff/scripts/send-update.js`',
+    'SEND THE TASK-CREATED TEXT ALERT',
+    'Text only after a new Google Task is actually created',
+    'Do not text when the sweep finds no new task-worthy email',
+    'Do not text for ordinary no-op sweeps',
+    'taskAlertedAt = now',
+    'do not fall back to Slack',
+    'Still continue to STEP 8 and emit the required closing directives',
+    'quiet" means no external attention channel',
+    'If the sweep did not add a Google Task and did not hit a decision, blocker, error, or other concrete Brian action, do not text Brian',
+    'send ONE brief Sendblue/text heads-up',
+    'ending with exactly two raw directive lines',
+    'Do not wrap either directive in backticks or a code block',
+    '::archive{reason="Durable inbox sweep output already written outside this chat"}'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+
+  assert.match(automationDoc, /brief Sendblue\/text heads-up/);
+  assert.match(automationDoc, /send-text-alert\.mjs --message/);
+  assert.match(automationDoc, /separate from iMessage Handoff/);
+  assert.match(automationDoc, /if there is no task, decision, blocker, error, or other Brian action, it sends no text/);
+  assert.match(automationDoc, /Automation chat archive policy/);
+  assert.match(automationDoc, /no-op\/quiet runs that sent no external alert/);
+});
+
+test('inbox sweep prompt protects redo provenance and stale-task markers', () => {
+  for (const required of [
+    'DRAFT SOURCE: Codex interactive redo',
+    'jobs.json.originalDraft',
+    'do NOT infer a Brian edit',
+    'real Brian edit and not a Kerri/Codex redo',
+    '🆕',
+    'strip any leading `🆕 ` marker',
+    'Clear the `🆕 ` marker automatically on send, skip, or redo'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
+test('inbox sweep prompt makes internal CC suggestions explicit and approval-gated', () => {
+  for (const required of [
+    'brain/wiki/people/ari-lewis.md',
+    'brain/wiki/people/benji-chia.md',
+    'Internal teammate CC suggestions',
+    'Never silently add an internal CC',
+    'Internal CC suggestion: add <Name> <<email>>',
+    'If Brian checks the task without deleting that line, include that address as CC',
+    'Internal CC missing: <Name> email not verified in KerriOS',
+    'Ari for finance, invoices, wire details, banking, legal/contract/payment/accounting',
+    'Benji for Hardware FYI operations'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
+test('inbox sweep prompt blocks double emails before approval sends', () => {
+  for (const required of [
+    'HARD NO-DOUBLE-EMAIL GATE',
+    'never send a double email',
+    'every `internetMessageIds[]` value',
+    'Brian/Kerri did not already reply after the task was created',
+    'SECOND SEND APPROVED BY BRIAN',
+    'If duplicate status cannot be verified'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
+test('inbox sweep prompt keeps EOD approvals on existing email chains', () => {
+  for (const required of [
+    'task title starts with `🌙 EOD-` or the notes contain `EOD source tag:` and no matching job exists in jobs.json',
+    'rewrite the title to `🌙 <job.jobId> — <Company> — <subject/meeting>`',
+    'keep the `EOD-H01` value only as a source tag in notes',
+    'Existing-chain routing gate',
+    'job.source == "eod-meetings-review"',
+    "Use the connector's reply/thread-draft path only",
+    'Never fall back to a fresh `send_email` with the same subject',
+    'prefix title with `⚠️ route needed — `'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
+test('inbox sweep prompt updates cold outreach state after approved sends', () => {
+  for (const required of [
+    'data/cold-outreach-state.json',
+    'task title starts with `❄️ COLD-`',
+    'remove the matching email from `drafted[]`',
+    'add it to `sent[]`',
+    'keep the cold outreach cap counters unchanged'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
+test('cold outreach prompt keeps first-touch emails short and partnership-focused', () => {
+  for (const required of [
+    '4-5 short sentences after the greeting',
+    "I'm Kerri, and I work on partnerships at Hardware FYI.",
+    "We're a media company with a newsletter covering hardware manufacturing, read by over 17,000 hardware engineering leaders and decision makers.",
+    '<Company> seems like a strong fit because <specific fit>.',
+    "If this is interesting, I'd love to have a conversation about partnering together. Happy to answer any questions.",
+    'omit by default on first cold outreach'
+  ]) {
+    assert.match(coldOutreachPrompt, new RegExp(escapeRegExp(required)));
+  }
+  assert.doesNotMatch(coldOutreachPrompt, /3–5 sentences/);
+});
+
+test('inbox sweep cross-checks live task status before trusting the listing', () => {
+  for (const required of [
+    'LIVE-STATUS CROSS-CHECK (run FIRST, before trusting any task listing):',
+    'per-job `gtasks_get_task` lookup is the source of truth',
+    '`status == pending`',
+    'gtasks_get_task(tasklist_id = job.gtasksListKey',
+    'the per-job lookup wins',
+    'show_completed',
+    'Brian-checked-but-listing-missed-it'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
+test('inbox sweep enforces answer-every-ask coverage on replies', () => {
+  for (const required of [
+    'ANSWER EVERY ASK (mandatory coverage pass',
+    'Enumerate EVERY distinct ask, question, instruction, and embedded request',
+    'never silently omitted',
+    'do not mark a draft send-ready until every enumerated item maps to a line',
+    'COVERAGE CHECKLIST (every ask in the inbound must map to a draft line)',
+    'INTERNAL FLAG for Brian',
+    '✓ addressed'
   ]) {
     assert.match(prompt, new RegExp(escapeRegExp(required)));
   }
