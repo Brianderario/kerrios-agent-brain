@@ -21,6 +21,15 @@ Jiga is an active Hardware FYI sponsor/customer focused on manufacturer access a
 - 2026-04/05 mailbox context shows Jiga planning a Hardware FYI co-hosted happy hour/event with Benji and Brian. Brian's 2026-05-25 note said the likely timing was late June/early July as a summer kickoff hardware meetup at SF Brewing Co., with Jiga getting first-priority booth placement.
 - 2026-05-29: Khay sent June placement instructions for the "Build Real Supplier Relationships" placement, said 8 original placements plus one Protolabs make-good remain, and asked for exact event date, venue, prior event results, promotional details, and materials.
 
+## Contract (found in Drive, 2026-05-29)
+
+- **Doc:** "Jiga <> Hardware FYI SOW Contract" — https://docs.google.com/document/d/1mfcIQrczNbL2Y4peo5sFnhiA2C-5VuXH4nRQ5pXWZ30/edit (Google Doc, owner hardwarefyi@gmail.com)
+- **Dated:** 2025-07-29 · **Fee:** $20,000 USD · **Term:** 12-month, Aug 2025 – Aug 2026 · **Payment:** Net 30 on invoice
+- **Deliverables:** (a) logo in header + company description in newsletter; (b) **56 sends** (1 issue/week — Weekend Wire); (c) **12 ad-hoc native ads / interviews / featured content pieces** (1/month); (d) **2 co-hosted events** with Jiga as primary sponsor.
+- **Termination:** either party after first 2 months, 7 days' written notice; unused prepaid fees refunded pro-rata.
+- **CRM cross-refs:** KMG CRM `HWFYI-2026-005` (Jiga Weekend Wire annual, Closed Won, $20K, through 2026-08-15); KMG Finance `REV-2026-002` ($20K, service period 2026-08, payment status needs reconciliation).
+- **Count reconciliation:** the SOW does NOT enumerate "8 placements + 1 Protolabs make-good." Closest line is the 12 monthly native/feature placements; the **Protolabs make-good is not in this contract** — treat Khay's "9 remaining" as a sponsor-side tally to confirm, not a contract figure.
+
 ## June placement status (per HWFYI schedule sheet, read 2026-05-29)
 
 - Jiga has **no placements currently slotted in June** on The Analog ad calendar.
