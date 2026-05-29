@@ -25,6 +25,8 @@ data/morning-brief-state.json
 data/morning-brief-fallback-*.md
 data/brain-push-state.json
 data/brain-push-fallback-*.md
+data/gap-sweep-state.json
+data/gap-sweep-fallback-*.md
 data/lead-research/batches/
 brain/.local/sw-newsletter-drafts/
 data/sw-newsletter/state.json
