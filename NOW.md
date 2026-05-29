@@ -13,7 +13,7 @@
 - PENDING Brian decision: item 5 — wire the playbook into kerri-inbox-sweep / eod / kerri-skill prompts (send-adjacent → wants a PR). Not done yet.
 
 ## Last action
-- Inbox sweep quiet run at 01:49 ET: checked Google Tasks H/S/G and all four configured mailboxes from the 05:28:51Z cursor overlap. No actionable approvals, new task-worthy inbound, sends, drafts, tasks, texts, blockers, or suggestions.
+- H0034 Jiga (Claude interactive): read Khay's full inbound, found the draft addressed only ~half. Enumerated all 8 asks and rewrote the draft to answer each (incl. the exact UTM link she required + the incoming-placements ack); added a COVERAGE CHECKLIST to the task. Found + recorded Jiga's signed SOW from Drive (doc 1mfcIQrczNbL2Y4peo5sFnhiA2C-5VuXH4nRQ5pXWZ30; $20K, Aug25–Aug26; SOW does NOT confirm the "9 remaining"/Protolabs make-good). Recorded the "answer every ask" rule in draft-learnings.md + filed Kerri MG suggestion ZWdfNXhaYUQ3RUJjaU91dg to enforce it in the sweep prompt. No send.
 
 ## Next action
 - Wait for Brian approval/edit/skip on H0034 Jiga + remaining redrafted sponsor follow-ups (H0013 Zenode, H0015 ATOMS, H0021 Flow). Confirm Zenode tier prices before send. Get Brian's go-ahead on item 5 (prompt wiring via PR).
