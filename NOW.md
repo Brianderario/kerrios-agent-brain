@@ -5,19 +5,21 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-05-28 23:49 ET · **by:** Kerri (Codex)
+**Last touched:** 2026-05-29 00:04 ET · **by:** Kerri (Codex)
 
 ## In flight
+- H0034 Jiga (task SnR1REdJMVYyMk5Ebm9USQ): new Brian-sender approval draft for Khay Garcia's June placement thread. Jiga wants the "Build Real Supplier Relationships" placement run in June, says 9 placements remain including the Protolabs make-good, and asks for event date/venue/materials. Pending Brian approval; no send.
 - H0030 CoLab follow-up (EOD-H01 source tag, task QXNQV2NGRTBHeGJVTVZlTQ): draft rewritten thread-grounded — now DELIVERS Benji's promised package ("CoLab Content Experiment ($10K)" = 1x Custom Article + 5x Primary Placement). Pricing verified vs properties/hardware-fyi.md. Pending Brian approval; do NOT auto-send.
 - EOD 2026-05-28 created send-ready HWFYI drafts for Modelwise (H0023, task R0p0NkJnUlRheFk0WC11cQ), Flow (H0021, task Y0daNW5oWFFnbGtpNHBDdA), and ATOMS (H0015, task U3YwM05iRWpqNTMyM2NGQg). Visible Google Task titles now use stable jobIds instead of repeating EOD-H01/H02/H03 batch labels.
 
 ## Last action
-- Ran the 23:49 ET inbox sweep: Tasks H/S/G checked first; H0015 ATOMS `ACTION: redo` was processed into a Kerri-sender existing-thread approval draft after full Kerri/Brian HWFYI thread re-read. No email was sent. No new task-worthy inbound found across Kerri/Brian HWFYI, Gmail, or S/W. Durable state/grade/log/memory updated.
+- Ran the 00:04 ET inbox sweep: Tasks H/S/G checked first; no approved send/skip/redo executed. Found new Jiga sponsor-ops inbound at brian@hardwarefyi.com, created H0034 task `SnR1REdJMVYyMk5Ebm9USQ`, registered Jiga in KerriOS, and left it pending Brian approval. Sendblue task alert attempted but failed due missing config. No email was sent.
 
 ## Next action
-- Wait for Brian approval/edit/skip on ATOMS task U3YwM05iRWpqNTMyM2NGQg, now rewritten as a Kerri-sender route-repair draft. Continue waiting for Brian approvals on the other pending Google Tasks. Sendblue alert delivery still tracked by the open Kerri MG configuration suggestion.
+- Wait for Brian approval/edit/skip on H0034 Jiga and the existing sponsor follow-up tasks. Sendblue alert delivery still tracked by the open Kerri MG configuration suggestion.
 
 ## Decisions waiting on Brian
+- Jiga approval choice: approve/edit the June placement acknowledgement, or let Benji own the reply if event details are changing.
 - ATOMS approval choice: approve/edit the Kerri-sender route-repair draft, or skip it if Brian wants to send manually from brian@hardwarefyi.com.
 
 ## Notes
