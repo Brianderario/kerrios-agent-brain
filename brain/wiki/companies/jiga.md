@@ -30,9 +30,10 @@ Jiga is an active Hardware FYI sponsor/customer focused on manufacturer access a
 
 ## Open loop
 
-- H0034 Google Task `SnR1REdJMVYyMk5Ebm9USQ` is pending Brian approval for a sponsor-ops acknowledgement.
+- H0034 Google Task `SnR1REdJMVYyMk5Ebm9USQ`: draft now lists the Brian-approved 9-placement spread — **June 6/9, 6/16, 6/20, 6/27; July 7/4, 7/11, 7/14, 7/21, 7/25** (4 June / 5 July), leading with "Build Real Supplier Relationships." Pending Brian approval; no send.
+- On approval: book these 9 slots in the HWFYI schedule sheet (not yet booked).
+- Reconcile Jiga's remaining-placement count — Khay asserts 9 (8 + Protolabs make-good) but no Jiga contract row exists in the sheet; draft invites her to flag if it differs.
 - Exact event date/venue and final event materials are not confirmed in KerriOS.
-- Decide which June open dates to assign Jiga's "Build Real Supplier Relationships" placement(s); reconcile Jiga's remaining-placement count (no contract row in sheet).
 
 ## Source pointers
 
