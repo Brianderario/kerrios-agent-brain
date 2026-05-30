@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-29 22:35 ET] inbox-sweep | H0013 Zenode pricing-pushback continuation task created | Kerri (Claude scheduled)
+
+Brandon Bourn replied 22:20 ET on the H0013 "Re: Getting back on Hardware FYI" thread, 16h after Kerri's Brian-approved package send. Hard $20k pushback ("equal to our entire conference budget"), $5k Q3 budget, and a counter-bundle (1 Custom Article on Collin's AOI piece + 2 Primary Placements for Alts/API + Tools From Our Sponsors listing + 1+ Graeme Non-Zenode EE piece) — that's roughly Package A scope at Package C price. Also flagged Primary Placement format concern ("VERY ad-centric"). Customer lookup reused H0013 (no counter bump). New H continuation job + task U1YzYVZrR0hoR2VtOEVSUA on Hardware FYI list with Brian-sender hold/defer draft routing reply via conversationId AAQk…o4=. All 6 of Brandon's asks mapped in COVERAGE CHECKLIST. INTERNAL FLAG surfaces the $5k-vs-Package-A-scope economics for Brian decision (friend-rate vs counter at middle tier). Sendblue text delivered (id c12a8f92). 8 prior pending H/G jobs cross-checked via gtasks_get_task — all needsAction ACTION=send waiting on Brian. Other mailboxes: brian@kerrihq returned Google Analytics newsletter 19e76ba3926fb665 AUTO-SKIP; kerri@hwfyi + Superhuman returned [].
+
 ## [2026-05-29 22:18 ET] inbox-sweep | quiet (all 4 mailboxes []), 8 pending jobs unchanged | Kerri (Claude scheduled)
 
 ## [2026-05-29 21:53 ET] gap-sweep | auto:0 pr:0 task:1 — C4 kerri-skill 'Codex automations' drift + G2 artifacts/ gitignore bundled into MG task OHNya3hDejFNUHNNb1lRaA; PR #1 still open from run #1 | Kerri
