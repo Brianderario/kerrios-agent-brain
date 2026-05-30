@@ -157,19 +157,12 @@ Create the task with `gtasks_create_task`:
   ```
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   ACTION: send
-  (to skip type `skip`; to regenerate type `redo`; to send edits, edit the DRAFT block below and check the task)
+  (line 1 is machine-read — leave as `send`; change to `redo` or `skip`. To approve: edit the DRAFT if needed and check the box.)
 
-  ━━━ TARGET ━━━
-  Name: <name>
-  Email: <email>
-  Title: <title>
-  Company: <company>
-  Source: cold-outreach (Apollo-enriched <YYYY-MM-DD>)
+  WHAT'S GOING ON
+  <1–2 plain sentences: cold outreach to <name>, <title> at <company> (Apollo-enriched <YYYY-MM-DD>). The angle: <specific personalization hook — recent funding / launch / hire / connection>.>
 
-  ━━━ HOOK ━━━
-  <specific personalization angle — recent funding / launch / hire / connection>
-
-  ━━━ DRAFT ━━━
+  ━━━━━━━━━ DRAFT ━━━━━━━━━
   From: <kerri@hardwarefyi.com | brian@hardwarefyi.com>
   To: <email>
   Subject: <subject>

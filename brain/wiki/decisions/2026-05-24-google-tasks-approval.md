@@ -1,6 +1,6 @@
 # Decision: Google Tasks as Inbox Sweep Approval Channel
 
-scope: decision · updated: 2026-05-26
+scope: decision · updated: 2026-05-29
 
 ## Decision
 
@@ -15,7 +15,8 @@ Switch the Kerri inbox sweep approval channel from a single Google Doc to **thre
 ## Mechanics (full detail in `agent-prompts/kerri-inbox-sweep/SKILL.md`)
 
 - Title: `<JOBID> — <Company> — <Subject>`
-- Notes contain `ACTION:` line (`send`/`skip`/`redo`) + CONTEXT + WHAT I NEED YOU TO DO + DRAFT block.
+- Notes are COMPACT (2026-05-29 — Brian: the old CONTEXT block was "unreadable" on mobile). Layout: machine line-1 `ACTION:` (`send`/`skip`/`redo`) + `Sends as` → a plain-prose **WHAT'S GOING ON** (who/what/why/where-the-thread-stands, no labeled sub-fields, no timestamps/enrichment tags) → ask-bullets (each ask paired with how the draft handles it — these replace the old visible coverage checklist) → optional `⚠` flag (only when Brian must verify something) → the DRAFT block. Full thread state/enrichment/timestamps are computed internally and stored in the wiki/jobs.json, not dumped into the task.
+- Three machine-read tokens are non-negotiable: line-1 `ACTION:`, the `>>>>>>>`/`<<<<<<<` draft delimiters, and the `Internal CC:` line when present (left in = CC added). EOD tasks additionally keep the full `ROUTING` block.
 - Approve & send = check the task. The sweep auto-detects in-place edits to DRAFT.
 - Skip / redo = edit the ACTION line to `skip` or `redo`.
 - After send: title gets `✅ sent HH:MM ET` prefix; task marked completed.

@@ -238,20 +238,15 @@ Use `gtasks_create_task`:
 - `notes`: exactly this format
   ```
   ACTION: send
-  (to skip type `skip`; to regenerate type `redo`; to send edits, edit the DRAFT block below and check the task)
-
+  (line 1 is machine-read — leave as `send`; change to `redo` or `skip`. To approve: edit the DRAFT if needed and check the box.)
   EOD source tag: EOD-<prefix><NN> for <YYYY-MM-DD> only. This is a run-local source tag, not the customer jobId.
 
-  ━━━ MEETING ━━━
-  Title: <meeting title>
-  When: <time range ET>
-  Attendees: <comma-sep>
-  Brain page: brain/wiki/meetings/<YYYY-MM-DD>-<slug>.md
+  WHAT'S GOING ON
+  <2–3 plain sentences: which meeting this follows (<meeting title>, <time range ET>, with <attendees>), why you're sending now (<the commitment/trigger — e.g. "you committed to send the sponsor menu by Friday">), and the gist of the follow-up. Notes live at brain/wiki/meetings/<YYYY-MM-DD>-<slug>.md.>
 
-  ━━━ WHY YOU'RE SENDING THIS ━━━
-  <one-line trigger: e.g. "you committed to send the sponsor menu by Friday">
+  ⚠ <only if the draft commits/asserts something Brian must verify before send; omit when clean>
 
-  ━━━ ROUTING ━━━
+  ━━━ ROUTING (machine-read — keep all fields) ━━━
   Existing chain: <yes — reply in existing chain | no verified chain found | ROUTING REVIEW REQUIRED>
   Mailbox: <kerri@hardwarefyi.com | brian@hardwarefyi.com | brian@kerrihq.com | brian@standardandworks.com>
   Send mode: <reply | new-message | gmail-draft-only | review-required>
@@ -259,7 +254,7 @@ Use `gtasks_create_task`:
   Thread IDs: <mailbox thread/conversation id, latest message id, and/or internetMessageIds captured from the connector; "none" only when no verified chain exists>
   Routing note: <one line explaining why this is the right chain, or what Brian must choose>
 
-  ━━━ DRAFT ━━━
+  ━━━━━━━━━ DRAFT ━━━━━━━━━
   To: <recipient email>
   Subject: <existing `Re:` subject when replying, otherwise a new subject only if no verified chain exists>
   From: <Kerri / Brian — and which mailbox>
