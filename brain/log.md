@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-30 00:51 ET] decision | outreach-motion-scaleup: postal-address gate dropped | Kerri (Claude interactive)
+
+Brian's call: do NOT gate cold sends on a CAN-SPAM postal address (he's run cold email without one; 10/day enforcement risk negligible; it was a Kerri-introduced restriction, not an org rule). Updated cold-outreach SKILL HARD RULE 8b + STEP 4 footer + the registered kerri-cold-outreach scheduled-task prompt: opt-out "reply unsubscribe" line stays REQUIRED (powers inbox-sweep auto-suppression); postal address now OPTIONAL — included only if recorded in properties/hardware-fyi.md, else omitted silently; never hold/skip a draft for a missing address. Decision doc updated. Sends already go from kerri@hardwarefyi.com via Graph (Apollo never sends). Net effect: Monday's first batch drafts cleanly without an address.
+
 ## [2026-05-30 00:33 ET] lead-research-backfill | 141 leads to pool, 15 queued, ~780 dedup'd | Kerri (Claude interactive)
 
 Apollo backfill for Hardware FYI sponsor funnel: 12 keyword company searches across the 3 ICP lanes surfaced 919 unique US companies (post customer-dedup), selected 558 targets, ran 14 people-searches for marketing decision-makers, revealed 139 emails via bulk_match (139 Apollo credits of 7,545). Wrote 141 scored/deduped leads to `data/leads-master.json` (15 lookalike / 67 conference / 59 software-to-mfg), jobId=null on all (no premature customer IDs). CRM mirror exit-3 SHEETS_ACCESS_DENIED as expected → CSV fallback `data/leads-crm-export-2026-05-30.csv` (Sheets scope still needs one-time re-auth). Topped cold-outreach-queue to 15 (5 pre-existing + 10 new top-scored hooked leads). Full run audit in `data/lead-research/batches/2026-05-30-backfill.json`. No brain/wiki/people, cold-do-not-contact, or companies.json writes.

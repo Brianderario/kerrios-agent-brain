@@ -33,7 +33,7 @@ Not a rebuild — a ramp plus three targeted changes to live agents.
 ## Open items / dependencies
 
 - **One-time re-auth required:** the kerri-gdocs OAuth token only had `documents + drive.file + tasks`. Added `spreadsheets` to `~/.kerri-chief/kerri-gdocs-mcp/setup-auth.mjs`; Brian must re-run it once before the CRM tab writes succeed. Until then `sheets-append.mjs` writes a CSV fallback (verified: exit 3 + `data/leads-crm-export-<date>.csv`).
-- **Postal address for CAN-SPAM footer:** cold-outreach SKILL now refuses to send if `brain/wiki/properties/hardware-fyi.md` has no registered business postal address. Confirm/record it before the first live batch.
+- **Postal address — DROPPED as a blocker (Brian, 2026-05-30).** Brian's call: don't gate sends on a CAN-SPAM postal address (he's run cold email without one; at 10/day the enforcement risk is negligible, and it was a restriction Kerri introduced unprompted, not an existing org rule). Cold emails now carry only the one-line "reply unsubscribe" opt-out (kept because the auto-suppression keys on it); the postal address is included ONLY if recorded in `brain/wiki/properties/hardware-fyi.md`, otherwise omitted silently. If Brian later wants full CAN-SPAM compliance, record an address (real LLC address, PO box, or virtual mailbox all qualify) and the footer picks it up automatically.
 - **Scheduled tasks not yet wired:** these two agents have canonical prompts but no live cron. Daily activation (lead-research evening top-up + cold-outreach ~9am M–F) and the initial large Apollo backfill are held pending Brian's go (credit spend + live automation).
 - **Deliverability warmup:** verify SPF/DKIM/DMARC on hardwarefyi.com and ramp gradually to the 10/day steady state.
 

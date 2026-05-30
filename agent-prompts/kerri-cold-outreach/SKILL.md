@@ -20,7 +20,7 @@ HARD RULES (do not bypass — ever)
 5. **HWFYI boundary only.** This agent sends from `kerri@hardwarefyi.com` or `brian@hardwarefyi.com` only. NEVER from `brian@standardandworks.com` (S/W cold outreach is a separate concern — not yet built).
 6. **Batch-approval-gated send.** All of a morning's drafts go into ONE daily batch task in Google Tasks (`☀️ COLD BATCH <date>`). Nothing sends until Brian checks that one box. One checkbox approves the whole batch; Brian can strike individual drafts to drop them (see STEP 5). The inbox sweep handles the actual sends at next firing. Brian approves once per day, not once per email.
 7. **Time windows.** Only schedule sends for M–F, 9am–4pm ET. No weekend cold. The MCP-level approval gate enforces approval but timing is Brian's call when he approves.
-8b. **CAN-SPAM compliance.** Every cold email MUST carry the compliance footer (unsubscribe line + physical postal address — see STEP 4). A cold commercial email without a working opt-out + valid postal address is illegal to send; no draft ships without it.
+8b. **Opt-out line (required); postal address (optional).** Every cold email carries a one-line opt-out (`reply "unsubscribe"`) — this is what the inbox-sweep auto-suppression keys on, so keep it. A physical postal address is a CAN-SPAM nicety but, per Brian's call (2026-05-30), is NOT required and does NOT block a send: include it only if one is recorded in `brain/wiki/properties/hardware-fyi.md`, otherwise omit it silently. Never hold or skip a draft for a missing address.
 8. **Customer ID protocol — mandatory.** Before assigning any jobId to a cold outreach draft, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]]. Same company = same jobId forever. If the target's domain is already in `data/companies.json`, reuse that jobId (even though this is a cold first-touch — consistency matters when they later reply). If new, register them in companies.json + create the wiki page BEFORE creating the Google Task. Counter in `job-counters.json` only bumps for genuinely new companies. This doubles as a sanity check against cold-emailing a current customer. NOTE: the lead pool (`data/leads-master.json`) intentionally carries NO customer jobId at discovery — this draft step is where a cold prospect first earns one. After resolving it, stamp the `jobId` onto the matching pool lead (by `leadId`/domain) so the pool + CRM reflect the customer ID from first contact onward.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -141,16 +141,20 @@ Apply every rule in `voice.md` and every lesson in `draft-learnings.md`. Specifi
 - **Close:** "Brian" on its own line. (Or "Kerri" if sending from kerri@hardwarefyi.com.)
 - **No mass-cold tropes:** never use "I came across your profile" / "I noticed you" / "I'd love to connect" / "Let me know if this is of interest". These are dead signals.
 - **Calendar link:** omit by default on first cold outreach. Add it only if Brian explicitly asks for calendar-forward cold emails.
-- **CAN-SPAM compliance footer (MANDATORY on every cold email — HARD RULE 8b).** After the `Best, / Kerri` (or `Brian`) sign-off, append a small plain footer, separated by a blank line. It MUST contain BOTH:
-  1. A working opt-out line. Default: `Don't want these emails? Just reply "unsubscribe" and I'll take you off the list.` (A reply-based opt-out is honored by the inbox sweep, which auto-adds the sender to `cold-do-not-contact.json` — see inbox-sweep STEP 2b.) If/when a hosted unsubscribe URL exists, use that instead.
-  2. A valid physical postal address for Hardware FYI / Kerri Media Group.
-  Footer template (use the canonical address — confirm it in `brain/wiki/properties/hardware-fyi.md`; if no postal address is recorded there yet, SKIP the run and post a Kerri MG task asking Brian for the registered business address rather than sending a non-compliant email):
+- **Footer (HARD RULE 8b).** After the `Best, / Kerri` (or `Brian`) sign-off, append a small plain footer separated by a blank line. The opt-out line is REQUIRED (it powers the inbox-sweep auto-suppression in STEP 2b); the postal address is OPTIONAL and never blocks a send.
+  - Required: `Don't want these emails? Reply "unsubscribe" and you're off the list.` (If/when a hosted unsubscribe URL exists, use that instead.)
+  - Optional: a physical postal address line, included ONLY if one is recorded in `brain/wiki/properties/hardware-fyi.md`. If none is recorded, omit it silently — do NOT skip the run or post a task asking for it.
+  Footer when an address IS recorded:
   ```
   —
   Hardware FYI · <street>, <city>, <state> <zip>
   Don't want these emails? Reply "unsubscribe" and you're off the list.
   ```
-  This footer is the difference between legal cold outreach and a CAN-SPAM violation. No draft is send-ready without it.
+  Footer when no address is recorded (the default today):
+  ```
+  —
+  Don't want these emails? Reply "unsubscribe" and you're off the list.
+  ```
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — POST AS ONE DAILY BATCH TASK
