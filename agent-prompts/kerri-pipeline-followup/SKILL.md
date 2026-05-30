@@ -187,22 +187,18 @@ E) **Create the Google Task.** One `gtasks_create_task` call per nudge.
    ```
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    ACTION: send
-   (to skip type `skip`; to regenerate type `redo`; to send edits, edit the DRAFT block below and check the task)
+   (line 1 is machine-read — leave as `send`; change to `redo` or `skip`. To approve: edit the DRAFT if needed and check the box.)
+   Sends as <send_from>
 
-   ━━━ CONTEXT ━━━
-   Who: <name + email>
-   Deal: <slug> (tier: <relationship_tier>, status: <status>)
-   Days quiet: <days_since_last_contact> · Nudge #: <nudge_count + 1>
-   Last beat: <one-line summary of the last message in the thread>
-   Send from: <send_from>
+   WHAT'S GOING ON
+   <2–3 plain sentences: who this is (<name>, <deal slug>, tier <relationship_tier>), where the deal stands, and why a nudge now — e.g. "Quiet <days_since_last_contact> days, this is nudge #<nudge_count + 1>. Last beat: <one-line summary of the last message>.">
 
-   ━━━ WHAT I NEED YOU TO DO ━━━
-   Approve to send; edit + approve; or skip if you'll handle directly (or if the timing is off).
+   ⚠ <only if the nudge asserts/commits something Brian should eyeball before send; omit on a clean nudge>
 
-   ━━━ DRAFT ━━━
-   >>>>>>>
+   ━━━━━━━━━ DRAFT ━━━━━━━━━
    Subject: <subject>
 
+   >>>>>>>
    <body>
    <<<<<<<
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

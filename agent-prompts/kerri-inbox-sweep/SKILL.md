@@ -274,7 +274,7 @@ CUSTOMER LOOKUP (run before assigning any jobId — this is mandatory; it's the 
 
   Slug rule: lowercase the company name, replace whitespace + `&`/`+`/`/` with `-`, strip punctuation, max 60 chars. Examples: `Aris Machina AB` → `aris-machina`, `Standard & Works` → `standard-and-works`, `SendCutSend` → `sendcutsend`.
 
-  S/W boundary check (Superhuman thread): if a thread was returned via the S/W mailbox query but the latest message body contains S/W INTERNAL content (financials, staff comp, vendor invoices, content drafts authored by the S/W side), still create the job + task so Brian sees it, but use the CONTEXT field minimally ("S/W internal — see thread in Superhuman") and do NOT copy the inbound body text into draft-learnings.md, jobs.json contextual fields, or any wiki note. The job exists only as a queue marker, not as durable S/W content in Kerri's brain.
+  S/W boundary check (Superhuman thread): if a thread was returned via the S/W mailbox query but the latest message body contains S/W INTERNAL content (financials, staff comp, vendor invoices, content drafts authored by the S/W side), still create the job + task so Brian sees it, but keep WHAT'S GOING ON minimal ("S/W internal — see thread in Superhuman") and do NOT copy the inbound body text into draft-learnings.md, jobs.json contextual fields, or any wiki note. The job exists only as a queue marker, not as durable S/W content in Kerri's brain.
 
 ENRICHMENT (run after customer lookup and before drafting):
   Do not bloat KerriOS or the context window. Use progressive enrichment:
@@ -313,7 +313,7 @@ DRAFTING:
   3a. ANSWER EVERY ASK (mandatory coverage pass — do this BEFORE writing a word of the reply):
      - Enumerate EVERY distinct ask, question, instruction, and embedded request in the inbound — including imperative instructions ("use this link"), FYIs that want acknowledgement, and each sub-bullet. Number them.
      - Write the reply so every numbered item is answered, or explicitly deferred — never silently omitted. Folding two asks into one vague line counts as a miss.
-     - Self-check before you set `ACTION: send`: do not mark a draft send-ready until every enumerated item maps to a line (or an explicit deferral) in the draft. If any item can't be answered, surface it under Missing facts / risks rather than dropping it.
+     - Self-check before you set `ACTION: send`: do not mark a draft send-ready until every enumerated item maps to a line (or an explicit deferral) in the draft. If any item can't be answered, surface it in the ⚠ flag line (or the relevant ask bullet) rather than dropping it.
      - Why: Brian flagged (2026-05-29, H0034 Jiga) that drafts from both Kerri and Codex routinely answer only half a sponsor's email. Canonical rule lives in draft-learnings.md (2026-05-29 H0034 entry). Applies to ALL sponsor/customer replies.
   4. Write the reply:
      - Terse. Lead with the ask or the answer. No throat-clearing.
@@ -327,7 +327,7 @@ DRAFTING:
      - If the draft or thread says to loop in, ask, coordinate with, or hand off to Ari or Benji, read that person's page and verify the email field.
      - Only suggest a CC when the person's role matches the ask: Ari for finance, invoices, wire details, banking, legal/contract/payment/accounting; Benji for Hardware FYI operations, Kinetic/event logistics, content/growth, sponsor delivery, or known Benji-owned threads.
      - Never silently add an internal CC. Put the visible line `Internal CC suggestion: add <Name> <<email>> — <why>` in the task notes. If Brian checks the task without deleting that line, include that address as CC on the send/draft.
-     - If the person is named but no verified email exists in their people page, put `Internal CC missing: <Name> email not verified in KerriOS` under Missing facts / risks instead of guessing.
+     - If the person is named but no verified email exists in their people page, put `Internal CC missing: <Name> email not verified in KerriOS` in the ⚠ flag line instead of guessing.
      - Never suggest CCs for S/W internal content across the Hardware FYI side or any thread where adding an internal person would leak confidential partner, legal, finance, or sensitive material outside the appropriate boundary.
 
 CREATE THE GOOGLE TASK (one `gtasks_create_task` call per new job):
@@ -338,34 +338,31 @@ CREATE THE GOOGLE TASK (one `gtasks_create_task` call per new job):
 
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   ACTION: send
-  (to skip type `skip`; to regenerate type `redo`; to send edits, edit the DRAFT block below and check the task)
+  (line 1 is machine-read — leave as `send`; change to `redo` or `skip` to regenerate/skip. To approve: edit the DRAFT if needed and check the box.)
+  Sends as <Brian (brian@hardwarefyi.com) | Kerri (kerri@hardwarefyi.com) | Brian (brian@kerrihq.com — Gmail draft only)>
 
-  ━━━ CONTEXT ━━━
-  Who: <sender name + email>
-  Mailbox: <which of the 3 received it>
-  Received: <YYYY-MM-DD HH:MM ET>
-  Why it matters: <2-3 sentences — who they are, what they want, why it matters>
-  Enrichment: <none | light | deep> — <why this level was enough>
-  Thread state: <one compact paragraph from oldest-to-newest read>
-  Missing facts / risks: <one line, or "None obvious">
-  Send from: <Kerri (kerri@hardwarefyi.com) | Brian (brian@hardwarefyi.com) | Brian (brian@kerrihq.com — Gmail draft only)>
-  Internal CC suggestion: <None | add Name <email> — why | missing Name email>
+  WHAT'S GOING ON
+  <2–4 plain-prose sentences a busy reader gets in one pass: who they are, what they want, why it matters, and where the thread stands. No labeled sub-fields, no timestamps, no enrichment/mailbox tags — just the situation. You STILL run the full thread read + enrichment + coverage pass internally; only the compact result lands here. Goal: readable on a phone, draft reachable in a scroll or two.>
 
-  ━━━ COVERAGE CHECKLIST (every ask in the inbound must map to a draft line) ━━━
-  (Required when the inbound has 2+ distinct asks/questions/instructions. One line per enumerated item from step 3a, each marked ✓ addressed or → deferred, with the deferral reason. Omit only for a single-ask thread.)
-  [1] <ask> → <how the draft answers it>. ✓ addressed
-  [2] <ask> → <answered | deferred because …>. <✓ addressed | → deferred>
-  ...
-  INTERNAL FLAG for Brian (if any): <anything the draft promises/asserts that Brian must verify before send>
+  <Then one bullet per distinct ask in the inbound — from the mandatory coverage pass in step 3a — each paired with what the draft does about it. These bullets ARE the coverage record now (the old visible checklist is gone): every ask must still appear here, addressed or explicitly deferred. Skip the bullets only on a true single-ask thread.>
+  • <ask> — <how the draft handles it>
+  • <ask> — <answered, or: deferred because …>
 
-  ━━━ WHAT I NEED YOU TO DO ━━━
-  <one line: e.g., "Approve to send; or edit + approve; or skip if you'll handle directly." If an internal CC suggestion is present, say "Leave the Internal CC line in place if you want Kerri to include it; delete it before checking if not.">
+  ⚠ <Include this line ONLY when the draft promises/asserts something Brian must verify, or commits to a date/price/scope he should eyeball, before send. One line. Omit entirely on a clean thread.>
+  Internal CC: add <Name> <<email>> — <why>. Leave this line in to include them; delete before checking to drop.   <— include ONLY when there is a CC suggestion; omit the line otherwise>
 
-  ━━━ DRAFT ━━━
+  ━━━━━━━━━ DRAFT ━━━━━━━━━
+  To: <recipients>
+  Cc: <cc, if any — omit this line when none>
+  Subject: <subject>
+  From: <Brian | Kerri> — <send address>
+
   >>>>>>>
-  <draft text exactly as written>
+  <draft body exactly as written — this is what gets diffed against originalDraft and sent>
   <<<<<<<
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  NOTE: the visible task notes are now COMPACT (prose + ask bullets + optional ⚠). The full thread state, enrichment level, timestamps, mailbox, and per-ask checklist are computed internally and written to the wiki/jobs.json where durable — NOT dumped into the task. Three machine-read tokens are non-negotiable and must stay exactly as shown: line-1 `ACTION:`, the `>>>>>>>`/`<<<<<<<` draft delimiters, and the `Internal CC:` line when present.
 
 Capture the returned task ID and store on the job as `gtasksTaskId`. Store the list key (H/S/G) as `gtasksListKey`.
 
