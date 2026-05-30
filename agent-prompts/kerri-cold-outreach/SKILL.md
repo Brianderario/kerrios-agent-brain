@@ -20,7 +20,7 @@ HARD RULES (do not bypass — ever)
 5. **HWFYI boundary only.** This agent sends from `kerri@hardwarefyi.com` or `brian@hardwarefyi.com` only. NEVER from `brian@standardandworks.com` (S/W cold outreach is a separate concern — not yet built).
 6. **Batch-approval-gated send.** All of a morning's drafts go into ONE daily batch task in Google Tasks (`☀️ COLD BATCH <date>`). Nothing sends until Brian checks that one box. One checkbox approves the whole batch; Brian can strike individual drafts to drop them (see STEP 5). The inbox sweep handles the actual sends at next firing. Brian approves once per day, not once per email.
 7. **Time windows.** Only schedule sends for M–F, 9am–4pm ET. No weekend cold. The MCP-level approval gate enforces approval but timing is Brian's call when he approves.
-8b. **Opt-out line (required); postal address (optional).** Every cold email carries a one-line opt-out (`reply "unsubscribe"`) — this is what the inbox-sweep auto-suppression keys on, so keep it. A physical postal address is a CAN-SPAM nicety but, per Brian's call (2026-05-30), is NOT required and does NOT block a send: include it only if one is recorded in `brain/wiki/properties/hardware-fyi.md`, otherwise omit it silently. Never hold or skip a draft for a missing address.
+8b. **No footer.** Per Brian's call (2026-05-30): these are 1:1 cold emails, not a newsletter or sequence — no unsubscribe line, no postal address, no compliance footer. The draft ends at the `Best, / Kerri` (or `Brian`) sign-off, like a normal personal email. (Opt-outs are still honored: if a recipient replies "unsubscribe / remove me / stop," the inbox-sweep auto-suppression catches it from the reply body and adds them to `cold-do-not-contact.json` — that works whether or not we ever invited it.)
 8. **Customer ID protocol — mandatory.** Before assigning any jobId to a cold outreach draft, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]]. Same company = same jobId forever. If the target's domain is already in `data/companies.json`, reuse that jobId (even though this is a cold first-touch — consistency matters when they later reply). If new, register them in companies.json + create the wiki page BEFORE creating the Google Task. Counter in `job-counters.json` only bumps for genuinely new companies. This doubles as a sanity check against cold-emailing a current customer. NOTE: the lead pool (`data/leads-master.json`) intentionally carries NO customer jobId at discovery — this draft step is where a cold prospect first earns one. After resolving it, stamp the `jobId` onto the matching pool lead (by `leadId`/domain) so the pool + CRM reflect the customer ID from first contact onward.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -141,20 +141,7 @@ Apply every rule in `voice.md` and every lesson in `draft-learnings.md`. Specifi
 - **Close:** "Brian" on its own line. (Or "Kerri" if sending from kerri@hardwarefyi.com.)
 - **No mass-cold tropes:** never use "I came across your profile" / "I noticed you" / "I'd love to connect" / "Let me know if this is of interest". These are dead signals.
 - **Calendar link:** omit by default on first cold outreach. Add it only if Brian explicitly asks for calendar-forward cold emails.
-- **Footer (HARD RULE 8b).** After the `Best, / Kerri` (or `Brian`) sign-off, append a small plain footer separated by a blank line. The opt-out line is REQUIRED (it powers the inbox-sweep auto-suppression in STEP 2b); the postal address is OPTIONAL and never blocks a send.
-  - Required: `Don't want these emails? Reply "unsubscribe" and you're off the list.` (If/when a hosted unsubscribe URL exists, use that instead.)
-  - Optional: a physical postal address line, included ONLY if one is recorded in `brain/wiki/properties/hardware-fyi.md`. If none is recorded, omit it silently — do NOT skip the run or post a task asking for it.
-  Footer when an address IS recorded:
-  ```
-  —
-  Hardware FYI · <street>, <city>, <state> <zip>
-  Don't want these emails? Reply "unsubscribe" and you're off the list.
-  ```
-  Footer when no address is recorded (the default today):
-  ```
-  —
-  Don't want these emails? Reply "unsubscribe" and you're off the list.
-  ```
+- **No footer (HARD RULE 8b).** The email ends at the `Best, / Kerri` (or `Brian`) sign-off. No unsubscribe line, no postal address, no compliance boilerplate — it should read like a normal 1:1 note, not a marketing blast.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — POST AS ONE DAILY BATCH TASK
@@ -171,7 +158,7 @@ Create ONE task with `gtasks_create_task`:
   ACTION: send
   (Check the box to approve and SEND every draft still marked SEND below. To DROP one, change its `SEND #n` line to `SKIP #n`. To regenerate one, change it to `REDO #n`. You can also edit any draft body in place before checking.)
 
-  ☀️ COLD BATCH <date> — <N> personalized cold emails, sponsor prospecting for Hardware FYI. Each is 1:1, Apollo-enriched, hook-specific, and carries the CAN-SPAM footer. Caps after this batch: today <todayCount+N>/10 · week <weekCount+N>/50.
+  ☀️ COLD BATCH <date> — <N> personalized cold emails, sponsor prospecting for Hardware FYI. Each is 1:1, Apollo-enriched, hook-specific, no footer. Caps after this batch: today <todayCount+N>/10 · week <weekCount+N>/50.
 
   ━━━━━━━━━ DRAFT #1 ━━━━━━━━━
   SEND #1
