@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.kerri.resource-watchdog</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/opt/homebrew/bin/node</string>
+        <string>/Users/brianderario/Documents/Documents - Brian's MacBook Air/KerriOS/scripts/resource-watchdog.mjs</string>
+        <string>--alert</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>StartInterval</key>
+    <integer>600</integer>
+    <key>StandardOutPath</key>
+    <string>/Users/brianderario/.kerri-chief/runtime/logs/resource-watchdog.out</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/brianderario/.kerri-chief/runtime/logs/resource-watchdog.err</string>
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>
