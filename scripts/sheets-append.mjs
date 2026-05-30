@@ -32,9 +32,10 @@ const REPO_ROOT = process.env.KERRIOS_ROOT ||
 const DEFAULT_SPREADSHEET_ID = "1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk";
 const TAB_DEFAULT = "Leads";
 const HEADER = [
-  "jobId", "company", "domain", "name", "title", "email", "linkedin",
+  "leadId", "jobId", "company", "domain", "name", "title", "email", "linkedin",
   "lane", "score", "sources", "hookSeed", "status", "addedAt", "lastTouch",
 ];
+const LAST_COL = "O"; // 15 columns A..O
 
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`);
@@ -63,9 +64,12 @@ function die(msg) {
   process.exit(1);
 }
 
+function leadKey(l) {
+  return l.leadId || l.domain || l.email || "";
+}
 function leadToRow(l) {
   return [
-    l.jobId || "", l.company || "", l.domain || "", l.name || "", l.title || "",
+    leadKey(l), l.jobId || "", l.company || "", l.domain || "", l.name || "", l.title || "",
     l.email || "", l.linkedin || "", l.lane || "",
     l.score != null ? String(l.score) : "",
     Array.isArray(l.sources) ? l.sources.join(", ") : (l.sources || ""),
@@ -118,20 +122,21 @@ async function main() {
       });
     }
 
-    // Read existing rows → map jobId -> 1-based sheet row number.
+    // Read existing rows → map leadId (col A) -> 1-based sheet row number.
     const existing = await sheets.spreadsheets.values.get({
-      spreadsheetId, range: `${tab}!A2:N`,
+      spreadsheetId, range: `${tab}!A2:${LAST_COL}`,
     });
     const rows = existing.data.values || [];
-    const rowByJobId = new Map();
-    rows.forEach((r, i) => { if (r[0]) rowByJobId.set(r[0], i + 2); });
+    const rowByKey = new Map();
+    rows.forEach((r, i) => { if (r[0]) rowByKey.set(r[0], i + 2); });
 
     const updates = [];
     const appends = [];
     for (const l of leads) {
       const row = leadToRow(l);
-      const at = l.jobId && rowByJobId.get(l.jobId);
-      if (at) updates.push({ range: `${tab}!A${at}:N${at}`, values: [row] });
+      const key = leadKey(l);
+      const at = key && rowByKey.get(key);
+      if (at) updates.push({ range: `${tab}!A${at}:${LAST_COL}${at}`, values: [row] });
       else appends.push(row);
     }
 

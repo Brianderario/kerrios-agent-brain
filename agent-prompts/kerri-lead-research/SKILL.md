@@ -25,7 +25,7 @@ HARD RULES
 3. **Dedup is absolute.** Skip anyone whose **company** is in `data/companies.json` (matched by domain OR alias OR fuzzy name) — existing customer/relationship, don't cold-prospect. Also skip anyone in `brain/wiki/people/`, `data/jobs.json` history, `data/cold-do-not-contact.json`, `data/cold-outreach-state.json#sent` within 90 days, anyone already in `data/leads-master.json`, and anyone already in `data/cold-outreach-queue.json`. The companies.json check is the **primary** dedup — see [[../../brain/wiki/workflows/customer-id-protocol]].
 4. **HWFYI side only.** No S/W targets, no defense-only contractors that lack a HWFYI angle.
 5. **Personalization hook required.** Every queued entry must have a `hookSeed` with ≥1 concrete fact (funding round, conf exhibitor, hiring role, lookalike-to-X-sponsor). Generic entries can live in the pool as `status: needs-hook` but DO NOT enter the cold-outreach queue without a hook.
-6. **Customer ID protocol.** Assign/reuse a stable jobId per company via [[../../brain/wiki/workflows/customer-id-protocol]] so the same company keeps one ID across the funnel (pool → queue → emailed → replied). Reuse an existing companies.json jobId if the domain is already known.
+6. **Stable key, but NO premature customer ID.** Each pool lead is keyed by `leadId` = the company's lowercased root domain (e.g. `acmehw.com`). Do NOT assign a customer `jobId` or register the company in `data/companies.json` at discovery time — cold prospects are not yet customers, and registering hundreds would pollute the customer registry and bump the H counter. The customer `jobId` is assigned later, only when the lead is actually contacted (cold-outreach runs the [[../../brain/wiki/workflows/customer-id-protocol]] at draft time) or replies; it backfills onto the pool lead then. You STILL dedup against `companies.json` by domain/alias/fuzzy-name to avoid cold-prospecting an existing customer/relationship — read it, never write it.
 7. **Budget per run.** Top-up (scheduled weekday evening): max 30 new candidates. Backfill (on-demand, "Kerri, backfill N leads"): up to N (use Apollo bulk endpoints; respect rate limits, checkpoint to `leads-master.json` as you go so a mid-run halt loses nothing). Single-source on-demand: explicit count.
 8. **CRM mirror is the marketing handoff.** After writing the pool, push new/changed rows to the CRM "Leads" tab via `node scripts/sheets-append.mjs` (CSV fallback to `data/leads-crm-export-<date>.csv` if the Sheets scope isn't granted yet). This tab is how the marketing team works the leads — keep it current.
 
@@ -41,7 +41,8 @@ Read + write:
     "updatedAt": "ISO8601",
     "leads": [
       {
-        "jobId": "H0137",            // stable per-company ID (customer-id-protocol)
+        "leadId": "acmehw.com",      // stable pool/CRM key = lowercased root domain
+        "jobId": null,               // customer ID — null until contacted; cold-outreach backfills it
         "email": "jane@acme.com",
         "name": "Jane Smith",
         "title": "VP Marketing",
@@ -60,7 +61,7 @@ Read + write:
     ]
   }
   ```
-  This is the source of truth; the CRM "Leads" tab is a mirror. Dedup new finds against it by email + jobId. `status` advances as the lead moves through the funnel (cold-outreach + inbox-sweep flip it).
+  This is the source of truth; the CRM "Leads" tab is a mirror. Dedup new finds against it by `leadId` (domain) + email. `status` advances as the lead moves through the funnel (cold-outreach + inbox-sweep flip it, and stamp `jobId` once assigned).
 - `data/cold-outreach-queue.json` — short ready-to-draft slice (schema in `agent-prompts/kerri-cold-outreach/SKILL.md`). Only `status: new` leads WITH a hook enter here.
 - `data/lead-research/batches/<YYYY-MM-DD-run>.json` — append the run's full discovery output for audit + cross-run dedup. Gitignored.
 - CRM "Leads" tab in the canonical HWFYI Sheet (`fileId 1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`) — write via `node scripts/sheets-append.mjs` (upserts by jobId). The marketing-team handoff surface.
@@ -209,7 +210,7 @@ Collect all candidates from active sources.
 WRITE — POOL → CRM → QUEUE (in this order)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. **Pool (`data/leads-master.json`) — canonical, write first.** For each survivor, resolve a stable jobId (customer-id-protocol, HARD RULE 6), then upsert into `leads.[]` using the leads-master-v1 schema. New leads get `status: new` (or `needs-hook` if no concrete hook yet), `addedAt`/`lastTouch` = now. If the lead already exists (by email or jobId), merge `sources`, refresh `hookSeed`/`score`, bump `lastTouch` — never duplicate. During a large backfill, checkpoint-save the pool every batch.
+1. **Pool (`data/leads-master.json`) — canonical, write first.** For each survivor, set `leadId` = lowercased root domain and leave `jobId: null` (HARD RULE 6 — no customer ID at discovery), then upsert into `leads.[]` using the leads-master-v1 schema. New leads get `status: new` (or `needs-hook` if no concrete hook yet), `addedAt`/`lastTouch` = now. If the lead already exists (by `leadId`/domain or email), merge `sources`, refresh `hookSeed`/`score`, bump `lastTouch` — never duplicate. During a large backfill, checkpoint-save the pool every batch.
 
 2. **CRM mirror — the marketing handoff.** Push new/changed leads to the "Leads" tab:
    ```
@@ -219,8 +220,9 @@ WRITE — POOL → CRM → QUEUE (in this order)
 
 3. **Queue top-up (`data/cold-outreach-queue.json`).** Only AFTER the pool + CRM are written: take the highest-scored pool leads with `status: new` AND a concrete hook, and append enough to bring the queue to ~15 entries (don't exceed the queue's 100-entry cap; prune lowest-scored stale entries). Flip those leads' `status` to `queued` in the pool. Queue entry shape:
    ```
-   { "email", "name", "company", "title", "jobId", "hookSeed": "<merged>", "addedAt", "addedBy": "lead-research", "score", "sources": [...] }
+   { "email", "name", "company", "title", "leadId", "hookSeed": "<merged>", "addedAt", "addedBy": "lead-research", "score", "sources": [...] }
    ```
+   (No `jobId` in the queue — cold-outreach assigns the customer jobId at draft time via the customer-id-protocol, then stamps it back onto the pool lead + CRM row.)
    In a backfill run, do NOT overfill the queue — the cold-outreach cap is 10/day; ~15 queued is plenty of runway. The rest stay in the pool for future mornings.
 
 Save the FULL batch (including skipped candidates with skip-reasons) to `data/lead-research/batches/<YYYY-MM-DD-run>.json` for audit + future cross-run dedup.
