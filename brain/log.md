@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-30 01:08 ET] decision | outreach-motion: cold-email footer removed entirely | Kerri (Claude interactive)
+
+Follow-on to the 00:51 postal-address decision: Brian's call to remove the whole footer — no unsubscribe line, no address — because these are 1:1 cold emails, not a newsletter/sequence. Updated cold-outreach SKILL HARD RULE 8b + STEP 4 + the batch-task template (lines that said "carries the CAN-SPAM footer" → "no footer") + the registered kerri-cold-outreach scheduled-task prompt. Opt-outs still auto-honored via inbox-sweep STEP 2b (reply-body keyword + NDR detection → cold-do-not-contact.json), which never depended on us inviting them. Decision doc updated.
+
 ## [2026-05-30 01:05 ET] decision | scheduling-substrate-settled | Kerri (Claude interactive)
 
 Closed the two open architecture decisions from the system-health work. (B) Codex double-run: Brian confirmed Codex equivalents disabled → Claude scheduled-tasks MCP is the sole runner. (A) 7-day durable-cron re-arm: verified via `mcp__scheduled-tasks__list_scheduled_tasks` that all 7 routines run on the persistent scheduled-tasks MCP (all `enabled`, future `nextRunAt`, recent `lastRunAt`; no `~/.claude/crons/`) — the 7-day expiry was a durable-`CronCreate` property that does not apply, so no re-arm mechanism is needed. Reconciled the stale doc: CLAUDE-ROUTINES.md substrate section + activation checklist (items 1 & 5 marked resolved) + gap-sweep class I now describe the scheduled-tasks MCP reality instead of durable cron [commit 8cf590e]. KerriMG task Unh2Yk9rVGhtMUJ5ekZ3bw completed. No open follow-ups remain from the whole-system-check work.

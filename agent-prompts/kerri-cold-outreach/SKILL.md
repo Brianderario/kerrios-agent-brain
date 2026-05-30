@@ -168,7 +168,7 @@ Create ONE task with `gtasks_create_task`:
   Subject: <subject>
 
   >>>>>>>
-  <body incl. CAN-SPAM footer>
+  <body — ends at the sign-off, no footer>
   <<<<<<<
 
   ━━━━━━━━━ DRAFT #2 ━━━━━━━━━
