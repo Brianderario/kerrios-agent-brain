@@ -38,15 +38,16 @@ These folders are ergonomic automation entrypoints, not canonical truth. Durable
 
 ## Scheduled tasks (Kerri runs these)
 
-| Task | Cron | Canonical prompt |
-|---|---|---|
-| `kerri-inbox-sweep` | every 15 minutes, Codex automation, GPT-5.5 high | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
-| `kerri-morning-brief` | 7:00am ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-morning-brief/SKILL.md` |
-| `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
-| `kerri-brain-push` | 10:00pm ET, daily, Codex automation, GPT-5.5 high | `agent-prompts/kerri-brain-push/SKILL.md` |
-| `kerri-gap-sweep` | ~9:41pm ET, daily, local Claude Code durable cron (planned) | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+| Task | Cron | Runner | Canonical prompt |
+|---|---|---|---|
+| `kerri-inbox-sweep` | `*/15 * * * *` | Claude Code persistent scheduled-task (live 2026-05-29); Codex equivalent pending shutdown | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
+| `kerri-morning-brief` | `57 6 * * 1-5` | Claude Code persistent scheduled-task (live 2026-05-29); Codex equivalent pending shutdown | `agent-prompts/kerri-morning-brief/SKILL.md` |
+| `kerri-eod-meetings-review` | `28 18 * * 1-5` | Claude Code persistent scheduled-task (live 2026-05-29); Codex equivalent pending shutdown | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
+| `kerri-brain-push` | `0 22 * * *` | Claude Code persistent scheduled-task (live 2026-05-29); Codex equivalent pending shutdown | `agent-prompts/kerri-brain-push/SKILL.md` |
+| `kerri-gap-sweep` | `41 21 * * *` | Claude Code persistent scheduled-task (live 2026-05-29) — Claude-only, no Codex equivalent | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+| `kerri-event-logistics` | on-demand | invoked via `kerri-skill` (no schedule) | `agent-prompts/kerri-event-logistics/SKILL.md` |
 
-2026-05-29 note: Claude-side routine architecture spec'd in [`agent-prompts/CLAUDE-ROUTINES.md`](../../../agent-prompts/CLAUDE-ROUTINES.md) — routines move to local Claude Code durable cron, organized by role pod + loop. `kerri-gap-sweep` added as a new independent code/workflow hygiene agent (Brian/Kerri pod). Not yet activated: re-arm mechanism + Codex-directive stripping must land first.
+2026-05-29 note: Claude-side routine architecture spec'd in [`agent-prompts/CLAUDE-ROUTINES.md`](../../../agent-prompts/CLAUDE-ROUTINES.md) — routines now run as Claude Code persistent scheduled-tasks (no 7-day expiry), organized by role pod + loop. Codex equivalents are still active in parallel until Brian disables them; the inbox-sweep file lock + shared cursor state dedupe partially. `kerri-gap-sweep` is the new independent code/workflow hygiene agent (Brian/Kerri pod), Claude-only.
 
 2026-05-26 audit note: no active Codex automation records were found for cold outreach, lead research, the S&W newsletter chain, or pipeline follow-up. Follow-up decision: keep cold outreach, lead research, and pipeline follow-up on-demand until the first-day core automation audit passes after the 22:00 ET brain push and connector availability is verified. S&W newsletter chain remains task/local-draft driven until Brian/Zach confirm cadence.
 

@@ -7,6 +7,10 @@ You are Kerri, AI chief of staff for Kerri Media Group. This is the nightly brai
 
 Working directory: `~/Documents/Documents - Brian's MacBook Air/KerriOS/`
 
+## Runner
+
+This routine now runs on **local Claude Code durable cron** on Brian's MacBook (via `~/.claude/scheduled-tasks/kerri-brain-push/`) and on **Codex automations** in parallel until the Codex side is disabled (see `NOW.md`). When invoked under Claude Code, **skip the Codex closing-directive block** (any step that emits `::inbox-item{...}` / `::archive{...}`) — those are Codex-runner only. Durable output is this prompt's named surfaces: the git commit + push to `Brianderario/kerrios-agent-brain`, `data/brain-push-state.json`, `brain/log.md` hygiene entry, and an optional Sendblue text only when push fails or staging is rejected. Overlaps the Stop-hook auto-sync `kerri-sync.sh` (see CLAUDE.md) — open decision: keep as belt-and-suspenders or drop. The shim at `~/.claude/scheduled-tasks/kerri-brain-push/SKILL.md` enforces this override; under Codex, follow the closing-directive step as written.
+
 Read first:
 
 - `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/00-shared-context/README.md`
