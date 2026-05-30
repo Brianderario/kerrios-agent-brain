@@ -2,6 +2,8 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-29 20:48 ET] inbox-sweep | quiet (Gmail 5 pre-cursor Ari/Orrick legal-thread hits dedup'd; HWFYI/Superhuman []), 8 pending jobs unchanged | Kerri (Claude scheduled)
+
 ## [2026-05-29 20:17 ET] inbox-sweep | quiet (all 4 mailboxes []), 8 pending jobs unchanged | Kerri (Claude scheduled)
 
 ## [2026-05-29 18:30 ET] eod-review | 2 meetings, 0 drafts, 2 flagged | Kerri (Claude scheduled)
