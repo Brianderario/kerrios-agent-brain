@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-30 01:05 ET] decision | scheduling-substrate-settled | Kerri (Claude interactive)
+
+Closed the two open architecture decisions from the system-health work. (B) Codex double-run: Brian confirmed Codex equivalents disabled → Claude scheduled-tasks MCP is the sole runner. (A) 7-day durable-cron re-arm: verified via `mcp__scheduled-tasks__list_scheduled_tasks` that all 7 routines run on the persistent scheduled-tasks MCP (all `enabled`, future `nextRunAt`, recent `lastRunAt`; no `~/.claude/crons/`) — the 7-day expiry was a durable-`CronCreate` property that does not apply, so no re-arm mechanism is needed. Reconciled the stale doc: CLAUDE-ROUTINES.md substrate section + activation checklist (items 1 & 5 marked resolved) + gap-sweep class I now describe the scheduled-tasks MCP reality instead of durable cron [commit 8cf590e]. KerriMG task Unh2Yk9rVGhtMUJ5ekZ3bw completed. No open follow-ups remain from the whole-system-check work.
+
 ## [2026-05-30 00:51 ET] decision | outreach-motion-scaleup: postal-address gate dropped | Kerri (Claude interactive)
 
 Brian's call: do NOT gate cold sends on a CAN-SPAM postal address (he's run cold email without one; 10/day enforcement risk negligible; it was a Kerri-introduced restriction, not an org rule). Updated cold-outreach SKILL HARD RULE 8b + STEP 4 footer + the registered kerri-cold-outreach scheduled-task prompt: opt-out "reply unsubscribe" line stays REQUIRED (powers inbox-sweep auto-suppression); postal address now OPTIONAL — included only if recorded in properties/hardware-fyi.md, else omitted silently; never hold/skip a draft for a missing address. Decision doc updated. Sends already go from kerri@hardwarefyi.com via Graph (Apollo never sends). Net effect: Monday's first batch drafts cleanly without an address.
