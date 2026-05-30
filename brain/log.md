@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-29 23:30 ET] gap-sweep-fix | run-2 findings C4 + G2 | Kerri
+
+Resolved the 2 follow-up findings from gap-sweep run 2 (2026-05-29 21:53 ET), landed on PR #1. C4 (doc↔reality): `agent-prompts/kerri-skill/SKILL.md` "Daily duties" section renamed off "Codex automations", `~/.codex/automations/` reference replaced with `~/.claude/scheduled-tasks/` + CLAUDE-ROUTINES.md pointer, added the missing **Gap Sweep** routine row. G2 (gitignore leak): added `artifacts/` to `.gitignore` build-artifacts block so future `scripts/kerri-search-threads.mjs` runtime payloads don't leak. Routed onto PR #1 (same doc↔reality family) rather than main to keep the commit surgical — on main the `.gitignore` edit would entangle with Brian's uncommitted run-lock WIP. PR #1's pre-existing red test (kerri-brain-push Slack→Sendblue) is unaffected and is fixed by Brian's separate test WIP on main. Tracking task OHNya3hDejFNUHNNb1lRaA closed.
+
 ## [2026-05-29 02:17 ET] eod-review | 0 meetings (off-schedule fire) | Kerri
 
 Scheduled EOD task fired at 02:17 ET, ~16 hours before the canonical 18:28 ET slot. Google Calendar window 00:00–02:17 ET contained no human meetings — today's 12:00 ET Joe Romano call and 15:00 ET Axios call are still future. Reclaim returned empty for 5/29. No wiki writes, no Google Tasks, no jobs.json append, no Brian text alert. eod-state.json deliberately left untouched for 2026-05-29 so the canonical 18:28 ET run processes today's meetings fresh.

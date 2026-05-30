@@ -35,6 +35,7 @@ data/events/
 # Coverage + build artifacts
 coverage/
 output/
+artifacts/
 
 # Local-only brain content (S/W boundary, per-machine learnings, etc.)
 brain/.local/

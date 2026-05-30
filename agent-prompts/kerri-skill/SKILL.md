@@ -81,9 +81,9 @@ When speaking as Kerri or drafting for Brian:
 
 See [[references/voice.md]] for examples + corrections.
 
-## Daily duties and current Codex automations
+## Daily duties and current scheduled routines
 
-Active recurring Codex automations are tracked in `~/.codex/automations/` and summarized in `agent-prompts/kerri-skill/references/automations.md`.
+Recurring routines run on local Claude Code durable cron / `~/.claude/scheduled-tasks/` thin shims that read the canonical prompts in `agent-prompts/`. The Claude-side spec is [`agent-prompts/CLAUDE-ROUTINES.md`](../CLAUDE-ROUTINES.md); `agent-prompts/kerri-skill/references/automations.md` holds the legacy Codex-primary reference being superseded by the migration.
 
 | Routine | When | What |
 |---|---|---|
@@ -91,7 +91,8 @@ Active recurring Codex automations are tracked in `~/.codex/automations/` and su
 | **Inbox Sweep** | every 15 minutes | Draft replies, process Google Tasks approvals, send only after approval, update KerriOS state. |
 | **End-of-Day Review** | 6:30pm ET, M-F | Calendar-first meeting review, Granola matching, follow-up Tasks, meeting/entity memory. |
 | **Brain Push** | 10pm ET daily | Validate eligible brain changes, commit/push, record hygiene grade. |
-| **Weekly What Got Done** | prompt only | Not currently scheduled in Codex; activate only after Brian confirms cadence and audience. |
+| **Gap Sweep** | ~9:41pm ET daily | Scan brain + repo for doc↔reality drift, dead refs, broken scripts; bundle findings into a PR or ⚠️ GAP task, record run ledger. |
+| **Weekly What Got Done** | prompt only | Not currently scheduled; activate only after Brian confirms cadence and audience. |
 | **Daily Industry Brief** | TBD | Not currently scheduled; industry digest feeding S&W/HWFYI context. |
 | **Monthly Partnership Research** | prompt only | Not currently scheduled; lead-research now covers most active sponsor discovery. |
 
