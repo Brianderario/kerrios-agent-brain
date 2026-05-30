@@ -6,14 +6,14 @@ The Claude Code counterpart to [`kerri-skill/references/automations.md`](kerri-s
 
 Organized by **role pod + operating loop**, per [[../brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] (design implication: automations are grouped by pod and loop, never by old schedule names). The slide framework Brian shared 2026-05-29 is a 1:1 visual of that decision: every agent perceives the world, acts inside gates, and **constantly feeds data back to KerriOS**.
 
-## Substrate: local Claude Code durable cron
+## Substrate: local Claude Code scheduled-tasks MCP (LIVE)
 
-Routines run via `CronCreate` with `durable=true` on Brian's MacBook, inside a running Claude Code session. This gives full local access (files, `scripts/*`, git brain, local email MCPs, the Sendblue text adapter) — the closest 1:1 replacement for Codex.
+Routines run as **persistent `scheduled-tasks` MCP jobs** under `~/.claude/scheduled-tasks/<name>/SKILL.md` on Brian's MacBook. Each is a thin shim that loads its canonical `agent-prompts/<name>/SKILL.md`. This gives full local access (files, `scripts/*`, git brain, local email MCPs, the Sendblue text adapter) — the closest 1:1 replacement for Codex. As of 2026-05-29 all 7 tasks are registered + `enabled` (verify with `mcp__scheduled-tasks__list_scheduled_tasks`).
 
 Two substrate facts that are NOT optional to plan around:
 
-1. **A Claude Code REPL must be running and idle for any job to fire.** If the Mac is asleep or no session is open, nothing runs. (Codex's cloud runner had no such constraint.)
-2. **Recurring jobs auto-expire after 7 days.** `durable=true` survives restarts but does not defeat the 7-day expiry. Routines need a **re-arm mechanism** (a weekly job that re-creates the set) or migration to the `scheduled-tasks` MCP / `~/.claude/scheduled-tasks/` shim system — the same mechanism the retired Codex shims used. **Open decision — verify before activation.** `kerri-gap-sweep` (gap class I) watches for expired/unarmed routines and escalates.
+1. **A Claude Code REPL must be running and idle for any job to fire.** If the Mac is asleep or no session is open, nothing runs. (Codex's cloud runner had no such constraint.) `com.kerri.routine-liveness` (launchd, every 15m) now catches a routine that has gone dark and texts Brian.
+2. **7-day expiry — RESOLVED (not applicable).** That expiry was a property of the older `CronCreate durable=true` approach. The scheduled-tasks MCP jobs above are **persistent and do not auto-expire**, so no weekly "re-arm" job is needed. (Decision settled 2026-05-30: scheduled-tasks MCP is the chosen substrate; durable cron is not used — there is no `~/.claude/crons/`.) `kerri-gap-sweep` class I + the liveness watchdog still watch that the tasks stay `enabled` and keep firing.
 
 ## The loop contract every routine must satisfy
 
@@ -78,11 +78,11 @@ Prompts not yet authored; sequence last. Ari pod stays behind explicit approval-
 
 ---
 
-## Activation checklist (when Brian gives the go)
+## Activation checklist (ACTIVATED 2026-05-29 — all 7 tasks live + enabled)
 
-1. Resolve the **re-arm mechanism** (open decision above) — no point scheduling routines that silently die at day 7.
+1. ~~Resolve the **re-arm mechanism**~~ — **DONE.** Migrated to the persistent scheduled-tasks MCP, which does not expire; no re-arm job needed.
 2. Add a `## Runner` section + strip Codex closing directives in each Loop-1/Loop-4 prompt being ported.
 3. Confirm the Mac clock is ET (or offset the cron fields).
 4. Create the Loop-1 routines first (`inbox-sweep`, `morning-brief`, `brain-push`, `gap-sweep`), then Loop-4 (`eod-meetings-review`).
-5. Run in parallel with Codex for one cycle before hard-swapping (cutover decision — open).
+5. ~~Run in parallel with Codex before hard-swapping (cutover — open)~~ — **DONE.** Codex equivalents are disabled (Brian, 2026-05-30); Claude scheduled-tasks MCP is the sole runner, so the double-run risk is closed.
 6. Update `brain/wiki/agents/registry.md` scheduled-tasks table to reflect the Claude runner (material write → PR).

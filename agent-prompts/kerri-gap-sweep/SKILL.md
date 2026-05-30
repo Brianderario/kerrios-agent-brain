@@ -69,7 +69,7 @@ Flag failures and lint/whitespace errors.
 
 **H. Stale markers.** Surface `TODO`/`FIXME`/`XXX` in `scripts/**` and `agent-prompts/**` that git history shows have sat untouched > 30 days. Dead/unreferenced scripts in `scripts/`.
 
-**I. Routine liveness (armed?).** Because local durable cron recurring jobs auto-expire after 7 days, check whether the scheduled routines in `CLAUDE-ROUTINES.md` are still armed (look for an expiry/re-arm marker in `data/routine-arm-state.json` if present). If routines appear expired or never re-armed, that is a **high**-severity workflow gap → escalate (do not silently re-create them).
+**I. Routine liveness (registered + enabled?).** Routines run on the persistent `scheduled-tasks` MCP (no 7-day expiry; the old durable-cron re-arm concern is retired — see CLAUDE-ROUTINES.md). Call `mcp__scheduled-tasks__list_scheduled_tasks` and confirm every routine in `CLAUDE-ROUTINES.md` is present, `enabled: true`, has a future `nextRunAt`, and a recent `lastRunAt`. A task that is missing, disabled, or has a `nextRunAt` in the past with no recent `lastRunAt` is a **high**-severity workflow gap → escalate (do not silently re-create or re-enable it).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SYSTEM-HEALTH CLASSES (J–P) — is the machinery actually running smoothly + safely?
