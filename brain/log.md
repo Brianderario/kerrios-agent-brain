@@ -2,6 +2,8 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-29 22:18 ET] inbox-sweep | quiet (all 4 mailboxes []), 8 pending jobs unchanged | Kerri (Claude scheduled)
+
 ## [2026-05-29 21:53 ET] gap-sweep | auto:0 pr:0 task:1 — C4 kerri-skill 'Codex automations' drift + G2 artifacts/ gitignore bundled into MG task OHNya3hDejFNUHNNb1lRaA; PR #1 still open from run #1 | Kerri
 
 ## [2026-05-29 21:02 ET] inbox-sweep | quiet (Gmail 5 pre-cursor Ari/Orrick legal-thread hits dedup'd; HWFYI/Superhuman []), 8 pending jobs unchanged | Kerri (Claude scheduled)
