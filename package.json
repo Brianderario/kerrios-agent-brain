@@ -6,7 +6,9 @@
   "description": "Sanitized KerriOS company brain for Kerri Media Group agents.",
   "scripts": {
     "export:agent-seed": "node scripts/export-agent-seed.mjs",
-    "check": "find scripts test -type f \\( -name '*.js' -o -name '*.mjs' \\) -print0 | xargs -0 -n 1 node --check",
+    "check": "npm run check:syntax && npm run check:state",
+    "check:syntax": "find scripts test -type f \\( -name '*.js' -o -name '*.mjs' \\) -print0 | xargs -0 -n 1 node --check",
+    "check:state": "node scripts/check-state-integrity.mjs",
     "test": "node --test"
   },
   "engines": {
