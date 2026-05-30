@@ -77,6 +77,14 @@ SYSTEM-HEALTH CLASSES (J–P) — is the machinery actually running smoothly + s
 
 These are **read-only inspections**. For all of J–P you observe, judge, and route a finding — you never operate the system to "fix" it (no re-firing routines, no editing live state, no re-auth, no killing sessions, no touching gates). Use the capabilities you already have: read files, parse JSON inline, `git status`/`git log`, list running sessions/processes, and check which MCP tools are present this session. If a check needs a script that does not exist yet, that is fine — note it and let Step 6 propose the guard; do not fabricate a result.
 
+**Tooling (built 2026-05-30 — use these, don't re-implement by hand):** most of J–P now have a script. Run each and fold its JSON into your findings:
+- class J → `node scripts/routine-liveness-check.mjs --json`
+- class L → `node scripts/check-state-integrity.mjs --json` (also runs inside `npm run check`)
+- class M → `node scripts/connector-probe.mjs --available "<comma-sep MCP connectors present THIS session>" --json` (pass the connectors you can actually see; without `--available` the session-scoped ones report `session-scoped`)
+- class N → `node scripts/resource-watchdog.mjs --json`
+- class C → `node scripts/check-doc-reality.mjs --json` (also runs inside `npm run check`)
+Two of these also run always-on between sweeps as launchd agents: `com.kerri.routine-liveness` (class J, every 15m) and `com.kerri.resource-watchdog` (class N, every 10m), both texting Brian directly on a high finding. Classes K and P have no script yet — inspect them by hand (`git`/`NOW.md`/`brain/log.md` for K; Google Tasks age for P).
+
 **J. Routine execution liveness (did it actually run + succeed?).** Class I asks "is it armed"; this asks "did it fire and finish clean." For each scheduled routine, read its state/grade file and compare the last-success timestamp + run counter against its cadence:
 - `kerri-inbox-sweep` → `data/inbox-sweep-state.json` (cursors) + `data/inbox-sweep-grades.json` (run counter). Flag if the latest cursor is older than ~2× the */15 cadence **inside the 6:00–22:45 ET active window** (a >35-min silence while it should be running = the silent-death / cron-gap failure mode). Also flag abnormal **double-fires** (two grades in the same minute) — a thrash signal.
 - `kerri-morning-brief` → `data/morning-brief-state.json` + `output/morning-brief/`. Flag if it did not fire on the most recent weekday.
@@ -191,11 +199,7 @@ If the **same gap class** appears on 3 runs (check the ledger history), the fix 
 - recurring shim drift → propose a `scripts/check-shims.mjs` wired into `npm run check`
 - recurring doc↔reality divergence → propose a generator/validator that fails CI when tables and dirs disagree
 - recurring loop-contract gaps → propose a prompt linter that asserts all six fields are present
-- recurring routine-liveness misses (class J) → propose a standalone liveness monitor that checks last-success timestamps independent of this nightly pass (a routine can't reliably report its own death)
-- recurring state-corruption (class L) → propose a `scripts/check-state-integrity.mjs` JSON-schema + invariant validator
-- recurring connector outages (class M) → propose a connector health-probe wired into routine startup
-- recurring host/resource incidents (class N) → propose formalizing the reaper + a resource watchdog as a tracked guard
-Because these system-health guards are **new infrastructure** (scripts, daemons, CI wiring), they are architecture changes, not hygiene — file each guard proposal as one KerriMG task with the rationale and the 3 ledger dates that justify it, and let Brian decide. **Do not build the guard unsolicited — propose, let Brian approve.**
+The first wave of system-health guards is **already built** (2026-05-30, Brian-approved): `routine-liveness-check.mjs` (J), `check-state-integrity.mjs` (L, in `npm run check`), `connector-probe.mjs` (M), `resource-watchdog.mjs` (N), `check-doc-reality.mjs` (C, in `npm run check`), plus the two launchd watchdogs. So for those classes the improvement move is to **use/extend the existing guard** (tune a threshold, add a routine to the liveness registry), not rebuild it. Only genuinely new guards remain proposal-worthy — e.g. a class-K cross-runner sync monitor or a class-P approval-queue-age checker (neither has a script yet). Because new guards are **new infrastructure** (scripts, daemons, CI wiring), they are architecture changes, not hygiene — file each as one KerriMG task with the rationale and the 3 ledger dates that justify it, and let Brian decide. **Do not build a new guard unsolicited — propose, let Brian approve.**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 NOTES
