@@ -128,6 +128,7 @@ SEND IDENTITY:
   S-prefix jobs: always from Brian (brian@standardandworks.com) via Superhuman MCP. Never auto-CC the HWFYI side (boundary). Never send from Kerri's HWFYI address into an S/W thread.
 
 AUTO-SKIP (never draft, never create a task):
+  • EXCEPTION FIRST: before auto-skipping a mailer-daemon / postmaster / bounce message, run STEP 2b's NDR check — a hard bounce for a cold-contacted address must be recorded to `cold-do-not-contact.json` before the message is dropped. After recording (or if not cold-related), proceed with auto-skip.
   • Sender contains: noreply, no-reply, mailer-daemon, donotreply, bounce, notifications, alerts, newsletter, news@, updates@, automated@, postmaster
   • List-Unsubscribe header present (bulk / newsletter)
   • Subject matches: [JIRA], [GitHub], [Slack], [Notion], AUTO:
@@ -178,6 +179,18 @@ Ignore Kerri's own suggestion tasks (title starts with `💡 `) — those have n
 If the task title starts with `🌙 EOD-` or the notes contain `EOD source tag:` and no matching job exists in jobs.json, fail closed: do not send, update the task notes/title for routing repair, and log the process miss. EOD approval tasks are only sendable when the EOD runner wrote the matching jobs.json entry with thread routing metadata. If an EOD task still has a visible `🌙 EOD-H01`-style title, rewrite the title to `🌙 <job.jobId> — <Company> — <subject/meeting>` after the matching job is found; keep the `EOD-H01` value only as a source tag in notes.
 If job is already status=sent or status=skipped, ignore.
 
+COLD BATCH TASK HANDLING (title starts with `☀️ COLD BATCH`) — special case, handled BEFORE the generic A–D logic:
+  A cold batch task has NO single jobs.json entry. Its drafts live in `data/cold-outreach-state.json#drafted` keyed by this task's id (`gtasksTaskId`) + `batchIndex`. Process it as follows:
+  1. If the task status is NOT `completed` (Brian hasn't checked the box): no send. (You may still pre-read it, but take no action.)
+  2. If `completed`: this is batch approval. Re-read the task's live notes (per the LIVE-STATUS CROSS-CHECK rule) and parse every `━━ DRAFT #n ━━` block. For each block read its control line:
+     • `SEND #n` → send this draft.
+     • `SKIP #n` → do not send; mark that draft `skipped` in cold-outreach-state (move `drafted[]`→`skipped[]`), flip its lead `status` to `new` (back to pool) in `data/leads-master.json`.
+     • `REDO #n` → do not send; leave it in `drafted[]` and post a one-line Kerri MG note that a redo was requested (regeneration happens via the cold-outreach agent, not here).
+  3. For each `SEND #n` draft, apply the full HARD NO-DOUBLE-EMAIL GATE below against that draft's email + jobId + any internetMessageId, then send via `kerri-hardwarefyi-email` (or `brian-hardwarefyi-email` if the block's `From:` is brian@) with `approved=true`, `approvalSource = "Brian approved cold batch via Google Tasks (list=H, taskId=<id>, draft #n)"`. If Brian edited a draft body in place, send the edited text. Every send auto-CCs brian@hardwarefyi.com per the standard gate.
+  4. After each successful send: move that email from `cold-outreach-state#drafted[]` to `#sent[]` (`{ email, sentAt, jobId, gtasksTaskId, batchIndex }`); flip the lead `status` to `emailed` in `leads-master.json` and mirror to the CRM "Leads" tab via `node scripts/sheets-append.mjs` (CSV fallback if Sheets scope absent); create/update compact `brain/wiki/people/<slug>.md` + `brain/wiki/companies/<slug>.md`. Do NOT change the cold cap counters (todayCount/weekCount were already incremented at draft time).
+  5. After processing all blocks: `gtasks_update_task` → keep status=completed, rewrite title to `✅ sent <S>/<N> HH:MM ET — COLD BATCH <date>` (S = number actually sent). Append one `brain/log.md` line. Record a quality signal in inbox-sweep-grades.json.
+  6. Partial-failure safety: if any single draft send fails, continue the others, leave the failed one in `drafted[]`, and send Brian one Sendblue/text heads-up naming which draft # failed. Never re-send an already-`sent[]` draft on a later sweep (the batch task stays completed, so re-fire must re-check `sent[]` and no-op already-sent indices).
+
 HARD NO-DOUBLE-EMAIL GATE:
 - Brian's strictest email rule is: never send a double email. Sending a second email on an already-handled thread is the biggest failure mode, even worse than an unapproved first send.
 - Before any send, prove the job is still unsent by checking `jobs.json` for the current `gtasksTaskId`, every `internetMessageIds[]` value, the company/jobId, and any S-prefix `superhumanThreadId`. If any matching job is already `sent` or `skipped`, do not send. Update the task as already handled and log the blocked duplicate.
@@ -212,7 +225,7 @@ A) status == "completed" (Brian checked the box) → SEND
          2. send_draft({ draft_id }) — accept default 1-min undo window
        Record approvalSource = "Brian approved via Google Tasks (list=S, taskId=<id>)" in the job log (jobs.json), even though Superhuman doesn't enforce the gate at the MCP layer. After successful send, scrub job.originalDraft → "<sent — body retained in Superhuman thread>" (S/W boundary: don't keep S/W body text in jobs.json after it leaves the queue).
    - Update job in jobs.json: status → sent, sentAt → now, originalDraft → (edited text if changed).
-   - If the job source is `kerri-cold-outreach` or the task title starts with `❄️ COLD-`, update `data/cold-outreach-state.json`: remove the matching email from `drafted[]`, add it to `sent[]` with `{ email, sentAt, jobId, gtasksTaskId }`, and keep the cold outreach cap counters unchanged.
+   - Cold outreach approvals now arrive as a single `☀️ COLD BATCH` task — handled by the dedicated COLD BATCH TASK HANDLING block above, not here. (Legacy single `❄️ COLD-` tasks, if any remain, still update `data/cold-outreach-state.json`: move the email from `drafted[]` to `sent[]` with `{ email, sentAt, jobId, gtasksTaskId }`, cap counters unchanged.)
    - Update task title via `gtasks_update_task`: strip any leading `🆕 ` marker, then prefix with `✅ sent HH:MM ET — ` (keep status=completed).
    - Write back to KerriOS:
      • append a compact thread/action entry to the relevant company wiki page or deal page
@@ -237,6 +250,22 @@ D) status == "needsAction" AND notes ACTION line == "send" (default) → WAITING
 The ACTION line lives on line 1 of notes, format:
   `ACTION: send`   (or `skip` / `redo` — case-insensitive, trim whitespace)
 If the ACTION line is missing or unparseable, treat as `send` (waiting).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2b — COLD-OUTREACH SUPPRESSION (auto-DNC)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+This protects HWFYI sender reputation as cold volume ramps. It runs against the emails fetched in STEP 3, but the LOGIC lives here so STEP 3's AUTO-SKIP knows to make exceptions. Maintain a working set of cold-contacted addresses = every `email` in `data/cold-outreach-state.json#sent`.
+
+1. **Unsubscribe / opt-out replies (from a human).** If an inbound is a reply whose sender is in the cold-sent set (or is replying to a thread whose subject matches a cold subject) AND the body contains an opt-out intent — `unsubscribe`, `remove me`, `take me off`, `opt out`, `stop emailing`, `no thanks / not interested + don't contact` — then:
+   - Append the sender email to `data/cold-do-not-contact.json` as `{ email, reason: "unsub", addedAt: <ISO> }` (dedup; don't double-add).
+   - Flip that lead's `status` to `DNC` in `data/leads-master.json` and mirror to the CRM "Leads" tab via `node scripts/sheets-append.mjs` (CSV fallback if Sheets scope absent).
+   - Do NOT draft a reply and do NOT create an approval task. A simple "remove me" needs no response. (If the reply ALSO contains a genuine business question, create a normal task as usual AND still record the DNC.)
+   - Log one `brain/log.md` line: `cold-dnc | <email> unsubscribed | Kerri`.
+2. **NDR / hard bounces.** A bounce hits AUTO-SKIP (mailer-daemon/postmaster). EXCEPTION: before auto-skipping a bounce, scan its body for any address in the cold-sent set. If the bounce is a hard/permanent failure (5xx, "address not found", "mailbox does not exist", "user unknown") for a cold recipient:
+   - Append that recipient to `cold-do-not-contact.json` as `{ email, reason: "bounce", addedAt }`.
+   - Flip the lead `status` to `DNC` in `leads-master.json` + mirror to CRM tab.
+   - Then continue the AUTO-SKIP (no task, no draft). Soft/transient bounces (4xx, "mailbox full", "out of office") do NOT get added — only permanent failures.
+3. Suppression is idempotent and one-directional: once an address is in `cold-do-not-contact.json` it is never cold-emailed again (cold-outreach + lead-research both dedup against it).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3 — SWEEP NEW EMAILS
