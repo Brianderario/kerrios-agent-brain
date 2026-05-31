@@ -1036,3 +1036,4 @@ Processed Google Tasks approvals first, then Kerri Hardware FYI, Brian Hardware 
 - 2026-05-30 10:02 ET | inbox-sweep | quiet | Kerri (Claude) — cursors 13:47:30Z→14:02:30Z; 5 pending H/G unchanged
 - 2026-05-30 19:35 ET | inbox-sweep | weekly-grade (first ever) | Kerri (Claude) — quiet Sat sweep, cursors →23:35Z, 5 pending H/G unchanged; weekly[] seeded: 7d 66 runs, 0 errors, 3 created/1 sent/4 skips, all approval-gated, trend flat/stable; lastWeeklyGradeAt was null→set
 2026-05-30 19:49 ET | inbox-sweep (Claude) | quiet sweep, gap 13min no catch-up; 5 pending H/G jobs all needsAction/send waiting on Brian; 0 new post-cursor items across all 4 mailboxes; cursors→23:49Z; grade runs=310 | Kerri
+- 2026-05-31 18:32 ET inbox-sweep | catch-up after ~1h57m daytime cron gap | 5 pending H/G jobs all waiting on Brian; 1 new item = Gmail Apollo marketing auto-skip; cursors -> 22:31Z | Kerri (Claude)
