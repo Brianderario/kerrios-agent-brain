@@ -2,6 +2,10 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-05-31 21:53 ET] gap-sweep | auto:0 pr:0 task:2 | Kerri (Claude kerri-gap-sweep)
+
+First full whole-system sweep (classes A–P). 2 Kerri MG tasks filed, 0 auto-fixes (none cleanly mechanical), 0 PRs. **C5 (med):** kerri-lead-research + kerri-cold-outreach are live scheduled+enabled cron jobs while CLAUDE-ROUTINES.md / automations.md / registry.md all still say on-demand/gated-on-audit and the first-24h-audit task is still open → task `ZndYNmlRWTEwVC1ldTlacg` for Brian's intent (gates verified intact; not a safety breach, an autonomy/doc-accuracy divergence). **F1 (high):** main build RED — `npm test` 2/48 fail (stale inbox-sweep-prompt tests vs evolved prompt); known in NOW.md but no Google Task existed → task `N1lMQmZaNG90OGFVRjMxdQ`. Carry-overs: G1/G2 (.gitignore for gap-sweep-state.json + artifacts/) still on open PR #1, not re-filed. System health J–P all green/read-only: 7/7 routines enabled, sync 0/0 clean, state files intact, connectors reachable, host healthy (reaper loaded), email gate still approved_external, oldest approval 4d (under threshold). One Sendblue sent.
+
 ## [2026-05-30 19:17 ET] inbox-sweep-rollup | NOW.md "Last action" trimmed; day's actions + cadence routed here | Kerri (Claude interactive)
 
 Acted on Brian's standing 💡 SUGGESTION (NOW.md bloat). NOW.md had grown to ~149KB/29.8k tokens — too large for Read to load whole — because the */15 inbox-sweep was appending every run to the "Last action" list. Trimmed that list to the 8 most-recent/meaningful entries; live state stays in NOW.md's In-flight + Next action. Full per-run verbatim detail remains in NOW.md's git history. Meaningful 2026-05-30 actions not separately logged above (log had stopped at 01:13 ET):
