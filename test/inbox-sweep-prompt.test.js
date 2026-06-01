@@ -180,10 +180,11 @@ test('inbox sweep prompt keeps EOD approvals on existing email chains', () => {
 test('inbox sweep prompt updates cold outreach state after approved sends', () => {
   for (const required of [
     'data/cold-outreach-state.json',
-    'task title starts with `❄️ COLD-`',
-    'remove the matching email from `drafted[]`',
-    'add it to `sent[]`',
-    'keep the cold outreach cap counters unchanged'
+    'COLD BATCH TASK HANDLING (title starts with `☀️ COLD BATCH`)',
+    'move that email from `cold-outreach-state#drafted[]` to `#sent[]`',
+    'Do NOT change the cold cap counters',
+    'Never re-send an already-`sent[]` draft on a later sweep',
+    'Legacy single `❄️ COLD-` tasks'
   ]) {
     assert.match(prompt, new RegExp(escapeRegExp(required)));
   }
@@ -223,9 +224,9 @@ test('inbox sweep enforces answer-every-ask coverage on replies', () => {
     'Enumerate EVERY distinct ask, question, instruction, and embedded request',
     'never silently omitted',
     'do not mark a draft send-ready until every enumerated item maps to a line',
-    'COVERAGE CHECKLIST (every ask in the inbound must map to a draft line)',
-    'INTERNAL FLAG for Brian',
-    '✓ addressed'
+    'These bullets ARE the coverage record now',
+    'every ask must still appear here, addressed or explicitly deferred',
+    '⚠ flag line'
   ]) {
     assert.match(prompt, new RegExp(escapeRegExp(required)));
   }
