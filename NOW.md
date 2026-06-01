@@ -5,7 +5,7 @@
 > snapshot, not a log. Durable truth goes in `brain/wiki/`; the running history goes in
 > `brain/log.md`. This file is only the current state of in-flight work.
 
-**Last touched:** 2026-06-01 ~19:10 ET · **by:** Kerri (Claude interactive — built the `send-partner-contract` skill + issued 2 Duro contracts via DocuSign: Partner Program $12,500/6mo **SENT** to Robert Woo; Event Sponsorship $44K **draft staged** for Nehemoyia→Altium. Brain updated: duro-labs.md + log.md.)
+**Last touched:** 2026-06-01 ~19:25 ET · **by:** Kerri (Claude interactive — **sent Ari (ari@kerrihq.com, Brian cc) the CFO-agent onboarding prompt** as an attachment: "run it once QuickBooks is set up." Stands up the first Ari/CFO-pod agent — clone brain, set git identity, hook QuickBooks read-first, decide finance-repo split. Attachment also on Brian's Desktop. Brain: log.md appended; registry/ari-lewis.md unchanged until Ari clones + first-PRs.)
 
 ## In flight
 - REDACTION GUARD — 🔵 PR #6 OPEN, awaiting Brian (Claude interactive, 2026-06-01). https://github.com/Brianderario/kerrios-agent-brain/pull/6 . Evaluated garrytan/gstack for KerriOS; the one applicable pattern is gstack's `redact-engine` → ported as a **content-based** secret/PII scanner (`scripts/redact-check.mjs` + 14 tests) wired into `kerri-sync.sh` BEFORE commit. Complements the existing path-based filter: catches a credential/SSN/`Storm King Nexus` string pasted INSIDE a clean-named wiki/log/candidate. HIGH (known key formats) blocks push + conflict marker; MEDIUM/LOW log a review marker + proceed; bare emails deliberately NOT flagged (anti-cry-wolf); `redact-allow` escape hatch; fails open. Suite 79/79 green. Proof it's needed: GitHub push-protection blocked my first push because a test fixture reused the LIVE kerri-bot Slack token. ⚠️ NOT live on `main` until #6 merges. **Do NOT re-file as a gap.** Follow-ups in the PR: rotate the kerri-bot Slack token + move it to an env var (it's local-only, plaintext); enable GitHub Secret Scanning; gitignore the two `data/kerri-sync-*.marker` paths. ⚠️ FOR CODEX: don't double-build this.
@@ -52,6 +52,7 @@
 - Closed overnight (do not re-process): H0013 Zenode, H0034 Jiga, H0035 SendCutSend, G0001 Ken — all skipped 22:56–23:23 ET 2026-05-29 by Brian. H0021 Flow, H0015 ATOMS, G0005 Pursue already closed in prior runs. Get Brian's go-ahead on item 5 (prompt wiring via PR). Brian to review gap-sweep PR #1 (https://github.com/Brianderario/kerrios-agent-brain/pull/1) for the runner-attribution + Runner-section + ledger-gitignore bundle, plus the new gap-sweep run-#2 ⚠️ GAP task OHNya3hDejFNUHNNb1lRaA on Kerri MG list (C4 kerri-skill 'Codex automations' drift + G2 artifacts/ gitignore — decide: fold into PR #1, follow-up PR, or wait).
 
 ## Decisions waiting on Brian
+- **Ari CFO agent / QuickBooks (06-01):** the onboarding prompt sent to Ari surfaces one open decision for Brian + Ari — whether to split finance into a separate private `kerrios-brain-finance` repo now (trigger per multi-agent-write-rules is "Ari activates a CFO agent"), so QB/finance detail stays private from Benji/other KMG agents while main brain holds aggregate refs. Decide when Ari reports back post-QB-setup.
 - Item 5: wire package playbook into the automation prompts (PR)?
 - Gap-sweep PR #1: review runner-attribution + `## Runner` section + ledger gitignore changes.
 
