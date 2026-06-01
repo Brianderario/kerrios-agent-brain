@@ -41,10 +41,10 @@ signature line:
   `anchorYOffset` down to the signature line.
 - **Hardware FYI (right column):** `signHere` → same anchorString, larger `anchorXOffset` (right column),
   same `anchorYOffset`.
-- **Calibrate offsets once** at first upload: create the envelope as `created` (draft), open the DocuSign
-  preview, nudge X/Y, then reuse those values. Record the calibrated offsets here once known:
-  - client: `anchorXOffset` `__TODO__`, `anchorYOffset` `__TODO__`
-  - hfyi:   `anchorXOffset` `__TODO__`, `anchorYOffset` `__TODO__`
+- **Calibrated offsets (known-good, verified on the Duro sends 2026-06-01):**
+  - client (left col): `anchorString` `Content Approval:`, `anchorUnits` `pixels`, `anchorXOffset` `60`, `anchorYOffset` `110` → resolved to page 1 (x≈214, on the left signature line).
+  - hfyi (right col): same anchor, `anchorXOffset` `360`, `anchorYOffset` `110` → resolved to page 1 (x≈514, on the right signature line).
+  - Reuse these as-is for this template; they sit on the signature lines regardless of `[Deliverables]` length (anchor is in the fixed boilerplate).
 - **No `dateSigned` tabs** — DocuSign auto-stamps the signing date.
 - Name/Title lines stay blank (DocuSign captures signer identity); pre-fill as text tabs only if Brian asks.
 
