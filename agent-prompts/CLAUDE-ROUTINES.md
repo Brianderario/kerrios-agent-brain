@@ -56,14 +56,16 @@ Cron times below are ET (assumes the Mac clock is ET) and use off-:00/:30 minute
 |---|---|---|---|
 | `kerri-eod-meetings-review` | `28 18 * * 1-5` | `kerri-eod-meetings-review/SKILL.md` | calendar + Granola → follow-up drafts + recap → Google Tasks approval → drafts → meeting/entity memory + `jobs.json` routing → recap/recording miss |
 
-## Loop 2 · Sales pod (on-demand until first-day core audit passes, then schedule)
+## Loop 2 · Sales pod (first-day core audit passed 2026-05-31 — revenue agents now scheduled)
 
-| Routine | proposed cron | Prompt | Status |
+Lead research + cold outreach were promoted to live scheduled-tasks crons after the core bundle (inbox sweep, morning brief, EOD, brain push) proved stable. Approval gates are unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the pool. Pipeline follow-up stays on-demand until its volume justifies a schedule.
+
+| Routine | cron | Prompt | Status |
 |---|---|---|---|
-| Monthly Partnership Research | `0 10 1 * *` | inline (automations.md §6) → promote to `kerri-lead-research` | gated on audit |
-| Weekly "What Got Done" | `0 16 * * 5` | inline (automations.md §4) | gated on audit |
-| Outbound sales | on-demand | `kerri-cold-outreach/SKILL.md` | approval-gated, never auto-sends |
-| Lead research | on-demand | `kerri-lead-research/SKILL.md` | feeds outbound queue |
+| Monthly Partnership Research | `0 10 1 * *` | inline (automations.md §6) → promote to `kerri-lead-research` | superseded by scheduled `kerri-lead-research` |
+| Weekly "What Got Done" | `0 16 * * 5` | inline (automations.md §4) | on-demand (not yet scheduled) |
+| Lead research | `13 18 * * 1-5` | `kerri-lead-research/SKILL.md` | **scheduled** (weekday ~6:16pm ET); feeds outbound queue |
+| Outbound sales | `7 9 * * 1-5` | `kerri-cold-outreach/SKILL.md` | **scheduled** (weekday ~9:16am ET); drafts only, never auto-sends |
 | Pipeline follow-up | on-demand | `kerri-pipeline-followup/SKILL.md` | approval-gated |
 | **Inbound sales triage** | — | **prompt does not exist (gap)** | deferred per registry until volume justifies |
 | **Event sales** | — | **prompt does not exist (gap)** | tree lists it; only `kerri-event-logistics` exists today |
