@@ -47,7 +47,7 @@ fetch it, the copy must be link-viewable.
   public link-sharing from its **parent folder**.
 - **One-time setup:** Brian creates/sets a folder to "Anyone with the link → Viewer", e.g.
   `Hardware FYI — Contracts (link-view)`. Record its folderId here:
-  - **CONTRACTS_FOLDER_ID:** `__TODO_FILL__`
+  - **CONTRACTS_FOLDER_ID:** `1Rgz0F1A20lVNfwCD2C0PKhMB4W2XUsuX` (confirmed link-shared, anyone-with-link, 2026-06-01)
 - The skill copies the MASTER into that folder (`copy_file(parentId: CONTRACTS_FOLDER_ID)`); the export
   URL is then publicly fetchable. Security note: the contract is briefly reachable by anyone with the
   long unguessable URL. Acceptable for send; can be tightened after completion.
