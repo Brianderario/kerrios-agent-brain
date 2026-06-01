@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-// resource-watchdog: is the host healthy + is the inbox-sweep reaper doing its job?
+// resource-watchdog: is the host healthy + is the scheduled-task reaper doing its job?
 //
 // kerri-gap-sweep class N. The failure mode this guards against is real: the
-// desktop scheduled-task runner leaked one ~75MB kerri-inbox-sweep session per
-// 15-min run until RAM was exhausted and the Mac thrashed at load 23. The
-// com.kerri.inbox-sweep-reaper LaunchAgent kills those leaks every 5 min — but
-// nothing was watching the reaper itself. This watchdog does.
+// desktop scheduled-task runner leaks one idle ~300MB session per run (across ALL
+// Kerri scheduled tasks) until RAM is exhausted and the Mac thrashes (this hit load
+// 53 on 2026-05-31). The com.kerri.inbox-sweep-reaper LaunchAgent kills those leaks
+// every 5 min — but nothing was watching the reaper itself. This watchdog does.
+// (Reaper scope was generalized 2026-05-31 from inbox-sweep-only to every scheduled
+// task; this watchdog reads the reaper's own log, so it tracks that scope for free.)
 //
 // It is read-only: it never kills a process (the reaper owns that, and verifies
 // session identity by transcript). It MONITORS and alerts Brian when:
@@ -63,7 +65,7 @@ const DEFAULT_THRESHOLDS = {
 export function assessResources(metrics, thresholds = DEFAULT_THRESHOLDS) {
   const findings = [];
   if (metrics.reaperLoaded === false) {
-    findings.push({ kind: 'reaper-not-loaded', severity: 'high', detail: `${REAPER_LABEL} is not loaded — leaked inbox-sweep sessions will not be reaped` });
+    findings.push({ kind: 'reaper-not-loaded', severity: 'high', detail: `${REAPER_LABEL} is not loaded — leaked scheduled-task sessions will not be reaped` });
   } else if (metrics.reaperLoaded === true && metrics.reaperLogAgeMin != null && metrics.reaperLogAgeMin > thresholds.reaperLogStaleMin) {
     findings.push({ kind: 'reaper-stalled', severity: 'high', detail: `reaper loaded but last logged ${metrics.reaperLogAgeMin}m ago (>${thresholds.reaperLogStaleMin}m) — may be stalled` });
   }
