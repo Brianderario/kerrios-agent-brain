@@ -559,6 +559,17 @@ Do not wrap either directive in backticks or a code block. Do not write anything
 Do not auto-archive only if the chat itself is the only deliverable, Brian explicitly needs to continue in this automation chat, or the run is blocked before it can write durable state/fallback or send the required alert. If the sweep exits early because the lock is busy, stay silent as directed in STEP -1 because that path intentionally creates no run output.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 9 — RELEASE THE SESSION (Claude scheduled runner)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+As the final tool action of the run — after all writes/sends and after the lock is released — run:
+
+`node scripts/inbox-sweep-self-exit.mjs`
+
+Why: the Claude Code persistent scheduled-task runner never closes stdin, so each run otherwise leaves its ~300MB session resident until the idle-reaper catches it ~16 min later. Under reaper blind spots those sessions pile up, the host loads, and the scheduler drops `*/15` fires — the daytime inbox-sweep cron gaps. This script reaps THIS run's own session the moment its work is done, so they never accumulate.
+
+It is safe to run unconditionally and changes nothing unless this is genuinely a Claude scheduled run: it terminates a process ONLY if that process is (1) an ancestor of the script, (2) a claude-code process, AND (3) a session whose first user message carries the scheduled-run marker. Interactive chats and the Codex runner are a guaranteed no-op (it prints `selfExit:false`), so it never touches Brian's interactive sessions. It is a plain tool call, not output — run it BEFORE the STEP 8 archive directives so those remain the final lines for Codex; do not pass `--dry-run` in the live run.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SESSION NOTES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   • kerri-gdocs MCP runs OAuth as Brian (kerrihq-alfred project). Scopes: docs, drive.file, tasks. If `gtasks_*` calls return 403/insufficient scope, send Brian one Sendblue/text heads-up and halt — Brian must re-run `~/.kerri-chief/kerri-gdocs-mcp/setup-auth.mjs`.
