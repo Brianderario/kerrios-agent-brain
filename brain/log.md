@@ -2,6 +2,9 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-06-01 18:38 ET] eod-review | 4 meetings, 0 new drafts, 1 flagged | Kerri (Claude scheduled)
+2 transcribed sponsor calls today: Aris Machina/William Steel (8:30am, H0001) + Neural Concept (12:00pm, H0024). Wrote both meeting pages + entity updates; follow-up drafts were ALREADY pending (created this morning by interactive orphan-task reconciliation), so NOT duplicated — enriched the two pending jobs.json entries with meetingPage/granolaMeetingId/calendarEventId. Brian/Benji 1:1 (16:00) no Granola match → 5C routine-internal recap task (G list). Excluded out-of-KMG-scope: 2 masked "Personal Commitment" blocks on the arkaeamedia.com calendar + Reclaim lunch. Sendblue heads-up sent OK (config now working). Open: Brian should verify H0001/H0024 drafts answer every transcript ask before sending.
+
 ## [2026-06-01 18:25 ET] lead-research | 20 sourced, 12 to pool, 10 queued, 8 dedup'd | Kerri (Claude scheduled top-up)
 Apollo people-search + ID-enrich across 2 ICP lanes (software-to-mfg + hardware lookalikes, US, 11–500 emp, verified emails, lane-1 filtered on active marketing-hiring). 22 enriched (~22 lead credits; 7,220→~7,198 left), dropped 5x5 (wireless-infra) + ROUSH (role inbox/declining HC); 8 deduped (already in pool/companies from 5/30 backfill: iBase-t, TriMech, Saratech, Flow Eng, Slip, Locus, Path, Eyelit). 12 net-new → pool now 157. CRM "Leads" tab synced (12 appended + 2 updated). Queue topped 5→15 (8 new + Hai/GrayMatter). Top of queue: Forterra, FranklinWH, Base Power, Nominal, Fleetzero (all 65). No drafts/sends (cold-outreach's job tomorrow ~9am).
 

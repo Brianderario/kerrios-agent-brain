@@ -36,7 +36,7 @@ Swedish AI hardware/dev tools company. Active sponsor conversation with Hardware
 
 - **Siddharth Khullar** (Sid) — Co-founder & CEO. Primary contact. sid@arismachina.com. Stockholm, +46 73 960 44 74.
 - **Jacinta Sällfors** — jacinta@arismachina.com (scheduling/EA)
-- **William Steel** — william@arismachina.com
+- **William Steel** — william@arismachina.com. Not a full-time employee; handles comms/branding. Repped the 2026-06-01 discovery call on Sid's behalf. (src: meetings/2026-06-01-aris-machina-william-steel.md)
 
 ## Thread history (high-level)
 
@@ -56,10 +56,11 @@ Swedish AI hardware/dev tools company. Active sponsor conversation with Hardware
 - **2026-05-25 (Kerri):** Redo'd draft. Re-read William's 5/25 email, verified the Substack issue contains both Colab Primary Placement (mid-issue) AND "Tools From Our Sponsors" block (bottom — nTop, Onshape, Fictiv, Quilter, Doss, Loombotic, Express Manufacturing, Summit Interconnect). Selected CoLab Software as case study (B2B SaaS, AI for hardware engineering teams, closest live analog to Aris Machina, ran the visible Primary Placement, back at Kinetic 2026)
 - **2026-05-25 (Brian):** Two follow-ups — (1) Calendly link is in memory at https://calendly.com/brian-hardwarefyi/30min; (2) SF Tech Week registration guarantee dropped from 125 → **100** (playing safe vs expected actual). Draft updated; ready for send
 - **2026-05-25 23:39 ET (Brian):** Sent reply to William, cc Sid/Benji/Jacinta/Kerri. Final send used product education rather than package pricing: answered Primary Placement / Partner Program / CoLab questions, clarified send-out/publication terminology, introduced custom content (Drafter piece with 5,000+ form fills/downloads), and grouped SF Tech Week + happy hours as lead-gen/event options. Asked for a call and linked Brian's Calendly. Lessons/template saved to [[../workflows/hwfyi-sponsor-reply-templates]].
+- **2026-06-01 8:30 AM ET (call, William ↔ Brian):** Intro/discovery call. New product **Gamba** surfaced (shop-floor platform stack, earlier-stage than Protos; Protos launched ~6 weeks ago). Aris GTM = European events + organic LinkedIn + hackathons (Red Pine, Anthropic). William flagged the **CoLab primary-placement** example as the standout; asked for cost figures. Aris KPI = Protos landing-page traffic + trial signups; they can build a co-branded tracked subdomain. Brian steered to **content-first** (explainer/one-pager for their ICP before driving demos). Sid's posture: start moderate to prove ROI, wants a clear "for $X you get Y" menu. **Brian committed to send a summary + package options (low → robust).** Full recap: [[../meetings/2026-06-01-aris-machina-william-steel]].
 
 ## Current next step
 
-- Waiting for Aris Machina response / call booking. No package, lead guarantee, or SF Tech Week commitment is active until they signal which products interest them and budget/timing are discussed live.
+- **Brian's post-call follow-up is queued as pending H0001** (re-keyed 2026-06-01 from the orphan post-call task; ACTION:send, awaiting Brian). Must cover: package options low→robust, CoLab placement + cost, content-first reco tied to their ICP, forwardable framing for Sid. ⚠ Confirm the arismachina.com/hardwarefyi co-branded slug with William before any send promises it.
 
 ## SF Tech Week — post-sale risk to track
 
