@@ -481,6 +481,10 @@ Write compact KerriOS memory updates:
   • candidate notes for uncertain or material claims
   • draft-learnings.md for Brian edits that reveal reusable writing/process rules
   • brain/log.md for every material task created, sent, skipped, redone, or workflow improvement
+NOW.md handling (the baton is a snapshot, not a run log — its header caps it at ~20 lines):
+  • A QUIET/no-op sweep (no task created, no send, no skip/redo, no error, no decision, no in-flight change the other runner needs) does NOT touch NOW.md. Instead append ONE compact line to `data/sweep-cadence.log` (gitignored, never synced): `<ISO> quiet | gap <Nmin> | cursors <from>→<to> | <one-line mailbox summary> | grade <n>`. This preserves per-sweep cadence history without growing the baton every 15 minutes.
+  • Only a MATERIAL run touches NOW.md — a task created/sent/skipped/redone, a catch-up that absorbed missed mail, an error/escalation, or anything genuinely in flight. Update "In flight"/"Next action" as needed and prepend ONE line to "Last action".
+  • On every NOW.md write, CAP "Last action" at the most recent 8 entries: after prepending, delete older ones. Their durable record already lives in brain/log.md (material runs) or data/sweep-cadence.log (quiet runs), so nothing is lost. Never let "Last action" grow unbounded.
 Cleanup: remove any jobs where (status=sent OR status=skipped) AND (sentAt or createdAt) is >7 days ago.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
