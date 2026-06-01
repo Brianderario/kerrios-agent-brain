@@ -44,11 +44,13 @@ These folders are ergonomic automation entrypoints, not canonical truth. Durable
 | `kerri-morning-brief` | 7:00am ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-morning-brief/SKILL.md` |
 | `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-brain-push` | 10:00pm ET, daily, Codex automation, GPT-5.5 high | `agent-prompts/kerri-brain-push/SKILL.md` |
-| `kerri-gap-sweep` | ~9:41pm ET, daily, local Claude Code durable cron (planned) | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+| `kerri-gap-sweep` | ~9:41pm ET, daily, local Claude Code durable cron | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+| `kerri-lead-research` | weekday ~6:16pm ET (`13 18 * * 1-5`), local Claude Code durable cron | `agent-prompts/kerri-lead-research/SKILL.md` |
+| `kerri-cold-outreach` | weekday ~9:16am ET (`7 9 * * 1-5`), local Claude Code durable cron — drafts only, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
 
 2026-05-29 note: Claude-side routine architecture spec'd in [`agent-prompts/CLAUDE-ROUTINES.md`](../../../agent-prompts/CLAUDE-ROUTINES.md) — routines move to local Claude Code durable cron, organized by role pod + loop. `kerri-gap-sweep` added as a new independent code/workflow hygiene agent (Brian/Kerri pod). Not yet activated: re-arm mechanism + Codex-directive stripping must land first.
 
-2026-05-26 audit note: no active Codex automation records were found for cold outreach, lead research, the S&W newsletter chain, or pipeline follow-up. Follow-up decision: keep cold outreach, lead research, and pipeline follow-up on-demand until the first-day core automation audit passes after the 22:00 ET brain push and connector availability is verified. S&W newsletter chain remains task/local-draft driven until Brian/Zach confirm cadence.
+2026-05-26 audit note (RESOLVED 2026-05-31): the first-day core automation audit passed, so cold outreach and lead research were promoted from on-demand to live scheduled-tasks crons (`kerri-cold-outreach` `7 9 * * 1-5`; `kerri-lead-research` `13 18 * * 1-5`) — see the scheduled-tasks table above. Approval gates unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the pool. `kerri-pipeline-followup` stays on-demand until its volume justifies a schedule. S&W newsletter chain remains task/local-draft driven until Brian/Zach confirm cadence.
 
 ## Sub-agent roadmap (under Kerri's identity)
 
