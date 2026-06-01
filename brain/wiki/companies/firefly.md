@@ -22,4 +22,4 @@ scope: prospect (Hardware FYI digital partnership) · updated: 2026-06-01
 
 ## Current state
 
-- **H0048** queued 2026-06-01: product-education reply (Brian-sender) describing newsletter placements, Partner Program, custom content (safety angle), and events — no firm pricing, Calendly close. Awaiting Brian approval.
+- **H0048** SENT 2026-06-01 ~12:17 ET (Brian-sender, brian@hardwarefyi.com, on the Kinetic-Sponsorships chain): product-education reply describing newsletter placements, Partner Program, custom content (safety angle), and events — no firm pricing; soft "reply or quick call" close (Brian's approved version dropped the Calendly/budget-framing close that was in the draft). Awaiting Alexis's reply.
