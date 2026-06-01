@@ -89,12 +89,21 @@ createEnvelope(accountId, envelopeDefinition: {
   approval (`approved=true` + `approvalSource`).
 - Routing order shown client-first; adjust if Brian should counter-sign first.
 
-## Duro Labs (H0014) — first run values
+## Duro Labs (H0014) — first run, FINAL approved values (2026-06-01)
 
-- `[Company]`: Duro legal entity — **confirm full legal name with Robert**
-- `[Date]`: **TBD** — start date from Robert
-- `[Deliverables]`: Partner Program (6 months) — 2x/week feature in Tools We Love; logo in Partner
-  Program sponsor image + website; one-click product-page link
-- `[Platforms]`: Email Newsletter (The Analog) · `[Schedule]`: 6 months from start · `[Fee]`: $12,500 USD
-- Signers: Robert Woo `robert@durolabs.co` (client) · Brian (Hardware FYI)
+Filled doc: `Duro x Hardware FYI 2026` — docId `1eqRnbhCm06LsA2xlnH6PWypwD_g97znH2eQuwBiPRhU`
+(in CONTRACTS_FOLDER). PDF: `…/1eqRnbhCm06LsA2xlnH6PWypwD_g97znH2eQuwBiPRhU/export?format=pdf`
+
+- `[Company]`: `Duro` (they sign as "Duro" — confirmed via the signed Kinetic SOW)
+- `[Date]`: `June 1, 2026`
+- `[Deliverables]`:
+  - Partner Program (6 Months)
+  - 1x per week feature in the Tuesday Issue
+  - 3x Primary Placements
+  - Logo in the Partner Program sponsor image + website placement
+  - One-click product page link
+- `[Platforms]`: `Email Newsletter` · `[Schedule]`: `June 2026 – December 2026 (6 months)` · `[Fee]`: `$12,500 USD`
+- Payment Terms: Net 30 (default)
+- Signers: Robert Woo `robert@durolabs.co` (client) · Brian D'Erario (Hardware FYI, "Head of Partnerships")
 - Copy title: `Duro x Hardware FYI 2026`
+- Status: **reviewed + approved by Brian; awaiting upload to DocuSign.**
