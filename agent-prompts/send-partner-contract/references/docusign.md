@@ -31,7 +31,9 @@ The two signature labels are made **unique** so DocuSign can anchor each party's
 
 - Left (client): label is `Signature ([Company]):` in the MASTER → becomes e.g. `Signature (Duro):` after
   fill. Anchor the client `signHere` to that exact string (`Signature (<Company>):`).
-- Right (Hardware FYI): label is `Signature (Hardware FYI):` (constant). Anchor the HFYI `signHere` to it.
+- Right (Hardware FYI): label is plain `Signature:` (kept short so the tab-positioned right column stays
+  aligned). Anchor the HFYI `signHere` to `Signature:` — it's unique because the left label is
+  `Signature (<Company>):` (no bare `Signature:` substring) and the word appears nowhere else.
 - **No `dateSigned` tabs needed** — DocuSign auto-stamps the signing date. (Add one with `anchorXOffset`
   off the signature label only if a visible date field is ever required.)
 - Name/Title lines are left blank for signers (DocuSign captures signer identity); pre-fill as text tabs
@@ -69,7 +71,7 @@ createEnvelope(accountId, envelopeDefinition: {
     { recipientId: "1", routingOrder: "1", name: "<Client signer>", email: "<client email>",
       tabs: { signHereTabs: [{ documentId: "1", recipientId: "1", anchorString: "Signature (<Company>):", anchorUnits: "pixels", anchorXOffset: "5", anchorYOffset: "-6" }] } },
     { recipientId: "2", routingOrder: "2", name: "Brian D'Erario", email: "brian@hardwarefyi.com",
-      tabs: { signHereTabs: [{ documentId: "1", recipientId: "2", anchorString: "Signature (Hardware FYI):", anchorUnits: "pixels", anchorXOffset: "5", anchorYOffset: "-6" }] } }
+      tabs: { signHereTabs: [{ documentId: "1", recipientId: "2", anchorString: "Signature:", anchorUnits: "pixels", anchorXOffset: "5", anchorYOffset: "-6" }] } }
   ] }
 })
 ```
