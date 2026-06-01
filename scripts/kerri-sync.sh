@@ -54,8 +54,23 @@ done
 # Nothing left staged after safety filter → no-op.
 git diff --cached --quiet && exit 0
 
-SUMMARY="$(git diff --cached --name-only | sed 's#^#  - #' | head -20)"
+# Red-build guard: if this push touches test-relevant code (prompts, scripts, tests,
+# or the package manifest), run the suite FIRST. A prompt rewrite that auto-pushed
+# past its own regression tests is exactly how a red build landed on main unguarded
+# (2026-05-31). On failure: do NOT commit or push — unstage, drop a marker, and leave
+# the changes in the working tree for a human to fix. Pure brain/wiki markdown edits
+# (the common sweep write-back) skip this gate, so no latency on routine no-ops.
 TS="$(date '+%Y-%m-%d %H:%M %Z')"
+if git diff --cached --name-only | grep -qE '^(agent-prompts/|scripts/|test/|package(-lock)?\.json$)'; then
+  if ! npm test >/dev/null 2>&1; then
+    git reset -q HEAD -- "${ELIGIBLE[@]}" 2>/dev/null
+    printf 'kerri-sync: BLOCKED push at %s (runner: %s) — `npm test` failed on a code/prompt change. Nothing committed; fix the tests before this can sync to main.\n' "$TS" "$RUNNER" \
+      > "$BRAIN_DIR/data/kerri-sync-conflict.marker"
+    exit 0
+  fi
+fi
+
+SUMMARY="$(git diff --cached --name-only | sed 's#^#  - #' | head -20)"
 git commit -q -m "brain sync ($RUNNER) — $TS
 
 $SUMMARY" 2>/dev/null
