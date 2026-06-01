@@ -25,12 +25,17 @@ template was "horrible").
 | `[Fee]` | e.g. "$12,500 USD" | |
 | Payment Terms | literal default `Net 30 upon receipt of invoice` | only change if the deal differs |
 
-### Signature anchors (DocuSign tabs — do NOT replace these when filling)
+### Signature anchors (clean unique labels — no junk tokens)
 
-- `[[client-signature]]` — left column → Partner signer `signHere` (+ `dateSigned` with anchorXOffset).
-- `[[hardwarefyi-signature]]` — right column → Hardware FYI signer `signHere` (+ `dateSigned`).
-- One-time polish: in the MASTER, set these two tokens to **white font** so they're invisible in the
-  PDF while DocuSign still anchors on them. (Functional even if left visible.)
+The two signature labels are made **unique** so DocuSign can anchor each party's field correctly:
+
+- Left (client): label is `Signature ([Company]):` in the MASTER → becomes e.g. `Signature (Duro):` after
+  fill. Anchor the client `signHere` to that exact string (`Signature (<Company>):`).
+- Right (Hardware FYI): label is `Signature (Hardware FYI):` (constant). Anchor the HFYI `signHere` to it.
+- **No `dateSigned` tabs needed** — DocuSign auto-stamps the signing date. (Add one with `anchorXOffset`
+  off the signature label only if a visible date field is ever required.)
+- Name/Title lines are left blank for signers (DocuSign captures signer identity); pre-fill as text tabs
+  only if Brian asks.
 
 ## DocuSign account (sender)
 
@@ -62,11 +67,9 @@ createEnvelope(accountId, envelopeDefinition: {
                remoteUrl: "https://docs.google.com/document/d/<COPY_ID>/export?format=pdf" }],
   recipients: { signers: [
     { recipientId: "1", routingOrder: "1", name: "<Client signer>", email: "<client email>",
-      tabs: { signHereTabs:   [{ documentId: "1", recipientId: "1", anchorString: "[[client-signature]]", anchorUnits: "pixels", anchorXOffset: "0", anchorYOffset: "0" }],
-              dateSignedTabs: [{ documentId: "1", recipientId: "1", anchorString: "[[client-signature]]", anchorUnits: "pixels", anchorXOffset: "200", anchorYOffset: "0" }] } },
+      tabs: { signHereTabs: [{ documentId: "1", recipientId: "1", anchorString: "Signature (<Company>):", anchorUnits: "pixels", anchorXOffset: "5", anchorYOffset: "-6" }] } },
     { recipientId: "2", routingOrder: "2", name: "Brian D'Erario", email: "brian@hardwarefyi.com",
-      tabs: { signHereTabs:   [{ documentId: "1", recipientId: "2", anchorString: "[[hardwarefyi-signature]]", anchorUnits: "pixels", anchorXOffset: "0", anchorYOffset: "0" }],
-              dateSignedTabs: [{ documentId: "1", recipientId: "2", anchorString: "[[hardwarefyi-signature]]", anchorUnits: "pixels", anchorXOffset: "200", anchorYOffset: "0" }] } }
+      tabs: { signHereTabs: [{ documentId: "1", recipientId: "2", anchorString: "Signature (Hardware FYI):", anchorUnits: "pixels", anchorXOffset: "5", anchorYOffset: "-6" }] } }
   ] }
 })
 ```
