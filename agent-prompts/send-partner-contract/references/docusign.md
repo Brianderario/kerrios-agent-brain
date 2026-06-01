@@ -25,19 +25,28 @@ template was "horrible").
 | `[Fee]` | e.g. "$12,500 USD" | |
 | Payment Terms | literal default `Net 30 upon receipt of invoice` | only change if the deal differs |
 
-### Signature anchors (clean unique labels — no junk tokens)
+### Signature placement (both labels read plain `Signature:`)
 
-The two signature labels are made **unique** so DocuSign can anchor each party's field correctly:
+Per Brian, both columns' signature labels are plain `Signature:` (clean + aligned). That means the label
+text is NOT unique, so DON'T anchor on `Signature:` — DocuSign would place a tab at BOTH columns.
 
-- Left (client): label is `Signature ([Company]):` in the MASTER → becomes e.g. `Signature (Duro):` after
-  fill. Anchor the client `signHere` to that exact string (`Signature (<Company>):`).
-- Right (Hardware FYI): label is plain `Signature:` (kept short so the tab-positioned right column stays
-  aligned). Anchor the HFYI `signHere` to `Signature:` — it's unique because the left label is
-  `Signature (<Company>):` (no bare `Signature:` substring) and the word appears nowhere else.
-- **No `dateSigned` tabs needed** — DocuSign auto-stamps the signing date. (Add one with `anchorXOffset`
-  off the signature label only if a visible date field is ever required.)
-- Name/Title lines are left blank for signers (DocuSign captures signer identity); pre-fill as text tabs
-  only if Brian asks.
+Instead, place each `signHere` by **offset from a unique string in the fixed boilerplate just above the
+signature block**, using `anchorXOffset` to pick the column and `anchorYOffset` to drop down to the
+signature line:
+
+- **Anchor string:** `Content Approval:` — appears exactly once, inside the always-present "General
+  Terms" paragraph. The vertical gap from it to the signature line is constant (that boilerplate is
+  fixed), so placement stays correct even though `[Deliverables]` length varies per deal.
+- **Client (left column):** `signHere` → anchorString `Content Approval:`, small `anchorXOffset` (left),
+  `anchorYOffset` down to the signature line.
+- **Hardware FYI (right column):** `signHere` → same anchorString, larger `anchorXOffset` (right column),
+  same `anchorYOffset`.
+- **Calibrate offsets once** at first upload: create the envelope as `created` (draft), open the DocuSign
+  preview, nudge X/Y, then reuse those values. Record the calibrated offsets here once known:
+  - client: `anchorXOffset` `__TODO__`, `anchorYOffset` `__TODO__`
+  - hfyi:   `anchorXOffset` `__TODO__`, `anchorYOffset` `__TODO__`
+- **No `dateSigned` tabs** — DocuSign auto-stamps the signing date.
+- Name/Title lines stay blank (DocuSign captures signer identity); pre-fill as text tabs only if Brian asks.
 
 ## DocuSign account (sender)
 
@@ -69,9 +78,9 @@ createEnvelope(accountId, envelopeDefinition: {
                remoteUrl: "https://docs.google.com/document/d/<COPY_ID>/export?format=pdf" }],
   recipients: { signers: [
     { recipientId: "1", routingOrder: "1", name: "<Client signer>", email: "<client email>",
-      tabs: { signHereTabs: [{ documentId: "1", recipientId: "1", anchorString: "Signature (<Company>):", anchorUnits: "pixels", anchorXOffset: "5", anchorYOffset: "-6" }] } },
+      tabs: { signHereTabs: [{ documentId: "1", recipientId: "1", anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "<client-x>", anchorYOffset: "<down-to-sig-line>" }] } },
     { recipientId: "2", routingOrder: "2", name: "Brian D'Erario", email: "brian@hardwarefyi.com",
-      tabs: { signHereTabs: [{ documentId: "1", recipientId: "2", anchorString: "Signature:", anchorUnits: "pixels", anchorXOffset: "5", anchorYOffset: "-6" }] } }
+      tabs: { signHereTabs: [{ documentId: "1", recipientId: "2", anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "<hfyi-x>", anchorYOffset: "<down-to-sig-line>" }] } }
   ] }
 })
 ```
