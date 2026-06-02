@@ -41,6 +41,10 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/draft-learnings]] — reusable Brian-edit lessons from task drafts
 - [[wiki/properties/hardware-fyi]] — current sponsor products, product-selection rules, and lead-gen positioning
 
+## "What's our audience / readership / demographics?" / sponsor asks for industry / seniority / geography / company-size splits
+
+- [[wiki/properties/hardware-fyi-audience]] — audience demographics. Tier A = directional Apollo sample (quote with caveat); Tier B = canonical media-kit numbers (pending Brian/Benji). Read before answering any audience-fit question.
+
 ## "How do I quote a sponsor package / pricing / tiers?" / "post-call package options" / "how much for X"
 
 - [[wiki/workflows/hwfyi-package-quote-playbook]] — **MANDATORY read before writing or editing any sponsor price/package/tier.** Bundle construction rules (never a single Primary Placement; placements come in multiples and scale with the tier), high→low anchoring, the Modelwise reference ladder, and the "new prices need Brian's confirmation" gate.

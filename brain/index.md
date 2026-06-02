@@ -40,6 +40,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 
 - [[wiki/properties/kmg]] — Kerri Media Group (parent)
 - [[wiki/properties/hardware-fyi]] — flagship newsletter + community
+- [[wiki/properties/hardware-fyi-audience]] — audience demographics (Tier A directional / Tier B canonical-pending) for sponsor audience-fit answers
 - [[wiki/properties/kinetic]] — annual SF conference
 - [[wiki/events/kinetic-2026]] — year-one event (May 2026, SF); post-event deliverables incl. canonical photos link
 - [[wiki/properties/savant]] — placeholder; fill in next session

@@ -31,6 +31,10 @@ KMG-owned media property. Industry newsletter + community + events for hardware 
 - `info@hardwarefyi.com` — general inbound
 - Auto-CC safety net: `brian@hardwarefyi.com` on every Kerri/Brian HWFYI send
 
+## Audience
+
+Demographic splits (industry / seniority / geography / company size) live in **[[hardware-fyi-audience]]** — read it before answering any sponsor audience-fit question. Tier A = directional Apollo sample; Tier B = canonical media-kit numbers (pending Brian/Benji).
+
 ## Editorial stance
 
 Industry-base focused. Semiconductors, robotics, EVs, energy, defense, advanced manufacturing. Peer-tone, non-fluffy, builder-audience. See [[editorial-voice]] (TBD).
