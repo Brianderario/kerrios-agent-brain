@@ -37,3 +37,5 @@ scope: Hardware FYI partner/content prospect · updated: 2026-06-01
 ## Source pointers
 
 - `brian@hardwarefyi.com` thread: `Re: Neural Concept <> Hardware FYI`
+
+- **2026-06-02 (sent):** Brian replied to Ariane's audience-fit questions with the full breakdown (seniority ~50% IC / ~20% mgr-dir / ~30% VP-C-suite-founder; industry concentrated in aero-defense/semis/auto/industrial + named employers; geo ~60%+ US, CA-led, ~⅓ intl; size ~45% startup, rest even mid/enterprise). Numbers from the Apollo-enriched ~1,200-subscriber sample, framed as the "working/professional core." Awaiting NC's priorities + budget to tailor a package ($15K/$10K/$5K on the table). Benji on thread.
