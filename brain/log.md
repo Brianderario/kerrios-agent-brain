@@ -1146,3 +1146,6 @@ Brian: "fix this if it hasn't already" → chose BOTH. Part-1 (prevent recurrenc
 
 ## 2026-06-02 PM | H0014-duro-labs | Kerri (Claude interactive)
 Brian-directed: picked Duro PP kickoff dates by live CRM availability + booked them. 3 Primary Placements → Tue Jun 9 (Row 46, also Tools-We-Love start) / Jul 7 (Row 54) / Aug 4 (Row 62) on the "Newsletter Ad Calendar" tab; PP tracker rows H17:N20 added ($12,500/6mo + 3 placements). Updated the Robert reply draft (task NlFwckxHb3R6alFaT2xpZw) to confirm receipt + Jun 9 kickoff + the 3 dates; jobs.json originalDraft synced in lockstep. CRM write per Brian direct instruction (approval gate). Pending Brian approval to send. duro-labs.md updated.
+
+## 2026-06-02 PM (edit) | H0014-duro-labs | Kerri (Claude interactive)
+Brian: move the July Duro placement off the 4th-of-July week. Re-booked CRM 7/7 (Row 54)→7/14 (Row 56); freed 7/7 back to available; PP tracker July row updated to 2026-07-14 / Row 56. Draft (task NlFwckxHb3R6alFaT2xpZw) + jobs.json synced to Jun9/Jul14/Aug4. Still pending Brian approval.
