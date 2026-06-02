@@ -7,7 +7,7 @@ slug: jiga
 
 # Jiga
 
-scope: Hardware FYI sponsor/customer relationship - updated: 2026-05-29
+scope: Hardware FYI sponsor/customer relationship - updated: 2026-06-02
 
 Jiga is an active Hardware FYI sponsor/customer focused on manufacturer access and supplier relationships for hardware teams.
 
@@ -37,11 +37,18 @@ Jiga is an active Hardware FYI sponsor/customer focused on manufacturer access a
 - Khay's email says ~8-9 placements remain incl. a Protolabs make-good. Jiga's only logged calendar history is a Partner Program Promotion on 2026-01-10 (tracker Row 3); no Jiga contract row exists in the sheet's contracts/revenue tabs — placement-count reconciliation is a gap.
 - Schedule source of truth: [[../properties/hardware-fyi]] → HWFYI Google Sheet.
 
+## Primary Placements BOOKED into ad calendar (2026-06-02, Kerri interactive, Brian-directed)
+
+Brian directed Kerri to book Jiga's 9 emailed Primary Placements into the canonical Sheet ("Newsletter Ad Calendar" tab). All 9 now Booked → Jiga, labeled "X of 9 remaining placements" (9th = "incl. Protolabs make-good"):
+- **June:** 6/9 (Row 46, 1/9), 6/16 (48, 2/9), 6/20 (49, 3/9), 6/27 (51, 4/9)
+- **July:** 7/4 (53, 5/9), 7/11 (55, 6/9), 7/14 (56, 7/9), 7/21 (58, 8/9), 7/25 (59, 9/9)
+- Two dates collided with Duro Partner-Program placements; Brian said move Duro: **Duro PP1 6/9→6/23, Duro PP2 7/14→7/18** (see [[duro-labs]]). Jiga kept all 9 emailed dates. Booked count 52→61, inventory 49→40 (sheet formulas).
+- These are HWFYI's working slots from Brian's 5/30 reply ("we'll slot each one against these dates"); Jiga has NOT confirmed the dates in writing — Khay was sending creative.
+
 ## Open loop
 
-- H0034 Google Task `SnR1REdJMVYyMk5Ebm9USQ`: draft now lists the Brian-approved 9-placement spread — **June 6/9, 6/16, 6/20, 6/27; July 7/4, 7/11, 7/14, 7/21, 7/25** (4 June / 5 July), leading with "Build Real Supplier Relationships." Pending Brian approval; no send.
-- On approval: book these 9 slots in the HWFYI schedule sheet (not yet booked).
-- Reconcile Jiga's remaining-placement count — Khay asserts 9 (8 + Protolabs make-good) but no Jiga contract row exists in the sheet; draft invites her to flag if it differs.
+- ⚠️ Duro reply draft now has stale dates — see [[duro-labs]] STALE DRAFT FLAG before any Duro send.
+- Reconcile Jiga's remaining-placement count — Khay asserts 9 (8 + Protolabs make-good) but no Jiga contract row exists in the sheet; treat as sponsor-side tally to confirm.
 - Exact event date/venue and final event materials are not confirmed in KerriOS.
 
 ## Source pointers
