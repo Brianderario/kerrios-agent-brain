@@ -8,7 +8,7 @@ slug: franklinwh-energy-storage
 
 # FranklinWH Energy Storage
 
-scope: company · updated: 2026-06-02 · status: cold-outreach-prospect
+scope: company · updated: 2026-06-02 · status: cold-emailed
 
 Residential LFP home-energy-storage hardware (Franklin Home Power). $25M Series B; ~120 emp +18%/yr; hiring marketing.
 
@@ -19,4 +19,4 @@ Residential LFP home-energy-storage hardware (Franklin Home Power). $25M Series 
 ## Source
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
-- First cold touch drafted 2026-06-02 by Kerri (kerri-cold-outreach daily batch)
+- First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)

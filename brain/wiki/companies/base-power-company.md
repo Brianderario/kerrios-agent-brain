@@ -8,7 +8,7 @@ slug: base-power-company
 
 # Base Power Company
 
-scope: company · updated: 2026-06-02 · status: cold-outreach-prospect
+scope: company · updated: 2026-06-02 · status: cold-emailed
 
 Home-battery + retail-electricity (founded by Zach Dell). $1B Series C Oct 2025; +172% headcount/yr; building US battery manufacturing; contact ex-SpaceX growth.
 
@@ -19,4 +19,4 @@ Home-battery + retail-electricity (founded by Zach Dell). $1B Series C Oct 2025;
 ## Source
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
-- First cold touch drafted 2026-06-02 by Kerri (kerri-cold-outreach daily batch)
+- First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)

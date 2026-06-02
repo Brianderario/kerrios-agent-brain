@@ -8,7 +8,7 @@ slug: astrolab
 
 # Astrolab
 
-scope: company · updated: 2026-06-02 · status: cold-outreach-prospect
+scope: company · updated: 2026-06-02 · status: cold-emailed
 
 Commercial lunar rovers (FLEX; NASA Lunar Terrain Vehicle contract w/ Axiom). ~100 emp +29%/yr; contact ex-Canoo/Pabst brand lead.
 
@@ -19,4 +19,4 @@ Commercial lunar rovers (FLEX; NASA Lunar Terrain Vehicle contract w/ Axiom). ~1
 ## Source
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
-- First cold touch drafted 2026-06-02 by Kerri (kerri-cold-outreach daily batch)
+- First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)

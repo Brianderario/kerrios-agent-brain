@@ -8,7 +8,7 @@ slug: t1-energy
 
 # T1 Energy
 
-scope: company · updated: 2026-06-02 · status: cold-outreach-prospect
+scope: company · updated: 2026-06-02 · status: cold-emailed
 
 US solar-module + battery manufacturer (formerly FREYR), NASDAQ:TE ~$1.7B mkt cap; ~330 emp; Texas gigafactory ramp; CMO since Dec 2025.
 
@@ -19,4 +19,4 @@ US solar-module + battery manufacturer (formerly FREYR), NASDAQ:TE ~$1.7B mkt ca
 ## Source
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
-- First cold touch drafted 2026-06-02 by Kerri (kerri-cold-outreach daily batch)
+- First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)

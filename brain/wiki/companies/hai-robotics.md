@@ -8,7 +8,7 @@ slug: hai-robotics
 
 # Hai Robotics
 
-scope: company · updated: 2026-06-02 · status: cold-outreach-prospect
+scope: company · updated: 2026-06-02 · status: cold-emailed
 
 Warehouse ACR robotics; fits AUTOMATE/RoboBusiness exhibitor profile; reaches hardware engineers HWFYI sells to; headcount +9% in 6mo.
 
@@ -19,4 +19,4 @@ Warehouse ACR robotics; fits AUTOMATE/RoboBusiness exhibitor profile; reaches ha
 ## Source
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
-- First cold touch drafted 2026-06-02 by Kerri (kerri-cold-outreach daily batch)
+- First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)

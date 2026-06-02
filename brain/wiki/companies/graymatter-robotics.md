@@ -8,7 +8,7 @@ slug: graymatter-robotics
 
 # GrayMatter Robotics
 
-scope: company · updated: 2026-06-02 · status: cold-outreach-prospect
+scope: company · updated: 2026-06-02 · status: cold-emailed
 
 AI-driven robotic surface-finishing (sand/grind/blast/polish) for aerospace + marine + specialty-vehicles mfg. $73.5M total raised (Series B June 2024, NGP/3M/Wellington); +10% headcount/6mo.
 
@@ -19,4 +19,4 @@ AI-driven robotic surface-finishing (sand/grind/blast/polish) for aerospace + ma
 ## Source
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
-- First cold touch drafted 2026-06-02 by Kerri (kerri-cold-outreach daily batch)
+- First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)

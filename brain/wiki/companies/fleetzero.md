@@ -8,7 +8,7 @@ slug: fleetzero
 
 # Fleetzero
 
-scope: company · updated: 2026-06-02 · status: cold-outreach-prospect
+scope: company · updated: 2026-06-02 · status: cold-emailed
 
 Battery-electric cargo ships + marine energy storage (YC, Maersk-backed). $43M Series A Jan 2026; +80% headcount/yr; contact ex-GMC Hummer EV marketer.
 
@@ -19,4 +19,4 @@ Battery-electric cargo ships + marine energy storage (YC, Maersk-backed). $43M S
 ## Source
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
-- First cold touch drafted 2026-06-02 by Kerri (kerri-cold-outreach daily batch)
+- First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)

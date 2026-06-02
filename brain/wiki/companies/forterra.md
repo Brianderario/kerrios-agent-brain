@@ -8,7 +8,7 @@ slug: forterra
 
 # Forterra
 
-scope: company · updated: 2026-06-02 · status: cold-outreach-prospect
+scope: company · updated: 2026-06-02 · status: cold-emailed
 
 Ground-autonomy systems for defense + commercial vehicle OEMs. $188M Series C Nov 2025 (>$1B valuation, Salesforce Ventures); +65% headcount/yr. Contact emails from roboticresearch.com (former name Robotic Research).
 
@@ -19,4 +19,4 @@ Ground-autonomy systems for defense + commercial vehicle OEMs. $188M Series C No
 ## Source
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
-- First cold touch drafted 2026-06-02 by Kerri (kerri-cold-outreach daily batch)
+- First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)
