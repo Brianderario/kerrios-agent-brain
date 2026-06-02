@@ -2,6 +2,9 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-06-01 21:55 ET] gap-sweep | auto:0 pr:1 task:1 | Kerri (Claude scheduled)
+Whole-system A–P sweep. Machinery clean (npm check + 65/65 tests green, diff clean, 7/7 routines enabled+firing, all connectors reachable, host healthy, gates intact). **PR #7** — added the missing Improve loop-contract step to kerri-lead-research (class D; 5/6 fields → 6/6; reflection-only, no send/CRM change). **Task** (KerriMG `YzhMZ2ZuOTdkNmlndWxLaQ`, class K) — routines mis-date ET-labeled writes +1 day in the 8pm–midnight ET window (harness currentDate is UTC; NOW.md baton read 2026-06-02 while real ET=2026-06-01, log.md correct). Zero auto-fixes — declined to hand-edit the live NOW.md baton (the */15 sweep owns it). Carryovers not re-filed: C1/G1/G2 on open PR #1, redaction guard on open PR #6. Ledger: data/gap-sweep-state.json run #4.
+
 ## [2026-06-01 18:38 ET] eod-review | 4 meetings, 0 new drafts, 1 flagged | Kerri (Claude scheduled)
 2 transcribed sponsor calls today: Aris Machina/William Steel (8:30am, H0001) + Neural Concept (12:00pm, H0024). Wrote both meeting pages + entity updates; follow-up drafts were ALREADY pending (created this morning by interactive orphan-task reconciliation), so NOT duplicated — enriched the two pending jobs.json entries with meetingPage/granolaMeetingId/calendarEventId. Brian/Benji 1:1 (16:00) no Granola match → 5C routine-internal recap task (G list). Excluded out-of-KMG-scope: 2 masked "Personal Commitment" blocks on the arkaeamedia.com calendar + Reclaim lunch. Sendblue heads-up sent OK (config now working). Open: Brian should verify H0001/H0024 drafts answer every transcript ask before sending.
 
