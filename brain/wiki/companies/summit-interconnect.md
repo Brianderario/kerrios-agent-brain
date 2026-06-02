@@ -7,7 +7,7 @@ slug: summit-interconnect
 
 # Summit Interconnect
 
-scope: sponsor prospect · updated: 2026-05-27
+scope: sponsor prospect · updated: 2026-06-02
 
 PCB / interconnect manufacturer sponsor prospect for Hardware FYI.
 
@@ -15,6 +15,8 @@ PCB / interconnect manufacturer sponsor prospect for Hardware FYI.
 
 - 2026-05-27: Carrie Gonzales followed up after a same-day call with Brian about a 2026 Hardware FYI partnership. Summit is targeting an August-September feature article with supporting placements, wants to keep the budget around or under $10K, and is optimizing for brand awareness around its multi-facility footprint plus thought leadership, with possible gated-content lead-generation interest. Kerri queued H0028 in Hardware FYI Google Tasks for Brian approval.
 - 2026-05-27: Meeting transcript clarifies the strongest content angle: Summit's 10th anniversary, technical lessons/case studies from a decade of PCB manufacturing, and broader awareness of its seven-facility footprint. (src: meetings/2026-05-27-summit-interconnect-hardware-fyi.md)
+- 2026-05-29: Brian sent 3 packages (CC'd Benji + Milan Shah): **A $10K** (custom content case study + 1x newsletter Partner Program, 3mo), **B $25K** (2x happy hour + custom content + 1x Partner Program 6mo), **C $60K** (2x happy hour incl. SF Tech Week + custom content + 2x Partner Program 6mo + Kinetic 2027 presenting w/ $25K menu credits). Custom-content title pitched: "10 Years of Lessons Building Hard Tech" w/ 2-4 case studies.
+- 2026-06-02: Carrie replied positive — custom content concept "particularly interesting," **Package A is the closest fit** to current budget; reviewing internally with leadership before deciding; asked Brian to **share last year's insertion order**. Queued H0028 Brian-sender reply-all (keeps Benji) affirming Package A + Aug–Sep timing + offering a leadership call. ⚠ Last year's IO not in KerriOS — Brian/Benji to attach before send.
 
 ## Open Questions
 
