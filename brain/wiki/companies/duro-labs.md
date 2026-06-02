@@ -7,7 +7,7 @@ slug: duro-labs
 
 # Duro Labs
 
-scope: Hardware FYI sponsor / prospect · updated: 2026-05-28
+scope: Hardware FYI sponsor (Partner Program WON + executed) · updated: 2026-06-02
 
 ## Overview
 
@@ -57,3 +57,12 @@ Built with the new `send-partner-contract` skill (duplicate MASTER Google Doc �
 2. **Event Sponsorship SOW — $44,000 — DRAFT staged.** Doc `Duro x Hardware FYI 2026 — Event Sponsorship` (gdoc `1SOF9shDSUGCmnDEm_0vbb4bw4sOelqk5Amnk-en-MOM`). Envelope `0d453fcb-f0a7-8aab-81e0-b25e5ebac045` — **status created (draft)**, signer Nehemoyia Young (nehemoyia@durolabs.co → routes to Altium) + Brian. Scope: 2x Custom Dinners ($12K each = $24K) + SF Tech Week presenting sponsorship ($20K). SFTW ~Oct 2026; **dinner dates TBD**. Net 30. Brian approved upload; **send to Nehemoyia pending Brian's go + dinner dates.**
 
 This closes the "build + send the events SOW" deliverable (built + staged) and the "send Robert the contract" deliverable (sent). Still open for go-live: collect Duro logo + product-page URL + confirm start date; finalize dinner dates before sending the events SOW.
+
+## 2026-06-02 — Partner Program fully executed + launch assets received (go-live unblocked)
+Robert signed the $12,500/6mo Partner Program SOW via DocuSign (flagged the signature field landed slightly off; cosmetic) and **Brian countersigned** on-thread (~12:36 ET). Robert then replied 16:18 ET delivering everything for go-live (inbox-sweep task H0014, gtasks `NlFwckxHb3R6alFaT2xpZw`, Brian-sender kickoff reply queued):
+- **Logos:** 6 files attached (zip + .ai: Duro Large, white, square D, 2x green/dark marketing transparent). On the Duro thread; Benji has them via cc.
+- **Destination link (Tools section CTA):** `https://durolabs.co/request-demo/?utm_source=newsletter&utm_medium=email&utm_campaign=hardwarefyi`
+- **Product blurb (Tools section copy):** "Duro PLM is AI-native, API-first, and fully programmable—built to meet the present and leap into the future. Duro centralizes part data, manages change orders, and connects your stack so your team can focus on innovation, not administration. A digital thread that just works."
+- **Newsletter placement months:** **June, July, August** (the 3 Primary Placements across the 6-mo activation). Robert: "Might as well get started," + floated more budget for **Sept/Oct** if placements perform.
+
+**Open deliverable (Benji):** stand up the Partner Program — Tools-We-Love weekly feature + logo + product link live; schedule the 3 Primary Placements for Jun/Jul/Aug. The "collect logo/product-page URL/start date" gap is now CLOSED. Events SOW (2 dinners + SFTW → Altium, dinner dates TBD) remains the only open Duro item.
