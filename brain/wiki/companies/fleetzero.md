@@ -8,7 +8,7 @@ slug: fleetzero
 
 # Fleetzero
 
-scope: company · updated: 2026-06-02 · status: cold-emailed
+scope: company · updated: 2026-06-02 · status: warm — replied to cold outreach
 
 Battery-electric cargo ships + marine energy storage (YC, Maersk-backed). $43M Series A Jan 2026; +80% headcount/yr; contact ex-GMC Hummer EV marketer.
 
@@ -20,3 +20,7 @@ Battery-electric cargo ships + marine energy storage (YC, Maersk-backed). $43M S
 
 - lead-research (Apollo-enriched, queued 2026-06-01)
 - First cold email SENT 2026-06-02 by Kerri (kerri-cold-outreach batch; approved by Brian via Google Tasks)
+
+## Thread
+
+- 2026-06-02 18:24 ET — Matt replied to the cold pitch: *"Are you looking for earned or paid content?"* — first warm engagement. Kerri queued a reply (task H0054, pending Brian) answering directly (paid; placements / Partner Program / custom content), favoring the content-led formats, offering a call w/ Calendly. No price menu yet (product-education posture per H0001).
