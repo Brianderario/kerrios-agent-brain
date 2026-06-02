@@ -53,14 +53,19 @@ accountId, the contracts-folder requirement, and the exact `createEnvelope` call
   link-shared one (see `references/docusign.md`) so the PDF export is publicly fetchable.
 - `gdocs_replace` on the **copy** for each fill token: `[Company]`, `[Date]`, `[Deliverables]`,
   `[Platforms]`, `[Schedule]`, `[Fee]` (and Payment Terms only if non-standard). **Do not touch the
-  `[[client-signature]]` / `[[hardwarefyi-signature]]` anchors** — DocuSign needs them.
+  `Content Approval:` boilerplate or the signature block labels (`Name:` / `Signature:` / `Date:`)** —
+  the DocuSign tabs anchor off `Content Approval:` by pixel offset, so changing that text or the block
+  layout breaks placement (see `references/docusign.md`).
 - Build the PDF export URL: `https://docs.google.com/document/d/<COPY_ID>/export?format=pdf`.
 - Sanity-read the filled copy to confirm no stray `[token]` remains.
 
 ### 4. Build the DRAFT envelope
 - `createEnvelope` with `status:"created"`, the export URL as the document `remoteUrl`, and the two
-  signers with `signHere` + `dateSigned` tabs anchored to the signature tokens. Exact shape in
-  `references/docusign.md`. Capture the returned **envelopeId**.
+  signers. Each signer gets **three tabs** on their column — **Name** (`textTabs`, pre-filled `value` =
+  signer's name), **Signature** (`signHereTabs`), **Date** (`dateSignedTabs`, auto-stamped) — all anchored
+  off `Content Approval:` with the VERIFIED pixel offsets in `references/docusign.md`. Capture the returned
+  **envelopeId**. (If you ever re-lay-out the MASTER signature block, re-calibrate the offsets per the
+  reference before sending — placement is template-specific.)
 
 ### 5. Approval gate (Google Tasks)
 - Create a Google Task on the **Hardware FYI** list, title `<JOBID> — <Company> — Partner Program contract`.
