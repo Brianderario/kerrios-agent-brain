@@ -2,6 +2,9 @@
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 
+## [2026-06-01 22:14 ET] brain-push | 21a2e28 | Kerri (Claude scheduled)
+Nightly push: 3 eligible files committed + pushed to origin/main (e83b804→21a2e28). 2 wiki Activity appends (aris-machina — H0001 post-call package follow-up sent by Brian; standard-and-works — S0001 Zach/Utah newsletter coordination, KMG-side, no S/W internal content) + 2 brain/log.md sweep entries. Validation green: npm run check OK, npm test 65/65, git diff --check clean. Intentionally left unstaged (outside the eligible brain set / runtime state / unmerged WIP): .gitignore, NOW.md, data/companies.json, data/lead-research/conferences.json, test/core-automation-bundle.test.js, untracked artifacts/ + data/gap-sweep-state.json + data/sweep-cadence.log + test/inbox-sweep-lock.test.js. No sensitive/credential files staged. Note: this run labeled ET correctly (real ET 2026-06-01 22:14); the 2026-06-02 sweep entries reflect the known UTC +1-day drift flagged in the 21:55 gap-sweep.
+
 ## [2026-06-01 21:55 ET] gap-sweep | auto:0 pr:1 task:1 | Kerri (Claude scheduled)
 Whole-system A–P sweep. Machinery clean (npm check + 65/65 tests green, diff clean, 7/7 routines enabled+firing, all connectors reachable, host healthy, gates intact). **PR #7** — added the missing Improve loop-contract step to kerri-lead-research (class D; 5/6 fields → 6/6; reflection-only, no send/CRM change). **Task** (KerriMG `YzhMZ2ZuOTdkNmlndWxLaQ`, class K) — routines mis-date ET-labeled writes +1 day in the 8pm–midnight ET window (harness currentDate is UTC; NOW.md baton read 2026-06-02 while real ET=2026-06-01, log.md correct). Zero auto-fixes — declined to hand-edit the live NOW.md baton (the */15 sweep owns it). Carryovers not re-filed: C1/G1/G2 on open PR #1, redaction guard on open PR #6. Ledger: data/gap-sweep-state.json run #4.
 
