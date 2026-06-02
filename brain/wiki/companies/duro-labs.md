@@ -66,3 +66,10 @@ Robert signed the $12,500/6mo Partner Program SOW via DocuSign (flagged the sign
 - **Newsletter placement months:** **June, July, August** (the 3 Primary Placements across the 6-mo activation). Robert: "Might as well get started," + floated more budget for **Sept/Oct** if placements perform.
 
 **Open deliverable (Benji):** stand up the Partner Program — Tools-We-Love weekly feature + logo + product link live; schedule the 3 Primary Placements for Jun/Jul/Aug. The "collect logo/product-page URL/start date" gap is now CLOSED. Events SOW (2 dinners + SFTW → Altium, dinner dates TBD) remains the only open Duro item.
+
+### 2026-06-02 (PM) — kickoff dates picked + booked into CRM (Kerri interactive, Brian-directed)
+Brian: "confirm Jun/Jul/Aug PP kickoff go into the hardware fyi CRM, identify dates by availability, update the reply to Robert." Picked the first available Tuesday issue per month against live availability in the canonical Sheet ("Newsletter Ad Calendar" tab; 6/2 today already booked Onshape):
+- **Tue Jun 9** — Primary Placement 1 of 3 + weekly Tools-We-Love feature begins (Row 46)
+- **Tue Jul 7** — Primary Placement 2 of 3 (Row 54)
+- **Tue Aug 4** — Primary Placement 3 of 3 (Row 62)
+All three were FALSE/available → now Booked → Duro. Added Duro block to the Partner Program Tracker (rows H17:N20: PP master $12,500/6mo + the 3 placements w/ calendar-row cross-refs). Per-placement price left blank (revenue under the PP; Jiga PP-promo precedent) to avoid double-counting. **Brian-sender reply-all draft (task `NlFwckxHb3R6alFaT2xpZw`) updated** to confirm asset receipt, the Jun 9 Tools-We-Love kickoff, and the 3 primary-ad dates — jobs.json ⇄ Task in lockstep. ⚠ Pending Brian approval (no send); confirm Benji can action the setup on this timeline.
