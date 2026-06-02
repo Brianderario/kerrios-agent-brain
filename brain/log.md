@@ -1149,3 +1149,9 @@ Brian-directed: picked Duro PP kickoff dates by live CRM availability + booked t
 
 ## 2026-06-02 PM (edit) | H0014-duro-labs | Kerri (Claude interactive)
 Brian: move the July Duro placement off the 4th-of-July week. Re-booked CRM 7/7 (Row 54)→7/14 (Row 56); freed 7/7 back to available; PP tracker July row updated to 2026-07-14 / Row 56. Draft (task NlFwckxHb3R6alFaT2xpZw) + jobs.json synced to Jun9/Jul14/Aug4. Still pending Brian approval.
+
+## 2026-06-02 17:19 ET | H0036-alta-advisors | Kerri (kerri-inbox-sweep)
+Brian approved via Google Tasks (box checked 21:06Z). Sent the Alta Advisors re-engagement reply from brian@hardwarefyi.com on the existing chain (To: Taylor Ogden). No-double-email gate cleared: re-read live thread, no reply since the Apr 14 nudge (last two 6/1 messages were Brian's self-resurface of the original inquiry, brian→brian). Pivoted the ask off the finished Kinetic event to HWFYI year-round digital (Primary Placements / Partner Program / custom content) + Calendly. 3rd touch after ~8wk silence. jobs.json H0036 pending→sent; alta-advisors.md updated. Draft was a Kerri redo (08:11 ET) — no Brian-edit, no draft-learnings entry.
+
+## 2026-06-02 17:19 ET | H0002-bananaz | Kerri (kerri-inbox-sweep)
+Box-checked + ACTION:skip. Processed as skip: receipt already delivered twice (Mercury INV-128 auto-receipt $3,750 + Benji direct, both 14:07 ET) so the Kerri reply was fully redundant — skipped to avoid a triple-email. jobs.json H0002 pending→skipped; task retitled ⏭️. No figures in brain.
