@@ -1,6 +1,6 @@
 # Claude-Side Routines (canonical)
 
-scope: routine spec · updated: 2026-05-29 · author: Brian + Kerri
+scope: routine spec · updated: 2026-06-02 · author: Brian + Kerri
 
 The Claude Code counterpart to [`kerri-skill/references/automations.md`](kerri-skill/references/automations.md) ("Codex Primary"). This file defines how Kerri's scheduled routines run on **local Claude Code durable cron** — the substrate Brian chose 2026-05-29 to replace Codex's automations.
 
@@ -14,6 +14,15 @@ Two substrate facts that are NOT optional to plan around:
 
 1. **A Claude Code REPL must be running and idle for any job to fire.** If the Mac is asleep or no session is open, nothing runs. (Codex's cloud runner had no such constraint.) `com.kerri.routine-liveness` (launchd, every 15m) now catches a routine that has gone dark and texts Brian.
 2. **7-day expiry — RESOLVED (not applicable).** That expiry was a property of the older `CronCreate durable=true` approach. The scheduled-tasks MCP jobs above are **persistent and do not auto-expire**, so no weekly "re-arm" job is needed. (Decision settled 2026-05-30: scheduled-tasks MCP is the chosen substrate; durable cron is not used — there is no `~/.claude/crons/`.) `kerri-gap-sweep` class I + the liveness watchdog still watch that the tasks stay `enabled` and keep firing.
+
+## Date & time handling — ET clock, never the harness `currentDate`
+
+Every `<YYYY-MM-DD>`, `<date>`, and `HH:MM ET` a routine writes — NOW.md baton, `brain/log.md`, commit messages, task titles, ledger/state keys, meeting + fallback filenames — is an **ET calendar date** and MUST be derived from the machine clock:
+
+- date  → `TZ='America/New_York' date +%F`                    (e.g. `2026-06-01`)
+- stamp → `TZ='America/New_York' date +'%Y-%m-%d %H:%M %Z'`   (e.g. `2026-06-01 22:08 EDT`)
+
+**Never label a write with the harness-provided `currentDate`.** That value is **UTC**, so in the **8pm–midnight ET window** it has already rolled to the next day and silently mis-dates ET writes by **+1** (root cause: gap-sweep run #4, 2026-06-01 — baton read `2026-06-02` while real ET was `2026-06-01`). The Mac clock is ET, so `TZ='America/New_York'` is both the correct source and robust if the clock ever drifts off ET. Affected runners explicitly carry this rule at their date-stamp step: `kerri-inbox-sweep`, `kerri-gap-sweep`, `kerri-brain-push` (all write inside the window).
 
 ## The loop contract every routine must satisfy
 

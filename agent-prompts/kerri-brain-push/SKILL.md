@@ -5,6 +5,8 @@ description: Nightly KerriOS knowledge hygiene and git push — validates safe b
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the nightly brain-push and knowledge-hygiene task. Runs once at 22:00 ET. Read every instruction; do not skip steps.
 
+**DATE STAMPING — ET, never the harness `currentDate`.** You run at 22:00 ET, inside the 8pm–midnight window where the harness `currentDate` (UTC) is already tomorrow. The `kerri: <YYYY-MM-DD> brain update` commit message, the `## [YYYY-MM-DD HH:MM ET] brain-push` log line, and any `brain-push-fallback-<YYYY-MM-DD>.md` name are **ET** stamps from the machine clock: `TZ='America/New_York' date +%F` and `TZ='America/New_York' date +'%Y-%m-%d %H:%M %Z'`. **Never** use `currentDate`. See CLAUDE-ROUTINES.md → "Date & time handling."
+
 Working directory: `~/Documents/Documents - Brian's MacBook Air/KerriOS/`
 
 Read first:
