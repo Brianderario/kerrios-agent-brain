@@ -12,6 +12,9 @@ template was "horrible").
 - Tokenized copy of Brian's "(TEMPLATE) Hardware FYI SOW Contract" (`1Wrs4XltleQ9TCMLsAJWB95lYHOeyCe8QV4eHbJHyJzA`),
   formatting preserved, prior-client specifics removed.
 - **Never edit the MASTER per-deal.** Always `copy_file` it first, then fill the copy.
+- **Signature block (2026-06-02):** two columns (`[Company]` left / `Hardware FYI` right), each with three
+  fields — `Name:`, `Signature:`, `Date:`. The skill places a tab on every one (see "Signature block"
+  below). The old `Title:` field was replaced by `Date:` on this date.
 
 ### Fill tokens (square brackets — matches Brian's style)
 
@@ -25,28 +28,50 @@ template was "horrible").
 | `[Fee]` | e.g. "$12,500 USD" | |
 | Payment Terms | literal default `Net 30 upon receipt of invoice` | only change if the deal differs |
 
-### Signature placement (both labels read plain `Signature:`)
+### Signature block — three fields per party: **Name / Signature / Date**
 
-Per Brian, both columns' signature labels are plain `Signature:` (clean + aligned). That means the label
-text is NOT unique, so DON'T anchor on `Signature:` — DocuSign would place a tab at BOTH columns.
+Per Brian (2026-06-02), each column's signature block has three fields that the skill MUST populate:
+`Name:`, `Signature:`, `Date:` (the template's old `Title:` line was changed to `Date:` — MASTER updated
+2026-06-02). So every signer gets **three** tabs: a pre-filled **Name** text tab, a **signHere**, and a
+**dateSigned**.
 
-Instead, place each `signHere` by **offset from a unique string in the fixed boilerplate just above the
-signature block**, using `anchorXOffset` to pick the column and `anchorYOffset` to drop down to the
-signature line:
+All labels (`Name:` / `Signature:` / `Date:`) appear in BOTH columns, so the label text is NOT unique —
+DON'T anchor on the labels directly (DocuSign places a tab at every match). Instead, anchor every tab off
+the single unique string `Content Approval:` and use `anchorXOffset` to pick the column + `anchorYOffset`
+to pick the line:
 
 - **Anchor string:** `Content Approval:` — appears exactly once, inside the always-present "General
-  Terms" paragraph. The vertical gap from it to the signature line is constant (that boilerplate is
-  fixed), so placement stays correct even though `[Deliverables]` length varies per deal.
-- **Client (left column):** `signHere` → anchorString `Content Approval:`, small `anchorXOffset` (left),
-  `anchorYOffset` down to the signature line.
-- **Hardware FYI (right column):** `signHere` → same anchorString, larger `anchorXOffset` (right column),
-  same `anchorYOffset`.
-- **Calibrated offsets (known-good, verified on the Duro sends 2026-06-01):**
-  - client (left col): `anchorString` `Content Approval:`, `anchorUnits` `pixels`, `anchorXOffset` `60`, `anchorYOffset` `110` → resolved to page 1 (x≈214, on the left signature line).
-  - hfyi (right col): same anchor, `anchorXOffset` `360`, `anchorYOffset` `110` → resolved to page 1 (x≈514, on the right signature line).
-  - Reuse these as-is for this template; they sit on the signature lines regardless of `[Deliverables]` length (anchor is in the fixed boilerplate).
-- **No `dateSigned` tabs** — DocuSign auto-stamps the signing date.
-- Name/Title lines stay blank (DocuSign captures signer identity); pre-fill as text tabs only if Brian asks.
+  Terms" paragraph just above the signature block. The vertical gap from it to each signature line is
+  **constant** (that boilerplate is fixed), so placement holds even as `[Deliverables]` length varies.
+- **Anchor settings (all tabs):** `anchorUnits` `pixels`, `anchorMatchWholeWord` `true`.
+- **⚠ Per-tab-type Y quirk:** at the SAME anchorYOffset, DocuSign renders `text`/`dateSigned` tabs ~22px
+  LOWER than a `signHere`. The offsets below already bake in that correction — use them verbatim.
+
+**Calibrated offsets — VERIFIED 2026-06-02** (resolved x/y read back from draft probes against the
+current MASTER; all six tabs land exactly on their label lines):
+
+| Tab (type) | Party | anchorXOffset | anchorYOffset | resolves to (x, y) |
+|---|---|---|---|---|
+| Name (`textTabs`) | client / left | `-34` | `97` | (124, 443) — on left Name line |
+| Signature (`signHereTabs`) | client / left | `-14` | `148` | (140, 472) — on left Signature line |
+| Date (`dateSignedTabs`) | client / left | `-39` | `159` | (119, 505) — on left Date line |
+| Name (`textTabs`) | Hardware FYI / right | `251` | `97` | (409, 443) — on right Name line |
+| Signature (`signHereTabs`) | Hardware FYI / right | `271` | `148` | (425, 472) — on right Signature line |
+| Date (`dateSignedTabs`) | Hardware FYI / right | `251` | `159` | (409, 505) — on right Date line |
+
+- **Name** is a `textTabs` entry pre-filled with `value` = the signer's name (client signer name for the
+  left column, `Brian D'Erario` for the right). It renders the typed name on the Name line.
+- **Date** is a `dateSignedTabs` entry — DocuSign auto-stamps each party's actual signing date when they
+  sign. No value to pre-fill.
+- These offsets are template-specific (the current MASTER layout). If the MASTER signature block is ever
+  re-laid-out, RE-CALIBRATE: drop probe `signHere` tabs anchored on `Name:` / `Signature:` / `Date:` /
+  `Content Approval:` in a `status:"created"` draft, read resolved x/y via `listRecipients`
+  (`include_tabs=true`), recompute, and re-verify before sending.
+
+> History: the pre-2026-06-02 calibration placed a single `signHere` at `anchorXOffset 60/360`,
+> `anchorYOffset 110` → resolved to x≈214/514, y≈497, which drifted into the column gap and floated
+> between the Signature and Date lines. That's the "off" placement Robert Woo flagged on the Duro send.
+> Replaced by the table above.
 
 ## DocuSign account (sender)
 
@@ -77,13 +102,26 @@ createEnvelope(accountId, envelopeDefinition: {
   documents: [{ documentId: "1", name: "<Company> x Hardware FYI <Year>.pdf",
                remoteUrl: "https://docs.google.com/document/d/<COPY_ID>/export?format=pdf" }],
   recipients: { signers: [
+    // CLIENT — left column. Name + Signature + Date.
     { recipientId: "1", routingOrder: "1", name: "<Client signer>", email: "<client email>",
-      tabs: { signHereTabs: [{ documentId: "1", recipientId: "1", anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "<client-x>", anchorYOffset: "<down-to-sig-line>" }] } },
+      tabs: {
+        textTabs:       [{ documentId: "1", recipientId: "1", tabLabel: "name-client",  value: "<Client signer>", anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "-34", anchorYOffset: "97"  }],
+        signHereTabs:   [{ documentId: "1", recipientId: "1", tabLabel: "sig-client",                              anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "-14", anchorYOffset: "148" }],
+        dateSignedTabs: [{ documentId: "1", recipientId: "1", tabLabel: "date-client",                            anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "-39", anchorYOffset: "159" }]
+      } },
+    // HARDWARE FYI — right column. Name + Signature + Date.
     { recipientId: "2", routingOrder: "2", name: "Brian D'Erario", email: "brian@hardwarefyi.com",
-      tabs: { signHereTabs: [{ documentId: "1", recipientId: "2", anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "<hfyi-x>", anchorYOffset: "<down-to-sig-line>" }] } }
+      tabs: {
+        textTabs:       [{ documentId: "1", recipientId: "2", tabLabel: "name-hfyi",  value: "Brian D'Erario", anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "251", anchorYOffset: "97"  }],
+        signHereTabs:   [{ documentId: "1", recipientId: "2", tabLabel: "sig-hfyi",                            anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "271", anchorYOffset: "148" }],
+        dateSignedTabs: [{ documentId: "1", recipientId: "2", tabLabel: "date-hfyi",                           anchorString: "Content Approval:", anchorUnits: "pixels", anchorXOffset: "251", anchorYOffset: "159" }]
+      } }
   ] }
 })
 ```
+
+Offsets are the VERIFIED 2026-06-02 values from the calibration table above. The client Name `value` is the
+client signer's name; the HFYI Name `value` is the counter-signer (default `Brian D'Erario`).
 
 - Build with `status: "created"` (draft) for the approval gate; only flip to `"sent"` after Brian's
   approval (`approved=true` + `approvalSource`).
