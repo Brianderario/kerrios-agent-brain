@@ -41,6 +41,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/draft-learnings]] — reusable Brian-edit lessons from task drafts
 - [[wiki/properties/hardware-fyi]] — current sponsor products, product-selection rules, and lead-gen positioning
 
+## "How do I quote a sponsor package / pricing / tiers?" / "post-call package options" / "how much for X"
+
+- [[wiki/workflows/hwfyi-package-quote-playbook]] — **MANDATORY read before writing or editing any sponsor price/package/tier.** Bundle construction rules (never a single Primary Placement; placements come in multiples and scale with the tier), high→low anchoring, the Modelwise reference ladder, and the "new prices need Brian's confirmation" gate.
+- [[wiki/properties/hardware-fyi]] — canonical product list + rate-card pricing
+- [[wiki/workflows/hwfyi-sponsor-reply-templates]] — sibling: product-education reply (buyer asks "what's included?")
+
 ## "What happened in meeting X?"
 
 - `wiki/meetings/<YYYY-MM-DD>-<slug>.md`
