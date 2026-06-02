@@ -27,10 +27,12 @@ scope: Hardware FYI partner/content prospect · updated: 2026-06-01
 
 - 2026-05-27: Benji replied to Theo Allard's Hardware FYI intro thread; Theo replied cc Brian offering May 29 / June 1 / June 3 windows.
 - **2026-06-01 12:00 PM ET — intro/discovery call held** (Theo + Ayan ↔ Brian). Brian walked the full HWFYI suite, recommended content-first, floated a webinar pulling in their hyperscaler partners. Their asks: (1) how HWFYI partners work / paid vs organic + adaptable formats, (2) can HWFYI run a new-capability launch as an "exclusive," (3) audience data — readership by channel, top topics, what readers react to + SF Tech Week audience, (4) pricing + package options. **Brian committed to send the suite rundown + pricing + package options.** Full recap: [[../meetings/2026-06-01-neural-concept-hardware-fyi]].
+- **2026-06-02 08:11 ET — Brian SENT the package follow-up** (reply-all): content-first recommendation; Newsletter Primary Placement + Partner Program; Events (webinars, SF happy hours, SF Tech Week); three starting points — $15K (3x PP + 3mo Partner Program), $10K (2x PP + Partner Program), $5K (3x PP); flexible/tailorable.
+- **2026-06-02 08:25 ET — Ariane Grandjean replied** with four audience-fit questions before they pick a format/budget: industry breakdown %, titles/seniority mix, geography (US vs international), company size. Also said they'll loop Benji in on content/news. Queued as new pending **H0024** (Brian-sender reply-all, ACTION:send). ⚠ KerriOS holds no exact audience % splits — draft answers directionally + offers media kit; Brian to fill real numbers or confirm media kit before send.
 
 ## Current next step
 
-- **Brian's post-call follow-up is queued as pending H0024** (re-keyed 2026-06-01 from the orphan post-call task; ACTION:send, awaiting Brian). Must cover all 4 asks above — especially the audience-data breakdown and the paid-vs-organic / exclusives clarity.
+- **H0024 reply to Ariane's audience-fit questions is queued (pending, ACTION:send, awaiting Brian).** Draft answers all 4 questions directionally + offers media-kit splits. The exact percentages are not in KerriOS — Brian must supply them or confirm a media kit exists before sending.
 
 ## Source pointers
 

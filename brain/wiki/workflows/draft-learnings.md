@@ -85,3 +85,8 @@ Format:
 **Rule:** Voice extraction has to be grounded in actual sends. Prior voice.md was speculative — derived from generalized "good email" advice, not from Brian's behavior. The new voice.md is observational, with the source corpus cited and example emails quoted verbatim. Refresh this rewrite quarterly or when Brian flags more than 3 drafts in a row for tone reasons.
 
 **Implication for sweeps:** Drafts that feel "too clean / too sterile / butler-toned" should be checked against this voice.md before sending. Especially: don't strip "I hope you're doing well" from re-engagement openers; don't strip "Happy to..." offer phrasing; don't replace `Brian` with `Best, Brian`.
+
+## [2026-06-02] Job H0019 — Werqwise
+**What changed:** Brian trimmed a venue reply that firmly accepted a tentative hold ("yes, please hold Oct 7") + listed detailed next steps down to a light "thanks — we'll review the quotes and get back to you shortly with the date and option."
+**Why (inferred):** While still comparing three SF venues (Werqwise / BuzzWorks / SHACK15), Brian does not want to signal a date commitment or lean into one venue before he has chosen — keep multi-venue threads non-committal until he decides.
+**Rule:** On open multi-venue / multi-vendor comparison threads, acknowledge receipt and say we will review and revert; do NOT accept holds, lock dates, or commit a direction until Brian picks. A light reply beats a thorough one here.
