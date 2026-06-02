@@ -48,3 +48,7 @@ External partnership entity. **Separate legal entity from KMG.** Boundary rules 
 - [[brian-derario]] — sole cross-boundary point
 - [[multi-agent-write-rules]] — boundary enforcement
 - [[2026-05-24-superhuman-sw-mailbox]] — when the S/W mailbox got wired into sweep
+
+## Activity
+
+- 2026-06-02 — Zach shared a public story (`standardandworks.com/p/utah-is-building`) to kerri@ "for the next newsletter." Kerri acked + routed to Brian for the editorial call; reply stayed on the HWFYI-side thread (Zach wrote to kerri@), not Superhuman. Coordination only — KMG-side, no S/W internal content. (jobId S0001)

@@ -74,3 +74,7 @@ If they pick P1 or P2, next thread is the custom report scope-of-work: outline +
 
 - [[hardware-fyi]] — the sponsor pipeline lives under this property
 - Email thread: conversationId `AAQkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQAQAFBPpJ6yL5lPm8gJ0vise4c=`
+
+## Activity
+
+- 2026-06-02 — Post-call (Jun 1, William Steel) package follow-up **SENT by Brian** (reply-all; William, cc Sid/Benji/Jacinta/Kerri): Package A content-led ~$15K, Package B lighter test ~$12K, Package C Partner Program 6mo $10K/$2K-mo; Primary Placements ~$1,200 ea; ~10K DFM-guide signup proof point; editorial (Benji) framed as a separate organic track from paid. Proposed joint landing page `arismachina.com/hardwarefyi` (slug not yet confirmed with William). Awaiting William + Sid on direction/budget. (jobId H0001)
