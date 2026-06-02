@@ -16,6 +16,7 @@ How Brian writes a **post-call sponsor package quote**. Use this whenever the ne
 ## Package construction rules
 
 - **Bundle, don't single-product.** Each package mixes products (e.g., Primary Placements + Custom Article + a Partner Program term). Avoid one-product "tiers" with branded names.
+- **Never a single Primary Placement on a line — placements come in multiples, and the count scales with the tier.** A package never offers just one Primary Placement; the entry tier is multiple placements (e.g., 3x Primary), and higher tiers carry more placements + a Partner Program term. (Reinforced 2026-06-01 on H0024 Neural Concept, where the first draft put one placement per tier.)
 - **Use real product names:** Primary Newsletter Placement, Custom Content Article, Partner Program ("Tools We Love"), Webinar, Custom Research Report.
 - **Flex Partner Program duration** — 2-month, 3-month, or 6-month, not only the 6-mo/$12.5K standard.
 - **Anchor high → low with rate card.** Lead with the richest package and show value on it, e.g. `$20K ($25K rate card pricing)`. Stepping down to a clean entry package is fine ($5–6K).
