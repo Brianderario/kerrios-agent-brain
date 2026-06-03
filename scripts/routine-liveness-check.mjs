@@ -256,7 +256,7 @@ function main() {
     report.alert = { message: msg, sent: false };
     if (!args['dry-run']) {
       try {
-        execFileSync('node', [TEXT_ALERT, '--message', msg], { stdio: 'ignore' });
+        execFileSync(process.execPath, [TEXT_ALERT, '--message', msg], { stdio: 'ignore' });
         report.alert.sent = true;
       } catch (e) {
         report.alert.error = e.message;

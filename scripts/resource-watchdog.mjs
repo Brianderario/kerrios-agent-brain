@@ -127,8 +127,12 @@ function main() {
     const msg = `⚠️ Host/reaper: ${report.findings.map((f) => f.detail).join(' · ')}`;
     report.alert = { message: msg, sent: false };
     if (!args['dry-run']) {
-      try { spawnSync('node', [TEXT_ALERT, '--message', msg], { stdio: 'ignore' }); report.alert.sent = true; }
-      catch (e) { report.alert.error = e.message; }
+      try {
+        const r = spawnSync(process.execPath, [TEXT_ALERT, '--message', msg], { stdio: 'ignore' });
+        if (r.error) report.alert.error = r.error.message;
+        else if (r.status !== 0) report.alert.error = `text-alert exited ${r.status}`;
+        else report.alert.sent = true;
+      } catch (e) { report.alert.error = e.message; }
     }
   }
 
