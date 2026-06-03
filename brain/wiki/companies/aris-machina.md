@@ -77,4 +77,5 @@ If they pick P1 or P2, next thread is the custom report scope-of-work: outline +
 
 ## Activity
 
+- 2026-06-03 — **Decision imminent.** Sid Khullar (CEO) replied 12:07 ET on the package thread: "This is great, clarity. I'll circle back with William and try to make a decision tomorrow." Earlier same day William replied "discussing internally, will revert asap." Holding — no ask, their move. Expect a direction/budget call ~Jun 4. (H0001, no Kerri reply needed)
 - 2026-06-02 — Post-call (Jun 1, William Steel) package follow-up **SENT by Brian** (reply-all; William, cc Sid/Benji/Jacinta/Kerri): Package A content-led ~$15K, Package B lighter test ~$12K, Package C Partner Program 6mo $10K/$2K-mo; Primary Placements ~$1,200 ea; ~10K DFM-guide signup proof point; editorial (Benji) framed as a separate organic track from paid. Proposed joint landing page `arismachina.com/hardwarefyi` (slug not yet confirmed with William). Awaiting William + Sid on direction/budget. (jobId H0001)
