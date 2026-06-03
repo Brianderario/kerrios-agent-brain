@@ -123,7 +123,15 @@ Ranked by likelihood-to-close × fit. Contacts are Apollo search hits (names/tit
 
 **Outreach sequencing suggestion:** Lead with Root + Rho (they sell the exact dinner format and already partner each other — one pitch can land both as co-sponsors of a single SFTW founder dinner). Then the robotics trio (Viam, Foxglove, Chef) for a robotics track/session. Genimex/Informal/SVB go through a warm meetup-organizer intro rather than cold.
 
-**Enrichment status:** Apollo confirms verified work emails exist on file for Root (all GPs), Rho (Tarlon), Viam (Daniel), Foxglove (Sunny), Chef (Aditi), Circuitly. Pull on Brian's go (~1 credit/person).
+**Enriched contacts (Apollo, 2026-06-02, Brian-approved 6-credit pull):**
+- Root Ventures — **Avidan Ross** (Founding Partner) — avidan@root.vc
+- Rho — **Tarlon Khoubyari** (SF Events & Community Lead) — tarlon.khoubyari@rho.co
+- Viam — **Daniel Friedman** (Global Head, Partnerships) — daniel.friedman@viam.com
+- Foxglove — **Sunny Sahota** (Growth Marketing) — sunny@foxglove.dev
+- Chef Robotics — **Aditi Jain** (Marketing Manager) — aditi@chefrobotics.ai
+- Canaan — Apollo match was a wrong-region person (Lagos), no email → **still needs a real contact** (find practice lead via LinkedIn or meetup intro)
+
+**Google Sheet (live tracker):** https://docs.google.com/spreadsheets/d/1Ve8ik2Is6m_a5WpaC6DO2RBO8t1kOGMPtFnnaLP9LWM/edit — "SF Tech Week 2026 — Sponsor Outreach (KMG)". Columns: Rank · Company · Type · Contact · Title · Email · Location · Evidence · Pitch · Status.
 
 ## Research caveats
 
