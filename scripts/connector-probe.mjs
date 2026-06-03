@@ -60,7 +60,7 @@ const CONNECTORS = {
 function probeSendblue(skipLive) {
   if (!fs.existsSync(TEXT_ALERT)) return { status: 'down', detail: 'send-text-alert.mjs not found' };
   if (skipLive) return { status: 'reachable', detail: 'adapter present (live dry-run skipped)' };
-  const r = spawnSync('node', [TEXT_ALERT, '--dry-run', '--message', 'connector-probe'], { encoding: 'utf8', timeout: 20000 });
+  const r = spawnSync(process.execPath, [TEXT_ALERT, '--dry-run', '--message', 'connector-probe'], { encoding: 'utf8', timeout: 20000 });
   if (r.status === 0) return { status: 'reachable', detail: 'dry-run ok' };
   let detail = (r.stderr || r.stdout || '').trim().split('\n').slice(-1)[0] || `exit ${r.status}`;
   try { const j = JSON.parse(r.stdout); if (j && j.error) detail = j.error; } catch { /* keep detail */ }
