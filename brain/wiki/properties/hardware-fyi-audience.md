@@ -12,6 +12,16 @@ scope: property · updated: 2026-06-02 · parent: [[hardware-fyi]]
 - Industry-base audience: semiconductors, robotics, EVs, energy, defense, advanced manufacturing. Peer-tone, builder audience.
 - Source: [[hardware-fyi]] core facts. List size + cadence are Brian-stated; treat the count as approximate until Benji confirms a live subscriber export number.
 
+## Engagement & reach — 2025 media kit (canonical, but NOT demographic)
+
+Source: **Hardware FYI Media Kit 2025.pdf** (Drive id `1OTlAf0VdeDqEAmDCr6zc7HF9-HDBv-_g`; full 14-page review 2026-06-03). These are Brian's own published, sponsor-facing numbers — safe to quote as fact. **The kit carries engagement/reach metrics and brand/school logos only; it has NO industry / seniority / geography / company-size % splits** (see the resolved open question below). Use these for "how big / how engaged" sponsor questions; use Tier A for "who reads it."
+
+- **Open rate: 45%+** — vs a stated industry average of 22.4%.
+- **Unsubscribe rate: 0.08%.**
+- **Subscribers: 16,000+** (headline figure). ⚠ Internal inconsistency to resolve before quoting a hard number: the kit's own subscriber-growth chart shows ~10K (Q2 2025) → ~13.5K (Q3) → ~19K (Q4) → ~23K (Q1 2026), and the brain elsewhere uses ~17,000. Quote "16,000+" (the conservative headline) unless Benji confirms a live export. The kit's "growing 112%+ quarterly" line is a marketing claim that does **not** reconcile with its own chart (~30%/qtr) — do not quote the 112%.
+- **Audience-of-record logos** (qualifying social proof, not %): industry — Apple, Tesla, SpaceX, Waymo, GM, Anduril, Astranis, Blue Origin, Ford, NVIDIA, Google, Microsoft, Meta, Foxconn, TI, Cadence, Flex, a16z, Menlo, Lux, Protolabs, Reliable Robotics, Sanmina, Hadrian, Broadcom, Altium, Intuitive, Varda, Lunar Energy; education — MIT, Stanford, Berkeley, CMU, Georgia Tech, Michigan, UWashington, Harvard, Caltech, Waterloo, UCLA, Illinois, IIT Bombay, Cornell, UC.
+- **Products / reach surfaces:** two newsletters — **The Analog** (weekly engineering) + **Weekend Wire** (weekly hardware roundup) → the "twice weekly" cadence; in-person US events (e.g. San Jose 2024 private dinner: Apple/Zipline/Anduril/Astranis/Skydio/Waymo); digital workshops (100+ guaranteed, typically 150–200+ eng/product/founder leads); hiring.
+
 ## Tier A — directional splits (Apollo-enriched sample, 2026-06-02)
 
 ⚠️ **Directional only.** Method: sampled ~1,200 subscribers from the Dec-2025 export, enriched via Apollo. **361 matched (~30% match rate).** The matched set **skews corporate / senior / US** because Apollo cannot resolve students, `.edu`, personal-Gmail, and many international subscribers — so it **undercounts** the IC / academic / international tail that the real list carries. Use these as "working/professional core" figures, not whole-list truth. First used in the H0024 Neural Concept reply (sent 2026-06-02).
