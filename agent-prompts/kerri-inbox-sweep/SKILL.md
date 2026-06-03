@@ -137,6 +137,17 @@ AUTO-SKIP (never draft, never create a task):
   • Sender is Slack, LinkedIn, GitHub, Twitter/X, Calendly, DocuSign automated notifications, Stripe receipts, bank statements, subscription confirmations
   • Pure calendar invite/accept/decline with no human message body
 
+RESURFACE TRIGGER (exception — do NOT auto-skip; this is Brian asking to follow up):
+  • Detect: the inbound is self-addressed (From = Brian's own address, To/Cc = the same Brian address — e.g. brian→brian) AND the body contains the Superhuman reminder signature ("reminder from Superhuman Mail" / "This is a reminder from Superhuman Mail. Do not reply." / a `display:none` preview of the original message under a "RE:" subject). These fire when Brian hit "remind me" on a thread — they are an explicit "follow this up" signal, NOT a loopback to drop.
+  • A self-addressed message that does NOT carry the Superhuman reminder signature (e.g. Brian's own send looping back via auto-CC) is still a loopback → handle as today (no task).
+  • On a match, instead of skipping:
+    1. Strip the leading "RE:"/"Re:" from the subject to recover the original subject line.
+    2. Locate the underlying thread by that subject across the mailboxes (Gmail, HWFYI Graph, Superhuman). Use the most recent matching thread.
+    3. Run the normal CUSTOMER LOOKUP (STEP 2 jobId protocol) + full-thread read on THAT underlying thread — never draft off the reminder stub itself.
+    4. Create / flag a task per the usual rules, appending "(resurfaced via your Superhuman reminder)" to the WHAT'S GOING ON note so Brian knows why it surfaced. Still fully approval-gated — this adds NO new send authority.
+  • Fallback: if the underlying thread can't be located by subject, or is too large/old to load safely, do NOT auto-skip silently — create a lightweight review flag ("⏰ Superhuman reminder fired for '<subject>' — thread not auto-locatable, review") so the signal is never dropped. (This is exactly how Protolabs was lost on 2026-06-02.)
+  • Boundary: if the recovered thread is an S/W (Superhuman / brian@standardandworks.com) thread, honor the S/W boundary in STEP 3's thread-handling — queue marker only, no S/W body text into the brain.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 0 — RESOLVE TASK-LIST IDS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
