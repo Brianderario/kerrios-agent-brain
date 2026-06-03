@@ -1,10 +1,10 @@
 # Hardware FYI — Audience Demographics
 
-scope: property · updated: 2026-06-02 · parent: [[hardware-fyi]]
+scope: property · updated: 2026-06-03 · parent: [[hardware-fyi]]
 
 **Why this page exists:** every serious sponsor asks the same qualifying question — industry / seniority / geography / company-size splits. [[neural-concept]] asked twice (6/1 call + 6/2 in writing). The property page held only qualitative descriptors, so replies had to be directional. This page is the single source for audience-fit answers in sponsor conversations. Reference it from any sponsor reply that needs readership stats.
 
-**Read the tiers carefully — they are NOT the same confidence.** Tier A is a directional estimate from an enrichment sample; Tier B (the authoritative media-kit numbers) is still pending Brian/Benji. Quote Tier A as "directional, based on a sample of our list," never as a hard fact.
+**Read the tiers carefully — they are NOT the same confidence.** Tier A is a directional estimate from an enrichment sample; Tier B (authoritative demographic %s) is still pending — and, confirmed 2026-06-03, the 2025 media kit does NOT supply it (the kit has engagement metrics + logos only, captured below). Quote Tier A as "directional, based on a sample of our list," never as a hard fact. The media-kit engagement numbers below ARE canonical and safe to quote.
 
 ## List basics (qualitative, canonical)
 
@@ -51,14 +51,14 @@ IT & services, mechanical/industrial engineering, electrical/electronic manufact
 
 These are the numbers to quote as fact once captured. **Only Brian/Benji can supply them** (true media-kit demographics or a full-list analytics export, not an enrichment sample). Until filled, fall back to Tier A with the directional caveat.
 
-- [ ] Industry breakdown % — _pending_
-- [ ] Seniority mix % — _pending_
-- [ ] US vs international geo split — _pending_
-- [ ] Company-size split — _pending_
-- [ ] Confirmed list size + cadence — _pending_
+- [ ] Industry breakdown % — _pending (NOT in 2025 media kit)_
+- [ ] Seniority mix % — _pending (NOT in 2025 media kit)_
+- [ ] US vs international geo split — _pending (NOT in 2025 media kit)_
+- [ ] Company-size split — _pending (NOT in 2025 media kit)_
+- [x] Confirmed list size + cadence — **partial:** media kit says 16,000+ subscribers, two weekly newsletters (Analog + Weekend Wire). ⚠ headline vs chart vs brain inconsistency (16K / ~23K / ~17K) — still needs a Benji live-export number to nail down.
 - [ ] Top-performing topics / what readers react to — _pending_
 
-**Open question for Brian (2026-06-02):** does the 2025 media kit contain true demographic %s, or is the Apollo-derived sample the best data available? The 2025 media kit reviewed for H0024 had only logos + open-rate, no demographic splits — if that's the ceiling, Tier A is what we have and Tier B stays a sample.
+**RESOLVED — open question (asked 2026-06-02, answered 2026-06-03):** Brian said the 2025 media kit holds true demographics. Kerri did a full 14-page review of *Hardware FYI Media Kit 2025.pdf* (Drive id `1OTlAf0VdeDqEAmDCr6zc7HF9-HDBv-_g`) — it does **not** contain demographic % splits. It carries engagement metrics (45%+ open, 0.08% unsub, 16,000+ subs, growth chart) + industry/education logos + product descriptions, but no industry / seniority / geography / company-size percentages. **The Apollo-derived Tier A sample remains the only quantitative demographic data we have.** True Tier B demographic %s need a real source — a full-list analytics export (Beehiiv/ESP) or a Benji-supplied breakdown. Possible alternate source to check next: *Hardware FYI x AllSpice Metrics Report (2025)* — a campaign metrics report that may carry audience cuts the kit omits.
 
 ## Refresh
 
