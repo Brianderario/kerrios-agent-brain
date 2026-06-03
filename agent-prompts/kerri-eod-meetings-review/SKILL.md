@@ -267,9 +267,9 @@ Use `gtasks_create_task`:
 
 Record the returned task ID in today's `eod-state.json` under `tasksCreated`.
 
-**F) Append the EOD draft to `data/jobs.json` immediately after task creation.**
+**F) Append the EOD draft to `data/jobs.json` immediately after task creation. Task creation + jobs.json append are ONE atomic operation — never leave one without the other.**
 
-This is what lets the inbox sweep process Brian's checked task safely. Use the stable company `jobId` resolved through the customer-id protocol; do not use the day's `EOD-H01` counter as the customer jobId. If the company is genuinely new, register it through `data/companies.json` before writing the job.
+This is what lets the inbox sweep process Brian's checked task safely. A task with no matching jobs.json entry is an ORPHAN: the sweep's LIVE-STATUS CROSS-CHECK only iterates jobs.json, so a box Brian checks on an orphan task silently drops unprocessed (the G0005 failure mode — and exactly how H0049/H0050 went blind). **Hard gate:** resolve the stable company `jobId` through the customer-id protocol BEFORE you create the task (so the title already carries the right jobId and you never mint a new number for a company that already exists), then create the task and append the job in the same step. If you cannot write a send-ready job (missing thread routing, can't resolve the jobId, company lookup ambiguous), do NOT leave a bare approval task — set it to `ACTION: redo` / `Send mode: review-required` per the rule below, or do not create the task at all. Use the stable company `jobId`; do not use the day's `EOD-H01` counter as the customer jobId. If the company is genuinely new, register it through `data/companies.json` before writing the job.
 
 Append:
 ```
