@@ -43,6 +43,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/properties/hardware-fyi-audience]] — audience demographics (Tier A directional / Tier B canonical-pending) for sponsor audience-fit answers
 - [[wiki/properties/kinetic]] — annual SF conference
 - [[wiki/events/kinetic-2026]] — year-one event (May 2026, SF); post-event deliverables incl. canonical photos link
+- [[wiki/events/sf-tech-week-2026-sponsor-prospects]] — tiered SF Tech Week sponsor prospect list (Kinetic roster + advertisers + Tech Week-history research, 2026-06-02)
 - [[wiki/properties/savant]] — placeholder; fill in next session
 
 ## Companies
