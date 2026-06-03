@@ -102,6 +102,29 @@ Added 2026-06-02 (Brian asked "find other companies who would be fits"). 5-agent
 - **Dropped (no longer viable):** Countdown Capital (shut down Jan 2024); Tempo Automation (distressed post-SPAC).
 - **Verify before pitching:** "Romantic Labs" + Orbital Composites SFTW host claims could not be independently confirmed; Circuitly vs. Circuit.ly may be the same company; Eclipse/Lux evidence is participation-level not paid-sponsorship.
 
+---
+
+# Ranked outreach plan — warm tier (2026-06-02, Apollo-sourced contacts)
+
+Ranked by likelihood-to-close × fit. Contacts are Apollo search hits (names/titles confirmed; **emails NOT yet enriched — pending Brian's OK to spend credits**). Last-name fragments shown until enriched.
+
+| Rank | Company | Best contact | Why this person | The pitch |
+|---|---|---|---|---|
+| 1 | **Root Ventures** (VC) | Avidan Ross (Founding Partner) — or GP Kane Hsieh / Chrissy Meyer | Hosted the Mar-2026 SF Hardware Founder Dinner; small firm, partners decide | "Co-sponsor our SFTW Founder's Table — you host, we bring the hardware-engineer audience + ops" |
+| 2 | **Rho** (startup banking) | Tarlon Kh*** (**SF** Events & Community Lead) | Literally owns SF events; co-sponsored Root's dinner | Dinner/happy-hour underwriter; "banking-for-hardware-founders" presenting sponsor |
+| 3 | **Viam** (robotics platform) | Daniel Fr*** (Global Head, Partnerships) — backup Alyssa De*** (VP Marketing) | Partnerships head = right door for event co-marketing | Robotics-engineer track / West-Coast mirror of their NY Hardware Meetup |
+| 4 | **Foxglove** (robotics tooling) | Sunny Sa*** (Growth Marketing) — backup Adrian Ma*** (CEO, small co) | Runs growth; owns Actuate conf (Aug 2026, Fort Mason SF) | Aug→Oct cross-promo so they hit SF robotics engineers twice in a season |
+| 5 | **Chef Robotics** | Aditi Ja*** (Marketing Manager) — sole marketing contact | Lone marketing hire = the decision-maker; $43M Series A | Physical-AI/robotics session sponsor or booth |
+| 6 | **Canaan** (VC) | Adebiyi Ha*** (Marketing Officer) — thin; better via warm partner intro | Only marketing contact found; VC platform-side | Named slot (Founder's Table / stage) at our SFTW event |
+| — | **Genimex / Informal** | — (no clean Apollo hit yet) | Both partnered the 127th SF Hardware Meetup | Reach via the meetup organizer (michael@hardwaremeetup.com) intro |
+| — | **Silicon Valley Bank** (Hardware practice) | — (title search returned 0) | Has a dedicated Hardware & Frontier Tech group | Find the practice lead via LinkedIn; presenting/banking sponsor |
+
+**Note:** "Circuitly" (Kevin Jo***, Founder; Rose Yang, Marketing Mgr) = the **same company as Circuit.ly** already on the Kinetic 2026 roster (rose@circuit.ly). Dedupe confirmed — treat as existing sponsor, not net-new.
+
+**Outreach sequencing suggestion:** Lead with Root + Rho (they sell the exact dinner format and already partner each other — one pitch can land both as co-sponsors of a single SFTW founder dinner). Then the robotics trio (Viam, Foxglove, Chef) for a robotics track/session. Genimex/Informal/SVB go through a warm meetup-organizer intro rather than cold.
+
+**Enrichment status:** Apollo confirms verified work emails exist on file for Root (all GPs), Rho (Tarlon), Viam (Daniel), Foxglove (Sunny), Chef (Aditi), Circuitly. Pull on Brian's go (~1 credit/person).
+
 ## Research caveats
 
 - Historical tech-week.com calendars are delisted post-event; "NO" findings = no public evidence found, not proven absence.
