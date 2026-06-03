@@ -133,6 +133,8 @@ Ranked by likelihood-to-close × fit. Contacts are Apollo search hits (names/tit
 
 **Google Sheet (live tracker):** https://docs.google.com/spreadsheets/d/1Ve8ik2Is6m_a5WpaC6DO2RBO8t1kOGMPtFnnaLP9LWM/edit — "SF Tech Week 2026 — Sponsor Outreach (KMG)". Columns: Rank · Company · Type · Contact · Title · Email · Location · Evidence · Pitch · Status.
 
+**Mirrored to CRM Leads tab (2026-06-03, Brian-directed):** the warm tier + net-new N-Tier-1 were added to the canonical HWFYI CRM Sheet (`1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`) under a "SF Tech Week" section header at **row 169** — rows 170–174 = the 5 enriched warm-tier contacts (Root/Rho/Viam/Foxglove/Chef), rows 175–180 = 6 net-new companies w/ contact still TBD (Canaan, Informal, Genimex, Avataar, Westly Group, SVB). `lane=sftw`, `status=new`, jobId blank. Marketing-team handoff per the outreach-motion decision.
+
 ## Research caveats
 
 - Historical tech-week.com calendars are delisted post-event; "NO" findings = no public evidence found, not proven absence.
