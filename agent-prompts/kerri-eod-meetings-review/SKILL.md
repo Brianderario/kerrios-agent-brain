@@ -362,6 +362,22 @@ STEP 5C — NO TRANSCRIPT (meeting happened, nothing in Granola)
 
 For each meeting with no Granola match:
 
+**AUTO-SKIP — recurring internal 1:1s with habitual no-transcript (check FIRST):**
+
+Before creating any flag task, test whether this no-transcript meeting is a recurring internal 1:1 that habitually has no recording. It qualifies ONLY if ALL of these hold:
+- The non-Brian attendee set is exactly ONE internal KMG teammate — **Benji Chia** or **Ari Lewis** (match by name/email; no external or additional attendees).
+- The title reads as a standing 1:1 / sync (e.g. contains "1:1", "Benji", "Ari", "sync", "weekly", "check-in").
+- The calendar event has **no substantive description/agenda** — empty, or only a conferencing link / location boilerplate counts as "no agenda."
+
+If it qualifies, this is noise, not signal (e.g. the Brian↔Benji 1:1 ran with no transcript on 2026-05-29, 06-01, 06-02, 06-03 — a fresh recap task every day). Do NOT create a Google Task. Instead:
+- Add ONE line to the run digest (STEP 7) under the new "♻️ Auto-skipped" section: `<title> @ <time> — recurring internal 1:1, no transcript`.
+- Mark the meeting as processed in `eod-state.json` (so the run ledger still accounts for it) — but do NOT add a task id to `tasksCreated`.
+- Do NOT count it toward the transcript-missing rate in STEP 9 (it is an expected miss, not a coverage gap).
+
+**Re-enable a normal recap task** for one of these 1:1s only when the calendar event DOES carry a substantive description/agenda (signals it mattered today), or Brian has asked for it — then fall through to the standard flag-task path below.
+
+For every other no-transcript meeting:
+
 Create a flag task in the Kerri MG list. If the calendar title, attendees, or description suggest a substantive external, sponsor, partner, vendor, editorial, or internal decision meeting, frame the task as "manual recap needed" so Brian can add notes and trigger a follow-up draft on the next pass.
 
 - `title`: `⚠️ NO TRANSCRIPT: <Meeting title (truncate at 60)> — <HH:MM ET>`
@@ -429,6 +445,10 @@ Write the full digest into the run log / EOD state notes in this format for audi
   • <title> @ <time> — likely <cause>
   • ...
 
+♻️ Auto-skipped (<count>):
+  • <title> @ <time> — recurring internal 1:1, no transcript (no task created)
+  • ...
+
 ⏳ Pending (<count>):
   • <title> @ <time> — will retry tomorrow AM
 
@@ -473,15 +493,16 @@ Also record:
 - `meetingsSeen`
 - `meetingsProcessed`
 - `draftsCreated`
-- `transcriptsMissing`
+- `transcriptsMissing` (exclude auto-skipped recurring 1:1s — they are expected misses, not coverage gaps)
 - `transcriptsPending`
+- `meetingsAutoSkipped` (recurring internal 1:1s suppressed per STEP 5C)
 - `calendarMeetingsAccountedFor`
 - `entityUpdates`
 - `conferencesLogged`
 - `errors`
 - `improvementCandidate`: one line or null
 
-If transcript-missing rate is high for 3 runs, or follow-up drafts are repeatedly skipped/redone by Brian, create one deduped Kerri MG `💡 SUGGESTION:` task with the observed pattern and proposed fix.
+If transcript-missing rate is high for 3 runs, or follow-up drafts are repeatedly skipped/redone by Brian, create one deduped Kerri MG `💡 SUGGESTION:` task with the observed pattern and proposed fix. Auto-skipped recurring 1:1s (STEP 5C) do NOT count toward the transcript-missing rate and must NOT trigger a no-transcript suggestion — that pattern is already handled by the auto-skip rule.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 10 — ARCHIVE AUTOMATION CHAT
