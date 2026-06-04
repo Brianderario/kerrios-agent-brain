@@ -45,6 +45,13 @@ test('inbox sweep lock replaces stale locks', () => {
   assert.equal(JSON.parse(result.stdout).acquired, true);
 });
 
+test('default TTL is the 30-min crash-fuse backstop (not the old 90)', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'kerrios-ttl-'));
+  const result = run(['acquire', '--root', root]); // no --ttl-minutes → default
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(JSON.parse(result.stdout).lock.ttlMinutes, 30);
+});
+
 function run(args) {
   return spawnSync(process.execPath, [script, ...args], {
     encoding: 'utf8'

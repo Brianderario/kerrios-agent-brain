@@ -28,6 +28,9 @@ import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const TEXT_ALERT = '/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs';
+// Persists which routines currently have an OPEN dark-alert, so we text Brian ONCE when a
+// routine goes dark (not every 15-min tick) and ONCE when it recovers.
+const ALERT_STATE_FILE = 'routine-liveness-alert-state.json';
 
 function parseArgs(values) {
   const out = { _: [] };
@@ -149,8 +152,14 @@ const ROUTINES = [
       const inWindow = et.minutesOfDay >= 6 * 60 && et.minutesOfDay <= 22 * 60 + 45;
       if (!inWindow) return { status: 'paused-ok', detail: 'outside 06:00–22:45 ET active window' };
       if (last == null) return { status: 'unknown', detail: 'no state file / cursor' };
-      if (age != null && age <= 35) return { status: 'ok' };
-      return { status: 'dark', detail: `last success ${age}m ago (expected ≤35m in-window)` };
+      // The Claude desktop app auto-relaunches ~daily in the early morning and kills the
+      // in-flight sweep mid-run; the reaper + lock self-heal recover within one ~15-min
+      // cycle, so widen the staleness budget 06:45–07:45 ET. This avoids paging for a gap
+      // that fixes itself, while a genuine outage that outlasts the window still trips.
+      const relaunchWindow = et.minutesOfDay >= 6 * 60 + 45 && et.minutesOfDay <= 7 * 60 + 45;
+      const limit = relaunchWindow ? 50 : 35;
+      if (age != null && age <= limit) return { status: 'ok' };
+      return { status: 'dark', detail: `last success ${age}m ago (expected ≤${limit}m in-window)` };
     }
   },
   {
@@ -238,6 +247,55 @@ export function evaluateRoutines(root, now) {
   };
 }
 
+// Pure alert decision: given the current report + the previously-persisted open-alert
+// set, decide what to text NOW and what the next open-alert set is. The dedup discipline:
+//   • newlyDark  — dark now AND no open alert yet  → send one ⚠️ alert, open it
+//   • recovered  — had an open alert AND now ok/paused-ok → send one ✅ recovery, close it
+//   • dark-but-already-alerted → silent (the whole point: no 15-min repeat spam)
+//   • now 'unknown' (state file vanished) → keep the alert open; never a false all-clear
+export function decideRoutineAlerts(report, prevState, now) {
+  const prevAlerted = (prevState && prevState.alerted) || {};
+  const statusByName = new Map(report.routines.map((r) => [r.routine, r.status]));
+  const darkNames = report.routines.filter((r) => r.status === 'dark').map((r) => r.routine);
+
+  const newlyDark = darkNames.filter((name) => !prevAlerted[name]);
+  const recovered = Object.keys(prevAlerted).filter((name) => {
+    const st = statusByName.get(name);
+    return st === 'ok' || st === 'paused-ok';
+  });
+
+  const alerted = { ...prevAlerted };
+  for (const name of recovered) delete alerted[name];
+  for (const name of newlyDark) alerted[name] = { since: now.toISOString() };
+  return { newlyDark, recovered, nextState: { alerted } };
+}
+
+function readAlertState(root) {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(root, 'data', ALERT_STATE_FILE), 'utf8'));
+  } catch {
+    return { alerted: {} };
+  }
+}
+
+function writeAlertState(root, state) {
+  try {
+    fs.writeFileSync(path.join(root, 'data', ALERT_STATE_FILE), `${JSON.stringify(state, null, 2)}\n`);
+  } catch {}
+}
+
+function sendText(message, dryRun) {
+  const out = { message, sent: false };
+  if (dryRun) return out;
+  try {
+    execFileSync(process.execPath, [TEXT_ALERT, '--message', message], { stdio: 'ignore' });
+    out.sent = true;
+  } catch (e) {
+    out.error = e.message;
+  }
+  return out;
+}
+
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const root = path.resolve(args.root && args.root !== true ? args.root : repoRoot);
@@ -249,19 +307,28 @@ function main() {
 
   const report = evaluateRoutines(root, now);
 
-  if (args.alert && report.darkAny.length) {
-    const dark = report.routines.filter((r) => r.status === 'dark');
-    const lines = dark.map((r) => `${r.routine}: ${r.detail}`).join(' · ');
-    const msg = `⚠️ Routine liveness: ${dark.length} dark — ${lines}`;
-    report.alert = { message: msg, sent: false };
-    if (!args['dry-run']) {
-      try {
-        execFileSync(process.execPath, [TEXT_ALERT, '--message', msg], { stdio: 'ignore' });
-        report.alert.sent = true;
-      } catch (e) {
-        report.alert.error = e.message;
-      }
+  if (args.alert) {
+    const dryRun = Boolean(args['dry-run']);
+    const prevState = readAlertState(root);
+    const { newlyDark, recovered, nextState } = decideRoutineAlerts(report, prevState, now);
+
+    // One alert when a routine first goes dark — deduped, so no repeat while it stays dark.
+    if (newlyDark.length) {
+      const dark = report.routines.filter((r) => newlyDark.includes(r.routine));
+      const lines = dark.map((r) => `${r.routine}: ${r.detail}`).join(' · ');
+      report.alert = sendText(`⚠️ Routine liveness: ${dark.length} dark — ${lines}`, dryRun);
     }
+    // One recovery ping when a previously-alerted routine comes back to normal.
+    if (recovered.length) {
+      const back = report.routines.filter((r) => recovered.includes(r.routine));
+      const lines = back
+        .map((r) => `${r.routine}${r.ageMinutes != null ? ` (last success ${r.ageMinutes}m ago)` : ''}`)
+        .join(' · ');
+      report.recovery = sendText(`✅ Routine liveness recovered: ${lines}`, dryRun);
+    }
+    // Persist the open-alert set so the next run can dedup. Never persist on a dry run.
+    if (!dryRun) writeAlertState(root, nextState);
+    report.alertState = nextState;
   }
 
   process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
