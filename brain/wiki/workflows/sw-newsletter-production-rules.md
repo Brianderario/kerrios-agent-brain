@@ -68,7 +68,7 @@ Avoid:
 
 ## Reader-Facing Structure
 
-1. Headline.
+1. Subject/headline.
 2. Preview text beginning with `Plus:`.
 3. Short opener.
 4. `Markets`, in the stacked Beehiiv-safe format from `AMCA, SendCutSend, and The New Factory Middle`, with S&P 500 first.
@@ -76,6 +76,12 @@ Avoid:
 6. Industry sections with one-sentence linked bullets.
 7. `Dealbook`.
 8. Short close.
+
+## Subject Line Rule
+
+Every issue should have an intentionally written subject line, not just a recycled lead slug. Before staging, generate 5-8 options and choose the one most likely to earn an open while staying relevant to the lead story.
+
+Use Payload, Tectonic, Morning Brew, and TBPN as mechanics inspiration only: short, current, concrete, lightly witty, and curiosity-bearing without clickbait. Prefer a named place, company, asset, constraint, or industrial object. Avoid generic newsletter labels, vague abstractions, joke-first phrasing, emojis, hype language, and titles that could fit any issue.
 
 ## Research Gate
 
