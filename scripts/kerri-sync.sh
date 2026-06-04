@@ -30,6 +30,7 @@ ELIGIBLE=(
   "brain/routing.md"
   "agent-prompts"
   "scripts"
+  "test"
   "AGENTS.md"
   "CLAUDE.md"
   "README.md"

@@ -47,6 +47,8 @@ Stage ONLY:
   - `brain/raw/**` — append-only evidence (never edit existing raw files)
   - `brain/index.md` and `brain/routing.md` — catalog updates
   - `agent-prompts/**` — prompt evolution
+  - `scripts/**` — automation/sync tooling
+  - `test/**` — regression tests MUST sync alongside the scripts/prompts they guard, or the `npm test` red-build gate silently diverges between runners
   - `data/kerrios.agent-seed.json` — only if explicitly re-exported by Brian
   - `AGENTS.md`, `README.md`, `CLAUDE.md` — only when intentionally edited this session
 
