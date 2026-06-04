@@ -31,7 +31,7 @@ Founder + CEO of [[kmg]] (Kerri Media Group). Editorial + sponsor relationships 
 
 ## Engineering & code-task standards (Kerri honors)
 
-Set 2026-06-04 after the lock-test sync fix.
+Set 2026-06-04 after the lock-test sync fix. Canonical (cross-runner, governs the per-machine `~/.claude/CLAUDE.md` shim): [[global-working-standards]].
 
 - **Brian is non-technical and will not read the code.** He judges a coding task by outcome and by my account of it, not by inspecting the diff. So the burden of correctness is entirely on me.
 - **Audit-ready by default.** A technical reviewer may check the work later (e.g. former CTO **Don**). Commits, comments, and explanations must stand on their own for a third party reading them cold, without me in the room.
