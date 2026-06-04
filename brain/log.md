@@ -1,3 +1,6 @@
+## [2026-06-04 18:15 ET] lead-research | 46 companies scanned, 6 new to pool (182 total), 10 queued (queue→15), CRM synced (6 appended/16 updated) | Kerri
+Scheduled evening top-up: funding lane (3 fresh Jun-1 raises — Layup Parts $42M, Alitheon $8M, Mecka AI $35M) + software-to-mfg/ICP (Innovapptive, Rajant, Astrobotic). 3 funding leads queued; 3 held in pool. Skipped Edge Impulse (now Qualcomm subsidiary), 3 dedup'd, 9 off-ICP, IT-services consultancies, + Mastercam/Vegam/ASIC North (no contact this run — revisit).
+
 # KerriOS Brain Log
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
