@@ -14,10 +14,13 @@ data/inbox-sweep-state.json
 data/inbox-sweep-grades.json
 data/job-counters.json
 data/gtasks-lists.json
+data/.inbox-sweep-run-lock/
 data/cold-outreach-queue.json
 data/cold-outreach-state.json
 data/cold-do-not-contact.json
 data/cold-outreach-fallback-*.json
+data/leads-master.json
+data/leads-crm-export-*.csv
 data/eod-state.json
 data/eod-grades.json
 data/eod-fallback-*.json
@@ -25,6 +28,8 @@ data/morning-brief-state.json
 data/morning-brief-fallback-*.md
 data/brain-push-state.json
 data/brain-push-fallback-*.md
+data/gap-sweep-state.json
+data/sweep-cadence.log
 data/lead-research/batches/
 brain/.local/sw-newsletter-drafts/
 data/sw-newsletter/state.json
@@ -33,8 +38,10 @@ data/events/
 # Coverage + build artifacts
 coverage/
 output/
+artifacts/
 
 # Local-only brain content (S/W boundary, per-machine learnings, etc.)
 brain/.local/
 brain/.obsidian/workspace*.json
 brain/.obsidian/graph.json
+data/attachments/
