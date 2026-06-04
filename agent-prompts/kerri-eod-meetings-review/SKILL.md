@@ -12,7 +12,7 @@ Operating loop:
   2. Contextualize through KerriOS company/person/deal memory.
   3. Propose follow-ups as Google Tasks approval packets.
   4. Act only inside gates: never send directly.
-  5. Record meeting memory, entity facts, and open loops.
+  5. Record meeting memory, entity facts, open loops, and any conference/event mentions (→ Conferences CRM tab, STEP 5A.G).
   6. Self-grade transcript coverage, write-back quality, and follow-up usefulness.
 
 Calendar is the source of truth for "what happened today." Granola is evidence, not the meeting list. Every included calendar meeting must end the run in exactly one state: processed with transcript, transcript pending, no transcript/manual recap needed, or no follow-up warranted with a compact meeting memory.
@@ -38,6 +38,12 @@ The Granola cloud MCP is connected at `https://mcp.granola.ai/mcp`. The exact to
 - `mcp__kerri-gdocs__gtasks_create_task` (per draft / per flag)
 - `mcp__kerri-gdocs__gtasks_update_task` (status changes)
 - List-ID map cached at `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/gtasks-lists.json`
+
+**Conferences CRM log (events our contacts mention) — see STEP 5A.G:**
+- When a sponsor / advertiser / partner / prospect mentions a conference, trade show, summit, or industry event THEY attend / sponsor / exhibit at / speak at / organize, log it to the **"Conferences" tab** of the Hardware FYI CRM Sheet (`1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`).
+- Write via the helper (reuses kerri-gdocs OAuth; creates the header + dedupes on `conference|company|source` so re-runs never double-log):
+  `node scripts/conferences-append.mjs --rows <path-to-json>`  (or pipe the JSON array on stdin; add `--dry-run` to preview).
+- This is intel on WHERE OUR CONTACTS SHOW UP — distinct from the "Leads" tab's `lane=conference` rows (which are HWFYI's own exhibit-prospecting). Do NOT put these in the Leads tab.
 
 **Brain (wiki writes):**
 - Per-meeting recap → `brain/wiki/meetings/<YYYY-MM-DD>-<slug>.md`
@@ -310,6 +316,35 @@ Append:
 
 If `routing.existingChain` is true, `threadId` or `latestMessageId` must be non-null. If you cannot store enough metadata to reply on the chain, change the task to `ACTION: redo` / `Send mode: review-required` instead of appending a send-ready job.
 
+**G) Capture conference / event mentions → Conferences CRM tab (runs for EVERY matched meeting, even when no follow-up is drafted):**
+
+Scan the transcript/notes for any conference, trade show, summit, expo, or industry event that the **other party** (sponsor / advertiser / partner / prospect — NOT Brian, and NOT a Hardware FYI / Kinetic event) mentions THEY attend, sponsor, exhibit at, speak at, or organize. This is durable intel on where our contacts spend their marketing budget and show up.
+
+For each distinct (event × company) mention, build a row object:
+```
+{
+  "conference": "<exact event name as said — do NOT invent or normalize; if garbled, log best reading + note the verbatim in detail>",
+  "company": "<counterparty company>",
+  "jobId": "<stable customer jobId from the customer-id protocol, or '' if none>",
+  "contact": "<person who said it (+ agency if they're an agency rep)>",
+  "involvement": "<Attend | Sponsor | Exhibit | Speak | Organizer (combine if stated)>",
+  "timing": "<month/season if stated, else ''>",
+  "location": "<city/country if stated, else ''>",
+  "detail": "<one short line — a near-quote of what they said; flag any uncertain event name to confirm>",
+  "source": "Granola: <meeting title>, <YYYY-MM-DD>",
+  "capturedAt": "<today YYYY-MM-DD ET>",
+  "capturedBy": "Kerri (EOD sweep)"
+}
+```
+
+Accuracy rules (Granola's summary garbles event names — be careful):
+- Only log events the counterparty actually named. If they said "we do some trade shows" with no name → do NOT log a row.
+- Do NOT log Hardware FYI's own events (Kinetic, the summer happy hour, SF Tech Week dinners) here — those belong in event-ops, not this intel tab.
+- If unsure of an exact spelling, log your best reading and put `(heard as "…", confirm)` in `detail`.
+
+Collect all rows from the run into one JSON array and write them in a single call:
+`node scripts/conferences-append.mjs --rows <tmpfile>` (the helper dedupes on `conference|company|source`, so a re-run of the same day is safe). Count the appended rows for the digest (STEP 7) and the log line (STEP 8). If the helper exits non-zero (e.g. scope error, exit 3), note it in the digest and continue — do not fail the run.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5B — TRANSCRIPT PENDING (recent meeting still processing)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -399,6 +434,8 @@ Write the full digest into the run log / EOD state notes in this format for audi
 
 📓 Brain updates: <count> meeting pages, <count> entity edits.
 
+📅 Conference mentions logged: <count> (→ CRM Conferences tab)
+
 Check Google Tasks lists to approve / edit / skip.
 ```
 
@@ -440,6 +477,7 @@ Also record:
 - `transcriptsPending`
 - `calendarMeetingsAccountedFor`
 - `entityUpdates`
+- `conferencesLogged`
 - `errors`
 - `improvementCandidate`: one line or null
 
@@ -449,7 +487,7 @@ If transcript-missing rate is high for 3 runs, or follow-up drafts are repeatedl
 STEP 10 — ARCHIVE AUTOMATION CHAT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The EOD review's durable surfaces are Google Tasks, `data/jobs.json`, `data/eod-state.json`, `data/eod-grades.json`, KerriOS meeting/entity memory, `brain/log.md`, fallback files, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
+The EOD review's durable surfaces are Google Tasks, `data/jobs.json`, `data/eod-state.json`, `data/eod-grades.json`, KerriOS meeting/entity memory, the CRM "Conferences" tab, `brain/log.md`, fallback files, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
 
 Codex scheduled runs currently require exactly one `::inbox-item{...}` directive. Satisfy both the required inbox item and Brian's auto-archive preference by ending with exactly two raw directive lines:
 

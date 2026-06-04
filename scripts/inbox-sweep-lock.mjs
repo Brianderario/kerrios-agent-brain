@@ -92,6 +92,13 @@ function readMeta() {
 }
 
 function isStale(meta) {
+  // TTL-only staleness. This lock is held ACROSS invocations: `acquire` writes
+  // the lock and exits; the sweep runs in a separate process; `release` removes
+  // it later. The recorded pid is therefore the short-lived acquire process,
+  // never the live holder — so PID-liveness cannot be used to reclaim it (doing
+  // so makes every same-host lock instantly reclaimable and defeats mutual
+  // exclusion). The TTL is the crash fuse for a holder that died without
+  // releasing.
   if (!meta.expiresAt) return true;
   return Date.parse(meta.expiresAt) <= Date.now();
 }

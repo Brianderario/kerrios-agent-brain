@@ -55,6 +55,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 - `wiki/meetings/<YYYY-MM-DD>-<slug>.md`
 
+## "Which conferences do our sponsors / partners / prospects attend?" / "Where do our contacts show up?"
+
+- **CRM "Conferences" tab** (Hardware FYI CRM Sheet `1mXauTrY5…mcgYk`) — running intel log of events our contacts said they attend/sponsor/exhibit/speak at. Distinct from the Leads tab's `lane=conference` rows (HWFYI's own exhibit-prospecting).
+- Captured automatically by the EOD meeting sweep — see `agent-prompts/kerri-eod-meetings-review/SKILL.md` STEP 5A.G. Helper: `scripts/conferences-append.mjs` (dedupes on `conference|company|source`).
+- HWFYI's own attend/exhibit targets: [[wiki/events/2026-conference-prospecting]].
+
 ## "What deals are open?"
 
 - `wiki/deals/<slug>.md`
