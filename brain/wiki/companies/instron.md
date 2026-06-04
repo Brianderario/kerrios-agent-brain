@@ -25,3 +25,6 @@ scope: prospect (warm) · updated: 2026-06-03
 
 ## Source
 - meetings/2026-06-03-kyle-stone-instron.md (Granola `d05e7be4-8361-493d-abba-837247aed6dc`)
+
+## Recent Activity
+- 2026-06-04 06:06 ET: **Post-call follow-up SENT** (H0070, Brian-sender, reply-all on the Calendly "Kyle Stone and Brian D'Erario" chain to Kyle + Stephanie; box approved). Thanked both for the 6/03 call, confirmed glad Instron is back for Kinetic 2027, committed to send full 2027 details when finalized, and flagged he's looking forward to the Nick Erickson content intro. Ball in Instron's court (Nick intro + budget decision on the 2027 booth). Next on our side = send 2027 conference details when ready.
