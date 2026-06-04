@@ -105,6 +105,20 @@ function lastMorningBrief(root) {
   const s = readJson(root, 'morning-brief-state.json');
   return s ? s.lastBriefAt || s.updatedAt || null : null;
 }
+// The deterministic run-lifecycle (scripts/morning-brief-run-state.mjs). Lets us
+// tell "fired but crashed mid-run" (status=started) apart from "never fired" (no
+// run today), and counts a run-state `complete` as success even if the brief's own
+// lastBriefAt write is what failed.
+function morningBriefRun(root) {
+  const s = readJson(root, 'morning-brief-run-state.json');
+  return s && s.lastRun ? s.lastRun : null;
+}
+function hhmmET(iso) {
+  const t = Date.parse(iso);
+  if (!Number.isFinite(t)) return null;
+  const p = etParts(new Date(t));
+  return `${String(p.hour).padStart(2, '0')}:${String(p.minute).padStart(2, '0')}`;
+}
 function lastEod(root) {
   const g = readJson(root, 'eod-grades.json');
   if (g && Array.isArray(g.runs) && g.runs.length) {
@@ -167,12 +181,23 @@ const ROUTINES = [
     core: false,
     cadence: 'weekdays ~06:57 ET',
     read: lastMorningBrief,
-    evaluate(last, et, age, lastEt) {
+    readExtra: morningBriefRun,
+    evaluate(last, et, age, lastEt, run) {
       if (et.isWeekend) return { status: 'paused-ok', detail: 'weekend' };
+      const today = et.isoDate;
+      // Success = the brief stamped lastBriefAt today OR the run lifecycle marked
+      // today's run complete (robust even if the LLM's lastBriefAt write failed).
+      const runCompleteToday = Boolean(run && run.date === today && run.status === 'complete');
+      if ((lastEt && lastEt.isoDate === today) || runCompleteToday) return { status: 'ok' };
       if (et.minutesOfDay < 7 * 60 + 30) return { status: 'ok', detail: 'before today’s fire+grace' };
-      if (last == null) return { status: 'unknown', detail: 'no state file' };
-      if (lastEt && lastEt.isoDate === et.isoDate) return { status: 'ok' };
-      return { status: 'dark', detail: 'no brief recorded for today after 07:30 ET' };
+      if (last == null && run == null) return { status: 'unknown', detail: 'no state file' };
+      // After the fire+grace window with no success: distinguish a mid-run crash
+      // (so the alert tells Brian it fired but died) from a routine that never fired.
+      if (run && run.date === today && run.status === 'started') {
+        const at = hhmmET(run.startedAt);
+        return { status: 'dark', crashed: true, detail: `fired ${at ? `~${at} ET` : 'today'} but crashed before delivering (run started, never completed)` };
+      }
+      return { status: 'dark', detail: 'never fired today — no brief and no run start recorded after 07:30 ET' };
     }
   },
   {
@@ -224,7 +249,8 @@ export function evaluateRoutines(root, now) {
     const last = r.read(root);
     const age = last ? ageMinutes(last, now) : null;
     const lastEt = last ? etParts(new Date(Date.parse(last))) : null;
-    const verdict = r.evaluate(last, et, age, lastEt);
+    const extra = r.readExtra ? r.readExtra(root) : null;
+    const verdict = r.evaluate(last, et, age, lastEt, extra);
     return {
       routine: r.name,
       core: r.core,

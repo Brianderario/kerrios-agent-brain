@@ -97,6 +97,62 @@ test('same 45m staleness OUTSIDE the morning window → dark (normal 35m budget)
   assert.equal(sweep.status, 'dark');
 });
 
+// --- morning-brief: crashed-mid-run vs never-fired vs completed-via-run-state ---
+
+test('morning-brief crashed mid-run → dark, alert says it FIRED but crashed', () => {
+  const root = fixture({
+    // last successful brief was yesterday; today only a "started" run exists (crash)
+    'morning-brief-state.json': { lastBriefAt: '2026-06-03T11:05:00Z' },
+    'morning-brief-run-state.json': {
+      schema: 'morning-brief-run-state-v1',
+      lastRun: { date: '2026-06-04', startedAt: '2026-06-04T11:01:30Z', finishedAt: null, status: 'started' }
+    }
+  });
+  const rep = run(root, '2026-06-04T12:00:00Z'); // 08:00 ET Thu, past fire+grace
+  const mb = rep.routines.find((x) => x.routine === 'kerri-morning-brief');
+  assert.equal(mb.status, 'dark');
+  assert.equal(mb.crashed, true);
+  assert.match(mb.detail, /fired .* but crashed/i);
+});
+
+test('morning-brief complete via run-state counts as success even if lastBriefAt is stale', () => {
+  const root = fixture({
+    'morning-brief-state.json': { lastBriefAt: '2026-06-03T11:05:00Z' }, // stale write
+    'morning-brief-run-state.json': {
+      schema: 'morning-brief-run-state-v1',
+      lastRun: { date: '2026-06-04', startedAt: '2026-06-04T11:01:30Z', finishedAt: '2026-06-04T11:05:00Z', status: 'complete' }
+    }
+  });
+  const rep = run(root, '2026-06-04T12:00:00Z');
+  const mb = rep.routines.find((x) => x.routine === 'kerri-morning-brief');
+  assert.equal(mb.status, 'ok');
+});
+
+test('morning-brief never fired → dark, alert says NEVER fired (not a crash)', () => {
+  const root = fixture({
+    'morning-brief-state.json': { lastBriefAt: '2026-06-03T11:05:00Z' }
+    // no run-state at all today
+  });
+  const rep = run(root, '2026-06-04T12:00:00Z');
+  const mb = rep.routines.find((x) => x.routine === 'kerri-morning-brief');
+  assert.equal(mb.status, 'dark');
+  assert.notEqual(mb.crashed, true);
+  assert.match(mb.detail, /never fired/i);
+});
+
+test('morning-brief before fire+grace is ok even with a started run on disk', () => {
+  const root = fixture({
+    'morning-brief-state.json': { lastBriefAt: '2026-06-03T11:05:00Z' },
+    'morning-brief-run-state.json': {
+      schema: 'morning-brief-run-state-v1',
+      lastRun: { date: '2026-06-04', startedAt: '2026-06-04T11:01:30Z', finishedAt: null, status: 'started' }
+    }
+  });
+  const rep = run(root, '2026-06-04T11:10:00Z'); // 07:10 ET — inside grace
+  const mb = rep.routines.find((x) => x.routine === 'kerri-morning-brief');
+  assert.equal(mb.status, 'ok');
+});
+
 // --- alert dedup + recovery (pure decision) ---
 
 const dark = (name) => ({ routine: name, status: 'dark', detail: 'stale', ageMinutes: 60 });
