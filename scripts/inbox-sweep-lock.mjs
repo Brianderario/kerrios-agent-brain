@@ -8,7 +8,14 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'
 const args = parseArgs(process.argv.slice(2));
 const command = args._[0] || 'status';
 const root = path.resolve(args.root || repoRoot);
-const ttlMinutes = Number.parseInt(args['ttl-minutes'] || '90', 10);
+// TTL is the crash-fuse for a holder that died without releasing (e.g. the Claude
+// desktop app auto-relaunches and tears down the in-flight sweep mid-run). It is the
+// LAST-RESORT backstop: the inbox-sweep-reaper normally reclaims an orphaned lock within
+// one ~5-min scan (see shouldReleaseInboxSweepLock there), so this only matters if the
+// reaper is also down. Kept comfortably longer than any real sweep (~1-2 min of work)
+// but far below the old 90 min so a doubly-failed recovery still self-heals inside half
+// an hour. A sweep never legitimately runs this long.
+const ttlMinutes = Number.parseInt(args['ttl-minutes'] || '30', 10);
 const lockDir = path.join(root, 'data', '.inbox-sweep-run-lock');
 const metaPath = path.join(lockDir, 'lock.json');
 

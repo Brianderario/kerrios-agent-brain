@@ -6,6 +6,8 @@ import {
   matchesClaudeBin,
   SCHED_RUN_MARKER,
   lineMarksScheduledRun,
+  lineMarksInboxSweepRun,
+  shouldReleaseInboxSweepLock,
 } from "../scripts/inbox-sweep-reaper.mjs";
 
 // Real-world command lines, as they appear in `ps -Ao command=`.
@@ -106,4 +108,66 @@ test("handles junk input without throwing", () => {
   assert.equal(lineMarksScheduledRun(undefined), false);
   assert.equal(lineMarksScheduledRun(null), false);
   assert.equal(lineMarksScheduledRun(123), false);
+});
+
+// --- inbox-sweep identity: used to decide whether the run-lock has a live owner ---
+
+test("identifies the inbox-sweep run specifically", () => {
+  const msg = `This is the scheduled \`kerri-inbox-sweep\` run. ${SCHED_RUN_MARKER}.`;
+  assert.equal(lineMarksInboxSweepRun(userLine(msg)), true);
+});
+
+test("does NOT mark a non-inbox-sweep scheduled task as an inbox-sweep run", () => {
+  // morning-brief, gap-sweep, etc. are scheduled runs but are NOT inbox-sweep, so they
+  // must not be counted as owners of the inbox-sweep lock.
+  for (const task of ["kerri-morning-brief", "kerri-gap-sweep", "kerri-brain-push", "kerri-eod-meetings-review"]) {
+    const msg = `This is the scheduled \`${task}\` run. ${SCHED_RUN_MARKER}.`;
+    assert.equal(lineMarksScheduledRun(userLine(msg)), true, `${task} is a scheduled run`);
+    assert.equal(lineMarksInboxSweepRun(userLine(msg)), false, `${task} is NOT inbox-sweep`);
+  }
+});
+
+test("inbox-sweep matcher still requires the user-line + marker gates", () => {
+  // An assistant turn mentioning the task name must never match.
+  assert.equal(lineMarksInboxSweepRun(assistantLine("running kerri-inbox-sweep now")), false);
+  // The marker alone without the task name is a different scheduled task, not inbox-sweep.
+  assert.equal(lineMarksInboxSweepRun(userLine(`some run. ${SCHED_RUN_MARKER}.`)), false);
+  assert.equal(lineMarksInboxSweepRun(undefined), false);
+});
+
+// --- orphaned-lock self-heal decision ---
+
+const MIN = 60 * 1000;
+
+test("releases the lock when held, owner gone, and past the acquire-race grace", () => {
+  // The core fix: holder killed mid-run (Claude app relaunch), lock still held, no live
+  // inbox-sweep session → reclaim so the next scheduled sweep can run.
+  assert.equal(
+    shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 3 * MIN }),
+    true,
+  );
+});
+
+test("NEVER releases while an inbox-sweep session is alive (would clobber a working sweep)", () => {
+  assert.equal(
+    shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 1, lockAgeMs: 30 * MIN }),
+    false,
+  );
+});
+
+test("does not release an unheld lock, or one younger than the grace", () => {
+  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: false, liveInboxSweepSessions: 0, lockAgeMs: 30 * MIN }), false);
+  // Just-acquired lock whose owning session the reaper may not have observed yet.
+  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 30 * 1000 }), false);
+});
+
+test("does not release on an unparseable lock age (NaN)", () => {
+  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: NaN }), false);
+});
+
+test("respects a custom minLockAgeMs override", () => {
+  assert.equal(
+    shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 90 * 1000 }, { minLockAgeMs: 60 * 1000 }),
+    true,
+  );
 });

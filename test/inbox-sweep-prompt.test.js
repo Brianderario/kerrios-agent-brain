@@ -33,7 +33,7 @@ test('inbox sweep prompt preserves approval gates and mailbox routing', () => {
 test('inbox sweep prompt blocks overlapping scheduled runs before loading context', () => {
   for (const required of [
     'STEP -1 — SINGLE-RUN GUARD',
-    'node scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 90',
+    'node scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 30',
     'Before reading any other KerriOS files',
     'reason: "busy"',
     'Stop immediately and silently',
