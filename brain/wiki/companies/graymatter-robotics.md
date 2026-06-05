@@ -19,7 +19,7 @@ AI-driven robotic surface-finishing (sand/grind/blast/polish) for aerospace + ma
 ## Thread state (H0059)
 
 - 2026-06-04: Rand Owens replied to the cold note — interested, asked the one question "would this be a paid feature?" GrayMatter generally prioritizes earned media over paid, but is open to reviewing paid details depending on scope + budget.
-- 2026-06-05 00:30 ET: Brian approved H0059 in Google Tasks; Kerri sent the reply on the existing thread, Brian cc. Message clarified partnerships are paid/sponsored rather than earned/editorial, content-led formats fit best, and offered Brian's Calendly to tailor options to GrayMatter's goals/budget. No price menu.
+- 2026-06-05 00:30 ET: Brian approved H0059 in Google Tasks; Kerri sent the reply on the existing thread, Brian cc. Message clarified partnerships are paid/sponsored rather than earned/editorial, content-led formats fit best, offered a separate Benji route for organic / non-paid opportunities, and offered Brian's Calendly to tailor paid options to GrayMatter's goals/budget. No price menu.
 - Next: wait for Rand's reply or call booking; if they engage, scope a content-led package.
 
 ## Source
