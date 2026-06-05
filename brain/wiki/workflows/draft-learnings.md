@@ -90,3 +90,8 @@ Format:
 **What changed:** Brian trimmed a venue reply that firmly accepted a tentative hold ("yes, please hold Oct 7") + listed detailed next steps down to a light "thanks — we'll review the quotes and get back to you shortly with the date and option."
 **Why (inferred):** While still comparing three SF venues (Werqwise / BuzzWorks / SHACK15), Brian does not want to signal a date commitment or lean into one venue before he has chosen — keep multi-venue threads non-committal until he decides.
 **Rule:** On open multi-venue / multi-vendor comparison threads, acknowledge receipt and say we will review and revert; do NOT accept holds, lock dates, or commit a direction until Brian picks. A light reply beats a thorough one here.
+
+## [2026-06-05] Job H0059 — GrayMatter Robotics
+**What changed:** The approved/sent task draft answered Rand's paid-vs-earned question honestly, then added a separate path for organic / non-paid opportunities through Benji instead of treating paid sponsorship as the only possible relationship.
+**Why (inferred from approved task edit):** Rand said GrayMatter generally prioritizes earned media over paid. The reply needed to avoid blurring editorial and sponsorship, but also not shut down relevant non-paid news, partnership ideas, or organic coverage pathways.
+**Rule:** When a prospect asks whether Hardware FYI is paid vs. earned, confirm paid sponsorship plainly and keep the paid conversation separate from editorial. If they mention earned/organic priorities, add a distinct route for organic or non-paid ideas to Benji/news/editorial context; do not imply sponsorship buys coverage, and do not make the paid reply sound like a dead end for legitimate story ideas.
