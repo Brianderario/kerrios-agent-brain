@@ -7,7 +7,7 @@ slug: mfg-flow
 
 # MFG Flow
 
-scope: prospect - updated: 2026-06-04
+scope: prospect - updated: 2026-06-05
 
 Engineering / manufacturing software company. Warm Hardware FYI distribution prospect whose ICP overlaps HWFYI's engineering and manufacturing audience.
 
@@ -22,6 +22,7 @@ Engineering / manufacturing software company. Warm Hardware FYI distribution pro
 - 2026-06-03: Anshu said he set time for Thursday. Call booked for Thu 6/4 via Brian's Calendly.
 - 2026-06-04: Brian held the 12:30pm ET call. Granola summary says MFG Flow is UK-based, sells operational software for 30-300 employee manufacturers, and is exploring US expansion.
 - 2026-06-04: H0081 post-call Google Task queued for Brian approval. Draft sends a Hardware FYI information packet with webinar/content-led lead-gen options, approved line-item pricing only, and no custom bundle quote.
+- 2026-06-05: Brian disliked the first draft's style and asked for a first-principles rewrite. Codex replaced the live Google Task draft with a cleaner Brian-sender reply: lead with an educational webinar/operator-panel test, then custom content and newsletter/event support; keep pricing to approved standalone line items and commit no custom bundle price.
 
 **Call notes**
 - Product scope: PLM through manufacturing to after-sales service.
