@@ -26,6 +26,7 @@ Engineering / manufacturing software company. Warm Hardware FYI distribution pro
 - 2026-06-05: Brian asked to soften the opener and provide webinar pricing directly. Codex updated the live task draft to open with "Based on our conversation..." product recommendations and moved the $5K webinar price into the webinar/operator-panel section.
 - 2026-06-05: Brian asked for pricing/scope to sit next to the product names and for custom content not to show a fixed price. Codex updated the live task draft headings to `Webinar / operator panel - $5K`, `Custom content - scoped after format`, and `Newsletter placements - $1.5K each`.
 - 2026-06-05: Brian asked the audience proof line to say he is sharing the Kinetic list and one recent happy-hour list rather than merely offering to share them. Codex updated the live task draft and flagged that those lists must be attached/included before approval.
+- 2026-06-05: Brian asked to add event timing: one of the next Hardware FYI happy hours is toward the end of July, and SF Tech Week will likely be October 6 or 7. Codex added that note to the live task draft and flagged SF Tech Week timing as likely/not final.
 
 **Call notes**
 - Product scope: PLM through manufacturing to after-sales service.
