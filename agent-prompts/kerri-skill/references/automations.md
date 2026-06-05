@@ -1,6 +1,8 @@
 # Kerri Automations — Codex Primary
 
-These are scheduled routines Kerri runs through Codex. Old Claude and legacy Codex business schedules were removed on 2026-05-25. Rebuild each routine from the KerriOS living-brain model, not from old schedule names.
+These are scheduled routines Kerri runs through Codex. Old Claude and legacy Codex business schedules were removed on 2026-05-25; a Claude scheduled-tasks migration happened on 2026-05-29; Brian brought the agentic work back into Codex on 2026-06-05. Rebuild each routine from the KerriOS living-brain model, not from old schedule names.
+
+**2026-06-05 Codex re-entry:** Codex is again the primary scheduled runner for the core operating bundle, gap sweep, and revenue research/drafting pair. Claude scheduled-task shims under `~/.claude/scheduled-tasks/` may still exist as legacy/fallback artifacts; do not treat their presence as ownership. `kerri-gap-sweep` must inspect both Codex automation records and Claude shims so double-run risk is surfaced quickly.
 
 ## Universal rule: Customer ID Protocol applies to every automation here
 
@@ -14,7 +16,7 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 
 **Automation chat archive policy:** scheduled Codex automations are not Brian's operating surface. Their durable output must land in the external surface named by the prompt: Google Tasks, Sendblue/text, email, HTML artifact, repo log, run ledger, CRM/source-of-truth note, or KerriOS state. Codex scheduled runs currently inject a higher-priority requirement to return exactly one `::inbox-item{...}` directive, so the archive rule must satisfy both directives: end with exactly one required inbox-item directive, then a raw `::archive{reason="Durable automation output already written outside this chat"}` directive on the next line as the final line. Do this even for no-op/quiet runs that sent no external alert. Do not wrap either directive in backticks or a code block, and do not write anything after the archive directive. Do not auto-archive only when the chat itself is the only deliverable, Brian explicitly needs to continue inside that automation chat, or the run is blocked before it can write any durable state or alert.
 
-**2026-05-26 activation gate (CLEARED 2026-05-31):** the first-day core automation audit has passed — the core bundle (inbox sweep, morning brief, EOD review, brain push) runs without duplicate/noisy Tasks. `kerri-lead-research` (`13 18 * * 1-5`) and `kerri-cold-outreach` (`7 9 * * 1-5`) are now LIVE scheduled-tasks crons. Approval gates are unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the lead pool. Pipeline follow-up remains on-demand until its volume justifies a schedule.
+**2026-05-26 activation gate (CLEARED 2026-05-31; RE-ENTERED CODEX 2026-06-05):** the first-day core automation audit passed, then the 2026-06-05 Codex re-entry reactivated the core bundle and ported revenue research/drafting back to Codex. Approval gates are unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the lead pool. Pipeline follow-up remains on-demand until its volume justifies a schedule.
 
 ## 1. Morning Briefing
 
@@ -24,6 +26,13 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **Model:** GPT-5.5 high
 **Loop:** today's meetings + yesterday's Chase alerts in `brian@kerrihq.com` Gmail + pending Google Tasks + optional Kerri's Read -> polished local HTML brief -> HTML email delivery to Brian's KerriHQ inbox -> Sendblue heads-up only when the brief needs Brian attention -> state/grade write-back -> auto-archive the automation chat.
 **HTML artifact:** `output/morning-brief/<YYYY-MM-DD>.html` and `output/morning-brief/latest.html`
+
+### 1b. Morning Brief Retry
+
+**When:** 7:18am ET, M-F (`18 7 * * 1-5`)
+**Canonical prompt:** `agent-prompts/kerri-morning-brief-retry/SKILL.md`
+**Model:** GPT-5.5 high
+**Loop:** guarded run-state check -> silent no-op when the 7:00am brief delivered -> recover the primary morning brief when it crashed or never fired -> write the same brief artifacts/state -> auto-archive the automation chat. This exists only as a recovery guard; it should not create duplicate brief emails on healthy mornings.
 
 ## 2. 15-Minute Inbox Sweep (Primary Automation)
 
@@ -54,6 +63,21 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **Canonical prompt:** `agent-prompts/kerri-brain-push/SKILL.md`
 **Model:** GPT-5.5 high
 **Loop:** detect eligible brain/prompt changes -> validate safety/tests -> commit/push -> log -> hygiene grade -> Sendblue heads-up only on failure -> auto-archive the automation chat.
+
+## 3c. Gap Sweep / Whole-System Health
+
+**When:** 9:41pm ET daily (`41 21 * * *`)
+**Canonical prompt:** `agent-prompts/kerri-gap-sweep/SKILL.md`
+**Model:** GPT-5.5 high
+**Loop:** repo/docs/scripts/shims + live operating state -> gap list -> auto-fix only mechanical drift, PR material changes, task human decisions -> health ledger + log -> structural improvements. The Codex re-entry prompt explicitly checks both `/Users/brianderario/.codex/automations/*/automation.toml` and `/Users/brianderario/.claude/scheduled-tasks/*/SKILL.md` for runner drift.
+
+## 3d. Revenue Research + Drafting
+
+**Lead research:** 6:13pm ET, M-F (`13 18 * * 1-5`), `agent-prompts/kerri-lead-research/SKILL.md`, GPT-5.5 high. Researches and enriches Hardware FYI sponsor prospects, dedups against KerriOS/CRM/recent outreach, writes `data/leads-master.json` and research batches, mirrors to CRM/CSV fallback where available, and tops up `data/cold-outreach-queue.json`. It never drafts or sends.
+
+**Cold outreach:** 9:07am ET, M-F (`7 9 * * 1-5`), `agent-prompts/kerri-cold-outreach/SKILL.md`, GPT-5.5 high. Converts queued prospects into one daily Hardware FYI approval task. It never sends; the inbox sweep sends later only after Brian approves the task.
+
+**Superseded path:** `hwfyi-weekday-outreach` remains paused. Do not run the old one-step outreach automation in parallel with the lead-research -> cold-outreach -> inbox-sweep approval path.
 
 ## 4. Weekly What Got Done (prompt only)
 
@@ -114,6 +138,8 @@ You are Kerri. Monthly partnership research.
 
 - **Inbox Sweep (#2) = ACTIVE in Codex.** One active runner, `kerri-inbox-sweep`, runs every 15 minutes on GPT-5.5 high. Canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
 - **First parallel bundle = ACTIVE in Codex.** `kerri-eod-meetings-review`, `kerri-morning-brief`, and `kerri-brain-push` are rebuilt together on GPT-5.5 high.
-- **Revenue agents = SCHEDULED (core audit passed 2026-05-31).** `kerri-lead-research` (`13 18 * * 1-5`, weekday ~6:16pm ET) and `kerri-cold-outreach` (`7 9 * * 1-5`, weekday ~9:16am ET) are now live scheduled-tasks crons. Approval gates unchanged — cold outreach drafts only and never auto-sends; lead research only researches + tops up the pool. `kerri-pipeline-followup` remains on-demand until its volume justifies a schedule.
+- **Monitor = ACTIVE in Codex.** `kerri-gap-sweep` runs daily at 9:41pm ET and checks Codex automation records plus Claude shims for runner drift.
+- **Morning recovery = ACTIVE in Codex.** `kerri-morning-brief-retry` runs weekdays at 7:18am ET and self-suppresses unless the primary brief is missing/crashed.
+- **Revenue agents = ACTIVE in Codex.** `kerri-lead-research` (`13 18 * * 1-5`, weekday ~6:13pm ET) and `kerri-cold-outreach` (`7 9 * * 1-5`, weekday ~9:07am ET) are now Codex automations. Approval gates unchanged — cold outreach drafts only and never auto-sends; lead research only researches + tops up the pool. `hwfyi-weekday-outreach` is paused/superseded. `kerri-pipeline-followup` remains on-demand until its volume justifies a schedule.
 - **All drafts route to Brian first.** No outbound to third parties without per-thread approval (see [[email.md]]).
 - **Material brain writes go through approval gates.** See [[brain.md]] mutation rules.

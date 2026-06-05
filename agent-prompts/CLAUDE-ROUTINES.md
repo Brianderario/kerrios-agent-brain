@@ -1,16 +1,20 @@
-# Claude-Side Routines (canonical)
+# Claude-Side Routines (legacy/fallback)
 
-scope: routine spec · updated: 2026-06-02 · author: Brian + Kerri
+scope: legacy routine spec · updated: 2026-06-05 · author: Brian + Kerri
 
-The Claude Code counterpart to [`kerri-skill/references/automations.md`](kerri-skill/references/automations.md) ("Codex Primary"). This file defines how Kerri's scheduled routines run on **local Claude Code durable cron** — the substrate Brian chose 2026-05-29 to replace Codex's automations.
+The Claude Code counterpart to [`kerri-skill/references/automations.md`](kerri-skill/references/automations.md) ("Codex Primary"). This file now preserves the 2026-05-29 Claude scheduled-tasks migration as a fallback/historical reference. As of the 2026-06-05 Codex re-entry, Codex is again the primary scheduled runner for Kerri's operating bundle, gap sweep, and revenue research/drafting pair.
+
+Do not use this file as proof that Claude owns a live routine. The visible shims under `~/.claude/scheduled-tasks/` may remain on disk, but the active source of scheduled-run truth is the Codex automation records under `/Users/brianderario/.codex/automations/`. `kerri-gap-sweep` should keep checking both surfaces and escalate any double-run risk.
 
 Organized by **role pod + operating loop**, per [[../brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] (design implication: automations are grouped by pod and loop, never by old schedule names). The slide framework Brian shared 2026-05-29 is a 1:1 visual of that decision: every agent perceives the world, acts inside gates, and **constantly feeds data back to KerriOS**.
 
-## Substrate: local Claude Code scheduled-tasks MCP (LIVE)
+## Substrate: local Claude Code scheduled-tasks MCP (legacy/fallback)
 
-Routines run as **persistent `scheduled-tasks` MCP jobs** under `~/.claude/scheduled-tasks/<name>/SKILL.md` on Brian's MacBook. Each is a thin shim that loads its canonical `agent-prompts/<name>/SKILL.md`. This gives full local access (files, `scripts/*`, git brain, local email MCPs, the Sendblue text adapter) — the closest 1:1 replacement for Codex. As of 2026-05-29 all 7 tasks are registered + `enabled` (verify with `mcp__scheduled-tasks__list_scheduled_tasks`).
+Routines were migrated to **persistent `scheduled-tasks` MCP jobs** under `~/.claude/scheduled-tasks/<name>/SKILL.md` on Brian's MacBook on 2026-05-29. Each shim loads its canonical `agent-prompts/<name>/SKILL.md`. That substrate is no longer the primary runner after the 2026-06-05 Codex re-entry.
 
-Two substrate facts that are NOT optional to plan around:
+If Brian explicitly asks to fall back to Claude, first verify the scheduled-tasks MCP state from inside Claude, confirm Codex equivalents are paused, and update `brain/wiki/agents/registry.md` plus `kerri-skill/references/automations.md` in the same handoff. Never run Claude scheduled tasks and Codex automations for the same routine in parallel without an explicit controlled test.
+
+Two legacy substrate facts that still matter if Claude is reactivated:
 
 1. **A Claude Code REPL must be running and idle for any job to fire.** If the Mac is asleep or no session is open, nothing runs. (Codex's cloud runner had no such constraint.) `com.kerri.routine-liveness` (launchd, every 15m) now catches a routine that has gone dark and texts Brian.
 2. **7-day expiry — RESOLVED (not applicable).** That expiry was a property of the older `CronCreate durable=true` approach. The scheduled-tasks MCP jobs above are **persistent and do not auto-expire**, so no weekly "re-arm" job is needed. (Decision settled 2026-05-30: scheduled-tasks MCP is the chosen substrate; durable cron is not used — there is no `~/.claude/crons/`.) `kerri-gap-sweep` class I + the liveness watchdog still watch that the tasks stay `enabled` and keep firing.
@@ -46,7 +50,7 @@ A routine prompt is **incomplete** unless it names all six (per the role-pods de
 - **Approval gate unchanged:** external sends still require `approved=true` + `approvalSource`; every send still auto-CCs brian@hardwarefyi.com.
 - **Customer ID Protocol unchanged:** runner-agnostic; applies to any routine touching companies/leads/drafts.
 
-Cron times below are ET (assumes the Mac clock is ET) and use off-:00/:30 minutes to avoid fleet-wide collisions.
+Cron times below are the historical Claude schedule in ET (assumes the Mac clock is ET) and use off-:00/:30 minutes to avoid fleet-wide collisions.
 
 ---
 
@@ -90,11 +94,11 @@ Prompts not yet authored; sequence last. Ari pod stays behind explicit approval-
 
 ---
 
-## Activation checklist (ACTIVATED 2026-05-29 — all 7 tasks live + enabled)
+## Activation checklist (HISTORICAL — activated 2026-05-29, superseded by Codex 2026-06-05)
 
 1. ~~Resolve the **re-arm mechanism**~~ — **DONE.** Migrated to the persistent scheduled-tasks MCP, which does not expire; no re-arm job needed.
 2. Add a `## Runner` section + strip Codex closing directives in each Loop-1/Loop-4 prompt being ported.
 3. Confirm the Mac clock is ET (or offset the cron fields).
 4. Create the Loop-1 routines first (`inbox-sweep`, `morning-brief`, `brain-push`, `gap-sweep`), then Loop-4 (`eod-meetings-review`).
-5. ~~Run in parallel with Codex before hard-swapping (cutover — open)~~ — **DONE.** Codex equivalents are disabled (Brian, 2026-05-30); Claude scheduled-tasks MCP is the sole runner, so the double-run risk is closed.
-6. Update `brain/wiki/agents/registry.md` scheduled-tasks table to reflect the Claude runner (material write → PR).
+5. ~~Run in parallel with Codex before hard-swapping (cutover — open)~~ — **DONE for the 2026-05-29 Claude migration, then superseded.** Codex equivalents were disabled on 2026-05-30, but Codex was reactivated on 2026-06-05.
+6. Registry and automation docs now reflect Codex as primary again; this file is fallback reference only.

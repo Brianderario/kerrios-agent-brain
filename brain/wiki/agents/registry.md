@@ -1,6 +1,6 @@
 # KMG Agent Registry
 
-scope: agent index · updated: 2026-05-26
+scope: agent index · updated: 2026-06-05
 
 Every active or planned team agent that reads/writes this brain. Source of truth for "who is Kerri / who is Ari's agent / etc."
 
@@ -12,7 +12,7 @@ Every active or planned team agent that reads/writes this brain. Source of truth
 
 ## Current runner posture
 
-As of [[../decisions/2026-05-25-codex-primary-operating-layer]], Codex is Brian's primary operating runner for Kerri. Claude Code may remain active as a fallback during the switch-over, but the agent identity and source of truth remain Kerri + KerriOS, not a runner-specific chat history.
+As of [[../decisions/2026-05-25-codex-primary-operating-layer]], Codex is Brian's primary operating runner for Kerri. A 2026-05-29 Claude scheduled-tasks migration is now legacy/fallback after the 2026-06-05 Codex re-entry. Claude Code may remain available as a manual fallback, but the active scheduled-run truth is the Codex automation set unless Brian explicitly switches runners again. The agent identity and source of truth remain Kerri + KerriOS, not a runner-specific chat history.
 
 ## Role-pod architecture
 
@@ -42,15 +42,17 @@ These folders are ergonomic automation entrypoints, not canonical truth. Durable
 |---|---|---|
 | `kerri-inbox-sweep` | every 15 minutes, Codex automation, GPT-5.5 high | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
 | `kerri-morning-brief` | 7:00am ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-morning-brief/SKILL.md` |
+| `kerri-morning-brief-retry` | 7:18am ET, weekdays, Codex automation, GPT-5.5 high; guarded recovery only | `agent-prompts/kerri-morning-brief-retry/SKILL.md` |
 | `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-brain-push` | 10:00pm ET, daily, Codex automation, GPT-5.5 high | `agent-prompts/kerri-brain-push/SKILL.md` |
-| `kerri-gap-sweep` | ~9:41pm ET, daily, local Claude Code durable cron | `agent-prompts/kerri-gap-sweep/SKILL.md` |
-| `kerri-lead-research` | weekday ~6:16pm ET (`13 18 * * 1-5`), local Claude Code durable cron | `agent-prompts/kerri-lead-research/SKILL.md` |
-| `kerri-cold-outreach` | weekday ~9:16am ET (`7 9 * * 1-5`), local Claude Code durable cron — drafts only, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
+| `kerri-gap-sweep` | 9:41pm ET, daily, Codex automation, GPT-5.5 high; checks Codex records plus Claude shims | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+| `kerri-lead-research` | 6:13pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-lead-research/SKILL.md` |
+| `kerri-cold-outreach` | 9:07am ET, weekdays, Codex automation, GPT-5.5 high; drafts only, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
+| `standard-works-issue-writer` | 8:00pm ET, Mondays and Wednesdays, Codex automation, GPT-5.5 high; stages Beehiiv review drafts only | `S&W Writing Agent` + `standard-works-issue-writer` skill |
 
-2026-05-29 note: Claude-side routine architecture spec'd in [`agent-prompts/CLAUDE-ROUTINES.md`](../../../agent-prompts/CLAUDE-ROUTINES.md) — routines move to local Claude Code durable cron, organized by role pod + loop. `kerri-gap-sweep` added as a new independent code/workflow hygiene agent (Brian/Kerri pod). Not yet activated: re-arm mechanism + Codex-directive stripping must land first.
+2026-06-05 note: Brian brought the scheduled agentic work back into Codex. The visible Claude shims are legacy/fallback artifacts; do not infer live ownership from them. `kerri-gap-sweep` is responsible for surfacing any double-run risk between Codex and Claude surfaces.
 
-2026-05-26 audit note (RESOLVED 2026-05-31): the first-day core automation audit passed, so cold outreach and lead research were promoted from on-demand to live scheduled-tasks crons (`kerri-cold-outreach` `7 9 * * 1-5`; `kerri-lead-research` `13 18 * * 1-5`) — see the scheduled-tasks table above. Approval gates unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the pool. `kerri-pipeline-followup` stays on-demand until its volume justifies a schedule. S&W newsletter chain remains task/local-draft driven until Brian/Zach confirm cadence.
+2026-05-26 audit note (RESOLVED 2026-05-31; Codex re-entry 2026-06-05): the first-day core automation audit passed, so cold outreach and lead research were promoted from on-demand to scheduled routines. They now run as Codex automations. Approval gates unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the pool. `kerri-pipeline-followup` stays on-demand until its volume justifies a schedule. S&W issue writing is active in Codex; marketing/social/posting remains approval-gated.
 
 ## Sub-agent roadmap (under Kerri's identity)
 
@@ -58,14 +60,14 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 
 | # | Sub-agent | Status | Build order |
 |---|---|---|---|
-| 1 | Cold Outreach | On-demand only until first-day core automation audit passes and tool availability is verified. Approval-gated; never sends without Brian. | 1st |
-| 1b | Lead Research | On-demand only until first-day core automation audit passes and tool availability is verified. Feeds Cold Outreach queue when invoked. | shipped alongside #1 |
-| 2 | S&W Newsletter Writer | Prompt/state exist; no active Codex automation found in 2026-05-26 audit. Current delivery is task/local-draft driven. | 2nd ✅ |
+| 1 | Cold Outreach | Active Codex automation; approval-gated draft batch only, never sends without Brian. | 1st |
+| 1b | Lead Research | Active Codex automation; feeds Cold Outreach queue, never drafts or sends. | shipped alongside #1 |
+| 2 | S&W Newsletter Writer | Active Codex automation for Monday/Wednesday issue prep and Beehiiv review staging. | 2nd ✅ |
 | 2b | S&W Newsletter Editor | Prompt exists; no active Codex automation found in 2026-05-26 audit. | shipped alongside #2 |
 | 2c | S&W Newsletter Marketing | Prompt exists; no active Codex automation found in 2026-05-26 audit. Never auto-posts. | shipped alongside #2 |
 | 4 | Event Logistics | Active on demand. Venue/vendor research, inquiry drafting, RoS. Project-scoped per event. Seeded with stubs for sf-tech-week-2026, dc-maritime-defense-2026, kinetic-2027. | 3rd ✅ |
 | 3 | Inbound Sales Triage | Deferred (no inbound flow yet — Brian holds until volume justifies the playbook) | TBD |
-| 5 | Pipeline Follow-Up | On-demand only until first-day core automation audit passes. Kinetic 2026 sponsor roster intended as dormant deals. Approval-gated; never sends. | shipped |
+| 5 | Pipeline Follow-Up | On-demand until volume justifies a schedule. Kinetic 2026 sponsor roster intended as dormant deals. Approval-gated; never sends. | shipped |
 | ~~6~~ | ~~Partner Research~~ — folded into Lead Research above | — | superseded |
 
 ## Planned (not yet activated)
