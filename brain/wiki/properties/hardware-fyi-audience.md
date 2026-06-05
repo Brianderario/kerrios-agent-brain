@@ -55,7 +55,7 @@ These are the numbers to quote as fact once captured. **Only Brian/Benji can sup
 - [ ] Seniority mix % — _pending (NOT in 2025 media kit)_
 - [ ] US vs international geo split — _pending (NOT in 2025 media kit)_
 - [ ] Company-size split — _pending (NOT in 2025 media kit)_
-- [x] Confirmed list size + cadence — **partial:** media kit says 16,000+ subscribers, two weekly newsletters (Analog + Weekend Wire). ⚠ headline vs chart vs brain inconsistency (16K / ~23K / ~17K) — still needs a Benji live-export number to nail down.
+- [x] Confirmed list size + cadence — **partial:** media kit says 16,000+ subscribers, two weekly newsletters (Hardware FYI newsletter + Weekend Wire). ⚠ headline vs chart vs brain inconsistency (16K / ~23K / ~17K) — still needs a Benji live-export number to nail down.
 - [ ] Top-performing topics / what readers react to — _pending_
 
 **RESOLVED — open question (asked 2026-06-02, answered 2026-06-03):** Brian said the 2025 media kit holds true demographics. Kerri did a full 14-page review of *Hardware FYI Media Kit 2025.pdf* (Drive id `1OTlAf0VdeDqEAmDCr6zc7HF9-HDBv-_g`) — it does **not** contain demographic % splits. It carries engagement metrics (45%+ open, 0.08% unsub, 16,000+ subs, growth chart) + industry/education logos + product descriptions, but no industry / seniority / geography / company-size percentages. **The Apollo-derived Tier A sample remains the only quantitative demographic data we have.** True Tier B demographic %s need a real source — a full-list analytics export (Beehiiv/ESP) or a Benji-supplied breakdown. Possible alternate source to check next: *Hardware FYI x AllSpice Metrics Report (2025)* — a campaign metrics report that may carry audience cuts the kit omits.
