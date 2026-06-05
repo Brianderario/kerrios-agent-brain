@@ -4,7 +4,7 @@ scope: property · updated: 2026-05-29
 
 ## Newsletter schedule — SOURCE OF TRUTH
 
-The Analog editorial/ad calendar + contracts + revenue + Partner Program tracker live in one Google Sheet (Brian-designated canonical, 2026-05-29):
+Hardware FYI newsletter editorial/ad calendar + contracts + revenue + Partner Program tracker live in one Google Sheet (Brian-designated canonical, 2026-05-29):
 
 - **Sheet:** https://docs.google.com/spreadsheets/d/1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk/edit (fileId `1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`)
 - **Tabs/sections:** Contracts list · Product/revenue ledger · **Ad calendar** (Tue/Sat issues, `Status` TRUE=booked / FALSE=available) · Partner Program tracker · monthly event/webinar/panel rollups.
@@ -18,7 +18,7 @@ KMG-owned media property. Industry newsletter + community + events for hardware 
 - **Domain:** hardwarefyi.com
 - **Lead:** [[brian-derario]] (CEO) — content + sponsor relationships
 - **Ops:** [[benji-chia]] (CDO) — distribution, growth, automation
-- **Active newsletters:** The Analog (flagship), Weekend Wire
+- **Active newsletters:** Hardware FYI newsletter (flagship), Weekend Wire
 - **Event flagship:** [[kinetic]] (annual SF conference, last edition 2026-05-12 to 13)
 - **Job-prefix code in sweep:** `H####`
 - **Approval list (Google Tasks):** "Hardware FYI"
@@ -45,11 +45,11 @@ Tracked under [[wiki/deals/]]. Apollo enrichment cadence in [[partnership-resear
 
 ## Sponsor product formats (as of 2026-05-26)
 
-Two packages on The Analog. Use these consistently in sponsor conversations.
+Two packages on the Hardware FYI newsletter. Use these consistently in sponsor conversations.
 
 ### Current format
 
-- **Primary Placement** — $1,500 line-item placement anchor for quote-menu conversations. Older package anchors were $10K / 6 sends or $6K / 3 sends; use the current line-item anchor when Brian asks for product-by-product pricing. Full ad unit (image + copy + CTA) inside The Analog. Reference example: [Colab ad in "what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say).
+- **Primary Placement** — $1,500 line-item placement anchor for quote-menu conversations. Older package anchors were $10K / 6 sends or $6K / 3 sends; use the current line-item anchor when Brian asks for product-by-product pricing. Full ad unit (image + copy + CTA) inside the Hardware FYI newsletter. Reference example: [Colab ad in "what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say).
 - **Partner Program** — $12.5K / 6 months standard. **Sold in flexible durations** — Brian uses **2-month and 3-month** terms inside package bundles (observed in the 2026-05-29 Modelwise quote), not only the 6-mo standard. Sales-list format: Partner Program (6 Months); 2x per week feature in Tools We Love; 3x Primary Placement, with one usable during an approved one-month trial; logo in the Partner Program sponsor image + on the website. Reference examples below.
 - **Custom article / Custom Content Article** — $2.5K.
 - **Custom content** — price depends on execution when the deliverable is not a standard custom article or research report.

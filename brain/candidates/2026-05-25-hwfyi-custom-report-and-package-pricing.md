@@ -18,7 +18,7 @@ This is a candidate because Brian recorded the new product + new package pricing
 - HWFYI editorial (writes / structures) + sponsor expertise (subject-matter authority, technical contribution)
 - Lead-gated landing page on a HWFYI-hosted URL (Squarespace), single email field, immediate PDF download
 - All download emails flow to the sponsor as opted-in leads
-- Distributed via The Analog + standalone sponsor mentions; lives on the page indefinitely as a long-tail lead asset
+- Distributed via the Hardware FYI newsletter + standalone sponsor mentions; lives on the page indefinitely as a long-tail lead asset
 
 **List-price anchor (proposed):** $15K. Premium positioning relative to a single webinar ($5K) because of the long-tail compounding + editorial production cost.
 

@@ -1,3 +1,6 @@
+## [2026-06-05 00:34 ET] inbox-sweep | H0059 sent; H0041/H0027 closed; no new task | Kerri (Codex scheduled)
+Processed live approvals first. H0059 GrayMatter was checked ACTION:send, sent from kerri@ on the existing thread at 00:30 ET, and verified in-thread. H0041 Xscape was checked ACTION:skip/i answered after Brian sent Nick the current 2027 brochure at 23:39 ET, so the queued draft was closed as skipped. H0027 SHACK15 was completed as handled/skipped after Brian replied directly at 00:24 ET that he will get back early next week; no Kerri send. Post-cursor mail also included AllSpice Katrina invite-list/venue notes already answered by Brian and a friendly Leo Polovets Gmail reply with no ask. No new task, no Sendblue.
+
 ## [2026-06-04 18:15 ET] lead-research | 46 companies scanned, 6 new to pool (182 total), 10 queued (queue→15), CRM synced (6 appended/16 updated) | Kerri
 Scheduled evening top-up: funding lane (3 fresh Jun-1 raises — Layup Parts $42M, Alitheon $8M, Mecka AI $35M) + software-to-mfg/ICP (Innovapptive, Rajant, Astrobotic). 3 funding leads queued; 3 held in pool. Skipped Edge Impulse (now Qualcomm subsidiary), 3 dedup'd, 9 off-ICP, IT-services consultancies, + Mastercam/Vegam/ASIC North (no contact this run — revisit).
 

@@ -32,7 +32,7 @@ Jiga is an active Hardware FYI sponsor/customer focused on manufacturer access a
 
 ## June placement status (per HWFYI schedule sheet, read 2026-05-29)
 
-- Jiga has **no placements currently slotted in June** on The Analog ad calendar.
+- Jiga has **no placements currently slotted in June** on the Hardware FYI newsletter ad calendar.
 - June 2026 open Primary Placement slots: **6/9, 6/13, 6/16, 6/20, 6/23, 6/27** (6 available). Booked: 6/2 + 6/6 (Onshape Discovery 4&5 of 5), 6/30 (AllSpice monthly DRCY).
 - Khay's email says ~8-9 placements remain incl. a Protolabs make-good. Jiga's only logged calendar history is a Partner Program Promotion on 2026-01-10 (tracker Row 3); no Jiga contract row exists in the sheet's contracts/revenue tabs — placement-count reconciliation is a gap.
 - Schedule source of truth: [[../properties/hardware-fyi]] → HWFYI Google Sheet.

@@ -23,7 +23,7 @@ template was "horrible").
 | `[Company]` | client legal entity name | appears 2x (intro line + left signature header) — one replace fills both |
 | `[Date]` | effective/start date | |
 | `[Deliverables]` | deal deliverables | pull canonical Partner Program wording from `brain/wiki/properties/hardware-fyi.md` |
-| `[Platforms]` | e.g. "Email Newsletter (The Analog)" | |
+| `[Platforms]` | e.g. "Email Newsletter (Hardware FYI newsletter)" | |
 | `[Schedule]` | e.g. "6 months from start" | |
 | `[Fee]` | e.g. "$12,500 USD" | |
 | Payment Terms | literal default `Net 30 upon receipt of invoice` | only change if the deal differs |
