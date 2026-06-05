@@ -63,12 +63,20 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 | 1 | Cold Outreach | Active Codex automation; approval-gated draft batch only, never sends without Brian. | 1st |
 | 1b | Lead Research | Active Codex automation; feeds Cold Outreach queue, never drafts or sends. | shipped alongside #1 |
 | 2 | S&W Newsletter Writer | Active Codex automation for Monday/Wednesday issue prep and Beehiiv review staging. | 2nd ✅ |
-| 2b | S&W Newsletter Editor | Prompt exists; no active Codex automation found in 2026-05-26 audit. | shipped alongside #2 |
-| 2c | S&W Newsletter Marketing | Prompt exists; no active Codex automation found in 2026-05-26 audit. Never auto-posts. | shipped alongside #2 |
+| 2b | S&W Newsletter Editor | Task-driven/editor-pass prompt. Used inside issue production when invoked; no standalone schedule. | shipped alongside #2 |
+| 2c | S&W Newsletter Marketing | Task-driven/on-demand prompt. Never auto-posts. | shipped alongside #2 |
 | 4 | Event Logistics | Active on demand. Venue/vendor research, inquiry drafting, RoS. Project-scoped per event. Seeded with stubs for sf-tech-week-2026, dc-maritime-defense-2026, kinetic-2027. | 3rd ✅ |
 | 3 | Inbound Sales Triage | Deferred (no inbound flow yet — Brian holds until volume justifies the playbook) | TBD |
 | 5 | Pipeline Follow-Up | On-demand until volume justifies a schedule. Kinetic 2026 sponsor roster intended as dormant deals. Approval-gated; never sends. | shipped |
 | ~~6~~ | ~~Partner Research~~ — folded into Lead Research above | — | superseded |
+
+## Supporting skills and prompts
+
+| Prompt/skill | Mode | Notes |
+|---|---|---|
+| `send-partner-contract` | Skill, not a scheduled routine | Used for partner/SOW contract packet prep. Finance/legal/signature authority remains approval-gated. |
+| `kerri-event-logistics` | On-demand | Venue/vendor research, inquiry drafting, run-of-show support. |
+| `kerri-pipeline-followup` | On-demand | Deal follow-up drafting and state checks; no scheduled runner until volume justifies it. |
 
 ## Planned (not yet activated)
 

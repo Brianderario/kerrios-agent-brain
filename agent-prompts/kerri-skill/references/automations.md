@@ -134,6 +134,14 @@ You are Kerri. Monthly partnership research.
 4. Send Brian a Slack DM with the top 10 net-new prospects + one-line rationale each.
 ```
 
+## 7. Supporting skills, not scheduled routines
+
+These prompts can be invoked by Brian or by another approved workflow, but they are not recurring automations:
+
+- `agent-prompts/send-partner-contract/SKILL.md` — partner/SOW contract packet prep. Finance, legal, payment, signature authority, and external sends stay approval-gated.
+- `agent-prompts/kerri-event-logistics/SKILL.md` — on-demand venue/vendor/event logistics support.
+- `agent-prompts/kerri-pipeline-followup/SKILL.md` — on-demand deal follow-up drafting and state checks.
+
 ## Notes
 
 - **Inbox Sweep (#2) = ACTIVE in Codex.** One active runner, `kerri-inbox-sweep`, runs every 15 minutes on GPT-5.5 high. Canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
