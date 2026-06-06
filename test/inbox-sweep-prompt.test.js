@@ -119,6 +119,29 @@ test('inbox sweep prompt sends brief Sendblue alerts only for newly-created task
   assert.match(automationDoc, /no-op\/quiet runs that sent no external alert/);
 });
 
+test('inbox sweep prompt suppresses repeated identical error texts', () => {
+  for (const required of [
+    'REPEATED FAILURE ALERT DEDUPE',
+    'lastErrorReason',
+    'lastErrorAlertedAt',
+    'same reason has already been alerted in the last 24 hours',
+    'do NOT send another text',
+    'errorAlertSuppressed: true',
+    'avoid touching `NOW.md` or `brain/log.md` just to repeat the same outage',
+    'Text again only when the failure reason changes materially',
+    'On recovery, clear `lastErrorAt`, `lastErrorReason`, and `lastErrorAlertedAt`',
+    'Google Tasks read failure remains the highest-risk case',
+    'alert at most once per hour while it persists',
+    'S/W Superhuman connector being unavailable every 15 minutes'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+
+  assert.match(automationDoc, /Repeated identical connector errors are deduped/);
+  assert.match(automationDoc, /first outage alert only/);
+  assert.match(automationDoc, /silent fail-closed grading/);
+});
+
 test('inbox sweep prompt protects redo provenance and stale-task markers', () => {
   for (const required of [
     'DRAFT SOURCE: Codex interactive redo',

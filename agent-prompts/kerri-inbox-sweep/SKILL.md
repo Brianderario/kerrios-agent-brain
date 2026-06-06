@@ -57,10 +57,10 @@ Read + write every sweep:
         "schema": "inbox-sweep-state-v1",
         "updatedAt": "ISO8601",
         "mailboxes": {
-          "kerri@hardwarefyi.com": { "lastSuccessfulSweepAt": "ISO8601", "seenMessageIds": ["..."], "lastErrorAt": null },
-          "brian@hardwarefyi.com": { "lastSuccessfulSweepAt": "ISO8601", "seenMessageIds": ["..."], "lastErrorAt": null },
-          "brian@kerrihq.com": { "lastSuccessfulSweepAt": "ISO8601", "seenMessageIds": ["..."], "lastErrorAt": null },
-          "brian@standardandworks.com": { "lastSuccessfulSweepAt": "ISO8601", "seenMessageIds": ["..."], "lastErrorAt": null }
+          "kerri@hardwarefyi.com": { "lastSuccessfulSweepAt": "ISO8601", "seenMessageIds": ["..."], "lastErrorAt": null, "lastErrorReason": null, "lastErrorAlertedAt": null },
+          "brian@hardwarefyi.com": { "lastSuccessfulSweepAt": "ISO8601", "seenMessageIds": ["..."], "lastErrorAt": null, "lastErrorReason": null, "lastErrorAlertedAt": null },
+          "brian@kerrihq.com": { "lastSuccessfulSweepAt": "ISO8601", "seenMessageIds": ["..."], "lastErrorAt": null, "lastErrorReason": null, "lastErrorAlertedAt": null },
+          "brian@standardandworks.com": { "lastSuccessfulSweepAt": "ISO8601", "seenMessageIds": ["..."], "lastErrorAt": null, "lastErrorReason": null, "lastErrorAlertedAt": null }
         },
         "lastDailyGradeAt": "ISO8601|null",
         "lastWeeklyGradeAt": "ISO8601|null"
@@ -83,6 +83,13 @@ Read + write every sweep:
         "weekly": []
       }
     Store compact scores + observations only. Do not store raw email bodies.
+
+REPEATED FAILURE ALERT DEDUPE:
+  • A mailbox/API/data-file outage may deserve one Brian-facing Sendblue/text alert, but the same failure on a 15-minute schedule must never pepper Brian.
+  • Use `inbox-sweep-state.json` as the durable dedupe ledger. For every failure, write/update `lastErrorAt` and a short stable `lastErrorReason` on the affected mailbox or component state. When a Sendblue/text error alert is actually sent, also set `lastErrorAlertedAt`.
+  • Before texting for an error, compare the new normalized failure reason to the stored `lastErrorReason`. If the same reason has already been alerted in the last 24 hours and the affected surface has not recovered with a successful read since then, do NOT send another text. Record the run as fail-closed with `errorAlertSuppressed: true` in the grade ledger, write only durable state/cadence, and avoid touching `NOW.md` or `brain/log.md` just to repeat the same outage.
+  • Text again only when the failure reason changes materially, the affected surface recovered and then failed again, the outage has lasted more than 24 hours, or the failure prevents reading Google Tasks / send-approval state. Google Tasks read failure remains the highest-risk case: fail closed, send no email, and alert at most once per hour while it persists.
+  • On recovery, clear `lastErrorAt`, `lastErrorReason`, and `lastErrorAlertedAt` for that mailbox/component during STEP 5 so the next distinct outage can alert once.
 
 Read-only (apply before every draft):
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/workflows/draft-learnings.md`
@@ -485,7 +492,7 @@ When Brian completes a 💡 suggestion task with the ACTION line set to `apply`,
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — SAVE STATE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Write updated inbox-sweep-state.json to disk (per-mailbox lastSuccessfulSweepAt, seenMessageIds capped at 500, lastErrorAt).
+Write updated inbox-sweep-state.json to disk (per-mailbox lastSuccessfulSweepAt, seenMessageIds capped at 500, lastErrorAt, lastErrorReason, and lastErrorAlertedAt).
 Write updated job-counters.json to disk.
 Write updated jobs.json to disk.
 Write updated companies.json to disk (if any new entries or jobId backfills happened in CUSTOMER LOOKUP).
@@ -519,6 +526,7 @@ Also record:
   - `jobsCreated`
   - `taskTextsSent`
   - `taskTextsMissed`
+  - `errorAlertSuppressed` when a repeated outage was intentionally not texted
   - `jobsSent`
   - `jobsEditedAndSent`
   - `redosRequested`
@@ -557,6 +565,7 @@ Texting rule: Sendblue/text alerts are the Brian attention path. If the sweep di
 Errors only: if any mailbox, the Tasks API, or a data file is unreachable, send ONE brief Sendblue/text heads-up:
   "Kerri sweep error [time]: [what failed]. No sends executed."
 Do NOT send any emails if you cannot read the task lists first — fail closed.
+Before sending an error heads-up, apply REPEATED FAILURE ALERT DEDUPE above. A continuing identical mailbox connector outage, such as the same S/W Superhuman connector being unavailable every 15 minutes, is logged/graded silently after the first alert inside the suppression window. It should not update `NOW.md`, create a Google Task, Slack, email, or text Brian again unless the dedupe rule says the alert window has reopened.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 8 — ARCHIVE AUTOMATION CHAT

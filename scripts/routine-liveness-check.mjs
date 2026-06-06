@@ -159,10 +159,26 @@ const ROUTINES = [
   {
     name: 'kerri-inbox-sweep',
     core: true,
-    cadence: 'every 15 min, 06:00–22:45 ET',
+    cadence: 'weekdays every 15 min, 06:00–22:45 ET; weekends 10:00 and 16:00 ET',
     read: lastInboxSweep,
-    // Windowed: only enforced inside the active window; paused overnight.
+    // Windowed: high-cadence on weekdays, intentionally sparse on weekends.
     evaluate(last, et, age) {
+      if (et.isWeekend) {
+        const weekendRuns = [10 * 60, 16 * 60];
+        const grace = 35;
+        const dueRuns = weekendRuns.filter((minute) => et.minutesOfDay >= minute + grace);
+        if (dueRuns.length === 0) {
+          return { status: 'ok', detail: 'before weekend first fire+grace' };
+        }
+        if (last == null) return { status: 'unknown', detail: 'no state file / cursor' };
+        const lastEt = etParts(new Date(Date.parse(last)));
+        const lastDueRun = dueRuns[dueRuns.length - 1];
+        if (lastEt.isoDate === et.isoDate && lastEt.minutesOfDay >= lastDueRun) {
+          return { status: 'ok' };
+        }
+        const label = `${String(Math.floor(lastDueRun / 60)).padStart(2, '0')}:00 ET`;
+        return { status: 'dark', detail: `no weekend inbox sweep recorded for the ${label} checkpoint` };
+      }
       const inWindow = et.minutesOfDay >= 6 * 60 && et.minutesOfDay <= 22 * 60 + 45;
       if (!inWindow) return { status: 'paused-ok', detail: 'outside 06:00–22:45 ET active window' };
       if (last == null) return { status: 'unknown', detail: 'no state file / cursor' };
