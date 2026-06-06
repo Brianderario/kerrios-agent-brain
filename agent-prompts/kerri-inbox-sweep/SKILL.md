@@ -28,6 +28,12 @@ Operating loop for this automation:
   5. Record compact durable memory back into KerriOS.
   6. Improve the workflow through self-grading, Brian edits, and recurring quality reviews.
 
+TOKEN BUDGET CONTRACT:
+  • Default mode is cheap triage. Scheduled no-op sweeps must not load the full writing playbook, large historical files, full completed task lists, or broad repo discovery output before they know there is material work.
+  • The live automation is allowed to run at `reasoning_effort = "medium"` for baseline sweep/routing. Use GPT-5.5 Extra High quality only for the material drafting path: a new human email that needs a reply, an approved send whose body/routing must be re-verified, a redo, or a complex thread update that will change a Google Task. If sub-agents are available, spawn the drafting/review work as a GPT-5.5 Extra High sub-agent; if not, switch into a clearly labeled "MATERIAL DRAFTING PASS" and load the full writing context before drafting.
+  • Do not trade away safety for cost. Google Tasks approval state, the no-double-email gate, live-thread re-read before sends, and fail-closed connector behavior remain mandatory.
+  • Cost target: a quiet run should only read the lock, state summaries, pending jobs, direct per-job task status, open task lists, cursor-bounded mailbox summaries, and compact grade/state files. It should append a compact cadence/grade record and archive without touching `NOW.md` or `brain/log.md`.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 REFERENCE — MAILBOXES & MCPs
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -176,14 +182,24 @@ STEP 0 — RESOLVE TASK-LIST IDS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 1 — LOAD STATE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-1. Read inbox-sweep-state.json. If missing, initialize schema with all four mailboxes and empty `seenMessageIds`.
-2. Read inbox-sweep-grades.json. If missing, initialize schema with empty `runs`, `daily`, and `weekly`.
-3. Read job-counters.json → hold H, S, G values in memory.
-4. Read jobs.json → hold all jobs in memory.
-5. Read companies.json → hold the domain→{jobId, …} map in memory (source of truth for customer ID lookup).
-6. Read draft-learnings.md + hwfyi-sponsor-reply-templates.md → hold all lessons/templates (you MUST apply these to every draft).
-7. Read the living-brain + agent-architecture decisions so this sweep writes back into KerriOS instead of only creating tasks.
-8. For each list (H/S/G), call `gtasks_list_tasks` with `show_completed: true` → hold all tasks in memory.
+Use a two-stage load:
+
+STAGE 1 — TRIAGE LOAD (every run, cheap):
+1. Read `data/inbox-sweep-state.json`. If missing, initialize schema with all four mailboxes and empty `seenMessageIds`.
+2. Read a compact summary of `data/inbox-sweep-grades.json` only: run counts, last run, last daily, last weekly. If missing, initialize schema with empty `runs`, `daily`, and `weekly`.
+3. Read `data/gtasks-lists.json`.
+4. Read only pending jobs from `data/jobs.json`: `jobId`, `prefix`, `company`, `domain`, `subject`, `mailbox`, `status`, `sendFrom`, `gtasksListKey`, `gtasksTaskId`, `internetMessageIds`, `source`, `routing`, `superhumanThreadId`, and `superhumanMessageId`. Do not dump old sent/skipped jobs into context on quiet runs.
+5. Do not read full `companies.json`, `draft-learnings.md`, sponsor templates, people pages, customer protocol, architecture docs, `NOW.md`, or `brain/log.md` yet.
+6. For each pending job, call `gtasks_get_task` directly. This is the source of truth for approvals and costs less than listing every completed task.
+7. For orphan detection, call `gtasks_list_tasks` with `show_completed: false`, `show_hidden: true`, and the smallest practical `max_results` for H/S/G. Do not call full `show_completed:true` list scans unless a live approval mismatch, orphan risk, or cleanup path requires it.
+
+STAGE 2 — MATERIAL LOAD (only after Stage 1 finds an approval decision, new task-worthy human email, redo, orphan/process miss, or draft/send work):
+1. Read job-counters.json.
+2. Read full `jobs.json` only for the relevant job(s) or when a mutation requires writing the whole array.
+3. Read full `companies.json` only for customer lookup / alias matching.
+4. Read draft-learnings.md + hwfyi-sponsor-reply-templates.md before writing any draft.
+5. Read living-brain + agent-architecture decisions, customer ID protocol, Ari/Benji pages, and other routed KerriOS context only when the material action needs them.
+6. Read/update `NOW.md` and `brain/log.md` only for material runs.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — PROCESS DECISIONS FROM GOOGLE TASKS
@@ -358,6 +374,7 @@ FULL THREAD READ (mandatory before drafting):
   3. Save/update that compact state on the job and, when material, on the company/deal page. Do not draft from the latest email alone.
 
 DRAFTING:
+  0. Drafting is the quality escalation point. Before writing or rewriting an email body, perform the MATERIAL DRAFTING PASS: load draft-learnings, sponsor templates, relevant company/person pages, prior thread state, and any needed routed context. Use GPT-5.5 Extra High via a drafting sub-agent when available; otherwise use the current run with the full material context loaded. Baseline triage context is not enough to draft.
   1. Apply ALL lessons from draft-learnings.md
   2. Choose send identity per SEND IDENTITY rules
   3. jobId — already resolved in CUSTOMER LOOKUP above (either reused from companies.json or freshly assigned + registered). Use exactly that value; do NOT re-increment.

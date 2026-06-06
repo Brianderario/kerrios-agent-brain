@@ -55,6 +55,24 @@ test('inbox sweep prompt requires context, enrichment, and full thread reads bef
   assert.match(prompt, /Do not draft from the latest email alone\./);
 });
 
+test('inbox sweep prompt keeps quiet runs cheap and escalates only for material drafting', () => {
+  for (const required of [
+    'TOKEN BUDGET CONTRACT',
+    'Default mode is cheap triage',
+    'reasoning_effort = "medium"',
+    'Use GPT-5.5 Extra High quality only for the material drafting path',
+    'STAGE 1 — TRIAGE LOAD',
+    'STAGE 2 — MATERIAL LOAD',
+    'Do not read full `companies.json`, `draft-learnings.md`, sponsor templates, people pages, customer protocol, architecture docs, `NOW.md`, or `brain/log.md` yet',
+    'Do not dump old sent/skipped jobs into context on quiet runs',
+    'Do not call full `show_completed:true` list scans unless',
+    'MATERIAL DRAFTING PASS',
+    'Baseline triage context is not enough to draft'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
 test('inbox sweep prompt includes self-grading and KerriOS write-back', () => {
   for (const required of [
     'STEP 6 — SELF-GRADE AND IMPROVE',
