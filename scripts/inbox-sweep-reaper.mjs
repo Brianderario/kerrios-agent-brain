@@ -68,20 +68,30 @@ export function lineMarksInboxSweepRun(line) {
   return lineMarksScheduledRun(s) && s.includes("kerri-inbox-sweep");
 }
 
+// The reaper can only prove liveness for Claude scheduled-task sessions. Codex runners
+// are outside its process/transcript model, so Codex-owned locks must be left to the
+// lock TTL crash fuse instead of being "helpfully" released out from under a live run.
+export function reaperCanObserveLockRunner(lockRunner) {
+  return String(lockRunner || "").toLowerCase() === "claude";
+}
+
 // Pure decision: should the reaper reclaim the inbox-sweep run-lock? Yes iff the lock is
 // genuinely held (present and not TTL-stale — a stale lock is reclaimed by the next
-// `acquire` on its own) AND no inbox-sweep session is alive to own it AND the lock has
-// existed long enough that we can't be racing a holder that just acquired it but whose
-// session/transcript the reaper hasn't observed yet. This is what collapses an orphaned
-// lock (holder killed mid-run, e.g. by a Claude desktop auto-relaunch) from a ≤TTL
-// outage down to one ~5-min reaper scan. It can NEVER fire while a sweep is working,
-// because a working sweep is a live inbox-sweep session (liveInboxSweepSessions ≥ 1).
+// `acquire` on its own) AND it is owned by the Claude runner this reaper can observe AND
+// no Claude inbox-sweep session is alive to own it AND the lock has existed long enough
+// that we can't be racing a holder that just acquired it but whose session/transcript the
+// reaper hasn't observed yet. This collapses a Claude orphaned lock (holder killed
+// mid-run, e.g. by a Claude desktop auto-relaunch) from a ≤TTL outage down to one ~5-min
+// reaper scan. It can NEVER fire while a Claude sweep is working, because a working
+// Claude sweep is a live inbox-sweep session (liveInboxSweepSessions ≥ 1). It also never
+// fires for Codex locks because this process cannot observe Codex runner liveness.
 export function shouldReleaseInboxSweepLock(
-  { lockHeld, liveInboxSweepSessions, lockAgeMs },
+  { lockHeld, liveInboxSweepSessions, lockAgeMs, lockRunner },
   { minLockAgeMs = MIN_LOCK_AGE_MS } = {}
 ) {
   return (
     Boolean(lockHeld) &&
+    reaperCanObserveLockRunner(lockRunner) &&
     Number(liveInboxSweepSessions) === 0 &&
     Number.isFinite(Number(lockAgeMs)) &&
     Number(lockAgeMs) >= minLockAgeMs
@@ -233,12 +243,13 @@ function reclaimOrphanedInboxSweepLock(now, liveInboxSweepSessions) {
   if (!status || !status.locked) return; // no lock, or already stale (acquire reclaims that)
   const startedAt = status.lock && status.lock.startedAt ? Date.parse(status.lock.startedAt) : NaN;
   const lockAgeMs = now - startedAt; // NaN if startedAt unparseable -> shouldRelease returns false
-  if (!shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions, lockAgeMs })) return;
+  const lockRunner = status.lock && status.lock.runner ? status.lock.runner : "unknown";
+  if (!shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions, lockAgeMs, lockRunner })) return;
   const heldMin = Math.round(lockAgeMs / 60000);
   if (releaseInboxSweepLock()) {
-    log(`released orphaned inbox-sweep lock (held ${heldMin}m, 0 live inbox-sweep sessions) — holder gone, unblocking next sweep`);
+    log(`released orphaned inbox-sweep lock (runner=${lockRunner}, held ${heldMin}m, 0 live inbox-sweep sessions) — holder gone, unblocking next sweep`);
   } else {
-    log(`WARNING: orphaned inbox-sweep lock detected (held ${heldMin}m, 0 live sessions) but release failed`);
+    log(`WARNING: orphaned inbox-sweep lock detected (runner=${lockRunner}, held ${heldMin}m, 0 live sessions) but release failed`);
   }
 }
 

@@ -16,7 +16,7 @@ Live Codex automation record:
 
 - `kerri-inbox-sweep`
 
-Cadence: every 15 minutes. Model: GPT-5.5 high. The first action is an atomic local lock (`scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 90`); overlapping runs exit silently before loading context.
+Cadence: every 15 minutes. Model: GPT-5.5 high. The first action is an atomic local lock (`scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 30 --runner codex`); overlapping runs exit silently before loading context. The lock records its runner type. Codex locks recover through the 30-minute TTL crash fuse, while the local reaper only fast-releases Claude fallback locks it can prove have no live scheduled inbox-sweep session.
 
 ## Mailboxes
 

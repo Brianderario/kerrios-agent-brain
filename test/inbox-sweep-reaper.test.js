@@ -7,6 +7,7 @@ import {
   SCHED_RUN_MARKER,
   lineMarksScheduledRun,
   lineMarksInboxSweepRun,
+  reaperCanObserveLockRunner,
   shouldReleaseInboxSweepLock,
 } from "../scripts/inbox-sweep-reaper.mjs";
 
@@ -139,35 +140,55 @@ test("inbox-sweep matcher still requires the user-line + marker gates", () => {
 
 const MIN = 60 * 1000;
 
-test("releases the lock when held, owner gone, and past the acquire-race grace", () => {
+test("releases a Claude-owned lock when held, owner gone, and past the acquire-race grace", () => {
   // The core fix: holder killed mid-run (Claude app relaunch), lock still held, no live
   // inbox-sweep session → reclaim so the next scheduled sweep can run.
   assert.equal(
-    shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 3 * MIN }),
+    shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 3 * MIN, lockRunner: "claude" }),
     true,
   );
 });
 
-test("NEVER releases while an inbox-sweep session is alive (would clobber a working sweep)", () => {
+test("NEVER releases while a Claude inbox-sweep session is alive (would clobber a working sweep)", () => {
   assert.equal(
-    shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 1, lockAgeMs: 30 * MIN }),
+    shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 1, lockAgeMs: 30 * MIN, lockRunner: "claude" }),
     false,
   );
 });
 
+test("NEVER releases Codex/local/unknown locks because this reaper cannot observe their owners", () => {
+  for (const lockRunner of ["codex", "local", "unknown", undefined, null, ""]) {
+    assert.equal(
+      shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 30 * MIN, lockRunner }),
+      false,
+      `should not release ${String(lockRunner)} lock`,
+    );
+  }
+});
+
+test("documents the only lock runner this reaper can observe", () => {
+  assert.equal(reaperCanObserveLockRunner("claude"), true);
+  assert.equal(reaperCanObserveLockRunner("CLAUDE"), true);
+  assert.equal(reaperCanObserveLockRunner("codex"), false);
+  assert.equal(reaperCanObserveLockRunner("unknown"), false);
+});
+
 test("does not release an unheld lock, or one younger than the grace", () => {
-  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: false, liveInboxSweepSessions: 0, lockAgeMs: 30 * MIN }), false);
+  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: false, liveInboxSweepSessions: 0, lockAgeMs: 30 * MIN, lockRunner: "claude" }), false);
   // Just-acquired lock whose owning session the reaper may not have observed yet.
-  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 30 * 1000 }), false);
+  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 30 * 1000, lockRunner: "claude" }), false);
 });
 
 test("does not release on an unparseable lock age (NaN)", () => {
-  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: NaN }), false);
+  assert.equal(shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: NaN, lockRunner: "claude" }), false);
 });
 
 test("respects a custom minLockAgeMs override", () => {
   assert.equal(
-    shouldReleaseInboxSweepLock({ lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 90 * 1000 }, { minLockAgeMs: 60 * 1000 }),
+    shouldReleaseInboxSweepLock(
+      { lockHeld: true, liveInboxSweepSessions: 0, lockAgeMs: 90 * 1000, lockRunner: "claude" },
+      { minLockAgeMs: 60 * 1000 },
+    ),
     true,
   );
 });

@@ -2,19 +2,19 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = parseArgs(process.argv.slice(2));
 const command = args._[0] || 'status';
 const root = path.resolve(args.root || repoRoot);
-// TTL is the crash-fuse for a holder that died without releasing (e.g. the Claude
-// desktop app auto-relaunches and tears down the in-flight sweep mid-run). It is the
-// LAST-RESORT backstop: the inbox-sweep-reaper normally reclaims an orphaned lock within
-// one ~5-min scan (see shouldReleaseInboxSweepLock there), so this only matters if the
-// reaper is also down. Kept comfortably longer than any real sweep (~1-2 min of work)
-// but far below the old 90 min so a doubly-failed recovery still self-heals inside half
-// an hour. A sweep never legitimately runs this long.
+// TTL is the crash-fuse for a holder that died without releasing. Codex-owned locks
+// rely on this TTL only because the Claude-session reaper cannot observe Codex runner
+// liveness. Claude fallback locks can still be reclaimed faster by that reaper when it
+// can prove no scheduled inbox-sweep session is alive. Kept comfortably longer than any
+// real sweep (~1-2 min of work) but far below the old 90 min so a failed recovery still
+// self-heals inside half an hour. A sweep never legitimately runs this long.
 const ttlMinutes = Number.parseInt(args['ttl-minutes'] || '30', 10);
 const lockDir = path.join(root, 'data', '.inbox-sweep-run-lock');
 const metaPath = path.join(lockDir, 'lock.json');
@@ -38,6 +38,7 @@ switch (command) {
 }
 
 function acquire() {
+  const runner = resolveRunner(args);
   fs.mkdirSync(path.dirname(lockDir), { recursive: true });
 
   const existing = readMeta();
@@ -65,12 +66,60 @@ function acquire() {
   const meta = {
     pid: process.pid,
     host: os.hostname(),
+    runner: runner.name,
+    runnerSource: runner.source,
     startedAt: now.toISOString(),
     expiresAt: new Date(now.getTime() + ttlMinutes * 60_000).toISOString(),
     ttlMinutes
   };
   fs.writeFileSync(metaPath, `${JSON.stringify(meta, null, 2)}\n`);
   print({ acquired: true, lockDir, lock: meta });
+}
+
+function resolveRunner(parsedArgs) {
+  const explicit = parsedArgs.runner || process.env.KERRI_INBOX_SWEEP_RUNNER || process.env.KERRI_LOCK_RUNNER;
+  if (explicit) return normalizeRunner(explicit, parsedArgs.runner ? 'cli' : 'env');
+
+  const detected = detectRunnerFromProcessTree(process.pid);
+  return { name: detected || 'unknown', source: detected ? 'process-tree' : 'fallback' };
+}
+
+function normalizeRunner(value, source) {
+  const name = String(value || '').trim().toLowerCase();
+  if (!['codex', 'claude', 'local', 'unknown'].includes(name)) {
+    fail(1, `runner must be one of: codex, claude, local, unknown`);
+  }
+  return { name, source };
+}
+
+function detectRunnerFromProcessTree(startPid) {
+  let pid = Number(startPid);
+  const seen = new Set();
+  for (let i = 0; i < 16 && Number.isFinite(pid) && pid > 1 && !seen.has(pid); i += 1) {
+    seen.add(pid);
+    const proc = processInfo(pid);
+    if (!proc) return null;
+    const command = proc.command || '';
+    if (command.includes('/Applications/Codex.app/') || command.includes('@openai/codex') || /\bcodex\b/i.test(command)) {
+      return 'codex';
+    }
+    if (/claude-code\/[^/]+\/claude\.app\/Contents\/MacOS\/claude/.test(command)) {
+      return 'claude';
+    }
+    pid = proc.ppid;
+  }
+  return null;
+}
+
+function processInfo(pid) {
+  try {
+    const out = execFileSync('ps', ['-p', String(pid), '-o', 'ppid=,command='], { encoding: 'utf8' }).trim();
+    const match = out.match(/^(\d+)\s+([\s\S]+)$/);
+    if (!match) return null;
+    return { ppid: Number(match[1]), command: match[2] };
+  } catch {
+    return null;
+  }
 }
 
 function release() {

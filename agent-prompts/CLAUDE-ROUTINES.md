@@ -46,7 +46,7 @@ A routine prompt is **incomplete** unless it names all six (per the role-pods de
 ## Migration deltas from the Codex prompts (apply when porting)
 
 - **Strip the Codex closing directives.** Every existing `agent-prompts/*/SKILL.md` ends with a required `::inbox-item{...}` + `::archive{...}` block. Those are Codex-runner only. Under Claude Code, durable output is the routine's named surface (Tasks/email/text/ledger/commit) — no closing directives. Add a `## Runner` section to each prompt (as `kerri-gap-sweep` does) so the runner-specific behavior is explicit and lives in git.
-- **Local deps carry over unchanged:** `scripts/inbox-sweep-lock.mjs`, the Sendblue adapter `/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs`, local state files, local email MCPs.
+- **Local deps carry over unchanged:** `scripts/inbox-sweep-lock.mjs`, the Sendblue adapter `/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs`, local state files, local email MCPs. Claude fallback prompts that acquire the inbox-sweep lock must pass `--runner claude` so the local reaper may fast-release a proven orphaned Claude lock; Codex primary prompts pass `--runner codex` and recover through the lock TTL instead.
 - **Approval gate unchanged:** external sends still require `approved=true` + `approvalSource`; every send still auto-CCs brian@hardwarefyi.com.
 - **Customer ID Protocol unchanged:** runner-agnostic; applies to any routine touching companies/leads/drafts.
 

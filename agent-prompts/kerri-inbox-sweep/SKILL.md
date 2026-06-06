@@ -14,11 +14,11 @@ STEP -1 — SINGLE-RUN GUARD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Before reading any other KerriOS files, calling any MCP, or loading mailbox/task context, acquire the inbox-sweep lock:
 
-`node scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 30`
+`node scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 30 --runner codex`
 
 If the command exits with code 2 / `reason: "busy"`, another sweep is already running. Stop immediately and silently: do not read more files, do not call email/Tasks/Slack, and do not post a status message. If the command exits nonzero for any other reason, fail closed and send the one Sendblue/text error alert described in STEP 7.
 
-Release the lock with `node scripts/inbox-sweep-lock.mjs release` after STEP 7 finishes, after any fail-closed Sendblue/text alert, or before any intentional early exit. The 30-minute TTL is only a last-resort crash fuse (for when the run is killed mid-sweep — e.g. the Claude desktop app auto-relaunches — and cannot release); the inbox-sweep-reaper normally reclaims an orphaned lock within ~5 min. It is not permission for overlapping sweeps.
+Release the lock with `node scripts/inbox-sweep-lock.mjs release` after STEP 7 finishes, after any fail-closed Sendblue/text alert, or before any intentional early exit. The 30-minute TTL is the Codex crash fuse for any run killed mid-sweep and unable to release. The inbox-sweep-reaper only fast-reclaims Claude fallback locks it can prove are ownerless; it must not reclaim Codex locks because it cannot observe Codex runner liveness. The TTL is not permission for overlapping sweeps.
 
 Operating loop for this automation:
   1. Perceive live email + Google Tasks decisions.
