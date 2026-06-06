@@ -86,7 +86,8 @@ Read + write every sweep:
 
 REPEATED FAILURE ALERT DEDUPE:
   • A mailbox/API/data-file outage may deserve one Brian-facing Sendblue/text alert, but the same failure on a 15-minute schedule must never pepper Brian.
-  • Use `inbox-sweep-state.json` as the durable dedupe ledger. For every failure, write/update `lastErrorAt` and a short stable `lastErrorReason` on the affected mailbox or component state. When a Sendblue/text error alert is actually sent, also set `lastErrorAlertedAt`.
+  • Use `scripts/inbox-sweep-error-dedupe.mjs` as the mandatory durable dedupe gate before any repeated outage text. Example before texting: `node scripts/inbox-sweep-error-dedupe.mjs --component brian@standardandworks.com --reason "S/W Superhuman connector unavailable" --now "$ISO_NOW"`. If the JSON says `"shouldAlert": false`, do not send a text, do not update `NOW.md`, and do not add a repetitive `brain/log.md` line for that same outage. If a text is actually sent, immediately run the same command with `--mark-alerted`.
+  • The helper writes `inbox-sweep-state.json` as the durable dedupe ledger. For every failure, it updates `lastErrorAt` and a short stable `lastErrorReason` on the affected mailbox or component state. When a Sendblue/text error alert is actually sent, it also sets `lastErrorAlertedAt`.
   • Before texting for an error, compare the new normalized failure reason to the stored `lastErrorReason`. If the same reason has already been alerted in the last 24 hours and the affected surface has not recovered with a successful read since then, do NOT send another text. Record the run as fail-closed with `errorAlertSuppressed: true` in the grade ledger, write only durable state/cadence, and avoid touching `NOW.md` or `brain/log.md` just to repeat the same outage.
   • Text again only when the failure reason changes materially, the affected surface recovered and then failed again, the outage has lasted more than 24 hours, or the failure prevents reading Google Tasks / send-approval state. Google Tasks read failure remains the highest-risk case: fail closed, send no email, and alert at most once per hour while it persists.
   • On recovery, clear `lastErrorAt`, `lastErrorReason`, and `lastErrorAlertedAt` for that mailbox/component during STEP 5 so the next distinct outage can alert once.
@@ -565,7 +566,7 @@ Texting rule: Sendblue/text alerts are the Brian attention path. If the sweep di
 Errors only: if any mailbox, the Tasks API, or a data file is unreachable, send ONE brief Sendblue/text heads-up:
   "Kerri sweep error [time]: [what failed]. No sends executed."
 Do NOT send any emails if you cannot read the task lists first — fail closed.
-Before sending an error heads-up, apply REPEATED FAILURE ALERT DEDUPE above. A continuing identical mailbox connector outage, such as the same S/W Superhuman connector being unavailable every 15 minutes, is logged/graded silently after the first alert inside the suppression window. It should not update `NOW.md`, create a Google Task, Slack, email, or text Brian again unless the dedupe rule says the alert window has reopened.
+Before sending an error heads-up, apply REPEATED FAILURE ALERT DEDUPE above with `scripts/inbox-sweep-error-dedupe.mjs`; do not rely on memory or manual inspection. A continuing identical mailbox connector outage, such as the same S/W Superhuman connector being unavailable every 15 minutes, is logged/graded silently after the first alert inside the suppression window. It should not update `NOW.md`, create a Google Task, Slack, email, or text Brian again unless the helper says the alert window has reopened.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 8 — ARCHIVE AUTOMATION CHAT

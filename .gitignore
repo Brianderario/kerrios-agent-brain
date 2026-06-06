@@ -29,6 +29,7 @@ data/morning-brief-fallback-*.md
 data/brain-push-state.json
 data/brain-push-fallback-*.md
 data/gap-sweep-state.json
+data/routine-liveness-alert-state.json
 data/sweep-cadence.log
 data/lead-research/batches/
 brain/.local/sw-newsletter-drafts/
@@ -45,3 +46,6 @@ brain/.local/
 brain/.obsidian/workspace*.json
 brain/.obsidian/graph.json
 data/attachments/
+
+# Local handoff scratch files
+AGENT-HANDOFF-GAPS.md

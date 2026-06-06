@@ -5,22 +5,30 @@
     "kerri@hardwarefyi.com": {
       "lastSuccessfulSweepAt": null,
       "seenMessageIds": [],
-      "lastErrorAt": null
+      "lastErrorAt": null,
+      "lastErrorReason": null,
+      "lastErrorAlertedAt": null
     },
     "brian@hardwarefyi.com": {
       "lastSuccessfulSweepAt": null,
       "seenMessageIds": [],
-      "lastErrorAt": null
+      "lastErrorAt": null,
+      "lastErrorReason": null,
+      "lastErrorAlertedAt": null
     },
     "brian@kerrihq.com": {
       "lastSuccessfulSweepAt": null,
       "seenMessageIds": [],
-      "lastErrorAt": null
+      "lastErrorAt": null,
+      "lastErrorReason": null,
+      "lastErrorAlertedAt": null
     },
     "brian@standardandworks.com": {
       "lastSuccessfulSweepAt": null,
       "seenMessageIds": [],
-      "lastErrorAt": null
+      "lastErrorAt": null,
+      "lastErrorReason": null,
+      "lastErrorAlertedAt": null
     }
   },
   "lastDailyGradeAt": null,
