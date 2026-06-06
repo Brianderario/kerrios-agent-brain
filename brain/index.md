@@ -58,6 +58,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/companies/colab]] — H0030 — HWFYI sponsor/customer exploring content + newsletter experiments
 - [[wiki/companies/san-francisco-brewing-co]] — H0031 — SF venue/event contact for Hardware FYI happy-hour planning
 - [[wiki/companies/kerri-media-group]] — G0006 — internal KMG finance/admin thread identity for `kerrihq.com`
+- [[wiki/companies/simplexity-product-development]] — H0082 — HWFYI sponsor prospect resurfaced from Kinetic ticket thread
 
 ## Decisions
 
