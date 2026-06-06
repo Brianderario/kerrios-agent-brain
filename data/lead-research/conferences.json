@@ -1,7 +1,7 @@
 {
-  "version": 2,
-  "updatedAt": "2026-05-29",
-  "notes": "Conference sponsor/exhibitor pages to scrape for hardware-aligned prospects (ICP lane 2). Each entry: name, type, sponsor/exhibitor list URL, scrape strategy, lastScrapedAt. Add/edit as Brian discovers more relevant events. Defense-only and S/W-only conferences are intentionally excluded — those would belong in a separate S/W lead-research agent. 2026-05-29: expanded with major mechanical/electrical engineering + manufacturing shows per Brian's broadened ICP. Note many sponsor pages are JS-rendered or auth-walled (see degraded flags) and need a Chrome/Puppeteer scrape path, not plain WebFetch.",
+  "version": 1,
+  "updatedAt": "2026-05-24",
+  "notes": "Conference sponsor/exhibitor pages to scrape for hardware-aligned prospects. Each entry: name, type, sponsor/exhibitor list URL, scrape strategy, lastScrapedAt. Add/edit as Brian discovers more relevant events. Defense-only and S/W-only conferences are intentionally excluded — those would belong in a separate S/W lead-research agent.",
   "conferences": [
     {
       "slug": "designcon",
@@ -107,106 +107,6 @@
       "sponsorsUrlHint": "https://www.imengineeringwest.com/exhibitors",
       "geography": "US (Anaheim)",
       "notes": "Medical device design + manufacturing. High-precision, regulated.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "ipc-apex",
-      "name": "IPC APEX EXPO",
-      "type": "pcb-electronics-assembly",
-      "url": "https://www.ipcapexexpo.org",
-      "sponsorsUrlHint": "https://www.ipcapexexpo.org/exhibitor-list",
-      "geography": "US (Anaheim/San Diego)",
-      "notes": "PCB design, fabrication, assembly, test. Run by IPC. Very high ICP overlap — same audience as our PCB sponsors (Advanced PCB, PCBnet, Summit Interconnect).",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "pcb-west",
-      "name": "PCB West",
-      "type": "pcb-design-manufacturing",
-      "url": "https://www.pcbwest.com",
-      "sponsorsUrlHint": "https://www.pcbwest.com/exhibitors",
-      "geography": "US (Santa Clara)",
-      "notes": "PCB design + manufacturing, Silicon Valley. Strong startup-hardware overlap.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "solidworks-3dx-world",
-      "name": "3DEXPERIENCE World (SOLIDWORKS World)",
-      "type": "cad-design-software",
-      "url": "https://www.3dexperienceworld.com",
-      "sponsorsUrlHint": "https://www.3dexperienceworld.com/sponsors",
-      "geography": "US (rotating)",
-      "notes": "CAD/PLM ecosystem — sponsors are exactly the software-to-hardware-mfg lane (CAD add-ons, simulation, PDM, manufacturing tools). Dassault/SOLIDWORKS partner pavilion.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "autodesk-university",
-      "name": "Autodesk University",
-      "type": "design-manufacturing-software",
-      "url": "https://www.autodesk.com/autodesk-university",
-      "sponsorsUrlHint": "https://www.autodesk.com/autodesk-university/sponsors",
-      "geography": "US (rotating)",
-      "notes": "Fusion 360 / manufacturing software ecosystem. Sponsors build tools for hardware/mfg engineers — software-to-mfg lane.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "asme-imece",
-      "name": "ASME IMECE",
-      "type": "mechanical-engineering",
-      "url": "https://event.asme.org/IMECE",
-      "sponsorsUrlHint": "https://event.asme.org/IMECE/Sponsors-Exhibitors",
-      "geography": "US (rotating)",
-      "notes": "ASME International Mechanical Engineering Congress & Expo. The flagship mechanical-engineering gathering — core ME audience.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "robobusiness",
-      "name": "RoboBusiness",
-      "type": "robotics-commercial",
-      "url": "https://www.robobusiness.com",
-      "sponsorsUrlHint": "https://www.robobusiness.com/sponsors",
-      "geography": "US (Santa Clara)",
-      "notes": "Commercial robotics. Strong overlap with our robotics sponsors + startup builders.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "the-battery-show",
-      "name": "The Battery Show North America",
-      "type": "energy-storage-EV",
-      "url": "https://www.thebatteryshow.com",
-      "sponsorsUrlHint": "https://www.thebatteryshow.com/en/exhibit/exhibitor-list.html",
-      "geography": "US (Detroit)",
-      "notes": "Battery + EV powertrain engineering. Energy/EV ICP lane.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "ieee-ecce",
-      "name": "IEEE ECCE",
-      "type": "power-electronics",
-      "url": "https://www.ieee-ecce.org",
-      "sponsorsUrlHint": "https://www.ieee-ecce.org/sponsors-exhibitors",
-      "geography": "US (rotating)",
-      "notes": "IEEE Energy Conversion Congress & Expo — power electronics, EE-heavy. Electrical-engineering audience.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "advanced-manufacturing-west",
-      "name": "Advanced Manufacturing (IME West)",
-      "type": "advanced-manufacturing",
-      "url": "https://www.imengineeringwest.com",
-      "sponsorsUrlHint": "https://www.imengineeringwest.com/exhibitors",
-      "geography": "US (Anaheim)",
-      "notes": "Co-located Informa engineering shows (Design & Mfg, ATX, MD&M). Broad advanced-manufacturing exhibitor base. Shares venue/list with MD&M West entry — dedup by company at merge time.",
-      "lastScrapedAt": null
-    },
-    {
-      "slug": "ces",
-      "name": "CES",
-      "type": "consumer-hardware",
-      "url": "https://www.ces.tech",
-      "sponsorsUrlHint": "https://www.ces.tech/schedule/exhibitor-directory",
-      "geography": "US (Las Vegas)",
-      "notes": "Huge — filter hard to hardware-product + dev-tool companies, not media/retail. Useful for consumer-hardware startups (e.g. Eight Sleep-type) that buy engineering-audience media.",
       "lastScrapedAt": null
     }
   ]

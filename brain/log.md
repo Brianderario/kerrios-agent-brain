@@ -1,3 +1,6 @@
+## [2026-06-06 18:07 ET] brain-push-remediation | b05b370 | Kerri
+Corrective follow-up: the log-only commit accidentally included tracked non-allowlisted runtime/handoff files via `commit -am`. Restored NOW.md, data/companies.json, data/kerrios.agent-seed.json, and data/lead-research/conferences.json in git with a forward-only correction; local working copies are preserved outside the brain-push commit path. Brian was alerted because the prompt's staging boundary was breached and then remediated without force-push.
+
 ## [2026-06-06 18:06 ET] brain-push | 9139404 | Kerri
 Nightly push: committed and pushed the AllSpice Boulevard venue option update plus its paired inbox-sweep log entry. Validation green: npm run check OK, npm test 107/107, git diff --check clean. Intentionally left unstaged outside brain-push scope: NOW.md, data/companies.json, data/kerrios.agent-seed.json, data/lead-research/conferences.json, AGENT-HANDOFF-GAPS.md, and data/routine-liveness-alert-state.json. No sensitive/credential files staged and no Brian-facing alert was needed.
 
