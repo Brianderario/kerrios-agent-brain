@@ -1,3 +1,6 @@
+## [2026-06-06 19:35 ET] inbox-sweep | no new task; S/W connector unavailable | Kerri (Codex scheduled)
+Processed live Google Tasks first: G0008 Hilton Norfolk, H0031 SF Brewing Co., and H0082 Simplexity all remained needsAction/ACTION:send, so no send/skip/redo was authorized; H/S/G open-list scan found no new send-style orphan approval. Post-cursor HWFYI custom-wrapper mail had no actionable inbound. brian@kerrihq.com had one post-cursor OpenAI noreply security notice and it was auto-skipped under the sweep rules. The requested Superhuman/S&W mailbox connector was not available in this Codex tool set, so no S/W mailbox read occurred and no sends executed; one Sendblue fail-closed heads-up was queued.
+
 ## [2026-06-06 18:07 ET] brain-push-remediation | b05b370 | Kerri
 Corrective follow-up: the log-only commit accidentally included tracked non-allowlisted runtime/handoff files via `commit -am`. Restored NOW.md, data/companies.json, data/kerrios.agent-seed.json, and data/lead-research/conferences.json in git with a forward-only correction; local working copies are preserved outside the brain-push commit path. Brian was alerted because the prompt's staging boundary was breached and then remediated without force-push.
 
