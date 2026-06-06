@@ -7,7 +7,7 @@ slug: allspice
 
 # AllSpice
 
-scope: Kinetic sponsor → EE executive-dinner co-host (Jun 23) - updated: 2026-06-05
+scope: Kinetic sponsor → EE executive-dinner co-host (Jun 23) - updated: 2026-06-06
 
 ## Overview
 AllSpice is a Kinetic sponsor/participant tied to Valentina Ratner's Kinetic speaking session and Carah Camron's company spotlight.
@@ -23,6 +23,7 @@ Hardware FYI / Kinetic sponsor and participant relationship.
 - Carah Camron - Solutions Engineer - carah@allspice.io
 
 ## Recent Activity
+- 2026-06-06 17:34 ET: Boulevard replied to Kerri's June 23 private-dinner venue inquiry. Private/semi-private spaces are booked, but they can create a custom main-dining-room table for up to 12 guests at 5:30 PM or earlier or 8:30 PM or later. Pricing: regular three-course prix fixe at $128/person, $1,800 F&B minimum, excluding 6% SF mandate, 23% service charge, and 8.63% sales tax. If interested, they asked for a quick reply and would send a contract for review. This is a venue option only; no Kerri reply/task/send yet.
 - 2026-06-05 00:26-00:28 ET: Katrina reviewed Brian's short initial invite list, asked whether AllSpice should expand the initial outreach beyond ~10 people and offered venue suggestions. Brian replied directly: share as many people as they really want and he will handle the venue. No Kerri draft or task; this remains Brian/Benji event-ops.
 - 2026-06-03 21:11 ET: **Katrina replied — dinner CONFIRMED for Tuesday, June 23** (fewer competing dinners / audience overlaps). She delivered the guest-list materials the recap asked for: their ICP (EE teams/leaders at hardware cos with 50+ EEs across consumer electronics, robotics, aero/defense, automotive, telecom/networking, space) + a target-titles list (Eng Mgr Hardware → VP/Head of Hardware/CTO), and shared their **top account list** (Google Sheet `1or0x4WjitSyC2Wjpd9YYAOVzzBVZIR1_sYZoip7pDHE`, some accounts earmarked for an upcoming ABM campaign). She also **added Yoon Kim (yoon@allspice.io, starts next week) as the event coordinator** (replacing the earlier "GTM intern" reference). New ask: **list the dinner on the Deep Tech Week SF 2026 events list** (deep-tech-week.com/sf-2026). Kerri queued a Brian-sender reply (H0026, existing chain, reply-all keeps Benji + Yoon + Kerri) that locks 6/23, accepts the list, welcomes Yoon, and says we'll submit the DTW listing once venue + timing are confirmed; pending Brian approval. **Ball now on our side: lock venue + start invites off AllSpice's list (Benji/event-ops).**
 - 2026-06-03 18:04 ET: **Post-call recap SENT to Katrina** (Brian-sender, existing "THANK YOU - Kinetic 2026" chain, cc Benji; H0026 approved + box-checked). Confirmed in writing the curated EE executive dinner (7–10 guests, Jun 23/24 SF Deep Tech Week, AllSpice-sponsored), the HW-FYI-runs-logistics / AllSpice-supplies-guest-list+GTM-intern split, and asked Katrina to confirm Jun 23 vs 24 + availability so Brian can lock a venue and start invites. Oct SF Tech Week event kept on radar as the next step up. **Ball is in Katrina's court** (date + guest list + GTM-intern name). Next real work once she confirms = venue booking + invites off her list (Benji/event-ops, not a sweep action).
@@ -36,6 +37,7 @@ Hardware FYI / Kinetic sponsor and participant relationship.
 - Confirm when the final Kinetic recording for Valentina's session is available and where it should be sent from.
 
 ## Source Log
+- 2026-06-06: kerri@hardwarefyi.com thread `Re: Private dinner inquiry - party of 8-10, Tuesday June 23`, Boulevard reply ID `AAMkAGJhN2E2NmQ2LTM4NjctNGM2Ni1hMmRiLWVhYjExNjA3MDNlNABGAAAAAADEP7lRuwWcRpeCdCUdFKjYBwCByPO64gIDQZ8ywlmI0FWjAAAAAAEMAACByPO64gIDQZ8ywlmI0FWjAABMm1fyAAA=`.
 - 2026-05-28: brian@hardwarefyi.com thread `Re: THANK YOU - Kinetic 2026`, Katrina message ID `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEMAAAtSTsYtUoQT6MqRxoKF3BIAABbguALAAA=`, Brian reply ID `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEPAAAtSTsYtUoQT6MqRxoKF3BIAABbgy9oAAA=`.
 - 2026-05-27: brian@hardwarefyi.com thread `Re: AllSpice / Kinetic Confirmations`, latest message ID `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEMAAAtSTsYtUoQT6MqRxoKF3BIAABbgt_7AAA=`.
 
