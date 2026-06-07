@@ -3,8 +3,8 @@
  * Ensure/read the Hardware FYI CY2026 revenue-goal tracker tab.
  *
  * The canonical HWFYI Sheet remains the source of truth. This script creates a
- * dedicated "CY2026 Revenue Goal" tab in that sheet, with a summary block and a
- * revenue ledger header. It does not overwrite existing ledger rows.
+ * readable "CY2026 Revenue Goal" pipeline board at the top of the tab and keeps
+ * a structured automation ledger lower on the same tab.
  *
  * Usage:
  *   node scripts/hwfyi-revenue-goal-sheet.mjs --ensure
@@ -30,18 +30,13 @@ const DEFAULT_SPREADSHEET_ID = "1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk";
 const TAB = "CY2026 Revenue Goal";
 const GOAL_AMOUNT = 1000000;
 const SUMMARY_ROWS = [
-  ["Hardware FYI CY2026 Revenue Goal", "", "", ""],
-  ["Goal year", "2026", "Updated by", "Kerri / Brian"],
-  ["Top-line revenue goal", GOAL_AMOUNT, "Basis", "CY2026 Hardware FYI earned/booked revenue; cash status tracked separately"],
-  ["Booked/earned revenue", "", "Source", "Validated from Contract Breakdown / Revenue tabs / contracts"],
-  ["Collected cash", "", "Source", "Stripe / invoice / payment evidence"],
-  ["Open pipeline", "", "Source", "Active deal ledger rows"],
-  ["Weighted pipeline", "", "Formula", "Sum of ledger amount * probability for open rows"],
-  ["Remaining to goal", "=B3-B4", "Formula", "Goal minus booked/earned revenue"],
-  ["Last verified at", "", "Rule", "Update only after live sheet/payment/source check"],
-  ["Freshness note", "", "Rule", "If this tab is stale, automations must label revenue numbers as not current"],
+  ["Hardware FYI CY2026 Revenue Pipeline", "", "", ""],
+  ["Goal", "Closed Won", "Pipeline Amount", "Gap to Goal"],
+  [GOAL_AMOUNT, "", "", "=A3-B3"],
+  ["Last verified at", "", "Freshness note", ""],
 ];
-const LEDGER_START_ROW = 13;
+const BOARD_HEADER_ROW = 6;
+const LEDGER_START_ROW = 80;
 const LEDGER_HEADER = [
   "recordId",
   "company",
@@ -66,6 +61,33 @@ const AUTO_SEED_NOTE = "Auto-seeded by scripts/hwfyi-revenue-goal-sheet.mjs --se
 const AUTO_PIPELINE_SEED_NOTE = "Auto-seeded by scripts/hwfyi-revenue-goal-sheet.mjs --seed-pipeline from 2026-06-06 close-list evidence";
 const PIPELINE_STATUSES = ["Prospect", "Interest", "Contract Won", "Contract Lost"];
 const OPEN_PIPELINE_STATUSES = new Set(["Prospect", "Interest"]);
+const PIPELINE_VIEW_TERMS = {
+  "pipeline-2026-colab-renewal": [
+    "Package A: $15K content-first renewal with authored review / campaign structure and newsletter support.",
+    "Package B: $10K lower-friction renewal focused on the next newsletter/content experiment.",
+    "Package C: $5K smaller test option if they want to restart with minimum commitment.",
+  ],
+  "pipeline-2026-aris-machina": [
+    "Package A: about $15K content-led package, anchored on custom content plus HWFYI distribution.",
+    "Package B: about $12K lighter test package for proving Protos demand before a larger push.",
+    "Package C: Partner Program / recurring newsletter route around $10K, with monthly framing discussed in-thread.",
+  ],
+  "pipeline-2026-neural-concept": [
+    "Starting point: $15K for content-led US awareness plus three placements.",
+    "Mid option: $10K for a lighter placement / partner-program mix.",
+    "Entry option: $5K for three primary placements.",
+  ],
+  "pipeline-2026-protolabs-renewal": [
+    "Renewal option: 6 placements for $10K tied to post-campaign analytics.",
+    "Content option: content plus placements for $15K if they want a stronger renewal package.",
+    "Commercial next step: book the analytics review before asking them to choose.",
+  ],
+  "pipeline-2026-zenode-q3": [
+    "Buyer counter: Q3 budget around $5K.",
+    "Requested scope: one custom article, two primary placements, Tools From Our Sponsors listing, and at least one non-Zenode EE piece.",
+    "Brian decision: accept friend-rate scope or counter with tighter deliverables.",
+  ],
+};
 const PIPELINE_SEED_ROWS = [
   {
     recordId: "pipeline-2026-colab-renewal",
@@ -464,13 +486,13 @@ async function ensureTab(sheets, spreadsheetId) {
 
   const summary = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${TAB}'!A1:D10`,
+    range: `'${TAB}'!A1:D4`,
   });
   const existingTitle = summary.data.values?.[0]?.[0] || "";
   if (existingTitle !== SUMMARY_ROWS[0][0]) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `'${TAB}'!A1:D10`,
+      range: `'${TAB}'!A1:D4`,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: SUMMARY_ROWS },
     });
@@ -520,8 +542,15 @@ async function ensureTab(sheets, spreadsheetId) {
         },
         {
           updateSheetProperties: {
-            properties: { sheetId: sheet.properties.sheetId, gridProperties: { frozenRowCount: LEDGER_START_ROW } },
+            properties: { sheetId: sheet.properties.sheetId, gridProperties: { frozenRowCount: BOARD_HEADER_ROW } },
             fields: "gridProperties.frozenRowCount",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: { sheetId: sheet.properties.sheetId, dimension: "COLUMNS", startIndex: 0, endIndex: 4 },
+            properties: { pixelSize: 260 },
+            fields: "pixelSize",
           },
         },
       ],
@@ -531,7 +560,7 @@ async function ensureTab(sheets, spreadsheetId) {
 async function readSummary(sheets, spreadsheetId) {
   const result = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${TAB}'!A1:R30`,
+    range: `'${TAB}'!A1:R120`,
     valueRenderOption: "FORMATTED_VALUE",
   });
   return result.data.values || [];
@@ -625,6 +654,136 @@ function summarizeLedger(rows) {
     byStatus,
   };
 }
+function formatCurrency(value) {
+  return `$${roundMoney(value).toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
+}
+function pipelineCard(row) {
+  const [recordId, company, , , product, amount, status] = row;
+  validatePipelineStatus(status);
+  const lines = [
+    `${company} - ${formatCurrency(amount)}`,
+    `Products: ${product || "To confirm"}`,
+  ];
+  const terms = PIPELINE_VIEW_TERMS[recordId] || [];
+  if (terms.length) lines.push(`Proposed terms:\n${terms.join("\n\n")}`);
+  return lines.join("\n");
+}
+function buildBoardRows(rows) {
+  const byStatus = Object.fromEntries(PIPELINE_STATUSES.map((status) => [status, []]));
+  for (const row of rows) {
+    const status = row[6] || "";
+    if (!PIPELINE_STATUSES.includes(status)) continue;
+    byStatus[status].push(row);
+  }
+  for (const status of PIPELINE_STATUSES) {
+    byStatus[status].sort((a, b) => numericCell(b[5]) - numericCell(a[5]) || String(a[1]).localeCompare(String(b[1])));
+  }
+  const maxRows = Math.max(...PIPELINE_STATUSES.map((status) => byStatus[status].length));
+  const boardRows = [];
+  for (let i = 0; i < maxRows; i += 1) {
+    boardRows.push(PIPELINE_STATUSES.map((status) => {
+      const row = byStatus[status][i];
+      return row ? pipelineCard(row) : "";
+    }));
+  }
+  return boardRows;
+}
+async function renderPipelineView(sheets, spreadsheetId, rows, now) {
+  const meta = await getMeta(sheets, spreadsheetId);
+  const sheet = findSheet(meta, TAB);
+  if (!sheet) throw new Error(`Missing "${TAB}" tab in ${spreadsheetId}`);
+  const summary = summarizeLedger(rows);
+  const summaryRows = [
+    SUMMARY_ROWS[0],
+    SUMMARY_ROWS[1],
+    [GOAL_AMOUNT, summary.booked, summary.open, GOAL_AMOUNT - summary.booked],
+    ["Last verified at", now, "Freshness note", `Readable pipeline view. Statuses: Prospect=${summary.byStatus.Prospect}, Interest=${summary.byStatus.Interest}, Contract Won=${summary.byStatus["Contract Won"]}, Contract Lost=${summary.byStatus["Contract Lost"]}. Cash collection still requires Stripe/invoice reconciliation.`],
+    ["", "", "", ""],
+    PIPELINE_STATUSES,
+  ];
+  const boardRows = buildBoardRows(rows);
+  await sheets.spreadsheets.values.clear({
+    spreadsheetId,
+    range: `'${TAB}'!A1:R${LEDGER_START_ROW - 1}`,
+  });
+  await sheets.spreadsheets.values.update({
+    spreadsheetId,
+    range: `'${TAB}'!A1:D${BOARD_HEADER_ROW + boardRows.length}`,
+    valueInputOption: "USER_ENTERED",
+    requestBody: { values: [...summaryRows, ...boardRows] },
+  });
+  const boardRowCount = Math.max(boardRows.length, 1);
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId,
+    requestBody: {
+      requests: [
+        {
+          unmergeCells: {
+            range: { sheetId: sheet.properties.sheetId, startRowIndex: 0, endRowIndex: 1, startColumnIndex: 0, endColumnIndex: 4 },
+          },
+        },
+        {
+          mergeCells: {
+            range: { sheetId: sheet.properties.sheetId, startRowIndex: 0, endRowIndex: 1, startColumnIndex: 0, endColumnIndex: 4 },
+            mergeType: "MERGE_ALL",
+          },
+        },
+        {
+          repeatCell: {
+            range: { sheetId: sheet.properties.sheetId, startRowIndex: 0, endRowIndex: 1, startColumnIndex: 0, endColumnIndex: 4 },
+            cell: {
+              userEnteredFormat: {
+                textFormat: { bold: true, fontSize: 14 },
+                horizontalAlignment: "CENTER",
+                backgroundColor: { red: 0.9, green: 0.94, blue: 0.98 },
+              },
+            },
+            fields: "userEnteredFormat(textFormat,horizontalAlignment,backgroundColor)",
+          },
+        },
+        {
+          repeatCell: {
+            range: { sheetId: sheet.properties.sheetId, startRowIndex: 1, endRowIndex: 3, startColumnIndex: 0, endColumnIndex: 4 },
+            cell: { userEnteredFormat: { textFormat: { bold: true }, horizontalAlignment: "CENTER" } },
+            fields: "userEnteredFormat(textFormat,horizontalAlignment)",
+          },
+        },
+        {
+          repeatCell: {
+            range: { sheetId: sheet.properties.sheetId, startRowIndex: BOARD_HEADER_ROW - 1, endRowIndex: BOARD_HEADER_ROW, startColumnIndex: 0, endColumnIndex: 4 },
+            cell: {
+              userEnteredFormat: {
+                textFormat: { bold: true },
+                horizontalAlignment: "CENTER",
+                backgroundColor: { red: 0.93, green: 0.93, blue: 0.93 },
+              },
+            },
+            fields: "userEnteredFormat(textFormat,horizontalAlignment,backgroundColor)",
+          },
+        },
+        {
+          repeatCell: {
+            range: { sheetId: sheet.properties.sheetId, startRowIndex: BOARD_HEADER_ROW, endRowIndex: BOARD_HEADER_ROW + boardRowCount, startColumnIndex: 0, endColumnIndex: 4 },
+            cell: {
+              userEnteredFormat: {
+                wrapStrategy: "WRAP",
+                verticalAlignment: "TOP",
+              },
+            },
+            fields: "userEnteredFormat(wrapStrategy,verticalAlignment)",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: { sheetId: sheet.properties.sheetId, dimension: "ROWS", startIndex: BOARD_HEADER_ROW, endIndex: BOARD_HEADER_ROW + boardRowCount },
+            properties: { pixelSize: 145 },
+            fields: "pixelSize",
+          },
+        },
+      ],
+    },
+  });
+}
 async function seedFromContractBreakdown(sheets, spreadsheetId) {
   await ensureTab(sheets, spreadsheetId);
   const source = await sheets.spreadsheets.values.get({
@@ -652,19 +811,6 @@ async function seedFromContractBreakdown(sheets, spreadsheetId) {
   }
 
   const now = new Date().toISOString();
-  const summaryUpdates = [
-    { range: `'${TAB}'!B4`, values: [[Math.round(total * 100) / 100]] },
-    { range: `'${TAB}'!B9`, values: [[now]] },
-    {
-      range: `'${TAB}'!B10`,
-      values: [[`Seeded from live Contract Breakdown tab (${rowCount} CY2026 rows). Cash collection and open pipeline not yet reconciled.`]],
-    },
-  ];
-  await sheets.spreadsheets.values.batchUpdate({
-    spreadsheetId,
-    requestBody: { valueInputOption: "USER_ENTERED", data: summaryUpdates },
-  });
-
   const existing = await sheets.spreadsheets.values.get({
     spreadsheetId,
     range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
@@ -713,6 +859,7 @@ async function seedFromContractBreakdown(sheets, spreadsheetId) {
       requestBody: { values: finalRows },
     });
   }
+  await renderPipelineView(sheets, spreadsheetId, finalRows, now);
   console.log(
     `hwfyi-revenue-goal-sheet: seeded Contract Breakdown rollup ${Math.round(total * 100) / 100} from ${rowCount} CY2026 rows (${manualRows.length} manual kept, ${generatedRows.length} generated)`
   );
@@ -748,27 +895,7 @@ async function seedPipeline(sheets, spreadsheetId) {
       requestBody: { values: finalRows },
     });
   }
-  await sheets.spreadsheets.values.batchUpdate({
-    spreadsheetId,
-    requestBody: {
-      valueInputOption: "USER_ENTERED",
-      data: [
-        { range: `'${TAB}'!B4`, values: [[summary.booked]] },
-        { range: `'${TAB}'!B6`, values: [[summary.open]] },
-        { range: `'${TAB}'!B7`, values: [[summary.weighted]] },
-        { range: `'${TAB}'!B9`, values: [[now]] },
-        {
-          range: `'${TAB}'!B10`,
-          values: [[
-            `Pipeline seeded from 2026-06-06 mailbox/tracker/CRM close-list evidence; statuses: ` +
-            `Prospect=${summary.byStatus.Prospect}, Interest=${summary.byStatus.Interest}, ` +
-            `Contract Won=${summary.byStatus["Contract Won"]}, Contract Lost=${summary.byStatus["Contract Lost"]}. ` +
-            "Cash collection still requires Stripe/invoice reconciliation.",
-          ]],
-        },
-      ],
-    },
-  });
+  await renderPipelineView(sheets, spreadsheetId, finalRows, now);
   console.log(
     `hwfyi-revenue-goal-sheet: seeded pipeline ${summary.open} open / ${summary.weighted} weighted (` +
     `Prospect=${summary.byStatus.Prospect}, Interest=${summary.byStatus.Interest}, ` +
