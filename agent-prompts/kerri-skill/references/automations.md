@@ -18,6 +18,8 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 
 **Hardware FYI revenue goal:** Brian's standing Hardware FYI goal for CY2026 is `$1,000,000` top-line revenue. Every active Hardware FYI automation must read or obey `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` and classify work by whether it collects cash, advances pipeline, improves product value, or improves the revenue system. Do not claim fresh revenue totals unless the live tracker/CRM/payment source was actually refreshed.
 
+**Central revenue tracker:** current goal progress lives in the `CY2026 Revenue Goal` tab of the canonical Hardware FYI Sheet (`1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`). Use `node scripts/hwfyi-revenue-goal-sheet.mjs --ensure` to create/repair the tab header and `--read` to inspect the summary. Existing CRM/tracker/Stripe surfaces are evidence feeds into this tab.
+
 **2026-05-26 activation gate (CLEARED 2026-05-31; RE-ENTERED CODEX 2026-06-05; REVENUE FOCUS EXPANDED 2026-06-07):** the first-day core automation audit passed, then the 2026-06-05 Codex re-entry reactivated the core bundle and ported revenue research/drafting back to Codex. Approval gates are unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the lead pool. Pipeline follow-up is now scheduled weekly as the warm-deal owner for the CY2026 revenue goal.
 
 ## 1. Morning Briefing

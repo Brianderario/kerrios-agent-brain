@@ -19,7 +19,19 @@ Classify every Hardware FYI item into one of these buckets:
 
 If an item does none of those, it should not displace a revenue action unless it is a safety, legal, finance, event-critical, or Brian-explicit priority.
 
-## Source Surfaces
+## Central Tracker
+
+The central tracker is the **`CY2026 Revenue Goal`** tab in the canonical Hardware FYI Sheet:
+
+- Sheet: https://docs.google.com/spreadsheets/d/1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk/edit
+- Tab: `CY2026 Revenue Goal`
+- Maintainer helper: `node scripts/hwfyi-revenue-goal-sheet.mjs --ensure|--check|--read`
+
+This tab is the first place to read when Brian asks "where are we against the $1M goal?" or when an automation needs the current revenue number. It contains the goal summary and the deal/revenue ledger. Existing tracker, CRM, Stripe, contracts, and thread evidence feed this tab; they are not substitutes for the tab when answering goal-progress questions.
+
+If the tab's `Last verified at` / freshness note is stale, say so and refresh from source surfaces before making a current revenue claim.
+
+## Evidence Surfaces
 
 Use live/source-backed surfaces before acting on revenue state:
 

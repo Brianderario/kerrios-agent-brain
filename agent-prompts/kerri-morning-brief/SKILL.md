@@ -147,7 +147,8 @@ KerriOS open loops:
 Hardware FYI Revenue Focus:
 
 - Always include one concise Revenue Focus card tied to `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md`.
-- Build it from pending Hardware FYI Google Tasks, active `brain/wiki/deals/` pages, recent `brain/log.md` entries, and visible pipeline/cold-outreach state. If tracker/CRM/Stripe data is not refreshed in this run, explicitly label the card as task/deal-derived rather than a fresh revenue-total read.
+- Read the canonical `CY2026 Revenue Goal` tab in the Hardware FYI Sheet when a current goal-progress number is needed. If the tab cannot be read or is stale, explicitly label the card as task/deal-derived rather than a fresh revenue-total read.
+- Build the next-move recommendation from pending Hardware FYI Google Tasks, active `brain/wiki/deals/` pages, recent `brain/log.md` entries, and visible pipeline/cold-outreach state.
 - Prefer one concrete next move: cash/contract unblock, warm pipeline nudge, approval-ready sponsor reply, high-fit outreach batch, or product/package improvement.
 - Do not send, price, commit inventory, or mutate CRM from the morning brief. Route any external action into the relevant approval workflow.
 

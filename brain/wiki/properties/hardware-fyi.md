@@ -8,6 +8,7 @@ Hardware FYI newsletter editorial/ad calendar + contracts + revenue + Partner Pr
 
 - **Sheet:** https://docs.google.com/spreadsheets/d/1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk/edit (fileId `1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`)
 - **Tabs/sections:** Contracts list · Product/revenue ledger · **Ad calendar** (Tue/Sat issues, `Status` TRUE=booked / FALSE=available) · Partner Program tracker · monthly event/webinar/panel rollups.
+- **CY2026 goal tab:** `CY2026 Revenue Goal` is the central `$1,000,000` revenue tracker. It was created 2026-06-07 and seeded from the live `Contract Breakdown` tab at `$578,164.73` booked/earned CY2026 revenue from 408 source rows; cash collection and open pipeline still need separate reconciliation. Maintain/check it with `node scripts/hwfyi-revenue-goal-sheet.mjs --ensure|--seed-contract-breakdown|--check|--read`.
 - **Read this before answering any "what's booked / what's open / when does X run" question.** It supersedes memory of placement dates — always re-read live, since slots get booked between sessions.
 
 KMG-owned media property. Industry newsletter + community + events for hardware / industrial base / advanced manufacturing.

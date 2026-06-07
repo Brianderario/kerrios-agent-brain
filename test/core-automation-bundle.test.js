@@ -16,10 +16,12 @@ const files = {
     'utf8'
   ),
   registry: fs.readFileSync(new URL('../brain/wiki/agents/registry.md', import.meta.url), 'utf8'),
+  hardwareFyi: fs.readFileSync(new URL('../brain/wiki/properties/hardware-fyi.md', import.meta.url), 'utf8'),
   revenueGoal: fs.readFileSync(
     new URL('../brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md', import.meta.url),
     'utf8'
   ),
+  revenueGoalScript: fs.readFileSync(new URL('../scripts/hwfyi-revenue-goal-sheet.mjs', import.meta.url), 'utf8'),
   decision: fs.readFileSync(
     new URL('../brain/wiki/decisions/2026-05-26-parallel-core-automation-bundle.md', import.meta.url),
     'utf8'
@@ -134,13 +136,20 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     'kerri-cold-outreach',
     'kerri-inbox-sweep',
     'kerri-eod-meetings-review',
-    'kerri-morning-brief'
+    'kerri-morning-brief',
+    'CY2026 Revenue Goal',
+    'hwfyi-revenue-goal-sheet.mjs',
+    '1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk'
   ]) {
-    assert.match(files.revenueGoal + files.automations + files.registry, new RegExp(escapeRegExp(required), 'i'));
+    assert.match(
+      files.revenueGoal + files.automations + files.registry + files.hardwareFyi + files.revenueGoalScript,
+      new RegExp(escapeRegExp(required), 'i')
+    );
   }
 
   assert.match(files.automations + files.registry, /Pipeline follow-up.*8:33am ET/is);
   assert.match(files.automations + files.registry, /never (auto-)?sends?/i);
+  assert.match(files.revenueGoalScript, /seed-contract-breakdown/);
 });
 
 function escapeRegExp(value) {
