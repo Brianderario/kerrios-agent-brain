@@ -72,14 +72,14 @@ Cron times below are the historical Claude schedule in ET (assumes the Mac clock
 
 ## Loop 2 · Sales pod (first-day core audit passed 2026-05-31 — revenue agents now scheduled)
 
-Lead research + cold outreach were promoted to live scheduled-tasks crons after the core bundle (inbox sweep, morning brief, EOD, brain push) proved stable. After the 2026-06-05 Codex re-entry and 2026-06-07 revenue-focus pass, Codex owns the complete Hardware FYI revenue loop: lead research, cold outreach, and weekly pipeline follow-up. Approval gates are unchanged: cold outreach and pipeline follow-up draft only and never auto-send; lead research only researches + tops up the pool. Claude should not run duplicate revenue schedules unless Brian explicitly switches runner ownership.
+Lead research + cold outreach were promoted to live scheduled-tasks crons after the core bundle (inbox sweep, morning brief, EOD, brain push) proved stable. After the 2026-06-05 Codex re-entry and 2026-06-07 revenue-focus pass, Codex owns the complete Hardware FYI revenue loop: lead research, cold outreach, and weekly pipeline follow-up. Approval gates are unchanged: cold outreach and pipeline follow-up draft only and never auto-send; lead research only researches + tops up the pool. The daily 10-outreach contract lives at `brain/wiki/workflows/hwfyi-daily-10-outreach-loop.md`: lead research maintains 25 ready prospects and cold outreach targets 10 approval-ready drafts each weekday morning. Claude should not run duplicate revenue schedules unless Brian explicitly switches runner ownership.
 
 | Routine | cron | Prompt | Status |
 |---|---|---|---|
 | Monthly Partnership Research | `0 10 1 * *` | inline (automations.md §6) → promote to `kerri-lead-research` | superseded by scheduled `kerri-lead-research` |
 | Weekly "What Got Done" | `0 16 * * 5` | inline (automations.md §4) | on-demand (not yet scheduled) |
-| Lead research | `13 18 * * 1-5` | `kerri-lead-research/SKILL.md` | **scheduled** (weekday ~6:16pm ET); feeds outbound queue |
-| Outbound sales | `7 9 * * 1-5` | `kerri-cold-outreach/SKILL.md` | **scheduled** (weekday ~9:16am ET); drafts only, never auto-sends |
+| Lead research | `13 18 * * 1-5` | `kerri-lead-research/SKILL.md` | **scheduled in Codex** (weekday ~6:13pm ET); maintains 25 ready prospects |
+| Outbound sales | `7 9 * * 1-5` | `kerri-cold-outreach/SKILL.md` | **scheduled in Codex** (weekday ~9:07am ET); targets 10 approval-ready drafts, never auto-sends |
 | Pipeline follow-up | Codex Tuesday 8:33am ET (`33 8 * * 2`) | `kerri-pipeline-followup/SKILL.md` | scheduled in Codex; approval-gated, never sends |
 | **Inbound sales triage** | — | **prompt does not exist (gap)** | deferred per registry until volume justifies |
 | **Event sales** | — | **prompt does not exist (gap)** | tree lists it; only `kerri-event-logistics` exists today |

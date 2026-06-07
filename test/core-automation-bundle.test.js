@@ -25,6 +25,10 @@ const files = {
     new URL('../brain/wiki/workflows/hwfyi-cy2026-gap-close-targets.md', import.meta.url),
     'utf8'
   ),
+  dailyOutreachLoop: fs.readFileSync(
+    new URL('../brain/wiki/workflows/hwfyi-daily-10-outreach-loop.md', import.meta.url),
+    'utf8'
+  ),
   revenueGoalScript: fs.readFileSync(new URL('../scripts/hwfyi-revenue-goal-sheet.mjs', import.meta.url), 'utf8'),
   decision: fs.readFileSync(
     new URL('../brain/wiki/decisions/2026-05-26-parallel-core-automation-bundle.md', import.meta.url),
@@ -150,6 +154,10 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     'Pipeline Amount',
     'Gap to Goal',
     'hwfyi-cy2026-gap-close-targets.md',
+    'hwfyi-daily-10-outreach-loop.md',
+    '25 ready',
+    '10 approval-ready',
+    'COLD BATCH SHORT',
     'no pricing sent yet',
     'TBD',
     'source-backed',
@@ -160,7 +168,7 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     '1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk'
   ]) {
     assert.match(
-      files.revenueGoal + files.gapCloseTargets + files.automations + files.registry + files.hardwareFyi + files.revenueGoalScript,
+      files.revenueGoal + files.gapCloseTargets + files.dailyOutreachLoop + files.automations + files.registry + files.hardwareFyi + files.revenueGoalScript,
       new RegExp(escapeRegExp(required), 'i')
     );
   }

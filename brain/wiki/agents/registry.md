@@ -46,8 +46,8 @@ These folders are ergonomic automation entrypoints, not canonical truth. Durable
 | `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-brain-push` | 10:00pm ET, daily, Codex automation, GPT-5.5 high | `agent-prompts/kerri-brain-push/SKILL.md` |
 | `kerri-gap-sweep` | 9:41pm ET, daily, Codex automation, GPT-5.5 high; checks Codex records plus Claude shims | `agent-prompts/kerri-gap-sweep/SKILL.md` |
-| `kerri-lead-research` | 6:13pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-lead-research/SKILL.md` |
-| `kerri-cold-outreach` | 9:07am ET, weekdays, Codex automation, GPT-5.5 high; drafts only, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
+| `kerri-lead-research` | 6:13pm ET, weekdays, Codex automation, GPT-5.5 high; maintains 25 ready prospects for the daily 10-outreach loop | `agent-prompts/kerri-lead-research/SKILL.md` |
+| `kerri-cold-outreach` | 9:07am ET, weekdays, Codex automation, GPT-5.5 high; targets 10 approval-ready drafts, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
 | `kerri-pipeline-followup` | 8:33am ET, Tuesdays, Codex automation, GPT-5.5 high; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
 | `standard-works-issue-writer` | 8:00pm ET, Mondays and Wednesdays, Codex automation, GPT-5.5 high; stages Beehiiv review drafts only | `S&W Writing Agent` + `standard-works-issue-writer` skill |
 
