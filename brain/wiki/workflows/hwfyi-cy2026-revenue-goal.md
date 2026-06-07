@@ -42,6 +42,10 @@ Use exactly these statuses in the `CY2026 Revenue Goal` ledger:
 
 Stage changes require source-backed evidence. Cold outreach only creates a `Prospect` after an approved send actually goes out; lead research alone must not create pipeline rows. Inbox sweep and EOD meetings review should update the central tab when replies, approved sends, meetings, contracts, or skips provide new stage evidence. Pipeline follow-up can update the central tab when its own nudges are approved/sent or when it observes a source-backed stale/lost condition, but it must not overwrite live Contract Won/Lost rows without fresh evidence.
 
+Dollar values require source-backed commercial terms. If Brian/Kerri has touched the company but no pricing/proposal/counter/contract/invoice has been sent or received, keep the company in pipeline as `Prospect` or `Interest` with amount `TBD` / zero ledger value. Do not add estimated pricing from the target list, prior sponsor norms, or "likely close" analysis. The summary `Pipeline Amount` is priced open pipeline only; unpriced real opportunities stay visible but do not count toward the amount.
+
+Keep outreach targets separate in `brain/wiki/workflows/hwfyi-cy2026-gap-close-targets.md`. That page can hold companies Kerri should pursue to close the gap, but it is not pipeline and should not be used for revenue claims.
+
 ## Evidence Surfaces
 
 Use live/source-backed surfaces before acting on revenue state:
