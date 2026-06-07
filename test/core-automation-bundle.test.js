@@ -5,12 +5,21 @@ import test from 'node:test';
 const files = {
   morning: fs.readFileSync(new URL('../agent-prompts/kerri-morning-brief/SKILL.md', import.meta.url), 'utf8'),
   eod: fs.readFileSync(new URL('../agent-prompts/kerri-eod-meetings-review/SKILL.md', import.meta.url), 'utf8'),
+  inbox: fs.readFileSync(new URL('../agent-prompts/kerri-inbox-sweep/SKILL.md', import.meta.url), 'utf8'),
+  leadResearch: fs.readFileSync(new URL('../agent-prompts/kerri-lead-research/SKILL.md', import.meta.url), 'utf8'),
+  coldOutreach: fs.readFileSync(new URL('../agent-prompts/kerri-cold-outreach/SKILL.md', import.meta.url), 'utf8'),
+  pipeline: fs.readFileSync(new URL('../agent-prompts/kerri-pipeline-followup/SKILL.md', import.meta.url), 'utf8'),
+  gapSweep: fs.readFileSync(new URL('../agent-prompts/kerri-gap-sweep/SKILL.md', import.meta.url), 'utf8'),
   brainPush: fs.readFileSync(new URL('../agent-prompts/kerri-brain-push/SKILL.md', import.meta.url), 'utf8'),
   automations: fs.readFileSync(
     new URL('../agent-prompts/kerri-skill/references/automations.md', import.meta.url),
     'utf8'
   ),
   registry: fs.readFileSync(new URL('../brain/wiki/agents/registry.md', import.meta.url), 'utf8'),
+  revenueGoal: fs.readFileSync(
+    new URL('../brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md', import.meta.url),
+    'utf8'
+  ),
   decision: fs.readFileSync(
     new URL('../brain/wiki/decisions/2026-05-26-parallel-core-automation-bundle.md', import.meta.url),
     'utf8'
@@ -97,6 +106,41 @@ test('core automation bundle is registered as GPT-5.5 high', () => {
   ]) {
     assert.match(files.automations + files.registry + files.decision, new RegExp(escapeRegExp(required), 'i'));
   }
+});
+
+test('Hardware FYI revenue goal is wired into active revenue automations', () => {
+  const requiredPromptTexts = [
+    files.morning,
+    files.inbox,
+    files.eod,
+    files.leadResearch,
+    files.coldOutreach,
+    files.pipeline,
+    files.gapSweep
+  ];
+
+  for (const text of requiredPromptTexts) {
+    assert.match(text, /hwfyi-cy2026-revenue-goal\.md/);
+  }
+
+  for (const required of [
+    '$1,000,000',
+    'cash collected',
+    'pipeline advanced',
+    'product value improved',
+    'revenue system improved',
+    'kerri-pipeline-followup',
+    'kerri-lead-research',
+    'kerri-cold-outreach',
+    'kerri-inbox-sweep',
+    'kerri-eod-meetings-review',
+    'kerri-morning-brief'
+  ]) {
+    assert.match(files.revenueGoal + files.automations + files.registry, new RegExp(escapeRegExp(required), 'i'));
+  }
+
+  assert.match(files.automations + files.registry, /Pipeline follow-up.*8:33am ET/is);
+  assert.match(files.automations + files.registry, /never (auto-)?sends?/i);
 });
 
 function escapeRegExp(value) {

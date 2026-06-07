@@ -16,7 +16,9 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 
 **Automation chat archive policy:** scheduled Codex automations are not Brian's operating surface. Their durable output must land in the external surface named by the prompt: Google Tasks, Sendblue/text, email, HTML artifact, repo log, run ledger, CRM/source-of-truth note, or KerriOS state. Codex scheduled runs currently inject a higher-priority requirement to return exactly one `::inbox-item{...}` directive, so the archive rule must satisfy both directives: end with exactly one required inbox-item directive, then a raw `::archive{reason="Durable automation output already written outside this chat"}` directive on the next line as the final line. Do this even for no-op/quiet runs that sent no external alert. Do not wrap either directive in backticks or a code block, and do not write anything after the archive directive. Do not auto-archive only when the chat itself is the only deliverable, Brian explicitly needs to continue inside that automation chat, or the run is blocked before it can write any durable state or alert.
 
-**2026-05-26 activation gate (CLEARED 2026-05-31; RE-ENTERED CODEX 2026-06-05):** the first-day core automation audit passed, then the 2026-06-05 Codex re-entry reactivated the core bundle and ported revenue research/drafting back to Codex. Approval gates are unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the lead pool. Pipeline follow-up remains on-demand until its volume justifies a schedule.
+**Hardware FYI revenue goal:** Brian's standing Hardware FYI goal for CY2026 is `$1,000,000` top-line revenue. Every active Hardware FYI automation must read or obey `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` and classify work by whether it collects cash, advances pipeline, improves product value, or improves the revenue system. Do not claim fresh revenue totals unless the live tracker/CRM/payment source was actually refreshed.
+
+**2026-05-26 activation gate (CLEARED 2026-05-31; RE-ENTERED CODEX 2026-06-05; REVENUE FOCUS EXPANDED 2026-06-07):** the first-day core automation audit passed, then the 2026-06-05 Codex re-entry reactivated the core bundle and ported revenue research/drafting back to Codex. Approval gates are unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the lead pool. Pipeline follow-up is now scheduled weekly as the warm-deal owner for the CY2026 revenue goal.
 
 ## 1. Morning Briefing
 
@@ -71,11 +73,13 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 **Model:** GPT-5.5 high
 **Loop:** repo/docs/scripts/shims + live operating state -> gap list -> auto-fix only mechanical drift, PR material changes, task human decisions -> health ledger + log -> structural improvements. The Codex re-entry prompt explicitly checks both `/Users/brianderario/.codex/automations/*/automation.toml` and `/Users/brianderario/.claude/scheduled-tasks/*/SKILL.md` for runner drift.
 
-## 3d. Revenue Research + Drafting
+## 3d. Revenue Research, Drafting, and Warm Pipeline
 
 **Lead research:** 6:13pm ET, M-F (`13 18 * * 1-5`), `agent-prompts/kerri-lead-research/SKILL.md`, GPT-5.5 high. Researches and enriches Hardware FYI sponsor prospects, dedups against KerriOS/CRM/recent outreach, writes `data/leads-master.json` and research batches, mirrors to CRM/CSV fallback where available, and tops up `data/cold-outreach-queue.json`. It never drafts or sends.
 
 **Cold outreach:** 9:07am ET, M-F (`7 9 * * 1-5`), `agent-prompts/kerri-cold-outreach/SKILL.md`, GPT-5.5 high. Converts queued prospects into one daily Hardware FYI approval task. It never sends; the inbox sweep sends later only after Brian approves the task.
+
+**Pipeline follow-up:** 8:33am ET, Tuesdays (`33 8 * * 2`), `agent-prompts/kerri-pipeline-followup/SKILL.md`, GPT-5.5 high. Owns warm Hardware FYI/KMG deal nudges where Brian/Kerri sent last and the relationship-tier cadence has elapsed. It stages at most five approval-gated tasks and never sends directly.
 
 **Superseded path:** `hwfyi-weekday-outreach` remains paused. Do not run the old one-step outreach automation in parallel with the lead-research -> cold-outreach -> inbox-sweep approval path.
 
@@ -140,7 +144,6 @@ These prompts can be invoked by Brian or by another approved workflow, but they 
 
 - `agent-prompts/send-partner-contract/SKILL.md` — partner/SOW contract packet prep. Finance, legal, payment, signature authority, and external sends stay approval-gated.
 - `agent-prompts/kerri-event-logistics/SKILL.md` — on-demand venue/vendor/event logistics support.
-- `agent-prompts/kerri-pipeline-followup/SKILL.md` — on-demand deal follow-up drafting and state checks.
 
 ## Notes
 
@@ -148,6 +151,6 @@ These prompts can be invoked by Brian or by another approved workflow, but they 
 - **First parallel bundle = ACTIVE in Codex.** `kerri-eod-meetings-review`, `kerri-morning-brief`, and `kerri-brain-push` are rebuilt together on GPT-5.5 high.
 - **Monitor = ACTIVE in Codex.** `kerri-gap-sweep` runs daily at 9:41pm ET and checks Codex automation records plus Claude shims for runner drift.
 - **Morning recovery = ACTIVE in Codex.** `kerri-morning-brief-retry` runs weekdays at 7:18am ET and self-suppresses unless the primary brief is missing/crashed.
-- **Revenue agents = ACTIVE in Codex.** `kerri-lead-research` (`13 18 * * 1-5`, weekday ~6:13pm ET) and `kerri-cold-outreach` (`7 9 * * 1-5`, weekday ~9:07am ET) are now Codex automations. Approval gates unchanged — cold outreach drafts only and never auto-sends; lead research only researches + tops up the pool. `hwfyi-weekday-outreach` is paused/superseded. `kerri-pipeline-followup` remains on-demand until its volume justifies a schedule.
+- **Revenue agents = ACTIVE in Codex.** `kerri-lead-research` (`13 18 * * 1-5`, weekday ~6:13pm ET), `kerri-cold-outreach` (`7 9 * * 1-5`, weekday ~9:07am ET), and `kerri-pipeline-followup` (`33 8 * * 2`, Tuesday ~8:33am ET) are Codex automations. Approval gates unchanged — cold outreach and pipeline follow-up draft only and never auto-send; lead research only researches + tops up the pool. `hwfyi-weekday-outreach` is paused/superseded.
 - **All drafts route to Brian first.** No outbound to third parties without per-thread approval (see [[email.md]]).
 - **Material brain writes go through approval gates.** See [[brain.md]] mutation rules.

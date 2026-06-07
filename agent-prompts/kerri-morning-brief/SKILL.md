@@ -14,7 +14,7 @@ This stamps "run started" + writes an in-progress HTML skeleton so a mid-run cra
 Operating loop:
   1. Perceive calendar, Chase spend alerts, pending tasks, and KerriOS open loops.
   2. Contextualize meetings and tasks through the living brain.
-  3. Present a repeatable morning artifact Brian looks forward to opening.
+  3. Keep the Hardware FYI `$1,000,000` CY2026 revenue goal visible through one daily Revenue Focus.
   4. Route any external action through approval gates.
   5. Record compact durable memory only when this run creates, closes, or escalates an action.
   6. Self-grade so the brief improves without Brian asking.
@@ -38,6 +38,7 @@ Then read these KerriOS files:
 - `brain/log.md`
 - `brain/wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder.md`
 - `brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods.md`
+- `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md`
 - `agent-prompts/kerri-skill/references/voice.md`
 - `brain/wiki/workflows/draft-learnings.md`
 
@@ -73,6 +74,7 @@ Read-only unless the brief creates or closes an action:
 - `data/inbox-sweep-grades.json`
 - `data/eod-state.json`
 - `data/pipeline-followup-state.json`
+- `brain/wiki/deals/*.md` for active Hardware FYI/KMG revenue deals only
 
 Note: `output/` is intentionally gitignored. The HTML brief is a local delivery artifact, not canonical KerriOS truth.
 
@@ -142,17 +144,25 @@ KerriOS open loops:
   - a notable completion or unblock from yesterday
 - Keep this section sparse. If nothing materially changes Brian's morning, omit it or show a quiet empty state.
 
+Hardware FYI Revenue Focus:
+
+- Always include one concise Revenue Focus card tied to `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md`.
+- Build it from pending Hardware FYI Google Tasks, active `brain/wiki/deals/` pages, recent `brain/log.md` entries, and visible pipeline/cold-outreach state. If tracker/CRM/Stripe data is not refreshed in this run, explicitly label the card as task/deal-derived rather than a fresh revenue-total read.
+- Prefer one concrete next move: cash/contract unblock, warm pipeline nudge, approval-ready sponsor reply, high-fit outreach batch, or product/package improvement.
+- Do not send, price, commit inventory, or mutate CRM from the morning brief. Route any external action into the relevant approval workflow.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3 — PRIORITIZE AND SHAPE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The brief has three primary sections in this order:
+The brief has four primary sections in this order:
 
 1. Meetings today.
 2. Yesterday's Chase spend.
 3. Pending tasks needing Brian's attention.
+4. Hardware FYI Revenue Focus.
 
-It may include a fourth section, `Kerri's Read`, only when there is relevant context Brian would reasonably expect Kerri to surface without being asked.
+It may include a fifth section, `Kerri's Read`, only when there is relevant context Brian would reasonably expect Kerri to surface without being asked.
 
 Within Pending Tasks, rank by impact and time sensitivity:
 
@@ -189,7 +199,8 @@ Design requirements:
   - section 1: `Today's Meetings`
   - section 2: `Yesterday's Chase Spend`
   - section 3: `Pending Tasks`
-  - optional section 4: `Kerri's Read`
+  - section 4: `Hardware FYI Revenue Focus`
+  - optional section 5: `Kerri's Read`
   - small footer with generated time and degraded-source notes
 - Responsive mobile layout.
 - No raw email bodies.

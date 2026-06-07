@@ -48,11 +48,12 @@ These folders are ergonomic automation entrypoints, not canonical truth. Durable
 | `kerri-gap-sweep` | 9:41pm ET, daily, Codex automation, GPT-5.5 high; checks Codex records plus Claude shims | `agent-prompts/kerri-gap-sweep/SKILL.md` |
 | `kerri-lead-research` | 6:13pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-lead-research/SKILL.md` |
 | `kerri-cold-outreach` | 9:07am ET, weekdays, Codex automation, GPT-5.5 high; drafts only, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
+| `kerri-pipeline-followup` | 8:33am ET, Tuesdays, Codex automation, GPT-5.5 high; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
 | `standard-works-issue-writer` | 8:00pm ET, Mondays and Wednesdays, Codex automation, GPT-5.5 high; stages Beehiiv review drafts only | `S&W Writing Agent` + `standard-works-issue-writer` skill |
 
 2026-06-05 note: Brian brought the scheduled agentic work back into Codex. The visible Claude shims are legacy/fallback artifacts; do not infer live ownership from them. `kerri-gap-sweep` is responsible for surfacing any double-run risk between Codex and Claude surfaces.
 
-2026-05-26 audit note (RESOLVED 2026-05-31; Codex re-entry 2026-06-05): the first-day core automation audit passed, so cold outreach and lead research were promoted from on-demand to scheduled routines. They now run as Codex automations. Approval gates unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the pool. `kerri-pipeline-followup` stays on-demand until its volume justifies a schedule. S&W issue writing is active in Codex; marketing/social/posting remains approval-gated.
+2026-05-26 audit note (RESOLVED 2026-05-31; Codex re-entry 2026-06-05; Hardware FYI revenue focus expanded 2026-06-07): the first-day core automation audit passed, so cold outreach and lead research were promoted from on-demand to scheduled routines. They now run as Codex automations, and pipeline follow-up is scheduled weekly as the warm-deal owner for the `$1,000,000` CY2026 Hardware FYI revenue goal. Approval gates unchanged: cold outreach and pipeline follow-up draft only and never auto-send; lead research only researches + tops up the pool. S&W issue writing is active in Codex; marketing/social/posting remains approval-gated.
 
 ## Sub-agent roadmap (under Kerri's identity)
 
@@ -67,7 +68,7 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 | 2c | S&W Newsletter Marketing | Task-driven/on-demand prompt. Never auto-posts. | shipped alongside #2 |
 | 4 | Event Logistics | Active on demand. Venue/vendor research, inquiry drafting, RoS. Project-scoped per event. Seeded with stubs for sf-tech-week-2026, dc-maritime-defense-2026, kinetic-2027. | 3rd ✅ |
 | 3 | Inbound Sales Triage | Deferred (no inbound flow yet — Brian holds until volume justifies the playbook) | TBD |
-| 5 | Pipeline Follow-Up | On-demand until volume justifies a schedule. Kinetic 2026 sponsor roster intended as dormant deals. Approval-gated; never sends. | shipped |
+| 5 | Pipeline Follow-Up | Active Codex automation, Tuesdays 8:33am ET. Warm Hardware FYI/KMG deal nudges only; approval-gated and never sends. | shipped |
 | ~~6~~ | ~~Partner Research~~ — folded into Lead Research above | — | superseded |
 
 ## Supporting skills and prompts
@@ -76,7 +77,7 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 |---|---|---|
 | `send-partner-contract` | Skill, not a scheduled routine | Used for partner/SOW contract packet prep. Finance/legal/signature authority remains approval-gated. |
 | `kerri-event-logistics` | On-demand | Venue/vendor research, inquiry drafting, run-of-show support. |
-| `kerri-pipeline-followup` | On-demand | Deal follow-up drafting and state checks; no scheduled runner until volume justifies it. |
+| `kerri-pipeline-followup` | Scheduled Codex automation | Deal follow-up drafting and state checks for warm deals where Brian/Kerri sent last; no direct sends. |
 
 ## Planned (not yet activated)
 

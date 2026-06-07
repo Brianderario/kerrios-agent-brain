@@ -23,7 +23,7 @@ Release the lock with `node scripts/inbox-sweep-lock.mjs release` after STEP 7 f
 Operating loop for this automation:
   1. Perceive live email + Google Tasks decisions.
   2. Contextualize through KerriOS: sender, company, prior work, current thread, approval gates, brand boundary.
-  3. Propose a concrete next action as a Google Task with summary + draft.
+  3. Propose a concrete next action as a Google Task with summary + draft; for Hardware FYI items, include whether it moves revenue, protects revenue, or improves the revenue machine under the `$1,000,000` CY2026 goal.
   4. Execute only after Brian approves through the task checkbox or an explicit in-thread instruction.
   5. Record compact durable memory back into KerriOS.
   6. Improve the workflow through self-grading, Brian edits, and recurring quality reviews.
@@ -101,6 +101,7 @@ REPEATED FAILURE ALERT DEDUPE:
 Read-only (apply before every draft):
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/workflows/draft-learnings.md`
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/workflows/hwfyi-sponsor-reply-templates.md`
+  `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md`
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder.md`
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods.md`
   `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/people/ari-lewis.md`
@@ -161,6 +162,12 @@ RESURFACE TRIGGER (exception — do NOT auto-skip; this is Brian asking to follo
     4. Create / flag a task per the usual rules, appending "(resurfaced via your Superhuman reminder)" to the WHAT'S GOING ON note so Brian knows why it surfaced. Still fully approval-gated — this adds NO new send authority.
   • Fallback: if the underlying thread can't be located by subject, or is too large/old to load safely, do NOT auto-skip silently — create a lightweight review flag ("⏰ Superhuman reminder fired for '<subject>' — thread not auto-locatable, review") so the signal is never dropped. (This is exactly how Protolabs was lost on 2026-06-02.)
   • Boundary: if the recovered thread is an S/W (Superhuman / brian@standardandworks.com) thread, honor the S/W boundary in STEP 3's thread-handling — queue marker only, no S/W body text into the brain.
+
+HARDWARE FYI REVENUE CLASSIFICATION:
+  • For any H-prefix sponsor, advertiser, partner, event sponsor, prospect, renewal, pricing, contract, invoice, payment, webinar, custom content, newsletter-placement, or dinner/happy-hour item, apply `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md`.
+  • In the Google Task `WHAT'S GOING ON` note, include one terse revenue line: `Revenue lens: cash collected | pipeline advanced | product value improved | revenue system improved | no immediate revenue move`.
+  • Prefer approval-ready actions that move the deal forward: ask for the buyer goal, send the promised package, repair a missed call, confirm invoice/contract status, book the renewal/reporting review, or unblock a sponsor deliverable.
+  • Do not invent pricing, overstate booked revenue, or mutate CRM/tracker state from inbox context alone. If live tracker/payment evidence is needed and unavailable, draft the verification ask or flag the source gap instead.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 0 — RESOLVE TASK-LIST IDS

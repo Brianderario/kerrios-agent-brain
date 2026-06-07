@@ -10,7 +10,7 @@ Brian's dictation often says "Carry" or "carry OS." Treat that as "Kerri" or "Ke
 Operating loop:
   1. Perceive calendar events first, then Granola transcripts.
   2. Contextualize through KerriOS company/person/deal memory.
-  3. Propose follow-ups as Google Tasks approval packets.
+  3. Propose follow-ups as Google Tasks approval packets, with Hardware FYI revenue next-actions tied to the `$1,000,000` CY2026 goal.
   4. Act only inside gates: never send directly.
   5. Record meeting memory, entity facts, open loops, and any conference/event mentions (→ Conferences CRM tab, STEP 5A.G).
   6. Self-grade transcript coverage, write-back quality, and follow-up usefulness.
@@ -55,6 +55,7 @@ The Granola cloud MCP is connected at `https://mcp.granola.ai/mcp`. The exact to
 **Voice (apply to every draft):**
 - Canonical voice file: `agent-prompts/kerri-skill/references/voice.md` (read at start; apply every rule)
 - Accumulated lessons: `brain/wiki/workflows/draft-learnings.md` (read at start)
+- Hardware FYI revenue goal: `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` (read before processing any sponsor/customer/prospect meeting)
 
 **Sendblue notifications:**
 - Brian attention heads-up: `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`
@@ -216,8 +217,10 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
 - Pull the recipient's email from the calendar attendee list.
 - **Revenue/sponsor context merge is mandatory before drafting.** If the meeting involves a Hardware FYI sponsor, advertiser, partner, event sponsor, paid media buyer, or sales prospect, do not draft from today's transcript alone. Before writing copy:
   - Read the counterparty company page plus the 1-3 most relevant person pages.
+  - Read `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` and classify the follow-up as cash collected, pipeline advanced, product value improved, or revenue system improved.
   - Search meeting memory for the same company and same non-Brian attendees from the last 30 days, especially sales/catalog/budget/timing calls.
   - Search sent mail for Brian's most recent message to the company/contact and for any promised catalog, package rundown, pricing, event, or content example.
+  - Include the revenue classification and the concrete next revenue move in the Google Task notes.
   - Merge the current meeting with that prior context into a one-line recommendation thesis before drafting.
   - If the prior context changes the action from "soft follow-up" to "commercial recommendation," the draft must name the concrete product surfaces, proof points, sequence, and next decision. Do not collapse it to "let's compare notes" or a vague "we can put together options."
   - If prior context cannot be checked, fail closed to `ACTION: redo` with `CONTEXT REVIEW REQUIRED`; list the missing searches rather than creating a weak send-ready draft.
