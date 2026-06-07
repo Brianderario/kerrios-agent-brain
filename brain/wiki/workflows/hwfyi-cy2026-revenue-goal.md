@@ -31,6 +31,17 @@ This tab is the first place to read when Brian asks "where are we against the $1
 
 If the tab's `Last verified at` / freshness note is stale, say so and refresh from source surfaces before making a current revenue claim.
 
+## Pipeline Stage Taxonomy
+
+Use exactly these statuses in the `CY2026 Revenue Goal` ledger:
+
+- **Prospect:** real contact has happened, but no proposal/package/price has been sent yet. Raw uncontacted lead-research rows do not qualify.
+- **Interest:** buyer has replied with intent, asked for pricing/audience/details, taken a meeting, received a proposal/package, or has a verbal renewal / active commercial next step.
+- **Contract Won:** signed/accepted/booked CY2026 revenue with source evidence from Contract Breakdown, contract, invoice, Stripe, or an explicit acceptance.
+- **Contract Lost:** explicit no, paid path declined, organic-only/cross-promo-only response, or Brian/Benji closes the paid opportunity.
+
+Stage changes require source-backed evidence. Cold outreach only creates a `Prospect` after an approved send actually goes out; lead research alone must not create pipeline rows. Inbox sweep and EOD meetings review should update the central tab when replies, approved sends, meetings, contracts, or skips provide new stage evidence. Pipeline follow-up can update the central tab when its own nudges are approved/sent or when it observes a source-backed stale/lost condition, but it must not overwrite live Contract Won/Lost rows without fresh evidence.
+
 ## Evidence Surfaces
 
 Use live/source-backed surfaces before acting on revenue state:
@@ -47,11 +58,11 @@ If a run cannot refresh a live source, label the recommendation as not-current a
 ## Current Automation Mapping
 
 - `kerri-morning-brief`: keeps the goal top of mind with a daily Revenue Focus based on pending tasks, active deals, recent logs, and refreshed tracker data when available.
-- `kerri-inbox-sweep`: catches sponsor/customer replies, approval decisions, payment/admin blockers, and approved sends; it must tag Hardware FYI items by revenue bucket when creating tasks.
-- `kerri-eod-meetings-review`: converts sponsor/prospect meetings into source-backed follow-up tasks and deal memory.
-- `kerri-lead-research`: keeps the top of funnel full with ICP-scored sponsor targets tied to likely Hardware FYI products.
-- `kerri-cold-outreach`: turns the top ready leads into approval-gated, one-to-one outreach drafts; it never sends directly.
-- `kerri-pipeline-followup`: owns warm-deal nudges where Brian/Kerri sent last and the counterparty has gone quiet; it never sends directly.
+- `kerri-inbox-sweep`: catches sponsor/customer replies, approval decisions, payment/admin blockers, and approved sends; it must tag Hardware FYI items by revenue bucket and update `Prospect` / `Interest` / `Contract Won` / `Contract Lost` when the source evidence supports a stage change.
+- `kerri-eod-meetings-review`: converts sponsor/prospect meetings into source-backed follow-up tasks, deal memory, and central-tab stage changes when the meeting creates or changes a commercial state.
+- `kerri-lead-research`: keeps the top of funnel full with ICP-scored sponsor targets tied to likely Hardware FYI products. It does not create central pipeline rows for uncontacted leads.
+- `kerri-cold-outreach`: turns the top ready leads into approval-gated, one-to-one outreach drafts; it never sends directly. After inbox-sweep sends an approved cold draft, the company becomes `Prospect` in the central tab.
+- `kerri-pipeline-followup`: owns warm-deal nudges where Brian/Kerri sent last and the counterparty has gone quiet; it never sends directly. It reads and maintains the same central statuses.
 - `kerri-gap-sweep`: checks that the above machinery remains live, deduped, approval-gated, and wired to this goal.
 - `kerri-brain-push`: ships eligible prompt/brain improvements so the revenue system keeps learning.
 

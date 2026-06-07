@@ -18,7 +18,7 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 
 **Hardware FYI revenue goal:** Brian's standing Hardware FYI goal for CY2026 is `$1,000,000` top-line revenue. Every active Hardware FYI automation must read or obey `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` and classify work by whether it collects cash, advances pipeline, improves product value, or improves the revenue system. Do not claim fresh revenue totals unless the live tracker/CRM/payment source was actually refreshed.
 
-**Central revenue tracker:** current goal progress lives in the `CY2026 Revenue Goal` tab of the canonical Hardware FYI Sheet (`1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`). Use `node scripts/hwfyi-revenue-goal-sheet.mjs --ensure` to create/repair the tab header and `--read` to inspect the summary. Existing CRM/tracker/Stripe surfaces are evidence feeds into this tab.
+**Central revenue tracker:** current goal progress lives in the `CY2026 Revenue Goal` tab of the canonical Hardware FYI Sheet (`1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`). Use `node scripts/hwfyi-revenue-goal-sheet.mjs --ensure` to create/repair the tab header, `--read` to inspect the summary, `--pipeline-summary` for status counts, and `--seed-contract-breakdown` / `--seed-pipeline` only when intentionally refreshing the generated rows. Existing CRM/tracker/Stripe surfaces are evidence feeds into this tab. Pipeline statuses are exactly `Prospect`, `Interest`, `Contract Won`, and `Contract Lost`.
 
 **2026-05-26 activation gate (CLEARED 2026-05-31; RE-ENTERED CODEX 2026-06-05; REVENUE FOCUS EXPANDED 2026-06-07):** the first-day core automation audit passed, then the 2026-06-05 Codex re-entry reactivated the core bundle and ported revenue research/drafting back to Codex. Approval gates are unchanged: cold outreach drafts only and never auto-sends; lead research only researches + tops up the lead pool. Pipeline follow-up is now scheduled weekly as the warm-deal owner for the CY2026 revenue goal.
 
@@ -77,11 +77,11 @@ To activate a routine, create a Codex automation pointed at this repo and the ca
 
 ## 3d. Revenue Research, Drafting, and Warm Pipeline
 
-**Lead research:** 6:13pm ET, M-F (`13 18 * * 1-5`), `agent-prompts/kerri-lead-research/SKILL.md`, GPT-5.5 high. Researches and enriches Hardware FYI sponsor prospects, dedups against KerriOS/CRM/recent outreach, writes `data/leads-master.json` and research batches, mirrors to CRM/CSV fallback where available, and tops up `data/cold-outreach-queue.json`. It never drafts or sends.
+**Lead research:** 6:13pm ET, M-F (`13 18 * * 1-5`), `agent-prompts/kerri-lead-research/SKILL.md`, GPT-5.5 high. Researches and enriches Hardware FYI sponsor prospects, dedups against KerriOS/CRM/recent outreach, writes `data/leads-master.json` and research batches, mirrors to CRM/CSV fallback where available, and tops up `data/cold-outreach-queue.json`. It never drafts, sends, or promotes uncontacted leads into the central pipeline.
 
-**Cold outreach:** 9:07am ET, M-F (`7 9 * * 1-5`), `agent-prompts/kerri-cold-outreach/SKILL.md`, GPT-5.5 high. Converts queued prospects into one daily Hardware FYI approval task. It never sends; the inbox sweep sends later only after Brian approves the task.
+**Cold outreach:** 9:07am ET, M-F (`7 9 * * 1-5`), `agent-prompts/kerri-cold-outreach/SKILL.md`, GPT-5.5 high. Converts queued prospects into one daily Hardware FYI approval task. It never sends; the inbox sweep sends later only after Brian approves the task. Once an approved cold draft actually sends, inbox-sweep should create/update the central ledger row as `Prospect`.
 
-**Pipeline follow-up:** 8:33am ET, Tuesdays (`33 8 * * 2`), `agent-prompts/kerri-pipeline-followup/SKILL.md`, GPT-5.5 high. Owns warm Hardware FYI/KMG deal nudges where Brian/Kerri sent last and the relationship-tier cadence has elapsed. It stages at most five approval-gated tasks and never sends directly.
+**Pipeline follow-up:** 8:33am ET, Tuesdays (`33 8 * * 2`), `agent-prompts/kerri-pipeline-followup/SKILL.md`, GPT-5.5 high. Owns warm Hardware FYI/KMG deal nudges where Brian/Kerri sent last and the relationship-tier cadence has elapsed. It stages at most five approval-gated tasks, never sends directly, and maintains central statuses for source-backed warm-deal movement.
 
 **Superseded path:** `hwfyi-weekday-outreach` remains paused. Do not run the old one-step outreach automation in parallel with the lead-research -> cold-outreach -> inbox-sweep approval path.
 

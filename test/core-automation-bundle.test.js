@@ -139,6 +139,12 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     'kerri-morning-brief',
     'CY2026 Revenue Goal',
     'hwfyi-revenue-goal-sheet.mjs',
+    'seed-pipeline',
+    'pipeline-summary',
+    'Prospect',
+    'Interest',
+    'Contract Won',
+    'Contract Lost',
     '1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk'
   ]) {
     assert.match(
@@ -150,6 +156,11 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
   assert.match(files.automations + files.registry, /Pipeline follow-up.*8:33am ET/is);
   assert.match(files.automations + files.registry, /never (auto-)?sends?/i);
   assert.match(files.revenueGoalScript, /seed-contract-breakdown/);
+  assert.match(files.revenueGoalScript, /PIPELINE_SEED_ROWS/);
+  assert.match(files.revenueGoalScript, /OPEN_PIPELINE_STATUSES/);
+  assert.match(files.inbox + files.eod + files.pipeline + files.coldOutreach + files.leadResearch, /Contract Won/);
+  assert.match(files.inbox + files.eod + files.pipeline + files.coldOutreach + files.leadResearch, /Contract Lost/);
+  assert.match(files.leadResearch + files.coldOutreach, /uncontacted leads?/i);
 });
 
 function escapeRegExp(value) {

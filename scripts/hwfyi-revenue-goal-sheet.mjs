@@ -9,6 +9,8 @@
  * Usage:
  *   node scripts/hwfyi-revenue-goal-sheet.mjs --ensure
  *   node scripts/hwfyi-revenue-goal-sheet.mjs --seed-contract-breakdown
+ *   node scripts/hwfyi-revenue-goal-sheet.mjs --seed-pipeline
+ *   node scripts/hwfyi-revenue-goal-sheet.mjs --pipeline-summary
  *   node scripts/hwfyi-revenue-goal-sheet.mjs --check
  *   node scripts/hwfyi-revenue-goal-sheet.mjs --read
  *
@@ -61,6 +63,347 @@ const LEDGER_HEADER = [
   "notes",
 ];
 const AUTO_SEED_NOTE = "Auto-seeded by scripts/hwfyi-revenue-goal-sheet.mjs --seed-contract-breakdown";
+const AUTO_PIPELINE_SEED_NOTE = "Auto-seeded by scripts/hwfyi-revenue-goal-sheet.mjs --seed-pipeline from 2026-06-06 close-list evidence";
+const PIPELINE_STATUSES = ["Prospect", "Interest", "Contract Won", "Contract Lost"];
+const OPEN_PIPELINE_STATUSES = new Set(["Prospect", "Interest"]);
+const PIPELINE_SEED_ROWS = [
+  {
+    recordId: "pipeline-2026-colab-renewal",
+    company: "CoLab",
+    jobId: "H0030",
+    revenueCategory: "open-pipeline",
+    product: "Content-led renewal / newsletter placements",
+    amount: 12500,
+    status: "Interest",
+    probability: 0.7,
+    expectedCloseDate: "2026-06-20",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-1",
+    evidence: "Peter Attia call happened; Brian sent Package A/B/C on 2026-05-29; prior Q4/Q1 spend.",
+    nextAction: "Follow up with forced-choice Package A vs Package B close.",
+  },
+  {
+    recordId: "pipeline-2026-aris-machina",
+    company: "Aris Machina",
+    jobId: "H0001",
+    revenueCategory: "open-pipeline",
+    product: "Content-led HWFYI package",
+    amount: 13500,
+    status: "Interest",
+    probability: 0.65,
+    expectedCloseDate: "2026-06-18",
+    sourcePointer: "brain/wiki/companies/aris-machina.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-1",
+    evidence: "Package follow-up sent 2026-06-02; Sid replied 2026-06-03 that he would decide with William.",
+    nextAction: "Hold late-June/July inventory and ask whether they want Package A or B.",
+  },
+  {
+    recordId: "pipeline-2026-neural-concept",
+    company: "Neural Concept",
+    jobId: "H0024",
+    revenueCategory: "open-pipeline",
+    product: "US awareness package",
+    amount: 12500,
+    status: "Interest",
+    probability: 0.6,
+    expectedCloseDate: "2026-06-20",
+    sourcePointer: "brain/wiki/companies/neural-concept.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-1",
+    evidence: "Call happened; $15K/$10K/$5K package options sent; Ariane asked audience-fit questions and received detailed answer.",
+    nextAction: "Recommend $15K content plus three placements as the US awareness starter.",
+  },
+  {
+    recordId: "pipeline-2026-xscape-photonics-wireside",
+    company: "Xscape Photonics / Wireside",
+    jobId: "H0041",
+    revenueCategory: "open-pipeline",
+    product: "2026 pilot menu / webinar / event package",
+    amount: 17500,
+    status: "Interest",
+    probability: 0.5,
+    expectedCloseDate: "2026-06-25",
+    sourcePointer: "brain/wiki/companies/xscape-photonics.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-1",
+    evidence: "Founder introduced marketing/PR team; call happened; Nick asked for pricing and 2027 brochure.",
+    nextAction: "Send 2026 pilot menu so the thread does not become only a 2027 event conversation.",
+  },
+  {
+    recordId: "pipeline-2026-ptc-onshape-repair",
+    company: "PTC / Onshape",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "H2 digital / webinar activation",
+    amount: 20000,
+    status: "Interest",
+    probability: 0.45,
+    expectedCloseDate: "2026-06-24",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-1",
+    evidence: "Inbound form, follow-up, scheduled meeting, missed 2026-06-05 call; relationship repairable and high-value.",
+    nextAction: "Apologize once, offer two exact times, frame around H2 digital/webinar activation.",
+  },
+  {
+    recordId: "pipeline-2026-protolabs-renewal",
+    company: "Protolabs",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Analytics-review renewal",
+    amount: 12500,
+    status: "Interest",
+    probability: 0.55,
+    expectedCloseDate: "2026-06-24",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-1",
+    evidence: "Existing campaign completed; analytics report ready; top performer identified.",
+    nextAction: "Book analytics review and offer 6 placements for $10K or content plus placements for $15K.",
+  },
+  {
+    recordId: "pipeline-2026-allspice-dinner",
+    company: "AllSpice June 23 Dinner",
+    jobId: "H0026",
+    revenueCategory: "open-pipeline",
+    product: "Sponsored EE executive dinner",
+    amount: 11500,
+    status: "Interest",
+    probability: 0.75,
+    expectedCloseDate: "2026-06-12",
+    sourcePointer: "brain/wiki/companies/allspice.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-1",
+    evidence: "Katrina confirmed June 23 dinner and supplied ICP/list; venue/invite work active.",
+    nextAction: "Confirm sponsor fee/invoice status and whether dinner is incremental or included.",
+  },
+  {
+    recordId: "pipeline-2026-dirac-event",
+    company: "Dirac",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "SF Tech Week / webinar / event slot",
+    amount: 11500,
+    status: "Interest",
+    probability: 0.45,
+    expectedCloseDate: "2026-06-28",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-1",
+    evidence: "Existing sponsor; Gigi said both events sound interesting and asked for additional details.",
+    nextAction: "Send SF Tech Week and webinar details with $8K event or $5K-$10K webinar/content ask.",
+  },
+  {
+    recordId: "pipeline-2026-loombotic-renewal",
+    company: "Loombotic",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Six-month renewal",
+    amount: 12500,
+    status: "Interest",
+    probability: 0.5,
+    expectedCloseDate: "2026-06-28",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-2",
+    evidence: "Advertising Tracker notes Lucas Crupi verbally confirmed another six months for 2026.",
+    nextAction: "Send same-structure renewal nudge and ask whether to refresh the same package.",
+  },
+  {
+    recordId: "pipeline-2026-boltline-fusion-stoke",
+    company: "Boltline / Fusion by Stoke Space",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Full CY2026 package renewal",
+    amount: 20000,
+    status: "Interest",
+    probability: 0.35,
+    expectedCloseDate: "2026-07-03",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-2",
+    evidence: "Advertising Tracker says they verbally wanted a full CY2026 package.",
+    nextAction: "Re-open with a narrow 2026 package, not a broad check-in.",
+  },
+  {
+    recordId: "pipeline-2026-zenode-q3",
+    company: "Zenode",
+    jobId: "H0013",
+    revenueCategory: "open-pipeline",
+    product: "Q3 small H2 package",
+    amount: 5000,
+    status: "Interest",
+    probability: 0.55,
+    expectedCloseDate: "2026-06-21",
+    sourcePointer: "brain/wiki/companies/zenode.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-2",
+    evidence: "Brandon counter-proposed a Q3 $5K-shaped content/placement package after package-options reply.",
+    nextAction: "Decide whether to accept friend-rate scope or counter at a middle tier.",
+  },
+  {
+    recordId: "pipeline-2026-bananaz-renewal",
+    company: "Bananaz",
+    jobId: "H0002",
+    revenueCategory: "open-pipeline",
+    product: "H2 renewal / post-event package",
+    amount: 10000,
+    status: "Interest",
+    probability: 0.3,
+    expectedCloseDate: "2026-07-05",
+    sourcePointer: "brain/wiki/companies/bananaz-ai.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-2",
+    evidence: "Tracker marked in negotiations / tentative verbal agreement; Kinetic logistics had friction.",
+    nextAction: "Use post-event goodwill and metrics before a hard upsell.",
+  },
+  {
+    recordId: "pipeline-2026-formlabs-renewal",
+    company: "Formlabs",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Smaller content-led renewal",
+    amount: 8000,
+    status: "Prospect",
+    probability: 0.3,
+    expectedCloseDate: "2026-07-05",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-2",
+    evidence: "Prior content-marketing relationship; renewal waiting on response.",
+    nextAction: "Send a short renewal ping with a smaller content-led offer.",
+  },
+  {
+    recordId: "pipeline-2026-quectel-webinar",
+    company: "Quectel",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Webinar-interest follow-up",
+    amount: 5000,
+    status: "Prospect",
+    probability: 0.25,
+    expectedCloseDate: "2026-07-10",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-2",
+    evidence: "Advertising Tracker webinar section says re-engage / gauge interest.",
+    nextAction: "Batch into webinar-specific follow-up.",
+  },
+  {
+    recordId: "pipeline-2026-c-infinity-webinar",
+    company: "C-Infinity",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Webinar-interest follow-up",
+    amount: 5000,
+    status: "Prospect",
+    probability: 0.25,
+    expectedCloseDate: "2026-07-10",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-2",
+    evidence: "Advertising Tracker webinar section says re-engage / gauge interest.",
+    nextAction: "Batch into webinar-specific follow-up.",
+  },
+  {
+    recordId: "pipeline-2026-loomia-webinar",
+    company: "Loomia",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Webinar-interest follow-up",
+    amount: 5000,
+    status: "Prospect",
+    probability: 0.25,
+    expectedCloseDate: "2026-07-10",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-2",
+    evidence: "Advertising Tracker webinar section says re-engage / gauge interest.",
+    nextAction: "Batch into webinar-specific follow-up.",
+  },
+  {
+    recordId: "pipeline-2026-siemens-disw",
+    company: "Siemens Digital Industries Software",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Account-based H2 package",
+    amount: 31500,
+    status: "Prospect",
+    probability: 0.25,
+    expectedCloseDate: "2026-07-17",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-3",
+    evidence: "CRM/prospect mirror suppresses cold outreach because Siemens is already open/contacted; tracker notes FY26 interest.",
+    nextAction: "Find existing owner/thread before sending anything.",
+  },
+  {
+    recordId: "pipeline-2026-jiga-event-addon",
+    company: "Jiga",
+    jobId: "H0034",
+    revenueCategory: "open-pipeline",
+    product: "Premier booth / event add-on",
+    amount: 10000,
+    status: "Interest",
+    probability: 0.35,
+    expectedCloseDate: "2026-07-03",
+    sourcePointer: "brain/wiki/companies/jiga.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-3",
+    evidence: "Existing partner program/event relationship; late June/early July meetup expected with premier booth.",
+    nextAction: "Confirm whether event value is already paid/included; if not, package booth plus placements.",
+  },
+  {
+    recordId: "pipeline-2026-duro-expansion",
+    company: "Duro expansion",
+    jobId: "H0014",
+    revenueCategory: "open-pipeline",
+    product: "Sept/Oct expansion",
+    amount: 8500,
+    status: "Prospect",
+    probability: 0.35,
+    expectedCloseDate: "2026-09-15",
+    sourcePointer: "brain/wiki/companies/duro-labs.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-3",
+    evidence: "Already booked base partnership; explicit Sept/Oct expansion once numbers come in.",
+    nextAction: "Calendar post-placement expansion review after first/second primary placement.",
+  },
+  {
+    recordId: "pipeline-2026-synera-expansion",
+    company: "Synera",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Content / webinar expansion",
+    amount: 7500,
+    status: "Prospect",
+    probability: 0.3,
+    expectedCloseDate: "2026-07-17",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-3",
+    evidence: "Paid Kinetic sponsor with successful event participation; no fresh H2 ask yet.",
+    nextAction: "Post-event metrics follow-up, then offer content/webinar if lead quality was good.",
+  },
+  {
+    recordId: "pipeline-2026-kapa-ai",
+    company: "Kapa AI",
+    jobId: "",
+    revenueCategory: "open-pipeline",
+    product: "Content / event package",
+    amount: 7500,
+    status: "Prospect",
+    probability: 0.25,
+    expectedCloseDate: "2026-07-24",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-3",
+    evidence: "Kinetic sponsor/conversation exists; not clearly in close mode.",
+    nextAction: "Nurture after more urgent proposal threads.",
+  },
+  {
+    recordId: "pipeline-2026-simplexity-newsletter",
+    company: "Simplexity Product Development",
+    jobId: "H0082",
+    revenueCategory: "open-pipeline",
+    product: "Newsletter sponsorship",
+    amount: 7500,
+    status: "Prospect",
+    probability: 0.35,
+    expectedCloseDate: "2026-06-30",
+    sourcePointer: "brain/wiki/companies/simplexity-product-development.md",
+    evidence: "Michael asked how much it would cost to have Simplexity in HWFYI for a few weeks or months; Brian-sender follow-up sent 2026-06-07.",
+    nextAction: "Wait for budget/timing response; move to Interest if he asks for options or pricing.",
+  },
+  {
+    recordId: "pipeline-2026-sosv-cross-promo",
+    company: "SOSV",
+    jobId: "",
+    revenueCategory: "lost-pipeline",
+    product: "Paid ad placement",
+    amount: 0,
+    status: "Contract Lost",
+    probability: 0,
+    expectedCloseDate: "",
+    sourcePointer: "hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-3",
+    evidence: "They asked for cross-promotion, not paid sponsorship.",
+    nextAction: "Do not prioritize as paid revenue unless they accept a cash placement.",
+  },
+  {
+    recordId: "pipeline-2026-fleetzero-paid",
+    company: "Fleetzero",
+    jobId: "H0054",
+    revenueCategory: "lost-pipeline",
+    product: "Paid sponsorship",
+    amount: 0,
+    status: "Contract Lost",
+    probability: 0,
+    expectedCloseDate: "",
+    sourcePointer: "brain/wiki/companies/fleetzero.md; hwfyi-cy2026-high-likelihood-close-list-2026-06-06.md#tier-3",
+    evidence: "Matt explicitly declined paid opportunity and asked only about earned/editorial paths.",
+    nextAction: "Keep organic/editorial relationship only; no sponsorship nudge.",
+  },
+];
 
 function hasFlag(flag) {
   return process.argv.includes(`--${flag}`);
@@ -193,6 +536,14 @@ async function readSummary(sheets, spreadsheetId) {
   });
   return result.data.values || [];
 }
+async function readLedgerRows(sheets, spreadsheetId) {
+  const result = await sheets.spreadsheets.values.get({
+    spreadsheetId,
+    range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
+    valueRenderOption: "UNFORMATTED_VALUE",
+  });
+  return (result.data.values || []).filter((row) => row.some((v) => v !== ""));
+}
 function printRows(rows) {
   for (const row of rows) console.log(row.map((v) => String(v ?? "")).join("\t"));
 }
@@ -204,10 +555,75 @@ function slug(value) {
     .replace(/^-+|-+$/g, "")
     .slice(0, 64) || "unknown";
 }
+function roundMoney(value) {
+  return Math.round(Number(value || 0) * 100) / 100;
+}
+function numericCell(value) {
+  if (typeof value === "number") return value;
+  const parsed = Number(String(value || "").replace(/[$,]/g, ""));
+  return Number.isFinite(parsed) ? parsed : 0;
+}
 function parseSheetDate(value) {
   if (typeof value === "number") return new Date(Math.round((value - 25569) * 86400 * 1000));
   const d = new Date(value);
   return d;
+}
+function validatePipelineStatus(status) {
+  if (!PIPELINE_STATUSES.includes(status)) {
+    throw new Error(`Invalid pipeline status "${status}". Expected one of: ${PIPELINE_STATUSES.join(", ")}`);
+  }
+}
+function buildPipelineSeedRow(entry, now) {
+  validatePipelineStatus(entry.status);
+  const amount = roundMoney(entry.amount);
+  const probability = Number(entry.probability);
+  if (!Number.isFinite(probability) || probability < 0 || probability > 1) {
+    throw new Error(`Invalid probability for ${entry.recordId}: ${entry.probability}`);
+  }
+  const weightedAmount = OPEN_PIPELINE_STATUSES.has(entry.status) ? roundMoney(amount * probability) : 0;
+  return [
+    entry.recordId,
+    entry.company,
+    entry.jobId || "",
+    entry.revenueCategory,
+    entry.product,
+    amount,
+    entry.status,
+    probability,
+    weightedAmount,
+    entry.expectedCloseDate || "",
+    "CY2026",
+    "KerriOS close-list / mailbox-derived evidence",
+    entry.sourcePointer,
+    entry.evidence,
+    "Kerri / Brian",
+    entry.nextAction,
+    now,
+    AUTO_PIPELINE_SEED_NOTE,
+  ];
+}
+function summarizeLedger(rows) {
+  let booked = 0;
+  let open = 0;
+  let weighted = 0;
+  const byStatus = Object.fromEntries(PIPELINE_STATUSES.map((status) => [status, 0]));
+  for (const row of rows) {
+    const status = row[6] || "";
+    if (status in byStatus) byStatus[status] += 1;
+    const amount = numericCell(row[5]);
+    const weightedAmount = numericCell(row[8]);
+    if (status === "Contract Won") booked += amount;
+    if (OPEN_PIPELINE_STATUSES.has(status)) {
+      open += amount;
+      weighted += weightedAmount;
+    }
+  }
+  return {
+    booked: roundMoney(booked),
+    open: roundMoney(open),
+    weighted: roundMoney(weighted),
+    byStatus,
+  };
 }
 async function seedFromContractBreakdown(sheets, spreadsheetId) {
   await ensureTab(sheets, spreadsheetId);
@@ -266,10 +682,10 @@ async function seedFromContractBreakdown(sheets, spreadsheetId) {
       recordId,
       company,
       "",
-      "booked-earned",
+      "contract-won",
       "Contract Breakdown 2026 rollup",
       rounded,
-      "booked-earned",
+      "Contract Won",
       1,
       rounded,
       "",
@@ -278,7 +694,7 @@ async function seedFromContractBreakdown(sheets, spreadsheetId) {
       "Sum of 2026-dated rows by company",
       `${rowCount} total CY2026 source rows in Contract Breakdown; row is company rollup`,
       "Kerri / Brian",
-      "Reconcile cash collection and open pipeline separately",
+      "Reconcile cash collection separately; retain open pipeline rows separately",
       now,
       AUTO_SEED_NOTE,
     ]);
@@ -301,6 +717,65 @@ async function seedFromContractBreakdown(sheets, spreadsheetId) {
     `hwfyi-revenue-goal-sheet: seeded Contract Breakdown rollup ${Math.round(total * 100) / 100} from ${rowCount} CY2026 rows (${manualRows.length} manual kept, ${generatedRows.length} generated)`
   );
 }
+async function seedPipeline(sheets, spreadsheetId) {
+  await ensureTab(sheets, spreadsheetId);
+  const now = new Date().toISOString();
+  const existing = await sheets.spreadsheets.values.get({
+    spreadsheetId,
+    range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
+    valueRenderOption: "UNFORMATTED_VALUE",
+  });
+  const existingRows = existing.data.values || [];
+  const preservedRows = existingRows.filter((row) => (row[17] || "") !== AUTO_PIPELINE_SEED_NOTE);
+  const generatedRows = PIPELINE_SEED_ROWS
+    .map((entry) => buildPipelineSeedRow(entry, now))
+    .sort((a, b) => {
+      const statusSort = { Interest: 0, Prospect: 1, "Contract Lost": 2, "Contract Won": 3 };
+      return (statusSort[a[6]] - statusSort[b[6]]) || String(a[1]).localeCompare(String(b[1]));
+    });
+  const finalRows = [...preservedRows, ...generatedRows];
+  const summary = summarizeLedger(finalRows);
+
+  await sheets.spreadsheets.values.clear({
+    spreadsheetId,
+    range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
+  });
+  if (finalRows.length) {
+    await sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R${LEDGER_START_ROW + finalRows.length}`,
+      valueInputOption: "USER_ENTERED",
+      requestBody: { values: finalRows },
+    });
+  }
+  await sheets.spreadsheets.values.batchUpdate({
+    spreadsheetId,
+    requestBody: {
+      valueInputOption: "USER_ENTERED",
+      data: [
+        { range: `'${TAB}'!B4`, values: [[summary.booked]] },
+        { range: `'${TAB}'!B6`, values: [[summary.open]] },
+        { range: `'${TAB}'!B7`, values: [[summary.weighted]] },
+        { range: `'${TAB}'!B9`, values: [[now]] },
+        {
+          range: `'${TAB}'!B10`,
+          values: [[
+            `Pipeline seeded from 2026-06-06 mailbox/tracker/CRM close-list evidence; statuses: ` +
+            `Prospect=${summary.byStatus.Prospect}, Interest=${summary.byStatus.Interest}, ` +
+            `Contract Won=${summary.byStatus["Contract Won"]}, Contract Lost=${summary.byStatus["Contract Lost"]}. ` +
+            "Cash collection still requires Stripe/invoice reconciliation.",
+          ]],
+        },
+      ],
+    },
+  });
+  console.log(
+    `hwfyi-revenue-goal-sheet: seeded pipeline ${summary.open} open / ${summary.weighted} weighted (` +
+    `Prospect=${summary.byStatus.Prospect}, Interest=${summary.byStatus.Interest}, ` +
+    `Contract Won=${summary.byStatus["Contract Won"]}, Contract Lost=${summary.byStatus["Contract Lost"]}; ` +
+    `${preservedRows.length} preserved, ${generatedRows.length} generated)`
+  );
+}
 async function main() {
   const spreadsheetId = arg("spreadsheet", DEFAULT_SPREADSHEET_ID);
   const sheets = await sheetsClient();
@@ -314,6 +789,10 @@ async function main() {
       await seedFromContractBreakdown(sheets, spreadsheetId);
       return;
     }
+    if (hasFlag("seed-pipeline")) {
+      await seedPipeline(sheets, spreadsheetId);
+      return;
+    }
     if (hasFlag("check")) {
       const meta = await getMeta(sheets, spreadsheetId);
       const sheet = findSheet(meta, TAB);
@@ -322,7 +801,26 @@ async function main() {
       const header = rows[LEDGER_START_ROW - 1] || [];
       if ((rows[0] || [])[0] !== SUMMARY_ROWS[0][0]) throw new Error("Summary title missing");
       if (header.join("\t") !== LEDGER_HEADER.join("\t")) throw new Error("Ledger header mismatch");
-      console.log(`hwfyi-revenue-goal-sheet: "${TAB}" exists with expected summary/header`);
+      const ledgerRows = await readLedgerRows(sheets, spreadsheetId);
+      const invalidStatuses = ledgerRows
+        .map((row) => row[6] || "")
+        .filter((status) => status && !PIPELINE_STATUSES.includes(status));
+      if (invalidStatuses.length) {
+        throw new Error(`Invalid pipeline statuses in ledger: ${[...new Set(invalidStatuses)].join(", ")}`);
+      }
+      console.log(`hwfyi-revenue-goal-sheet: "${TAB}" exists with expected summary/header/statuses`);
+      return;
+    }
+    if (hasFlag("pipeline-summary")) {
+      const ledgerRows = await readLedgerRows(sheets, spreadsheetId);
+      const summary = summarizeLedger(ledgerRows);
+      console.log(JSON.stringify({
+        tab: TAB,
+        booked: summary.booked,
+        open: summary.open,
+        weighted: summary.weighted,
+        byStatus: summary.byStatus,
+      }, null, 2));
       return;
     }
     if (hasFlag("read")) {
@@ -330,7 +828,7 @@ async function main() {
       printRows(rows);
       return;
     }
-    console.error("Usage: node scripts/hwfyi-revenue-goal-sheet.mjs --ensure|--check|--read [--spreadsheet <id>]");
+    console.error("Usage: node scripts/hwfyi-revenue-goal-sheet.mjs --ensure|--seed-contract-breakdown|--seed-pipeline|--pipeline-summary|--check|--read [--spreadsheet <id>]");
     process.exit(1);
   } catch (err) {
     if (scopeIssue(err)) {

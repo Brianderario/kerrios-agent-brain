@@ -252,6 +252,7 @@ When Brian checks the `☀️ COLD BATCH` task, the inbox sweep picks it up at i
 2. Flip the lead's `status` to `emailed` in `data/leads-master.json` and mirror it to the CRM "Leads" tab via `node scripts/sheets-append.mjs` (see lead-research SKILL for the writer; CSV fallback if Sheets scope absent)
 3. Create `brain/wiki/people/<slug>.md` for the prospect (compact: name, email, company, title, cold-outreach-date)
 4. Create or update `brain/wiki/companies/<slug>.md` for the company (compact)
+5. Create/update the central `CY2026 Revenue Goal` row with status `Prospect` because contact has now actually happened. Do not mark `Interest` until the buyer replies, asks for details/pricing, takes a meeting, or receives a proposal/package.
 
 The `sent[]` state update is mandatory now that cold outreach approval tasks are posted through the same Google Tasks rail as inbox replies. If the post-send people/company backfill cannot be completed safely, create a compact Kerri MG suggestion task instead of silently losing the follow-up.
 

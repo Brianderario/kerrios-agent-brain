@@ -168,6 +168,12 @@ HARDWARE FYI REVENUE CLASSIFICATION:
   • In the Google Task `WHAT'S GOING ON` note, include one terse revenue line: `Revenue lens: cash collected | pipeline advanced | product value improved | revenue system improved | no immediate revenue move`.
   • Prefer approval-ready actions that move the deal forward: ask for the buyer goal, send the promised package, repair a missed call, confirm invoice/contract status, book the renewal/reporting review, or unblock a sponsor deliverable.
   • Do not invent pricing, overstate booked revenue, or mutate CRM/tracker state from inbox context alone. If live tracker/payment evidence is needed and unavailable, draft the verification ask or flag the source gap instead.
+  • Central pipeline stages live in the `CY2026 Revenue Goal` tab and must use exactly: `Prospect`, `Interest`, `Contract Won`, `Contract Lost`.
+    - `Prospect`: real contact has happened and no proposal/package/price has been sent yet. After this sweep sends an approved cold-outreach draft, create/update that company as `Prospect` with source pointer to the sent job/task.
+    - `Interest`: buyer asks for pricing/audience/package details, takes a sponsor meeting, receives a proposal/package, gives verbal renewal intent, or otherwise has an active commercial next step.
+    - `Contract Won`: explicit acceptance, signed SOW/contract, invoice/Stripe/Contract Breakdown evidence, or other source-backed booked CY2026 revenue.
+    - `Contract Lost`: explicit no, paid path declined, cross-promo/organic-only response, or Brian-approved closeout of the paid opportunity.
+  • When a new inbox reply, approved send, skipped send, contract/payment event, or task decision changes one of those statuses, update the central tab row in place if Sheets is available. If Sheets is unavailable, write a compact Kerri MG task titled `⚠️ PIPELINE UPDATE NEEDED — <Company>` with the intended status, source evidence, and next action. Lead-research-only rows are not pipeline.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 0 — RESOLVE TASK-LIST IDS

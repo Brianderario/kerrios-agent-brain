@@ -9,6 +9,8 @@ Standing revenue objective: Hardware FYI's calendar-year 2026 top-line revenue g
 
 Central tracker rule: current goal progress lives in the `CY2026 Revenue Goal` tab of the canonical Hardware FYI Sheet (`1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`). Use the tab for "where are we against goal?" numbers; use deal files and local state only to decide whether a nudge is due.
 
+Central stage rule: the same tab is the pipeline status source of truth. Status values are exactly `Prospect`, `Interest`, `Contract Won`, and `Contract Lost`. This agent only nudges `Prospect` and `Interest` rows; it must skip `Contract Won` and `Contract Lost` rows. Run `node scripts/hwfyi-revenue-goal-sheet.mjs --pipeline-summary` at the start of material runs when Sheets credentials are available.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 HARD RULES (do not bypass — ever)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -21,6 +23,7 @@ HARD RULES (do not bypass — ever)
 6. **Approval-gated brain writes.** This agent updates deal frontmatter (last_nudge_date, nudge_count, next_action_date) on every run. It does NOT update last_contact_date or status — those flip when a real send/reply happens (handled by inbox-sweep).
 7. **HWFYI + general only in v1.** No S/W pipeline nudges. S/W deal state (if any) stays out of this agent until Brian explicitly green-lights an S/W pipeline mode.
 8. **Customer ID protocol.** Every deal references a `jobId`. If a deal in `brain/wiki/deals/` has `jobId: null`, look it up in `data/companies.json` by domain. If the company isn't registered, skip the deal this run and log to `state.skipped[]` with reason "no jobId — register company first via inbox-sweep customer lookup."
+9. **Central status gate.** Before drafting, cross-check the company in `CY2026 Revenue Goal`. If the central status is `Contract Won` or `Contract Lost`, skip and log the source. If the local deal file says active but the central tab says lost/won, the central tab wins until fresh source evidence says otherwise.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 REFERENCE — DATA FILES
@@ -134,16 +137,18 @@ STEP 1 — LOAD + FILTER DEALS
 2. Read `data/companies.json` → domain map in memory.
 3. Read `data/jobs.json` → recent jobs in memory (for thread context lookup later).
 4. Read all `brain/wiki/deals/*.md` files. Parse frontmatter. Discard the README.
-5. Filter to eligible deals (ALL conditions required):
+5. Read the `CY2026 Revenue Goal` status ledger when available. Treat rows with `Prospect` or `Interest` as open; treat `Contract Won` and `Contract Lost` as closed.
+6. Filter to eligible deals (ALL conditions required):
    - `status == "active"`
    - `last_sender == "us"`
    - `prefix in [H, G]` (S excluded in v1)
    - `jobId != null` (skip and log if null — see HARD RULE 8)
+   - central-tab status is blank/unknown, `Prospect`, or `Interest`; never nudge a central `Contract Won` / `Contract Lost`
    - `days_since_last_contact >= cadence-for-tier-and-nudge-count`
    - for H-prefix deals, a plausible CY2026 revenue move exists: cash/contract, pipeline next step, renewal, event/webinar/content package, or buyer-goal clarification
    - per-deal rate limit: `last_nudge_date` is either null OR > 7 days ago in `state.perDealCounters[slug]`
    - global daily cap not exceeded so far in this run (max 5 drafts/day)
-6. Sort eligible deals by expected revenue leverage first, then `days_since_last_contact` descending. Prioritize warm sponsor/prospect threads over low-value generic nudges.
+7. Sort eligible deals by expected revenue leverage first, then `days_since_last_contact` descending. Prioritize warm sponsor/prospect threads over low-value generic nudges.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — PROCESS DECISIONS FROM EXISTING PIPELINE TASKS
