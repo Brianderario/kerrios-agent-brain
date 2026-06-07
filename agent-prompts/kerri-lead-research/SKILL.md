@@ -269,6 +269,18 @@ Prepend ONE line to `brain/log.md`:
 ```
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMPROVE (repeated misses → source/ICP tuning)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The sixth loop field — every run reflects on its own quality so the pipeline gets sharper over time, not just bigger. Cheap to do; record any signal worth acting on in the batch file (`data/lead-research/batches/`) and, when a pattern recurs across runs, surface it (Slack digest line or a `💡 SUGGESTION` Kerri MG task) rather than silently absorbing it:
+
+- **Dead/degraded sources.** A source (a conference page, a lane, an Apollo filter) that yields ~0 net-new-to-pool leads on 3 consecutive runs is no longer worth its credits/time — flag it for pruning or re-scoping instead of re-running it forever (pairs with the `degraded: true` marker in ERROR HANDLING below).
+- **Dedup saturation.** A high dedup rate (most finds already in the pool) means the current ICP/lanes are tapped out for now — note it so the ICP can be widened or a new lane proposed, rather than burning credits re-discovering known companies.
+- **Conversion feedback.** When inbox-sweep promotes a sourced lead to a real relationship (reply/deal), that lane/source earned its keep; when whole batches never convert, the scoring or targeting needs tuning. Capture the signal here so score weights and lane priorities can be revised deliberately, not by guesswork.
+
+Do not change ICP/scoring/source weights unilaterally inside a run — propose the tuning (digest or task) and let Brian approve, same as any other behavior change.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ERROR HANDLING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
