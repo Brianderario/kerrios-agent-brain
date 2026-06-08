@@ -23,13 +23,7 @@ Operating loop:
 REFERENCE — CONTEXT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Read first:
-
-- `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/00-shared-context/README.md`
-- `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/01-brian-kerri-agent/README.md`
-- `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/01-brian-kerri-agent/subagents/morning-briefing/README.md`
-
-Then read these KerriOS files:
+Read these KerriOS files:
 
 - `AGENTS.md`
 - `brain/AGENTS.md`

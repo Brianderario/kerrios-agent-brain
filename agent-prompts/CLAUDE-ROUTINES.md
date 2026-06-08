@@ -39,6 +39,20 @@ A routine prompt is **incomplete** unless it names all six (per the role-pods de
 
 **Record + Improve fire on every run — including quiet/no-op runs** (a grade/state write is still a write). That is the "constantly feed data back" principle. Write-back is constrained to the allowed list in the role-pods decision (company/contact facts, thread state, task lifecycle, Brian-edit rules, approved pricing/packaging, deal/event status, content decisions, repeated-miss fixes). Never raw thread dumps, partner internals, or chat logs.
 
+## Context budget discipline — the anti-bloat contract
+
+Token cost is real. Last week routines burned through Brian's allocation in 3 days because context loading was unchecked. These rules exist to prevent that while keeping Kerri fully informed when she needs to be.
+
+**NOW.md stays under 25 lines.** It's loaded by every routine, including the inbox sweep that runs 44×/day. Historical `> PRIOR` entries and shipped `✅` items must be pruned — they've served their handoff purpose. The nightly gap-sweep (STEP 1.5) enforces this automatically.
+
+**Preflight before context.** Routines with a TOKEN BUDGET CONTRACT (currently: `kerri-lead-research`, `kerri-cold-outreach`) run a cheap structured-data preflight BEFORE loading NOW.md, brain files, voice.md, or calling external tools. If the preflight shows a no-op (queue healthy, caps full), the routine writes compact state/grade and exits without loading broad context. The shims for these routines explicitly override the "read NOW.md first" instruction from CLAUDE.md.
+
+**Load brain pages by routing, not by directory.** The LLM-wiki pattern exists for a reason. Read `brain/routing.md` → load 1–3 routed pages. Never glob `brain/wiki/` or load the full index into context. See `brain/wiki/workflows/llm-wiki-pattern.md`.
+
+**No stale reference context.** Do not load files from retired systems (e.g. `/Desktop/Codex Kerri Agent/`). If a prompt references a path that predates KerriOS, the gap-sweep should flag it for removal.
+
+**Compact durable output.** State files, grades, logs, Slack digests, and NOW.md handoffs get counts + summaries + top examples + blockers + next action. Never raw API payloads, full email bodies, or unbounded history in handoff surfaces.
+
 ## Migration deltas from the Codex prompts (apply when porting)
 
 - **Codex closing directives are skipped.** Canonical `agent-prompts/*/SKILL.md` files may still end with `::inbox-item{...}` + `::archive{...}` blocks from the Codex era. The Claude Code shims instruct the runner to skip them. Under Claude Code, durable output is the routine's named surface (Tasks/email/text/ledger/commit).

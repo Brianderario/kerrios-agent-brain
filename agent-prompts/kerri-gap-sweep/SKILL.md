@@ -44,6 +44,23 @@ git pull --ff-only origin main
 If fast-forward fails, try `git pull --rebase origin main`. On a real conflict, STOP, text Brian one heads-up, do not force-push.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1.5 — CONTEXT HYGIENE (NOW.md trim)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NOW.md has a ~20-line contract but routines append to it all day. Every routine loads it, so bloat here multiplies across every run (inbox sweep alone loads it 44×/day). Trim it before the scan so tonight's push ships a lean baton.
+
+Check NOW.md line count (`wc -l`). If over 25 lines of content (excluding blank lines):
+
+1. **Remove all `> PRIOR` lines.** These are historical baton entries — the next runner already read them. They've served their purpose.
+2. **Remove any "## In flight" items marked ✅ SHIPPED / ✅ DONE / ✅ MERGED.** Shipped items are history, not in-flight work.
+3. **Trim "## Last action" to the 3 most recent entries.** Older entries belong in brain/log.md.
+4. **Remove any duplicate "Last touched" lines** (only the newest one matters).
+
+This is pure mechanical hygiene: no behavior change, no meaning change. Stage and commit with the other auto-fixes in STEP 4.
+
+If NOW.md is already ≤ 25 lines, skip this step silently. Record the line count in the `systemHealth` snapshot either way.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — SCAN FOR GAPS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
