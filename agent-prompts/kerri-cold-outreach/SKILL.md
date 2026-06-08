@@ -187,11 +187,11 @@ Create ONE task with `gtasks_create_task`:
 
   ☀️ COLD BATCH <date> — <N>/10 personalized cold emails, sponsor prospecting for Hardware FYI. Each is 1:1, Apollo-enriched, hook-specific, no footer. Caps after this batch: today <todayCount+N>/10 · week <weekCount+N>/50.
   Revenue goal: each SEND draft has a plausible path to the Hardware FYI `$1,000,000` CY2026 target.
-  Review rule: every draft block must include both `company fit:` and `person fit:` so Brian can evaluate whether the company belongs in Hardware FYI outreach and whether the recipient is the right buyer.
+  Review rule: every draft block must include `company fit:`, `person fit:`, and `qualification:` so Brian can evaluate whether the company belongs in Hardware FYI outreach, whether the recipient is the right buyer, and what evidence makes this more than a contextually relevant random company.
 
   ━━━━━━━━━ DRAFT #1 ━━━━━━━━━
   SEND #1
-  jobId: <H####> · <Company> · company fit: <why this company belongs in Hardware FYI outreach> · person fit: <why this recipient is the right buyer/reviewer> · hook: <one-line personalization angle> · revenue path: <lead-gen | brand-awareness | event/webinar | content | annual-partner>
+  jobId: <H####> · <Company> · company fit: <why this company belongs in Hardware FYI outreach> · person fit: <why this recipient is the right buyer/reviewer> · qualification: <2-3 compact signals: paid-access behavior such as sponsoring/exhibiting, prior HWFYI/Kerri relationship or hard rep, editorial/story fit, budget/timing signal, or ICP buyer urgency> · hook: <one-line personalization angle> · revenue path: <lead-gen | brand-awareness | event/webinar | content | annual-partner>
   From: <kerri@hardwarefyi.com | brian@hardwarefyi.com>
   To: <email>
   Subject: <subject>
@@ -202,7 +202,7 @@ Create ONE task with `gtasks_create_task`:
 
   ━━━━━━━━━ DRAFT #2 ━━━━━━━━━
   SEND #2
-  jobId: <H####> · <Company> · company fit: <one-line> · person fit: <one-line> · hook: <one-line>
+  jobId: <H####> · <Company> · company fit: <one-line> · person fit: <one-line> · qualification: <2-3 compact signals> · hook: <one-line>
   From: <…>
   To: <…>
   Subject: <…>

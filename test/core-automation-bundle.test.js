@@ -181,7 +181,9 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     'no raw Apollo',
     'no raw enrichment dumps',
     'company fit:',
-    'person fit:'
+    'person fit:',
+    'qualification:',
+    'paid-access behavior'
   ]) {
     assert.match(
       files.dailyOutreachLoop + files.leadResearch + files.coldOutreach,
