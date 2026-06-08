@@ -142,6 +142,10 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - `../data/companies.json` — the registry (domain → {jobId, …})
 - `../data/job-counters.json` — counter state (only bumps on brand-new customer)
 
+## "Who gets the investor update?" / "investor update distribution list" / "quarterly update"
+
+- [[wiki/workflows/investor-update-distro]] — canonical distribution list, cadence, and send pattern for KMG quarterly investor updates (brian@kerrihq.com via Gmail)
+
 ## "What's currently being worked on?"
 
 - [[log]] — chronological recent events

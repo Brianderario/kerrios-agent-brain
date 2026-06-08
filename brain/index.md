@@ -13,6 +13,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/hwfyi-cy2026-revenue-goal]] — standing $1M CY2026 Hardware FYI revenue operating goal and automation mapping
 - [[wiki/workflows/mcp-tool-add-checklist]] — definition + handler discipline when extending MCP servers (born from the 2026-05-24 gtasks bug)
 - [[wiki/workflows/customer-id-protocol]] — universal per-customer jobId lookup; ALL automations + ad-hoc drafts run this before any company/jobId write
+- [[wiki/workflows/investor-update-distro]] — KMG quarterly investor update distribution list and send pattern
 
 ## Agents
 
