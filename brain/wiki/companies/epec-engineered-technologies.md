@@ -9,7 +9,7 @@ slug: epec-engineered-technologies
 
 scope: prospect (cold outreach) · updated: 2026-06-08 · source: high-intent queue retarget
 
-Cold outreach prospect staged for Brian approval in Google Task QWNYTnRrbjNieUVva05saw.
+Cold outreach prospect was staged for Brian approval in Google Task QWNYTnRrbjNieUVva05saw, then returned to the queue before approval to prioritize Siemens/PTC-style strategic engineering accounts.
 
 - Contact: Keith Araujo, Vice President of Marketing, karaujo@epectec.com
 - Company fit: engineered electronics supplier across PCBs, cables, batteries, and custom assemblies
@@ -17,4 +17,6 @@ Cold outreach prospect staged for Brian approval in Google Task QWNYTnRrbjNieUVv
 - Qualification: IPC/PCB paid-access signal; Apollo-refreshed senior marketing buyer; broad electronics manufacturing vertical
 - Hook: fits the IPC APEX / PCB West exhibitor profile (pcb); reaches hardware engineers HWFYI sells to
 
-No email sent yet. Do not add to central pipeline until approved send happens.
+No email sent. Do not add to central pipeline unless a future approved send or real interaction happens.
+
+Strategic retarget note: pulled from the live 2026-06-08 approval batch before Brian approval; returned to high-intent queue.

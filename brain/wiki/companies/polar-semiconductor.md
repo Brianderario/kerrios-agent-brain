@@ -9,7 +9,7 @@ slug: polar-semiconductor
 
 scope: prospect (cold outreach) · updated: 2026-06-08 · source: high-intent queue retarget
 
-Cold outreach prospect staged for Brian approval in Google Task QWNYTnRrbjNieUVva05saw.
+Cold outreach prospect was staged for Brian approval in Google Task QWNYTnRrbjNieUVva05saw, then returned to the queue before approval to prioritize Siemens/PTC-style strategic engineering accounts.
 
 - Contact: Ken Obuszewski, Vice President of Marketing, kobuszewski@polarsemi.com
 - Company fit: US semiconductor foundry with a clear hardware manufacturing audience
@@ -17,4 +17,6 @@ Cold outreach prospect staged for Brian approval in Google Task QWNYTnRrbjNieUVv
 - Qualification: SEMICON paid-access signal; Apollo-refreshed senior marketing buyer; core semiconductor manufacturing vertical
 - Hook: fits the SEMICON West exhibitor profile (semiconductor); reaches hardware engineers HWFYI sells to
 
-No email sent yet. Do not add to central pipeline until approved send happens.
+No email sent. Do not add to central pipeline unless a future approved send or real interaction happens.
+
+Strategic retarget note: pulled from the live 2026-06-08 approval batch before Brian approval; returned to high-intent queue.

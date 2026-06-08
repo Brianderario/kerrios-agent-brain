@@ -1,6 +1,6 @@
 # Hardware FYI CY2026 Gap-Close Targets
 
-scope: workflow · updated: 2026-06-07 · owner: Brian / Kerri
+scope: workflow · updated: 2026-06-08 · owner: Brian / Kerri
 
 This is an agent-facing target list, not the real pipeline.
 
@@ -17,6 +17,20 @@ The real pipeline lives in the `CY2026 Revenue Goal` tab and should include only
 - Kapa AI — Kinetic context exists; promote only after a fresh paid-sponsorship touch.
 - Duro expansion — keep as a timed expansion target after placement performance data; not open pipeline until Brian/Kerri starts that expansion conversation.
 - Jiga add-on/event value — keep out of open pipeline unless a new paid add-on is proposed or confirmed outside existing contract scope.
+
+## Strategic Engineering Accounts To Enrich
+
+These are high-profile/high-potential accounts for Hardware FYI, but they do not enter the cold SEND queue until a real buyer/contact is enriched. Keep them visible for Apollo/account-map work.
+
+- Ansys — engineering simulation software; find demand generation, field marketing, partner marketing, or product marketing owner.
+- Dassault Systemes / SOLIDWORKS — CAD/PLM/product-design software; find SOLIDWORKS or manufacturing marketing owner.
+- Autodesk Fusion — CAD/CAM/CAE and manufacturing software; find Fusion/manufacturing marketing owner.
+- Cadence — EDA and intelligent system design software; find semiconductor/EDA demand generation or field marketing owner.
+- Synopsys — EDA, semiconductor IP, and system design software; find EDA/semiconductor demand generation or field marketing owner.
+- Altair — simulation/data/engineering software; find US demand generation or field marketing owner.
+- Hexagon Manufacturing Intelligence — metrology/manufacturing intelligence software; find US marketing or manufacturing software owner.
+- Keysight Technologies — test, measurement, and electronic design tools; find electronics/semiconductor marketing owner.
+- NI / Emerson Test & Measurement — test and measurement platform for engineers; find current NI/Emerson marketing owner.
 
 ## Rules
 
