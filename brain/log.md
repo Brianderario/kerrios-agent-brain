@@ -1,3 +1,7 @@
+## [2026-06-08 00:55 ET] eod-review | 1 meeting seen, 0 drafts, 0 flagged | Kerri
+
+Ran ~00:54 ET (anomalous vs 18:28 ET): no meetings had occurred in the 00:00-19:00 window. Only non-excluded event was the future recurring Brian/Benji 1:1 @16:00 (auto-skip type), left unprocessed for the proper-time run. Reclaim empty, Granola 0. No tasks/drafts/sends.
+
 ## [2026-06-07 17:48 ET] gap-sweep | auto:0 pr:0 task:1 | Kerri (Codex scheduled)
 Whole-system A-Q sweep: repo checks green (`npm run check`, `npm test` 118/118, `git diff --check`); Codex owns active routines, Claude shims remain fallback, revenue-goal wiring intact. High finding: `kerri-inbox-sweep` missed the Sunday 16:00 ET checkpoint; connector probe also lacked gtasks/custom HWFYI email/Superhuman/Reclaim in this Codex run, and local queue mirror has stale G0008/H0031. Filed Kerri MG task `eWRUX3MtUnFjU0tzT3pFMQ` and sent Sendblue heads-up `3c4c035f-0eb1-452c-836e-146735c5b5a5`. Existing PR #7 still covers the lead-research Improve loop gap; no auto-fixes or runtime/gate changes.
 
