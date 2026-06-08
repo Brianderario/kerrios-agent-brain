@@ -25,6 +25,7 @@ data/eod-state.json
 data/eod-grades.json
 data/eod-fallback-*.json
 data/morning-brief-state.json
+data/morning-brief-run-state.json
 data/morning-brief-fallback-*.md
 data/brain-push-state.json
 data/brain-push-fallback-*.md
