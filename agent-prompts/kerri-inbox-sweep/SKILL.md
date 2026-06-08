@@ -41,7 +41,7 @@ REFERENCE — MAILBOXES & MCPs
 • brian@hardwarefyi.com → MCP: brian-hardwarefyi-email (same tools)
 • brian@kerrihq.com → MCP: gmail / mcp__6ec88450 (search_threads, get_thread, create_draft — NO send_email; drafts only)
 • brian@standardandworks.com → MCP: superhuman / mcp__760b1f3b-fde4-493d-a586-7b3da09fcbe9 (list_threads, get_thread, get_message, create_or_update_draft, send_draft). This MCP is connected as brian@standardandworks.com directly (verified 2026-05-24 via query_email_and_calendar). The `from` field on create_or_update_draft can be omitted — defaults to that account.
-• Google Tasks + Docs → MCP: kerri-gdocs (gtasks_list_lists, gtasks_list_tasks, gtasks_get_task, gtasks_create_task, gtasks_update_task)
+• Google Tasks + Docs → MCP: kerri-gdocs (gtasks_list_lists, gtasks_list_tasks, gtasks_get_task, gtasks_create_task, gtasks_update_task, gtasks_delete_task)
 • Sendblue/text alert path → brief one-way notifications to Brian for newly-created tasks and any automation output that needs Brian's attention; use `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`. This is separate from iMessage Handoff and does not require handoff to be active.
 • Slack (supporting error detail only) → MCP: mcp__735b06a1 (slack_send_message)
 
@@ -239,7 +239,7 @@ COLD BATCH TASK HANDLING (title starts with `☀️ COLD BATCH`) — special cas
      • `REDO #n` → do not send; leave it in `drafted[]` and post a one-line Kerri MG note that a redo was requested (regeneration happens via the cold-outreach agent, not here).
   3. For each `SEND #n` draft, apply the full HARD NO-DOUBLE-EMAIL GATE below against that draft's email + jobId + any internetMessageId, then send via `kerri-hardwarefyi-email` (or `brian-hardwarefyi-email` if the block's `From:` is brian@) with `approved=true`, `approvalSource = "Brian approved cold batch via Google Tasks (list=H, taskId=<id>, draft #n)"`. If Brian edited a draft body in place, send the edited text. Every send auto-CCs brian@hardwarefyi.com per the standard gate.
   4. After each successful send: move that email from `cold-outreach-state#drafted[]` to `#sent[]` (`{ email, sentAt, jobId, gtasksTaskId, batchIndex }`); in `leads-master.json` flip the lead `status` to `emailed` AND stamp its `jobId` (matched by `leadId`/domain), then mirror to the CRM "Leads" tab via `node scripts/sheets-append.mjs` (CSV fallback if Sheets scope absent); create/update compact `brain/wiki/people/<slug>.md` + `brain/wiki/companies/<slug>.md`. Do NOT change the cold cap counters (todayCount/weekCount were already incremented at draft time).
-  5. After processing all blocks: `gtasks_update_task` → keep status=completed, rewrite title to `✅ sent <S>/<N> HH:MM ET — COLD BATCH <date>` (S = number actually sent). Append one `brain/log.md` line. Record a quality signal in inbox-sweep-grades.json.
+  5. After processing all blocks: append one `brain/log.md` line and record a quality signal in inbox-sweep-grades.json, then call `gtasks_delete_task` for the cold-batch task. Do not leave the task as completed; the durable audit trail is KerriOS (`cold-outreach-state.json`, `jobs.json`/batch state, `brain/log.md`, and the grade ledger), not a checked-off Google Task.
   6. Partial-failure safety: if any single draft send fails, continue the others, leave the failed one in `drafted[]`, and send Brian one Sendblue/text heads-up naming which draft # failed. Never re-send an already-`sent[]` draft on a later sweep (the batch task stays completed, so re-fire must re-check `sent[]` and no-op already-sent indices).
 
 HARD NO-DOUBLE-EMAIL GATE:
@@ -277,18 +277,18 @@ A) status == "completed" (Brian checked the box) → SEND
        Record approvalSource = "Brian approved via Google Tasks (list=S, taskId=<id>)" in the job log (jobs.json), even though Superhuman doesn't enforce the gate at the MCP layer. After successful send, scrub job.originalDraft → "<sent — body retained in Superhuman thread>" (S/W boundary: don't keep S/W body text in jobs.json after it leaves the queue).
    - Update job in jobs.json: status → sent, sentAt → now, originalDraft → (edited text if changed).
    - Cold outreach approvals now arrive as a single `☀️ COLD BATCH` task — handled by the dedicated COLD BATCH TASK HANDLING block above, not here. (Legacy single `❄️ COLD-` tasks, if any remain, still update `data/cold-outreach-state.json`: move the email from `drafted[]` to `sent[]` with `{ email, sentAt, jobId, gtasksTaskId }`, cap counters unchanged.)
-   - Update task title via `gtasks_update_task`: strip any leading `🆕 ` marker, then prefix with `✅ sent HH:MM ET — ` (keep status=completed).
    - Write back to KerriOS:
      • append a compact thread/action entry to the relevant company wiki page or deal page
      • if Brian edited the draft, append the reusable rule to draft-learnings.md
      • if the send changed deal stage, pricing, package, commitment, or next action, update the deal/company page or create a candidate note instead of burying it in jobs.json
      • append one line to brain/log.md
    - Quality signal: record `approved_exact` or `approved_edited` in inbox-sweep-grades.json for this job.
+   - After jobs.json, brain/log.md, and the quality signal are written successfully, call `gtasks_delete_task` for the approval task. Do not leave the task as completed; completed approval tasks must self-clear so Brian's live Google Tasks list remains the active-work surface. If deletion fails, do not retry in a tight loop; record the cleanup miss in the grade ledger and continue with the job already marked sent.
 
 B) status == "needsAction" AND notes ACTION line == "skip" → SKIP
    - Update job: status → skipped.
-   - `gtasks_update_task`: strip any leading `🆕 ` marker, status → completed, title prefix `⏭️ skipped HH:MM ET — `.
    - Quality signal: record `skipped_by_brian`; if the skip reason is visible in notes, capture a one-line process lesson.
+   - After jobs.json, brain/log.md, and the quality signal are written successfully, call `gtasks_delete_task` for the approval task. Do not leave the task as completed; skipped tasks are closed work, not live work. If deletion fails, record the cleanup miss in the grade ledger and continue with the job already marked skipped.
 
 C) status == "needsAction" AND notes ACTION line == "redo" → REDO
    - Regenerate the draft applying all current learnings from draft-learnings.md.
