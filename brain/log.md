@@ -1,3 +1,6 @@
+## [2026-06-08 01:02 ET] lead-research | 0 found, 0 queued, 0 dedup'd | Kerri
+Scheduled weekday-evening top-up, ran clean as a healthy-queue no-op per the TOKEN BUDGET CONTRACT. Preflight: cold-outreach-queue at 30 ready hook-bearing entries (≥25 SKILL threshold, ≥~15 task target), all 30 with valid email/name/company so drafting-ready; pool 244 leads. Queue was deliberately re-gated by Codex earlier today (06-08 10:05 ET high-intent retarget), so no new quality problem to override. No Apollo/WebFetch/CRM sourcing run; pool + queue unchanged. Tomorrow's cold-outreach 10-draft batch has runway. Scores skew low (15–35) on lane-2 conference-profile-fit leads — flagged in Slack for Brian, not a defect.
+
 ## [2026-06-08 00:55 ET] eod-review | 1 meeting seen, 0 drafts, 0 flagged | Kerri
 
 Ran ~00:54 ET (anomalous vs 18:28 ET): no meetings had occurred in the 00:00-19:00 window. Only non-excluded event was the future recurring Brian/Benji 1:1 @16:00 (auto-skip type), left unprocessed for the proper-time run. Reclaim empty, Granola 0. No tasks/drafts/sends.
