@@ -179,7 +179,9 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     'Inspect at most 25 queue entries',
     'queue already has at least 25 ready',
     'no raw Apollo',
-    'no raw enrichment dumps'
+    'no raw enrichment dumps',
+    'company fit:',
+    'person fit:'
   ]) {
     assert.match(
       files.dailyOutreachLoop + files.leadResearch + files.coldOutreach,
