@@ -31,6 +31,7 @@ Quarterly, starting Q3 2026 (announced in June '26 update). Next update: early J
 | Nick Mercadante | nmercadante95@outlook.com | |
 | Dan Mozeika | dmozeika@therockbrook.com | The Rockbrook |
 | John Yedinak | j@yedinak.com | Added 2026-06-08 per his request |
+| Brian D'Erario Sr. | derario@msn.com | Brian's dad |
 
 ## Send pattern
 
@@ -38,4 +39,4 @@ Brian has historically sent the update as a mix of direct To/CC sends and BCC se
 
 ## Source
 
-Compiled from June '26 and March '26 investor update threads on brian@kerrihq.com. derario@msn.com excluded (Brian's personal, used for test sends).
+Compiled from June '26 and March '26 investor update threads on brian@kerrihq.com.
