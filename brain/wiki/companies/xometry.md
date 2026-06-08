@@ -24,6 +24,8 @@ Xometry is a custom-manufacturing marketplace and digital manufacturing platform
 
 ## Open loop
 
+- 2026-06-08: H0033 re-opened as a scheduling approval task after Katlin Lopes said Stephany needs to reschedule the H2 partnership meeting; draft proposes Monday 10am ET and keeps Benji cc. No email sent; Google Task `UmxlcWhjaUdCVmpFTm9XOA` awaits Brian approval.
+
 - 2026-05-28: Brian skipped Google Task `OUhvWXFEUy1OV1V5N1ZGRQ`; no reply was sent from the queued intro draft.
 - No package revision, SF Tech Week commitment, lead guarantee, or pricing change is approved yet.
 
