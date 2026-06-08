@@ -33,6 +33,15 @@ Bias toward founder-led / Series A–C, 11–1000 employees, with a buy-signal (
 
 Within those lanes, rank leads higher when they have a believable CY2026 buying path: existing marketing budget signal, events/webinars/content fit, lead-generation objective, US expansion push, manufacturing/hardware buyer overlap, or a marketing/growth owner likely to buy a `$5K-$25K` pilot or larger annual package.
 
+High-intent gate for the working queue: contextual relevance alone is not enough. A lead may enter `data/leads-master.json` with `status: new` or `needs-hook`, but it may enter `data/cold-outreach-queue.json` only when it has at least two of these signals:
+- paid-access behavior, such as sponsoring, exhibiting, advertising, or buying access to hardware-engineer events/media;
+- direct marketing, communications, growth, sales-marketing, or business-development buyer in seat;
+- prior HWFYI/Kerri relationship, hard rep, or lookalike proximity to a known sponsor;
+- editorial/story fit that makes the company naturally relevant to Hardware FYI readers;
+- budget or timing signal, such as recent funding, expansion, marketing hire, product launch, or clear growth motion.
+
+Companies that only look "hardware-adjacent" or "software-to-manufacturing" without buyer intent must be held in the pool as `qualified-hold` or `needs-qualification`; do not burn one of Brian's 10 weekday outreach slots on them.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 HARD RULES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -221,10 +230,13 @@ Collect all candidates from active sources.
 - +20 if `sources` contains `funding` AND funding date is within 30 days (fresher = better)
 - +15 if `sources` contains `hiring`
 - +10 if `sources` contains any `conf:`
+- +20 if the candidate has paid-access behavior plus a direct marketing/comms/growth/BD buyer
+- +10 if the hook has a clear editorial/story fit for Hardware FYI readers
 - −15 if title is generic (e.g., "Marketing Coordinator" — lower seniority, weaker signal)
 - −10 if company employee count < 10 (too small to sponsor) OR > 5000 (decision cycle too slow for our usual sponsor pitch)
+- −25 if the only evidence is contextual matching or software-to-manufacturing adjacency with no paid-access, prior relationship, editorial, or timing proof
 
-**Sort descending by score.** Take top-N where N = budget (20 for scheduled, override on-demand).
+**Sort descending by score.** Queue only high-intent survivors that pass the gate above; keep the rest in the pool with the retarget reason. Take top-N where N = budget (20 for scheduled, override on-demand).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 WRITE — POOL → CRM → QUEUE (in this order)

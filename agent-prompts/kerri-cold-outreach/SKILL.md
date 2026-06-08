@@ -141,6 +141,8 @@ C) **Find the hook.** Combine Apollo data + the optional `hookSeed` from the que
 
 D) **Revenue fit check.** Before drafting, confirm the target has a plausible Hardware FYI revenue path from `hwfyi-cy2026-revenue-goal.md`: lead generation, brand awareness, event/webinar fit, content sponsorship, renewal/re-engagement, or annual partner potential. If the hook is real but the revenue path is weak, skip with reason "weak CY2026 revenue fit" and leave it for manual review rather than burning the daily cap.
 
+D2) **High-intent check.** Before drafting, require at least two compact qualification signals: paid-access behavior, prior HWFYI/Kerri relationship or hard rep, editorial/story fit, budget/timing signal, or a direct marketing/comms/growth/BD buyer. Generic contextual matching, broad software-to-manufacturing adjacency, or "seems relevant to hardware" is not enough for a SEND draft. Move those leads to `qualified-hold` or `needs-qualification` and preserve the reason so lead research can improve them later.
+
 E) **10-draft completion check.** Continue consuming only the bounded queue slice until the batch has 10 approval-ready drafts, 25 queue entries have been inspected, or no more qualified queue entries remain. If fewer than 10 drafts survive, continue with the smaller qualified batch and create one Kerri MG task titled `⚠️ COLD BATCH SHORT — <date>` with:
    - target: 10
    - drafted: <N>

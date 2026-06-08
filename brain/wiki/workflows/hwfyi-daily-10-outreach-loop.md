@@ -11,6 +11,8 @@ This is a draft-and-approval loop, not an auto-send loop.
 1. **Research / queue top-up** — `kerri-lead-research`, weekdays 6:13pm ET.
    - Maintain at least 25 ready-to-draft prospects in `data/cold-outreach-queue.json`.
    - Each queued prospect must have a concrete personalization hook and plausible CY2026 revenue path.
+   - Each queued prospect must also pass the high-intent gate: at least two of paid-access behavior, direct marketing/BD buyer, prior HWFYI/Kerri relationship or hard rep, editorial/story fit, or budget/timing signal.
+   - Contextual matching alone is not queue-worthy. Software-to-manufacturing or broad hardware relevance without intent evidence stays in the lead pool as `qualified-hold` or `needs-qualification`.
    - Uncontacted leads are not real pipeline and do not go into `CY2026 Revenue Goal`.
 
 2. **Draft batch** — `kerri-cold-outreach`, weekdays 9:07am ET.

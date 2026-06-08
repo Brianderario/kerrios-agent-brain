@@ -183,7 +183,10 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     'company fit:',
     'person fit:',
     'qualification:',
-    'paid-access behavior'
+    'paid-access behavior',
+    'High-intent gate',
+    'contextual relevance alone is not enough',
+    'Generic contextual matching'
   ]) {
     assert.match(
       files.dailyOutreachLoop + files.leadResearch + files.coldOutreach,
