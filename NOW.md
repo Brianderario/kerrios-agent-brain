@@ -6,15 +6,16 @@
 > `brain/log.md`. This file is only the current state of in-flight work.
 > **Runner: Claude Code (sole runner as of 2026-06-08). Codex retired.**
 
-**Last touched:** 2026-06-08 14:51 ET (kerri-inbox-sweep, Claude scheduled) · **by:** Claude/Kerri - New task G0013 (StreamSmart / Max Puhalevich keep-in-touch). 14 approvals + cold batch now waiting; no sends.
+**Last touched:** 2026-06-08 15:52 ET (kerri-inbox-sweep, Claude scheduled) · **by:** Claude/Kerri - Cavaña/Kaiyö venue replied to June 23 dinner inquiry; updated H0112 (regen draft, 🆕). Still 14 approvals + cold batch waiting; no sends.
 
-**Next action:** Brian review the 14 waiting approvals (G0008 Hilton, G0013 StreamSmart, H0031 SF Brewing, H0033 Xometry, H0109-H0118 SF-dinner/sponsor reminder batch) + COLD BATCH 2026-06-08; none have been sent.
+**Next action:** Brian review the 14 waiting approvals (G0008 Hilton, G0013 StreamSmart, H0031 SF Brewing, H0033 Xometry, H0109-H0118 SF-dinner/sponsor reminder batch — note H0112 Cavaña/Kaiyö now has a real venue reply: Kaiyö open June 23, $90pp) + COLD BATCH 2026-06-08; none have been sent.
 
 ## In flight
 - REDACTION GUARD — 🔵 PR #6 OPEN, awaiting Brian. https://github.com/Brianderario/kerrios-agent-brain/pull/6
 - PENDING: wire the package-email playbook into inbox-sweep / eod / kerri-skill prompts (send-adjacent → PR).
 
 ## Last action
+- 2026-06-08 15:52 ET Claude kerri-inbox-sweep - MATERIAL. Cavaña/Kaiyö (Brick by Brick, Andriana Bobal via Tripleseat) replied to June 23 SF Tech Week dinner inquiry: Cavaña cocktail-only, Kaiyö open June 23 (Shokudo Rm ≤20, prix-fixe from $90pp). Attached to existing job H0112, regenerated stale "bumping" draft → non-committal info-gathering reply on correct Tripleseat thread (Werqwise rule), marked 🆕. No send, no text (existing-task update).
 - 2026-06-08 14:51 ET Claude kerri-inbox-sweep - MATERIAL. New human inbound: Max Puhalevich (StreamSmart, Ari PayloadSpace contact) keep-in-touch + tech-services offer to brian+ari@kerrihq. Registered new company G0013, created Gmail-draft-only task + texted Brian. No sends.
 - 2026-06-08 13:21 ET Claude kerri-inbox-sweep - MATERIAL catch-up. Brian emailed to add PhysicsX to the target list. S/W Superhuman RECOVERED. All 13 approvals + cold batch waiting; no sends.
 

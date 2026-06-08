@@ -319,6 +319,30 @@ This protects HWFYI sender reputation as cold volume ramps. It runs against the 
 3. Suppression is idempotent and one-directional: once an address is in `cold-do-not-contact.json` it is never cold-emailed again (cold-outreach + lead-research both dedup against it).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2c — COLD-OUTREACH CONVERSION TRACKING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+This tracks when a cold-contacted prospect replies — the signal that outreach is converting. Like STEP 2b, the LOGIC lives here but runs against emails fetched in STEP 3. Maintain the same cold-sent working set from STEP 2b.
+
+When an inbound email is NOT an auto-skip and NOT a DNC/bounce (already handled in 2b), check if the sender's email or domain matches any entry in the cold-sent set:
+
+1. **Positive reply (engagement).** If the sender matches a cold-sent entry and the reply is substantive (asking for info, expressing interest, requesting a meeting, referring to a colleague, or any commercial engagement):
+   - Append to `data/cold-outreach-state.json#replied` (create the array if absent): `{ email, repliedAt: <ISO>, jobId: <original cold jobId>, sentiment: "positive|neutral|negative", summary: "<one line>" }`.
+   - Give this email **priority handling** in STEP 3: it is a warm prospect now, not a cold unknown. Draft the reply task with extra care and tag it `Revenue lens: pipeline advanced` in the task notes.
+   - If the company status in the CY2026 Revenue Goal tab is still `Prospect`, update it to `Interest` with source evidence "replied to cold outreach <jobId> on <date>."
+
+2. **Neutral / unclear reply.** If the reply is non-committal ("thanks", "not right now but maybe later", forwarding to someone else):
+   - Still append to `#replied` with `sentiment: "neutral"`.
+   - Handle normally in STEP 3 (standard task creation if warranted, or note the status).
+
+3. **Negative reply (not a DNC).** If the reply declines but is NOT an opt-out (e.g., "we don't have budget this year", "not a fit", "already working with someone"):
+   - Append to `#replied` with `sentiment: "negative"`.
+   - Do NOT add to DNC (they declined, they didn't ask to stop being contacted).
+   - Update the company to `Contract Lost` in CY2026 Revenue Goal if the decline is definitive.
+   - Handle normally in STEP 3 — Brian may still want to reply.
+
+4. **Metric tracking.** The `#replied` array is the conversion funnel. The Friday revenue standup (`kerri-revenue-standup`) reads it weekly to report reply rate and pipeline conversion. Keep all entries (no pruning) — the full history is the dataset for measuring outreach effectiveness.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3 — SWEEP NEW EMAILS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

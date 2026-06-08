@@ -82,16 +82,18 @@ Cron times below are the historical Claude schedule in ET (assumes the Mac clock
 
 ## Loop 2 · Sales pod (first-day core audit passed 2026-05-31 — revenue agents now scheduled)
 
-Lead research + cold outreach were promoted to live scheduled-tasks crons after the core bundle proved stable. As of 2026-06-08 Claude Code owns the complete Hardware FYI revenue loop: lead research, cold outreach, and weekly pipeline follow-up. Approval gates are unchanged: cold outreach and pipeline follow-up draft only and never auto-send; lead research only researches + tops up the pool. The daily 10-outreach contract lives at `brain/wiki/workflows/hwfyi-daily-10-outreach-loop.md`: lead research maintains 25 ready prospects and cold outreach targets 10 approval-ready drafts each weekday morning. Both loops must use cheap preflight and bounded context loading to avoid token bloat on healthy/no-op runs.
+Lead research + cold outreach were promoted to live scheduled-tasks crons after the core bundle proved stable. As of 2026-06-08 Claude Code owns the complete Hardware FYI revenue loop: lead research, cold outreach, twice-weekly pipeline follow-up, weekly renewal watchdog, and Friday revenue standup. Approval gates are unchanged: cold outreach, pipeline follow-up, and renewal watchdog draft only and never auto-send; lead research only researches + tops up the pool; revenue standup is read-only (Slack + text). The daily 10-outreach contract lives at `brain/wiki/workflows/hwfyi-daily-10-outreach-loop.md`: lead research maintains 25 ready prospects and cold outreach targets 10 approval-ready drafts each weekday morning. Cold-outreach conversion tracking (inbox-sweep STEP 2c) closes the measurement loop by tagging replies from cold-contacted prospects. Both loops must use cheap preflight and bounded context loading to avoid token bloat on healthy/no-op runs.
 
 | Routine | cron | Prompt | Status |
 |---|---|---|---|
 | Monthly Partnership Research | `0 10 1 * *` | inline (automations.md §6) → promote to `kerri-lead-research` | superseded by scheduled `kerri-lead-research` |
-| Weekly "What Got Done" | `0 16 * * 5` | inline (automations.md §4) | on-demand (not yet scheduled) |
+| Weekly "What Got Done" | `0 16 * * 5` | inline (automations.md §4) | superseded by `kerri-revenue-standup` (covers pipeline + outreach + actions) |
+| Revenue standup | `0 16 * * 5` | `kerri-revenue-standup/SKILL.md` | **Claude Code scheduled task** (Friday ~4pm ET); read-only scoreboard vs $1M, pipeline velocity, outreach conversion, renewal radar, top 3 actions → Slack DM + text |
 | Lead research | `13 18 * * 1-5` | `kerri-lead-research/SKILL.md` | **Claude Code scheduled task** (weekday ~6:13pm ET); maintains 25 ready prospects |
 | Outbound sales | `7 9 * * 1-5` | `kerri-cold-outreach/SKILL.md` | **Claude Code scheduled task** (weekday ~9:07am ET); targets 10 approval-ready drafts, never auto-sends |
-| Pipeline follow-up | `33 8 * * 2` | `kerri-pipeline-followup/SKILL.md` | **Claude Code scheduled task** (Tuesday ~8:33am ET); approval-gated, never sends |
-| **Inbound sales triage** | — | **prompt does not exist (gap)** | deferred per registry until volume justifies |
+| Pipeline follow-up | `33 8 * * 2,4` | `kerri-pipeline-followup/SKILL.md` | **Claude Code scheduled task** (Tue+Thu ~8:33am ET); approval-gated, never sends |
+| Renewal watchdog | `0 10 * * 3` | `kerri-renewal-watchdog/SKILL.md` | **Claude Code scheduled task** (Wednesday ~10am ET); scans CRM for expiring contracts, lapsed sponsors, upsell opportunities; max 5 renewal drafts per run, approval-gated |
+| **Inbound sales triage** | — | **prompt does not exist (gap)** | deferred per registry until volume justifies; cold-outreach conversion tracking (STEP 2c in inbox-sweep) partially covers inbound from cold prospects |
 | **Event sales** | — | **prompt does not exist (gap)** | tree lists it; only `kerri-event-logistics` exists today |
 
 ## Loop 3 · Standard & Works newsletter (event/issue-triggered, not cron)
@@ -106,4 +108,4 @@ Prompts not yet authored; sequence last. Ari pod stays behind explicit approval-
 
 ## Activation checklist (HISTORICAL — activated 2026-05-29, Claude Code sole runner 2026-06-08)
 
-All routines are now live as Claude Code scheduled tasks. The 10 active tasks: `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `standard-works-issue-writer`. Codex automations should be disabled to prevent double-runs.
+All routines are now live as Claude Code scheduled tasks. The 12 active tasks: `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `kerri-revenue-standup`, `kerri-renewal-watchdog`, `standard-works-issue-writer`. Codex automations should be disabled to prevent double-runs.
