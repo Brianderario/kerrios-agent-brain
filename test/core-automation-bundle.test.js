@@ -173,6 +173,20 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     );
   }
 
+  for (const required of [
+    'TOKEN BUDGET CONTRACT',
+    'cheap preflight',
+    'Inspect at most 25 queue entries',
+    'queue already has at least 25 ready',
+    'no raw Apollo',
+    'no raw enrichment dumps'
+  ]) {
+    assert.match(
+      files.dailyOutreachLoop + files.leadResearch + files.coldOutreach,
+      new RegExp(escapeRegExp(required), 'i')
+    );
+  }
+
   assert.match(files.automations + files.registry, /Pipeline follow-up.*8:33am ET/is);
   assert.match(files.automations + files.registry, /never (auto-)?sends?/i);
   assert.match(files.revenueGoalScript, /seed-contract-breakdown/);
