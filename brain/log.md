@@ -1,3 +1,6 @@
+## [2026-06-08 14:25 ET] runner-migration | Claude Code sole runner | Kerri (Claude interactive, Brian-asked)
+Brian confirmed permanent switch to Claude Code. Created 2 missing scheduled tasks (`kerri-pipeline-followup` Tuesdays 8:33am ET, `standard-works-issue-writer` Mon/Wed 8pm ET). Updated 10+ documentation files: `CLAUDE-ROUTINES.md`, `automations.md`, `registry.md`, `kerri.md`, `KerriOS CLAUDE.md`, `NOW.md`, `kerri-skill/SKILL.md`, `brain.md`, `index.md`, `routing.md`. Created decision doc `2026-06-08-claude-code-sole-runner.md` superseding `2026-05-25-codex-primary-operating-layer`. Marked old Codex-primary decision as superseded. Updated 3 test assertions. All 118 tests pass. 10 scheduled tasks now active: inbox-sweep, morning-brief, morning-brief-retry, eod-meetings-review, brain-push, gap-sweep, lead-research, cold-outreach, pipeline-followup, standard-works-issue-writer. Codex automations under `~/.codex/automations/` should be disabled.
+
 ## [2026-06-08 05:10 ET] cold-outreach | 0 drafts, 0 skipped, today=10 week=10 | Kerri (Codex scheduled)
 Preflight cap-reached no-op: existing Hardware FYI batch task `QWNYTnRrbjNieUVva05saw` already consumes the 2026-06-08 daily cap (10/10), queue remains 30, DNC remains 0, and one Slack heads-up was sent to Brian. No Google Task, queue, company registry, or email-send mutation.
 

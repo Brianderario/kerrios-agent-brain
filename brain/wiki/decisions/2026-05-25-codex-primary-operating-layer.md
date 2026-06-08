@@ -1,8 +1,10 @@
-# Decision: Codex Primary Operating Layer
+# Decision: Codex Primary Operating Layer (SUPERSEDED)
 
-scope: decision · updated: 2026-05-25 · author: Brian + Codex
+scope: decision · updated: 2026-05-25 · superseded: 2026-06-08 · author: Brian + Codex
 
-## Decision
+> **SUPERSEDED** by [[2026-06-08-claude-code-sole-runner]]. Claude Code is now the sole runner. Codex is retired.
+
+## Decision (historical)
 
 Codex is now the primary operating layer for Brian's Kerri work. Treat Claude Code as a live fallback runner while the switch-over is tested, not as the source of truth.
 
