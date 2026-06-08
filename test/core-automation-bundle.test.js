@@ -109,9 +109,8 @@ test('core automation bundle is registered as GPT-5.5 high', () => {
     'kerri-eod-meetings-review',
     'kerri-brain-push',
     'GPT-5.5 high',
-    'Automation chat archive policy',
-    'exactly one `::inbox-item{...}` directive',
-    '::archive{reason="Durable automation output already written outside this chat"}',
+    'Durable output policy',
+    'closing directives are no longer needed',
     'Parallel Core Automation Bundle'
   ]) {
     assert.match(files.automations + files.registry + files.decision, new RegExp(escapeRegExp(required), 'i'));

@@ -1,6 +1,6 @@
 # KMG Agent Registry
 
-scope: agent index · updated: 2026-06-05
+scope: agent index · updated: 2026-06-08
 
 Every active or planned team agent that reads/writes this brain. Source of truth for "who is Kerri / who is Ari's agent / etc."
 
@@ -12,7 +12,7 @@ Every active or planned team agent that reads/writes this brain. Source of truth
 
 ## Current runner posture
 
-As of [[../decisions/2026-05-25-codex-primary-operating-layer]], Codex is Brian's primary operating runner for Kerri. A 2026-05-29 Claude scheduled-tasks migration is now legacy/fallback after the 2026-06-05 Codex re-entry. Claude Code may remain available as a manual fallback, but the active scheduled-run truth is the Codex automation set unless Brian explicitly switches runners again. The agent identity and source of truth remain Kerri + KerriOS, not a runner-specific chat history.
+As of 2026-06-08, **Claude Code is the sole operating runner** for Kerri. All scheduled routines run as persistent Claude Code scheduled tasks under `~/.claude/scheduled-tasks/`. Codex automations under `~/.codex/automations/` are retired and should be disabled to prevent double-runs. This supersedes [[../decisions/2026-05-25-codex-primary-operating-layer]] and the 2026-06-05 Codex re-entry. The agent identity and source of truth remain Kerri + KerriOS, not any runner's chat history.
 
 ## Role-pod architecture
 
@@ -24,36 +24,26 @@ As of [[../decisions/2026-05-25-agent-architecture-and-role-pods]], agents are o
 
 All pods share the same KerriOS loop: perceive -> propose -> approve/act -> record -> improve.
 
-## Local automation context folders
+## Local context folders (historical)
 
-Future Codex automations can start from local context packs before loading the canonical brain:
-
-- Master: `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master`
-- Brian/Kerri pod: `01-brian-kerri-agent/`
-- Benji/CDO pod: `02-benji-cdo-agent/`
-- Ari/CFO pod: `03-ari-cfo-agent/`
-- S&W Writing Agent: `S&W Writing Agent/`
-
-These folders are ergonomic automation entrypoints, not canonical truth. Durable facts and decisions still write back to KerriOS.
+Legacy Codex automation context packs at `/Users/brianderario/Desktop/Codex Kerri Agent/` are no longer used. All routines now run from `~/.claude/scheduled-tasks/` shims that load canonical `agent-prompts/*/SKILL.md` prompts. Durable facts and decisions write back to KerriOS.
 
 ## Scheduled tasks (Kerri runs these)
 
 | Task | Cron | Canonical prompt |
 |---|---|---|
-| `kerri-inbox-sweep` | every 15 minutes, Codex automation, GPT-5.5 high | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
-| `kerri-morning-brief` | 7:00am ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-morning-brief/SKILL.md` |
-| `kerri-morning-brief-retry` | 7:18am ET, weekdays, Codex automation, GPT-5.5 high; guarded recovery only | `agent-prompts/kerri-morning-brief-retry/SKILL.md` |
-| `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Codex automation, GPT-5.5 high | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
-| `kerri-brain-push` | 10:00pm ET, daily, Codex automation, GPT-5.5 high | `agent-prompts/kerri-brain-push/SKILL.md` |
-| `kerri-gap-sweep` | 9:41pm ET, daily, Codex automation, GPT-5.5 high; checks Codex records plus Claude shims | `agent-prompts/kerri-gap-sweep/SKILL.md` |
-| `kerri-lead-research` | 6:13pm ET, weekdays, Codex automation, GPT-5.5 high; maintains 25 ready prospects for the daily 10-outreach loop; cheap preflight/no-op quiet | `agent-prompts/kerri-lead-research/SKILL.md` |
-| `kerri-cold-outreach` | 9:07am ET, weekdays, Codex automation, GPT-5.5 high; targets 10 approval-ready drafts, inspects at most 25 queue entries, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
-| `kerri-pipeline-followup` | 8:33am ET, Tuesdays, Codex automation, GPT-5.5 high; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
-| `standard-works-issue-writer` | 8:00pm ET, Mondays and Wednesdays, Codex automation, GPT-5.5 high; stages Beehiiv review drafts only | `S&W Writing Agent` + `standard-works-issue-writer` skill |
+| `kerri-inbox-sweep` | every 15 minutes, Claude Code scheduled task | `agent-prompts/kerri-inbox-sweep/SKILL.md` |
+| `kerri-morning-brief` | 7:00am ET, weekdays, Claude Code scheduled task | `agent-prompts/kerri-morning-brief/SKILL.md` |
+| `kerri-morning-brief-retry` | 7:18am ET, weekdays, Claude Code scheduled task; guarded recovery only | `agent-prompts/kerri-morning-brief-retry/SKILL.md` |
+| `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Claude Code scheduled task | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
+| `kerri-brain-push` | 10:00pm ET, daily, Claude Code scheduled task | `agent-prompts/kerri-brain-push/SKILL.md` |
+| `kerri-gap-sweep` | 9:41pm ET, daily, Claude Code scheduled task; checks Codex records plus Claude shims | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+| `kerri-lead-research` | 6:13pm ET, weekdays, Claude Code scheduled task; maintains 25 ready prospects for the daily 10-outreach loop; cheap preflight/no-op quiet | `agent-prompts/kerri-lead-research/SKILL.md` |
+| `kerri-cold-outreach` | 9:07am ET, weekdays, Claude Code scheduled task; targets 10 approval-ready drafts, inspects at most 25 queue entries, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
+| `kerri-pipeline-followup` | 8:33am ET, Tuesdays, Claude Code scheduled task; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
+| `standard-works-issue-writer` | 8:00pm ET, Mondays and Wednesdays, Claude Code scheduled task; stages Beehiiv review drafts only | `agent-prompts/kerri-sw-newsletter-writer/SKILL.md` |
 
-2026-06-05 note: Brian brought the scheduled agentic work back into Codex. The visible Claude shims are legacy/fallback artifacts; do not infer live ownership from them. `kerri-gap-sweep` is responsible for surfacing any double-run risk between Codex and Claude surfaces.
-
-2026-05-26 audit note (RESOLVED 2026-05-31; Codex re-entry 2026-06-05; Hardware FYI revenue focus expanded 2026-06-07): the first-day core automation audit passed, so cold outreach and lead research were promoted from on-demand to scheduled routines. They now run as Codex automations, and pipeline follow-up is scheduled weekly as the warm-deal owner for the `$1,000,000` CY2026 Hardware FYI revenue goal. Approval gates unchanged: cold outreach and pipeline follow-up draft only and never auto-send; lead research only researches + tops up the pool. S&W issue writing is active in Codex; marketing/social/posting remains approval-gated.
+2026-06-08 note: Claude Code is now the sole scheduled runner. All 10 routines (core bundle + revenue agents + S&W writer) run as Claude Code persistent scheduled tasks. Codex automations are retired. Approval gates unchanged everywhere.
 
 ## Sub-agent roadmap (under Kerri's identity)
 
@@ -61,14 +51,14 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 
 | # | Sub-agent | Status | Build order |
 |---|---|---|---|
-| 1 | Cold Outreach | Active Codex automation; approval-gated draft batch only, never sends without Brian. | 1st |
-| 1b | Lead Research | Active Codex automation; feeds Cold Outreach queue, never drafts or sends. | shipped alongside #1 |
-| 2 | S&W Newsletter Writer | Active Codex automation for Monday/Wednesday issue prep and Beehiiv review staging. | 2nd ✅ |
+| 1 | Cold Outreach | Active Claude Code scheduled task; approval-gated draft batch only, never sends without Brian. | 1st |
+| 1b | Lead Research | Active Claude Code scheduled task; feeds Cold Outreach queue, never drafts or sends. | shipped alongside #1 |
+| 2 | S&W Newsletter Writer | Active Claude Code scheduled task for Monday/Wednesday issue prep and Beehiiv review staging. | 2nd ✅ |
 | 2b | S&W Newsletter Editor | Task-driven/editor-pass prompt. Used inside issue production when invoked; no standalone schedule. | shipped alongside #2 |
 | 2c | S&W Newsletter Marketing | Task-driven/on-demand prompt. Never auto-posts. | shipped alongside #2 |
 | 4 | Event Logistics | Active on demand. Venue/vendor research, inquiry drafting, RoS. Project-scoped per event. Seeded with stubs for sf-tech-week-2026, dc-maritime-defense-2026, kinetic-2027. | 3rd ✅ |
 | 3 | Inbound Sales Triage | Deferred (no inbound flow yet — Brian holds until volume justifies the playbook) | TBD |
-| 5 | Pipeline Follow-Up | Active Codex automation, Tuesdays 8:33am ET. Warm Hardware FYI/KMG deal nudges only; approval-gated and never sends. | shipped |
+| 5 | Pipeline Follow-Up | Active Claude Code scheduled task, Tuesdays 8:33am ET. Warm Hardware FYI/KMG deal nudges only; approval-gated and never sends. | shipped |
 | ~~6~~ | ~~Partner Research~~ — folded into Lead Research above | — | superseded |
 
 ## Supporting skills and prompts
@@ -77,7 +67,7 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 |---|---|---|
 | `send-partner-contract` | Skill, not a scheduled routine | Used for partner/SOW contract packet prep. Finance/legal/signature authority remains approval-gated. |
 | `kerri-event-logistics` | On-demand | Venue/vendor research, inquiry drafting, run-of-show support. |
-| `kerri-pipeline-followup` | Scheduled Codex automation | Deal follow-up drafting and state checks for warm deals where Brian/Kerri sent last; no direct sends. |
+| `kerri-pipeline-followup` | Claude Code scheduled task (Tuesdays) | Deal follow-up drafting and state checks for warm deals where Brian/Kerri sent last; no direct sends. |
 
 ## Planned (not yet activated)
 
@@ -96,11 +86,7 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 
 Standard & Works is not an internal KMG role pod. It remains an external partnership/boundary entity under [[../companies/standard-and-works]]. The S&W Industrialist newsletter chain is still an active Kerri-owned writing workflow because Brian/Kerri are responsible for the work product.
 
-Local context pack:
-
-- `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/S&W Writing Agent`
-
-Use that folder for future S&W writing automations. Do not recreate `04-standard-works-production`.
+The S&W writer runs as a Claude Code scheduled task (`standard-works-issue-writer`) loading `agent-prompts/kerri-sw-newsletter-writer/SKILL.md`. Legacy Codex workspace at `/Users/brianderario/Desktop/Codex Kerri Agent/S&W Writing Agent/` is no longer used as the runtime entrypoint.
 
 Canonical prompts:
 

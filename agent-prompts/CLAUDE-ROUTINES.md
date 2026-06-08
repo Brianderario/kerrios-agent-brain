@@ -1,23 +1,19 @@
-# Claude-Side Routines (legacy/fallback)
+# Claude Code Routines — Primary
 
-scope: legacy routine spec · updated: 2026-06-05 · author: Brian + Kerri
+scope: routine spec · updated: 2026-06-08 · author: Brian + Kerri
 
-The Claude Code counterpart to [`kerri-skill/references/automations.md`](kerri-skill/references/automations.md) ("Codex Primary"). This file now preserves the 2026-05-29 Claude scheduled-tasks migration as a fallback/historical reference. As of the 2026-06-05 Codex re-entry, Codex is again the primary scheduled runner for Kerri's operating bundle, gap sweep, and revenue research/drafting pair.
-
-Do not use this file as proof that Claude owns a live routine. The visible shims under `~/.claude/scheduled-tasks/` may remain on disk, but the active source of scheduled-run truth is the Codex automation records under `/Users/brianderario/.codex/automations/`. `kerri-gap-sweep` should keep checking both surfaces and escalate any double-run risk.
+Claude Code is the **sole scheduled runner** for all Kerri routines as of 2026-06-08. This file and [`kerri-skill/references/automations.md`](kerri-skill/references/automations.md) are now aligned — both describe the same Claude Code scheduled tasks. Codex automations under `~/.codex/automations/` are retired and should be disabled.
 
 Organized by **role pod + operating loop**, per [[../brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] (design implication: automations are grouped by pod and loop, never by old schedule names). The slide framework Brian shared 2026-05-29 is a 1:1 visual of that decision: every agent perceives the world, acts inside gates, and **constantly feeds data back to KerriOS**.
 
-## Substrate: local Claude Code scheduled-tasks MCP (legacy/fallback)
+## Substrate: Claude Code persistent scheduled-tasks MCP
 
-Routines were migrated to **persistent `scheduled-tasks` MCP jobs** under `~/.claude/scheduled-tasks/<name>/SKILL.md` on Brian's MacBook on 2026-05-29. Each shim loads its canonical `agent-prompts/<name>/SKILL.md`. That substrate is no longer the primary runner after the 2026-06-05 Codex re-entry.
+All routines run as **persistent `scheduled-tasks` MCP jobs** under `~/.claude/scheduled-tasks/<name>/SKILL.md` on Brian's MacBook. Each shim loads its canonical `agent-prompts/<name>/SKILL.md`. These are persistent and do not auto-expire.
 
-If Brian explicitly asks to fall back to Claude, first verify the scheduled-tasks MCP state from inside Claude, confirm Codex equivalents are paused, and update `brain/wiki/agents/registry.md` plus `kerri-skill/references/automations.md` in the same handoff. Never run Claude scheduled tasks and Codex automations for the same routine in parallel without an explicit controlled test.
+Key operational facts:
 
-Two legacy substrate facts that still matter if Claude is reactivated:
-
-1. **A Claude Code REPL must be running and idle for any job to fire.** If the Mac is asleep or no session is open, nothing runs. (Codex's cloud runner had no such constraint.) `com.kerri.routine-liveness` (launchd, every 15m) now catches a routine that has gone dark and texts Brian.
-2. **7-day expiry — RESOLVED (not applicable).** That expiry was a property of the older `CronCreate durable=true` approach. The scheduled-tasks MCP jobs above are **persistent and do not auto-expire**, so no weekly "re-arm" job is needed. (Decision settled 2026-05-30: scheduled-tasks MCP is the chosen substrate; durable cron is not used — there is no `~/.claude/crons/`.) `kerri-gap-sweep` class I + the liveness watchdog still watch that the tasks stay `enabled` and keep firing.
+1. **Claude Code must be running for jobs to fire.** If the Mac is asleep or no session is open, nothing runs. `com.kerri.routine-liveness` (launchd, every 15m) catches a routine that has gone dark and texts Brian.
+2. **No expiry.** The scheduled-tasks MCP jobs are persistent. No re-arm job needed. `kerri-gap-sweep` class I + the liveness watchdog watch that tasks stay `enabled` and keep firing.
 
 ## Date & time handling — ET clock, never the harness `currentDate`
 
@@ -45,8 +41,8 @@ A routine prompt is **incomplete** unless it names all six (per the role-pods de
 
 ## Migration deltas from the Codex prompts (apply when porting)
 
-- **Strip the Codex closing directives.** Every existing `agent-prompts/*/SKILL.md` ends with a required `::inbox-item{...}` + `::archive{...}` block. Those are Codex-runner only. Under Claude Code, durable output is the routine's named surface (Tasks/email/text/ledger/commit) — no closing directives. Add a `## Runner` section to each prompt (as `kerri-gap-sweep` does) so the runner-specific behavior is explicit and lives in git.
-- **Local deps carry over unchanged:** `scripts/inbox-sweep-lock.mjs`, the Sendblue adapter `/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs`, local state files, local email MCPs. Claude fallback prompts that acquire the inbox-sweep lock must pass `--runner claude` so the local reaper may fast-release a proven orphaned Claude lock; Codex primary prompts pass `--runner codex` and recover through the lock TTL instead.
+- **Codex closing directives are skipped.** Canonical `agent-prompts/*/SKILL.md` files may still end with `::inbox-item{...}` + `::archive{...}` blocks from the Codex era. The Claude Code shims instruct the runner to skip them. Under Claude Code, durable output is the routine's named surface (Tasks/email/text/ledger/commit).
+- **Local deps carry over unchanged:** `scripts/inbox-sweep-lock.mjs`, the Sendblue adapter `/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs`, local state files, local email MCPs. Claude Code prompts acquire the inbox-sweep lock with `--runner claude`.
 - **Approval gate unchanged:** external sends still require `approved=true` + `approvalSource`; every send still auto-CCs brian@hardwarefyi.com.
 - **Customer ID Protocol unchanged:** runner-agnostic; applies to any routine touching companies/leads/drafts.
 
@@ -72,15 +68,15 @@ Cron times below are the historical Claude schedule in ET (assumes the Mac clock
 
 ## Loop 2 · Sales pod (first-day core audit passed 2026-05-31 — revenue agents now scheduled)
 
-Lead research + cold outreach were promoted to live scheduled-tasks crons after the core bundle (inbox sweep, morning brief, EOD, brain push) proved stable. After the 2026-06-05 Codex re-entry and 2026-06-07 revenue-focus pass, Codex owns the complete Hardware FYI revenue loop: lead research, cold outreach, and weekly pipeline follow-up. Approval gates are unchanged: cold outreach and pipeline follow-up draft only and never auto-send; lead research only researches + tops up the pool. The daily 10-outreach contract lives at `brain/wiki/workflows/hwfyi-daily-10-outreach-loop.md`: lead research maintains 25 ready prospects and cold outreach targets 10 approval-ready drafts each weekday morning. Both loops must use cheap preflight and bounded context loading to avoid token bloat on healthy/no-op runs. Claude should not run duplicate revenue schedules unless Brian explicitly switches runner ownership.
+Lead research + cold outreach were promoted to live scheduled-tasks crons after the core bundle proved stable. As of 2026-06-08 Claude Code owns the complete Hardware FYI revenue loop: lead research, cold outreach, and weekly pipeline follow-up. Approval gates are unchanged: cold outreach and pipeline follow-up draft only and never auto-send; lead research only researches + tops up the pool. The daily 10-outreach contract lives at `brain/wiki/workflows/hwfyi-daily-10-outreach-loop.md`: lead research maintains 25 ready prospects and cold outreach targets 10 approval-ready drafts each weekday morning. Both loops must use cheap preflight and bounded context loading to avoid token bloat on healthy/no-op runs.
 
 | Routine | cron | Prompt | Status |
 |---|---|---|---|
 | Monthly Partnership Research | `0 10 1 * *` | inline (automations.md §6) → promote to `kerri-lead-research` | superseded by scheduled `kerri-lead-research` |
 | Weekly "What Got Done" | `0 16 * * 5` | inline (automations.md §4) | on-demand (not yet scheduled) |
-| Lead research | `13 18 * * 1-5` | `kerri-lead-research/SKILL.md` | **scheduled in Codex** (weekday ~6:13pm ET); maintains 25 ready prospects |
-| Outbound sales | `7 9 * * 1-5` | `kerri-cold-outreach/SKILL.md` | **scheduled in Codex** (weekday ~9:07am ET); targets 10 approval-ready drafts, never auto-sends |
-| Pipeline follow-up | Codex Tuesday 8:33am ET (`33 8 * * 2`) | `kerri-pipeline-followup/SKILL.md` | scheduled in Codex; approval-gated, never sends |
+| Lead research | `13 18 * * 1-5` | `kerri-lead-research/SKILL.md` | **Claude Code scheduled task** (weekday ~6:13pm ET); maintains 25 ready prospects |
+| Outbound sales | `7 9 * * 1-5` | `kerri-cold-outreach/SKILL.md` | **Claude Code scheduled task** (weekday ~9:07am ET); targets 10 approval-ready drafts, never auto-sends |
+| Pipeline follow-up | `33 8 * * 2` | `kerri-pipeline-followup/SKILL.md` | **Claude Code scheduled task** (Tuesday ~8:33am ET); approval-gated, never sends |
 | **Inbound sales triage** | — | **prompt does not exist (gap)** | deferred per registry until volume justifies |
 | **Event sales** | — | **prompt does not exist (gap)** | tree lists it; only `kerri-event-logistics` exists today |
 
@@ -94,11 +90,6 @@ Prompts not yet authored; sequence last. Ari pod stays behind explicit approval-
 
 ---
 
-## Activation checklist (HISTORICAL — activated 2026-05-29, superseded by Codex 2026-06-05)
+## Activation checklist (HISTORICAL — activated 2026-05-29, Claude Code sole runner 2026-06-08)
 
-1. ~~Resolve the **re-arm mechanism**~~ — **DONE.** Migrated to the persistent scheduled-tasks MCP, which does not expire; no re-arm job needed.
-2. Add a `## Runner` section + strip Codex closing directives in each Loop-1/Loop-4 prompt being ported.
-3. Confirm the Mac clock is ET (or offset the cron fields).
-4. Create the Loop-1 routines first (`inbox-sweep`, `morning-brief`, `brain-push`, `gap-sweep`), then Loop-4 (`eod-meetings-review`).
-5. ~~Run in parallel with Codex before hard-swapping (cutover — open)~~ — **DONE for the 2026-05-29 Claude migration, then superseded.** Codex equivalents were disabled on 2026-05-30, but Codex was reactivated on 2026-06-05.
-6. Registry and automation docs now reflect Codex as primary again; this file is fallback reference only.
+All routines are now live as Claude Code scheduled tasks. The 10 active tasks: `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `standard-works-issue-writer`. Codex automations should be disabled to prevent double-runs.

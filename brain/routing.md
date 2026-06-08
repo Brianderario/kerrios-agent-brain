@@ -92,9 +92,9 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/sw-newsletter-production-rules]] — canonical newsletter writing rules, Gmail voice examples, mailbox routing, and more-comprehensive format direction
 - [[wiki/decisions/2026-05-26-agent-folder-master]] — local folder is `Codex Kerri Agent Master/S&W Writing Agent`, not `04-standard-works-production`
 
-## "Is Codex or Claude running Kerri?"
+## "What runner does Kerri use?"
 
-- [[wiki/decisions/2026-05-25-codex-primary-operating-layer]] — Codex is primary; Claude Code is fallback during switch-over
+- [[wiki/decisions/2026-06-08-claude-code-sole-runner]] — Claude Code is the sole runner (supersedes Codex-primary)
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — why KerriOS is the living brain and how autonomy advances
 - [[wiki/agents/registry]] — agent roster and canonical prompt locations
 

@@ -70,7 +70,8 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-05-24-cold-outreach-launch]] — sub-agent #1 (cold outreach) shipped with hard volume caps
 - [[wiki/decisions/2026-05-24-lead-research-launch]] — discovery sub-agent that feeds cold-outreach with multi-source enriched prospects (conferences, lookalikes, funding, hiring)
 - [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]] — sub-agent #2: S&W Industrialist newsletter chain (writer + editor + marketing). Kerri owns the writing Mon/Wed nights for Tue/Thu publish.
-- [[wiki/decisions/2026-05-25-codex-primary-operating-layer]] — Codex becomes Brian's primary Kerri operating runner; Claude Code remains a fallback during switch-over.
+- [[wiki/decisions/2026-05-25-codex-primary-operating-layer]] — ~~Codex primary~~ SUPERSEDED by [[wiki/decisions/2026-06-08-claude-code-sole-runner]]
+- [[wiki/decisions/2026-06-08-claude-code-sole-runner]] — Claude Code is the sole operating runner for all Kerri routines (supersedes Codex-primary decision)
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — KerriOS is the living company brain; Kerri climbs from approval-gated assistant to eventual decision authority.
 - [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — Brian's agent architecture distilled into role pods, feedback loops, and automation rebuild priorities.
 - [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — first rebuilt Codex automation; inbox sweep routes email into KerriOS, Google Tasks approvals, and self-grading improvement loops.

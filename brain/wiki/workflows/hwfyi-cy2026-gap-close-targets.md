@@ -31,6 +31,7 @@ These are high-profile/high-potential accounts for Hardware FYI, but they do not
 - Hexagon Manufacturing Intelligence — metrology/manufacturing intelligence software; find US marketing or manufacturing software owner.
 - Keysight Technologies — test, measurement, and electronic design tools; find electronics/semiconductor marketing owner.
 - NI / Emerson Test & Measurement — test and measurement platform for engineers; find current NI/Emerson marketing owner.
+- PhysicsX — UK AI startup applying ML to engineering/physics simulation for hardware/advanced manufacturing; recently raised (per Brian, 2026-06-08, src: linkedin.com/posts/seb-johnson_breaking-uk-ai-startup-physicsx-has-raised-share-7469669597646958592-Y_tG). Added at Brian's request; find growth/partner/product marketing owner.
 
 ## Rules
 

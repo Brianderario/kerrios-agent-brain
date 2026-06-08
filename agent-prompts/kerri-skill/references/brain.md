@@ -78,7 +78,7 @@ Propose follow-up tasks via Kerri's task surface (TBD: tasks layer)
 ## What NOT to read
 
 - Do NOT read `KerriOS/data/.kerrios-api-token.local` (gitignored, credentials).
-- Do NOT read OpenClaw, Codex layer, or `~/Documents/new project/` — retired/gone.
+- Do NOT read OpenClaw, old Codex workspace (`~/Desktop/Codex Kerri Agent/`), or `~/Documents/new project/` — retired/gone.
 - Do NOT read Notion as canonical — retired.
 - Do NOT treat chat history as canonical — working context only.
 

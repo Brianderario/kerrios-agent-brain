@@ -133,8 +133,8 @@ test('inbox sweep prompt sends brief Sendblue alerts only for newly-created task
   assert.match(automationDoc, /send-text-alert\.mjs --message/);
   assert.match(automationDoc, /separate from iMessage Handoff/);
   assert.match(automationDoc, /if there is no task, decision, blocker, error, or other Brian action, it sends no text/);
-  assert.match(automationDoc, /Automation chat archive policy/);
-  assert.match(automationDoc, /no-op\/quiet runs that sent no external alert/);
+  assert.match(automationDoc, /Durable output policy/);
+  assert.match(automationDoc, /Codex.*closing directives are no longer needed/);
 });
 
 test('inbox sweep prompt suppresses repeated identical error texts', () => {
@@ -273,13 +273,12 @@ test('inbox sweep enforces answer-every-ask coverage on replies', () => {
   }
 });
 
-test('automation reference points at Codex primary inbox sweep', () => {
-  assert.match(automationDoc, /Codex Primary/);
-  assert.match(automationDoc, /Inbox Sweep \(#2\) = ACTIVE in Codex/);
+test('automation reference points at Claude Code primary inbox sweep', () => {
+  assert.match(automationDoc, /Claude Code Primary/);
+  assert.match(automationDoc, /Inbox Sweep \(#2\) = ACTIVE in Claude Code/);
   assert.match(automationDoc, /agent-prompts\/kerri-inbox-sweep\/SKILL\.md/);
   assert.match(automationDoc, /inbox-sweep-grades\.json/);
   assert.match(automationDoc, /every 15 minutes/i);
-  assert.match(automationDoc, /GPT-5\.5 high/);
   assert.doesNotMatch(automationDoc, /six active .*shards/i);
 });
 

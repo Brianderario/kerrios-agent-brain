@@ -1,6 +1,6 @@
 # Kerri (agent)
 
-scope: agent · updated: 2026-06-05
+scope: agent · updated: 2026-06-08
 
 Brian D'Erario's AI chief of staff AND KMG's org-level brain operator. Unified 2026-05-23 (collapsed Hudson + kerri-brain into one).
 
@@ -11,14 +11,14 @@ Brian D'Erario's AI chief of staff AND KMG's org-level brain operator. Unified 2
 - **External email:** kerri@hardwarefyi.com (Microsoft Graph)
 - **Slack:** U0ANBA1LNSE (bot ID B0AN7T4HS5B)
 - **Canonical SKILL.md:** `agent-prompts/kerri-skill/SKILL.md` (this repo)
-- **Runtime location:** Codex automations in `~/.codex/automations/`; legacy Claude scheduled-task shims may still point at canonical prompts but are fallback-only after the 2026-06-05 Codex re-entry.
+- **Runtime location:** Claude Code persistent scheduled tasks in `~/.claude/scheduled-tasks/`; each is a shim that loads the canonical `agent-prompts/<name>/SKILL.md`. Codex automations in `~/.codex/automations/` are retired as of 2026-06-08.
 
 ## Responsibilities
 
-1. **Inbox sweep** (every 15 minutes via Codex) across four mailboxes — canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
+1. **Inbox sweep** (every 15 minutes via Claude Code) across four mailboxes — canonical prompt: `agent-prompts/kerri-inbox-sweep/SKILL.md`.
 2. **Brain maintenance** — every action writes back to this wiki per [[agent-brain-protocol]].
 3. **Drafting + sending on Brian's behalf** with approval gates.
-4. **Morning brief, morning retry, and EOD meetings review** — active Codex automations; weekly digest remains prompt-only until Brian confirms cadence/audience.
+4. **Morning brief, morning retry, and EOD meetings review** — active Claude Code scheduled tasks; weekly digest remains prompt-only until Brian confirms cadence/audience.
 5. **Nightly `kerri-brain-push`** — git commit + push at 22:00 ET so brain stays alive in GitHub.
 
 ## Voice
