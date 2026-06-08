@@ -1,3 +1,6 @@
+## [2026-06-08 05:10 ET] cold-outreach | 0 drafts, 0 skipped, today=10 week=10 | Kerri (Codex scheduled)
+Preflight cap-reached no-op: existing Hardware FYI batch task `QWNYTnRrbjNieUVva05saw` already consumes the 2026-06-08 daily cap (10/10), queue remains 30, DNC remains 0, and one Slack heads-up was sent to Brian. No Google Task, queue, company registry, or email-send mutation.
+
 ## [2026-06-08 02:03 ET] inbox-sweep | fail-closed partial coverage | Kerri (Codex scheduled)
 Processed live Google Tasks first: G0008 Hilton Norfolk and H0031 SF Brewing Co. both remained needsAction/ACTION:send; COLD BATCH 2026-06-08 remained unchecked; H/S/G open-list scan found no sendable orphan approval. brian@hardwarefyi.com was readable via Outlook fallback and brian@kerrihq.com was readable via Gmail; post-cursor visible mail was Kerri Morning Brief / known sent copies / reminders / newsletters with no new task-worthy human inbound. kerri@hardwarefyi.com shared-mailbox read failed (`Default folder not found`) and the S/W Superhuman connector was unavailable in this Codex run, so no sends executed. One deduped Sendblue fail-closed alert was queued (`ab9eaf43-b781-4350-a5aa-9d026cd86366`).
 
