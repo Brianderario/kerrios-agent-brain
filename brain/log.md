@@ -1,3 +1,7 @@
+## [2026-06-08 18:42 ET] eod-review | 4 meetings, 1 draft, 3 flagged | Kerri
+
+C-Infinity intro call (Sai Nelaturi) -> H0119 registered + Brian-sender post-call follow-up drafted (reply on existing chain, CC Benji); IMTS conf row + Prospect->Interest pipeline task queued. Xometry H2 (H0033) + Ann Schulte/Plexus 12:00 = no-transcript 5C recaps. Brian/Benji 1:1 auto-skipped. All 4 meetings were hidden from the primary cal (import/masked).
+
 ## [2026-06-08 18:20 ET] lead-research | 13 raw → 14 to pool (3 queued, 11 hold), 4 dropped on verification | Kerri
 Evening quality top-up: queue was full (30) but score-capped at 35 with contextual hooks. Sourced fresh-funding ICP leads via Apollo; VERIFIED funding event type before trusting hooks — caught 3 M&A events (KORE Power, Aireon, Markforged) + 1 fintech (Crux) masquerading as raises and dropped them. Queued 3 genuine raises: Allen Control Systems ($200M Series B, counter-drone robotics, 40), Apex Space ($200M, spacecraft mfg, 40), Highland Electric Fleets ($75M, EV fleets, 30). Pool 244→258. CRM synced. Queue 30→33 (best-first).
 
