@@ -123,6 +123,7 @@ A) **Dedup checks** (in order, skip target if any hit):
    - `brain/wiki/people/<slug>.md` exists (slug = kebab-case of name) → skip, log to `state.skipped[]`.
    - Email in `data/jobs.json` internetMessageIds → already in active sweep flow, skip.
    - Email in `cold-outreach-state.json#sent` with `sentAt` within last 90 days → skip.
+   - **Company-level relationship check (MANDATORY — added 2026-06-08 after Codex cold-emailed 5 existing sponsors/advertisers).** Run the customer-id-protocol lookup against `data/companies.json` using the target's email domain. If the company already exists with a `jobId`, read `brain/wiki/companies/<slug>.md`. If the wiki page shows ANY existing business relationship — active or past sponsor, advertiser, partner, pipeline prospect with a quoted/active deal, Kinetic or SFTW event participant, or any contract history — SKIP with reason `existing-relationship: <status>`. Also check parent/subsidiary relationships (e.g., Onshape → PTC). Cold outreach is for genuinely new prospects only. Sending a generic cold intro to a company we already work with damages the relationship and makes us look disorganized. When in doubt, skip and flag for Brian.
 
 B) **Apollo enrich** (mandatory for personalization):
    - `apollo_people_match` with the email → get title, current company, location, LinkedIn, employment history.
@@ -312,7 +313,7 @@ WHAT THIS AGENT NEVER DOES
 - Send email directly. Drafts only. Inbox sweep sends after Brian approves.
 - Exceed the volume caps. The caps are not "soft guidelines."
 - Send generic / template / non-personalized cold email.
-- Cold an existing relationship (anyone in `brain/wiki/people/`).
+- Cold an existing relationship (anyone in `brain/wiki/people/` OR any company with an existing relationship in `brain/wiki/companies/`).
 - Cross the S/W boundary (no cold outreach from brian@standardandworks.com — that's a separate, not-yet-built sub-agent).
 - Use `apollo_emailer_campaigns_*` tools. Apollo is for enrichment only. Sending happens via Microsoft Graph through the kerri-hardwarefyi-email MCP.
 - Write cold-outreach drafts into `brain/wiki/` durably. The brain captures sent + replied relationships only.

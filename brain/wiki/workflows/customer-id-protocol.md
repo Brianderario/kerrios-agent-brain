@@ -17,6 +17,8 @@ The H/S/G counter in `data/job-counters.json` only increments when a brand-new c
 
 This doubles as a QA gate: forcing the lookup before any write means every new entry is checked against the brain first, which catches duplicates, misspellings, and missed-relationship-context cases.
 
+**Hard gate for cold outreach (added 2026-06-08):** When the customer-id-protocol lookup finds an existing company in `data/companies.json`, the cold-outreach agent MUST read `brain/wiki/companies/<slug>.md` and check for any existing business relationship (sponsor, advertiser, partner, pipeline, event participant). If any relationship exists, the target is SKIPPED — never cold-emailed. This is not advisory; it is a hard stop. The previous gap (checking people but not companies) resulted in cold emails being drafted to Kinetic 2026 sponsors and existing HWFYI advertisers.
+
 ## Lookup procedure (every automation runs this)
 
 1. Extract sender / contact / vendor domain. Lowercase.
