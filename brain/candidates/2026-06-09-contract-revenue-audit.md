@@ -1,6 +1,6 @@
 # Candidate: Full contract / CY2026 revenue audit (2026-06-09)
 
-**Status:** BRIAN RESPONDED 6/9 ~17:50 ET. Decisions incorporated below. CRM sheet edits still not applied (approval-gated). One open item remaining: PTC quarterly contract total.
+**Status:** CLOSED. All CRM fixes applied 6/9 ~18:05 ET. CY2026 breakdown sum verified: $641,372.41 (+$63,207.68 vs prior $578,164.73). PTC resolved (quarterly invoices = Onshape HWFYI-2026-002 billing, already captured).
 
 **Scope:** DocuSign envelopes, Google Drive (all contract docs, 39 unique CRM-linked docs read in full), 3 KMG mailboxes (brian@hardwarefyi, kerri@hardwarefyi, brian@kerrihq; S/W mailbox untouched), Savant export sheet, Kinetic 2026 MASTER sheet, AR reconciliation workbook. Trigger: Brian asked whether 2026 revenue is fully captured ("I feel like we're missing numbers").
 
@@ -55,7 +55,7 @@ The exact figure exists nowhere in Drive, email, or DocuSign. The live "Kinetic 
 
 ## Open questions (remaining after Brian's 6/9 answers)
 
-- **PTC quarterly invoices:** Brian confirmed this year. Total annual value still needed to add the CRM row. Run rate = $40K/yr (quarterly $10K under PO #US10004508). No PTC digital contract doc in Drive or CRM.
+- ~~**PTC quarterly invoices:**~~ **RESOLVED per Brian** -- the quarterly $10K invoices under PO #US10004508 are the billing mechanism for the Onshape contract (HWFYI-2026-002, $40K). Already fully captured in the CRM. No additional revenue.
 - **Duro event sponsorship $44K:** SOW sent, NOT signed per Brian. Pipeline only. CRM stays at $12K Kinetic dinner + $12.5K partner program (newly added).
 - **Zoo/EV AR pairing:** AR workbook pairs INV-141 ($5,900) with INV-142 ($29,100, billed to "Benjamin Chia") as one $35,000/yr contract starting 5/1. INV-142's billing name needs verification before booking anything beyond the $5,900.
 - **Iryna Zhuravel:** $14,500/yr in AR workbook with $7,250 unearned owed back; no matching SOW found.
