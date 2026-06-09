@@ -4,17 +4,18 @@ company: "PTC"
 jobId: H0104
 prefix: H
 domain: ptc.com
-status: dormant
-relationship_tier: kinetic-2026-sponsor
-primary_contact_name: "Brenna Robillard"
-primary_contact_email: brrobillard@ptc.com
+status: active
+relationship_tier: renewal
+primary_contact_name: "Stefan Bergsma"
+primary_contact_email: sbergsma@ptc.com
 secondary_contacts:
+  - "Brenna Robillard <brrobillard@ptc.com>"
   - "Will Hirschtick <whirschtick@ptc.com>"
 mailbox: brian@hardwarefyi.com
 send_from: brian@hardwarefyi.com
-last_contact_date: 2026-05-23
-last_sender: us
-last_message_subject: "THANK YOU - Kinetic 2026"
+last_contact_date: 2026-06-09
+last_sender: them
+last_message_subject: "Re: PTC <> Hardware FYI"
 thread_internet_message_ids: []
 next_action_date: null
 last_nudge_date: null
@@ -24,15 +25,16 @@ updated_at: 2026-06-09
 source: kinetic-2026-roster
 ---
 
-# PTC — Kinetic 2026 sponsor (dormant)
+# PTC — Active deal (renewal)
 
 Industrial software (Creo, Windchill, Onshape, ThingWorx). Kinetic 2026 confirmed sponsor; companies.json registered as H0104.
 
 ## Pipeline state
 
-- **Status: dormant.** Seeded from the [Kinetic 2026 sponsor roster](../../candidates/2026-05-24-kinetic-2026-sponsor-roster.md) (2026-05-24 candidate). No nudges fire until Brian flips `status: active`.
-- **To start a renewal/2027 push:** set `status: active`, `relationship_tier: renewal` (or `re-engagement` if quiet >60 days), set `last_contact_date` to your most recent message, `last_sender: us`. Pipeline-followup picks up at the next 8:33 ET run.
-- Primary contact: Brenna Robillard <brrobillard@ptc.com>.
+- **Status: active.** Stefan Bergsma (Principal Growth Marketing Specialist) engaged via inbound form. Call scheduled for Thursday Jun 11 at 9AM ET (rescheduled after calendar mishap Jun 5).
+- **Last sender: them** (Stefan proposed Thu 9AM, Brian confirmed "Done, see you then!" Jun 9).
+- Primary contact: Stefan Bergsma <sbergsma@ptc.com>.
+- Original Kinetic contacts: Brenna Robillard, Will Hirschtick.
 
 ## Source
-- Kinetic 2026 post-event "THANK YOU - Kinetic 2026" send from brian@hardwarefyi.com (2026-05-14 to 2026-05-23).
+- Kinetic 2026 sponsor (original). Stefan came through inbound form separately, Kerri sent initial outreach, then Brian took over scheduling.

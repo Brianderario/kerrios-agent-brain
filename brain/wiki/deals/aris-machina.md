@@ -13,9 +13,9 @@ secondary_contacts:
   - "William Steel <william@arismachina.com>"
 mailbox: brian@hardwarefyi.com
 send_from: brian@hardwarefyi.com
-last_contact_date: 2026-05-23
-last_sender: them
-last_message_subject: "Re: Aris Machina <> Hardware FYI"
+last_contact_date: 2026-06-09
+last_sender: us
+last_message_subject: "RE: Aris Machina <> Hardware FYI"
 thread_internet_message_ids: []
 next_action_date: null
 last_nudge_date: null
@@ -31,8 +31,8 @@ Active conversation. Sid Khullar (CEO, Aris Machina AB) is evaluating HWFYI spon
 
 ## Pipeline state
 
-- **Current beat:** Sid sent last on 2026-05-23 asking for concrete format details + examples for both packages. Brian's reply is queued in [`H0001`](../../../../data/jobs.json) Google Task pending edit + send. **Pipeline does NOT nudge** while `last_sender: them` — inbox-sweep territory.
-- **Next pipeline action:** flip `last_sender: us` after Brian's reply lands, then warm-tier cadence applies (5-day first nudge).
+- **Current beat:** Brian sent follow-up Jun 9 checking in on feedback/questions after the proposal. Sid, William, Jacinta, and Benji CC'd. We sent last; warm-tier cadence applies (5-day first nudge = Jun 14).
+- **Next pipeline action:** if no reply by Jun 14, pipeline-followup drafts a nudge referencing the specific packages discussed.
 
 ## What a good nudge looks like (when it becomes our court again)
 
