@@ -45,7 +45,7 @@ function mailboxEntry(lastSuccessfulSweepAt) {
   };
 }
 // The DEGRADED shape observed live on 2026-06-09: sweeps persisted only
-// seenMessageIds + lastError* — no updatedAt, no per-mailbox lastSuccessfulSweepAt.
+// seenMessageIds + lastError*: no updatedAt, no per-mailbox lastSuccessfulSweepAt.
 function degradedSweepState() {
   const s = sweepState(null);
   delete s.updatedAt;

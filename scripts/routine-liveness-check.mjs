@@ -95,7 +95,7 @@ function readJson(root, file) {
 // The sweep's state stamps (top-level updatedAt, per-mailbox lastSuccessfulSweepAt) are
 // what the prompt schema specifies, but they are LLM-written and have gone missing in
 // practice: on 2026-06-09 hours of live sweeps persisted only seenMessageIds + lastError*
-// fields, so a perfectly healthy sweep read as "unknown" here — and unknown never alerts,
+// fields, so a perfectly healthy sweep read as "unknown" here, and unknown never alerts,
 // meaning a genuinely dark sweep would never have paged Brian either. Every quiet sweep
 // also appends `<ISO> quiet | ...` to data/sweep-cadence.log (material sweeps update the
 // state file), so take the MAX across all three sources: any one of them is real evidence
