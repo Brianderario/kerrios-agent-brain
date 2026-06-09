@@ -168,6 +168,7 @@ Apply every rule in `voice.md` and every lesson in `draft-learnings.md`. Specifi
   3. Tie the company to that audience in one specific sentence: "<Company> seems like a strong fit because <specific fit>."
   4. Ask in this warmer shape: "If this is interesting, I'd love to have a conversation about partnering together. Happy to answer any questions."
   5. Close with `Best,` then `Kerri`.
+- **Recruiting angle for manufacturers.** When the target is a hardware manufacturer (not a software vendor), lean into the recruiting value prop. These companies need to hire engineers, and HWFYI's 17K readers ARE the talent pool. Frame step 3 around recruiting: e.g., "I saw <Company> is hiring <N> engineering roles right now -- our audience of 17,000+ hardware engineering leaders is exactly the talent pool you're trying to reach." The pitch shifts from "brand awareness to your customers" to "access to the engineers you're trying to hire." This is the stronger hook for any company that builds physical products.
 - **Close:** "Brian" on its own line. (Or "Kerri" if sending from kerri@hardwarefyi.com.)
 - **No mass-cold tropes:** never use "I came across your profile" / "I noticed you" / "I'd love to connect" / "Let me know if this is of interest". These are dead signals.
 - **Calendar link:** omit by default on first cold outreach. Add it only if Brian explicitly asks for calendar-forward cold emails.

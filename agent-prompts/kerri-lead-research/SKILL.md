@@ -23,11 +23,14 @@ Scheduled runs must use a cheap preflight before loading broad context or callin
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ICP — WHO IS A QUALITY SPONSOR LEAD (3 lanes, all US-based)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Hardware FYI sells newsletter/event/content sponsorships to companies that want to reach ~17K hardware engineering leaders + decision-makers (startup-heavy: semiconductors, robotics, EVs, energy, defense, advanced manufacturing). A quality lead fits ONE of these lanes:
+Hardware FYI sells newsletter/event/content sponsorships AND recruiting access to ~17K hardware engineering leaders + decision-makers (startup-heavy: semiconductors, robotics, EVs, energy, advanced manufacturing). A quality lead fits ONE of these lanes, in priority order:
 
-1. **Lookalikes of proven sponsors.** Companies resembling our 23 Kinetic 2026 sponsors + any closed/active sponsor in `brain/wiki/companies/`. Apollo similar-orgs off those seeds.
-2. **Sponsors/exhibitors of major mechanical & electrical engineering + manufacturing conferences.** If a company pays to exhibit at DesignCon / IPC APEX / IMTS / AUTOMATE / SEMICON / The Battery Show / etc., it is by definition buying access to a hardware-engineer audience — exactly what HWFYI sells. Highest-intent lane. Source list in `data/lead-research/conferences.json`.
-3. **Companies selling software to US hardware manufacturers.** PLM/PDM, EDA/CAD, MES, simulation/CAE, factory analytics, sourcing/supply-chain, quality, robotics middleware, embedded tooling. Apollo ICP search on those keywords/industries, `country = US`.
+1. **Companies selling software to US hardware manufacturers (TOP PRIORITY).** PLM/PDM, EDA/CAD, MES, simulation/CAE, factory analytics, sourcing/supply-chain, quality, robotics middleware, embedded tooling. There are hundreds of these companies and they are the highest-fit sponsors. Apollo ICP search on those keywords/industries, `country = US`.
+2. **Lookalikes of proven sponsors.** Companies resembling our 23 Kinetic 2026 sponsors + any closed/active sponsor in `brain/wiki/companies/`. Apollo similar-orgs off those seeds.
+3. **Sponsors/exhibitors of major mechanical & electrical engineering + manufacturing conferences.** If a company pays to exhibit at DesignCon / IPC APEX / IMTS / AUTOMATE / SEMICON / The Battery Show / etc., it is by definition buying access to a hardware-engineer audience -- exactly what HWFYI sells. Highest-intent lane. Source list in `data/lead-research/conferences.json`.
+4. **Hardware manufacturers with active recruiting needs.** Companies building physical products (robotics, EVs, batteries, semiconductors, industrial automation) that are actively hiring engineers. For these leads, the pitch leans into recruiting -- HWFYI's audience IS the talent pool they're trying to hire from. This lane is distinct: these companies buy access to reach candidates, not customers.
+
+There are hundreds of companies in lanes 1-4 before we ever need to touch defense/aerospace/government verticals. Exhaust commercial and startup hardware first.
 
 Bias toward founder-led / Series A–C, 11–1000 employees, with a buy-signal (recent raise, GTM/marketing hire, conference spend). Penalize <10 employees (can't afford) and >5000 (decision cycle too slow). Brian's steer (2026-05-29): "you should know best what is best" — when a candidate clearly reaches our audience and can pay, queue it even if the lane fit is loose.
 
@@ -49,7 +52,7 @@ HARD RULES
 1. **Two deliverables.** (a) The canonical lead pool `data/leads-master.json` — every qualified, enriched lead (the thousands-deep pool, mirrored to the CRM "Leads" tab for the marketing team). (b) The short working queue `data/cold-outreach-queue.json` — the top-scored ready-to-draft slice the cold-outreach agent drains each morning. This agent never drafts, sends, or contacts anyone.
 2. **Multi-source bias.** Prefer candidates that surface from ≥2 sources. They get scored higher and queued first.
 3. **Dedup is absolute.** Skip anyone whose **company** is in `data/companies.json` (matched by domain OR alias OR fuzzy name) — existing customer/relationship, don't cold-prospect. Also skip anyone in `brain/wiki/people/`, `data/jobs.json` history, `data/cold-do-not-contact.json`, `data/cold-outreach-state.json#sent` within 90 days, anyone already in `data/leads-master.json`, and anyone already in `data/cold-outreach-queue.json`. The companies.json check is the **primary** dedup — see [[../../brain/wiki/workflows/customer-id-protocol]].
-4. **HWFYI side only.** No S/W targets, no defense-only contractors that lack a HWFYI angle.
+4. **HWFYI side only. No defense/aerospace/gov contractors.** No S/W targets. No companies whose primary market is defense, military, intelligence, or government contracting -- even if they make hardware. This includes defense-tech startups (counter-drone, autonomous weapons, space-defense, military robotics), traditional defense primes/subs, and dual-use companies where DoD/IC is the primary revenue stream. The HWFYI audience skews commercial/startup hardware engineers; defense companies rarely buy newsletter sponsorships to reach that audience, and there are hundreds of better-fit commercial prospects to exhaust first. Exception: a company with clear majority-commercial revenue that happens to also sell to government (e.g., a general-purpose robotics company with a DoD contract on the side) may be included, but flag it in the hookSeed for Brian's review.
 5. **Personalization hook required.** Every queued entry must have a `hookSeed` with ≥1 concrete fact (funding round, conf exhibitor, hiring role, lookalike-to-X-sponsor). Generic entries can live in the pool as `status: needs-hook` but DO NOT enter the cold-outreach queue without a hook.
 6. **Stable key, but NO premature customer ID.** Each pool lead is keyed by `leadId` = the company's lowercased root domain (e.g. `acmehw.com`). Do NOT assign a customer `jobId` or register the company in `data/companies.json` at discovery time — cold prospects are not yet customers, and registering hundreds would pollute the customer registry and bump the H counter. The customer `jobId` is assigned later, only when the lead is actually contacted (cold-outreach runs the [[../../brain/wiki/workflows/customer-id-protocol]] at draft time) or replies; it backfills onto the pool lead then. You STILL dedup against `companies.json` by domain/alias/fuzzy-name to avoid cold-prospecting an existing customer/relationship — read it, never write it.
 7. **No premature central pipeline rows.** The central `CY2026 Revenue Goal` tab uses `Prospect`, `Interest`, `Contract Won`, and `Contract Lost`. Lead-research-only candidates are uncontacted leads, not pipeline. Do not write them into the central pipeline until cold-outreach/inbox-sweep records an approved send or a real reply/contact.
@@ -182,7 +185,7 @@ For each seed company:
 SOURCE 3 — FUNDING SIGNAL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. `apollo_mixed_companies_search` with filters: `organization_latest_funding_round_dates_range: [last 60 days]`, `organization_industries: [hardware, electronics manufacturing, industrial automation, robotics, semiconductors, energy, defense — full ICP list]`, `organization_num_employees_ranges: ["11-50", "51-200", "201-500"]`.
+1. `apollo_mixed_companies_search` with filters: `organization_latest_funding_round_dates_range: [last 60 days]`, `organization_industries: [hardware, electronics manufacturing, industrial automation, robotics, semiconductors, energy, clean technology, manufacturing, mechanical or industrial engineering, electrical/electronic manufacturing, computer hardware, automotive, 3d printing, nanotechnology, packaging and containers]`, `organization_num_employees_ranges: ["11-50", "51-200", "201-500"]`. **Do NOT include defense, aerospace, military, or government industries in this filter.** Defense companies that happen to also raise funding should not enter the pool through this source.
 2. For each result, get funding_amount, funding_round_type, funding_date.
 3. Find one marketing contact per company (as above).
 4. Build candidate:
@@ -234,7 +237,9 @@ Collect all candidates from active sources.
 - +10 if the hook has a clear editorial/story fit for Hardware FYI readers
 - −15 if title is generic (e.g., "Marketing Coordinator" — lower seniority, weaker signal)
 - −10 if company employee count < 10 (too small to sponsor) OR > 5000 (decision cycle too slow for our usual sponsor pitch)
+- +15 if the company is a hardware manufacturer with active engineering job postings (recruiting-angle lead)
 - −25 if the only evidence is contextual matching or software-to-manufacturing adjacency with no paid-access, prior relationship, editorial, or timing proof
+- −50 if the company's primary market is defense/military/aerospace/government (should have been filtered out by HARD RULE 4, but this is a backstop)
 
 **Sort descending by score.** Queue only high-intent survivors that pass the gate above; keep the rest in the pool with the retarget reason. Take top-N where N = budget (20 for scheduled, override on-demand).
 
