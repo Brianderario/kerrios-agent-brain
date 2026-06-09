@@ -37,7 +37,7 @@ That means:
 
 Bottom-of-issue coverage should be fuller rather than sparse. Include every credible in-window story that fits Standard & Works, especially fundraises, M&A, facility/capacity moves, contracts, public financing, workforce programs, supply-chain infrastructure, and regional economic-development items. Omit only when the story is stale, off-topic, soft thought leadership, conference-only, earnings-only, consumer-only, or too weak for a serious industrial reader.
 
-TBPN-informed layer: Brian pointed to TBPN's `The New Situational Awareness 13F Is Here` as a useful model for pacing and shape. Do not copy TBPN's voice, but borrow the mechanics: a quick current-thing setup, a fuller lead that explains the discourse and operating implication, and a fast run of linked items underneath. For S&W, the lead should name what is weird, mispriced, misunderstood, or newly visible in an industrial story, then land on capacity, procurement, capital formation, supply chains, power, or buyer behavior.
+Pacing model: TBPN's shape is useful inspiration (quick setup, fuller lead, fast linked items underneath) but do NOT copy TBPN's voice or signature lines. S&W's own opener is "The build this week: [X]." (see Intro spec below). The lead should name what is weird, mispriced, misunderstood, or newly visible in an industrial story, then land on capacity, procurement, capital formation, supply chains, power, or buyer behavior.
 
 Default lead lens: economic development. The lead should usually pull the chosen story back to how a specific company, factory, contract, defense award, energy project, chip facility, data-center buildout, logistics project, or funding round is developing a named region. Look for jobs, local supplier formation, workforce pathways, facility reuse, capex, tax base, power, ports, training, infrastructure, and opportunity. The story should feel less random when it is tied to how a place is becoming more industrially capable.
 
@@ -70,7 +70,7 @@ Avoid:
 
 1. Subject/headline (witty, curiosity-bearing; see Subject Line Rule).
 2. Preview text beginning with `Plus:`.
-3. **Intro** (3 short paragraphs before Markets): greeting ("Happy Tuesday." / "Happy Thursday."), thesis line ("The current thing in the industrial base is [X]."), and a fast scan paragraph naming key stories with concrete dollars. Pattern established in AMCA, Camden, Modine, Utah, Rare Earth issues.
+3. **Intro** (3 short paragraphs before Markets): greeting ("Happy Tuesday." / "Happy Thursday."), thesis line ("The build this week: [X]." — Brian, 2026-06-09; replaces the retired TBPN-derived "current thing" line), and a fast scan paragraph naming key stories with concrete dollars.
 4. `Markets` / THE FLOOR dashboard (see Markets Rule below).
 5. `The Lead`. NO inline source links in the Lead (Brian, 2026-06-09) — keep it clean analytical prose. Keep the lead story's sources in the local draft notes for verification; inline links live only on the category bullets + Dealbook. Minimize specific news dates in the Lead (Brian, 2026-06-09) — they add bloat and age fast; use them only when the date itself is the story (e.g., a deadline, a vote sequence). Drop "On June X" openers in favor of actor-first sentences.
 6. Industry sections with linked bullets (see Bullet Format below).
