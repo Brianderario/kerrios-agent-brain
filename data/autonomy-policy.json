@@ -1,0 +1,31 @@
+{
+  "schema": "autonomy-policy-v1",
+  "description": "Fail-closed autonomy authority for each email action class. Stage 1 = approval required. Stage 2 = autonomous send allowed (with auto-CC + undo window). Promotion requires Brian's PR approval. Demotion is automatic on any incident.",
+  "updatedAt": "2026-06-09T21:00:00.000Z",
+  "stages": {
+    "1": {
+      "label": "Approval required",
+      "description": "Every send requires Brian's checkbox in Google Tasks before it goes out."
+    },
+    "2": {
+      "label": "Autonomous send",
+      "description": "Kerri may send without per-email approval. Auto-CC brian@ on every send. 4-hour undo window. Any incident auto-demotes to stage 1."
+    }
+  },
+  "classes": {
+    "internal-recipient-reply": { "stage": 1 },
+    "scheduling-logistics-reply": { "stage": 1 },
+    "warm-thread-holding-reply": { "stage": 1 },
+    "sponsor-substantive-reply": { "stage": 1 },
+    "pipeline-nudge": { "stage": 1 },
+    "renewal-draft": { "stage": 1 },
+    "cold-send": { "stage": 1 },
+    "gmail-draft-only": { "stage": 1 }
+  },
+  "safetyInvariants": {
+    "autoCcBrian": "always, even at stage 2 - this is a safety net, never disabled",
+    "undoWindowMinutes": 240,
+    "demotionPolicy": "automatic on any incident - only removing authority is self-applicable; Kerri may demote herself but NEVER promote herself",
+    "promotionPolicy": "requires a PR modifying this file + a brain/wiki/decisions/ page with the evidence + Brian's merge"
+  }
+}

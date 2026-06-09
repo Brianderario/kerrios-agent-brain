@@ -458,6 +458,21 @@ DRAFTING:
      - If the person is named but no verified email exists in their people page, put `Internal CC missing: <Name> email not verified in KerriOS` in the ⚠ flag line instead of guessing.
      - Never suggest CCs for S/W internal content across the Hardware FYI side or any thread where adding an internal person would leak confidential partner, legal, finance, or sensitive material outside the appropriate boundary.
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3.5 -- AUTONOMY POLICY CONSULTATION (fail-closed authority check)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before creating a Google Tasks approval item, consult the autonomy policy to determine whether this job's action class requires per-email approval.
+
+1. Read `data/autonomy-policy.json` (the git-tracked authority table).
+2. Look up this job's `actionClass` in `policy.classes`.
+3. Determine the stage:
+   - If the file is missing, unreadable, or the class is not found: **FAIL CLOSED to stage 1** (always require approval when uncertain).
+   - If `stage === 1`: proceed as normal to CREATE THE GOOGLE TASK below. This is the current behavior for ALL classes.
+   - If `stage === 2`: the job MAY be sent without a Google Tasks approval item. However, ALL other safety requirements remain mandatory: auto-CC brian@hardwarefyi.com on every send, stamp all the same job fields (originalDraft, sentDraft, actionClass, decidedAt, sentAt), log everything to jobs.json and brain/log.md, apply the HARD NO-DOUBLE-EMAIL GATE, and re-read the live thread before sending. The only difference is skipping the Google Tasks gate. Record `autonomyStage: 2` on the job object so the evidence trail is explicit.
+
+**Current state (2026-06-09):** ALL 8 action classes are stage 1 in autonomy-policy.json. This gate changes ZERO behavior today. It exists so that when Brian eventually promotes a class to stage 2 via a PR to autonomy-policy.json, the inbox sweep is already wired to respect it.
+
 CREATE THE GOOGLE TASK (one `gtasks_create_task` call per new job):
 
   tasklist_id: <map.H / map.S / map.G per prefix>

@@ -1,0 +1,13 @@
+{
+  "schema": "autonomy-policy-v1",
+  "classes": {
+    "internal-recipient-reply": { "stage": 1 },
+    "scheduling-logistics-reply": { "stage": 1 },
+    "warm-thread-holding-reply": { "stage": 1 },
+    "sponsor-substantive-reply": { "stage": 1 },
+    "pipeline-nudge": { "stage": 1 },
+    "renewal-draft": { "stage": 1 },
+    "cold-send": { "stage": 1 },
+    "gmail-draft-only": { "stage": 1 }
+  }
+}
