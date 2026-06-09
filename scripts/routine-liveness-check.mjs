@@ -162,8 +162,16 @@ function lastIndustryIntel(root) {
 // state file at all" (unknown). This closed the 2026-06-09 gap where
 // kerri-industry-intel could sit at zero successful runs forever without an
 // alert, because a null lastRunAt looked identical to a missing file.
+// The state file's mtime is attached so the bootstrap day itself gets grace:
+// a state file bootstrapped TODAY means the routine has not yet had a
+// scheduled fire opportunity, so a null lastRunAt is expected, not dark.
 function industryIntelState(root) {
-  return readJson(root, 'industry-intel-state.json');
+  const s = readJson(root, 'industry-intel-state.json');
+  if (!s) return null;
+  try {
+    s.__mtimeMs = fs.statSync(path.join(root, 'data', 'industry-intel-state.json')).mtimeMs;
+  } catch { /* mtime unavailable → no bootstrap grace */ }
+  return s;
 }
 
 // Routine registry: cadence + the rule that decides whether it should have run.
@@ -240,6 +248,12 @@ const ROUTINES = [
       if (et.minutesOfDay < 7 * 60 + 15) return { status: 'ok', detail: 'before today’s fire+grace' };
       if (state == null) return { status: 'unknown', detail: 'no state file' };
       if (last == null) {
+        // Bootstrap-day grace: if the state file was created/touched today,
+        // the routine may simply not have had its first scheduled fire yet.
+        const mtimeEt = Number.isFinite(state.__mtimeMs) ? etParts(new Date(state.__mtimeMs)) : null;
+        if (mtimeEt && mtimeEt.isoDate === et.isoDate) {
+          return { status: 'ok', detail: 'state bootstrapped today; first scheduled fire still pending' };
+        }
         return { status: 'dark', detail: 'registered but zero successful runs ever recorded (state lastRunAt is null) after 07:15 ET' };
       }
       return { status: 'dark', detail: 'no industry-intel run recorded for today after 07:15 ET' };

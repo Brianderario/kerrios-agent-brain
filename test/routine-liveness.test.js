@@ -206,14 +206,32 @@ test('industry-intel ran this morning (ET stamp format) → ok', () => {
   assert.equal(ii.status, 'ok');
 });
 
+function touch(root, name, iso) {
+  const when = new Date(iso);
+  fs.utimesSync(path.join(root, 'data', name), when, when);
+}
+
 test('industry-intel bootstrap state with lastRunAt null after grace → dark (zero runs ever)', () => {
   const root = fixture({
     'industry-intel-state.json': { schema: 'v1', lastRunAt: null, processedFeedGuids: [] }
   });
+  // State file bootstrapped YESTERDAY — the routine had a fire opportunity and never succeeded.
+  touch(root, 'industry-intel-state.json', '2026-06-03T15:00:00Z');
   const rep = run(root, '2026-06-04T12:00:00Z'); // 08:00 ET Thu, past 07:15 ET grace
   const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
   assert.equal(ii.status, 'dark');
   assert.match(ii.detail, /zero successful runs/i);
+});
+
+test('industry-intel state bootstrapped TODAY with null lastRunAt → ok (no false page before first fire)', () => {
+  const root = fixture({
+    'industry-intel-state.json': { schema: 'v1', lastRunAt: null }
+  });
+  touch(root, 'industry-intel-state.json', '2026-06-04T14:30:00Z'); // 10:30 ET same day
+  const rep = run(root, '2026-06-04T16:00:00Z'); // 12:00 ET Thu
+  const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
+  assert.equal(ii.status, 'ok');
+  assert.match(ii.detail, /bootstrapped today/i);
 });
 
 test('industry-intel before fire+grace → ok even with null lastRunAt', () => {

@@ -88,7 +88,7 @@ Lead research + cold outreach were promoted to live scheduled-tasks crons after 
 |---|---|---|---|
 | Monthly Partnership Research | `0 10 1 * *` | inline (automations.md §6) → promote to `kerri-lead-research` | superseded by scheduled `kerri-lead-research` |
 | Weekly "What Got Done" | `0 16 * * 5` | inline (automations.md §4) | superseded by `kerri-revenue-standup` (covers pipeline + outreach + actions) |
-| Revenue standup | `0 16 * * 5` | `kerri-revenue-standup/SKILL.md` | **Claude Code scheduled task** (Friday ~4pm ET); read-only scoreboard vs $1M, pipeline velocity, outreach conversion, renewal radar, top 3 actions → Slack DM + text |
+| Revenue standup | `0 16 * * 5` | `kerri-revenue-standup/SKILL.md` | **Prompt ready; shim prepared 2026-06-09; schedule activation pending Brian confirmation.** (The scheduler registration already exists and is enabled as of the 2026-06-09 migration; first fire would be Friday ~4pm ET. Brian has not yet confirmed activation.) Read-only scoreboard vs $1M, pipeline velocity, outreach conversion, renewal radar, top 3 actions → Slack DM + text. State bootstrapped at `data/revenue-standup-state.json`. |
 | Lead research | `13 18 * * 1-5` | `kerri-lead-research/SKILL.md` | **Claude Code scheduled task** (weekday ~6:13pm ET); maintains 25 ready prospects |
 | Outbound sales | `7 9 * * 1-5` | `kerri-cold-outreach/SKILL.md` | **Claude Code scheduled task** (weekday ~9:07am ET); targets 10 approval-ready drafts, never auto-sends |
 | Pipeline follow-up | `33 8 * * 2,4` | `kerri-pipeline-followup/SKILL.md` | **Claude Code scheduled task** (Tue+Thu ~8:33am ET); approval-gated, never sends |
