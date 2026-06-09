@@ -98,11 +98,10 @@ STEP 2 — LOAD STATE + REFERENCES
 2. Read `data/jobs.json`. Hold all pending/sent/skipped jobs in memory so EOD does not create a duplicate approval task for a thread or company already waiting on Brian.
 3. Read `data/gtasks-lists.json`. If missing or incomplete, bootstrap per inbox-sweep STEP 0 (`gtasks_list_lists`, match titles, write the map). If you can't resolve all 3 lists, send Brian one Sendblue/text heads-up and halt.
 4. Read `draft-learnings.md` and `voice.md` fully.
-5. Read:
-   - `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/00-shared-context/README.md`
-   - `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/01-brian-kerri-agent/subagents/eod-meetings-review/README.md`
+5. Read (reference context, skip if already familiar from this session):
    - `brain/wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder.md`
    - `brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods.md`
+   (The old `/Desktop/Codex Kerri Agent/` paths are retired — do not read them.)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3 — COLLECT TODAY'S MEETINGS
@@ -204,12 +203,15 @@ No if:
 - Pure status update with no commitment.
 - Vendor confirmation call.
 
+**Also skip the draft if Brian already sent his own follow-up.** Before drafting, check the relevant sent mailbox for a message from Brian to the counterparty after the meeting ended today. If Brian already replied, write the meeting page (B), note the self-send in the run digest, and do NOT create an approval task. Only if the transcript shows a clear commitment Brian's email did not cover, create an `ACTION: redo` task noting "Brian already sent <time>; possible secondary follow-up" instead of a send-ready draft.
+
 If no follow-up is warranted, still write the meeting page (B) but skip the draft (D).
 
 **D) Draft the follow-up email** (when warranted):
 
-- Apply every rule in `voice.md` and every lesson in `draft-learnings.md`.
-- Identify the right send identity:
+- Apply every rule in `voice.md` and every lesson in `draft-learnings.md`. That includes the no-em-dash rule: never use em dashes in the draft body or subject; rewrite with a period, comma, colon, or parentheses.
+- **POST-CALL SEND-IDENTITY LOCK (standing Brian rule, non-negotiable).** Every follow-up to a meeting or call Brian attended sends FROM Brian's mailbox and is signed `Brian`, never from Kerri, even though Kerri composed the draft. Lock this before choosing the identity below; no counterparty type overrides it. Source: draft-learnings.md 2026-05-29.
+- Identify the right Brian mailbox:
   - HWFYI counterparty → from brian@hardwarefyi.com (use `brian-hardwarefyi-email` MCP at send time)
   - Personal/KMG counterparty without HWFYI angle → from brian@kerrihq.com (Gmail — draft only, Brian sends)
   - S/W counterparty → from brian@standardandworks.com (Superhuman MCP)

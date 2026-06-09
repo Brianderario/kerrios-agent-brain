@@ -62,7 +62,8 @@ STEP 2 — DEDUP + PRIORITIZE
 
 Filter out:
 - Companies already in the active cold-outreach pipeline (check cold-outreach-state.json sent + drafted)
-- Companies with an open `📈 PIPELINE` or `🔄 RENEWAL` Google Task pending approval
+- Companies with an open `📈 PIPELINE` or `🔄 RENEWAL` Google Task pending approval. Check concretely: `gtasks_list_tasks` on the Hardware FYI and Kerri MG lists, filter for non-completed tasks whose title contains the company name.
+- Companies with an active or same-week pipeline-followup nudge (check `data/pipeline-followup-state.json` drafted/nudge history). A sponsor must never get a pipeline nudge AND a renewal email in the same week — if pipeline-followup already has the company in flight, skip the renewal draft this run and note it in state.
 - Companies contacted by this watchdog in the last 30 days (check renewal-watchdog-state.json)
 - Companies marked `Contract Lost` in CY2026 Revenue Goal tab (unless Brian specifically reactivates)
 
@@ -85,22 +86,50 @@ For each candidate (max 5 per run):
 3. Draft a personalized renewal/upsell email that:
    - References the specific prior relationship (what they bought, what value they got)
    - Leads with what's new and relevant to them, not a generic renewal ask
-   - For upsells: starts from the buyer's goal (lead gen? brand? content?), not a product menu
+   - For upsells: starts from the buyer's goal (lead gen? brand? content?), not a product menu. When proposing a concrete offer, follow the learned package pattern from draft-learnings.md (H0023 Modelwise): 2-3 mixed-product bundles anchored high to low, real product names (Partner Program, Custom Content, Webinar), flexible durations.
    - Matches Brian's voice — personal, direct, not salesy
+   - Contains NO em dashes in subject or body (hard Brian rule; rewrite with period, comma, colon, or parentheses)
    - Is concise (under 150 words for the email body)
+   - Sender: default from kerri@hardwarefyi.com signed `Kerri` (warm re-engagement). Exception: if Brian personally met or called this sponsor recently (meeting page or thread evidence), the draft sends from brian@hardwarefyi.com signed `Brian` per the post-call sender lock.
 4. Register the company in `data/companies.json` if it's not already there (Customer ID Protocol).
 
 Post each as a Hardware FYI Google Task:
 `🔄 RENEWAL: <Company> — <$amount> <renewal|upsell> opportunity`
 
-Task body includes:
-- **Prior relationship**: what they bought, when, how much
-- **Opportunity**: what to propose now, approximate $$ at stake
-- **Draft email**: the full email body, ready to send after approval
-- **Recipient**: name and email
-- **Context**: last contact, relationship notes, why now
+Task notes use this exact format (machine-readable for inbox-sweep approval handling):
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ACTION: send
+(change to `skip` or `redo`. To approve: edit the DRAFT if needed and check the box.)
+Sends as <Kerri (kerri@hardwarefyi.com) | Brian (brian@hardwarefyi.com)>
+
+PRIOR RELATIONSHIP
+<name> at <company>: bought <product(s)>, <year(s)>, <$amount> total. Status: <active | lapsed | expiring <date> | spend decline>.
+
+OPPORTUNITY
+<renewal | upsell>: <what to propose> · est. <$amount> CY2026 at stake · why now: <expiring soon | lapsed | spend decline | expansion fit>
+
+CONTEXT
+<last contact date + who sent last, one line of relationship notes>
+
+━━━━━━━━━ DRAFT ━━━━━━━━━
+To: <name> <<email>>
+Subject: <subject>
+
+<body>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
 
 Create a matching `data/jobs.json` entry with type `renewal`, routed through the inbox-sweep send pipeline.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3.5 — ESCALATE STALLED RENEWALS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Renewals are the highest-probability revenue; do not let one die silently. Scan the last 5 runs in `renewal-watchdog-state.json` plus `data/jobs.json`:
+
+- For any company whose renewal email was SENT 30+ days ago with no reply recorded: create one Kerri MG task `⚠️ RENEWAL STALLED: <Company> — <$amount> at risk, no reply 30+ days` with the send date, the offer, and a suggested next move (call, different contact, or revised offer). Do NOT auto-draft a second email — Brian decides the next touch.
+- For any renewal draft still sitting unapproved 14+ days after creation: list it in this run's Sendblue alert as "stale renewal draft awaiting your approval" so approval lag is visible.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 4 — RECORD + IMPROVE
@@ -129,7 +158,7 @@ Update `data/renewal-watchdog-state.json` (create with schema `renewal-watchdog-
 
 Keep only the latest 52 entries.
 
-Append one line to `brain/log.md`:
+Append one line to `brain/log.md` (revenue-at-stake = the sum of the opportunity $ across all drafts created this run; compute it from the candidates' opportunity amounts, do not guess):
 ```
 ## [YYYY-MM-DD HH:MM ET] renewal-watchdog | scanned:N drafted:N revenue-at-stake:$X top:Company1,Company2 | Kerri
 ```

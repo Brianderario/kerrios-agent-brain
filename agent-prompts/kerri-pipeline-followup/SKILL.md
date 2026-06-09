@@ -147,6 +147,7 @@ STEP 1 — LOAD + FILTER DEALS
    - `days_since_last_contact >= cadence-for-tier-and-nudge-count`
    - for H-prefix deals, a plausible CY2026 revenue move exists: cash/contract, pipeline next step, renewal, event/webinar/content package, or buyer-goal clarification
    - per-deal rate limit: `last_nudge_date` is either null OR > 7 days ago in `state.perDealCounters[slug]`
+   - no same-week renewal-watchdog touch: check `data/renewal-watchdog-state.json` recent runs; if the renewal watchdog drafted or sent to this company in the last 7 days, skip (a sponsor never gets a pipeline nudge AND a renewal email the same week)
    - global daily cap not exceeded so far in this run (max 5 drafts/day)
 7. Sort eligible deals by expected revenue leverage first, then `days_since_last_contact` descending. Prioritize warm sponsor/prospect threads over low-value generic nudges.
 
@@ -173,13 +174,14 @@ For each eligible deal (up to 5 total drafts this run):
 A) **Pull thread context.** Find the most recent job in `data/jobs.json` matching `deal.jobId` OR `deal.thread_internet_message_ids[0]`. Read the latest message body referenced there. If no thread context is available in jobs.json (e.g., deal was created from the Kinetic seed and never went through the sweep), use the deal's body + frontmatter as context.
 
 B) **Determine nudge framing.** Reference the SPECIFIC last beat:
-   - First nudge: "Sid — wanted to circle back on the format details and examples you asked for. Pulling those together this week — anything in particular you want me to prioritize (the partner-program in-newsletter unit, or example creatives)?"
+   - First nudge: "Sid, pulling together the format details and examples you asked for this week. Anything in particular you want me to prioritize (the partner-program in-newsletter unit, or example creatives)?"
    - Second nudge: Different angle. Add value. "Sid — here's a recent partner-program issue showing the lighter unit you asked about: [link]. Let me know if that resolves it or if you want a quick call." (Always include a new piece of information, not a re-ask.)
    - Third nudge: Soft close. "Sid — happy to put this on pause if the timing isn't right. Just don't want it falling off your radar. Should I follow up in 2 weeks or close the loop here?"
    - **No generic openers.** Never use "just checking in," "circling back," "any update," "did you get a chance to."
 
 C) **Apply voice rules** from `agent-prompts/kerri-skill/references/voice.md`:
    - Terse: 2–4 sentences.
+   - NO em dashes in subject or body (hard Brian rule). Rewrite with period, comma, colon, or parentheses.
    - Specific time anchors. "this week," "next 10 days" — not "soon."
    - `Brian` (or `Kerri` if send_from = kerri@) on its own line, no comma, no "Best,".
    - Forward-looking close where natural.
@@ -285,6 +287,7 @@ STEP 5 — SAVE STATE
 2. Write any updated `brain/wiki/deals/<slug>.md` files.
 3. Write updated `data/jobs.json` with the new pipeline-sourced jobs appended.
 4. Cleanup state: drop entries from `state.drafted[]` older than 30 days; drop `state.skipped[]` entries older than 7 days.
+5. Central tab sync: if STEP 2 confirmed a sent nudge produced a real stage change (call booked, proposal sent, buyer confirmed a next step in the thread), update that company's row in the `CY2026 Revenue Goal` tab (`Prospect` → `Interest` etc., statuses exactly per the central vocabulary). If only a nudge went out with no new buyer evidence, leave the tab untouched; the inbox-sweep updates it when the reply lands. If Sheets is unavailable, create a Kerri MG task `⚠️ PIPELINE UPDATE NEEDED — <Company>` with the intended status + evidence.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 6 — DIGEST + SILENT IF QUIET
