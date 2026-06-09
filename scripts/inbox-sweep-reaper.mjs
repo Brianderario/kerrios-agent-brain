@@ -50,12 +50,25 @@ export function matchesClaudeBin(command) {
 // scheduled run. Pinned by the regression test so a prompt-template change is caught.
 export const SCHED_RUN_MARKER = "RUNNER = Claude Code persistent scheduled task";
 
-// A transcript line identifies a scheduled run iff it is a `user` event AND carries the
-// marker. Both conditions matter: an assistant turn that merely discusses the marker
-// (as in this very QA session) is a `type:"assistant"` line and must NOT match.
+// Structural marker for the CURRENT scheduled-tasks runtime: it wraps every run's
+// first user message in a `<scheduled-task name="...">` tag. Verified against live
+// scheduled transcripts on 2026-06-09 (e.g. febee641-….jsonl): the tag appears inside
+// the `type:"user"` line with its quotes JSON-escaped, so we match only the stable
+// prefix up to `name=`. The legacy SCHED_RUN_MARKER string never appears in that
+// wrapper, which is why self-exit/reaper fast paths were blind to Claude scheduled
+// runs (Kerri MG suggestion RjQycGw3aXdKQTR5S1JrQw).
+export const SCHED_RUN_WRAPPER_MARKER = '<scheduled-task name=';
+
+// A transcript line identifies a scheduled run iff it is a `user` event AND carries
+// either marker (legacy prompt boilerplate OR the runtime's wrapper tag). Both gate
+// conditions matter: an assistant turn that merely discusses a marker (as in this very
+// QA session) is a `type:"assistant"` line and must NOT match.
 export function lineMarksScheduledRun(line) {
   const s = String(line || "");
-  return s.includes('"type":"user"') && s.includes(SCHED_RUN_MARKER);
+  return (
+    s.includes('"type":"user"') &&
+    (s.includes(SCHED_RUN_MARKER) || s.includes(SCHED_RUN_WRAPPER_MARKER))
+  );
 }
 
 // Narrower identity: a scheduled run that is specifically the inbox-sweep. Used to

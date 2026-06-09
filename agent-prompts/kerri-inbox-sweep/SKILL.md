@@ -223,6 +223,7 @@ LIVE-STATUS CROSS-CHECK (run FIRST, before trusting any task listing):
 - For every job in jobs.json with `status == pending`, call `gtasks_get_task(tasklist_id = job.gtasksListKey→listId, task_id = job.gtasksTaskId)` directly and read its live `status` + notes.
 - If the per-job lookup shows `completed` (or an ACTION line of `skip`/`redo`) that the list view did not surface, the per-job lookup wins: process it through the normal decision logic below this sweep — do not wait for a later run.
 - This is belt-and-suspenders for `show_completed` adherence. It catches both "Brian-checked-but-listing-missed-it" (the G0005 incident: a checked approval went unprocessed for ~3.5h across ~16 sweeps) and "task-edited-after-list-cache" cases. Cost is N extra task GETs per sweep where N = pending count (currently 6–8 — cheap, pure read).
+- COLD BATCH coverage: cold batch tasks have NO jobs.json entry, so the per-job loop above is structurally blind to them. After the per-job GETs, collect the distinct `gtasksTaskId` values present in `data/cold-outreach-state.json#drafted` (plus `lastBatchTaskId` if set) and call `gtasks_get_task` directly on each of those too. If any returns `completed`, run COLD BATCH TASK HANDLING (below) THIS sweep — do not leave a checked batch to the orphan-scan list view (on 2026-06-09 a completed batch sat unprocessed for ~34 min / 2 sweeps because only the list view could see it). Cost: 1–2 extra GETs, pure read.
 
 For every task in the three lists, find the matching job in jobs.json by `gtasksTaskId`.
 Ignore Kerri's own suggestion tasks (title starts with `💡 `) — those have no job and need no action.
@@ -251,7 +252,9 @@ HARD NO-DOUBLE-EMAIL GATE:
 
 Decision logic per task:
 
-A) status == "completed" (Brian checked the box) → SEND
+PRECEDENCE RULE (checked box + skip/redo): the line-1 ACTION token wins over the checkbox for `skip` and `redo`. A completed task whose ACTION line says `skip` is a deliberate close, NOT an approval — run branch B (never send). A completed task whose ACTION line says `redo` runs branch C. Only completed + ACTION `send` (or a missing/unparseable ACTION line) is an approval that sends via branch A. (2026-06-09: G0013 + G0014 were checked WITH ACTION:skip set; a literal status-only read of branch A would have sent. Fail closed on the no-double-email gate.)
+
+A) status == "completed" AND ACTION line == "send" (or missing/unparseable) → SEND
    - Compare the current notes' DRAFT block (between `>>>>>>>` and `<<<<<<<`) to job.originalDraft.
    - If identical → send original draft. approvalSource = "Brian approved via Google Tasks (list=<H|S|G>, taskId=<id>)"
    - If different → Brian edited. Send the edited text. approvalSource = "Brian edited + approved via Google Tasks (list=<H|S|G>, taskId=<id>)"
@@ -285,22 +288,27 @@ A) status == "completed" (Brian checked the box) → SEND
    - Quality signal: record `approved_exact` or `approved_edited` in inbox-sweep-grades.json for this job.
    - After jobs.json, brain/log.md, and the quality signal are written successfully, call `gtasks_delete_task` for the approval task. Do not leave the task as completed; completed approval tasks must self-clear so Brian's live Google Tasks list remains the active-work surface. If deletion fails, do not retry in a tight loop; record the cleanup miss in the grade ledger and continue with the job already marked sent.
 
-B) status == "needsAction" AND notes ACTION line == "skip" → SKIP
+B) notes ACTION line == "skip" (any task status — needsAction OR completed, per the PRECEDENCE RULE) → SKIP
    - Update job: status → skipped.
    - Quality signal: record `skipped_by_brian`; if the skip reason is visible in notes, capture a one-line process lesson.
    - After jobs.json, brain/log.md, and the quality signal are written successfully, call `gtasks_delete_task` for the approval task. Do not leave the task as completed; skipped tasks are closed work, not live work. If deletion fails, record the cleanup miss in the grade ledger and continue with the job already marked skipped.
 
-C) status == "needsAction" AND notes ACTION line == "redo" → REDO
+C) notes ACTION line == "redo" (any task status — needsAction OR completed, per the PRECEDENCE RULE) → REDO
    - Regenerate the draft applying all current learnings from draft-learnings.md.
    - Update job: originalDraft → new draft text, status → pending.
-   - `gtasks_update_task`: replace notes with a fresh notes block containing the new draft, add `DRAFT SOURCE: inbox-sweep redo at <YYYY-MM-DD HH:MM ET>`, reset ACTION line to "send", and strip any leading `🆕 ` marker from the title.
+   - `gtasks_update_task`: replace notes with a fresh notes block containing the new draft, add `DRAFT SOURCE: inbox-sweep redo at <YYYY-MM-DD HH:MM ET>`, reset ACTION line to "send", and strip any leading `🆕 ` marker from the title. If the task was checked (`completed`), also reset its status → needsAction in the same call so the regenerated draft waits for a fresh approval.
    - Quality signal: record `redo_requested`; include the visible reason from task notes if present.
 
 D) status == "needsAction" AND notes ACTION line == "send" (default) → WAITING. No action.
 
+E) per-job `gtasks_get_task` returns `"deleted": true` → CLOSED BY BRIAN. Deletion is NOT an approval — fail closed on the no-double-email gate.
+   - Never send. Update job: status → skipped, skippedAt → now, skipReason → "task deleted in Google Tasks by Brian".
+   - Quality signal: record `skipped_by_brian` (task-deleted variant).
+   - Append one brain/log.md line. Do NOT recreate the task. The jobId + company page persist so the relationship can be re-engaged later. (An accidental deletion closes the job but sends nothing — safe by construction.)
+
 The ACTION line lives on line 1 of notes, format:
   `ACTION: send`   (or `skip` / `redo` — case-insensitive, trim whitespace)
-If the ACTION line is missing or unparseable, treat as `send` (waiting).
+If the ACTION line is missing or unparseable, treat as `send` (i.e., waiting when unchecked, approval when checked).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2b — COLD-OUTREACH SUPPRESSION (auto-DNC)

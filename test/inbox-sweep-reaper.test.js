@@ -5,6 +5,7 @@ import {
   CLAUDE_BIN_RE,
   matchesClaudeBin,
   SCHED_RUN_MARKER,
+  SCHED_RUN_WRAPPER_MARKER,
   lineMarksScheduledRun,
   lineMarksInboxSweepRun,
   reaperCanObserveLockRunner,
@@ -111,11 +112,40 @@ test("handles junk input without throwing", () => {
   assert.equal(lineMarksScheduledRun(123), false);
 });
 
+// The CURRENT scheduled-tasks runtime wraps the first user message in a
+// <scheduled-task name="..."> tag and does NOT include the legacy RUNNER boilerplate.
+// This is the exact shape observed in live transcripts on 2026-06-09 — the gate must
+// recognize it, or self-exit/reaper fast paths are blind to every Claude scheduled run.
+const wrapperFirstMsg = (task) =>
+  `<scheduled-task name="${task}" file="/Users/brianderario/.claude/scheduled-tasks/${task}/SKILL.md">\n` +
+  "This is an automated run of a scheduled task. The user is not present to answer questions.";
+
+test("identifies a scheduled run from the runtime's <scheduled-task> wrapper (no legacy marker)", () => {
+  for (const task of [
+    "kerri-inbox-sweep", "kerri-morning-brief", "kerri-gap-sweep", "kerri-brain-push",
+    "kerri-lead-research", "kerri-cold-outreach", "kerri-eod-meetings-review",
+  ]) {
+    const line = userLine(wrapperFirstMsg(task));
+    assert.equal(line.includes(SCHED_RUN_MARKER), false, "wrapper must not contain the legacy marker (that's the bug)");
+    assert.equal(line.includes(SCHED_RUN_WRAPPER_MARKER), true, "JSON-encoded user line must carry the wrapper prefix");
+    assert.equal(lineMarksScheduledRun(line), true, `should identify wrapped ${task}`);
+  }
+});
+
+test("wrapper marker still requires a user line — assistant turns discussing it never match", () => {
+  assert.equal(lineMarksScheduledRun(assistantLine(`the wrapper is ${SCHED_RUN_WRAPPER_MARKER}"kerri-inbox-sweep">`)), false);
+});
+
 // --- inbox-sweep identity: used to decide whether the run-lock has a live owner ---
 
 test("identifies the inbox-sweep run specifically", () => {
   const msg = `This is the scheduled \`kerri-inbox-sweep\` run. ${SCHED_RUN_MARKER}.`;
   assert.equal(lineMarksInboxSweepRun(userLine(msg)), true);
+});
+
+test("identifies the inbox-sweep run from the runtime wrapper shape", () => {
+  assert.equal(lineMarksInboxSweepRun(userLine(wrapperFirstMsg("kerri-inbox-sweep"))), true);
+  assert.equal(lineMarksInboxSweepRun(userLine(wrapperFirstMsg("kerri-gap-sweep"))), false);
 });
 
 test("does NOT mark a non-inbox-sweep scheduled task as an inbox-sweep run", () => {
