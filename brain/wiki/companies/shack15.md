@@ -7,7 +7,7 @@ slug: shack15
 
 # SHACK15
 
-scope: venue/vendor prospect · updated: 2026-06-05
+scope: venue/vendor prospect · updated: 2026-06-09
 
 San Francisco venue/event-space contact for the Hardware FYI / KMG SF Tech Week event inquiry.
 
@@ -16,6 +16,7 @@ San Francisco venue/event-space contact for the Hardware FYI / KMG SF Tech Week 
 - 2026-05-27: Cheyenne Rose replied to Kerri's SF Tech Week venue inquiry. SHACK15 may have Oct. 5 or 6 availability, but both dates have existing holds. She linked an initial 3-hour / 100-guest proposal plus event brochure, catering menu, and visual-tour materials; staffing, bar service, cleaning, furniture, and built-in A/V are included, security is extra, freight-elevator load-in is $2,200, deposit is due on signature, final F&B is due 14 days before event, and freestanding signage/demo tables are allowed. Kerri queued H0027 in Hardware FYI Google Tasks to ask about temporary holds and hold-deadline timing before Brian chooses whether to take a call.
 - 2026-06-04: Cheyenne sent the updated PerfectVenue proposal and floor plan after speaking with Brian. Oct. 6 still conflicts with another client hold and no October venue-rental discount is available.
 - 2026-06-05 00:24 ET: Brian replied directly on the existing SHACK15 chain: he will get back early next week one way or the other. The queued Kerri hold-timing draft is stale and was completed as handled/skipped in Google Tasks to prevent a double-email.
+- 2026-06-09 13:59 ET: Cheyenne nudged ("what further questions came up surrounding the proposal?"). Brian owes the early-next-week decision he promised on 6/5. Kerri queued H0027 (Brian-sender) with a brief holding reply (finalizing October, comparing options, decision by end of week) flagged as needing Brian's actual venue call — SHACK15 vs BuzzWorks (H0018) and other SF Tech Week venue threads. No email sent (pending approval).
 
 ## Open Questions
 
