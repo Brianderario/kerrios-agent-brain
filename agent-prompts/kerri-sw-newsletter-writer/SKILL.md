@@ -121,15 +121,26 @@ For each of the 5–6 categories (Defense & Space / Semis & Electronics / Energy
 Dealbook: 4 transactions. M&A, capital raises, large contract awards. Same format — numbers + link.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-STEP 6 — MARKETS SNAPSHOT
+STEP 6 — MARKETS SNAPSHOT → "THE FLOOR" dashboard
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-For each ticker in `data/sw-newsletter/sources.json#marketsTickers`:
-- WebFetch the Yahoo Finance quote URL (`https://finance.yahoo.com/quote/<TICKER>`)
-- Extract the current price + daily change direction (▲ or ▼)
-- For copper (HG=F), express price in cents/lb if the page gives dollars (multiply by 100)
+The markets block is **THE FLOOR**, the Brian-approved (2026-06-08) dark dashboard. Canonical HTML template + drive-mechanics: `data/sw-newsletter/the-floor.template.html`. Format rules: `brain/wiki/workflows/sw-newsletter-production-rules.md#markets-rule`. Reproduce the styling byte-for-byte; only refresh the variables.
 
-If a quote fetch fails for any ticker, use the most recent known price from `data/sw-newsletter/state.json#lastMarkets` and add a small `[stale]` tag. Don't skip — the markets row is signature for S&W.
+**Canonical basket — 6 rows, this order (S&P 500 first):**
+1. S&P 500 (`^GSPC`) — index level, no `$`
+2. Aerospace & Defense (ITA) — `$` price
+3. Semiconductors (SOXX) — `$` price
+4. Industrials (XLI) — `$` price
+5. WTI Crude (`CL=F`) — `$X.XX/bbl`
+6. Copper (`HG=F`) — `$X.XX/lb` (dollars per lb, NOT cents)
+
+For each, WebFetch the Yahoo quote (`sources.json#marketsTickers[].yahooUrl`); if Yahoo is blocked, use the listed `fallbackSources` (Trading Economics / stockanalysis.com). Extract current price + day-change direction (▲ up / ▼ down) + day-change % (1 decimal). Up = green `#4ade80`, down = red `#f87171`.
+
+Also pull ONE current macro/industrial datapoint for the `WATCH` line — a number + named source (ISM PMI, Philly Fed, durable goods, housing starts, etc.).
+
+Date label = `Market close · <Day Mon D>` (prior session's close for a ~2pm publish).
+
+If a quote fetch fails everywhere, fall back to `state.json#lastMarkets` and tag `[stale]` in the local notes. Don't skip — THE FLOOR is the signature opener. Save the refreshed values to `state.json#lastMarkets`.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 7 — DRAFT THE ISSUE
@@ -143,12 +154,15 @@ Compose the issue in Markdown to `brain/.local/sw-newsletter-drafts/<targetDate>
 ## Preview text
 Plus: <secondary item 1>, <secondary item 2>, <secondary item 3>, and <secondary item 4>.
 
-## Markets
-| Aerospace & Defense ETF (ITA) | ▲ 223.52 |
-| Semiconductor ETF (SOXX) | ▲ 520.08 |
-| Industrials ETF (XLI) | ▲ 170.73 |
-| WTI crude (CL=F) | ▼ $98.74 |
-| Copper (HG=F) | ▲ 637.10 ¢/lb |
+## Markets — THE FLOOR (render the dashboard, not a plain table)
+Canonical design + basket: data/sw-newsletter/the-floor.template.html. 6 rows, S&P 500 first:
+| S&P 500 | 7,391.60 | ▲ 0.3% |
+| Aerospace & Defense (ITA) | $227.26 | ▼ 1.0% |
+| Semiconductors (SOXX) | $571.45 | ▲ 5.9% |
+| Industrials (XLI) | $173.63 | ▼ 0.3% |
+| WTI Crude | $91.22/bbl | ▲ 0.8% |
+| Copper | $6.30/lb | ▲ 0.6% |
+(WATCH: one macro datapoint + named source. In the local .md draft this table is just a record of the values; in beehiiv it renders as THE FLOOR dark dashboard — see STEP 8.)
 
 ## The Lead
 <paragraph 1 — news, numbers, named actors>
@@ -191,19 +205,21 @@ The Lead headline should match the "Plus" preview pattern: name 2–3 of the mos
 STEP 8 — DELIVER (beehiiv primary, Google Tasks fallback)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**Primary path (Chrome MCP available):**
+**Primary path (Chrome MCP available).** Validated mechanics, 2026-06-08. Beehiiv's editor is TipTap/ProseMirror; the "S&w industrialist" template body = one `htmlSnippet` node (THE FLOOR) + native blocks. Drive it via the editor API for reliability (typing the whole issue by keystroke is fragile, and `cmd+a` selects the whole page).
 
-1. Use `mcp__Claude_in_Chrome__list_connected_browsers` to confirm bridge.
-2. If connected, `select_browser` and create/use a tab on `https://app.beehiiv.com/posts/template-library`.
-3. Locate the "S&w industrialist" template (case-insensitive match — Brian's title has a lowercase 'w'). Click "Start writing" on that template.
-4. Beehiiv opens a new post editor. Set:
-   - **Title:** Lead headline
-   - **Preview text:** the "Plus: …" line
-   - **Email audience:** All free subscribers (default)
-   - **Web audience:** All free subscribers (default)
-5. Paste the issue body into the editor (Markdown → match beehiiv's block format; headers become section headers; bullets become bullet blocks; links resolve inline).
-6. Save as draft (do NOT publish — that's Brian/Zach's call after the editor sub-agent passes).
-7. Capture the resulting post URL (`/posts/<uuid>`) → write to `state.json#currentDraftId`.
+1. `list_connected_browsers` → `select_browser`. Brian's own tab won't be in the MCP tab group; `tabs_context_mcp {createIfEmpty:true}` and `navigate` a fresh MCP tab to `https://app.beehiiv.com/posts/template-library` (same Chrome profile = already logged in).
+2. Open the **S&w industrialist** template (Recently used, or search). Clicking it opens a new **synced Draft** editor at `/posts/<uuid>/edit` prefilled with the template (stale prior-issue content + a Missouri hero image).
+3. **Title + subtitle** are React-controlled `<textarea>`s — `textarea.editor-title-textarea` and `textarea.editor-subtitle-textarea`. Set via the native setter + `input`/`change` events (not `.value=`):
+   `const s=Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype,'value').set; s.call(el,val); el.dispatchEvent(new Event('input',{bubbles:true}));`
+   Title = Lead headline; subtitle = the "Plus: …" line. Authors (Brian D'Erario + Zach Silber) are preset — leave them.
+4. **Delete the stale hero image** (click it → trash icon) unless Brian says keep.
+5. **THE FLOOR** is the first body node (`htmlSnippet`). The editor instance is at `document.querySelector('.tiptap.ProseMirror').editor`; node 0's HTML is its text content. Refresh it IN PLACE (don't delete + re-add) with the rendered template from `data/sw-newsletter/the-floor.template.html` (single line):
+   `ed.chain().command(({tr,state})=>{const n0=state.doc.firstChild;tr.replaceWith(1,1+n0.content.size,state.schema.text(FLOOR_HTML));return true;}).run()`
+6. **Body** (Lead + 6 sections + Dealbook + close): replace everything after node 0 with native HTML so links become real anchors:
+   `ed.chain().focus().insertContentAt({from:node0.nodeSize, to:state.doc.content.size}, BODY_HTML).run()` where BODY_HTML uses `<h2>` section heads, `<ul><li>`, and real `<a href>` links.
+   (Privacy note: the JS-result filter blocks returning text that contains URLs — pass HTML IN freely, but return only short status from `javascript_tool`.)
+7. **Verify** via screenshots: click THE FLOOR snippet's "Preview" toggle (confirm the dashboard renders), and scroll the body to confirm sections + blue links.
+8. Leave as an **unscheduled synced Draft** (do NOT publish — Brian/Zach's call after the editor sub-agent). Capture `/posts/<uuid>` → `state.json#currentDraftId` as `beehiiv:<uuid>`.
 
 **Fallback path (Chrome bridge fails):**
 

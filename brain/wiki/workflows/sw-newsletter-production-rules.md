@@ -97,9 +97,24 @@ For production issues:
 
 Before staging or showing a Standard & Works issue, audit the lead thesis. Verify the factual spine and the economic-development spine against primary sources when possible, including jobs, facility location, capex, suppliers, workforce, infrastructure, public incentives, tax base, or regional opportunity. Use at least one credible context source for broader market or operating-model claims, separate supported facts from bounded inference and speculation, rewrite any inference stated as certainty, and save a compact argument audit in `research/argument-audit-YYYY-MM-DD.md` or the candidate pool. Do not stage a draft if the lead sounds clever but the sourcing does not support the mechanism.
 
-## Markets Rule
+## Markets Rule — "THE FLOOR" dashboard (Brian-approved 2026-06-08)
 
-Always put S&P 500 at the top of the markets block. Use the Beehiiv-safe stacked market format from `AMCA, SendCutSend, and The New Factory Middle`, not a native table: `Markets` heading, then one paragraph per row with a blue linked market/security name, a line break, and a bold displayed price plus one green up arrow or red down arrow based on the displayed period's move. Do not add a date label, commentary, watch note, percentage move, or decorative wrapper. Refresh markets live before staging or sending, then choose the remaining rows for industrial relevance.
+The markets block is **THE FLOOR**, a dark dashboard card that opens the issue (first body node, above The Lead). Brian approved this design 2026-06-08 and wants it **repeatable on every Tue + Thu issue** with the variables refreshed. The canonical HTML lives at [`data/sw-newsletter/the-floor.template.html`](../../../data/sw-newsletter/the-floor.template.html) — reproduce its styling byte-for-byte; only the values change. (This supersedes the earlier stacked plain-text markets format.)
+
+Design (do not alter): dark gradient card (`#0f0f0f`→`#1a1a1a`), 12px radius, monospace (`'SF Mono', ui-monospace, Menlo, Monaco`), gold (`#c9a961`) `THE FLOOR` label top-left, a `MARKET CLOSE · <Day Mon D>` label top-right (prior session's close for a ~2pm publish), a 3-column table (security / price / change), and a `WATCH` macro line at the bottom. Change column: ▲ green `#4ade80` for up, ▼ red `#f87171` for down.
+
+**Canonical basket — 6 rows in this order** (Brian, 2026-06-08; S&P 500 first):
+
+1. **S&P 500** (`^GSPC`) — index level, no `$` (e.g. 7,391.60)
+2. **Aerospace & Defense (ITA)** — `$` price
+3. **Semiconductors (SOXX)** — `$` price
+4. **Industrials (XLI)** — `$` price
+5. **WTI Crude** (`CL=F`) — `$X.XX/bbl`
+6. **Copper** (`HG=F`) — `$X.XX/lb` (dollars per lb in THE FLOOR, not cents)
+
+Each row carries price + a day-change arrow + day-change % to one decimal. The `WATCH` line is one current macro/industrial datapoint with a number and a named source (ISM PMI, Philly Fed, durable goods, housing starts, etc.). Refresh every value live before staging (Yahoo, with Trading Economics / stockanalysis.com fallbacks per `sources.json#marketsTickers`); never carry stale numbers.
+
+In the beehiiv "S&w industrialist" template, THE FLOOR already exists as the first htmlSnippet node — **update that node's HTML in place** (do not delete + re-add) so the block keeps its position, then verify via the snippet's Preview toggle. Mechanics for driving it via Chrome are in `the-floor.template.html`.
 
 ## Beehiiv Draft Setup Rule
 
