@@ -118,9 +118,12 @@ JOB SCHEMA:
   "mailbox": "brian@hardwarefyi.com",
   "internetMessageIds": ["<msg-id>"],
   "status": "pending",          // pending | sent | skipped
+  "actionClass": "sponsor-substantive-reply",  // MANDATORY on every new job: exactly one ACTION CLASS value (guide below)
   "sendFrom": "kerri@hardwarefyi.com",
   "replyTo": "john@acme.com",
   "originalDraft": "Full text of Kerri's original draft",
+  "sentDraft": null,            // stamped at send time: the exact body actually sent. originalDraft vs sentDraft is the durable evidence of Brian's edits
+  "decidedAt": null,            // ISO8601 stamped when the sweep observes Brian's decision (checkbox, ACTION line, or deletion); also stamped on skip/supersede closures
   "gtasksListKey": "H",         // H | S | G
   "gtasksTaskId": "<task ID returned by gtasks_create_task>",
   "taskAlertedAt": null,        // ISO8601 once Brian has been texted about this newly-created task
@@ -131,6 +134,16 @@ JOB SCHEMA:
   "createdAt": "ISO8601",
   "sentAt": null
 }
+
+ACTION CLASS GUIDE (every new jobs.json entry MUST carry `actionClass`, exactly one of these 8 values, no others):
+  internal-recipient-reply   → all recipients are internal/trusted (brian@, ari@, benji@, zach@); no external send risk
+  scheduling-logistics-reply → scheduling, calendar coordination, venue/travel/event logistics, no commercial substance
+  warm-thread-holding-reply  → keeps a warm thread alive (ack, short status, "on it") without new pricing/scope/commitments
+  sponsor-substantive-reply  → substantive sponsor/customer/prospect content: pricing, packages, proposals, deliverables, commercial answers
+  pipeline-nudge             → follow-up nudge on a quiet pipeline thread (incl. pipeline-followup-sourced jobs)
+  renewal-draft              → renewal outreach or renewal-cycle reply for an existing sponsor
+  cold-send                  → first-touch cold outreach draft (cold batch pipeline)
+  gmail-draft-only           → brian@kerrihq.com Gmail-draft path: Kerri drafts, Brian sends manually
 
 PREFIX RULES:
   H#### = HWFYI advertiser, partner, industry contact, anything @hardwarefyi.com
@@ -246,7 +259,7 @@ COLD BATCH TASK HANDLING (title starts with `☀️ COLD BATCH`) — special cas
 
 HARD NO-DOUBLE-EMAIL GATE:
 - Brian's strictest email rule is: never send a double email. Sending a second email on an already-handled thread is the biggest failure mode, even worse than an unapproved first send.
-- Before any send, prove the job is still unsent by checking `jobs.json` for the current `gtasksTaskId`, every `internetMessageIds[]` value, the company/jobId, and any S-prefix `superhumanThreadId`. If any matching job is already `sent` or `skipped`, do not send. Update the task as already handled and log the blocked duplicate.
+- Before any send, prove the job is still unsent by checking `jobs.json` for the current `gtasksTaskId`, every `internetMessageIds[]` value, the company/jobId, and any S-prefix `superhumanThreadId`. If any matching job is already `sent` or `skipped`, do not send. Update the task as already handled and log the blocked duplicate. When this gate closes a still-pending job as superseded/already-handled, stamp `decidedAt` (the ISO timestamp this sweep observed the closure) on that job too. Count every send this gate held this run; the count lands in the run grade as `doubleEmailBlocks`.
 - Before any send, re-read the live thread or mailbox record when the connector supports it and confirm Brian/Kerri did not already reply after the task was created. If the latest thread state suggests the issue is handled, fail closed: mark or update the task for review instead of sending.
 - A true second follow-up on the same thread requires a new approval task whose notes explicitly say `SECOND SEND APPROVED BY BRIAN` and explain why another email is wanted. A checked old task, stale duplicate task, or inferred follow-up is not enough.
 - If duplicate status cannot be verified because Tasks, mailbox, or local state is unavailable, send nothing.
@@ -278,8 +291,8 @@ A) status == "completed" AND ACTION line == "send" (or missing/unparseable) → 
      • brian@standardandworks.com threads (S-prefix) → Superhuman MCP. Two calls:
          1. create_or_update_draft({ type: "reply", thread_id, message_id: <latest in thread>, body: <HTML — convert plain-text newlines to <br>, wrap in <div>> }) → capture draft_id. (`from` is implicit — the MCP is the S/W account.)
          2. send_draft({ draft_id }) — accept default 1-min undo window
-       Record approvalSource = "Brian approved via Google Tasks (list=S, taskId=<id>)" in the job log (jobs.json), even though Superhuman doesn't enforce the gate at the MCP layer. After successful send, scrub job.originalDraft → "<sent — body retained in Superhuman thread>" (S/W boundary: don't keep S/W body text in jobs.json after it leaves the queue).
-   - Update job in jobs.json: status → sent, sentAt → now, originalDraft → (edited text if changed).
+       Record approvalSource = "Brian approved via Google Tasks (list=S, taskId=<id>)" in the job log (jobs.json), even though Superhuman doesn't enforce the gate at the MCP layer. After successful send, scrub job.originalDraft AND job.sentDraft → "<sent — body retained in Superhuman thread>" (S/W boundary: don't keep S/W body text in jobs.json after it leaves the queue; the edit-evidence diff is intentionally sacrificed for S-prefix jobs).
+   - Update job in jobs.json: status → sent, sentAt → now, sentDraft → the exact body actually sent, decidedAt → the ISO timestamp this sweep observed Brian's decision (checkbox, ACTION line, or deletion). Leave originalDraft as Kerri's original draft: the originalDraft vs sentDraft diff is the durable evidence of Brian's edits; do not overwrite it.
    - Cold outreach approvals now arrive as a single `☀️ COLD BATCH` task — handled by the dedicated COLD BATCH TASK HANDLING block above, not here. (Legacy single `❄️ COLD-` tasks, if any remain, still update `data/cold-outreach-state.json`: move the email from `drafted[]` to `sent[]` with `{ email, sentAt, jobId, gtasksTaskId }`, cap counters unchanged.)
    - Write back to KerriOS:
      • append a compact thread/action entry to the relevant company wiki page or deal page
@@ -290,7 +303,7 @@ A) status == "completed" AND ACTION line == "send" (or missing/unparseable) → 
    - After jobs.json, brain/log.md, and the quality signal are written successfully, call `gtasks_delete_task` for the approval task. Do not leave the task as completed; completed approval tasks must self-clear so Brian's live Google Tasks list remains the active-work surface. If deletion fails, do not retry in a tight loop; record the cleanup miss in the grade ledger and continue with the job already marked sent.
 
 B) notes ACTION line == "skip" (any task status — needsAction OR completed, per the PRECEDENCE RULE) → SKIP
-   - Update job: status → skipped.
+   - Update job: status → skipped, decidedAt → the ISO timestamp this sweep observed the skip decision.
    - Quality signal: record `skipped_by_brian`; if the skip reason is visible in notes, capture a one-line process lesson.
    - After jobs.json, brain/log.md, and the quality signal are written successfully, call `gtasks_delete_task` for the approval task. Do not leave the task as completed; skipped tasks are closed work, not live work. If deletion fails, record the cleanup miss in the grade ledger and continue with the job already marked skipped.
 
@@ -303,7 +316,7 @@ C) notes ACTION line == "redo" (any task status — needsAction OR completed, pe
 D) status == "needsAction" AND notes ACTION line == "send" (default) → WAITING. No action.
 
 E) per-job `gtasks_get_task` returns `"deleted": true` → CLOSED BY BRIAN. Deletion is NOT an approval — fail closed on the no-double-email gate.
-   - Never send. Update job: status → skipped, skippedAt → now, skipReason → "task deleted in Google Tasks by Brian".
+   - Never send. Update job: status → skipped, skippedAt → now, decidedAt → now (the sweep observed the deletion), skipReason → "task deleted in Google Tasks by Brian".
    - Quality signal: record `skipped_by_brian` (task-deleted variant).
    - Append one brain/log.md line. Do NOT recreate the task. The jobId + company page persist so the relationship can be re-engaged later. (An accidental deletion closes the job but sends nothing — safe by construction.)
 
@@ -437,7 +450,7 @@ DRAFTING:
      - If you lack key context, ask exactly one clarifying question and say why you need it.
      - Peer tone — confident, not servile.
      - For sponsor/product-fit replies, use the H0001 Aris Machina learning: answer the explicit questions first, then broaden only where it moves the commercial conversation forward. Do not dump package menus or fresh pricing unless Brian already approved that in this thread.
-  5. Store exact draft as originalDraft on the job object.
+  5. Store exact draft as originalDraft on the job object. Set `actionClass` per the ACTION CLASS GUIDE (exactly one of the 8 values); every new jobs.json entry must carry it.
   6. Internal teammate CC suggestions:
      - If the draft or thread says to loop in, ask, coordinate with, or hand off to Ari or Benji, read that person's page and verify the email field.
      - Only suggest a CC when the person's role matches the ask: Ari for finance, invoices, wire details, banking, legal/contract/payment/accounting; Benji for Hardware FYI operations, Kinetic/event logistics, content/growth, sponsor delivery, or known Benji-owned threads.
@@ -597,6 +610,7 @@ Also record:
   - `jobsEditedAndSent`
   - `redosRequested`
   - `skips`
+  - `doubleEmailBlocks` (integer: count of sends the HARD NO-DOUBLE-EMAIL GATE held this run; 0 on a clean run)
   - `errors`
   - `improvementCandidates`
   - `confidence`: high | medium | low

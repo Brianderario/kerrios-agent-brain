@@ -18,6 +18,7 @@
         "jobsEditedAndSent": 0,
         "redosRequested": 0,
         "skips": 0,
+        "doubleEmailBlocks": 0,
         "errors": 0
       },
       "confidence": "high",
