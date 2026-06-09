@@ -1,3 +1,6 @@
+## [2026-06-09 ~12:15 ET] sw-newsletter-writer | intro added + subject-line rule updated | Kerri
+Added 3-paragraph intro to Beehiiv draft (greeting, thesis line, fast scan) matching the pattern from sent issues (AMCA, Camden, Modine, Utah, Rare Earth). Updated production-rules: (1) Intro spec added to Reader-Facing Structure, (2) Subject Line Rule rewritten to emphasize Payload/Tectonic/Morning Brew witty direction per Brian + Codex 2026-06-09 session. Noted title discrepancy: Beehiiv slug = "A Factory for Factories Just Opened in Rural Missouri" (Codex) vs editor textarea = "Grimes County Bets Its Tax Base on Terafab."
+
 ## [2026-06-09 ~12:00 ET] conferences-tab | dates column added | Kerri
 Brian asked for conference dates to be captured alongside event mentions. Added `dates` field to the conference-capture schema (STEP 5A.G in `agent-prompts/kerri-eod-meetings-review/SKILL.md`), updated `scripts/conferences-append.mjs` HEADER + LAST_COL (K->L, 11->12 cols) + dedupe source index (8->9), and inserted the column on the live CRM Conferences tab (Sheet `1mXauTrY5…mcgYk`) between involvement(E) and timing(now G). Instruction: sweep looks up exact dates from brain/wiki/events/ or web when the contact only gives a month/season.
 

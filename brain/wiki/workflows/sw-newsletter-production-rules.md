@@ -68,20 +68,28 @@ Avoid:
 
 ## Reader-Facing Structure
 
-1. Subject/headline.
+1. Subject/headline (witty, curiosity-bearing; see Subject Line Rule).
 2. Preview text beginning with `Plus:`.
-3. Short opener.
-4. `Markets`, in the stacked Beehiiv-safe format from `AMCA, SendCutSend, and The New Factory Middle`, with S&P 500 first.
+3. **Intro** (3 short paragraphs before Markets): greeting ("Happy Tuesday." / "Happy Thursday."), thesis line ("The current thing in the industrial base is [X]."), and a fast scan paragraph naming key stories with concrete dollars. Pattern established in AMCA, Camden, Modine, Utah, Rare Earth issues.
+4. `Markets` / THE FLOOR dashboard (see Markets Rule below).
 5. `The Lead`. NO inline source links in the Lead (Brian, 2026-06-09) — keep it clean analytical prose. Keep the lead story's sources in the local draft notes for verification; inline links live only on the category bullets + Dealbook. Minimize specific news dates in the Lead (Brian, 2026-06-09) — they add bloat and age fast; use them only when the date itself is the story (e.g., a deadline, a vote sequence). Drop "On June X" openers in favor of actor-first sentences.
 6. Industry sections with one-sentence linked bullets.
 7. `Dealbook`.
 8. Short close.
 
-## Subject Line Rule
+## Subject Line Rule (updated Brian + Codex 2026-06-09)
 
-Every issue should have an intentionally written subject line, not just a recycled lead slug. Before staging, generate 5-8 options and choose the one most likely to earn an open while staying relevant to the lead story.
+The subject line is the most important line in the issue. It earns the open. Treat it like a headline at Payload, Tectonic, or Morning Brew: **witty, concrete, curiosity-bearing, and short enough to scan on a phone.** Brian wants subject lines that make people want to click, not just describe what's inside.
 
-Use Payload, Tectonic, Morning Brew, and TBPN as mechanics inspiration only: short, current, concrete, lightly witty, and curiosity-bearing without clickbait. Prefer a named place, company, asset, constraint, or industrial object. Avoid generic newsletter labels, vague abstractions, joke-first phrasing, emojis, hype language, and titles that could fit any issue.
+Good subject lines name a specific place, company, object, or constraint, then frame it with a verb or angle that makes the reader curious. They hint at a story without giving away the punchline. Examples from sent issues and Brian/Codex direction:
+- "AMCA, SendCutSend, and The New Factory Middle"
+- "Camden Becomes A Missile Factory Town"
+- "Modine Sells The Factory Calendar"
+- "A Factory for Factories Just Opened in Rural Missouri" (Brian/Codex 2026-06-09)
+
+Before staging, generate 5-8 options and choose the one most likely to earn an open while staying relevant to the lead story. Bias toward the interesting/witty option over the safe/descriptive one.
+
+Avoid: generic newsletter labels, vague abstractions, joke-first phrasing, emojis, hype language, titles that could fit any issue, and purely descriptive slugs that just summarize the lead.
 
 ## Research Gate
 
