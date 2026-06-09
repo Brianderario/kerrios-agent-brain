@@ -28,8 +28,9 @@ The custom Outlook MCP server (`mcp__7595b333-52b3-44c3-bb57-8bb4f7fd5ae7`) expo
 ## Send rules
 
 - **Read-only by default.** `SEND_AS=NONE`.
-- **All drafts route to Brian first.** Slack DM (today) or iMessage (once bridge is live).
+- **All drafts route to Brian first** as Google Tasks approval items (the BOR). Slack is retired as the draft channel; texts are the interrupt lane, never the approval surface.
 - **Brian approves per-thread.** Approval is thread-scoped; the next thread needs its own approval.
+- **One exception (Brian decision 2026-06-09):** `internal-recipient-reply` jobs may auto-send under the AUTO-LOGGED path in `agent-prompts/kerri-inbox-sweep/SKILL.md`, governed by `data/autonomy-policy.json` — every recipient must be on the trustedInternal list, Kerri identity only, H/G prefix only, fail closed to ask on any doubt. Notification = auto-CC + morning-brief Auto-Logged section.
 - **Send identity choices** (when approved):
   - **As Kerri** (from kerri@hardwarefyi.com) — when the conversation is operational coordination, Kerri-to-counterparty.
   - **As Brian** (from brian@kerrihq.com or brian@hardwarefyi.com) — when the message is from Brian personally. Match the inbound thread's domain when possible.

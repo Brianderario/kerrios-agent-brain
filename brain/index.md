@@ -79,6 +79,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-05-26-agent-folder-master]] — local Codex Kerri Agent Master folder gives each role pod and subagent a pickable context pack for future automations.
 - [[wiki/decisions/2026-05-26-parallel-core-automation-bundle]] — second rebuild wave: EOD Meetings Review, Morning Brief, and Brain Push/Knowledge Hygiene activated together.
 - [[wiki/decisions/2026-06-09-autonomy-boundary]] — class-based auto-vs-ask split: internal-recipient-reply → AUTO-LOGGED, earned graduation ramp, 7-day approval escalation
+- [[wiki/decisions/2026-06-09-kerri-brian-comms]] — channel map: Google Tasks = approvals BOR, email = two-way backbone, text = interrupt lane only, Slack retired as the personal channel
 
 ## Deals · Meetings · Candidates · Raw
 
