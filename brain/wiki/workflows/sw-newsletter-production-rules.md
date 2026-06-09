@@ -72,7 +72,7 @@ Avoid:
 2. Preview text beginning with `Plus:`.
 3. Short opener.
 4. `Markets`, in the stacked Beehiiv-safe format from `AMCA, SendCutSend, and The New Factory Middle`, with S&P 500 first.
-5. `The Lead`.
+5. `The Lead`. NO inline source links in the Lead (Brian, 2026-06-09) — keep it clean analytical prose. Keep the lead story's sources in the local draft notes for verification; inline links live only on the category bullets + Dealbook.
 6. Industry sections with one-sentence linked bullets.
 7. `Dealbook`.
 8. Short close.
