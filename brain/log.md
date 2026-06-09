@@ -3,6 +3,9 @@
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 Prior months live in `brain/log-archive/log-<YYYY-MM>.md` (rotated by `scripts/rotate-brain-log.mjs`); this file holds the current month only.
 
+## [2026-06-09 18:12 ET] interactive | Wave 3 autonomy ladder DONE, PR #16 open, all 4 waves complete | Kerri (Claude interactive)
+Final wave of the loop build. PR #16 (branch kerri/wave3-autonomy-self-improve): data/autonomy-policy.json created and git-tracked (all 8 actionClass values at stage 1, fail-closed on missing/unreadable); scripts/autonomy-scorecard.mjs (read-only evidence compiler: per-class sent/skipped/unedited rate/incidents/days/readiness vs thresholds 14d/10+/95%/0); agent-prompts/kerri-self-improve/SKILL.md (weekly Sunday 17:00 ET: runs scorecard, scans for edit patterns, writes improvement page to brain/wiki/improvements/, proposes promotion candidates but NEVER self-promotes); inbox-sweep STEP 3.5 autonomy policy consultation gate (fail-closed, changes zero behavior today since all classes are stage 1; when Brian promotes a class via PR, the gate respects it). Registered in manifest, CLAUDE-ROUTINES, registry. Independently verified: 223->241 tests (+18), npm run check exit 0, scorecard works against fixture data, 0 em dashes, mergeable CLEAN. No new authority granted, no send behavior changed, no new surfaces built. Material change -> PR, awaiting Brian. NOW.md updated.
+
 ## [2026-06-09 17:56 ET] interactive | Wave 2 PR #15 MERGED to main, cold funnel + renewal live | Kerri (Claude interactive)
 Brian confirmed cold outreach approval flow is unchanged ("I still want to be able to approve cold emails"), then merged. Squash-merged PR #15, pulled, verified 223/223 tests + check exit 0. Cold drafts no longer appear in the daily morning brief Approval Queue (batch approval via Google Tasks unchanged). Three waves now live on main.
 
