@@ -384,7 +384,12 @@ async function ensureTab(sheets, spreadsheetId) {
     },
   });
 }
+async function requireTab(sheets, spreadsheetId) {
+  const meta = await getMeta(sheets, spreadsheetId);
+  if (!findSheet(meta, TAB)) throw new Error(`Missing "${TAB}" tab in ${spreadsheetId} — run --ensure first`);
+}
 async function readSummary(sheets, spreadsheetId) {
+  await requireTab(sheets, spreadsheetId);
   const result = await sheets.spreadsheets.values.get({
     spreadsheetId,
     range: `'${TAB}'!A1:R120`,
@@ -393,6 +398,7 @@ async function readSummary(sheets, spreadsheetId) {
   return result.data.values || [];
 }
 async function readLedgerRows(sheets, spreadsheetId) {
+  await requireTab(sheets, spreadsheetId);
   const result = await sheets.spreadsheets.values.get({
     spreadsheetId,
     range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
@@ -751,9 +757,6 @@ async function main() {
       return;
     }
     if (hasFlag("check")) {
-      const meta = await getMeta(sheets, spreadsheetId);
-      const sheet = findSheet(meta, TAB);
-      if (!sheet) throw new Error(`Missing "${TAB}" tab in ${spreadsheetId}`);
       const rows = await readSummary(sheets, spreadsheetId);
       const header = rows[LEDGER_START_ROW - 1] || [];
       if ((rows[0] || [])[0] !== SUMMARY_ROWS[0][0]) throw new Error("Summary title missing");

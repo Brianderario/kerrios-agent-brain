@@ -23,7 +23,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -329,11 +329,15 @@ function writeAlertState(root, state) {
 function sendText(message, dryRun) {
   const out = { message, sent: false };
   if (dryRun) return out;
-  try {
-    execFileSync(process.execPath, [TEXT_ALERT, '--message', message], { stdio: 'ignore' });
+  const r = spawnSync(process.execPath, [TEXT_ALERT, '--message', message], { encoding: 'utf8' });
+  if (r.error) {
+    out.error = r.error.message;
+  } else if (r.status !== 0) {
+    let detail = `exit ${r.status}`;
+    try { const j = JSON.parse(r.stdout); if (j && j.error) detail = j.error; } catch { /* keep */ }
+    out.error = detail;
+  } else {
     out.sent = true;
-  } catch (e) {
-    out.error = e.message;
   }
   return out;
 }
