@@ -129,7 +129,7 @@ A malformed/corrupt live state file is **high** severity. **Do not auto-edit liv
 
 **N. Host / resource health.** The memory-leak failure mode (leaked inbox-sweep sessions → load 23 → Mac thrash). Check:
 - piled-up / leaked Claude Code sessions (especially orphaned `kerri-inbox-sweep` sessions whose runner never closed stdin).
-- the auto-reaper LaunchAgent `com.kerri.inbox-sweep-reaper` is loaded and its script `~/.kerri-chief/runtime/scripts/inbox-sweep-reaper.mjs` exists + is executable.
+- the auto-reaper LaunchAgent `com.kerri.inbox-sweep-reaper` is loaded and its script `scripts/inbox-sweep-reaper.mjs` exists + is executable.
 - runaway growth in runtime/log/`artifacts/` dirs.
 A live session pileup or a dead reaper is **high** severity → text Brian + task. Inspection only — **never SIGKILL interactive or handoff sessions** from this agent; the reaper owns that and verifies session identity by transcript.
 
