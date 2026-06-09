@@ -35,6 +35,17 @@ That means:
 - 6-10 Dealbook items when the funding, M&A, financing, facility, or contract tape supports it
 - internal source notes and claims-to-check preserved outside the reader-facing body
 
+## Story Freshness Gate (HARD RULE — Brian, 2026-06-09)
+
+**Every bullet and Dealbook item must have been published AFTER the last sent issue and BEFORE the current issue's staging date.** No exceptions. The window is last-issue-send-date → today. If the last issue went out Thursday June 4, only stories published June 4 evening through the current staging date qualify.
+
+Before staging, verify every source URL's publication date. A story is stale if:
+- it was published before the last sent issue's date, OR
+- it already appeared in a prior S&W issue (dedup against at least the last 2 sent issues), OR
+- the source article is a roundup/listicle with no specific announcement date in-window.
+
+If a section has zero in-window stories, **omit the section entirely** rather than padding with stale items. Linking to a months-old source makes the newsletter look uninformed. This is the single fastest way to lose credibility with a serious industrial reader.
+
 Bottom-of-issue coverage should be fuller rather than sparse. Include every credible in-window story that fits Standard & Works, especially fundraises, M&A, facility/capacity moves, contracts, public financing, workforce programs, supply-chain infrastructure, and regional economic-development items. Omit only when the story is stale, off-topic, soft thought leadership, conference-only, earnings-only, consumer-only, or too weak for a serious industrial reader.
 
 Pacing model: TBPN's shape is useful inspiration (quick setup, fuller lead, fast linked items underneath) but do NOT copy TBPN's voice or signature lines. S&W's own opener is "The build this week: [X]." (see Intro spec below). The lead should name what is weird, mispriced, misunderstood, or newly visible in an industrial story, then land on capacity, procurement, capital formation, supply chains, power, or buyer behavior.

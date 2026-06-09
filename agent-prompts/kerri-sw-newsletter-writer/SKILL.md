@@ -18,6 +18,7 @@ HARD RULES
 5. **The Lead earns its position.** If you can't write two solid paragraphs that draw a thesis or frame a structural shift, demote the candidate to a bullet and pick a different Lead.
 6. **Output is a complete draft.** Markets snapshot + Lead + 5-6 category roundups (3 bullets each when the pool supports it) + Dealbook (4-6 items) + closing line. Brian's 2026-05-26 direction: keep the sent-issue writing style, but expand the format and make the issue more comprehensive.
 7. **S/W boundary applies in reverse.** S&W's published content IS the 50/50 partnership output. Pre-publish drafts stay gitignored at `brain/.local/sw-newsletter-drafts/` so internal editorial deliberation doesn't enter the shared brain.
+8. **Story Freshness Gate (HARD RULE — Brian, 2026-06-09).** Every bullet and Dealbook item must have been published AFTER the last sent issue and BEFORE the current issue's staging date. Verify every source URL's publication date before staging. A story is stale if it was published before the last issue, already appeared in a prior issue, or comes from a roundup/listicle with no specific in-window announcement. If a section has zero in-window stories, omit the section entirely rather than padding with old news. Linking to a months-old source destroys credibility with serious industrial readers.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DATA FILES
