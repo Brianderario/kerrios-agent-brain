@@ -259,7 +259,7 @@ A) status == "completed" AND ACTION line == "send" (or missing/unparseable) → 
    - Compare the current notes' DRAFT block (between `>>>>>>>` and `<<<<<<<`) to job.originalDraft.
    - If identical → send original draft. approvalSource = "Brian approved via Google Tasks (list=<H|S|G>, taskId=<id>)"
    - If different → Brian edited. Send the edited text. approvalSource = "Brian edited + approved via Google Tasks (list=<H|S|G>, taskId=<id>)"
-     Exception: if the notes include `DRAFT SOURCE: Codex interactive redo` or another Kerri/Codex provenance line, send the current DRAFT but do NOT infer a Brian edit and do NOT append a draft-learnings.md rule. The interactive session owns syncing `jobs.json.originalDraft`; if it failed to sync, record a process miss instead of training on the diff.
+     Exception: if the notes include a `DRAFT SOURCE:` provenance line (`DRAFT SOURCE: Claude Code interactive redo`, the legacy `DRAFT SOURCE: Codex interactive redo`, or another Kerri/Codex provenance line), send the current DRAFT but do NOT infer a Brian edit and do NOT append a draft-learnings.md rule. The interactive session owns syncing `jobs.json.originalDraft`; if it failed to sync, record a process miss instead of training on the diff.
      If this is a real Brian edit and not a Kerri/Codex redo, also append a lesson to draft-learnings.md:
        ## [YYYY-MM-DD] Job [JOBID] — [Company]
        **What changed:** [describe the edit specifically]

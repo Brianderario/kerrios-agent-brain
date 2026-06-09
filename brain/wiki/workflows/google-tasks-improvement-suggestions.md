@@ -64,7 +64,7 @@ Current file(s): <canonical prompt/workflow/data file checked>
 When an interactive Claude Code/Kerri session rewrites a Google Tasks DRAFT block, it must also update the matching `data/jobs.json` entry's `originalDraft` in the same flow and add a short provenance line in the task notes:
 
 ```text
-DRAFT SOURCE: Codex interactive redo at <YYYY-MM-DD HH:MM ET>
+DRAFT SOURCE: Claude Code interactive redo at <YYYY-MM-DD HH:MM ET>
 ```
 
 If the session cannot sync `jobs.json`, it must leave the task unapproved and flag the sync gap. The inbox sweep must not treat a DRAFT diff caused by a Kerri/Codex redo as a Brian edit or turn it into a `draft-learnings.md` rule.

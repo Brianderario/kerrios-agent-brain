@@ -195,6 +195,71 @@ test('morning-brief before fire+grace is ok even with a started run on disk', ()
   assert.equal(mb.status, 'ok');
 });
 
+// --- industry-intel: ran-today vs never-succeeded vs missing state ---
+
+test('industry-intel ran this morning (ET stamp format) → ok', () => {
+  const root = fixture({
+    'industry-intel-state.json': { schema: 'v1', lastRunAt: '2026-06-04 06:35 EDT' }
+  });
+  const rep = run(root, '2026-06-04T12:00:00Z'); // 08:00 ET Thu
+  const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
+  assert.equal(ii.status, 'ok');
+});
+
+test('industry-intel bootstrap state with lastRunAt null after grace → dark (zero runs ever)', () => {
+  const root = fixture({
+    'industry-intel-state.json': { schema: 'v1', lastRunAt: null, processedFeedGuids: [] }
+  });
+  const rep = run(root, '2026-06-04T12:00:00Z'); // 08:00 ET Thu, past 07:15 ET grace
+  const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
+  assert.equal(ii.status, 'dark');
+  assert.match(ii.detail, /zero successful runs/i);
+});
+
+test('industry-intel before fire+grace → ok even with null lastRunAt', () => {
+  const root = fixture({
+    'industry-intel-state.json': { schema: 'v1', lastRunAt: null }
+  });
+  const rep = run(root, '2026-06-04T10:30:00Z'); // 06:30 ET Thu — inside grace
+  const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
+  assert.equal(ii.status, 'ok');
+});
+
+test('industry-intel stale from yesterday after grace → dark (missed today)', () => {
+  const root = fixture({
+    'industry-intel-state.json': { schema: 'v1', lastRunAt: '2026-06-03 06:32 EDT' }
+  });
+  const rep = run(root, '2026-06-04T12:00:00Z');
+  const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
+  assert.equal(ii.status, 'dark');
+  assert.match(ii.detail, /no industry-intel run recorded for today/i);
+});
+
+test('industry-intel weekend → paused-ok', () => {
+  const root = fixture({
+    'industry-intel-state.json': { schema: 'v1', lastRunAt: null }
+  });
+  const rep = run(root, '2026-06-06T15:00:00Z'); // 11:00 ET Saturday
+  const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
+  assert.equal(ii.status, 'paused-ok');
+});
+
+test('industry-intel missing state file → unknown, not dark', () => {
+  const root = fixture({});
+  const rep = run(root, '2026-06-04T12:00:00Z');
+  const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
+  assert.equal(ii.status, 'unknown');
+});
+
+test('industry-intel malformed lastRunAt → no crash, treated as stale', () => {
+  const root = fixture({
+    'industry-intel-state.json': { schema: 'v1', lastRunAt: 'not-a-date' }
+  });
+  const rep = run(root, '2026-06-04T12:00:00Z');
+  const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');
+  assert.equal(ii.status, 'dark');
+});
+
 // --- alert dedup + recovery (pure decision) ---
 
 const dark = (name) => ({ routine: name, status: 'dark', detail: 'stale', ageMinutes: 60 });
