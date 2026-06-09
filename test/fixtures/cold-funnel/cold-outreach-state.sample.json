@@ -1,0 +1,46 @@
+{
+  "weekStart": "2026-06-08",
+  "weekCount": 10,
+  "todayDate": "2026-06-09",
+  "todayCount": 5,
+  "sent": [
+    { "email": "alice@alpha.com", "sentAt": "2026-05-26T10:00:00-04:00", "jobId": "H0010" },
+    { "email": "bob@beta.com", "sentAt": "2026-05-28T10:00:00-04:00", "jobId": "H0011" },
+    { "email": "carol@gamma.com", "sentAt": "2026-06-01T10:00:00-04:00", "jobId": "H0012" },
+    { "email": "dave@delta.com", "sentAt": "2026-06-03T10:00:00-04:00", "jobId": "H0013" },
+    { "email": "eve@epsilon.com", "sentAt": "2026-06-08T10:00:00-04:00", "jobId": "H0014" },
+    { "email": "frank@zeta.com", "sentAt": "2026-05-20T10:00:00-04:00", "jobId": "H0015" }
+  ],
+  "drafted": [
+    { "email": "gina@theta.com", "draftedAt": "2026-06-09T08:00:00-04:00", "jobId": "H0016", "batchIndex": 1 },
+    { "email": "hank@iota.com", "draftedAt": "2026-06-09T08:00:00-04:00", "jobId": "H0017", "batchIndex": 2 }
+  ],
+  "replied": [
+    {
+      "email": "alice@alpha.com",
+      "repliedAt": "2026-06-02T10:30:00-04:00",
+      "jobId": "H0010",
+      "sentiment": "positive",
+      "note": "warm referral to CTO",
+      "company": "Alpha Corp"
+    },
+    {
+      "email": "frank@zeta.com",
+      "repliedAt": "2026-06-05T14:00:00-04:00",
+      "jobId": "H0015",
+      "sentiment": "neutral",
+      "company": "Zeta Inc"
+    }
+  ],
+  "secondTouchSent": [
+    {
+      "email": "bob@beta.com",
+      "originalSentAt": "2026-05-28T10:00:00-04:00",
+      "secondTouchSentAt": "2026-06-07T10:00:00-04:00",
+      "jobId": "H0011",
+      "subject": "Re: Hardware FYI x Beta",
+      "approvalSource": "batch approval 2026-06-06"
+    }
+  ],
+  "secondTouchDrafted": []
+}

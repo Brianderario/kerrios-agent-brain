@@ -239,6 +239,57 @@ For each draft created (each block in the batch task):
 Save state. (One batch task id is shared across all of the day's drafted entries; `batchIndex` distinguishes them.)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 6.5 - SECOND TOUCH DRAFTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After the primary outreach batch is staged (or skipped due to empty queue/caps), scan `data/cold-outreach-state.json#sent[]` for second-touch candidates.
+
+**Eligibility:** A sent entry qualifies for a second touch when ALL of these are true:
+- `sentAt` is 7+ days ago (configurable, default 7)
+- No matching email in `replied[]` (they haven't responded)
+- No matching email in `secondTouchSent[]` (we haven't already followed up)
+- No matching email in `secondTouchDrafted[]` (a draft isn't already queued)
+
+**Volume:** Draft at most 5 second-touch emails per run. These count toward the same daily (10/day) and weekly (50/week) caps as primary outreach. If the primary batch consumed the full budget, skip second-touch drafting silently.
+
+**Drafting rules:**
+- The second touch is a SHORT, value-add follow-up (3-4 sentences max after the greeting).
+- Reference the original email naturally ("I reached out last week about...").
+- Offer one NEW piece of value the first email did not include: a relevant stat about their industry, a recent case study from a similar company, a timely angle (new product launch, industry event, recent press), or a specific content piece from Hardware FYI they would find useful.
+- Do NOT use "just checking in," "circling back," "bumping this," or any generic follow-up language. Those are dead signals.
+- Same voice rules, em dash ban, and no-footer rule as primary drafts (STEP 4).
+- Sender identity matches the original email's sender.
+
+**Batch task:** Second-touch drafts go into a separate Google Task in the Hardware FYI list:
+- Title: `🔄 SECOND TOUCH BATCH <YYYY-MM-DD> - <N> follow-ups`
+- Notes format mirrors the primary batch (SEND/SKIP/REDO control lines, draft blocks with `>>>>>>>` / `<<<<<<<` delimiters), but each block also includes `original sent: <date>` and `days since first touch: <N>`.
+
+**State tracking:** Record each second-touch draft in `cold-outreach-state.json#secondTouchDrafted[]`:
+```json
+{
+  "email": "person@company.com",
+  "originalSentAt": "2026-05-26T15:19:46Z",
+  "draftedAt": "2026-06-05T...",
+  "jobId": "H0003",
+  "batchIndex": 1
+}
+```
+
+When the inbox sweep sends an approved second-touch draft, it moves the entry from `secondTouchDrafted[]` to `secondTouchSent[]` with the additional fields:
+```json
+{
+  "email": "person@company.com",
+  "originalSentAt": "2026-05-26T15:19:46Z",
+  "secondTouchSentAt": "2026-06-05T...",
+  "jobId": "H0003",
+  "subject": "Re: Hardware FYI x Company",
+  "approvalSource": "batch approval..."
+}
+```
+
+**Quiet skip:** If zero sent entries qualify for a second touch, do not create a task or Slack alert. Proceed to STEP 7 silently.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 7 — DIGEST (Slack DM to Brian)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -263,6 +314,14 @@ If nothing was processed (queue empty, all skipped): post nothing to Slack. The 
 
 If the batch has fewer than 10 drafts, include the deficit line:
 `⚠️ Deficit: <10-N> more qualified prospects needed for today's 10-outreach target.`
+
+If second-touch drafts were created (STEP 6.5), append:
+```
+🔄 Second-touch follow-ups (<N>):
+  • #1 <Company> - <days since first touch>d, <one-line value-add angle>
+  • ...
+👉 Separate task: "🔄 SECOND TOUCH BATCH <date>"
+```
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 8 — BRAIN LOG

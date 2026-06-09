@@ -42,6 +42,8 @@ Read the Hardware FYI CRM Sheet (canonical: `1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waR
 
 **A. Expiring contracts** — contracts with known end dates in the next 90 days. These are urgent: the sponsor's budget may reallocate if we don't reach out before the contract lapses.
 
+The canonical source for contract end dates is the `contract_end_date` YAML frontmatter field on each deal file in `brain/wiki/deals/`. If a deal has `contract_end_date: null` (or the field is missing), attempt to look it up from DocuSign (`getEnvelopes` / `getAgreementDetails` filtered by the company name or signer email) or the CRM Contract Breakdown tab. If a date is found, backfill it onto the deal file's frontmatter so future scans pick it up without re-querying. If no date can be determined, leave it null and log the gap. Run `node scripts/backfill-contract-dates.mjs --json` at the start of the scan to see which active/dormant deals are missing end dates, and prioritize looking those up.
+
 **B. Lapsed prior-year sponsors** — companies that sponsored Hardware FYI in 2024-2025 (visible in Contract Breakdown / Revenue 2024-Present) but have no CY2026 contract. These are warm leads, not cold — they already bought, so the conversation is "what's next" rather than "who are we."
 
 **C. Single-product upsell** — companies with one active product (e.g., newsletter placement only) who could add another (webinar, custom content, happy hour/dinner, Kinetiq 2027 exhibitor package, private event). Cross-sell to the buyer's goal, not a product dump.

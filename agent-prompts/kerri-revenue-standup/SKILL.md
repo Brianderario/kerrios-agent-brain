@@ -69,20 +69,30 @@ If the revenue-standup-state has prior-week data, show the trend: "pipeline grew
 STEP 3 — OUTREACH EFFECTIVENESS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-From cold-outreach-state.json:
+Run the cold funnel report first for structured data:
+```
+node scripts/cold-funnel-report.mjs --json
+```
+
+This provides the full funnel view: total sent, reply rate, second-touch pipeline, and notable replies. Use its output to populate the fields below. If the script fails, fall back to reading `data/cold-outreach-state.json` directly.
+
+From the cold funnel report (or cold-outreach-state.json as fallback):
 
 - **Cold emails sent this week** (sentAt in the last 7 days)
 - **Total sent to date** (all-time count)
 - **Replies received** (from conversion tracking in cold-outreach-state, if populated)
-- **Reply rate** (replies ÷ total sent, all-time)
+- **Reply rate** (replies / total sent, all-time)
+- **Notable replies** (positive sentiment replies with company name and note, from the funnel report's `replied.notable` array)
+- **Second-touch pipeline** (from the funnel report's `secondTouch` section: eligible count, sent count, drafted count)
 - **Meetings booked from outreach** (if tracked)
-- **Batch approval lag** (time between batch creation and Brian checking the box — are drafts sitting?)
-- **Queue depth** — how many ready prospects remain in `data/cold-outreach-queue.json`
+- **Batch approval lag** (time between batch creation and Brian checking the box, are drafts sitting?)
+- **Queue depth** (how many ready prospects remain in `data/cold-outreach-queue.json`)
 
 Flags:
-- Reply rate below 5% → targeting or messaging problem
-- Batches unapproved >48h → approval bottleneck
-- Queue below 15 → lead research needs a backfill
+- Reply rate below 5% -> targeting or messaging problem
+- Batches unapproved >48h -> approval bottleneck
+- Queue below 15 -> lead research needs a backfill
+- Second-touch eligible >20 -> follow-ups are piling up, may need a larger batch or manual review
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 4 — RENEWAL RADAR
@@ -139,6 +149,7 @@ Pace needed: $XX,XXX/week → [ON PACE ✅ / BEHIND ⚠️ / AHEAD 🟢]
 📧 OUTREACH
 Sent this week: XX (XX total) | Queue: XX ready
 Replies: X (X% all-time rate) | Batches pending approval: X
+Second-touch: X eligible, X sent, X drafted | Notable: [company names or "none"]
 
 🔄 RENEWALS
 [Top 2-3 renewal/upsell opportunities, or "watchdog not yet active"]
