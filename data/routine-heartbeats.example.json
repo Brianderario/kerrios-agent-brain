@@ -1,0 +1,20 @@
+{
+  "schema": "routine-heartbeats-v1",
+  "routines": {
+    "kerri-cold-outreach": {
+      "lastRunAt": "2026-06-09T13:07:00.000Z",
+      "lastStatus": "ok",
+      "runCount": 42
+    },
+    "kerri-lead-research": {
+      "lastRunAt": "2026-06-09T22:13:00.000Z",
+      "lastStatus": "quiet",
+      "runCount": 41
+    },
+    "kerri-pipeline-followup": {
+      "lastRunAt": "2026-06-09T12:33:00.000Z",
+      "lastStatus": "ok",
+      "runCount": 9
+    }
+  }
+}

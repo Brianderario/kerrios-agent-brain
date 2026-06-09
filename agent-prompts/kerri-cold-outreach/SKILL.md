@@ -279,6 +279,18 @@ Prepend ONE line to `brain/log.md`:
 The nightly `kerri-brain-push` commits this.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 8.5 - RECORD HEARTBEAT (last action, every run)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, including a quiet/no-op run (queue empty, caps full), stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-cold-outreach --status <ok|quiet>
+```
+
+Use `ok` when drafts were staged, `quiet` on a clean no-op. This is how the routine-liveness watchdog knows cold outreach fired and finished; skipping it can page Brian with a false "dark routine" alert.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 9 — POST-SEND BRAIN WRITES (handled by inbox sweep, not this agent)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

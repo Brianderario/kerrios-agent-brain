@@ -329,6 +329,18 @@ If any drafts OR close-outs happened, prepend ONE line to `brain/log.md`:
 The nightly `kerri-brain-push` (22:00 ET) commits this.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 8 - RECORD HEARTBEAT (last action, every run)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, including a quiet/no-op run (no deals due, nothing drafted), stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-pipeline-followup --status <ok|quiet>
+```
+
+Use `ok` when drafts or close-outs happened, `quiet` on a clean no-op. This is how the routine-liveness watchdog knows pipeline follow-up fired and finished; skipping it can page Brian with a false "dark routine" alert.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SESSION NOTES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

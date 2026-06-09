@@ -172,6 +172,18 @@ Send a Sendblue text alert ONLY when renewal drafts are created:
 - A renewal draft that Brian rewrites → capture the voice/framing correction in draft-learnings.md
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 5 - RECORD HEARTBEAT (last action, every run)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, including a quiet/no-op run (no candidates, nothing drafted), stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-renewal-watchdog --status <ok|quiet>
+```
+
+Use `ok` when renewal drafts were created, `quiet` on a clean no-op. This is how the routine-liveness watchdog knows the Wednesday watchdog fired and finished; skipping it can page Brian with a false "dark routine" alert.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 HARD RULES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

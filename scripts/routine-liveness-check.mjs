@@ -31,6 +31,12 @@ const TEXT_ALERT = '/Users/brianderario/.kerri-chief/runtime/scripts/send-text-a
 // Persists which routines currently have an OPEN dark-alert, so we text Brian ONCE when a
 // routine goes dark (not every 15-min tick) and ONCE when it recovers.
 const ALERT_STATE_FILE = 'routine-liveness-alert-state.json';
+// Single source of truth for the routine fleet. The REGISTRY (what exists, cron, core,
+// monitored flag, which evaluator runs) is driven from here; the bespoke evaluator
+// FUNCTIONS still live in this file and are mapped by the manifest's `evaluator` name.
+// Wave 1 (2026-06-09): closes the hand-coded-list gap where 6 of ~12 cron routines were
+// unmonitored. Adding a routine to the manifest is now what registers it for liveness.
+const MANIFEST_FILE = path.resolve(repoRoot, 'agent-prompts', 'routines.manifest.json');
 
 function parseArgs(values) {
   const out = { _: [] };
@@ -202,12 +208,24 @@ function industryIntelState(root) {
   return s;
 }
 
-// Routine registry: cadence + the rule that decides whether it should have run.
-const ROUTINES = [
-  {
-    name: 'kerri-inbox-sweep',
-    core: true,
-    cadence: 'weekdays every 15 min, 06:00–22:45 ET; weekends 10:00 and 16:00 ET',
+// Uniform heartbeat stamp (scripts/heartbeat.mjs writes data/routine-heartbeats.json).
+// This is the ADDITIVE success source wired into every routine: last-success for a
+// routine is max(its bespoke state stamp(s), its heartbeat lastRunAt). A routine wired
+// to heartbeat OR still on its old state file both read as alive, so adding heartbeats
+// never weakens dark detection; it only adds evidence the routine fired and finished.
+function heartbeatStamp(root, routineName) {
+  const all = readJson(root, 'routine-heartbeats.json');
+  const entry = all && all.routines ? all.routines[routineName] : null;
+  return entry && entry.lastRunAt ? entry.lastRunAt : null;
+}
+
+// Evaluator library: the bespoke per-routine rules that decide whether a routine
+// SHOULD have run by now. Each is keyed by the manifest's `evaluator` name and bundles
+// its success-stamp reader(s) + the dark-detection rule. The manifest (loaded below)
+// supplies the registry (name/cron/core/monitored/cadence); these supply the nuance
+// (weekend windows, mid-run-crash detection, bootstrap-day grace, etc).
+const EVALUATORS = {
+  'inbox-sweep': {
     read: lastInboxSweep,
     // Windowed: high-cadence on weekdays, intentionally sparse on weekends.
     evaluate(last, et, age) {
@@ -240,10 +258,7 @@ const ROUTINES = [
       return { status: 'dark', detail: `last success ${age}m ago (expected ≤${limit}m in-window)` };
     }
   },
-  {
-    name: 'kerri-morning-brief',
-    core: false,
-    cadence: 'weekdays ~06:57 ET',
+  'morning-brief': {
     read: lastMorningBrief,
     readExtra: morningBriefRun,
     evaluate(last, et, age, lastEt, run) {
@@ -264,10 +279,7 @@ const ROUTINES = [
       return { status: 'dark', detail: 'never fired today — no brief and no run start recorded after 07:30 ET' };
     }
   },
-  {
-    name: 'kerri-industry-intel',
-    core: false,
-    cadence: 'weekdays ~06:30 ET',
+  'industry-intel': {
     read: lastIndustryIntel,
     readExtra: industryIntelState,
     evaluate(last, et, age, lastEt, state) {
@@ -287,10 +299,7 @@ const ROUTINES = [
       return { status: 'dark', detail: 'no industry-intel run recorded for today after 07:15 ET' };
     }
   },
-  {
-    name: 'kerri-eod-meetings-review',
-    core: false,
-    cadence: 'weekdays ~18:28 ET',
+  'eod-meetings-review': {
     read: lastEod,
     evaluate(last, et, age, lastEt) {
       if (et.isWeekend) return { status: 'paused-ok', detail: 'weekend' };
@@ -300,10 +309,7 @@ const ROUTINES = [
       return { status: 'dark', detail: 'no EOD run recorded for today after 19:15 ET' };
     }
   },
-  {
-    name: 'kerri-brain-push',
-    core: false,
-    cadence: 'daily 22:00 ET',
+  'brain-push': {
     read: (root) => lastRunsField(root, 'brain-push-state.json', 'runAt'),
     evaluate(last, et, age, lastEt) {
       if (et.minutesOfDay < 22 * 60 + 45 && (age == null || age <= 26 * 60)) {
@@ -314,10 +320,7 @@ const ROUTINES = [
       return { status: 'dark', detail: `last push ${age != null ? age + 'm' : 'unknown'} ago (expected daily 22:00 ET)` };
     }
   },
-  {
-    name: 'kerri-gap-sweep',
-    core: false,
-    cadence: 'daily 21:41 ET',
+  'gap-sweep': {
     read: (root) => lastRunsField(root, 'gap-sweep-state.json', 'timestamp'),
     evaluate(last, et, age) {
       if (et.minutesOfDay < 22 * 60 + 15 && (age == null || age <= 26 * 60)) {
@@ -327,20 +330,98 @@ const ROUTINES = [
       if (age != null && age <= 26 * 60) return { status: 'ok' };
       return { status: 'dark', detail: `last sweep ${age != null ? age + 'm' : 'unknown'} ago (expected daily 21:41 ET)` };
     }
+  },
+  // Generic evaluator for the 6 Wave-1 routines that lacked bespoke liveness logic
+  // (lead-research, cold-outreach, pipeline-followup, revenue-standup, renewal-watchdog,
+  // morning-brief-retry). Their bespoke state files vary, so the uniform heartbeat is the
+  // success source here. Rule: on an OFF day (not in activeWeekdays, or any weekend when
+  // activeWeekdays is unset) → paused-ok; before fireMinuteEt+graceMinutes → ok; success
+  // recorded today → ok; no heartbeat file/stamp ever → unknown; otherwise → dark. The
+  // manifest supplies fireMinuteEt (ET minutes-of-day), graceMinutes, and optional
+  // activeWeekdays so one function serves all six. last/lastEt come from the heartbeat
+  // stamp (max'd with any bespoke stamp by evaluateRoutines), so a routine on its old
+  // state file alone still reads alive.
+  'heartbeat-weekday': {
+    read: () => null, // heartbeat is the source; pulled in evaluateRoutines as the additive max
+    evaluate(last, et, age, lastEt, _extra, def) {
+      const activeDays = Array.isArray(def.activeWeekdays) && def.activeWeekdays.length
+        ? def.activeWeekdays
+        : null;
+      const isActiveDay = activeDays ? activeDays.includes(et.weekday) : !et.isWeekend;
+      if (!isActiveDay) {
+        return { status: 'paused-ok', detail: activeDays ? `not a ${activeDays.join('/')} run day` : 'weekend' };
+      }
+      const fire = Number.isFinite(def.fireMinuteEt) ? def.fireMinuteEt : 0;
+      const grace = Number.isFinite(def.graceMinutes) ? def.graceMinutes : 90;
+      const deadline = fire + grace;
+      const fireLabel = `${String(Math.floor(fire / 60)).padStart(2, '0')}:${String(fire % 60).padStart(2, '0')} ET`;
+      if (lastEt && lastEt.isoDate === et.isoDate) return { status: 'ok' };
+      if (et.minutesOfDay < deadline) return { status: 'ok', detail: 'before today’s fire+grace' };
+      if (last == null) return { status: 'unknown', detail: 'no heartbeat recorded yet' };
+      return { status: 'dark', detail: `no run recorded for today after ${fireLabel}+${grace}m grace` };
+    }
   }
-];
+};
 
-export function evaluateRoutines(root, now) {
+// Build the runtime registry from the manifest: name/cron/core/monitored/cadence come
+// from the manifest, the evaluator (read/readExtra/evaluate) is looked up by name. Only
+// monitored:true entries with a known evaluator are checked. A bad/absent manifest
+// degrades to an empty registry (the caller surfaces that) rather than crashing the
+// every-15-minutes watchdog.
+export function loadManifest(manifestPath = MANIFEST_FILE) {
+  try {
+    return JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+export function buildRegistry(manifest) {
+  const registry = [];
+  const skipped = [];
+  const entries = manifest && Array.isArray(manifest.routines) ? manifest.routines : [];
+  for (const def of entries) {
+    if (!def || !def.name) continue;
+    if (!def.monitored) {
+      skipped.push({ name: def.name, reason: 'monitored:false' });
+      continue;
+    }
+    const ev = def.evaluator ? EVALUATORS[def.evaluator] : null;
+    if (!ev) {
+      skipped.push({ name: def.name, reason: `no evaluator "${def.evaluator}"` });
+      continue;
+    }
+    registry.push({
+      name: def.name,
+      core: Boolean(def.core),
+      cadence: def.cadenceDescription || '',
+      def,
+      read: ev.read,
+      readExtra: ev.readExtra,
+      evaluate: ev.evaluate
+    });
+  }
+  return { registry, skipped };
+}
+
+export function evaluateRoutines(root, now, manifest = loadManifest()) {
   const et = etParts(now);
+  const { registry } = buildRegistry(manifest);
+  const ROUTINES = registry;
   const results = ROUTINES.map((r) => {
-    const last = r.read(root);
+    // Last-success = max(bespoke state stamp, uniform heartbeat stamp). The heartbeat is
+    // ADDITIVE: it can only move last-success FORWARD, never invalidate a bespoke stamp,
+    // so wiring heartbeats in never weakens dark detection (Wave-1 backward-compat rule).
+    const bespoke = r.read(root);
+    const beat = heartbeatStamp(root, r.name);
+    const last = maxStamp([bespoke, beat].filter(Boolean));
     const age = last ? ageMinutes(last, now) : null;
     // Guard: a malformed timestamp must degrade to "no parsed stamp", not crash
     // the checker (Intl.formatToParts throws RangeError on an Invalid Date).
     const lastParsed = last ? Date.parse(last) : NaN;
     const lastEt = Number.isFinite(lastParsed) ? etParts(new Date(lastParsed)) : null;
     const extra = r.readExtra ? r.readExtra(root) : null;
-    const verdict = r.evaluate(last, et, age, lastEt, extra);
+    const verdict = r.evaluate(last, et, age, lastEt, extra, r.def);
     return {
       routine: r.name,
       core: r.core,

@@ -318,6 +318,18 @@ Prepend ONE line to `brain/log.md`:
 ```
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECORD HEARTBEAT (last action, every run)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, including a quiet/no-op run (pool full, nothing added), stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-lead-research --status <ok|quiet>
+```
+
+Use `ok` when prospects were added, `quiet` on a clean no-op. This is how the routine-liveness watchdog knows lead research fired and finished; skipping it can page Brian with a false "dark routine" alert.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ERROR HANDLING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
