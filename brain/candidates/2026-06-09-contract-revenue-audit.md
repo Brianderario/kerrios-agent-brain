@@ -36,6 +36,27 @@ Real gap to the $1M goal is ~$249K (before PTC quarterly), not $421,835.
 - **Hampton Roads $50K:** in review, stays as pipeline.
 - **OhioX $27,500:** REMOVED. This was an outbound commitment for the Frontier partnership, which is no longer being pursued. Not revenue.
 
+## Execution verification (6/9 evening, second pass)
+
+Trigger: the Quilter $80K phantom (HWFYI-2026-010 -- unsigned Jan SOW that email shows was negotiated down to the $14.5K deal locked 4/6, DocuSign-signed 4/8 as HWFYI-2026-020). First pass only verified dollar values vs docs; this pass verified EXECUTION per contract.
+
+Method note: all CRM-linked Google Docs are unsigned source templates (all 23 checked have blank signature blocks). Execution evidence = completed DocuSign envelope, cash received (Ari's 6/3 "2100 Deferred Revenue" register, ending balance $445,601.45, plus Mercury receipts), or unambiguous written confirmation.
+
+**Solid: 35 of 40 companies, ~$573K.** 22 contracts cash-confirmed (incl. Fictiv via Bill.com, AllSpice 2/27 deposit, Dassault $25K ACH 3/23 -- the prior "overdue" flag was wrong, it is PAID -- Array Labs $30K, CoLab $20K + Feb deposit, Flow $27K, Blitzpanel, EMI check 5/14, Protolabs Oct/Dec 2025 ACH, First Resonance INV-139 $10K landed 6/9, Eight Sleep, Cosmon, Circuitly $5K+$3K, Kipo INV-129). Rest have completed DocuSign envelopes (37 envelopes inventoried, acct 8a7d430a, sender Benji info@hardwarefyi.com). Onshape $40K executed via PO #US10004508.
+
+**Problem lines ($130K):**
+| Line | $ | Verdict |
+|---|---|---|
+| Quilter HWFYI-2026-010 | 80,000 | PHANTOM. Unsigned; superseded by $14.5K deal. Remove pending Brian. |
+| Xometry HWFYI-2026-0xx | 10,000 | PHANTOM. Envelope sent 4/21 never signed; zero invoices/sends; Benji 5/28 "excited to see how we can work together" = prospect; H2 call 6/15. |
+| nTop Q2 2026 (2026-018) | 12,500 | STALLED. Fynn balked at price 3/25-3/30; envelope 4/1 then total silence; no invoice/sends. 2025 nTop spillover (~$5.4K) is fine. |
+| Loombotic 2026 | 12,500 | UNVERIFIABLE. Unsigned, no envelope, no payment, no email anywhere. Exists only in CRM. Ask Brian. |
+| PTC Kinetic | 15,000 | REAL but never signed AND never invoiced. Brenna Robillard 5/7: "our 15k investment"; delivered at Kinetic; in AR discussion. Keep booked; INVOICE NEEDED. |
+
+Minor: Duro $12K dinner real (delivered 5/12 Bourbon Steak; invoice Memo #Y126027606 to payables@altium.com 5/27, acknowledged; unpaid as of 6/9). Bananaz: $3,750 collected (INV-128) vs $5,000 booked -- check. Quilter INV-125 $14.5K payment status still ambiguous (Benji 5/19 "squared away" vs reminders through 5/22).
+
+If all four removals approved: CY2026 booked $526,372.41; + tickets ~$109K = ~$635K; real gap to $1M ~ $365K.
+
 ## The $389K Kinetic number
 
 The exact figure exists nowhere in Drive, email, or DocuSign. The live "Kinetic 2026 MASTER" sheet (edited 6/9) shows Sponsored Content $277,000 + Tickets $109,050 = $386,050; an alternate tab totals $390,825. $389K is a point-in-time snapshot between the two. Ticket revenue has 5 conflicting bases across sources ($61,111 CRM / $75,139 P&L / $68,168 and $83,170 Ti.to variants / $109,050 MASTER). Pin the ticket basis before treating any Kinetic total as final.
