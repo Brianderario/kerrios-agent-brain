@@ -16,6 +16,8 @@
 //   --json               machine output
 //   --data-dir <path>    override the data directory (tests use fixtures)
 //   --now <ISO8601>      override "now" for deterministic age computation (tests)
+//   --exclude-cold       omit cold-outreach drafts from the digest (morning brief mode)
+//   --cold-only          show ONLY cold-outreach drafts (cold funnel inspection mode)
 //
 // No external dependencies. Node >= 20.
 
@@ -108,19 +110,19 @@ function coldDraftToItem(entry, now) {
   };
 }
 
-export function buildDigest({ dataDir = DEFAULT_DATA_DIR, now = new Date() } = {}) {
+export function buildDigest({ dataDir = DEFAULT_DATA_DIR, now = new Date(), excludeCold = false, coldOnly = false } = {}) {
   const jobs = readJsonIfPresent(path.join(dataDir, 'jobs.json'));
   const coldState = readJsonIfPresent(path.join(dataDir, 'cold-outreach-state.json'));
 
   const items = [];
 
-  if (Array.isArray(jobs)) {
+  if (!coldOnly && Array.isArray(jobs)) {
     for (const job of jobs) {
       if (job && job.status === 'pending') items.push(jobToItem(job, now));
     }
   }
 
-  if (coldState && Array.isArray(coldState.drafted)) {
+  if (!excludeCold && coldState && Array.isArray(coldState.drafted)) {
     for (const entry of coldState.drafted) {
       if (entry) items.push(coldDraftToItem(entry, now));
     }
@@ -201,12 +203,14 @@ export function renderTable(digest) {
 }
 
 function parseArgs(argv) {
-  const args = { json: false, dataDir: DEFAULT_DATA_DIR, now: new Date() };
+  const args = { json: false, dataDir: DEFAULT_DATA_DIR, now: new Date(), excludeCold: false, coldOnly: false };
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === '--json') args.json = true;
     else if (arg === '--data-dir') args.dataDir = argv[++i];
     else if (arg === '--now') args.now = new Date(argv[++i]);
+    else if (arg === '--exclude-cold') args.excludeCold = true;
+    else if (arg === '--cold-only') args.coldOnly = true;
     else {
       process.stderr.write(`Unknown argument: ${arg}\n`);
       process.exit(1);
@@ -221,7 +225,7 @@ function parseArgs(argv) {
 
 function main() {
   const args = parseArgs(process.argv.slice(2));
-  const digest = buildDigest({ dataDir: args.dataDir, now: args.now });
+  const digest = buildDigest({ dataDir: args.dataDir, now: args.now, excludeCold: args.excludeCold, coldOnly: args.coldOnly });
   if (args.json) {
     process.stdout.write(`${JSON.stringify(digest, null, 2)}\n`);
   } else {

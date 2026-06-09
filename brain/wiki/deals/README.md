@@ -27,6 +27,9 @@ thread_internet_message_ids: []  # latest first
 next_action_date: null           # ISO date when next nudge is allowed (pipeline sets this)
 last_nudge_date: null            # last time pipeline drafted a nudge for this deal
 nudge_count: 0                   # total nudges drafted (sent or skipped)
+contract_end_date: null            # ISO date (YYYY-MM-DD) when the current contract expires; null if unknown.
+                                   # Canonical field for renewal-watchdog expiring-contract detection (category A).
+                                   # Backfill from DocuSign envelopes or CRM Contract Breakdown tab when available.
 created_at: 2026-05-24
 updated_at: 2026-05-24
 source: inbox-sweep              # inbox-sweep | manual | kinetic-2026-roster | cold-outreach

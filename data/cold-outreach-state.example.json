@@ -1,0 +1,52 @@
+{
+  "weekStart": "2026-06-08",
+  "weekCount": 10,
+  "todayDate": "2026-06-09",
+  "todayCount": 5,
+  "sent": [
+    {
+      "email": "jane@acmehw.com",
+      "sentAt": "2026-05-26T15:19:46Z",
+      "jobId": "H0042",
+      "subject": "Hardware FYI x Acme Hardware"
+    }
+  ],
+  "drafted": [
+    {
+      "email": "lee@newprospect.io",
+      "draftedAt": "2026-06-09T08:00:00-04:00",
+      "jobId": "H0100",
+      "gtasksTaskId": "task-batch-2026-06-09",
+      "batchIndex": 1
+    }
+  ],
+  "replied": [
+    {
+      "email": "jane@acmehw.com",
+      "repliedAt": "2026-06-02T10:30:00-04:00",
+      "jobId": "H0042",
+      "sentiment": "positive",
+      "note": "warm referral to Obi",
+      "company": "Acme Hardware"
+    }
+  ],
+  "secondTouchSent": [
+    {
+      "email": "bob@oldprospect.com",
+      "originalSentAt": "2026-05-20T15:19:46Z",
+      "secondTouchSentAt": "2026-06-05T10:00:00-04:00",
+      "jobId": "H0003",
+      "subject": "Re: Hardware FYI x OldProspect",
+      "approvalSource": "batch approval 2026-06-04"
+    }
+  ],
+  "secondTouchDrafted": [
+    {
+      "email": "kim@staleprospect.io",
+      "originalSentAt": "2026-05-22T10:00:00-04:00",
+      "draftedAt": "2026-06-09T09:15:00-04:00",
+      "jobId": "H0015",
+      "batchIndex": 1
+    }
+  ]
+}

@@ -138,6 +138,59 @@ test('items strictly older than 3 days get the warning flag', () => {
   assert.match(flagged.join('\n'), /H0099/);
 });
 
+test('--exclude-cold omits cold drafts from the digest', () => {
+  const dir = makeDataDir();
+  const digest = buildDigest({ dataDir: dir, now: NOW, excludeCold: true });
+
+  // 4 pending jobs only; the 2 cold drafts are excluded.
+  assert.equal(digest.totals.pending, 4);
+  const sources = digest.items.map((item) => item.source);
+  assert.ok(!sources.includes('cold-outreach-state.json'), 'no cold items in exclude-cold mode');
+  // H0099 and H0100 (cold drafts) must not appear.
+  const ids = digest.items.map((item) => item.jobId);
+  assert.ok(!ids.includes('H0099'));
+  assert.ok(!ids.includes('H0100'));
+});
+
+test('--cold-only shows ONLY cold drafts', () => {
+  const dir = makeDataDir();
+  const digest = buildDigest({ dataDir: dir, now: NOW, coldOnly: true });
+
+  // Only the 2 cold drafts, no pending jobs.
+  assert.equal(digest.totals.pending, 2);
+  for (const item of digest.items) {
+    assert.equal(item.source, 'cold-outreach-state.json');
+    assert.equal(item.actionClass, 'cold-send');
+  }
+});
+
+test('--exclude-cold CLI flag works via command line', () => {
+  const dir = makeDataDir();
+  const out = execFileSync(
+    process.execPath,
+    [SCRIPT_PATH, '--json', '--data-dir', dir, '--now', NOW_ISO, '--exclude-cold'],
+    { encoding: 'utf8' }
+  );
+  const parsed = JSON.parse(out);
+  assert.equal(parsed.totals.pending, 4);
+  const coldItems = parsed.items.filter((i) => i.source === 'cold-outreach-state.json');
+  assert.equal(coldItems.length, 0);
+});
+
+test('--cold-only CLI flag works via command line', () => {
+  const dir = makeDataDir();
+  const out = execFileSync(
+    process.execPath,
+    [SCRIPT_PATH, '--json', '--data-dir', dir, '--now', NOW_ISO, '--cold-only'],
+    { encoding: 'utf8' }
+  );
+  const parsed = JSON.parse(out);
+  assert.equal(parsed.totals.pending, 2);
+  for (const item of parsed.items) {
+    assert.equal(item.actionClass, 'cold-send');
+  }
+});
+
 test('--json CLI output is machine-readable and matches buildDigest', () => {
   const dir = makeDataDir();
   const out = execFileSync(

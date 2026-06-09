@@ -69,7 +69,7 @@ Read-only unless the brief creates or closes an action:
 - `data/eod-state.json`
 - `data/pipeline-followup-state.json`
 - `data/cold-outreach-state.json` — for batch approval lag (drafts waiting on Brian)
-- approval queue digest: run `node scripts/approval-queue-digest.mjs --json` (pure read over `data/jobs.json` + `data/cold-outreach-state.json`; tolerates missing files and returns an empty queue)
+- approval queue digest: run `node scripts/approval-queue-digest.mjs --json --exclude-cold` (pure read over `data/jobs.json`, omits cold-outreach drafts from the daily queue; tolerates missing files and returns an empty queue)
 - `output/industry-intel/<today YYYY-MM-DD>.md` if it exists — today's intel digest (runs at 6:30, before this brief)
 - `brain/wiki/deals/*.md` for active Hardware FYI/KMG revenue deals only
 
@@ -131,7 +131,7 @@ Google Tasks:
 
 Approval queue (dollars + latency):
 
-- Run `node scripts/approval-queue-digest.mjs --json` from the repo root. It is a pure read over `data/jobs.json` pending entries and `data/cold-outreach-state.json` drafted batches, tolerates missing runtime files, and returns an empty queue rather than failing.
+- Run `node scripts/approval-queue-digest.mjs --json --exclude-cold` from the repo root. The `--exclude-cold` flag omits cold-outreach drafts from the daily approval queue, since cold prospects are not yet real pipeline items and should not compete for Brian's daily attention (they surface in the weekly revenue standup instead). The digest is a pure read over `data/jobs.json` pending entries, tolerates missing runtime files, and returns an empty queue rather than failing.
 - Use its `items` array as-is: it is already sorted by dollars at stake (descending), then age (descending), and `totals` already carries the pending count, priced dollars at stake, and oldest age. Do not recompute ages or dollars by hand.
 - Carry through per item: jobId, company, actionClass, ageDays, dollarsAtStake (render `TBD` when null), senderIdentity, oneLineAsk, and the `stale` flag (true means older than 3 days).
 - If the script itself fails to run, treat the section as degraded: show an "Approval queue unavailable" state and record the degraded source. Never invent queue contents.
