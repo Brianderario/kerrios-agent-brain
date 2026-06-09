@@ -458,6 +458,23 @@ DRAFTING:
      - If the person is named but no verified email exists in their people page, put `Internal CC missing: <Name> email not verified in KerriOS` in the ⚠ flag line instead of guessing.
      - Never suggest CCs for S/W internal content across the Hardware FYI side or any thread where adding an internal person would leak confidential partner, legal, finance, or sensitive material outside the appropriate boundary.
 
+AUTO-LOGGED SEND PATH (check AFTER `actionClass` is set in DRAFTING step 5, BEFORE creating the Google Task):
+  Decided by Brian 2026-06-09 — `brain/wiki/decisions/2026-06-09-autonomy-boundary.md`. Policy file: `data/autonomy-policy.json` (tracked). Tiers in that file are Brian-edited only; a sweep NEVER promotes a class (demotion to `ask` is the one tier edit a sweep may make — see rule 8).
+
+  1. Read `data/autonomy-policy.json`. File missing, unparseable, or no entry for this job's `actionClass` → normal ASK flow (create the Google Task below). Fail closed, always.
+  2. This path applies ONLY when the class entry's tier is `auto-logged`. Today that is `internal-recipient-reply` and nothing else. Any other tier → that tier's normal flow (ask → task; ask-batch → batch task; brian-sends → Gmail draft).
+  3. Verify EVERY condition on the class entry. For `internal-recipient-reply`, concretely:
+     • Every recipient of the OUTGOING reply (To + Cc, including any internal CC you would add) exactly matches an address in the policy's `trustedInternal` list. One non-matching address → ASK.
+     • Send identity resolved to Kerri (kerri@hardwarefyi.com). POST-CALL SENDER LOCK or any Brian-voice/Gmail/Superhuman send → ASK.
+     • Job prefix is H or G. S-prefix NEVER auto-sends.
+     • The HARD NO-DOUBLE-EMAIL GATE passes for this job exactly as it does for approved sends. A gate block here counts in `doubleEmailBlocks` like any other.
+     • The draft commits to nothing on pricing, legal, finance, spend, CRM, or scope. Any doubt about this → ASK.
+  4. ANY condition failing, or ANY uncertainty about whether one holds → normal ASK flow. Never partially auto-send; never "send now, task later."
+  5. All conditions pass → send immediately via `kerri-hardwarefyi-email` with `approved=true`, `approvalSource = "auto-logged: internal-recipient-reply per data/autonomy-policy.json (Brian decision 2026-06-09, brain/wiki/decisions/2026-06-09-autonomy-boundary.md); all recipients trustedInternal"`. The standard auto-CC to brian@hardwarefyi.com stays on — for this path it doubles as Brian's immediate notification. Never suppress it.
+  6. Record on the job: `status: "sent"`, `sentAt`, `sentDraft` (the body exactly as sent), `decidedAt` = same timestamp, `autoLogged: true`, `gtasksTaskId: null` (no Google Task is created for an auto-logged send). Append one line to `brain/log.md`: `- <YYYY-MM-DD>: auto-logged send <JOBID> <Company> (internal-recipient-reply) to <recipients>.`
+  7. Notifications: NO Sendblue/text alert for an auto-logged send (texts are the interrupt lane; policy `notifications.neverText`). Brian sees it via the auto-CC immediately and the morning brief's Auto-logged section (`node scripts/autonomy-report.mjs --auto-logged`) the next morning.
+  8. Demotion is automatic and Kerri-allowed: on any double-email in this class, any Brian "that was wrong" about an auto-logged send, or any condition discovered violated after the fact — stop auto-sending the class at once, set its tier back to `ask` in `data/autonomy-policy.json`, log the demotion in `brain/log.md`, and surface a 🔴 line in the next morning brief. Demotion is always allowed; promotion never is.
+
 CREATE THE GOOGLE TASK (one `gtasks_create_task` call per new job):
 
   tasklist_id: <map.H / map.S / map.G per prefix>
