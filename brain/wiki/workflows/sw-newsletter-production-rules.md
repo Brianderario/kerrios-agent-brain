@@ -72,7 +72,7 @@ Avoid:
 2. Preview text beginning with `Plus:`.
 3. Short opener.
 4. `Markets`, in the stacked Beehiiv-safe format from `AMCA, SendCutSend, and The New Factory Middle`, with S&P 500 first.
-5. `The Lead`. NO inline source links in the Lead (Brian, 2026-06-09) — keep it clean analytical prose. Keep the lead story's sources in the local draft notes for verification; inline links live only on the category bullets + Dealbook.
+5. `The Lead`. NO inline source links in the Lead (Brian, 2026-06-09) — keep it clean analytical prose. Keep the lead story's sources in the local draft notes for verification; inline links live only on the category bullets + Dealbook. Minimize specific news dates in the Lead (Brian, 2026-06-09) — they add bloat and age fast; use them only when the date itself is the story (e.g., a deadline, a vote sequence). Drop "On June X" openers in favor of actor-first sentences.
 6. Industry sections with one-sentence linked bullets.
 7. `Dealbook`.
 8. Short close.
@@ -115,6 +115,10 @@ Design (do not alter): dark gradient card (`#0f0f0f`→`#1a1a1a`), 12px radius, 
 Each row carries price + a day-change arrow + day-change % to one decimal. The `WATCH` line is one current macro/industrial datapoint with a number and a named source (ISM PMI, Philly Fed, durable goods, housing starts, etc.). Refresh every value live before staging (Yahoo, with Trading Economics / stockanalysis.com fallbacks per `sources.json#marketsTickers`); never carry stale numbers.
 
 In the beehiiv "S&w industrialist" template, THE FLOOR already exists as the first htmlSnippet node — **update that node's HTML in place** (do not delete + re-add) so the block keeps its position, then verify via the snippet's Preview toggle. Mechanics for driving it via Chrome are in `the-floor.template.html`.
+
+## Authorship Rule (Brian, 2026-06-09)
+
+Zach is the sole listed author on The Industrialist. Do NOT add Brian as a co-author in Beehiiv. If the template carries Brian's name, remove it and leave only Zach Silber.
 
 ## Beehiiv Draft Setup Rule
 

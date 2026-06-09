@@ -337,6 +337,7 @@ For each distinct (event × company) mention, build a row object:
   "jobId": "<stable customer jobId from the customer-id protocol, or '' if none>",
   "contact": "<person who said it (+ agency if they're an agency rep)>",
   "involvement": "<Attend | Sponsor | Exhibit | Speak | Organizer (combine if stated)>",
+  "dates": "<exact dates if known, e.g. 'Sep 14–19, 2026'; look up from brain/wiki/events/ or web if contact only gives month/season; '' if truly unknown>",
   "timing": "<month/season if stated, else ''>",
   "location": "<city/country if stated, else ''>",
   "detail": "<one short line — a near-quote of what they said; flag any uncertain event name to confirm>",

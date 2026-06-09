@@ -20,8 +20,8 @@
  *   node scripts/conferences-append.mjs --rows x.json --dry-run # print, don't write
  *
  * Row object fields (all optional except conference + company):
- *   conference, company, jobId, contact, involvement, timing, location,
- *   detail, source, capturedAt, capturedBy
+ *   conference, company, jobId, contact, involvement, dates, timing,
+ *   location, detail, source, capturedAt, capturedBy
  *
  * Exit codes: 0 = ok · 2 = nothing to write · 3 = scope/permission missing · 1 = hard error
  */
@@ -41,9 +41,9 @@ const DEFAULT_SPREADSHEET_ID = "1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk";
 const TAB = "Conferences";
 const HEADER = [
   "conference", "company", "jobId", "contact", "involvement",
-  "timing", "location", "detail", "source", "capturedAt", "capturedBy",
+  "dates", "timing", "location", "detail", "source", "capturedAt", "capturedBy",
 ];
-const LAST_COL = "K"; // 11 columns A..K
+const LAST_COL = "L"; // 12 columns A..L
 
 function arg(name, fallback) {
   const i = process.argv.indexOf(`--${name}`);

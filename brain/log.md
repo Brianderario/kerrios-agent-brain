@@ -1,3 +1,6 @@
+## [2026-06-09 00:15 ET] sw-newsletter-writer | 2 rules saved | Kerri
+Brian trimmed dates from the Lead (bloat) and removed himself as co-author (Zach only). Local audit copy synced. Two new durable rules in production-rules: (1) Authorship Rule — Zach is sole listed author, never add Brian; (2) Lead date-minimization — drop specific news dates unless the date IS the story. Both saved to `brain/wiki/workflows/sw-newsletter-production-rules.md`.
+
 ## [2026-06-08 21:46 ET] gap-sweep | auto:3 pr:0 task:1 | Kerri
 A–Q whole-system sweep, all green (npm run check OK, 118/118 tests, git diff clean; 12 routines enabled+firing; host/connectors/gates/S-W boundary/revenue-wiring intact). Auto-fixed: NOW.md trim, stale reaper path in gap-sweep SKILL (→ scripts/inbox-sweep-reaper.mjs), AGENTS.md runner posture synced (Claude sole runner/Codex retired). Filed 1 KerriMG task: routine-liveness false-reads brain-push as "dark" because its newest state entry lacks an ISO runAt (brain-push is actually healthy — next push tonight 22:09 ET). 2 stale approvals (G0008/H0031) already in task eWRUX, not re-filed. No high-severity, no Brian text.
 
