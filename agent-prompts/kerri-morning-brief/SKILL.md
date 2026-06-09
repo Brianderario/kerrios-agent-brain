@@ -68,6 +68,8 @@ Read-only unless the brief creates or closes an action:
 - `data/inbox-sweep-grades.json`
 - `data/eod-state.json`
 - `data/pipeline-followup-state.json`
+- `data/cold-outreach-state.json` — for batch approval lag (drafts waiting on Brian)
+- `output/industry-intel/<today YYYY-MM-DD>.md` if it exists — today's intel digest (runs at 6:30, before this brief)
 - `brain/wiki/deals/*.md` for active Hardware FYI/KMG revenue deals only
 
 Note: `output/` is intentionally gitignored. The HTML brief is a local delivery artifact, not canonical KerriOS truth.
@@ -131,6 +133,7 @@ KerriOS open loops:
 - Read `brain/log.md` recent entries.
 - Read `brain/wiki/deals/` index/pages only for active deals referenced by tasks or recent logs.
 - Read `brain/candidates/` only for candidates updated in the last 7 days or explicitly referenced by today's agenda.
+- Read today's industry-intel digest (`output/industry-intel/<YYYY-MM-DD>.md`) if present and pull at most 1-2 items that warrant a CEO read this morning: a prospect trigger (funding/launch at an ICP-fit company), a sponsor in the news, or a competitive move. Skip the section silently if the digest is missing or has nothing actionable.
 - Add one optional "Kerri's read" item when there is a genuinely useful pattern, risk, or opportunity Brian should see this morning:
   - an overnight inbox/Slack/meeting thread that changes priorities
   - a sponsor, partner, or editorial opportunity that needs a CEO read
@@ -144,7 +147,8 @@ Hardware FYI Revenue Focus:
 - Read the canonical `CY2026 Revenue Goal` tab in the Hardware FYI Sheet when a current goal-progress number is needed. Use `node scripts/hwfyi-revenue-goal-sheet.mjs --pipeline-summary` for booked/open/weighted/status counts when Sheets credentials are available. If the tab cannot be read or is stale, explicitly label the card as task/deal-derived rather than a fresh revenue-total read.
 - When showing pipeline, use the central statuses exactly: `Prospect`, `Interest`, `Contract Won`, `Contract Lost`. Prioritize next actions from `Interest` first, then high-value `Prospect`; do not treat lead-research-only names as pipeline.
 - Build the next-move recommendation from pending Hardware FYI Google Tasks, active `brain/wiki/deals/` pages, recent `brain/log.md` entries, and visible pipeline/cold-outreach state.
-- Prefer one concrete next move: cash/contract unblock, warm pipeline nudge, approval-ready sponsor reply, high-fit outreach batch, or product/package improvement.
+- Surface approval lag as a blocker: if cold-outreach, pipeline, or renewal drafts have been waiting on Brian's approval for more than 24 hours, say so explicitly with counts and age (e.g., "10 cold drafts + 2 renewal drafts waiting since yesterday — revenue is blocked on your checkbox"). Unapproved drafts are the cheapest revenue unlock of the morning.
+- Prefer one concrete next move WITH the action verb Brian takes: "approve the <Company> renewal draft", "call <Name> to close <deal>", "check the cold batch in Hardware FYI tasks". A number without an action is not decision-ready.
 - Do not send, price, commit inventory, or mutate CRM from the morning brief. Route any external action into the relevant approval workflow.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -313,12 +317,7 @@ STEP 7 — ARCHIVE AUTOMATION CHAT
 
 The morning brief's durable surfaces are the delivered email, `output/morning-brief/<YYYY-MM-DD>.html`, `output/morning-brief/latest.html`, `data/morning-brief-state.json`, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
 
-Codex scheduled runs currently require exactly one `::inbox-item{...}` directive. Satisfy both the required inbox item and Brian's auto-archive preference by ending with exactly two raw directive lines:
-
-1. One `::inbox-item{...}` directive.
-2. `::archive{reason="Durable morning brief output already written outside this chat"}`
-
-Do not wrap either directive in backticks or a code block. Do not write anything after the archive directive.
+(Codex-era note: the `::inbox-item{...}` + `::archive{...}` closing directives were a Codex runner requirement. Under Claude Code, skip them — the durable surfaces listed above are the routine's output. This paragraph is retained only so older transcripts make sense.)
 
 Do not auto-archive only if the chat itself is the only deliverable, Brian explicitly needs to continue in this automation chat, or the run is blocked before it can write the fallback/state file or send the required alert.
 

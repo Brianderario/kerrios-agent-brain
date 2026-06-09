@@ -630,12 +630,7 @@ STEP 8 — ARCHIVE AUTOMATION CHAT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 The inbox sweep's durable surfaces are Google Tasks, `data/jobs.json`, `data/inbox-sweep-state.json`, `data/inbox-sweep-grades.json`, KerriOS brain/log updates, mailbox sends/drafts, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete and the lock is released, archive the automation chat so Brian does not accumulate notification-only automation threads.
 
-Codex scheduled runs currently require exactly one `::inbox-item{...}` directive. Satisfy both the required inbox item and Brian's auto-archive preference by ending with exactly two raw directive lines:
-
-1. One `::inbox-item{...}` directive.
-2. `::archive{reason="Durable inbox sweep output already written outside this chat"}`
-
-Do not wrap either directive in backticks or a code block. Do not write anything after the archive directive.
+(Codex-era note: the `::inbox-item{...}` + `::archive{...}` closing directives were a Codex runner requirement. Under Claude Code, skip them; the durable surfaces listed above are the routine's output. Retained only so older transcripts make sense.)
 
 Do not auto-archive only if the chat itself is the only deliverable, Brian explicitly needs to continue in this automation chat, or the run is blocked before it can write durable state/fallback or send the required alert. If the sweep exits early because the lock is busy, stay silent as directed in STEP -1 because that path intentionally creates no run output.
 
