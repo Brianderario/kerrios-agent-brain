@@ -1,3 +1,5 @@
+**STATUS (2026-06-09): superseded/fulfilled, safe to ignore.** This was a point-in-time 5/26 verification of the then-Codex automation stack; the verification window has long passed and Claude Code became the sole runner on 2026-06-08 (`brain/wiki/decisions/2026-06-08-claude-code-sole-runner.md`), so everything below is historical only.
+
 # KerriOS Automation Audit — 2026-05-26
 
 scope: audit · updated: 2026-05-26 · owner: Brian + Codex

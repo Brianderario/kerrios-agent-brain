@@ -14,6 +14,10 @@ set -uo pipefail
 BRAIN_DIR="/Users/brianderario/Documents/Documents - Brian's MacBook Air/KerriOS"
 cd "$BRAIN_DIR" || exit 0
 
+# Snapshot gitignored runtime state (jobs.json etc.) first; git can't recover
+# those files, the local backup can. Silent, never blocks the sync.
+bash "$BRAIN_DIR/scripts/backup-runtime-state.sh" 2>/dev/null
+
 # Only sync on main.
 BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)"
 [ "$BRANCH" = "main" ] || exit 0
@@ -24,6 +28,7 @@ ELIGIBLE=(
   "NOW.md"
   "brain/wiki"
   "brain/log.md"
+  "brain/log-archive"
   "brain/candidates"
   "brain/raw"
   "brain/index.md"

@@ -109,3 +109,11 @@ Standard & Works (Storm King Nexus Holdings LLC) is a separate legal entity. 50/
 | Brain-push task (shim) | `~/.claude/scheduled-tasks/kerri-brain-push/SKILL.md` → `./agent-prompts/kerri-brain-push/SKILL.md` |
 | Retired skills | `~/.claude/_retired_skills/` |
 | GitHub brain (canonical) | https://github.com/Brianderario/kerrios-agent-brain |
+
+## Runtime-state backup + recovery
+
+Gitignored runtime state (`data/{jobs,job-counters,gtasks-lists,inbox-sweep-state,cold-outreach-state}.json`) is snapshotted on every session Stop by `scripts/backup-runtime-state.sh` (called from `kerri-sync.sh`). Snapshots live in `data/backups/runtime-state/<YYYY-MM-DD-HHMM>/`; the newest 14 are kept, also gitignored.
+
+**Restore:** copy the wanted files from the newest snapshot back into `data/` and rerun whatever flagged the corruption.
+
+**Manual fallback** (no usable snapshot): rebuild `jobs.json` from open Google Tasks items plus email evidence per thread; jobIds come from `data/companies.json` (tracked, recoverable from git).

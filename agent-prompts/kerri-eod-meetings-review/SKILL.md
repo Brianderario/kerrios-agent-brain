@@ -471,7 +471,7 @@ Write the full digest into the run log / EOD state notes in this format for audi
 Check Google Tasks lists to approve / edit / skip.
 ```
 
-If everything was zero across the board (no meetings today): send no Brian-facing text, Slack, email, or task. Still continue through log/state/self-grade as applicable and finish with the required closing directives so the automation chat can archive.
+If everything was zero across the board (no meetings today): send no Brian-facing text, Slack, email, or task. Still continue through log/state/self-grade as applicable and finish with STEP 10 so the automation chat can archive.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 8 — APPEND BRAIN LOG

@@ -6,6 +6,8 @@ trigger: H0001 Aris Machina draft rewrite (iMessage handoff)
 blocks_wiki_writes_to: [[../wiki/properties/hardware-fyi]] § Sponsor product formats, § Lead-gen products
 ---
 
+**STATUS (2026-06-09): still open, Brian input needed.** Brian still has to approve or adjust the $15K custom-report list anchor, approve or adjust the $15K SF Tech Week sponsorship anchor, and confirm the two locked-in bundle rules belong in the wiki long-term; until then this stays a candidate and nothing here may be quoted or promoted.
+
 # HWFYI Custom Report (new product) + 3-package lead-gen menu — pending Brian approval
 
 This is a candidate because Brian recorded the new product + new package pricing verbally in an iMessage handoff but hasn't sat with the pricing/structure yet. Per [[../AGENTS.md]], "durable writes that affect pricing require Brian approval." Treat everything here as draft-state.

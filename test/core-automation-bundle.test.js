@@ -47,14 +47,17 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
     'output/morning-brief/<YYYY-MM-DD>.html',
     'Never send external emails',
     'Sendblue/text heads-up',
-    'ending with exactly two raw directive lines',
-    '::archive{reason="Durable morning brief output already written outside this chat"}',
+    'Codex-era note',
+    'Under Claude Code, skip them',
     'data/morning-brief-state.json',
     'SELF-GRADE',
     'GPT-5.5'
   ]) {
     assert.match(files.morning + files.automations, new RegExp(escapeRegExp(required), 'i'));
   }
+
+  // Codex closing directives were retired 2026-06-09; the prompt must no longer instruct them.
+  assert.doesNotMatch(files.morning, /ending with exactly two raw directive lines/i);
 });
 
 test('EOD meetings review queues drafts instead of sending', () => {
@@ -77,14 +80,17 @@ test('EOD meetings review queues drafts instead of sending', () => {
     '"source": "eod-meetings-review"',
     'Sendblue/text heads-up',
     'no Brian-facing text, Slack, email, or task',
-    'ending with exactly two raw directive lines',
-    '::archive{reason="Durable EOD review output already written outside this chat"}',
+    'Codex-era note',
+    'Under Claude Code, skip them',
     'Do NOT send any email',
     'data/eod-grades.json',
     'SELF-GRADE'
   ]) {
     assert.match(files.eod, new RegExp(escapeRegExp(required), 'i'));
   }
+
+  // Codex closing directives were retired 2026-06-09; the prompt must no longer instruct them.
+  assert.doesNotMatch(files.eod, /ending with exactly two raw directive lines/i);
 });
 
 test('brain push validates before committing and excludes runtime state', () => {
@@ -96,11 +102,14 @@ test('brain push validates before committing and excludes runtime state', () => 
     'data/brain-push-state.json',
     'Sendblue/text path as the primary Brian attention channel',
     'no Brian-facing notification',
-    'ending with exactly two raw directive lines',
-    '::archive{reason="Durable brain push output already written outside this chat"}'
+    'Codex-era note',
+    'Under Claude Code, skip them'
   ]) {
     assert.match(files.brainPush, new RegExp(escapeRegExp(required), 'i'));
   }
+
+  // Codex closing directives were retired 2026-06-09; the prompt must no longer instruct them.
+  assert.doesNotMatch(files.brainPush, /ending with exactly two raw directive lines/i);
 });
 
 test('core automation bundle is registered as GPT-5.5 high', () => {

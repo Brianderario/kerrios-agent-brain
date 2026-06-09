@@ -153,6 +153,18 @@ function lastRunsField(root, file, field) {
   }
   return null;
 }
+function lastIndustryIntel(root) {
+  const s = readJson(root, 'industry-intel-state.json');
+  return s ? s.lastRunAt || null : null;
+}
+// Raw state object — lets evaluate() distinguish "state file present but the
+// routine has NEVER succeeded" (lastRunAt null → dark after grace) from "no
+// state file at all" (unknown). This closed the 2026-06-09 gap where
+// kerri-industry-intel could sit at zero successful runs forever without an
+// alert, because a null lastRunAt looked identical to a missing file.
+function industryIntelState(root) {
+  return readJson(root, 'industry-intel-state.json');
+}
 
 // Routine registry: cadence + the rule that decides whether it should have run.
 const ROUTINES = [
@@ -217,6 +229,23 @@ const ROUTINES = [
     }
   },
   {
+    name: 'kerri-industry-intel',
+    core: false,
+    cadence: 'weekdays ~06:30 ET',
+    read: lastIndustryIntel,
+    readExtra: industryIntelState,
+    evaluate(last, et, age, lastEt, state) {
+      if (et.isWeekend) return { status: 'paused-ok', detail: 'weekend' };
+      if (lastEt && lastEt.isoDate === et.isoDate) return { status: 'ok' };
+      if (et.minutesOfDay < 7 * 60 + 15) return { status: 'ok', detail: 'before today’s fire+grace' };
+      if (state == null) return { status: 'unknown', detail: 'no state file' };
+      if (last == null) {
+        return { status: 'dark', detail: 'registered but zero successful runs ever recorded (state lastRunAt is null) after 07:15 ET' };
+      }
+      return { status: 'dark', detail: 'no industry-intel run recorded for today after 07:15 ET' };
+    }
+  },
+  {
     name: 'kerri-eod-meetings-review',
     core: false,
     cadence: 'weekdays ~18:28 ET',
@@ -264,7 +293,10 @@ export function evaluateRoutines(root, now) {
   const results = ROUTINES.map((r) => {
     const last = r.read(root);
     const age = last ? ageMinutes(last, now) : null;
-    const lastEt = last ? etParts(new Date(Date.parse(last))) : null;
+    // Guard: a malformed timestamp must degrade to "no parsed stamp", not crash
+    // the checker (Intl.formatToParts throws RangeError on an Invalid Date).
+    const lastParsed = last ? Date.parse(last) : NaN;
+    const lastEt = Number.isFinite(lastParsed) ? etParts(new Date(lastParsed)) : null;
     const extra = r.readExtra ? r.readExtra(root) : null;
     const verdict = r.evaluate(last, et, age, lastEt, extra);
     return {

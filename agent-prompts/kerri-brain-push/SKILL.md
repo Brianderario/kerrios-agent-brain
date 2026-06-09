@@ -43,6 +43,7 @@ Run `git status --short` and inspect each modified/new file.
 Stage ONLY:
   - `brain/wiki/**` — wiki page updates
   - `brain/log.md` — log appends
+  - `brain/log-archive/**` (rotated prior-month logs, written by `scripts/rotate-brain-log.mjs`)
   - `brain/candidates/**` — new candidates
   - `brain/raw/**` — append-only evidence (never edit existing raw files)
   - `brain/index.md` and `brain/routing.md` — catalog updates
@@ -79,7 +80,7 @@ If checks fail, do not commit. Create `data/brain-push-fallback-<YYYY-MM-DD>.md`
 STEP 3 — COMMIT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-If nothing is staged after Step 2, make no commit, no push, and no Brian-facing notification. Still write the compact automation memory/state expected for the run and finish with the required closing directives in Step 7 so the automation chat can archive.
+If nothing is staged after Step 2, make no commit, no push, and no Brian-facing notification. Still write the compact automation memory/state expected for the run and finish with Step 7 so the automation chat can archive.
 
 Otherwise compose a commit message that summarizes the day's changes. Format:
 

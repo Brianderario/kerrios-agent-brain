@@ -6,7 +6,7 @@ Google Tasks is also the approval rail for Kerri/Codex build and workflow improv
 
 ## Rule
 
-Any Kerri runner, including interactive Codex sessions, may create a Kerri MG task when it finds a concrete improvement to the KerriOS build, prompts, data files, approval flow, or automation behavior.
+Any Kerri runner, including interactive Claude Code sessions, may create a Kerri MG task when it finds a concrete improvement to the KerriOS build, prompts, data files, approval flow, or automation behavior.
 
 Use this only after checking the current canonical prompt/runtime state. Do not carry forward a Claude-era suggestion just because it exists in a task list. First classify it:
 
@@ -35,7 +35,7 @@ ACTION: discuss
 
 ━━━ BUILD RELEVANCE ━━━
 Status: <relevant | already-solved | obsolete | needs-human-policy>
-Source runner: <Codex interactive | kerri-inbox-sweep | kerri-morning-brief | etc.>
+Source runner: <Claude Code interactive | kerri-inbox-sweep | kerri-morning-brief | etc.>
 Current file(s): <canonical prompt/workflow/data file checked>
 
 ━━━ PROPOSED ━━━
@@ -56,12 +56,12 @@ Current file(s): <canonical prompt/workflow/data file checked>
 
 - `ACTION: discuss` means Brian has not approved implementation yet.
 - `ACTION: apply` means Brian approved the change in principle. Scheduled runners should still not edit code; they should surface the approved item for an interactive implementation run.
-- Interactive Codex may implement an approved or directly requested suggestion when it is within the current task scope and does not cross an approval boundary.
+- Interactive Claude Code may implement an approved or directly requested suggestion when it is within the current task scope and does not cross an approval boundary.
 - Completed suggestion tasks should be reflected in `brain/log.md` when the implementation changes prompts, workflow docs, data shape, or automation behavior.
 
 ## Draft Redo Provenance
 
-When an interactive Codex/Kerri session rewrites a Google Tasks DRAFT block, it must also update the matching `data/jobs.json` entry's `originalDraft` in the same flow and add a short provenance line in the task notes:
+When an interactive Claude Code/Kerri session rewrites a Google Tasks DRAFT block, it must also update the matching `data/jobs.json` entry's `originalDraft` in the same flow and add a short provenance line in the task notes:
 
 ```text
 DRAFT SOURCE: Codex interactive redo at <YYYY-MM-DD HH:MM ET>

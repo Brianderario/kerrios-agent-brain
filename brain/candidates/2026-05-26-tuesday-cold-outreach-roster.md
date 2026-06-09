@@ -1,3 +1,5 @@
+**STATUS (2026-06-09): fulfilled, safe to ignore.** This roster fed the 2026-05-26 Tuesday cold batch, which already ran; cold outreach now operates from the live daily loop (`brain/wiki/workflows/hwfyi-daily-10-outreach-loop.md` + `data/cold-outreach-state.json`), so this file is batch history only.
+
 # Tuesday cold outreach roster — Kinetic 2027 sponsor net-new
 
 scope: deals/cold-prospects · status: candidate · created: 2026-05-25 · author: kerri · approval: Brian, in chat 2026-05-25

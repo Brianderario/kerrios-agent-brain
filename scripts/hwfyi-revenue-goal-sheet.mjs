@@ -287,8 +287,43 @@ async function sheetsClient() {
 async function getMeta(sheets, spreadsheetId) {
   return sheets.spreadsheets.get({ spreadsheetId });
 }
+function normalizeTitle(value) {
+  return String(value || "")
+    .replace(/\u00a0/g, " ")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+}
 function findSheet(meta, title) {
-  return (meta.data.sheets || []).find((s) => s.properties.title === title);
+  const all = meta.data.sheets || [];
+  const exact = all.find((s) => s.properties.title === title);
+  if (exact) return exact;
+  // Tolerate case/whitespace drift in the tab title, but only when exactly one
+  // tab normalizes to the same string. This can never match a different tab
+  // such as "CY2026 Revenue Goal & Inventory" because normalization does not
+  // strip suffixes, only case and whitespace.
+  const wanted = normalizeTitle(title);
+  const fuzzy = all.filter((s) => normalizeTitle(s.properties.title) === wanted);
+  if (fuzzy.length === 1) {
+    console.error(`hwfyi-revenue-goal-sheet: note — resolved tab by normalized title match: "${fuzzy[0].properties.title}"`);
+    return fuzzy[0];
+  }
+  return undefined;
+}
+function quoteTab(title) {
+  return `'${String(title).replace(/'/g, "''")}'`;
+}
+function gridRowCount(sheet) {
+  return sheet?.properties?.gridProperties?.rowCount || 1000;
+}
+async function resolveTab(sheets, spreadsheetId) {
+  const meta = await getMeta(sheets, spreadsheetId);
+  const sheet = findSheet(meta, TAB);
+  if (!sheet) {
+    const titles = (meta.data.sheets || []).map((s) => `"${s.properties.title}"`).join(", ");
+    throw new Error(`Missing "${TAB}" tab in ${spreadsheetId}. Live tabs: ${titles}. Run --ensure first.`);
+  }
+  return sheet;
 }
 async function ensureTab(sheets, spreadsheetId) {
   let meta = await getMeta(sheets, spreadsheetId);
@@ -310,16 +345,17 @@ async function ensureTab(sheets, spreadsheetId) {
     meta = await getMeta(sheets, spreadsheetId);
     sheet = findSheet(meta, TAB);
   }
+  const tabRef = quoteTab(sheet.properties.title);
 
   const summary = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${TAB}'!A1:D4`,
+    range: `${tabRef}!A1:D4`,
   });
   const existingTitle = summary.data.values?.[0]?.[0] || "";
   if (existingTitle !== SUMMARY_ROWS[0][0]) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `'${TAB}'!A1:D4`,
+      range: `${tabRef}!A1:D4`,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: SUMMARY_ROWS },
     });
@@ -327,13 +363,13 @@ async function ensureTab(sheets, spreadsheetId) {
 
   const header = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${TAB}'!A${LEDGER_START_ROW}:R${LEDGER_START_ROW}`,
+    range: `${tabRef}!A${LEDGER_START_ROW}:R${LEDGER_START_ROW}`,
   });
   const existingHeader = header.data.values?.[0] || [];
   if (existingHeader.join("\t") !== LEDGER_HEADER.join("\t")) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `'${TAB}'!A${LEDGER_START_ROW}:R${LEDGER_START_ROW}`,
+      range: `${tabRef}!A${LEDGER_START_ROW}:R${LEDGER_START_ROW}`,
       valueInputOption: "RAW",
       requestBody: { values: [LEDGER_HEADER] },
     });
@@ -384,24 +420,22 @@ async function ensureTab(sheets, spreadsheetId) {
     },
   });
 }
-async function requireTab(sheets, spreadsheetId) {
-  const meta = await getMeta(sheets, spreadsheetId);
-  if (!findSheet(meta, TAB)) throw new Error(`Missing "${TAB}" tab in ${spreadsheetId} — run --ensure first`);
-}
 async function readSummary(sheets, spreadsheetId) {
-  await requireTab(sheets, spreadsheetId);
+  const sheet = await resolveTab(sheets, spreadsheetId);
+  const title = sheet.properties.title;
   const result = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${TAB}'!A1:R120`,
+    range: `${quoteTab(title)}!A1:R${gridRowCount(sheet)}`,
     valueRenderOption: "FORMATTED_VALUE",
   });
   return result.data.values || [];
 }
 async function readLedgerRows(sheets, spreadsheetId) {
-  await requireTab(sheets, spreadsheetId);
+  const sheet = await resolveTab(sheets, spreadsheetId);
+  const title = sheet.properties.title;
   const result = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
+    range: `${quoteTab(title)}!A${LEDGER_START_ROW + 1}:R${gridRowCount(sheet)}`,
     valueRenderOption: "UNFORMATTED_VALUE",
   });
   return (result.data.values || []).filter((row) => row.some((v) => v !== ""));
@@ -525,9 +559,8 @@ function buildBoardRows(rows) {
   return boardRows;
 }
 async function renderPipelineView(sheets, spreadsheetId, rows, now) {
-  const meta = await getMeta(sheets, spreadsheetId);
-  const sheet = findSheet(meta, TAB);
-  if (!sheet) throw new Error(`Missing "${TAB}" tab in ${spreadsheetId}`);
+  const sheet = await resolveTab(sheets, spreadsheetId);
+  const tabRef = quoteTab(sheet.properties.title);
   const summary = summarizeLedger(rows);
   const summaryRows = [
     SUMMARY_ROWS[0],
@@ -540,11 +573,11 @@ async function renderPipelineView(sheets, spreadsheetId, rows, now) {
   const boardRows = buildBoardRows(rows);
   await sheets.spreadsheets.values.clear({
     spreadsheetId,
-    range: `'${TAB}'!A1:R${LEDGER_START_ROW - 1}`,
+    range: `${tabRef}!A1:R${LEDGER_START_ROW - 1}`,
   });
   await sheets.spreadsheets.values.update({
     spreadsheetId,
-    range: `'${TAB}'!A1:D${BOARD_HEADER_ROW + boardRows.length}`,
+    range: `${tabRef}!A1:D${BOARD_HEADER_ROW + boardRows.length}`,
     valueInputOption: "USER_ENTERED",
     requestBody: { values: [...summaryRows, ...boardRows] },
   });
@@ -647,9 +680,12 @@ async function seedFromContractBreakdown(sheets, spreadsheetId) {
   }
 
   const now = new Date().toISOString();
+  const tabSheet = await resolveTab(sheets, spreadsheetId);
+  const tabRef = quoteTab(tabSheet.properties.title);
+  const tabRows = gridRowCount(tabSheet);
   const existing = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
+    range: `${tabRef}!A${LEDGER_START_ROW + 1}:R${tabRows}`,
     valueRenderOption: "UNFORMATTED_VALUE",
   });
   const existingRows = existing.data.values || [];
@@ -684,13 +720,13 @@ async function seedFromContractBreakdown(sheets, spreadsheetId) {
 
   await sheets.spreadsheets.values.clear({
     spreadsheetId,
-    range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
+    range: `${tabRef}!A${LEDGER_START_ROW + 1}:R${tabRows}`,
   });
   const finalRows = [...manualRows, ...generatedRows];
   if (finalRows.length) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R${LEDGER_START_ROW + finalRows.length}`,
+      range: `${tabRef}!A${LEDGER_START_ROW + 1}:R${LEDGER_START_ROW + finalRows.length}`,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: finalRows },
     });
@@ -703,9 +739,12 @@ async function seedFromContractBreakdown(sheets, spreadsheetId) {
 async function seedPipeline(sheets, spreadsheetId) {
   await ensureTab(sheets, spreadsheetId);
   const now = new Date().toISOString();
+  const tabSheet = await resolveTab(sheets, spreadsheetId);
+  const tabRef = quoteTab(tabSheet.properties.title);
+  const tabRows = gridRowCount(tabSheet);
   const existing = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
+    range: `${tabRef}!A${LEDGER_START_ROW + 1}:R${tabRows}`,
     valueRenderOption: "UNFORMATTED_VALUE",
   });
   const existingRows = existing.data.values || [];
@@ -721,12 +760,12 @@ async function seedPipeline(sheets, spreadsheetId) {
 
   await sheets.spreadsheets.values.clear({
     spreadsheetId,
-    range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R1000`,
+    range: `${tabRef}!A${LEDGER_START_ROW + 1}:R${tabRows}`,
   });
   if (finalRows.length) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `'${TAB}'!A${LEDGER_START_ROW + 1}:R${LEDGER_START_ROW + finalRows.length}`,
+      range: `${tabRef}!A${LEDGER_START_ROW + 1}:R${LEDGER_START_ROW + finalRows.length}`,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: finalRows },
     });

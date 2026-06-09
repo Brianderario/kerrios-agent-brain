@@ -33,7 +33,7 @@ test('inbox sweep prompt preserves approval gates and mailbox routing', () => {
 test('inbox sweep prompt blocks overlapping scheduled runs before loading context', () => {
   for (const required of [
     'STEP -1 — SINGLE-RUN GUARD',
-    'node scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 30 --runner codex',
+    'node scripts/inbox-sweep-lock.mjs acquire --ttl-minutes 30 --runner claude',
     'Before reading any other KerriOS files',
     'reason: "busy"',
     'Stop immediately and silently',
@@ -97,7 +97,7 @@ test('inbox sweep prompt routes suggestions through relevance-gated Google Tasks
     'Source runner',
     'obsolete',
     'Claude-era',
-    'Codex interactive',
+    'Claude Code interactive',
     '💡 SUGGESTION:'
   ]) {
     assert.match(prompt, new RegExp(escapeRegExp(required)));
@@ -118,16 +118,18 @@ test('inbox sweep prompt sends brief Sendblue alerts only for newly-created task
     'Do not text for ordinary no-op sweeps',
     'taskAlertedAt = now',
     'do not fall back to Slack',
-    'Still continue to STEP 8 and emit the required closing directives',
+    'Still continue to STEP 8 so the automation chat can archive',
     'quiet" means no external attention channel',
     'If the sweep did not add a Google Task and did not hit a decision, blocker, error, or other concrete Brian action, do not text Brian',
     'send ONE brief Sendblue/text heads-up',
-    'ending with exactly two raw directive lines',
-    'Do not wrap either directive in backticks or a code block',
-    '::archive{reason="Durable inbox sweep output already written outside this chat"}'
+    'Codex-era note',
+    'Under Claude Code, skip them'
   ]) {
     assert.match(prompt, new RegExp(escapeRegExp(required)));
   }
+
+  // Codex closing directives were retired 2026-06-09; the prompt must no longer instruct them.
+  assert.doesNotMatch(prompt, /ending with exactly two raw directive lines/i);
 
   assert.match(automationDoc, /brief Sendblue\/text heads-up/);
   assert.match(automationDoc, /send-text-alert\.mjs --message/);

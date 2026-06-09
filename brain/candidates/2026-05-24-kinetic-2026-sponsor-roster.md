@@ -1,3 +1,5 @@
+**STATUS (2026-06-09): absorbed, no Brian input pending.** The 2026-06-09 pipeline-followup first-run seed promoted all 23 confirmed sponsors below into `brain/wiki/deals/` as dormant deals (`relationship_tier: kinetic-2026-sponsor`, `source: kinetic-2026-roster`), so this file now serves only as source history for that seeding plus the 2027-prospect notes (Celedon, Hellbender).
+
 # Kinetic 2026 sponsor roster (candidate)
 
 scope: deals/event-sponsors · status: candidate · created: 2026-05-24 · author: kerri
