@@ -69,6 +69,7 @@ Read-only unless the brief creates or closes an action:
 - `data/eod-state.json`
 - `data/pipeline-followup-state.json`
 - `data/cold-outreach-state.json` — for batch approval lag (drafts waiting on Brian)
+- approval queue digest: run `node scripts/approval-queue-digest.mjs --json` (pure read over `data/jobs.json` + `data/cold-outreach-state.json`; tolerates missing files and returns an empty queue)
 - `output/industry-intel/<today YYYY-MM-DD>.md` if it exists — today's intel digest (runs at 6:30, before this brief)
 - `brain/wiki/deals/*.md` for active Hardware FYI/KMG revenue deals only
 
@@ -128,7 +129,12 @@ Google Tasks:
 - Exclude completed tasks unless completed status changed since yesterday and the completion matters.
 - For each task, capture list, title, due date, action Brian needs to take, and why it matters in one line.
 
-KerriOS open loops:
+Approval queue (dollars + latency):
+
+- Run `node scripts/approval-queue-digest.mjs --json` from the repo root. It is a pure read over `data/jobs.json` pending entries and `data/cold-outreach-state.json` drafted batches, tolerates missing runtime files, and returns an empty queue rather than failing.
+- Use its `items` array as-is: it is already sorted by dollars at stake (descending), then age (descending), and `totals` already carries the pending count, priced dollars at stake, and oldest age. Do not recompute ages or dollars by hand.
+- Carry through per item: jobId, company, actionClass, ageDays, dollarsAtStake (render `TBD` when null), senderIdentity, oneLineAsk, and the `stale` flag (true means older than 3 days).
+- If the script itself fails to run, treat the section as degraded: show an "Approval queue unavailable" state and record the degraded source. Never invent queue contents.
 
 - Read `brain/log.md` recent entries.
 - Read `brain/wiki/deals/` index/pages only for active deals referenced by tasks or recent logs.
@@ -155,14 +161,15 @@ Hardware FYI Revenue Focus:
 STEP 3 — PRIORITIZE AND SHAPE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The brief has four primary sections in this order:
+The brief has five primary sections in this order:
 
-1. Meetings today.
-2. Yesterday's Chase spend.
-3. Pending tasks needing Brian's attention.
-4. Hardware FYI Revenue Focus.
+1. Approval queue (always first: this is the money and latency Brian is personally blocking).
+2. Meetings today.
+3. Yesterday's Chase spend.
+4. Pending tasks needing Brian's attention.
+5. Hardware FYI Revenue Focus.
 
-It may include a fifth section, `Kerri's Read`, only when there is relevant context Brian would reasonably expect Kerri to surface without being asked.
+It may include a sixth section, `Kerri's Read`, only when there is relevant context Brian would reasonably expect Kerri to surface without being asked.
 
 Within Pending Tasks, rank by impact and time sensitivity:
 
@@ -196,11 +203,12 @@ Design requirements:
 - Use clear hierarchy:
   - header with date and one-line summary
   - three stat pills: meetings count, Chase spend total, pending tasks count
-  - section 1: `Today's Meetings`
-  - section 2: `Yesterday's Chase Spend`
-  - section 3: `Pending Tasks`
-  - section 4: `Hardware FYI Revenue Focus`
-  - optional section 5: `Kerri's Read`
+  - section 1: `Approval Queue` (at the TOP of the body, directly under the stat pills: one row per pending approval with jobId, company, age, and dollars (`TBD` when unpriced), in the digest's order (dollars then age), the totals line below the rows, and a visible warning marker on anything older than 3 days)
+  - section 2: `Today's Meetings`
+  - section 3: `Yesterday's Chase Spend`
+  - section 4: `Pending Tasks`
+  - section 5: `Hardware FYI Revenue Focus`
+  - optional section 6: `Kerri's Read`
   - small footer with generated time and degraded-source notes
 - Responsive mobile layout.
 - No raw email bodies.
@@ -217,6 +225,11 @@ Required HTML content shape:
   <h1><Weekday, Month D></h1>
   <p class="summary"><One sentence: meetings, spend, tasks.></p>
 </header>
+
+<section id="approval-queue">
+  <h2>Approval Queue</h2>
+  <!-- one row per pending approval: jobId, company, age, dollars (TBD when unpriced), one-line ask; warning marker when older than 3 days; totals line below -->
+</section>
 
 <section id="meetings">
   <h2>Today's Meetings</h2>
@@ -256,6 +269,14 @@ If the brief contains pending tasks, a blocker, degraded data coverage, or any o
 ```text
 Kerri morning brief needs attention: <pending task count> task(s), <blocker/data issue if any>. Check the brief.
 ```
+
+If the approval queue contains any item older than 3 days that ALSO has a priced dollar amount, add exactly one extra line for it inside that same single text. Do not send a second text for this; the morning brief still sends at most one Sendblue/text message per run:
+
+```text
+Stale approvals: <count> older than 3 days, $<sum of their priced dollars> at stake. Oldest: <jobId> <company> (<age>d).
+```
+
+Stale unpriced (TBD) items stay in the brief's Approval Queue section but do not earn a text line.
 
 Use `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`. Do not use Slack or iMessage as the primary morning-brief attention channel. If the brief has no Brian action and no degraded coverage, do not text.
 

@@ -275,6 +275,52 @@ test('inbox sweep enforces answer-every-ask coverage on replies', () => {
   }
 });
 
+test('inbox sweep prompt mandates trust instrumentation on jobs and run grades', () => {
+  // actionClass: mandatory field with the exact 8-value enum.
+  for (const required of [
+    '"actionClass"',
+    'MANDATORY on every new job',
+    'ACTION CLASS GUIDE',
+    'every new jobs.json entry MUST carry `actionClass`',
+    'exactly one of these 8 values, no others',
+    'Set `actionClass` per the ACTION CLASS GUIDE'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+  for (const actionClass of [
+    'internal-recipient-reply',
+    'scheduling-logistics-reply',
+    'warm-thread-holding-reply',
+    'sponsor-substantive-reply',
+    'pipeline-nudge',
+    'renewal-draft',
+    'cold-send',
+    'gmail-draft-only'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(actionClass)));
+  }
+
+  // sentDraft + decidedAt: send-time and decision-time stamps.
+  for (const required of [
+    '"sentDraft"',
+    '"decidedAt"',
+    'sentDraft → the exact body actually sent',
+    'originalDraft vs sentDraft',
+    "decidedAt → the ISO timestamp this sweep observed Brian's decision (checkbox, ACTION line, or deletion)",
+    'decidedAt → the ISO timestamp this sweep observed the skip decision',
+    'decidedAt → now (the sweep observed the deletion)',
+    'stamp `decidedAt`',
+    'do not overwrite it'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+
+  // doubleEmailBlocks: per-run counter in the grade ledger.
+  assert.match(prompt, /`doubleEmailBlocks` \(integer/);
+  assert.match(prompt, /count of sends the HARD NO-DOUBLE-EMAIL GATE held this run/);
+  assert.match(prompt, /the count lands in the run grade as `doubleEmailBlocks`/);
+});
+
 test('automation reference points at Claude Code primary inbox sweep', () => {
   assert.match(automationDoc, /Claude Code Primary/);
   assert.match(automationDoc, /Inbox Sweep \(#2\) = ACTIVE in Claude Code/);

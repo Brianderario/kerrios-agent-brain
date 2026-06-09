@@ -1,0 +1,25 @@
+{
+  "weekStart": "2026-06-08",
+  "weekCount": 10,
+  "todayDate": "2026-06-09",
+  "todayCount": 0,
+  "sent": [
+    { "email": "old@sentlong.ago", "sentAt": "2026-05-20T10:00:00-04:00", "jobId": "H0021" }
+  ],
+  "drafted": [
+    {
+      "email": "jane@coldco.com",
+      "draftedAt": "2026-06-05T12:00:00-04:00",
+      "jobId": "H0099",
+      "gtasksTaskId": "task-batch-1",
+      "batchIndex": 1
+    },
+    {
+      "email": "lee@newprospect.io",
+      "draftedAt": "2026-06-09T08:00:00-04:00",
+      "jobId": "H0100",
+      "gtasksTaskId": "task-batch-1",
+      "batchIndex": 2
+    }
+  ]
+}

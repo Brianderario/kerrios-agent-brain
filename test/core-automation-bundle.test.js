@@ -58,6 +58,22 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
 
   // Codex closing directives were retired 2026-06-09; the prompt must no longer instruct them.
   assert.doesNotMatch(files.morning, /ending with exactly two raw directive lines/i);
+
+  // Approval queue section: digest-driven, first in the body, stale priced items reach the text alert.
+  for (const required of [
+    'node scripts/approval-queue-digest.mjs --json',
+    'Approval Queue',
+    'Approval queue (always first',
+    'at the TOP of the body',
+    'dollars then age',
+    'totals line',
+    'older than 3 days',
+    'Stale approvals:',
+    'at most one Sendblue/text message per run',
+    'Approval queue unavailable'
+  ]) {
+    assert.match(files.morning, new RegExp(escapeRegExp(required)));
+  }
 });
 
 test('EOD meetings review queues drafts instead of sending', () => {
@@ -210,6 +226,26 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
   assert.match(files.inbox + files.eod + files.pipeline + files.coldOutreach + files.leadResearch, /Contract Won/);
   assert.match(files.inbox + files.eod + files.pipeline + files.coldOutreach + files.leadResearch, /Contract Lost/);
   assert.match(files.leadResearch + files.coldOutreach, /uncontacted leads?/i);
+});
+
+test('inbox sweep carries trust instrumentation for the self-improvement dataset', () => {
+  for (const required of [
+    '"actionClass"',
+    'ACTION CLASS GUIDE',
+    'internal-recipient-reply',
+    'scheduling-logistics-reply',
+    'warm-thread-holding-reply',
+    'sponsor-substantive-reply',
+    'pipeline-nudge',
+    'renewal-draft',
+    'cold-send',
+    'gmail-draft-only',
+    '"sentDraft"',
+    '"decidedAt"',
+    'doubleEmailBlocks'
+  ]) {
+    assert.match(files.inbox, new RegExp(escapeRegExp(required)));
+  }
 });
 
 function escapeRegExp(value) {
