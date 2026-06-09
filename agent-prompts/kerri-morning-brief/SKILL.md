@@ -203,7 +203,7 @@ Design requirements:
 - Use clear hierarchy:
   - header with date and one-line summary
   - three stat pills: meetings count, Chase spend total, pending tasks count
-  - section 1: `Approval Queue` (at the TOP of the body, directly under the stat pills: one row per pending approval with jobId, company, age, and dollars (`TBD` when unpriced), in the digest's order (dollars then age), the totals line below the rows, and a visible warning marker on anything older than 3 days)
+  - section 1: `Approval Queue` (at the TOP of the body, directly under the stat pills: one row per pending approval with jobId, company, age, and dollars (`TBD` when unpriced), in the digest's order (dollars then age), the totals line below the rows, and a visible warning marker on anything older than 3 days. If the digest reports `totals.escalated > 0`, open the section with a red ESCALATION banner above the rows listing each escalated item — jobId, company, age — and the line "Decide or explicitly skip today."; escalated rows also keep a red marker in the table. Escalated = waiting `escalateAgeDays` (7) days or more, priced or not.)
   - section 2: `Today's Meetings`
   - section 3: `Yesterday's Chase Spend`
   - section 4: `Pending Tasks`
@@ -276,7 +276,11 @@ If the approval queue contains any item older than 3 days that ALSO has a priced
 Stale approvals: <count> older than 3 days, $<sum of their priced dollars> at stake. Oldest: <jobId> <company> (<age>d).
 ```
 
-Stale unpriced (TBD) items stay in the brief's Approval Queue section but do not earn a text line.
+Stale unpriced (TBD) items stay in the brief's Approval Queue section but do not earn a text line — UNLESS they are escalated (7+ days, `escalated: true` in the digest). Escalated items always earn a line in the single text, priced or not (Brian-approved 2026-06-09; an unpriced item sat silently for 13 days under the priced-only rule). Format, still inside the same single text:
+
+```text
+🔴 Escalated: <count> waiting 7+ days. <jobId> <company> (<age>d)[, ...]. Decide or skip today.
+```
 
 Use `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`. Do not use Slack or iMessage as the primary morning-brief attention channel. If the brief has no Brian action and no degraded coverage, do not text.
 
