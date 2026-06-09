@@ -136,6 +136,14 @@ Approval queue (dollars + latency):
 - Carry through per item: jobId, company, actionClass, ageDays, dollarsAtStake (render `TBD` when null), senderIdentity, oneLineAsk, and the `stale` flag (true means older than 3 days).
 - If the script itself fails to run, treat the section as degraded: show an "Approval queue unavailable" state and record the degraded source. Never invent queue contents.
 
+Auto-logged sends + autonomy ramp (Brian decision 2026-06-09, `brain/wiki/decisions/2026-06-09-autonomy-boundary.md`):
+
+- Run `node scripts/autonomy-report.mjs --auto-logged --json` from the repo root (default window: last 24 hours; pass `--since <ISO>` only if the previous brief's send time is known and older). Pure read over `data/jobs.json`; tolerates missing files.
+- Render its `items` as the `Auto-Logged Sends` section directly under the Approval Queue: one row per send with jobId, company, recipients, subject, and sent time. This section is the canonical notification for auto-logged sends (plus the auto-CC Brian already received). If there are zero items, show one quiet line ("No auto-logged sends in the last day.") so Brian can see the rail is alive.
+- Run `node scripts/autonomy-report.mjs --ramp --json`. If `readyForPromotion` is non-empty, add one line to the Auto-Logged Sends section: "`<class>` met the graduation bar (<n> approvals, <edit rate>, 0 double-emails) — promote? You flip the tier in `data/autonomy-policy.json`; Kerri never does." If empty, say nothing about the ramp.
+- Auto-logged sends NEVER earn a Sendblue/text line (policy `notifications.neverText`; texts are the interrupt lane).
+- If `autonomy-report.mjs` fails to run, show "Auto-logged report unavailable" and record the degraded source. Never invent send records.
+
 - Read `brain/log.md` recent entries.
 - Read `brain/wiki/deals/` index/pages only for active deals referenced by tasks or recent logs.
 - Read `brain/candidates/` only for candidates updated in the last 7 days or explicitly referenced by today's agenda.
@@ -204,6 +212,7 @@ Design requirements:
   - header with date and one-line summary
   - three stat pills: meetings count, Chase spend total, pending tasks count
   - section 1: `Approval Queue` (at the TOP of the body, directly under the stat pills: one row per pending approval with jobId, company, age, and dollars (`TBD` when unpriced), in the digest's order (dollars then age), the totals line below the rows, and a visible warning marker on anything older than 3 days. If the digest reports `totals.escalated > 0`, open the section with a red ESCALATION banner above the rows listing each escalated item — jobId, company, age — and the line "Decide or explicitly skip today."; escalated rows also keep a red marker in the table. Escalated = waiting `escalateAgeDays` (7) days or more, priced or not.)
+  - section 1b: `Auto-Logged Sends` (directly under the Approval Queue: one row per auto-logged send in the report window with jobId, company, recipients, subject, sent time; a one-line quiet state when zero; plus the single ramp-promotion line when `readyForPromotion` is non-empty)
   - section 2: `Today's Meetings`
   - section 3: `Yesterday's Chase Spend`
   - section 4: `Pending Tasks`
@@ -229,6 +238,11 @@ Required HTML content shape:
 <section id="approval-queue">
   <h2>Approval Queue</h2>
   <!-- one row per pending approval: jobId, company, age, dollars (TBD when unpriced), one-line ask; warning marker when older than 3 days; totals line below -->
+</section>
+
+<section id="auto-logged">
+  <h2>Auto-Logged Sends</h2>
+  <!-- one row per auto-logged send: jobId, company, recipients, subject, sent time; quiet one-liner when zero; optional ramp-promotion line -->
 </section>
 
 <section id="meetings">

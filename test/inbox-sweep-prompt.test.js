@@ -321,6 +321,31 @@ test('inbox sweep prompt mandates trust instrumentation on jobs and run grades',
   assert.match(prompt, /the count lands in the run grade as `doubleEmailBlocks`/);
 });
 
+test('inbox sweep auto-logged path is fail-closed and scoped to internal-recipient-reply', () => {
+  for (const required of [
+    'AUTO-LOGGED SEND PATH',
+    'brain/wiki/decisions/2026-06-09-autonomy-boundary.md',
+    'data/autonomy-policy.json',
+    'a sweep NEVER promotes a class',
+    'Fail closed, always',
+    'Today that is `internal-recipient-reply` and nothing else',
+    'exactly matches an address in the policy’s `trustedInternal` list'.replace('’', "'"),
+    'One non-matching address → ASK',
+    'S-prefix NEVER auto-sends',
+    'The HARD NO-DOUBLE-EMAIL GATE passes for this job exactly as it does for approved sends',
+    'pricing, legal, finance, spend, CRM, or scope',
+    'never "send now, task later."',
+    'auto-CC to brian@hardwarefyi.com stays on',
+    '`autoLogged: true`',
+    'no Google Task is created for an auto-logged send',
+    'NO Sendblue/text alert for an auto-logged send',
+    'node scripts/autonomy-report.mjs --auto-logged',
+    'Demotion is always allowed; promotion never is'
+  ]) {
+    assert.match(prompt, new RegExp(escapeRegExp(required)));
+  }
+});
+
 test('automation reference points at Claude Code primary inbox sweep', () => {
   assert.match(automationDoc, /Claude Code Primary/);
   assert.match(automationDoc, /Inbox Sweep \(#2\) = ACTIVE in Claude Code/);

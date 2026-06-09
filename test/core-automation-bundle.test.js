@@ -74,6 +74,19 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
   ]) {
     assert.match(files.morning, new RegExp(escapeRegExp(required)));
   }
+
+  // Auto-logged sends section: report-driven, never a text, ramp promotion stays Brian-only.
+  for (const required of [
+    'node scripts/autonomy-report.mjs --auto-logged --json',
+    'node scripts/autonomy-report.mjs --ramp --json',
+    'Auto-Logged Sends',
+    'No auto-logged sends in the last day.',
+    'NEVER earn a Sendblue/text line',
+    'Kerri never does',
+    'Auto-logged report unavailable'
+  ]) {
+    assert.match(files.morning, new RegExp(escapeRegExp(required)));
+  }
 });
 
 test('EOD meetings review queues drafts instead of sending', () => {

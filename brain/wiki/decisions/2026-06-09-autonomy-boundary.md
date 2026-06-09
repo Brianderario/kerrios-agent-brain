@@ -17,5 +17,5 @@
 ## Enforcement status
 
 - Escalation (item 3): **LIVE** (merged to main this session).
-- AUTO-LOGGED for `internal-recipient-reply` (item 1) + the ramp metrics (item 2): **approved, not yet enforced** — the inbox-sweep prompt change is send-authority-affecting, so it lands via the Wave 3 PR (`autonomy-policy.json` + sweep prompt edit + tests). Until that PR merges, internal replies still route through Google Tasks.
-- Notification channel for AUTO-LOGGED sends: pending Brian's channel decision (Slack disliked — sends appear from Brian himself with no notification; candidates are internal email from kerri@ and/or the existing Sendblue text rail).
+- AUTO-LOGGED for `internal-recipient-reply` (item 1) + the ramp metrics (item 2): **enforced via the Wave 3 PR** — `data/autonomy-policy.json` (tracked, Brian-edited tiers only) + the AUTO-LOGGED SEND PATH in `agent-prompts/kerri-inbox-sweep/SKILL.md` + `scripts/autonomy-report.mjs` (`--ramp` graduation report, `--auto-logged` send list) + tests.
+- Notification channel for AUTO-LOGGED sends: **DECIDED 2026-06-09 ("Perfect. Go with your recommendation.")** — morning-brief Auto-Logged Sends section + the standard auto-CC to brian@hardwarefyi.com on every kerri@ send. Never texts (texts are the interrupt lane). See `brain/wiki/decisions/2026-06-09-kerri-brian-comms.md` for the full channel architecture.
