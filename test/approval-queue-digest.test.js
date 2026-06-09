@@ -34,7 +34,7 @@ test('digest tolerates missing runtime files (worktree default)', () => {
   const dir = makeDataDir({ withJobs: false, withColdState: false });
   const digest = buildDigest({ dataDir: dir, now: NOW });
   assert.deepEqual(digest.items, []);
-  assert.deepEqual(digest.totals, { pending: 0, pricedDollarsAtStake: 0, oldestAgeDays: 0 });
+  assert.deepEqual(digest.totals, { pending: 0, pricedDollarsAtStake: 0, oldestAgeDays: 0, escalated: 0 });
 
   const table = renderTable(digest);
   assert.match(table, /Approval queue is empty/);
@@ -136,6 +136,53 @@ test('items strictly older than 3 days get the warning flag', () => {
   assert.equal(flagged.length, 2);
   assert.match(flagged.join('\n'), /H0042/);
   assert.match(flagged.join('\n'), /H0099/);
+});
+
+test('items 7+ days old are escalated; younger stale items are not', () => {
+  const dir = makeDataDir({ withJobs: false, withColdState: false });
+  fs.writeFileSync(
+    path.join(dir, 'jobs.json'),
+    JSON.stringify([
+      // 13 days old (created May 27) — escalated. Mirrors the real G0008 Hilton case.
+      { jobId: 'G0008', company: 'Hilton', status: 'pending', createdAt: '2026-05-27T10:00:00-04:00' },
+      // Exactly 7 days old — escalation threshold is inclusive.
+      { jobId: 'H0031', company: 'SF Brewing', status: 'pending', createdAt: '2026-06-02T10:00:00-04:00' },
+      // 5 days old — stale but NOT escalated.
+      { jobId: 'H0042', company: 'Acme', status: 'pending', createdAt: '2026-06-04T10:00:00-04:00' },
+      // 1 day old — neither.
+      { jobId: 'H0061', company: 'Fresh', status: 'pending', createdAt: '2026-06-08T10:00:00-04:00' }
+    ])
+  );
+
+  const digest = buildDigest({ dataDir: dir, now: NOW });
+  const byId = Object.fromEntries(digest.items.map((item) => [item.jobId, item]));
+
+  assert.equal(digest.escalateAgeDays, 7);
+  assert.equal(byId.G0008.escalated, true);
+  assert.equal(byId.G0008.stale, true);
+  assert.equal(byId.H0031.escalated, true);
+  assert.equal(byId.H0042.escalated, false);
+  assert.equal(byId.H0042.stale, true);
+  assert.equal(byId.H0061.escalated, false);
+  assert.equal(byId.H0061.stale, false);
+  assert.equal(digest.totals.escalated, 2);
+
+  const table = renderTable(digest);
+  // Escalated rows carry the red marker instead of the warning marker.
+  const lines = table.split('\n');
+  assert.equal(lines.filter((line) => line.startsWith('🔴') && !line.includes('ESCALATION:')).length, 2);
+  assert.equal(lines.filter((line) => line.startsWith('⚠')).length, 1);
+  // The escalation line names the offenders and demands a decision.
+  assert.match(table, /🔴 ESCALATION: 2 items waiting 7\+ days — G0008 \(13d\), H0031 \(7d\)\. Decide or explicitly skip today\./);
+});
+
+test('no escalation line when nothing is 7+ days old', () => {
+  const dir = makeDataDir();
+  const digest = buildDigest({ dataDir: dir, now: NOW });
+  // Fixture ages top out at 5 days: stale flags exist, escalation does not.
+  assert.equal(digest.totals.escalated, 0);
+  assert.ok(digest.items.every((item) => item.escalated === false));
+  assert.ok(!renderTable(digest).includes('ESCALATION:'));
 });
 
 test('--exclude-cold omits cold drafts from the digest', () => {
