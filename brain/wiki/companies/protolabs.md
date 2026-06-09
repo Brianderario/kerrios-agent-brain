@@ -7,14 +7,15 @@ slug: protolabs
 
 # Protolabs
 
-scope: prospect (cold outreach) · updated: 2026-06-08 · source: strategic engineering account override
+scope: existing advertiser (renewal target) · updated: 2026-06-09 · source: H0106 thread "Protolabs <> Hardware FYI"
 
-Cold outreach prospect staged for Brian approval in Google Task QWNYTnRrbjNieUVva05saw.
+Existing Hardware FYI newsletter advertiser, owned by Benji. Ran a six-placement campaign (Q1 into Q2 2026); all six published by ~third week of May. The Design for Moldability guide was the top performer across all six placements. Pulled from the 2026-06-08 cold batch (correctly) because it is a warm existing relationship, not a cold prospect.
 
-- Contact: Will Martin, Global Director of Brand + Communications, will.martin@protolabs.com
-- Company fit: digital manufacturing and prototyping services for engineers
-- Person fit: global brand and communications director can evaluate sponsorship renewal/value
-- Qualification: prior HWFYI relationship/renewal target; verified comms buyer; performance-analytics hook
-- Hook: Tier 1 renewal account; completed campaign analytics ready and top-performing Design for Moldability guide gives renewal hook. Monday 2026-06-08 first-touch/follow-up priority for CY2026 $1M close sprint.
+- Active contact: **Brent Renneke**, brent.renneke@protolabs.com (manages the HWFYI placements). Earlier cold-batch contact was Will Martin (Global Director, Brand + Comms, will.martin@protolabs.com).
+- Mihir Shah (mihir@hardwarefyi.com) was on the original campaign thread.
 
-No email sent yet. Do not add to central pipeline until approved send happens.
+## Thread state (H0106, as of 2026-06-09)
+- Benji emailed Brent 6/2: full analytics report ready, asked for a call to walk through results.
+- Brent replied 6/9: happy to meet, free Thursday + Friday AM until 11am CT.
+- Kerri queued an approval-gated reply (Google Task, kerri@ reply-all) proposing Thursday 10:00am CT / 11:00am ET, Friday AM backup. Awaiting Brian approval + Benji availability confirm.
+- Next: lock the results-review call → renewal conversation for the next Protolabs buy. Revenue lens: pipeline advanced (renewal).
