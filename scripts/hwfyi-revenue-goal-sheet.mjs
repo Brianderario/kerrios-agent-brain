@@ -305,7 +305,7 @@ function findSheet(meta, title) {
   const wanted = normalizeTitle(title);
   const fuzzy = all.filter((s) => normalizeTitle(s.properties.title) === wanted);
   if (fuzzy.length === 1) {
-    console.error(`hwfyi-revenue-goal-sheet: note — resolved tab by normalized title match: "${fuzzy[0].properties.title}"`);
+    console.error(`hwfyi-revenue-goal-sheet: note: resolved tab by normalized title match: "${fuzzy[0].properties.title}"`);
     return fuzzy[0];
   }
   return undefined;

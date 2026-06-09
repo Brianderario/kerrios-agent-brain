@@ -1,6 +1,6 @@
 # KMG Agent Registry
 
-scope: agent index · updated: 2026-06-08
+scope: agent index · updated: 2026-06-09
 
 Every active or planned team agent that reads/writes this brain. Source of truth for "who is Kerri / who is Ari's agent / etc."
 
@@ -37,15 +37,16 @@ Legacy Codex automation context packs at `/Users/brianderario/Desktop/Codex Kerr
 | `kerri-morning-brief-retry` | 7:18am ET, weekdays, Claude Code scheduled task; guarded recovery only | `agent-prompts/kerri-morning-brief-retry/SKILL.md` |
 | `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Claude Code scheduled task | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-brain-push` | 10:00pm ET, daily, Claude Code scheduled task | `agent-prompts/kerri-brain-push/SKILL.md` |
-| `kerri-gap-sweep` | 9:41pm ET, daily, Claude Code scheduled task; checks Codex records plus Claude shims | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+| `kerri-gap-sweep` | 9:41pm ET, daily, Claude Code scheduled task; checks Claude shims, repo/prompt/doc hygiene, and live operating state (Codex retired 2026-06-08, no Codex records remain in scope) | `agent-prompts/kerri-gap-sweep/SKILL.md` |
 | `kerri-lead-research` | 6:13pm ET, weekdays, Claude Code scheduled task; maintains 25 ready prospects for the daily 10-outreach loop; cheap preflight/no-op quiet | `agent-prompts/kerri-lead-research/SKILL.md` |
 | `kerri-cold-outreach` | 9:07am ET, weekdays, Claude Code scheduled task; targets 10 approval-ready drafts, inspects at most 25 queue entries, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
 | `kerri-pipeline-followup` | 8:33am ET, Tuesdays and Thursdays, Claude Code scheduled task; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
 | `standard-works-issue-writer` | 8:00pm ET, Mondays and Wednesdays, Claude Code scheduled task; stages Beehiiv review drafts only | `agent-prompts/kerri-sw-newsletter-writer/SKILL.md` |
-
 | `kerri-industry-intel` | 6:30am ET, weekdays, Claude Code scheduled task; polls RSS + Google Alerts + intel emails, archives processed emails, no external sends | `agent-prompts/kerri-industry-intel/SKILL.md` |
+| `kerri-renewal-watchdog` | 10am ET Wednesdays (cron `0 10 * * 3`); prompt ready, shim prepared 2026-06-09, schedule activation pending Brian confirmation (registration exists + enabled from the 2026-06-09 migration); approval-gated, max 5 drafts | `agent-prompts/kerri-renewal-watchdog/SKILL.md` |
+| `kerri-revenue-standup` | 4pm ET Fridays (cron `0 16 * * 5`); prompt ready, shim prepared 2026-06-09, schedule activation pending Brian confirmation (registration exists + enabled from the 2026-06-09 migration); read-only, Slack DM + text | `agent-prompts/kerri-revenue-standup/SKILL.md` |
 
-2026-06-09 note: `kerri-industry-intel` added as 13th scheduled task. Phase 1 (free tier): TechCrunch RSS, Crunchbase News RSS, Google Alerts email digests, Apollo enrichment (max 5/day). Read-only + archive only, no sends.
+2026-06-09 note: `kerri-industry-intel` added as 13th scheduled task. Phase 1 (free tier): TechCrunch RSS, Crunchbase News RSS, Google Alerts email digests, Apollo enrichment (max 5/day). Read-only + archive only, no sends. **Status as of 2026-06-09: scheduled but zero successful runs.** Diagnosis (2026-06-09 PM): the routine was only created and registered 2026-06-09 ~10:59 ET, after that day's 6:30am slot, so it has never had a scheduled fire opportunity; first fire is 2026-06-10 ~6:37am ET. Not a failure. Gap found and fixed the same day: `scripts/routine-liveness-check.mjs` did not monitor it at all (its registry covered only 5 routines), so a genuinely dark industry-intel would never have alerted; it now goes dark-alert if no successful run is recorded by 7:15am ET on a weekday (with bootstrap-day grace).
 
 2026-06-08 note: Claude Code is now the sole scheduled runner. All routines run as Claude Code persistent scheduled tasks. Codex automations are retired. Approval gates unchanged everywhere.
 

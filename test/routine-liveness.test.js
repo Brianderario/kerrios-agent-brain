@@ -215,7 +215,7 @@ test('industry-intel bootstrap state with lastRunAt null after grace → dark (z
   const root = fixture({
     'industry-intel-state.json': { schema: 'v1', lastRunAt: null, processedFeedGuids: [] }
   });
-  // State file bootstrapped YESTERDAY — the routine had a fire opportunity and never succeeded.
+  // State file bootstrapped YESTERDAY: the routine had a fire opportunity and never succeeded.
   touch(root, 'industry-intel-state.json', '2026-06-03T15:00:00Z');
   const rep = run(root, '2026-06-04T12:00:00Z'); // 08:00 ET Thu, past 07:15 ET grace
   const ii = rep.routines.find((x) => x.routine === 'kerri-industry-intel');

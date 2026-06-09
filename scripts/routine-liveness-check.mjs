@@ -157,7 +157,7 @@ function lastIndustryIntel(root) {
   const s = readJson(root, 'industry-intel-state.json');
   return s ? s.lastRunAt || null : null;
 }
-// Raw state object — lets evaluate() distinguish "state file present but the
+// Raw state object: lets evaluate() distinguish "state file present but the
 // routine has NEVER succeeded" (lastRunAt null → dark after grace) from "no
 // state file at all" (unknown). This closed the 2026-06-09 gap where
 // kerri-industry-intel could sit at zero successful runs forever without an

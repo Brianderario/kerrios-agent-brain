@@ -37,7 +37,10 @@ brain/.local/sw-newsletter-drafts/
 data/sw-newsletter/state.json
 data/events/
 data/industry-intel-state.json
+data/renewal-watchdog-state.json
+data/revenue-standup-state.json
 data/pipeline-followup-state.json
+data/backups/
 
 # Coverage + build artifacts
 coverage/

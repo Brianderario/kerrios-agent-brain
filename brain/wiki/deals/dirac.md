@@ -32,6 +32,7 @@ AI-generated work instructions for manufacturing/assembly. Kinetic 2026 confirme
 - **Status: dormant.** Seeded from the [Kinetic 2026 sponsor roster](../../candidates/2026-05-24-kinetic-2026-sponsor-roster.md) (2026-05-24 candidate). No nudges fire until Brian flips `status: active`.
 - **To start a renewal/2027 push:** set `status: active`, `relationship_tier: renewal` (or `re-engagement` if quiet >60 days), set `last_contact_date` to your most recent message, `last_sender: us`. Pipeline-followup picks up at the next 8:33 ET run.
 - Primary contact: Gigi Schadrack <gigi@diracinc.com>.
+- **Reconcile note (2026-06-09):** the CY2026 tracker lists Dirac as an open Interest deal (SF Tech Week / webinar / event slot), but `jobId` is still null (no `data/companies.json` entry). Per pipeline HARD RULE 8, a null-jobId deal cannot be nudged. To activate: confirm the live contact + let inbox-sweep assign a jobId on the next real inbound (or Brian registers it), then flip `status: active` with the true `last_contact_date` / `last_sender`. Left dormant for now rather than fabricate state.
 
 ## Source
 - Kinetic 2026 post-event "THANK YOU - Kinetic 2026" send from brian@hardwarefyi.com (2026-05-14 to 2026-05-23).

@@ -1,9 +1,4 @@
 {
-  "circuithub.com": {
-    "jobId": "H0124",
-    "name": "CircuitHub",
-    "prefix": "H"
-  },
   "companies": {
     "1x.tech": {
       "aliases": [],
@@ -37,6 +32,17 @@
       "primaryContact": "mark.rootz@alifsemi.com",
       "slug": "alif-semiconductor",
       "wikiPage": "brain/wiki/companies/alif-semiconductor.md"
+    },
+    "allencontrolsystems.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0129",
+      "name": "Allen Control Systems",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "monika@allencontrolsystems.com",
+      "slug": "allen-control-systems",
+      "wikiPage": "brain/wiki/companies/allen-control-systems.md"
     },
     "allspice.io": {
       "aliases": [],
@@ -115,6 +121,17 @@
       "slug": "apex-industrial-automation",
       "wikiPage": "brain/wiki/companies/apex-industrial-automation.md"
     },
+    "apexspace.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0130",
+      "name": "Apex Space",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "david.harrower@apexspace.com",
+      "slug": "apex-space",
+      "wikiPage": "brain/wiki/companies/apex-space.md"
+    },
     "apogeesemi.com": {
       "aliases": [],
       "firstSeenAt": "2026-06-04T13:11:00Z",
@@ -180,6 +197,17 @@
       "primaryContact": "andrew.dematos@astrolab.space",
       "slug": "astrolab",
       "wikiPage": "brain/wiki/companies/astrolab.md"
+    },
+    "atom-computing.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0131",
+      "name": "Atom Computing",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "bbloom@atom-computing.com",
+      "slug": "atom-computing",
+      "wikiPage": "brain/wiki/companies/atom-computing.md"
     },
     "atoms.tech": {
       "aliases": [],
@@ -641,6 +669,28 @@
       "slug": "j-reach",
       "wikiPage": "brain/wiki/companies/j-reach.md"
     },
+    "ghostrobotics.io": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0136",
+      "name": "Ghost Robotics",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "msubhan@ghostrobotics.io",
+      "slug": "ghost-robotics",
+      "wikiPage": "brain/wiki/companies/ghost-robotics.md"
+    },
+    "goinfinitum.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0134",
+      "name": "Infinitum",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "cwitt@goinfinitum.com",
+      "slug": "infinitum",
+      "wikiPage": "brain/wiki/companies/infinitum.md"
+    },
     "gorillacircuits.com": {
       "aliases": [],
       "firstSeenAt": "2026-06-08T13:05:00.000Z",
@@ -903,6 +953,17 @@
       "slug": "machina-labs",
       "wikiPage": "brain/wiki/companies/machina-labs.md"
     },
+    "macrofab.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0133",
+      "name": "MacroFab",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "cmartin@macrofab.com",
+      "slug": "macrofab",
+      "wikiPage": "brain/wiki/companies/macrofab.md"
+    },
     "marvintest.com": {
       "aliases": [],
       "firstSeenAt": "2026-05-25T13:20:00Z",
@@ -957,6 +1018,17 @@
       "primaryContact": "emily.carter@mypursuebiz.info",
       "slug": "pursue-biz",
       "wikiPage": "brain/wiki/companies/pursue-biz.md"
+    },
+    "nano-di.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0135",
+      "name": "Nano Dimension",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "yael.cooper@nano-di.com",
+      "slug": "nano-dimension",
+      "wikiPage": "brain/wiki/companies/nano-dimension.md"
     },
     "navitassemi.com": {
       "aliases": [],
@@ -1151,6 +1223,17 @@
       "slug": "quantum-computing-inc",
       "wikiPage": "brain/wiki/companies/quantum-computing-inc.md"
     },
+    "quilter.ai": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0132",
+      "name": "Quilter",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "sergiy@quilter.ai",
+      "slug": "quilter",
+      "wikiPage": "brain/wiki/companies/quilter.md"
+    },
     "reflexrobotics.com": {
       "aliases": [],
       "firstSeenAt": "2026-06-04T13:11:00Z",
@@ -1298,6 +1381,19 @@
       "slug": "siemens-digital-industries-software",
       "wikiPage": "brain/wiki/companies/siemens-digital-industries-software.md"
     },
+    "silanna.com": {
+      "aliases": [
+        "silannasemi.com"
+      ],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0138",
+      "name": "Silanna Semiconductor",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "rthakur@silanna.com",
+      "slug": "silanna-semiconductor",
+      "wikiPage": "brain/wiki/companies/silanna-semiconductor.md"
+    },
     "sima.ai": {
       "aliases": [],
       "firstSeenAt": "2026-06-08T12:30:00.000Z",
@@ -1319,6 +1415,17 @@
       "primaryContact": "michael.tanguay@simplexitypd.com",
       "slug": "simplexity-product-development",
       "wikiPage": "brain/wiki/companies/simplexity-product-development.md"
+    },
+    "sliprobotics.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T15:02:20.000Z",
+      "jobId": "H0137",
+      "name": "Slip Robotics",
+      "note": "Cold outreach prospect, staged in the 2026-06-09 approval batch. Awaiting Brian approval. No email sent yet.",
+      "prefix": "H",
+      "primaryContact": "erin@sliprobotics.com",
+      "slug": "slip-robotics",
+      "wikiPage": "brain/wiki/companies/slip-robotics.md"
     },
     "sprucesf.com": {
       "aliases": [],
@@ -1505,61 +1612,6 @@
     }
   },
   "description": "Customer registry. Domain -> stable jobId per the 2026-05-24 customer-ID rule (a company keeps the same jobId across all threads forever). Lookup: lowercase sender domain, normalize obvious mail/marketing subdomains (mail.acme.com -> acme.com), then look up directly OR scan `aliases` arrays for a match. Company is the identity \u2014 multiple domains/aliases can map to one jobId; never split one company across two jobIds.",
-  "durolabs.co": {
-    "jobId": "H0120",
-    "name": "Duro Labs",
-    "prefix": "H"
-  },
-  "firefly.co": {
-    "jobId": "H0123",
-    "name": "Firefly Aerospace",
-    "prefix": "H"
-  },
-  "flux.ai": {
-    "jobId": "H0118",
-    "name": "Flux",
-    "prefix": "H"
-  },
-  "graymatter-robotics.com": {
-    "jobId": "H0059",
-    "name": "GrayMatter Robotics",
-    "prefix": "H"
-  },
-  "mfgflow.co": {
-    "jobId": "H0122",
-    "name": "MFG Flow",
-    "prefix": "H"
-  },
-  "plexus.company": {
-    "jobId": "H0128",
-    "name": "Plexus",
-    "prefix": "H"
-  },
-  "ptc.com": {
-    "jobId": "H0104",
-    "name": "PTC",
-    "prefix": "H"
-  },
   "schema": "companies-v1",
-  "simplexitypd.com": {
-    "jobId": "H0127",
-    "name": "Simplexity Product Development",
-    "prefix": "H"
-  },
-  "summitinterconnect.com": {
-    "jobId": "H0126",
-    "name": "Summit Interconnect",
-    "prefix": "H"
-  },
-  "updatedAt": "2026-06-08T22:37:55.000Z",
-  "xometry.com": {
-    "jobId": "H0125",
-    "name": "Xometry",
-    "prefix": "H"
-  },
-  "xscapephotonics.com": {
-    "jobId": "H0121",
-    "name": "Xscape Photonics",
-    "prefix": "H"
-  }
+  "updatedAt": "2026-06-09T15:02:20.000Z"
 }
