@@ -40,13 +40,18 @@ Standing context: Hardware FYI's CY2026 revenue goal is `$1,000,000`. This agent
 | TechCrunch Funding tag | `https://techcrunch.com/tag/funding/feed/` | Dedicated funding announcements |
 | TechCrunch Startup Funding | `https://techcrunch.com/tag/startup-funding/feed/` | Startup-specific funding news |
 | Crunchbase News | `https://news.crunchbase.com/feed/` | Funding rounds, M&A, startup news |
+| GA: Manufacturing startup funding | `https://www.google.com/alerts/feeds/13522894353442356028/3316431493997140204` | Google Alert: manufacturing startup funding/raised/series |
+| GA: Hardware startup funding | `https://www.google.com/alerts/feeds/13522894353442356028/6716827921509869629` | Google Alert: hardware startup funding/raised |
+| GA: Robotics startup funding | `https://www.google.com/alerts/feeds/13522894353442356028/1244879645764138445` | Google Alert: robotics startup funding/raised |
+| GA: Defense tech startup funding | `https://www.google.com/alerts/feeds/13522894353442356028/8503952058723308669` | Google Alert: defense tech startup funding/raised |
+| GA: Aerospace startup funding | `https://www.google.com/alerts/feeds/13522894353442356028/1971411964846934615` | Google Alert: aerospace startup funding/raised/series |
 
 ### Email-delivered intel (kerri@hardwarefyi.com)
 
-Search kerri@hardwarefyi.com for emails matching these patterns. These are Google Alerts and industry newsletters that deliver to Kerri's inbox:
+Search kerri@hardwarefyi.com for emails matching these patterns. Google Alerts are delivered via RSS (see above), so they will NOT appear in the inbox. The inbox scan catches industry newsletters and any future email-delivered alerts:
 
-- **Google Alerts:** Subject contains "Google Alert" -- these are keyword-matched alerts for manufacturing/hardware/startup funding terms
 - **Industry newsletters:** From known newsletter senders (maintain a sender allowlist in state). Initial allowlist: any sender whose email contains "newsletter", "digest", "alert", "brief", "update" in the subject or sender name, AND whose content relates to manufacturing, hardware, industrial, robotics, defense tech, aerospace, or startup funding.
+- **Google Alerts (legacy/future):** If any email with subject containing "Google Alert" appears, process it the same way -- extract signals, archive.
 
 ### Apollo enrichment (on-demand, budget-capped)
 
