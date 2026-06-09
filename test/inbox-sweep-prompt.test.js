@@ -321,18 +321,18 @@ test('inbox sweep prompt mandates trust instrumentation on jobs and run grades',
   assert.match(prompt, /the count lands in the run grade as `doubleEmailBlocks`/);
 });
 
-test('inbox sweep prompt includes fail-closed autonomy policy consultation gate', () => {
+test('inbox sweep prompt includes fail-closed autonomy policy gate (auto-logged send path)', () => {
   for (const required of [
-    'AUTONOMY POLICY CONSULTATION',
+    'AUTO-LOGGED SEND PATH',
     'data/autonomy-policy.json',
-    'FAIL CLOSED to stage 1',
-    'stage === 1',
-    'stage === 2',
-    'auto-CC brian@hardwarefyi.com on every send',
-    'the file is missing, unreadable, or the class is not found',
-    'ALL 8 action classes are stage 1'
+    'Fail closed, always',
+    'auto-logged',
+    'auto-CC',
+    'brian@hardwarefyi.com',
+    'File missing, unparseable',
+    'Demotion is automatic'
   ]) {
-    assert.match(prompt, new RegExp(escapeRegExp(required)));
+    assert.match(prompt, new RegExp(escapeRegExp(required), 'i'));
   }
 });
 

@@ -6,7 +6,8 @@
 //   - data/cold-outreach-state.json#drafted[] (cold batch drafts awaiting batch approval)
 //
 // Output (default): human-readable table sorted by dollars at stake (desc), then age (desc),
-// with a totals line. Items older than 3 days get a warning marker.
+// with a totals line. Items older than 3 days get a warning marker; items 7+ days old are
+// ESCALATED (red marker + escalation line) so the morning brief can surface them loudly.
 // Output (--json): machine-readable digest for the morning brief and other agents.
 //
 // Both runtime files are gitignored; this script tolerates absence of either file
@@ -29,7 +30,9 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_DATA_DIR = path.join(SCRIPT_DIR, '..', 'data');
 
 const STALE_AGE_DAYS = 3; // strictly older than this earns the warning marker
+const ESCALATE_AGE_DAYS = 7; // this old or older earns the escalation marker (Brian-approved 2026-06-09)
 const WARNING_MARKER = '⚠';
+const ESCALATION_MARKER = '🔴';
 
 // Resolution order for a priced amount on a job. First numeric field wins.
 const DOLLAR_FIELDS = [
@@ -145,17 +148,22 @@ export function buildDigest({ dataDir = DEFAULT_DATA_DIR, now = new Date(), excl
     0
   );
 
+  const flaggedItems = items.map((item) => ({
+    ...item,
+    stale: (item.ageDays ?? 0) > STALE_AGE_DAYS,
+    escalated: (item.ageDays ?? 0) >= ESCALATE_AGE_DAYS
+  }));
+
   return {
     generatedAt: now.toISOString(),
     staleAgeDays: STALE_AGE_DAYS,
-    items: items.map((item) => ({
-      ...item,
-      stale: (item.ageDays ?? 0) > STALE_AGE_DAYS
-    })),
+    escalateAgeDays: ESCALATE_AGE_DAYS,
+    items: flaggedItems,
     totals: {
       pending: items.length,
       pricedDollarsAtStake: pricedTotal,
-      oldestAgeDays
+      oldestAgeDays,
+      escalated: flaggedItems.filter((item) => item.escalated).length
     }
   };
 }
@@ -174,7 +182,7 @@ export function renderTable(digest) {
   }
 
   const rows = digest.items.map((item) => [
-    item.stale ? WARNING_MARKER : ' ',
+    item.escalated ? ESCALATION_MARKER : item.stale ? WARNING_MARKER : ' ',
     item.jobId ?? '-',
     item.company,
     item.actionClass ?? '-',
@@ -194,11 +202,20 @@ export function renderTable(digest) {
   lines.push(widths.map((w) => '-'.repeat(w)).join('  ').trimEnd());
   for (const row of rows) lines.push(renderRow(row));
 
-  const { pending, pricedDollarsAtStake, oldestAgeDays } = digest.totals;
+  const { pending, pricedDollarsAtStake, oldestAgeDays, escalated } = digest.totals;
   lines.push('');
   lines.push(
     `${pending} pending, $${pricedDollarsAtStake.toLocaleString('en-US')} priced at stake, oldest ${oldestAgeDays} days`
   );
+  if (escalated > 0) {
+    const escalatedItems = digest.items.filter((item) => item.escalated);
+    const refs = escalatedItems
+      .map((item) => `${item.jobId ?? item.company} (${item.ageDays}d)`)
+      .join(', ');
+    lines.push(
+      `${ESCALATION_MARKER} ESCALATION: ${escalated} item${escalated === 1 ? '' : 's'} waiting ${digest.escalateAgeDays}+ days — ${refs}. Decide or explicitly skip today.`
+    );
+  }
   return lines.join('\n');
 }
 

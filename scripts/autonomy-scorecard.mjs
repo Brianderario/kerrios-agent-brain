@@ -91,9 +91,9 @@ export function buildScorecard({ jobs, policy, now }) {
   const results = {};
 
   for (const cls of ACTION_CLASSES) {
-    const stage = (policy && policy.classes && policy.classes[cls])
-      ? policy.classes[cls].stage
-      : 1; // fail-closed: unknown class defaults to stage 1
+    const tier = (policy && policy.classes && policy.classes[cls])
+      ? policy.classes[cls].tier
+      : 'ask'; // fail-closed: unknown class defaults to ask
 
     const classJobs = Array.isArray(jobs) ? jobs.filter((j) => j && j.actionClass === cls) : [];
     const sent = classJobs.filter((j) => j.status === 'sent');
@@ -179,7 +179,7 @@ export function buildScorecard({ jobs, policy, now }) {
       oldestSentAt,
       newestSentAt,
       daysCovered,
-      currentStage: stage,
+      currentTier: tier,
       readiness,
       failReasons
     };
@@ -200,8 +200,8 @@ export function formatHumanReadable(scorecard) {
   lines.push('');
 
   for (const [cls, stats] of Object.entries(scorecard.classes)) {
-    const stageLabel = stats.currentStage === 1 ? 'STAGE 1 (approval required)' : `STAGE ${stats.currentStage}`;
-    lines.push(`--- ${cls} [${stageLabel}] ---`);
+    const tierLabel = stats.currentTier.toUpperCase();
+    lines.push(`--- ${cls} [${tierLabel}] ---`);
     lines.push(`  Readiness:    ${stats.readiness}`);
     lines.push(`  Sent:         ${stats.totalSent}  |  Skipped: ${stats.totalSkipped}`);
 

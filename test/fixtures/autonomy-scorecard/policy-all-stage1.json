@@ -1,13 +1,14 @@
 {
-  "schema": "autonomy-policy-v1",
+  "version": 1,
+  "tiers": { "ask": "Default gated tier" },
   "classes": {
-    "internal-recipient-reply": { "stage": 1 },
-    "scheduling-logistics-reply": { "stage": 1 },
-    "warm-thread-holding-reply": { "stage": 1 },
-    "sponsor-substantive-reply": { "stage": 1 },
-    "pipeline-nudge": { "stage": 1 },
-    "renewal-draft": { "stage": 1 },
-    "cold-send": { "stage": 1 },
-    "gmail-draft-only": { "stage": 1 }
+    "internal-recipient-reply": { "tier": "ask" },
+    "scheduling-logistics-reply": { "tier": "ask" },
+    "warm-thread-holding-reply": { "tier": "ask" },
+    "sponsor-substantive-reply": { "tier": "ask" },
+    "pipeline-nudge": { "tier": "ask" },
+    "renewal-draft": { "tier": "ask" },
+    "cold-send": { "tier": "ask" },
+    "gmail-draft-only": { "tier": "ask" }
   }
 }

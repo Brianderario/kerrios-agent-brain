@@ -29,7 +29,7 @@ test('buildScorecard returns all 8 action classes even with empty jobs', () => {
     assert.equal(stats.totalSent, 0);
     assert.equal(stats.totalSkipped, 0);
     assert.equal(stats.readiness, 'NOT READY');
-    assert.equal(stats.currentStage, 1); // fail-closed default
+    assert.equal(stats.currentTier, 'ask'); // fail-closed default
   }
 });
 
@@ -46,7 +46,7 @@ test('buildScorecard computes correct counts from mixed fixture', () => {
   assert.equal(sched.editedCount, 1);
   assert.equal(sched.uneditedCount, 9);
   assert.equal(sched.uneditedRate, 90); // 9/10 = 90%
-  assert.equal(sched.currentStage, 1);
+  assert.equal(sched.currentTier, 'ask');
 
   // sponsor-substantive-reply: 3 sent, 0 skipped
   const sponsor = result.classes['sponsor-substantive-reply'];
@@ -82,7 +82,7 @@ test('buildScorecard readiness is READY FOR REVIEW when all thresholds pass', ()
       decidedAt: `${dateStr}T13:55:00.000Z`
     });
   }
-  const policy = { classes: { 'internal-recipient-reply': { stage: 1 } } };
+  const policy = { tiers: { 'ask': 'Gated' }, classes: { 'internal-recipient-reply': { tier: 'ask' } } };
   const result = buildScorecard({ jobs, policy, now: new Date('2026-06-09T17:00:00Z') });
   const cls = result.classes['internal-recipient-reply'];
   assert.equal(cls.readiness, 'READY FOR REVIEW');
@@ -153,25 +153,25 @@ test('buildScorecard NOT READY with incidents > 0', () => {
   assert.ok(result.classes['gmail-draft-only'].failReasons.some((r) => r.includes('incidents')));
 });
 
-test('buildScorecard handles null policy gracefully (fail-closed to stage 1)', () => {
+test('buildScorecard handles null policy gracefully (fail-closed to ask)', () => {
   const result = buildScorecard({ jobs: [], policy: null, now: new Date('2026-06-09T17:00:00Z') });
   for (const stats of Object.values(result.classes)) {
-    assert.equal(stats.currentStage, 1);
+    assert.equal(stats.currentTier, 'ask');
   }
 });
 
-test('buildScorecard reads stage from policy when present', () => {
+test('buildScorecard reads tier from policy when present', () => {
   const policy = {
+    tiers: { 'auto-logged': 'Auto with logging', 'ask': 'Gated' },
     classes: {
-      'scheduling-logistics-reply': { stage: 2 },
-      'internal-recipient-reply': { stage: 1 }
+      'scheduling-logistics-reply': { tier: 'auto-logged' },
+      'internal-recipient-reply': { tier: 'ask' }
     }
   };
   const result = buildScorecard({ jobs: [], policy, now: new Date('2026-06-09T17:00:00Z') });
-  assert.equal(result.classes['scheduling-logistics-reply'].currentStage, 2);
-  assert.equal(result.classes['internal-recipient-reply'].currentStage, 1);
-  // Unknown class defaults to 1
-  assert.equal(result.classes['cold-send'].currentStage, 1);
+  assert.equal(result.classes['scheduling-logistics-reply'].currentTier, 'auto-logged');
+  assert.equal(result.classes['internal-recipient-reply'].currentTier, 'ask');
+  assert.equal(result.classes['cold-send'].currentTier, 'ask');
 });
 
 test('buildScorecard date range covers oldest to newest sentAt', () => {

@@ -1,6 +1,6 @@
 # Autonomy boundary proposal — what Kerri handles vs. always escalates
 
-**Status:** CANDIDATE — proposal only. Nothing is live. No send authority changes until Brian signs off **per class**.
+**Status:** DECIDED 2026-06-09 — Brian approved item #1 (internal-recipient-reply → AUTO-LOGGED), the graduation ramp, and stale escalation. See `brain/wiki/decisions/2026-06-09-autonomy-boundary.md`. This file kept as the full tier table.
 **Author:** Kerri (interactive, 2026-06-09), at Brian's direction ("push toward autonomy; you handle your own work, escalate when you don't know what to do").
 **Decision owner:** Brian.
 **Implements:** the Wave 3 `autonomy-policy.json` slot in the Loop Build. Backbone reuses Wave 0's 8-value `actionClass` enum + the `sentDraft`/`decidedAt`/`doubleEmailBlocks` instrumentation already on every job.
