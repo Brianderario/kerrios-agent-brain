@@ -3,6 +3,9 @@
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 Prior months live in `brain/log-archive/log-<YYYY-MM>.md` (rotated by `scripts/rotate-brain-log.mjs`); this file holds the current month only.
 
+## [2026-06-09 17:56 ET] interactive | Wave 2 PR #15 MERGED to main, cold funnel + renewal live | Kerri (Claude interactive)
+Brian confirmed cold outreach approval flow is unchanged ("I still want to be able to approve cold emails"), then merged. Squash-merged PR #15, pulled, verified 223/223 tests + check exit 0. Cold drafts no longer appear in the daily morning brief Approval Queue (batch approval via Google Tasks unchanged). Three waves now live on main.
+
 ## [2026-06-09 18:00 ET] interactive | Wave 2 cold funnel + renewal backfill DONE, PR #15 open | Kerri (Claude interactive)
 Loop-build Wave 2 per Brian's directive: "cold outreach is background, not pipeline." Cold items removed from daily morning brief Approval Queue (--exclude-cold flag on digest, morning-brief prompt wired). NEW: scripts/cold-funnel-report.mjs (background dashboard: sent 59, reply rate 1.7%, 29 second-touch eligible); cold-outreach prompt gains STEP 6.5 second-touch drafting (7d no-reply threshold, max 5/run, same caps + batch gate); revenue standup gains cold funnel section (weekly visibility, not daily noise); data/cold-outreach-state.example.json documents secondTouchSent[]/secondTouchDrafted[] schema; contract_end_date added to deal file schema in brain/wiki/deals/README.md; scripts/backfill-contract-dates.mjs propose-only gap finder (37/37 active/dormant deals missing dates, prioritized by tier). Independently verified: 196->223 tests (+27), npm run check exit 0, digest --exclude-cold against real data shows 8 items (was 13, 5 cold removed), cold-funnel-report reads live state correctly, 0 em dashes, mergeable CLEAN. No send gates touched. Material change -> PR #15, awaiting Brian. NOW.md updated.
 
