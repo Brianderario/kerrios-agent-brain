@@ -1,3 +1,6 @@
+## [2026-06-09 ~12:00 ET] conferences-tab | dates column added | Kerri
+Brian asked for conference dates to be captured alongside event mentions. Added `dates` field to the conference-capture schema (STEP 5A.G in `agent-prompts/kerri-eod-meetings-review/SKILL.md`), updated `scripts/conferences-append.mjs` HEADER + LAST_COL (K->L, 11->12 cols) + dedupe source index (8->9), and inserted the column on the live CRM Conferences tab (Sheet `1mXauTrY5…mcgYk`) between involvement(E) and timing(now G). Instruction: sweep looks up exact dates from brain/wiki/events/ or web when the contact only gives a month/season.
+
 ## [2026-06-09 00:15 ET] sw-newsletter-writer | 2 rules saved | Kerri
 Brian trimmed dates from the Lead (bloat) and removed himself as co-author (Zach only). Local audit copy synced. Two new durable rules in production-rules: (1) Authorship Rule — Zach is sole listed author, never add Brian; (2) Lead date-minimization — drop specific news dates unless the date IS the story. Both saved to `brain/wiki/workflows/sw-newsletter-production-rules.md`.
 

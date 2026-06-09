@@ -131,7 +131,7 @@ async function main() {
     const existing = await sheets.spreadsheets.values.get({ spreadsheetId, range: `${TAB}!A2:${LAST_COL}` });
     const seen = new Set();
     for (const r of existing.data.values || []) {
-      seen.add([norm(r[0]), norm(r[1]), norm(r[8])].join("|"));
+      seen.add([norm(r[0]), norm(r[1]), norm(r[9])].join("|"));
     }
 
     const fresh = [];
