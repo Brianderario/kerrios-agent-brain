@@ -36,6 +36,8 @@ data/lead-research/batches/
 brain/.local/sw-newsletter-drafts/
 data/sw-newsletter/state.json
 data/events/
+data/industry-intel-state.json
+data/pipeline-followup-state.json
 
 # Coverage + build artifacts
 coverage/
