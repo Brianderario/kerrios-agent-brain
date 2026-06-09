@@ -1,6 +1,6 @@
 # Candidate: Full contract / CY2026 revenue audit (2026-06-09)
 
-**Status:** CLOSED. All CRM fixes applied 6/9 ~18:05 ET. CY2026 breakdown sum verified: $641,372.41 (+$63,207.68 vs prior $578,164.73). PTC resolved (quarterly invoices = Onshape HWFYI-2026-002 billing, already captured).
+**Status:** REOPENED 6/9 evening -- execution verification pass (Brian: "double check all of these are correct since we have a phantom deal in there"). CRM fixes from the first pass remain applied; CY2026 breakdown sum $641,372.41. See "Execution verification" section below: 4 lines totaling $115,000 are phantom/stalled/unverifiable, pending Brian's removal approval.
 
 **Scope:** DocuSign envelopes, Google Drive (all contract docs, 39 unique CRM-linked docs read in full), 3 KMG mailboxes (brian@hardwarefyi, kerri@hardwarefyi, brian@kerrihq; S/W mailbox untouched), Savant export sheet, Kinetic 2026 MASTER sheet, AR reconciliation workbook. Trigger: Brian asked whether 2026 revenue is fully captured ("I feel like we're missing numbers").
 
