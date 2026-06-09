@@ -18,3 +18,5 @@ Cold outreach prospect staged for Brian approval in the 2026-06-09 batch (Google
 - Hook: Q-UGV quadruped robots (Vision 60)
 
 No email sent. Do not add to central pipeline unless a future approved send or real interaction happens.
+
+- 2026-06-09: Cold outreach email sent (H0136) to msubhan@ghostrobotics.io — Brian-approved cold batch via Google Tasks. Status → Prospect (contact made, no package/price sent yet).
