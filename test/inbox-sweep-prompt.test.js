@@ -329,7 +329,7 @@ test('inbox sweep auto-logged path is fail-closed and scoped to internal-recipie
     'a sweep NEVER promotes a class',
     'Fail closed, always',
     'Today that is `internal-recipient-reply` and nothing else',
-    'exactly matches an address in the policy’s `trustedInternal` list'.replace('’', "'"),
+    'trustedInternal',
     'One non-matching address → ASK',
     'S-prefix NEVER auto-sends',
     'The HARD NO-DOUBLE-EMAIL GATE passes for this job exactly as it does for approved sends',

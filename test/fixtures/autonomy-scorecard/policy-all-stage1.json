@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "tiers": { "ask": "Default gated tier" },
+  "classes": {
+    "internal-recipient-reply": { "tier": "ask" },
+    "scheduling-logistics-reply": { "tier": "ask" },
+    "warm-thread-holding-reply": { "tier": "ask" },
+    "sponsor-substantive-reply": { "tier": "ask" },
+    "pipeline-nudge": { "tier": "ask" },
+    "renewal-draft": { "tier": "ask" },
+    "cold-send": { "tier": "ask" },
+    "gmail-draft-only": { "tier": "ask" }
+  }
+}

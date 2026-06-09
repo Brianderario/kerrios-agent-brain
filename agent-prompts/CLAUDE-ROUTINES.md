@@ -101,7 +101,13 @@ Lead research + cold outreach were promoted to live scheduled-tasks crons after 
 
 `kerri-sw-newsletter-writer` / `-editor` / `-marketing`. Boundary + approval rules per [[../brain/wiki/companies/standard-and-works]]. Not scheduled — driven by issue cadence; never auto-posts.
 
-## Loops 5–6 · Benji content + Ari finance (defined, not built)
+## Loop 7 · Self-improvement (autonomy ladder + draft quality)
+
+| Routine | cron | Prompt | Loop |
+|---|---|---|---|
+| `kerri-self-improve` | `0 17 * * 0` | `kerri-self-improve/SKILL.md` | jobs.json + autonomy-policy.json + draft-learnings.md -> scorecard + edit-pattern scan -> no external gate (brain-only) -> improvement page + optional promotion candidate page -> `brain/wiki/improvements/` + heartbeat + log line -> meta-assess the routine itself. 100% read + write-to-brain; no external sends, no approval tasks, no policy mutations. |
+
+## Loops 5-6 · Benji content + Ari finance (defined, not built)
 
 Prompts not yet authored; sequence last. Ari pod stays behind explicit approval-gate design before any activation. Out of scope for this scheduling pass.
 

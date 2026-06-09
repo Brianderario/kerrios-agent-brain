@@ -1,0 +1,157 @@
+[
+  {
+    "jobId": "H0001",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Hi, confirming Thursday at 2pm.",
+    "sentDraft": "Hi, confirming Thursday at 2pm.",
+    "sentAt": "2026-05-20T14:00:00.000Z",
+    "decidedAt": "2026-05-20T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0002",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Let me know about Friday.",
+    "sentDraft": "Let me know about Friday 10am.",
+    "sentAt": "2026-05-21T14:00:00.000Z",
+    "decidedAt": "2026-05-21T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0003",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Thanks, see you Monday.",
+    "sentDraft": "Thanks, see you Monday.",
+    "sentAt": "2026-05-22T14:00:00.000Z",
+    "decidedAt": "2026-05-22T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0004",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Confirmed for the call.",
+    "sentDraft": "Confirmed for the call.",
+    "sentAt": "2026-05-23T14:00:00.000Z",
+    "decidedAt": "2026-05-23T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0005",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Reschedule to Wednesday.",
+    "sentDraft": "Reschedule to Wednesday.",
+    "sentAt": "2026-05-24T14:00:00.000Z",
+    "decidedAt": "2026-05-24T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0006",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Works for me, let us plan on that.",
+    "sentDraft": "Works for me, let us plan on that.",
+    "sentAt": "2026-05-26T14:00:00.000Z",
+    "decidedAt": "2026-05-26T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0007",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Calendar invite sent.",
+    "sentDraft": "Calendar invite sent.",
+    "sentAt": "2026-05-27T14:00:00.000Z",
+    "decidedAt": "2026-05-27T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0008",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Let me know if that time works.",
+    "sentDraft": "Let me know if that time works.",
+    "sentAt": "2026-05-28T14:00:00.000Z",
+    "decidedAt": "2026-05-28T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0009",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "Great, Thursday is set.",
+    "sentDraft": "Great, Thursday is set.",
+    "sentAt": "2026-06-02T14:00:00.000Z",
+    "decidedAt": "2026-06-02T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0010",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "sent",
+    "originalDraft": "All set for the meeting.",
+    "sentDraft": "All set for the meeting.",
+    "sentAt": "2026-06-05T14:00:00.000Z",
+    "decidedAt": "2026-06-05T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0011",
+    "actionClass": "scheduling-logistics-reply",
+    "status": "skipped",
+    "decidedAt": "2026-06-06T10:00:00.000Z"
+  },
+  {
+    "jobId": "H0020",
+    "actionClass": "sponsor-substantive-reply",
+    "status": "sent",
+    "originalDraft": "Here is the sponsor deck.",
+    "sentDraft": "Here is the updated sponsor deck with Q3 pricing.",
+    "sentAt": "2026-05-25T14:00:00.000Z",
+    "decidedAt": "2026-05-25T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0021",
+    "actionClass": "sponsor-substantive-reply",
+    "status": "sent",
+    "originalDraft": "Thanks for the interest.",
+    "sentDraft": "Thanks for the interest.",
+    "sentAt": "2026-05-30T14:00:00.000Z",
+    "decidedAt": "2026-05-30T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0022",
+    "actionClass": "sponsor-substantive-reply",
+    "status": "sent",
+    "originalDraft": "Following up on the proposal.",
+    "sentDraft": "Following up on the proposal.",
+    "sentAt": "2026-06-03T14:00:00.000Z",
+    "decidedAt": "2026-06-03T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0030",
+    "actionClass": "cold-send",
+    "status": "sent",
+    "originalDraft": "Hi, I wanted to introduce Hardware FYI.",
+    "sentDraft": "Hi, I wanted to introduce Hardware FYI.",
+    "sentAt": "2026-06-01T14:00:00.000Z",
+    "decidedAt": "2026-06-01T13:55:00.000Z"
+  },
+  {
+    "jobId": "H0031",
+    "actionClass": "cold-send",
+    "status": "skipped",
+    "decidedAt": "2026-06-02T10:00:00.000Z"
+  },
+  {
+    "jobId": "H0040",
+    "actionClass": "warm-thread-holding-reply",
+    "status": "pending",
+    "originalDraft": "On it, will circle back.",
+    "sentDraft": null,
+    "sentAt": null
+  },
+  {
+    "jobId": "H0050",
+    "actionClass": "internal-recipient-reply",
+    "status": "sent",
+    "originalDraft": "Hey Ari, here is the breakdown.",
+    "sentDraft": "Hey Ari, here is the breakdown.",
+    "sentAt": "2026-06-04T14:00:00.000Z",
+    "decidedAt": "2026-06-04T13:55:00.000Z"
+  }
+]

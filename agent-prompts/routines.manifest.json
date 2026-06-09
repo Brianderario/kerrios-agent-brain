@@ -127,6 +127,18 @@
       "stateFiles": ["brain-push-state.json"]
     },
     {
+      "name": "kerri-self-improve",
+      "cron": "0 17 * * 0",
+      "core": false,
+      "monitored": true,
+      "cadenceDescription": "Sundays ~17:00 ET; weekly self-improvement (scorecard + edit-pattern analysis)",
+      "evaluator": "heartbeat-weekday",
+      "fireMinuteEt": 1020,
+      "graceMinutes": 120,
+      "activeWeekdays": ["Sun"],
+      "stateFiles": []
+    },
+    {
       "name": "standard-works-issue-writer",
       "cron": null,
       "core": false,
