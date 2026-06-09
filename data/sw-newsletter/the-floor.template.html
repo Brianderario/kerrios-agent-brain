@@ -1,0 +1,68 @@
+<!--
+  THE FLOOR — canonical S&W Industrialist markets dashboard
+  ----------------------------------------------------------
+  Brian-approved 2026-06-08. Repeatable on EVERY Tue + Thu issue.
+  This is a beehiiv HTML-snippet block. It sits at the TOP of the post body
+  (the first node, above "The Lead"). Refresh the variables each run; keep the
+  styling byte-for-byte.
+
+  HOW THE WRITER USES IT (beehiiv "S&w industrialist" template):
+  - The template already contains a "THE FLOOR" htmlSnippet node as the first
+    body node. Update that node's HTML in place (do NOT delete + re-add) so the
+    block keeps its position and the template stays intact.
+  - Mechanism (Chrome + TipTap): the editor instance is at
+    document.querySelector('.tiptap.ProseMirror').editor ; node 0 is the
+    htmlSnippet; replace its text content (the HTML below, rendered to a SINGLE
+    line) via a transaction:
+      tr.replaceWith(1, 1 + node0.content.size, state.schema.text(SINGLE_LINE_HTML))
+  - Then verify by clicking the snippet's "Preview" toggle and screenshotting.
+
+  CANONICAL BASKET (6 rows, in THIS order) — Brian, 2026-06-08:
+    1. S&P 500                       (^GSPC)   index level, e.g. 7,391.60
+    2. Aerospace & Defense (ITA)     (ITA)     $ price
+    3. Semiconductors (SOXX)         (SOXX)    $ price
+    4. Industrials (XLI)             (XLI)     $ price
+    5. WTI Crude                     (CL=F)    $X.XX/bbl
+    6. Copper                        (HG=F)    $X.XX/lb   (dollars/lb, not cents)
+  Each row: price + day-change arrow (▲ up / ▼ down) + day-change % (1 decimal).
+  Up = green (#4ade80), down = red (#f87171). Pull LIVE before staging.
+
+  WATCH line: one current macro/industrial datapoint with a number + named source
+  (e.g. ISM Mfg PMI, Philly Fed, durable-goods, housing starts). Always sourced.
+
+  DATE label: "Market close · <Day Mon D>" (e.g. "Market close · Mon Jun 8") —
+  the prior session's close for a ~2pm publish.
+
+  Placeholders below: {{DATE}}, {{R1_LABEL}}.. and {{R1_VAL}}/{{R1_CHG}}/{{R1_COLOR}} etc.
+  Row color = #4ade80 (up) or #f87171 (down). First row has NO border-top; rows 2-6
+  add "border-top:1px solid #1f1f1f;" to each <td>.
+-->
+<div style="background:linear-gradient(180deg,#0f0f0f 0%,#1a1a1a 100%);border:1px solid #2a2a2a;border-radius:12px;padding:24px 28px;margin:24px 0;font-family:'SF Mono',ui-monospace,Menlo,Monaco,monospace;color:#e8e8e8;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #2a2a2a;padding-bottom:14px;margin-bottom:16px;">
+    <div style="font-size:11px;letter-spacing:3px;color:#c9a961;font-weight:700;">THE FLOOR</div>
+    <div style="font-size:10px;letter-spacing:1.5px;color:#808080;text-transform:uppercase;">Market close &middot; {{DATE}}</div>
+  </div>
+  <table style="width:100%;border-collapse:collapse;font-size:14px;"><tbody>
+    <tr><td style="padding:8px 0;color:#d0d0d0;">S&amp;P 500</td><td style="padding:8px 0;color:#fff;font-weight:600;text-align:right;">{{SP500_VAL}}</td><td style="padding:8px 0 8px 28px;text-align:right;white-space:nowrap;font-weight:500;color:{{SP500_COLOR}};">{{SP500_CHG}}</td></tr>
+    <tr><td style="padding:8px 0;color:#d0d0d0;border-top:1px solid #1f1f1f;">Aerospace &amp; Defense (ITA)</td><td style="padding:8px 0;color:#fff;font-weight:600;text-align:right;border-top:1px solid #1f1f1f;">{{ITA_VAL}}</td><td style="padding:8px 0 8px 28px;text-align:right;white-space:nowrap;font-weight:500;border-top:1px solid #1f1f1f;color:{{ITA_COLOR}};">{{ITA_CHG}}</td></tr>
+    <tr><td style="padding:8px 0;color:#d0d0d0;border-top:1px solid #1f1f1f;">Semiconductors (SOXX)</td><td style="padding:8px 0;color:#fff;font-weight:600;text-align:right;border-top:1px solid #1f1f1f;">{{SOXX_VAL}}</td><td style="padding:8px 0 8px 28px;text-align:right;white-space:nowrap;font-weight:500;border-top:1px solid #1f1f1f;color:{{SOXX_COLOR}};">{{SOXX_CHG}}</td></tr>
+    <tr><td style="padding:8px 0;color:#d0d0d0;border-top:1px solid #1f1f1f;">Industrials (XLI)</td><td style="padding:8px 0;color:#fff;font-weight:600;text-align:right;border-top:1px solid #1f1f1f;">{{XLI_VAL}}</td><td style="padding:8px 0 8px 28px;text-align:right;white-space:nowrap;font-weight:500;border-top:1px solid #1f1f1f;color:{{XLI_COLOR}};">{{XLI_CHG}}</td></tr>
+    <tr><td style="padding:8px 0;color:#d0d0d0;border-top:1px solid #1f1f1f;">WTI Crude</td><td style="padding:8px 0;color:#fff;font-weight:600;text-align:right;border-top:1px solid #1f1f1f;">{{WTI_VAL}}</td><td style="padding:8px 0 8px 28px;text-align:right;white-space:nowrap;font-weight:500;border-top:1px solid #1f1f1f;color:{{WTI_COLOR}};">{{WTI_CHG}}</td></tr>
+    <tr><td style="padding:8px 0;color:#d0d0d0;border-top:1px solid #1f1f1f;">Copper</td><td style="padding:8px 0;color:#fff;font-weight:600;text-align:right;border-top:1px solid #1f1f1f;">{{COPPER_VAL}}</td><td style="padding:8px 0 8px 28px;text-align:right;white-space:nowrap;font-weight:500;border-top:1px solid #1f1f1f;color:{{COPPER_COLOR}};">{{COPPER_CHG}}</td></tr>
+  </tbody></table>
+  <div style="margin-top:16px;padding-top:14px;border-top:1px solid #2a2a2a;font-size:11px;letter-spacing:1px;color:#808080;line-height:1.5;"><span style="color:#c9a961;font-weight:700;">WATCH</span>&nbsp;&nbsp;{{WATCH_TEXT}}</div>
+</div>
+
+<!--
+  EXAMPLE — Tue 2026-06-09 issue (filled), for reference:
+    DATE = Mon Jun 8
+    S&P 500            7,391.60   ▲ 0.3%  (green)
+    Aerospace & Defense (ITA)  $227.26  ▼ 1.0%  (red)
+    Semiconductors (SOXX)      $571.45  ▲ 5.9%  (green)
+    Industrials (XLI)          $173.63  ▼ 0.3%  (red)
+    WTI Crude          $91.22/bbl ▲ 0.8%  (green)
+    Copper             $6.30/lb   ▲ 0.6%  (green)
+    WATCH = ISM Manufacturing PMI rose to 54.0 in May from 52.7 in April — the
+            highest reading since May 2022, with new orders at 56.8 (ISM).
+  Arrow entities: ▲ = &#9650;  ▼ = &#9660;  ·(middot) = &middot;
+-->

@@ -53,10 +53,19 @@
     "Cross-story thesis we can name (e.g., 'New Factory Middle') — always preferred when available"
   ],
   "marketsTickers": [
-    { "label": "Aerospace & Defense ETF", "ticker": "ITA", "yahooUrl": "https://finance.yahoo.com/quote/ITA" },
-    { "label": "Semiconductor ETF", "ticker": "SOXX", "yahooUrl": "https://finance.yahoo.com/quote/SOXX" },
-    { "label": "Industrials ETF", "ticker": "XLI", "yahooUrl": "https://finance.yahoo.com/quote/XLI" },
-    { "label": "WTI crude", "ticker": "CL=F", "yahooUrl": "https://finance.yahoo.com/quote/CL=F" },
-    { "label": "Copper", "ticker": "HG=F", "yahooUrl": "https://finance.yahoo.com/quote/HG=F", "unit": "cents/lb" }
-  ]
+    { "label": "S&P 500", "ticker": "^GSPC", "yahooUrl": "https://finance.yahoo.com/quote/%5EGSPC", "floorLabel": "S&P 500", "note": "index level, no $; e.g. 7,391.60", "fallbackSources": ["https://tradingeconomics.com/united-states/stock-market", "https://stockanalysis.com/index/sp500/"] },
+    { "label": "Aerospace & Defense ETF", "ticker": "ITA", "yahooUrl": "https://finance.yahoo.com/quote/ITA", "floorLabel": "Aerospace & Defense (ITA)", "fallbackSources": ["https://stockanalysis.com/etf/ita/"] },
+    { "label": "Semiconductor ETF", "ticker": "SOXX", "yahooUrl": "https://finance.yahoo.com/quote/SOXX", "floorLabel": "Semiconductors (SOXX)", "fallbackSources": ["https://stockanalysis.com/etf/soxx/"] },
+    { "label": "Industrials ETF", "ticker": "XLI", "yahooUrl": "https://finance.yahoo.com/quote/XLI", "floorLabel": "Industrials (XLI)", "fallbackSources": ["https://stockanalysis.com/etf/xli/"] },
+    { "label": "WTI crude", "ticker": "CL=F", "yahooUrl": "https://finance.yahoo.com/quote/CL=F", "floorLabel": "WTI Crude", "note": "$X.XX/bbl", "fallbackSources": ["https://tradingeconomics.com/commodity/crude-oil"] },
+    { "label": "Copper", "ticker": "HG=F", "yahooUrl": "https://finance.yahoo.com/quote/HG=F", "unit": "dollars/lb", "floorLabel": "Copper", "note": "$X.XX/lb (dollars per lb in THE FLOOR, not cents)", "fallbackSources": ["https://tradingeconomics.com/commodity/copper"] }
+  ],
+  "marketsFormat": {
+    "style": "THE FLOOR dark dashboard, Brian-approved 2026-06-08 — canonical template at data/sw-newsletter/the-floor.template.html",
+    "order": "S&P 500 first, then ITA, SOXX, XLI, WTI, Copper (6 rows)",
+    "perRow": "price + day-change arrow (up=green #4ade80 / down=red #f87171) + day-change % to 1 decimal",
+    "watchLine": "one current macro/industrial datapoint with a number + named source (ISM PMI, Philly Fed, durable goods, housing starts, etc.)",
+    "dateLabel": "Market close · <Day Mon D> (prior session close for a ~2pm publish)",
+    "placement": "first body node in the beehiiv 'S&w industrialist' template, above The Lead; update the existing htmlSnippet in place (do not delete + re-add)"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "schema": "companies-v1",
   "description": "Customer registry. Domain -> stable jobId per the 2026-05-24 customer-ID rule (a company keeps the same jobId across all threads forever). Lookup: lowercase sender domain, normalize obvious mail/marketing subdomains (mail.acme.com -> acme.com), then look up directly OR scan `aliases` arrays for a match. Company is the identity — multiple domains/aliases can map to one jobId; never split one company across two jobIds.",
-  "updatedAt": "2026-06-06T03:03:33.860Z",
+  "updatedAt": "2026-06-08T22:37:55.000Z",
   "companies": {
     "arismachina.com": {
       "jobId": "H0001",
@@ -251,7 +251,7 @@
       "aliases": [],
       "firstSeenAt": "2026-05-07T00:00:00Z",
       "wikiPage": "brain/wiki/companies/hampton-roads-alliance.md",
-      "note": "Regional economic development organization tied to Ironclad Summit / Hampton Roads maritime-defense planning. Doug Smith sent 2026-05-26 NNS update about potential Industry Day alignment and speaker pipeline."
+      "note": "Regional econ-dev org tied to the joint KMG+S&W maritime/Defense Summit in Hampton Roads/Norfolk. 2026-06-09: Doug Smith forwarded Brian+Zach the NNS thread; Newport News Shipbuilding locked on industry days 10/20-21, so options are hold 10/27 Norfolk (Hilton downtown) standalone vs. Newport News City Center Marriott; G0004 circle-up reply queued (Brian-sender, Gmail draft-only)."
     },
     "sfbuzzworks.com": {
       "jobId": "H0018",
@@ -273,7 +273,7 @@
       "aliases": [],
       "firstSeenAt": "2026-05-26T18:46:12Z",
       "wikiPage": "brain/wiki/companies/werqwise.md",
-      "note": "SF venue/event contact for Hardware FYI SF Tech Week. Betsy LaPointe confirmed North Beach/Telegraph Hill can support a 100-120 guest panel plus rooftop reception with Oct. 5-9 weekday availability and venue pricing of $5,426 Mon-Thu or $5,626 Fri before separate F&B/catering economics. H0019 was rewritten as a Kerri-sender existing-thread approval task after the Brian-sender route guard blocked the prior approved draft. 2026-06-01: Kerri soft-hold draft SKIPPED — Brian replied directly to Melissa 2026-05-30 ('probably the 7th! Looking forward to seeing the catering cost'), covering both asks. Werqwise still a live SF Tech Week venue option. | 2026-06-02: NEW reply — Melissa sent two Pinx catering quotes (drop-off + full-service PDFs) + offered tentative Oct 7 hold, answering Brian's 5/30 cost request. Re-queued as Kerri-sender existing-chain task (reused H0019, no counter bump); draft accepts the Oct 7 hold, defers package/menu pending quote review."
+      "note": "SF venue/event contact for Hardware FYI SF Tech Week. Betsy LaPointe confirmed North Beach/Telegraph Hill can support a 100-120 guest panel plus rooftop reception with Oct. 5-9 weekday availability and venue pricing of $5,426 Mon-Thu or $5,626 Fri before separate F&B/catering economics. H0019 was rewritten as a Kerri-sender existing-thread approval task after the Brian-sender route guard blocked the prior approved draft. 2026-06-01: Kerri soft-hold draft SKIPPED — Brian replied directly to Melissa 2026-05-30 ('probably the 7th! Looking forward to seeing the catering cost'), covering both asks. Werqwise still a live SF Tech Week venue option. | 2026-06-02: NEW reply — Melissa sent two Pinx catering quotes (drop-off + full-service PDFs) + offered tentative Oct 7 hold, answering Brian's 5/30 cost request. Re-queued as Kerri-sender existing-chain task (reused H0019, no counter bump); draft accepts the Oct 7 hold, defers package/menu pending quote review. | 2026-06-08: Melissa soft check-in (how feeling about Pinx quotes / event plans / any new questions, no hard ask). Re-queued as Kerri-sender existing-chain reply (reused H0019, no counter bump); per H0019 multi-venue learning kept light/non-committal — quotes look good, will circle back with date+menu, did NOT accept the Oct 7 hold or lock the venue."
     },
     "westin.com": {
       "jobId": "H0020",
@@ -283,11 +283,12 @@
       "primaryContact": "Wendy.Hom@westin.com",
       "aliases": [
         "feedback-marriott.com",
-        "westinstfrancis.com"
+        "westinstfrancis.com",
+        "marriott.com"
       ],
       "firstSeenAt": "2026-05-20T19:43:29Z",
       "wikiPage": "brain/wiki/companies/westin-st-francis.md",
-      "note": "Kinetic 2026 venue / event logistics partner. Wendy Hom asked Brian to complete the Marriott post-event survey before expiration; H0020 approval task queued on 2026-05-26."
+      "note": "Kinetic 2026 venue / event logistics partner. Wendy Hom asked Brian to complete the Marriott post-event survey before expiration; H0020 approval task queued on 2026-05-26. | 2026-06-08: Kinetic 2027 booking in progress via Rannie 'Ronnie' Atencion (Sr Catering Sales Exec, Rannie.Atencion@marriott.com / rannie.atencion@westin.com). 2027 terms: May 11-13, up to 700, Grand Ballroom+spaces, rental $10K++ (~70% off), F&B min $150K++. Brian agreed in principle + asked for 2 guestrooms; Rannie offering $379 rate, destination fee waived, Westin Club Lounge access, and is drafting the meeting-space contract. Brian-sender Gmail draft queued (H0020 task VEZFWkJyLWtOYUhLS0xINw). Added marriott.com alias."
     },
     "flowengineering.com": {
       "jobId": "H0021",
@@ -531,7 +532,7 @@
       "primaryContact": "astauf2@gmail.com",
       "aliases": [],
       "firstSeenAt": "2026-05-12T22:01:18Z",
-      "wikiPage": null,
+      "wikiPage": "brain/wiki/companies/alex-stauffer.md",
       "note": "Individual Kinetic 2026 attendee awaiting conference recordings Brian promised May 12. Keyed by email (gmail.com is not a company domain). H0037."
     },
     "lumafield.com": {
@@ -780,7 +781,7 @@
       "aliases": [],
       "firstSeenAt": "2026-06-02T13:19:29Z",
       "wikiPage": "brain/wiki/companies/graymatter-robotics.md",
-      "note": "Cold outreach prospect (lead-research conf-icp:robotics). AI-driven robotic surface-finishing (sand/grind/blast/polish) for aerospace + marine + specialty-vehicles mfg. $73.5M total raised (Series B June 2024, NGP/3M/Wellington); +10% headcount/6mo."
+      "note": "Cold outreach prospect (lead-research conf-icp:robotics). AI-driven robotic surface-finishing. 2026-06-09: Rand Owens redirected from marketing to employer-brand/recruiting and introduced Obi (Obiageli Muojeke, e-obi.muojeke@graymatter-robotics.com), GMR employer-branding lead; H0059 reply queued (Kerri-sender) to engage Obi."
     },
     "scs.cpa": {
       "jobId": "G0010",
@@ -1078,6 +1079,427 @@
       "firstSeenAt": "2026-06-06T12:00:06Z",
       "wikiPage": "brain/wiki/companies/simplexity-product-development.md",
       "note": "Michael Tanguay asked about Hardware FYI newsletter sponsorship after a Kinetic ticket refund/cancellation thread; Brian replied with high-level newsletter sponsorship framing and later set a Superhuman reminder to follow up."
+    },
+    "liqid.com": {
+      "jobId": "H0083",
+      "name": "Liqid",
+      "slug": "liqid",
+      "prefix": "H",
+      "primaryContact": "joe.vukson@liqid.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/liqid.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "cimdata.com": {
+      "jobId": "H0084",
+      "name": "CIMdata",
+      "slug": "cimdata",
+      "prefix": "H",
+      "primaryContact": "c.peck@cimdata.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/cimdata.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "indx.com": {
+      "jobId": "H0085",
+      "name": "IndX",
+      "slug": "indx",
+      "prefix": "H",
+      "primaryContact": "prashanth.shankara@indx.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/indx.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "celigo.com": {
+      "jobId": "H0086",
+      "name": "Celigo",
+      "slug": "celigo",
+      "prefix": "H",
+      "primaryContact": "april.rassa@celigo.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/celigo.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "antora.com": {
+      "jobId": "H0087",
+      "name": "Antora Energy",
+      "slug": "antora-energy",
+      "prefix": "H",
+      "primaryContact": "laura.renfroe@antora.energy",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/antora-energy.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "ionstoragesystems.com": {
+      "jobId": "H0088",
+      "name": "Ion Storage Systems",
+      "slug": "ion-storage-systems",
+      "prefix": "H",
+      "primaryContact": "rwhittlesey@ionstoragesystems.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/ion-storage-systems.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "gosteelhead.com": {
+      "jobId": "H0089",
+      "name": "Steelhead Technologies",
+      "slug": "steelhead-technologies",
+      "prefix": "H",
+      "primaryContact": "kelsey@gosteelhead.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/steelhead-technologies.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "propelsoftware.com": {
+      "jobId": "H0090",
+      "name": "Propel Software",
+      "slug": "propel-software",
+      "prefix": "H",
+      "primaryContact": "dario@propelsoftware.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/propel-software.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "anellophotonics.com": {
+      "jobId": "H0091",
+      "name": "ANELLO Photonics",
+      "slug": "anello-photonics",
+      "prefix": "H",
+      "primaryContact": "gerhard.boiciuc@anellophotonics.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/anello-photonics.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "sima.ai": {
+      "jobId": "H0092",
+      "name": "SiMa.ai",
+      "slug": "sima-ai",
+      "prefix": "H",
+      "primaryContact": "silvia.gianelli@sima.ai",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:30:00.000Z",
+      "wikiPage": "brain/wiki/companies/sima-ai.md",
+      "note": "Cold outreach prospect was staged in the earlier 2026-06-08 draft batch, then retargeted out before Brian approval because stronger high-intent paid-access/buyer-fit prospects were available. No email sent. Keep out of the daily SEND queue unless a stronger qualification signal is added."
+    },
+    "alifsemi.com": {
+      "jobId": "H0093",
+      "name": "Alif Semiconductor",
+      "slug": "alif-semiconductor",
+      "prefix": "H",
+      "primaryContact": "mark.rootz@alifsemi.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/alif-semiconductor.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: edge AI semiconductor hardware. Person fit: VP Marketing owns awareness and demand-gen. Qualification: SEMICON signal; refreshed senior buyer; funding/partner ecosystem. Hook: AI / ML-enabled 32-bit MCUs and fusion processors (Ensemble family) for edge IoT / industrial / auto / medical; $185.9M total raised; partner ecosystem incl Arm and Bosch Sensortec; fits the SEMICON West exhibitor profile (semiconductor); reaches hardware engineers HWFYI sells to"
+    },
+    "circuitronix.com": {
+      "jobId": "H0094",
+      "name": "Circuitronix",
+      "slug": "circuitronix",
+      "prefix": "H",
+      "primaryContact": "kenp@circuitronix.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/circuitronix.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: PCB manufacturing for electronics teams. Person fit: VP Sales and Marketing is a direct buyer. Qualification: IPC/PCB paid-access signal; refreshed buyer; hardware manufacturing vertical. Hook: fits the IPC APEX / PCB West exhibitor profile (pcb); reaches hardware engineers HWFYI sells to"
+    },
+    "onwardrobotics.com": {
+      "jobId": "H0095",
+      "name": "Onward Robotics",
+      "slug": "onward-robotics",
+      "prefix": "H",
+      "primaryContact": "alexandria.kindle@onwardrobotics.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/onward-robotics.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: warehouse robotics for automation buyers. Person fit: growth marketing buyer close to campaign execution. Qualification: Automate/RoboBusiness signal; refreshed buyer; robotics vertical. Hook: fits the AUTOMATE / RoboBusiness exhibitor profile (robotics); reaches hardware engineers HWFYI sells to"
+    },
+    "motoman.com": {
+      "jobId": "H0096",
+      "name": "Yaskawa Motoman",
+      "slug": "yaskawa-motoman",
+      "prefix": "H",
+      "primaryContact": "sherri.swabb@motoman.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/yaskawa-motoman.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: industrial robotics with automation buyer overlap. Person fit: Director of Marketing - Americas is the regional marketing owner. Qualification: AUTOMATE signal; refreshed senior buyer; industrial automation vertical. Hook: fits the AUTOMATE exhibitor profile (industrial automation); reaches hardware engineers HWFYI sells to"
+    },
+    "gorillacircuits.com": {
+      "jobId": "H0097",
+      "name": "Gorilla Circuits",
+      "slug": "gorilla-circuits",
+      "prefix": "H",
+      "primaryContact": "karl@gorillacircuits.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/gorilla-circuits.md",
+      "note": "Cold outreach prospect was staged in the 2026-06-08 draft batch, then returned to the queue before approval to prioritize Siemens/PTC-style strategic engineering accounts. No email sent."
+    },
+    "apexindustrialautomation.com": {
+      "jobId": "H0098",
+      "name": "Apex Industrial Automation",
+      "slug": "apex-industrial-automation",
+      "prefix": "H",
+      "primaryContact": "kyle@apexindustrialautomation.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/apex-industrial-automation.md",
+      "note": "Cold outreach prospect was staged in the 2026-06-08 draft batch, then returned to the queue before approval to prioritize Siemens/PTC-style strategic engineering accounts. No email sent."
+    },
+    "epectec.com": {
+      "jobId": "H0099",
+      "name": "Epec Engineered Technologies",
+      "slug": "epec-engineered-technologies",
+      "prefix": "H",
+      "primaryContact": "karaujo@epectec.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/epec-engineered-technologies.md",
+      "note": "Cold outreach prospect was staged in the 2026-06-08 draft batch, then returned to the queue before approval to prioritize Siemens/PTC-style strategic engineering accounts. No email sent."
+    },
+    "enercontechnologies.com": {
+      "jobId": "H0100",
+      "name": "Enercon Technologies",
+      "slug": "enercon-technologies",
+      "prefix": "H",
+      "primaryContact": "bmancini@enercontechnologies.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/enercon-technologies.md",
+      "note": "Cold outreach prospect was staged in the 2026-06-08 draft batch, then returned to the queue before approval to prioritize Siemens/PTC-style strategic engineering accounts. No email sent."
+    },
+    "shellbacksemi.com": {
+      "jobId": "H0101",
+      "name": "SHELLBACK Semiconductor Technology",
+      "slug": "shellback-semiconductor-technology",
+      "prefix": "H",
+      "primaryContact": "tom.parish@shellbacksemi.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/shellback-semiconductor-technology.md",
+      "note": "Cold outreach prospect was staged in the 2026-06-08 draft batch, then returned to the queue before approval to prioritize Siemens/PTC-style strategic engineering accounts. No email sent."
+    },
+    "polarsemi.com": {
+      "jobId": "H0102",
+      "name": "Polar Semiconductor",
+      "slug": "polar-semiconductor",
+      "prefix": "H",
+      "primaryContact": "kobuszewski@polarsemi.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T13:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/polar-semiconductor.md",
+      "note": "Cold outreach prospect was staged in the 2026-06-08 draft batch, then returned to the queue before approval to prioritize Siemens/PTC-style strategic engineering accounts. No email sent."
+    },
+    "siemens.com": {
+      "jobId": "H0103",
+      "name": "Siemens Digital Industries Software",
+      "slug": "siemens-digital-industries-software",
+      "prefix": "H",
+      "primaryContact": "natalia.doncov@siemens.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T14:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/siemens-digital-industries-software.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: enterprise CAD/PLM/digital manufacturing and automation software for engineering teams. Person fit: Digital Industries factory automation and partner-marketing lead. Qualification: Brian-prioritized strategic account; Apollo-verified buyer; Siemens account-map close-sprint signal. Hook: Siemens account-based target; Digital Industries / factory automation marketing is closest fit to HWFYI manufacturing audience. Monday 2026-06-08 first-touch/follow-up priority for CY2026 $1M close sprint."
+    },
+    "ptc.com": {
+      "jobId": "H0104",
+      "name": "PTC",
+      "slug": "ptc",
+      "prefix": "H",
+      "primaryContact": "syoon@ptc.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T14:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/ptc.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: enterprise CAD/PLM/ALM software for product engineering teams. Person fit: Director of Demand Generation owns campaign and pipeline outcomes. Qualification: Tier 1 engineering software target; verified demand-gen buyer; H2 webinar/digital activation hook. Hook: Tier 1 PTC/Onshape repair account after missed 2026-06-05 Zoom; demand-gen owner for H2 digital/webinar activation. Monday 2026-06-08 first-touch/follow-up priority for CY2026 $1M close sprint."
+    },
+    "onshape.com": {
+      "jobId": "H0105",
+      "name": "Onshape by PTC",
+      "slug": "onshape-by-ptc",
+      "prefix": "H",
+      "primaryContact": "ascheinman@onshape.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T14:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/onshape-by-ptc.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: cloud-native CAD/product-development platform under PTC. Person fit: marketing communications owner can evaluate audience and content fit. Qualification: Tier 1 engineering software target; verified marketing buyer; H2 activation/missed-call repair hook. Hook: Onshape marketing communications contact; good fit for missed-call repair and H2 activation menu. Monday 2026-06-08 first-touch/follow-up priority for CY2026 $1M close sprint."
+    },
+    "protolabs.com": {
+      "jobId": "H0106",
+      "name": "Protolabs",
+      "slug": "protolabs",
+      "prefix": "H",
+      "primaryContact": "will.martin@protolabs.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T14:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/protolabs.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: digital manufacturing and prototyping services for engineers. Person fit: global brand and communications director can evaluate sponsorship renewal/value. Qualification: prior HWFYI relationship/renewal target; verified comms buyer; performance-analytics hook. Hook: Tier 1 renewal account; completed campaign analytics ready and top-performing Design for Moldability guide gives renewal hook. Monday 2026-06-08 first-touch/follow-up priority for CY2026 $1M close sprint."
+    },
+    "formlabs.com": {
+      "jobId": "H0107",
+      "name": "Formlabs",
+      "slug": "formlabs",
+      "prefix": "H",
+      "primaryContact": "takeru.kishimoto@formlabs.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T14:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/formlabs.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: professional 3D printing hardware and materials for engineering teams. Person fit: marketing manager with verified email is reachable while senior buyer needs enrichment. Qualification: high-profile engineering hardware/software brand; verified marketing contact; prior content/renewal target. Hook: Formlabs marketing contact with verified email; backup for smaller content-led renewal. Monday 2026-06-08 first-touch/follow-up priority for CY2026 $1M close sprint."
+    },
+    "synera.io": {
+      "jobId": "H0108",
+      "name": "Synera",
+      "slug": "synera",
+      "prefix": "H",
+      "primaryContact": "daniel.meyer@synera.io",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T14:05:00.000Z",
+      "wikiPage": "brain/wiki/companies/synera.md",
+      "note": "Cold outreach prospect staged in ☀️ COLD BATCH 2026-06-08 - 10/10 drafts after Brian strategic-account override. Company fit: engineering automation software for product development workflows. Person fit: growth marketing manager owns exactly the kind of content/webinar channel test we sell. Qualification: Kinetic/post-event target; verified growth buyer; engineering software story fit. Hook: Tier 3 post-event metrics follow-up target; growth marketing buyer for content/webinar offer. Monday 2026-06-08 first-touch/follow-up priority for CY2026 $1M close sprint."
+    },
+    "wayfaretavern.com": {
+      "jobId": "H0109",
+      "name": "Wayfare Tavern",
+      "slug": "wayfare-tavern",
+      "prefix": "H",
+      "primaryContact": "Events@wayfaretavern.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:41:03.705Z",
+      "wikiPage": "brain/wiki/companies/wayfare-tavern.md",
+      "note": "Superhuman reminder resurfaced Private dinner inquiry - party of 8-10, Tuesday June 23 on 2026-06-08; approval-gated follow-up task H0109 queued."
+    },
+    "chiajbenjamin@gmail.com": {
+      "jobId": "H0111",
+      "name": "Hardware FYI test inbound",
+      "slug": "hardware-fyi-test-inbound",
+      "prefix": "H",
+      "primaryContact": "chiajbenjamin@gmail.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:41:03.705Z",
+      "wikiPage": "brain/wiki/companies/hardware-fyi-test-inbound.md",
+      "note": "Superhuman reminder resurfaced testing <> Hardware FYI on 2026-06-08; approval-gated follow-up task H0111 queued."
+    },
+    "cavanasf.com": {
+      "jobId": "H0112",
+      "name": "Cavaña / Kaiyö (Brick by Brick Hospitality)",
+      "slug": "cavana",
+      "prefix": "H",
+      "primaryContact": "hola@cavanasf.com",
+      "aliases": [
+        "bxbhospitality.com"
+      ],
+      "firstSeenAt": "2026-06-08T12:41:03.705Z",
+      "wikiPage": "brain/wiki/companies/cavana.md",
+      "note": "Brick by Brick Hospitality operates Cavaña (cocktail-only) + Kaiyö (701 3rd St SF, seated dining). Replied 2026-06-08 via Tripleseat (Andriana Bobal, andriana@bxbhospitality.com): Kaiyö Shokudo Room available June 23 for seated dinner up to 20, prix-fixe 3-4 course from $90pp. H0112 follow-up draft regenerated; awaiting Brian approval."
+    },
+    "kokkari.com": {
+      "jobId": "H0114",
+      "name": "Kokkari Estiatorio",
+      "slug": "kokkari",
+      "prefix": "H",
+      "primaryContact": "events@kokkari.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:41:03.705Z",
+      "wikiPage": "brain/wiki/companies/kokkari.md",
+      "note": "Superhuman reminder resurfaced Private dinner inquiry - party of 8-10, Tuesday June 23 on 2026-06-08; approval-gated follow-up task H0114 queued."
+    },
+    "cotognasf.com": {
+      "jobId": "H0115",
+      "name": "Cotogna",
+      "slug": "cotogna",
+      "prefix": "H",
+      "primaryContact": "events@cotognasf.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:41:03.705Z",
+      "wikiPage": "brain/wiki/companies/cotogna.md",
+      "note": "Superhuman reminder resurfaced Private dinner inquiry - party of 8-10, Tuesday June 23 on 2026-06-08; approval-gated follow-up task H0115 queued."
+    },
+    "sprucesf.com": {
+      "jobId": "H0116",
+      "name": "Spruce",
+      "slug": "spruce",
+      "prefix": "H",
+      "primaryContact": "events@sprucesf.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:41:03.705Z",
+      "wikiPage": "brain/wiki/companies/spruce.md",
+      "note": "Superhuman reminder resurfaced Private dinner inquiry - party of 8-10, Tuesday June 23 on 2026-06-08; approval-gated follow-up task H0116 queued."
+    },
+    "perbaccosf.com": {
+      "jobId": "H0117",
+      "name": "Perbacco",
+      "slug": "perbacco",
+      "prefix": "H",
+      "primaryContact": "privatedining@perbaccosf.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:41:03.705Z",
+      "wikiPage": "brain/wiki/companies/perbacco.md",
+      "note": "Superhuman reminder resurfaced Private dinner inquiry - party of 8-10, Tuesday June 23 on 2026-06-08; approval-gated follow-up task H0117 queued."
+    },
+    "flux.ai": {
+      "jobId": "H0118",
+      "name": "Flux",
+      "slug": "flux",
+      "prefix": "H",
+      "primaryContact": "adrian@flux.ai",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T12:41:03.705Z",
+      "wikiPage": "brain/wiki/companies/flux.md",
+      "note": "Superhuman reminder resurfaced Hardware FYI sponsorship on 2026-06-08; approval-gated follow-up task H0118 queued."
+    },
+    "streamsmart.io": {
+      "jobId": "G0013",
+      "name": "StreamSmart",
+      "slug": "streamsmart",
+      "prefix": "G",
+      "primaryContact": "max@streamsmart.io",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T18:38:32Z",
+      "wikiPage": "brain/wiki/companies/streamsmart.md",
+      "note": "Tech services vendor (Max Puhalevich). Web dev/design, system architecture, administration. Reached out 2026-06-08 to congratulate Brian + Ari on the new venture; offered services + a call. Max worked with Ari on PayloadSpace. Soft keep-in-touch; no commercial commitment. Ari owns the relationship."
+    },
+    "yedinak.com": {
+      "jobId": "G0014",
+      "name": "J. Yedinak",
+      "slug": "yedinak",
+      "prefix": "G",
+      "primaryContact": "j@yedinak.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-08T21:28:28Z",
+      "wikiPage": "brain/wiki/companies/yedinak.md"
+    },
+    "c-infinity.ai": {
+      "jobId": "H0119",
+      "name": "C-Infinity",
+      "slug": "c-infinity",
+      "prefix": "H",
+      "primaryContact": "sai@c-infinity.ai",
+      "aliases": [
+        "autoassembler.com"
+      ],
+      "firstSeenAt": "2026-06-08T20:00:00Z",
+      "wikiPage": "brain/wiki/companies/c-infinity.md",
+      "note": "AI-powered process planning for mechanical engineering (\"compiler\" CAD->manufacturing process plans, ECOs as GitHub-style PRs). Founder/contact Sai Nelaturi, Mountain View; Series A. Marketing: Ana + Melissa. Public demo autoassembler.com. Webinar-interest target reconnected via Benji (referral from Aditya Raghupathy) -> Brian post-call follow-up 2026-06-08. Two options floated on call: Business Product Breakdown ($7.5-10K) + gated Resource Guide (Drafter DFM-style)."
+    },
+    "aeroxplorer.com": {
+      "jobId": "G0015",
+      "name": "AeroXplorer",
+      "slug": "aeroxplorer",
+      "prefix": "G",
+      "primaryContact": "daniel.mena@aeroxplorer.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T05:25:18Z",
+      "wikiPage": "brain/wiki/companies/aeroxplorer.md",
+      "note": "Aviation media co. (digital ~1M/mo + JetStream print mag ~20K 6x/yr + event-partnership promo programs; pipeline: stock-photo licensing + real-time aviation data). Intro via Ari (LinkedIn) 2026-06-09; G0015 partnership-exploration reply queued (Brian-sender, Gmail draft-only). Founder Daniel Mena."
     }
   }
 }

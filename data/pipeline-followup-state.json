@@ -1,7 +1,7 @@
 {
   "schema": "v1",
-  "lastRunAt": null,
-  "seeded": false,
+  "lastRunAt": "2026-06-09T12:42:55Z",
+  "seeded": true,
   "perDealCounters": {},
   "drafted": [],
   "skipped": []
