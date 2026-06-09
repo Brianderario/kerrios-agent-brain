@@ -40,7 +40,7 @@ Legacy Codex automation context packs at `/Users/brianderario/Desktop/Codex Kerr
 | `kerri-gap-sweep` | 9:41pm ET, daily, Claude Code scheduled task; checks Codex records plus Claude shims | `agent-prompts/kerri-gap-sweep/SKILL.md` |
 | `kerri-lead-research` | 6:13pm ET, weekdays, Claude Code scheduled task; maintains 25 ready prospects for the daily 10-outreach loop; cheap preflight/no-op quiet | `agent-prompts/kerri-lead-research/SKILL.md` |
 | `kerri-cold-outreach` | 9:07am ET, weekdays, Claude Code scheduled task; targets 10 approval-ready drafts, inspects at most 25 queue entries, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
-| `kerri-pipeline-followup` | 8:33am ET, Tuesdays, Claude Code scheduled task; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
+| `kerri-pipeline-followup` | 8:33am ET, Tuesdays and Thursdays, Claude Code scheduled task; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
 | `standard-works-issue-writer` | 8:00pm ET, Mondays and Wednesdays, Claude Code scheduled task; stages Beehiiv review drafts only | `agent-prompts/kerri-sw-newsletter-writer/SKILL.md` |
 
 2026-06-08 note: Claude Code is now the sole scheduled runner. All 10 routines (core bundle + revenue agents + S&W writer) run as Claude Code persistent scheduled tasks. Codex automations are retired. Approval gates unchanged everywhere.
@@ -67,7 +67,7 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 |---|---|---|
 | `send-partner-contract` | Skill, not a scheduled routine | Used for partner/SOW contract packet prep. Finance/legal/signature authority remains approval-gated. |
 | `kerri-event-logistics` | On-demand | Venue/vendor research, inquiry drafting, run-of-show support. |
-| `kerri-pipeline-followup` | Claude Code scheduled task (Tuesdays) | Deal follow-up drafting and state checks for warm deals where Brian/Kerri sent last; no direct sends. |
+| `kerri-pipeline-followup` | Claude Code scheduled task (Tuesdays and Thursdays) | Deal follow-up drafting and state checks for warm deals where Brian/Kerri sent last; no direct sends. |
 
 ## Planned (not yet activated)
 

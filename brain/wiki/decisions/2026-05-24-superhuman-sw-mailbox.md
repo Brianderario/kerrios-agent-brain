@@ -1,10 +1,10 @@
 # Decision: brian@standardandworks.com via Superhuman MCP
 
-scope: decision · updated: 2026-05-24
+scope: decision · updated: 2026-06-09
 
 ## Decision
 
-Wire `brian@standardandworks.com` (Brian's S/W primary Superhuman account, MCP UUID `760b1f3b-fde4-493d-a586-7b3da09fcbe9`) as the **fourth mailbox** in the Kerri inbox sweep.
+Wire `brian@standardandworks.com` (Brian's S/W primary Superhuman account, MCP UUID `52549600-ff50-4fab-9014-a0e476bfe09a`) as the **fourth mailbox** in the Kerri inbox sweep.
 
 Verified 2026-05-24 by calling `query_email_and_calendar` on the MCP — it reported brian@standardandworks.com as the primary account address.
 
