@@ -184,30 +184,40 @@ Canonical design + basket: data/sw-newsletter/the-floor.template.html. 6 rows, S
 <paragraph 2 — what it means, named quote if available>
 
 ## Defense & Space
-- <bullet 1 with $ and link>
-- <bullet 2 with $ and link>
-- <bullet 3 with $ and link>
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
 
 ## Semiconductors & Electronics
-- <3 bullets>
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
 
 ## Energy & Materials
-- <3 bullets>
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
 
 ## Manufacturing & Automation
-- <3 bullets>
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
 
 ## Maritime & Shipbuilding
-- <3 bullets>
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
 
 ## Supply Chain & Freight
-- <3 bullets>
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
 
 ## Dealbook
-- <transaction 1 with $ and link>
-- <transaction 2 with $ and link>
-- <transaction 3 with $ and link>
-- <transaction 4 with $ and link>
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
+- **Company** [action verb phrase](source-url) rest of one-sentence description.
 
 ## Closing
 Back <Tuesday | Thursday>.
