@@ -34,7 +34,7 @@ Live in `agent-prompts/` in this repo. Local Claude installations (`~/.claude/sk
 
 | MCP | What it does |
 |---|---|
-| `kerri-hardwarefyi-email` | Kerri's full email: search, read, create_draft, send, reply (kerri@hardwarefyi.com) |
+| `kerri-hardwarefyi-email` | Kerri's full email: search, read, create_draft, send, reply, archive, mark_read, list_folders (kerri@hardwarefyi.com) |
 | `brian-hardwarefyi-email` | Brian's HWFYI email: search, read, create_draft, send, reply (brian@hardwarefyi.com) |
 | `superhuman` (uuid `52549600…`) | Brian's S/W mailbox (brian@standardandworks.com — primary account). list_threads, get_thread, get_message, create_or_update_draft, send_draft. S-prefix sends only — never auto-CC HWFYI. |
 | `docusign` (uuid `606b17de…`) | Contract envelopes: create, send, track, get signatures |

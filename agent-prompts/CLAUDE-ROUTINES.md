@@ -93,6 +93,7 @@ Lead research + cold outreach were promoted to live scheduled-tasks crons after 
 | Outbound sales | `7 9 * * 1-5` | `kerri-cold-outreach/SKILL.md` | **Claude Code scheduled task** (weekday ~9:07am ET); targets 10 approval-ready drafts, never auto-sends |
 | Pipeline follow-up | `33 8 * * 2,4` | `kerri-pipeline-followup/SKILL.md` | **Claude Code scheduled task** (Tue+Thu ~8:33am ET); approval-gated, never sends |
 | Renewal watchdog | `0 10 * * 3` | `kerri-renewal-watchdog/SKILL.md` | **Claude Code scheduled task** (Wednesday ~10am ET); scans CRM for expiring contracts, lapsed sponsors, upsell opportunities; max 5 renewal drafts per run, approval-gated |
+| Industry intel | `30 6 * * 1-5` | `kerri-industry-intel/SKILL.md` | **Claude Code scheduled task** (weekday ~6:30am ET, before morning brief); polls TechCrunch + Crunchbase News RSS, Google Alerts, intel emails in kerri@hardwarefyi.com; Apollo enrichment (max 5/day); read-only + archive processed emails, no sends |
 | **Inbound sales triage** | — | **prompt does not exist (gap)** | deferred per registry until volume justifies; cold-outreach conversion tracking (STEP 2c in inbox-sweep) partially covers inbound from cold prospects |
 | **Event sales** | — | **prompt does not exist (gap)** | tree lists it; only `kerri-event-logistics` exists today |
 
@@ -108,4 +109,4 @@ Prompts not yet authored; sequence last. Ari pod stays behind explicit approval-
 
 ## Activation checklist (HISTORICAL — activated 2026-05-29, Claude Code sole runner 2026-06-08)
 
-All routines are now live as Claude Code scheduled tasks. The 12 active tasks: `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `kerri-revenue-standup`, `kerri-renewal-watchdog`, `standard-works-issue-writer`. Codex automations should be disabled to prevent double-runs.
+All routines are now live as Claude Code scheduled tasks. The 13 active tasks: `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `kerri-revenue-standup`, `kerri-renewal-watchdog`, `standard-works-issue-writer`, `kerri-industry-intel`. Codex automations should be disabled to prevent double-runs.

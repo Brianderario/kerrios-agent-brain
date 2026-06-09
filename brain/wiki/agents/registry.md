@@ -43,7 +43,11 @@ Legacy Codex automation context packs at `/Users/brianderario/Desktop/Codex Kerr
 | `kerri-pipeline-followup` | 8:33am ET, Tuesdays and Thursdays, Claude Code scheduled task; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
 | `standard-works-issue-writer` | 8:00pm ET, Mondays and Wednesdays, Claude Code scheduled task; stages Beehiiv review drafts only | `agent-prompts/kerri-sw-newsletter-writer/SKILL.md` |
 
-2026-06-08 note: Claude Code is now the sole scheduled runner. All 10 routines (core bundle + revenue agents + S&W writer) run as Claude Code persistent scheduled tasks. Codex automations are retired. Approval gates unchanged everywhere.
+| `kerri-industry-intel` | 6:30am ET, weekdays, Claude Code scheduled task; polls RSS + Google Alerts + intel emails, archives processed emails, no external sends | `agent-prompts/kerri-industry-intel/SKILL.md` |
+
+2026-06-09 note: `kerri-industry-intel` added as 13th scheduled task. Phase 1 (free tier): TechCrunch RSS, Crunchbase News RSS, Google Alerts email digests, Apollo enrichment (max 5/day). Read-only + archive only, no sends.
+
+2026-06-08 note: Claude Code is now the sole scheduled runner. All routines run as Claude Code persistent scheduled tasks. Codex automations are retired. Approval gates unchanged everywhere.
 
 ## Sub-agent roadmap (under Kerri's identity)
 
