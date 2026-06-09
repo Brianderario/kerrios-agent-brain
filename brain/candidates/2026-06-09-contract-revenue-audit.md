@@ -1,6 +1,6 @@
 # Candidate: Full contract / CY2026 revenue audit (2026-06-09)
 
-**Status:** AWAITING BRIAN. Read-only audit, nothing mutated. Every proposed CRM fix below is approval-gated; nothing has been applied to the CY2026 sheet.
+**Status:** BRIAN RESPONDED 6/9 ~17:50 ET. Decisions incorporated below. CRM sheet edits still not applied (approval-gated). One open item remaining: PTC quarterly contract total.
 
 **Scope:** DocuSign envelopes, Google Drive (all contract docs, 39 unique CRM-linked docs read in full), 3 KMG mailboxes (brian@hardwarefyi, kerri@hardwarefyi, brian@kerrihq; S/W mailbox untouched), Savant export sheet, Kinetic 2026 MASTER sheet, AR reconciliation workbook. Trigger: Brian asked whether 2026 revenue is fully captured ("I feel like we're missing numbers").
 
@@ -17,11 +17,24 @@ The CY2026 Revenue Goal board (Closed Won $578,164.73) is internally consistent 
 | + Bananaz Kinetic signed 5/11 (feature + booth; CRM only has old $1K deal) | +$5,000.00 |
 | + Colare Kinetic booth, signed 4/16, PAID 6/9 (not in CRM) | +$5,000.00 |
 | + Embedded Ventures INV-141, SOW attached, past due (incremental to Zoo $20K) | +$5,900.00 |
-| **Corrected contract-booked CY2026** | **$619,064.73** |
+| **Subtotal (pre-Brian-answers)** | **$619,064.73** |
+| + Duro partner program $12,500 (Brian confirmed: signed) | +$12,500.00 |
+| + Protolabs $10K moved from 2025 to 2026 (Brian confirmed) | +$10,000.00 |
+| + PTC quarterly invoices (Brian confirmed: this year; total TBD, run rate $40K/yr) | +$TBD |
+| **Updated corrected contract-booked CY2026** | **$641,564.73 + PTC** |
 | + Kinetic ticket revenue (in NO ledger anywhere; MASTER basis) | +$109,050.00 |
-| **Corrected total CY2026** | **~$728,114.73** |
+| **Updated total CY2026** | **~$750,614.73 + PTC** |
 
-Real gap to the $1M goal is ~$272K, not $421,835.
+Real gap to the $1M goal is ~$249K (before PTC quarterly), not $421,835.
+
+### Brian's decisions (6/9 ~17:50 ET)
+- **PTC quarterly:** confirmed as this year's contract. Total annual value TBD (run rate $40K/yr based on quarterly $10K invoices). Once confirmed, add to CRM.
+- **Duro:** only the partner program ($12,500) is signed. The $44K event sponsorship SOW was sent but NOT signed -- stays as pipeline.
+- **Protolabs $10K:** confirmed, move from 2025 into 2026.
+- **CoLab:** $19.5K is correct (CRM figure). Savant $29K discrepancy resolved -- no change needed.
+- **PCBnet/Imagineering $2K:** just paid. No revenue change (already in CRM).
+- **Hampton Roads $50K:** in review, stays as pipeline.
+- **OhioX $27,500:** REMOVED. This was an outbound commitment for the Frontier partnership, which is no longer being pursued. Not revenue.
 
 ## The $389K Kinetic number
 
@@ -35,22 +48,30 @@ The exact figure exists nowhere in Drive, email, or DocuSign. The live "Kinetic 
 4. Add Bananaz Kinetic $5,000 ($2,500 company feature + $2,500 booth; signed contract confirmed by Noy Nave email 5/11).
 5. Add Colare $5,000 (signed SOW 4/16, INV-138 PAID via ACH 6/9). Colare is absent from the CRM entirely.
 6. Add Embedded Ventures $5,900 (INV-141 to Jenna Bryant, SOW attached, due 6/5, UNPAID and past due; incremental to Zoo's $20,000 workshop).
-7. Add Kinetic ticket revenue as its own line/tab once the basis is pinned.
+7. Add Duro partner program $12,500 (signed; Jun-Dec 2026). New contract row alongside HWFYI-2026-025.
+8. Move Protolabs HWFYI-2025-012 breakdown rows from Sep-Dec 2025 dates to spring 2026. Brian confirmed 2026 delivery.
+9. Add PTC quarterly digital contract (annual value TBD; run rate $40K/yr). Need total from Brian before writing the row.
+10. Add Kinetic ticket revenue as its own line/tab once the basis is pinned.
 
-## Open questions (money likely missing but needs Brian / verification)
+## Open questions (remaining after Brian's 6/9 answers)
 
-- **PTC quarterly invoices:** signed contract per email ("we're all set with the contract", 4/4), PO #US10004508, quarterly $10,000 invoices (INV-112, INV-133). Implies ~$40K/yr run rate; CRM only captures $15K Kinetic. No PTC doc in the CRM contract list. Potentially +$25K-40K for 2026.
-- **Duro side deals (docs modified 6/1, execution status unknown):** "Event Sponsorship" $44,000 (2x dinners @ $12K + SF Tech Week presenting $20K; one dinner already in CRM, so +$32K incremental) and Partner Program $12,500 (Jun-Dec 2026). If executed, Duro 2026 = $56,500+, not $12,000. Matches the 5/x pipeline doc's "Duro $18K verbal" upgrade path.
-- **Protolabs $10K timing:** CRM books it Sep-Dec 2025; Savant and campaign evidence say spring 2026 delivery. If moved: +$10K to 2026.
-- **CoLab digital conflict:** Savant says $29,000 (Q4 2025 - Q1 2026); main CRM has $18,000 (Jan-Mar 2026) + $1,500 (2025). ~$9.5K unexplained.
+- **PTC quarterly invoices:** Brian confirmed this year. Total annual value still needed to add the CRM row. Run rate = $40K/yr (quarterly $10K under PO #US10004508). No PTC digital contract doc in Drive or CRM.
+- **Duro event sponsorship $44K:** SOW sent, NOT signed per Brian. Pipeline only. CRM stays at $12K Kinetic dinner + $12.5K partner program (newly added).
 - **Zoo/EV AR pairing:** AR workbook pairs INV-141 ($5,900) with INV-142 ($29,100, billed to "Benjamin Chia") as one $35,000/yr contract starting 5/1. INV-142's billing name needs verification before booking anything beyond the $5,900.
 - **Iryna Zhuravel:** $14,500/yr in AR workbook with $7,250 unearned owed back; no matching SOW found.
-- **Imagineering/PCBnet $2,000 (INV-110, due 3/19):** sponsor says paid (6/2 email) but no payment receipt on file; verify in Mercury before counting as collected.
+
+## Resolved (no longer open)
+
+- **Protolabs $10K:** RESOLVED -- Brian confirmed move to 2026. Added to corrected figure.
+- **CoLab $9.5K conflict:** RESOLVED -- Brian confirmed $19.5K (CRM figure) is correct.
+- **PCBnet/Imagineering $2K:** RESOLVED -- Brian confirmed just paid. Already in CRM, no change needed.
+- **Hampton Roads $50K:** RESOLVED -- in review, pipeline. Not booked.
+- **OhioX $27.5K:** RESOLVED -- removed entirely. Was an outbound KMG commitment for Frontier (no longer pursued), not revenue.
 
 ## KerriHQ-entity contracts (separate ledger, not HFYI CRM)
 
-- OhioX Partnership: $27,500 Net 15 of event + $15,000 bonus clause, SIGNED 1/21/2026 (Powering AI Conference).
-- Hampton Roads Alliance: $50,000 (6 monthly installments) + 25% net event profit, in active redline as of 6/4 (Ironclad Maritime Summit, Oct 2026).
+- ~~OhioX Partnership: $27,500~~ **REMOVED per Brian** -- this was an outbound KMG commitment for the Frontier conference partnership, which is no longer being pursued. Not revenue.
+- Hampton Roads Alliance: $50,000 (6 monthly installments) + 25% net event profit, in active redline as of 6/4 (Ironclad Maritime Summit, Oct 2026). **Per Brian: still in review.**
 - Opterus R&D: $1,000 3-month trial from 1/5/2026.
 - Astroscale US design partner agreement (9/26/2025): fee schedule not extracted (file too large for reader).
 - KerriHQ x HardwareFYI internal event agreement (signed 1/1-1/2/2026): Kinetic profit split 40% KerriHQ / 60% HardwareFYI; material to any Kinetic profit allocation.
