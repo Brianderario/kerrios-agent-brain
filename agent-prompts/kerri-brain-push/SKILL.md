@@ -153,6 +153,7 @@ Grade:
 
 Also record:
 
+- `runAt` — REQUIRED on every run entry, machine-parseable ISO-8601 with offset (e.g. `2026-06-08T22:13:06-04:00`). `scripts/routine-liveness-check.mjs` and the launchd liveness watchdog parse this exact field; an entry carrying only a human-readable `runAtEt` string makes brain-push falsely read "dark" (2026-06-08 gap-sweep class-J finding). A human `runAtEt` may be added alongside `runAt`, never instead of it.
 - commit SHA(s)
 - files committed
 - files intentionally ignored
