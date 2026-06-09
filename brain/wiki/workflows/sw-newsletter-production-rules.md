@@ -73,9 +73,32 @@ Avoid:
 3. **Intro** (3 short paragraphs before Markets): greeting ("Happy Tuesday." / "Happy Thursday."), thesis line ("The current thing in the industrial base is [X]."), and a fast scan paragraph naming key stories with concrete dollars. Pattern established in AMCA, Camden, Modine, Utah, Rare Earth issues.
 4. `Markets` / THE FLOOR dashboard (see Markets Rule below).
 5. `The Lead`. NO inline source links in the Lead (Brian, 2026-06-09) — keep it clean analytical prose. Keep the lead story's sources in the local draft notes for verification; inline links live only on the category bullets + Dealbook. Minimize specific news dates in the Lead (Brian, 2026-06-09) — they add bloat and age fast; use them only when the date itself is the story (e.g., a deadline, a vote sequence). Drop "On June X" openers in favor of actor-first sentences.
-6. Industry sections with one-sentence linked bullets.
-7. `Dealbook`.
-8. Short close.
+6. Industry sections with linked bullets (see Bullet Format below).
+7. `Dealbook` (same bullet format).
+8. Short close ("Back Tuesday." / "Back Thursday.").
+
+## Bullet Format (standardized 2026-06-09)
+
+Every category bullet and Dealbook item uses this shape:
+
+`**Company** [action verb phrase](source-url) rest of one-sentence description.`
+
+- **Bold the company/actor name** at the start.
+- **Link the action phrase** (the verb + key fact) to the primary source. The link IS the citation; do not add a separate parenthetical source name.
+- The rest of the sentence is plain text. One sentence per bullet; no narrative.
+- Use plain verbs: `won`, `raised`, `committed`, `cleared`, `signed`, `began`, `is building`.
+- Each section uses the same H2 heading level.
+
+**Canonical section names and order** (from AMCA, the Brian-approved standard):
+
+1. Defense & Space
+2. Semiconductors & Electronics
+3. Energy & Materials
+4. Manufacturing & Automation
+5. Maritime & Shipbuilding
+6. Supply Chain & Freight
+
+Omit a section only when the candidate pool has zero credible in-window stories for it. Do not rename sections issue-to-issue (e.g., "Critical Minerals & Energy" or "Supply Chain & Industrial Assets" are retired variants; use the canonical names above).
 
 ## Subject Line Rule (updated Brian + Codex 2026-06-09)
 

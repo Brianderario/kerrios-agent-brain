@@ -1,3 +1,6 @@
+## [2026-06-09 ~12:30 ET] sw-newsletter-writer | format standardized | Kerri
+Reformatted all category bullets + Dealbook in the Beehiiv draft and local audit copy to match the canonical sent-issue format: **bold company** + linked action phrase + plain description. Removed parenthetical source citations (the link IS the source). Also cleaned: removed stale dates from bullets, fixed em-dashes. Added "Bullet Format" section and "Canonical section names and order" to production-rules. Background agent updating the writer SKILL.md to match. Section names locked: Defense & Space, Semiconductors & Electronics, Energy & Materials, Manufacturing & Automation, Maritime & Shipbuilding, Supply Chain & Freight.
+
 ## [2026-06-09 ~12:15 ET] sw-newsletter-writer | intro added + subject-line rule updated | Kerri
 Added 3-paragraph intro to Beehiiv draft (greeting, thesis line, fast scan) matching the pattern from sent issues (AMCA, Camden, Modine, Utah, Rare Earth). Updated production-rules: (1) Intro spec added to Reader-Facing Structure, (2) Subject Line Rule rewritten to emphasize Payload/Tectonic/Morning Brew witty direction per Brian + Codex 2026-06-09 session. Noted title discrepancy: Beehiiv slug = "A Factory for Factories Just Opened in Rural Missouri" (Codex) vs editor textarea = "Grimes County Bets Its Tax Base on Terafab."
 

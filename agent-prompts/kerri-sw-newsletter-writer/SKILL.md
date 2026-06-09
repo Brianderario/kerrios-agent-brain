@@ -113,12 +113,26 @@ If the top candidate can't carry two paragraphs, demote it to the relevant categ
 STEP 5 — BUILD ROUNDUPS + DEALBOOK
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-For each of the 5–6 categories (Defense & Space / Semis & Electronics / Energy & Materials / Mfg & Automation / Maritime & Shipbuilding / Supply Chain & Freight):
+Canonical section names and order (do not rename issue-to-issue):
+1. Defense & Space
+2. Semiconductors & Electronics
+3. Energy & Materials
+4. Manufacturing & Automation
+5. Maritime & Shipbuilding
+6. Supply Chain & Freight
+
+Each section is an H2 heading (`## Defense & Space`, etc.).
+
 - Pick 3 best items from the candidate pool that fit the category
-- Each bullet: 1–2 sentences, must have a number, must end with an inline link
+- **Bullet format (canonical):** `**Company** [action verb phrase](source-url) rest of one-sentence description.`
+  - Bold the company/actor name at the start
+  - Link the action verb phrase (verb + key fact) to the primary source — the link IS the citation
+  - No separate parenthetical source name like `([Source Name](url))`
+  - One sentence per bullet, no narrative
+  - Every bullet must contain a number (dollar amount, date, output figure, contract value)
 - Skip a category entirely if you don't have 3 strong items — better to ship 4 strong sections than pad with weak bullets
 
-Dealbook: 4 transactions. M&A, capital raises, large contract awards. Same format — numbers + link.
+Dealbook: 4 transactions. M&A, capital raises, large contract awards. Same bullet format: `**Company** [action verb phrase](source-url) rest of one-sentence description.`
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 6 — MARKETS SNAPSHOT → "THE FLOOR" dashboard
