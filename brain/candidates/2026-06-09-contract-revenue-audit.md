@@ -1,6 +1,6 @@
 # Candidate: Full contract / CY2026 revenue audit (2026-06-09)
 
-**Status:** REOPENED 6/9 evening -- execution verification pass (Brian: "double check all of these are correct since we have a phantom deal in there"). CRM fixes from the first pass remain applied; CY2026 breakdown sum $641,372.41. See "Execution verification" section below: 4 lines totaling $115,000 are phantom/stalled/unverifiable, pending Brian's removal approval.
+**Status:** CLOSED (final). Both passes applied. 6/9 ~18:45 ET: Brian approved removals ("Make the edits and updates so as long as you feel confident everything is accurate"); removed Quilter HWFYI-2026-010 ($80K), Xometry HWFYI-2026-022 ($10K), nTop HWFYI-2026-018 ($12.5K), Loombotic HWFYI-2026-006 ($12.5K) -- 106 breakdown rows deleted, 4 Contract List rows annotated, per-contract sums verified before deletion. **Final clean CY2026 booked: $526,372.41** (39 companies). 2025-contract spillovers preserved (nTop $5,357.12, Loombotic $1,785.68); Quilter now $14,500 only. Loombotic removal is reversible if Benji confirms the deal. Removal script: /tmp/kerri-contract-audit/remove-phantom-contracts.mjs.
 
 **Scope:** DocuSign envelopes, Google Drive (all contract docs, 39 unique CRM-linked docs read in full), 3 KMG mailboxes (brian@hardwarefyi, kerri@hardwarefyi, brian@kerrihq; S/W mailbox untouched), Savant export sheet, Kinetic 2026 MASTER sheet, AR reconciliation workbook. Trigger: Brian asked whether 2026 revenue is fully captured ("I feel like we're missing numbers").
 
