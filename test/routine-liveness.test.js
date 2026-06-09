@@ -14,9 +14,47 @@ function fixture(files) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'kerrios-liveness-'));
   fs.mkdirSync(path.join(root, 'data'), { recursive: true });
   for (const [name, value] of Object.entries(files)) {
-    fs.writeFileSync(path.join(root, 'data', name), JSON.stringify(value));
+    // String values are raw file content (e.g. sweep-cadence.log); everything else is JSON.
+    fs.writeFileSync(path.join(root, 'data', name), typeof value === 'string' ? value : JSON.stringify(value));
   }
   return root;
+}
+
+// Mirrors the REAL live inbox-sweep-state.json shape (schema in
+// agent-prompts/kerri-inbox-sweep/SKILL.md): per-mailbox cursor entries with
+// lastSuccessfulSweepAt, plus a top-level updatedAt.
+function sweepState(iso) {
+  return {
+    schema: 'inbox-sweep-state-v1',
+    mailboxes: {
+      'kerri@hardwarefyi.com': mailboxEntry(iso),
+      'brian@hardwarefyi.com': mailboxEntry(iso),
+      'brian@kerrihq.com': mailboxEntry(iso),
+      'brian@standardandworks.com': mailboxEntry(iso)
+    },
+    updatedAt: iso
+  };
+}
+function mailboxEntry(lastSuccessfulSweepAt) {
+  return {
+    seenMessageIds: ['AAMk-example-1', 'AAMk-example-2'],
+    lastErrorAt: null,
+    lastErrorReason: null,
+    lastErrorAlertedAt: null,
+    lastSuccessfulSweepAt
+  };
+}
+// The DEGRADED shape observed live on 2026-06-09: sweeps persisted only
+// seenMessageIds + lastError* — no updatedAt, no per-mailbox lastSuccessfulSweepAt.
+function degradedSweepState() {
+  const s = sweepState(null);
+  delete s.updatedAt;
+  for (const m of Object.values(s.mailboxes)) delete m.lastSuccessfulSweepAt;
+  return s;
+}
+// One sweep-cadence.log line as the sweep actually writes it (lead ISO = completion stamp).
+function cadenceLine(iso) {
+  return `${iso} quiet | gap 15min | cursors prev->${iso} | 4 mailboxes clean | grade 5\n`;
 }
 
 function run(root, now, extra = []) {
@@ -27,7 +65,7 @@ function run(root, now, extra = []) {
 
 test('inbox-sweep fresh inside active window → healthy', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-05-29T17:50:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-05-29T17:50:00Z')
   });
   const rep = run(root, '2026-05-29T18:00:00Z'); // 14:00 ET Fri
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -38,7 +76,7 @@ test('inbox-sweep fresh inside active window → healthy', () => {
 
 test('inbox-sweep stale inside active window → dark core, ok=false', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-05-29T17:00:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-05-29T17:00:00Z')
   });
   const rep = run(root, '2026-05-29T18:00:00Z'); // 60m stale at 14:00 ET
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -49,7 +87,7 @@ test('inbox-sweep stale inside active window → dark core, ok=false', () => {
 
 test('inbox-sweep stale overnight → paused-ok (no false alarm)', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-05-30T01:00:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-05-30T01:00:00Z')
   });
   const rep = run(root, '2026-05-29T07:00:00Z'); // 03:00 ET Friday, outside window
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -59,7 +97,7 @@ test('inbox-sweep stale overnight → paused-ok (no false alarm)', () => {
 
 test('inbox-sweep weekend before first checkpoint → ok', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-06-05T22:00:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-06-05T22:00:00Z')
   });
   const rep = run(root, '2026-06-06T13:00:00Z'); // 09:00 ET Saturday
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -69,7 +107,7 @@ test('inbox-sweep weekend before first checkpoint → ok', () => {
 
 test('inbox-sweep weekend after missed morning checkpoint → dark core', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-06-05T22:00:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-06-05T22:00:00Z')
   });
   const rep = run(root, '2026-06-06T15:00:00Z'); // 11:00 ET Saturday
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -80,7 +118,7 @@ test('inbox-sweep weekend after missed morning checkpoint → dark core', () => 
 
 test('inbox-sweep weekend after morning success and before afternoon checkpoint → ok', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-06-06T14:05:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-06-06T14:05:00Z')
   });
   const rep = run(root, '2026-06-06T19:00:00Z'); // 15:00 ET Saturday
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -90,7 +128,7 @@ test('inbox-sweep weekend after morning success and before afternoon checkpoint 
 
 test('inbox-sweep weekend after missed afternoon checkpoint → dark core', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-06-06T14:05:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-06-06T14:05:00Z')
   });
   const rep = run(root, '2026-06-06T21:00:00Z'); // 17:00 ET Saturday
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -109,7 +147,7 @@ test('missing state file → unknown, not dark', () => {
 
 test('--alert --dry-run surfaces the message without sending', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-05-29T17:00:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-05-29T17:00:00Z')
   });
   const rep = run(root, '2026-05-29T18:00:00Z', ['--alert', '--dry-run']);
   assert.ok(rep.alert);
@@ -122,7 +160,7 @@ test('--alert --dry-run surfaces the message without sending', () => {
 test('inbox-sweep mildly stale DURING the morning relaunch window → ok (grace)', () => {
   const root = fixture({
     // 45m stale at 07:10 ET (11:10Z) — inside the 06:45–07:45 ET widened budget of 50m.
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-06-04T10:25:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-06-04T10:25:00Z')
   });
   const rep = run(root, '2026-06-04T11:10:00Z');
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -132,11 +170,119 @@ test('inbox-sweep mildly stale DURING the morning relaunch window → ok (grace)
 
 test('same 45m staleness OUTSIDE the morning window → dark (normal 35m budget)', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-06-04T17:15:00Z' }
+    'inbox-sweep-state.json': sweepState('2026-06-04T17:15:00Z')
   });
   const rep = run(root, '2026-06-04T18:00:00Z'); // 45m stale at 14:00 ET
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
   assert.equal(sweep.status, 'dark');
+});
+
+// --- inbox-sweep success sources: state stamps, cadence log, and the degraded shape ---
+// (2026-06-09 incident: live sweeps persisted neither updatedAt nor per-mailbox
+// lastSuccessfulSweepAt for hours, so a healthy sweep read "unknown" and a dark one
+// would never have paged. The checker now also reads data/sweep-cadence.log.)
+
+test('per-mailbox lastSuccessfulSweepAt alone (no top-level updatedAt) → ok', () => {
+  const state = sweepState('2026-05-29T17:50:00Z');
+  delete state.updatedAt;
+  const root = fixture({ 'inbox-sweep-state.json': state });
+  const rep = run(root, '2026-05-29T18:00:00Z'); // 14:00 ET Fri
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'ok');
+});
+
+test('legacy minimal shape (top-level updatedAt only) still works', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-05-29T17:50:00Z' }
+  });
+  const rep = run(root, '2026-05-29T18:00:00Z');
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'ok');
+});
+
+test('degraded state (no timestamps anywhere) + fresh cadence log → ok via the log', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': degradedSweepState(),
+    'sweep-cadence.log': cadenceLine('2026-05-29T17:30:00Z') + cadenceLine('2026-05-29T17:50:00Z')
+  });
+  const rep = run(root, '2026-05-29T18:00:00Z'); // 14:00 ET Fri, log 10m fresh
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'ok');
+  assert.equal(sweep.lastSuccessAt, '2026-05-29T17:50:00Z');
+});
+
+test('degraded state + STALE cadence log → dark (the log does not weaken detection)', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': degradedSweepState(),
+    'sweep-cadence.log': cadenceLine('2026-05-29T17:00:00Z') // 60m stale at 14:00 ET
+  });
+  const rep = run(root, '2026-05-29T18:00:00Z');
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'dark');
+  assert.deepEqual(rep.darkCore, ['kerri-inbox-sweep']);
+});
+
+test('degraded state + no cadence log → unknown (the exact 2026-06-09 blind-spot shape)', () => {
+  const root = fixture({ 'inbox-sweep-state.json': degradedSweepState() });
+  const rep = run(root, '2026-05-29T18:00:00Z');
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'unknown');
+});
+
+test('cadence log: malformed lead token ("undefined") is skipped, never trusted or fatal', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': degradedSweepState(),
+    // The live log really contains a line whose lead token is the string "undefined".
+    'sweep-cadence.log':
+      cadenceLine('2026-05-29T17:50:00Z') +
+      'undefined material | gap ~8min | new reply -> task update | grade 5\n'
+  });
+  const rep = run(root, '2026-05-29T18:00:00Z');
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'ok');
+  assert.equal(sweep.lastSuccessAt, '2026-05-29T17:50:00Z');
+});
+
+test('cadence log: only malformed lines → no stamp, stays unknown (no false ok)', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': degradedSweepState(),
+    'sweep-cadence.log': 'undefined material | gap ~8min | grade 5\n'
+  });
+  const rep = run(root, '2026-05-29T18:00:00Z');
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'unknown');
+});
+
+test('max across sources: stale state stamps + fresher cadence log → the newest wins', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': sweepState('2026-05-29T16:00:00Z'), // 2h stale on its own
+    'sweep-cadence.log': cadenceLine('2026-05-29T17:50:00Z') // but the log shows a 10m-fresh sweep
+  });
+  const rep = run(root, '2026-05-29T18:00:00Z');
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'ok');
+  assert.equal(sweep.lastSuccessAt, '2026-05-29T17:50:00Z');
+});
+
+test('max across sources: fresh state + older log → state wins, still ok', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': sweepState('2026-05-29T17:50:00Z'),
+    'sweep-cadence.log': cadenceLine('2026-05-29T16:00:00Z')
+  });
+  const rep = run(root, '2026-05-29T18:00:00Z');
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'ok');
+  assert.equal(sweep.lastSuccessAt, '2026-05-29T17:50:00Z');
+});
+
+test('short-form log stamps (e.g. 2026-06-09T19:18Z, as the live log writes) parse', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': degradedSweepState(),
+    'sweep-cadence.log': '2026-05-29T17:50Z quiet | gap ~11min | 4 mailboxes clean | grade 5\n'
+  });
+  const rep = run(root, '2026-05-29T18:00:00Z');
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'ok');
 });
 
 // --- morning-brief: crashed-mid-run vs never-fired vs completed-via-run-state ---
@@ -331,7 +477,7 @@ test('decideRoutineAlerts: went unknown → NOT a false all-clear, alert stays o
 
 test('CLI dedup: still-dark routine with an open alert produces NO new alert', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-05-29T17:00:00Z' },
+    'inbox-sweep-state.json': sweepState('2026-05-29T17:00:00Z'),
     'routine-liveness-alert-state.json': { alerted: { 'kerri-inbox-sweep': { since: '2026-05-29T17:30:00Z' } } }
   });
   const rep = run(root, '2026-05-29T18:00:00Z', ['--alert', '--dry-run']);
@@ -341,7 +487,7 @@ test('CLI dedup: still-dark routine with an open alert produces NO new alert', (
 
 test('CLI recovery: open alert + now healthy → recovery ping, alert closed', () => {
   const root = fixture({
-    'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-05-29T17:55:00Z' }, // fresh at 14:00 ET
+    'inbox-sweep-state.json': sweepState('2026-05-29T17:55:00Z'), // fresh at 14:00 ET
     'routine-liveness-alert-state.json': { alerted: { 'kerri-inbox-sweep': { since: '2026-05-29T16:00:00Z' } } }
   });
   const rep = run(root, '2026-05-29T18:00:00Z', ['--alert', '--dry-run']);

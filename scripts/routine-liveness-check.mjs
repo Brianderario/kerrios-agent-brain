@@ -91,15 +91,43 @@ function readJson(root, file) {
 }
 
 // Last-success extractors — each tolerates a missing/odd file by returning null.
+//
+// The sweep's state stamps (top-level updatedAt, per-mailbox lastSuccessfulSweepAt) are
+// what the prompt schema specifies, but they are LLM-written and have gone missing in
+// practice: on 2026-06-09 hours of live sweeps persisted only seenMessageIds + lastError*
+// fields, so a perfectly healthy sweep read as "unknown" here — and unknown never alerts,
+// meaning a genuinely dark sweep would never have paged Brian either. Every quiet sweep
+// also appends `<ISO> quiet | ...` to data/sweep-cadence.log (material sweeps update the
+// state file), so take the MAX across all three sources: any one of them is real evidence
+// the sweep fired and succeeded. This only ADDS success evidence; the staleness budgets
+// in evaluate() are unchanged, so dark detection is not weakened.
 function lastInboxSweep(root) {
+  const stamps = [];
   const s = readJson(root, 'inbox-sweep-state.json');
-  if (!s) return null;
-  if (s.updatedAt) return s.updatedAt;
-  const stamps = Object.values(s.mailboxes || {})
-    .map((m) => m && m.lastSuccessfulSweepAt)
-    .filter(Boolean)
-    .sort();
-  return stamps.length ? stamps[stamps.length - 1] : null;
+  if (s) {
+    if (s.updatedAt) stamps.push(s.updatedAt);
+    for (const m of Object.values(s.mailboxes || {})) {
+      if (m && m.lastSuccessfulSweepAt) stamps.push(m.lastSuccessfulSweepAt);
+    }
+  }
+  const fromLog = lastSweepCadenceStamp(root);
+  if (fromLog) stamps.push(fromLog);
+  return maxStamp(stamps);
+}
+// Newest parseable leading timestamp in data/sweep-cadence.log. Each sweep appends one
+// `<ISO> quiet|material ... | grade n` line on completion, so the lead token is a success
+// stamp. A line whose lead token does not parse is skipped, never trusted (the live log
+// already contains one literal "undefined" lead). Only the newest 200 lines are scanned
+// so a multi-month log stays cheap to check every 15 minutes.
+function lastSweepCadenceStamp(root) {
+  let text;
+  try {
+    text = fs.readFileSync(path.join(root, 'data', 'sweep-cadence.log'), 'utf8');
+  } catch {
+    return null;
+  }
+  const lines = text.split('\n').filter((l) => l.trim()).slice(-200);
+  return maxStamp(lines.map((l) => l.trim().split(/\s+/, 1)[0]));
 }
 function lastMorningBrief(root) {
   const s = readJson(root, 'morning-brief-state.json');
