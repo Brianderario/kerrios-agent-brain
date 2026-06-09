@@ -88,6 +88,7 @@ One respondent noted John McEleney's session felt too much like self-promotion. 
 See [[../candidates/2026-05-24-kinetic-2026-sponsor-roster]] — 23 sponsor companies + ~38 contacts confirmed for 2026. Renewal outreach is in flight via Brian's "THANK YOU - Kinetic 2026" thread.
 
 ## Log
+- 2026-06-09: Kinetic 2026 session recordings -- on Benji to deliver. Blocking deliverable requests from Alex Stauffer and Pete Staples. Noted by Brian.
 - 2026-06-08: Added full 2026 sponsor survey analysis (9 responses) — scores, what to protect, ranked improvements, audience gaps, quotable feedback. Source: Google Sheets survey responses workbook.
 - 2026-05-26: Wendy Hom / Westin St. Francis followed up on the Marriott post-event survey for Kinetic 2026. Kerri registered Westin St. Francis as H0020 and queued an approval task asking Brian to complete the survey before sending the acknowledgment.
 - 2026-05-26: Phirum Men / Westin St. Francis sent a separate post-event thank-you and confirmed the Area GM survey remains open through June 2, 2026. Kerri updated H0020 instead of creating a duplicate task.
