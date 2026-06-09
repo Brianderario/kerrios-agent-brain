@@ -1,3 +1,7 @@
+## [2026-06-09 18:41 ET] eod-review | 5 meetings, 2 drafts, 0 flagged | Kerri
+
+3 transcribed (Nii Ahene investor call -> G0016 kerrihq draft cc Ari; Sam/beehiiv ESP call -> deduped vs pending H0139, meeting page only; David Orozco/OroForge prospect -> H0140 HWFYI draft + Benji intro). Hampton Roads/Ironclads no-transcript = already-handled (S&W boundary), no task. Brian/Benji 1:1 auto-skip. New cos OroForge H0140 + Nii G0016; KMG financials -> .local. No sends.
+
 # KerriOS Brain Log
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
