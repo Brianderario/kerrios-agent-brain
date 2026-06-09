@@ -90,6 +90,54 @@ export function checkDocReality(root, opts = {}) {
     }
   }
 
+  // 3b. manifest ↔ CLAUDE-ROUTINES.md drift guard (Wave 1). The routine fleet now has
+  //     a single source of truth (agent-prompts/routines.manifest.json). Keep it and the
+  //     doc from drifting, without brittle cron-string matching:
+  //       HARD ERROR: a MONITORED manifest routine whose prompt dir is missing (it cannot
+  //                   run and the liveness checker references an evaluator for it).
+  //       WARNING:    a manifest routine not mentioned in CLAUDE-ROUTINES.md, or a doc
+  //                   routine slug absent from the manifest (soft mismatch / heads-up).
+  const manifestPath = path.join(promptsDir, 'routines.manifest.json');
+  const routinesDoc = read(path.join(promptsDir, 'CLAUDE-ROUTINES.md'));
+  let manifestChecked = false;
+  let manifest = null;
+  try { manifest = JSON.parse(read(manifestPath)); } catch { /* absent/unparseable */ }
+  if (manifest && Array.isArray(manifest.routines)) {
+    manifestChecked = true;
+    const manifestNames = new Set();
+    for (const r of manifest.routines) {
+      if (!r || !r.name) continue;
+      manifestNames.add(r.name);
+      // A monitored routine MUST have a runnable prompt; an event-triggered/unmonitored
+      // one (e.g. standard-works-issue-writer) legitimately may not, so only warn there.
+      const hasPromptDir = fs.existsSync(path.join(promptsDir, r.name, 'SKILL.md'));
+      if (!hasPromptDir) {
+        if (r.monitored) {
+          errors.push({ kind: 'manifest-missing-prompt', detail: `manifest routine ${r.name} (monitored) has no agent-prompts/${r.name}/SKILL.md` });
+        } else {
+          warnings.push({ kind: 'manifest-no-prompt-dir', detail: `manifest routine ${r.name} has no prompt dir (ok if event-triggered/external)` });
+        }
+      }
+      if (routinesDoc && !routinesDoc.includes(r.name)) {
+        warnings.push({ kind: 'manifest-doc-drift', detail: `manifest routine ${r.name} is not mentioned in CLAUDE-ROUTINES.md` });
+      }
+    }
+    // Reverse: doc routine slugs absent from the manifest (likely a new routine added to
+    // the doc but never registered for monitoring (the exact Wave-1 gap), surfaced soft here
+    // and hard in test/routine-manifest.test.js).
+    const NOT_ROUTINES = new Set([
+      'kerri-skill', 'kerri-event-logistics',
+      'kerri-sw-newsletter-writer', 'kerri-sw-newsletter-editor', 'kerri-sw-newsletter-marketing'
+    ]);
+    const docSlugs = new Set();
+    for (const m of routinesDoc.matchAll(/`(kerri-[a-z0-9-]+|standard-works-[a-z0-9-]+)`/g)) docSlugs.add(m[1]);
+    for (const slug of docSlugs) {
+      if (!NOT_ROUTINES.has(slug) && !manifestNames.has(slug)) {
+        warnings.push({ kind: 'doc-not-in-manifest', detail: `CLAUDE-ROUTINES.md names ${slug} but it is not in routines.manifest.json` });
+      }
+    }
+  }
+
   // 4. optional: ~/.claude/scheduled-tasks shims vs prompt dirs (repo is canonical)
   let shimsChecked = false;
   if (!opts.noShims) {
@@ -110,6 +158,7 @@ export function checkDocReality(root, opts = {}) {
     promptDirs: promptDirs.length,
     docsScanned: docPaths.map((p) => path.relative(root, p)),
     shimsChecked,
+    manifestChecked,
     errors,
     warnings
   };

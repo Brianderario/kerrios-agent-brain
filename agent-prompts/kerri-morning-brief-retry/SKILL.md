@@ -15,7 +15,10 @@ node scripts/morning-brief-run-state.mjs --check-needed
 
 Interpret the exit code:
 
-- **Nonzero exit (3):** today's brief was ALREADY delivered, or it is the weekend → **STOP IMMEDIATELY.** Read no context, build nothing, send no email or text. A silent no-op is the correct, expected outcome on a healthy day.
+- **Nonzero exit (3):** today's brief was ALREADY delivered, or it is the weekend → record a quiet heartbeat (one cheap command, below), then **STOP IMMEDIATELY.** Read no context, build nothing, send no email or text. A silent no-op is the correct, expected outcome on a healthy day. The heartbeat is the ONLY action taken on this path:
+  ```
+  node scripts/heartbeat.mjs --routine kerri-morning-brief-retry --status quiet
+  ```
 - **Exit 0:** today's brief did NOT complete (it crashed mid-run, or never fired) → proceed to STEP 2 to recover it.
 
 ## STEP 2 — RECOVER (only on exit 0)
@@ -25,6 +28,16 @@ From that directory, read `NOW.md` first, then load and follow `agent-prompts/ke
 Same hard gates as the primary brief: the email send requires `approved=true` + `approvalSource` per that prompt's send rules; do NOT auto-CC `brian@hardwarefyi.com` (the morning brief goes to `brian@kerrihq.com` only); send the Sendblue text heads-up per the prompt's rules.
 
 After a successful recovery, append exactly one date-prefixed line to `brain/log.md` noting that the primary 7:00am run failed and this retry delivered the brief, so the failure stays on the record for the nightly gap-sweep.
+
+## STEP 3 - RECORD HEARTBEAT (last action on the recovery path)
+
+After delivering the recovered brief, stamp the liveness heartbeat from the repo root so this retry registers as fired-and-finished:
+
+```
+node scripts/heartbeat.mjs --routine kerri-morning-brief-retry --status ok
+```
+
+(On the STEP 1 no-op path the quiet heartbeat there already covers this, so do not double-stamp.)
 
 ## Runner
 

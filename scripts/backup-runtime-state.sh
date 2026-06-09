@@ -21,6 +21,7 @@ FILES=(
   "data/gtasks-lists.json"
   "data/inbox-sweep-state.json"
   "data/cold-outreach-state.json"
+  "data/routine-heartbeats.json"
 )
 
 BACKUP_ROOT="$BRAIN_DIR/data/backups/runtime-state"

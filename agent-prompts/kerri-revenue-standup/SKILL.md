@@ -195,6 +195,18 @@ Append one line to `brain/log.md`:
 - Renewal watchdog not running → 💡 SUGGESTION task: enable renewal scanning
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 8 - RECORD HEARTBEAT (last action, every run)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-revenue-standup --status ok
+```
+
+This is how the routine-liveness watchdog knows the Friday standup fired and finished; skipping it can page Brian with a false "dark routine" alert.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 HARD RULES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
