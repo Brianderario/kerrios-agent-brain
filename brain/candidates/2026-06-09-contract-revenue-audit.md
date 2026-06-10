@@ -1,6 +1,6 @@
 # Candidate: Full contract / CY2026 revenue audit (2026-06-09)
 
-**Status:** CLOSED (final). Both passes applied. 6/9 ~18:45 ET: Brian approved removals ("Make the edits and updates so as long as you feel confident everything is accurate"); removed Quilter HWFYI-2026-010 ($80K), Xometry HWFYI-2026-022 ($10K), nTop HWFYI-2026-018 ($12.5K), Loombotic HWFYI-2026-006 ($12.5K) -- 106 breakdown rows deleted, 4 Contract List rows annotated, per-contract sums verified before deletion. **Final clean CY2026 booked: $526,372.41** (39 companies). 2025-contract spillovers preserved (nTop $5,357.12, Loombotic $1,785.68); Quilter now $14,500 only. Loombotic removal is reversible if Benji confirms the deal. Removal script: /tmp/kerri-contract-audit/remove-phantom-contracts.mjs.
+**Status:** CLOSED (final) + Mercury invoice-side pass added 6/9 night (see section below; corrects the PTC "never invoiced" finding and resolves Quilter INV-125 as CANCELLED). 6/9 ~18:45 ET: Brian approved removals ("Make the edits and updates so as long as you feel confident everything is accurate"); removed Quilter HWFYI-2026-010 ($80K), Xometry HWFYI-2026-022 ($10K), nTop HWFYI-2026-018 ($12.5K), Loombotic HWFYI-2026-006 ($12.5K) -- 106 breakdown rows deleted, 4 Contract List rows annotated, per-contract sums verified before deletion. **Final clean CY2026 booked: $526,372.41** (39 companies). 2025-contract spillovers preserved (nTop $5,357.12, Loombotic $1,785.68); Quilter now $14,500 only. Loombotic removal is reversible if Benji confirms the deal. Removal script: /tmp/kerri-contract-audit/remove-phantom-contracts.mjs.
 
 **Scope:** DocuSign envelopes, Google Drive (all contract docs, 39 unique CRM-linked docs read in full), 3 KMG mailboxes (brian@hardwarefyi, kerri@hardwarefyi, brian@kerrihq; S/W mailbox untouched), Savant export sheet, Kinetic 2026 MASTER sheet, AR reconciliation workbook. Trigger: Brian asked whether 2026 revenue is fully captured ("I feel like we're missing numbers").
 
@@ -51,9 +51,28 @@ Method note: all CRM-linked Google Docs are unsigned source templates (all 23 ch
 | Xometry HWFYI-2026-0xx | 10,000 | PHANTOM. Envelope sent 4/21 never signed; zero invoices/sends; Benji 5/28 "excited to see how we can work together" = prospect; H2 call 6/15. |
 | nTop Q2 2026 (2026-018) | 12,500 | STALLED. Fynn balked at price 3/25-3/30; envelope 4/1 then total silence; no invoice/sends. 2025 nTop spillover (~$5.4K) is fine. |
 | Loombotic 2026 | 12,500 | UNVERIFIABLE. Unsigned, no envelope, no payment, no email anywhere. Exists only in CRM. Ask Brian. |
-| PTC Kinetic | 15,000 | REAL but never signed AND never invoiced. Brenna Robillard 5/7: "our 15k investment"; delivered at Kinetic; in AR discussion. Keep booked; INVOICE NEEDED. |
+| PTC Kinetic | 15,000 | REAL. Brenna Robillard 5/7: "our 15k investment"; delivered at Kinetic. ~~Never invoiced~~ CORRECTED 6/9 night via Mercury API: INV-131 $15,000 issued 4/15 under PO #US10004841, due 6/14, unpaid. The earlier "never invoiced" finding was wrong (email evidence missed it; Mercury ledger has it). |
 
-Minor: Duro $12K dinner real (delivered 5/12 Bourbon Steak; invoice Memo #Y126027606 to payables@altium.com 5/27, acknowledged; unpaid as of 6/9). Bananaz: $3,750 collected (INV-128) vs $5,000 booked -- check. Quilter INV-125 $14.5K payment status still ambiguous (Benji 5/19 "squared away" vs reminders through 5/22).
+Minor: Duro $12K dinner real (delivered 5/12 Bourbon Steak; original INV-140 cancelled, re-issued as INV-143 with Memo #Y126027606 to payables@altium.com 5/27, due 6/12, unpaid as of 6/9). Bananaz: $3,750 collected (INV-128 Paid) vs $5,000 booked -- $1,250 shortfall CONFIRMED via Mercury ledger. Quilter INV-125 $14.5K: RESOLVED via Mercury ledger -- invoice is CANCELLED, no replacement invoice exists, no cash received. Benji's 5/19 "squared away" evidently meant the invoice was cancelled, not paid. The signed $14.5K deal (HWFYI-2026-020, envelope completed 4/8) is booked in CRM with zero billing behind it. Likely connected to the AR-workbook line "Iryna Zhuravel $14,500/yr with $7,250 unearned owed back" -- if the deal half-terminated, CRM may need to come down $7,250. ASK BENJI.
+
+## Mercury invoice-side reconciliation (6/9 night, via read-only API token from Brian)
+
+Full AR ledger: 49 invoices all-time. Paid $424,371.45 / Unpaid $132,000 / Cancelled $45,000. Token used live only, NOT stored anywhere.
+
+Unpaid breakdown ($132,000):
+| INV | Customer | $ | Due | Note |
+|---|---|---|---|---|
+| INV-102 | PTC (Onshape 2026 Renewal) | 40,000 | 2026-01-18 | STALE DUPLICATE -- per Brian 6/9, Onshape $40K bills via quarterly $10K POs (INV-112 Q1 PAID 3/16; INV-133 Q2 due 6/26). INV-102 should be CANCELLED or PTC is double-billed. |
+| INV-131 | PTC Kinetic (PO US10004841) | 15,000 | 2026-06-14 | Real; due this week. |
+| INV-143 | Altium (Duro dinner, #Y126027606) | 12,000 | 2026-06-12 | Re-issue of cancelled INV-140; due this week. |
+| INV-133 | PTC (PO US10004508, Onshape Q2) | 10,000 | 2026-06-26 | Current. |
+| INV-139 | First Resonance | 10,000 | 2026-06-10 | Register shows $10K landed 6/9; Mercury still Unpaid = payment in transit/unmatched. Verify it clears. |
+| INV-141 | Embedded Ventures | 5,900 | 2026-06-05 | PAST DUE 4 days. |
+| INV-137 | Component AI (component20.dk) | 5,000 | 2026-06-08 | PAST DUE 1 day. |
+| INV-132 | Advanced PCB | 5,000 | 2026-06-20 | Current. |
+| INV-142 | "Benjamin Chia" info@hardwarefyi.com | 29,100 | 2026-09-30 | Internal-placeholder invoice; AR workbook pairs it with INV-141 as one $35K/yr Zoo/EV contract. Needs a real billing contact before 9/30. |
+
+Other ledger notes: Colare INV-138 $5K Paid (landed 6/9, matches register). All 13 email-receipt invoices confirmed Paid in ledger. Initialized $1.5K (INV-111) + SOSV $1.5K (INV-134) paid -- look like Kinetic ticket sales, relevant to the unpinned ticket basis. Summit Interconnect $16K paid Sep-Oct 2025 (CY2025, out of scope). Luxonis INV-101 $2.5K cancelled.
 
 If all four removals approved: CY2026 booked $526,372.41; + tickets ~$109K = ~$635K; real gap to $1M ~ $365K.
 
