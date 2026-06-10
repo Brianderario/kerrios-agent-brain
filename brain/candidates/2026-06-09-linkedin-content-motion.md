@@ -30,6 +30,7 @@ The S&W newsletter is just **"Standard & Works"** (site: standardandworks.com, "
 - Visual on every numbers post (chart/map/table from issue data).
 - Standing CTA, identical every post: "Standard & Works briefs U.S. capex decision makers on where America builds, twice a week. Join free: https://www.standardandworks.com/?utm_source=linkedin&utm_medium=social&utm_campaign=brian-li"
 - Format rules: no em dashes, no question-bait close, 1-2 sentence paragraphs.
+- Link placement A/B (started 6/10): promo posts = link in body (utm_content=body); story posts = link in pinned first comment (utm_content=comment). 2026 algo data: body link costs ~20-50% reach, comment link ~10-15%, "link in comments!" phrasing penalized as bridge behavior. Beehiiv attribution picks the standard after 2-3 wks.
 - HWFYI equivalent CTA TBD when HWFYI slices start.
 
 ## Workflow
