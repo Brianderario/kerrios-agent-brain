@@ -201,6 +201,7 @@ Create ONE task with `gtasks_create_task`:
   ━━━━━━━━━ DRAFT #1 ━━━━━━━━━
   SEND #1
   jobId: <H####> · <Company> · company fit: <why this company belongs in Hardware FYI outreach> · person fit: <why this recipient is the right buyer/reviewer> · qualification: <2-3 compact signals: paid-access behavior such as sponsoring/exhibiting, prior HWFYI/Kerri relationship or hard rep, editorial/story fit, budget/timing signal, or ICP buyer urgency> · hook: <one-line personalization angle> · revenue path: <lead-gen | brand-awareness | event/webinar | content | annual-partner>
+  Alt contacts: <ONLY when the lead has altContacts (big companies): list them one line, `Name (Title)` comma-separated, so Brian can redirect the draft to a better buyer by editing the To: line. Omit the line entirely when there are none.>
   From: <kerri@hardwarefyi.com | brian@hardwarefyi.com>
   To: <email>
   Subject: <subject>

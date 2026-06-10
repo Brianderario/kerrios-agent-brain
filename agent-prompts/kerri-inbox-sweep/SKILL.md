@@ -336,7 +336,8 @@ This protects HWFYI sender reputation as cold volume ramps. It runs against the 
    - Log one `brain/log.md` line: `cold-dnc | <email> unsubscribed | Kerri`.
 2. **NDR / hard bounces.** A bounce hits AUTO-SKIP (mailer-daemon/postmaster). EXCEPTION: before auto-skipping a bounce, scan its body for any address in the cold-sent set. If the bounce is a hard/permanent failure (5xx, "address not found", "mailbox does not exist", "user unknown") for a cold recipient:
    - Append that recipient to `cold-do-not-contact.json` as `{ email, reason: "bounce", addedAt }`.
-   - Flip the lead `status` to `DNC` in `leads-master.json` + mirror to CRM tab.
+   - **Alt-contact rollover (big companies):** before flipping the lead to DNC, check the lead in `leads-master.json` for a non-empty `altContacts` array. If present: promote the first alt contact to the lead's primary `email`/`name`/`title`/`linkedin`, remove it from `altContacts`, set lead status back to `new` (it can re-queue with the same hook), and log `cold-bounce-rollover | <company>: <bounced email> → <new contact>` to brain/log.md. Only the bounced ADDRESS goes to DNC, not the company. If `altContacts` is empty/absent, flip the lead `status` to `DNC` as before.
+   - Without rollover: flip the lead `status` to `DNC` in `leads-master.json` + mirror to CRM tab.
    - Then continue the AUTO-SKIP (no task, no draft). Soft/transient bounces (4xx, "mailbox full", "out of office") do NOT get added — only permanent failures.
 3. Suppression is idempotent and one-directional: once an address is in `cold-do-not-contact.json` it is never cold-emailed again (cold-outreach + lead-research both dedup against it).
 
