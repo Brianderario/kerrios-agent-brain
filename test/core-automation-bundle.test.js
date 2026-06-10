@@ -244,7 +244,9 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
 test('inbox sweep carries trust instrumentation for the self-improvement dataset', () => {
   for (const required of [
     '"actionClass"',
-    'ACTION CLASS GUIDE',
+    // 2026-06-10 rewrite (d052b09): the v1 "ACTION CLASS GUIDE" section became the
+    // one-line enum header; the 8 class values below are unchanged.
+    'ACTION CLASSES (exactly one per job)',
     'internal-recipient-reply',
     'scheduling-logistics-reply',
     'warm-thread-holding-reply',

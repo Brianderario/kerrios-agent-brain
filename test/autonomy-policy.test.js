@@ -58,11 +58,21 @@ test('internal-recipient-reply carries the six fail-closed conditions', () => {
   assert.equal(conditions.length, 6);
   const all = conditions.join(' ');
   assert.match(all, /trustedInternal/);
+  assert.match(all, /One non-matching address means this is not an internal reply: use the external flow/);
   assert.match(all, /kerri@hardwarefyi\.com/);
-  assert.match(all, /S-prefix .*never/i);
-  assert.match(all, /no-double-email/);
-  assert.match(all, /pricing/);
-  assert.match(all, /[Ff]ail closed/);
+  // Amended 2026-06-10 (Brian, recorded in policy.approvedBy): internal-only S-prefix
+  // replies may auto-send via Superhuman — the old blanket "S-prefix never auto-sends"
+  // was replaced by boundary protections inside the condition itself.
+  assert.match(all, /internal-only S-prefix thread \(no HWFYI auto-CC, boundary scrubs apply\)/);
+  assert.match(all, /no-double-email gate runs exactly as for approved sends/);
+  // Amended 2026-06-10 PM (Brian): gated topics gate ENACTMENT, not conversation —
+  // the reply must not enact a gated decision, but discussing it and routing the
+  // decision to Brian is required, never grounds to hold the reply.
+  assert.match(all, /does not ENACT a gated decision/);
+  assert.match(all, /mutating CRM/);
+  assert.match(all, /NOT grounds to hold the reply/);
+  // Policy file unreadable → the hard rules still bind.
+  assert.match(all, /identity, boundary, and no-double-email rules remain mandatory/);
 });
 
 test('graduation bar matches the decision: 20 approvals, 10% edits, zero double-emails', () => {
