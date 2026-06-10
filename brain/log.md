@@ -494,3 +494,8 @@ Brian directed (interactive): forward the SF Brewing Co. event thread to Benji a
 
 ## [2026-06-10] sent | H0059-graymatter-robotics | Kerri (Claude interactive)
 - SENT the rewritten H0059 reply-all (Kerri→Obi + Rand, Brian cc) on the existing GrayMatter thread per Brian's "Perfect, you can send and clear out the task." Verified the sent message live in the thread (sentDateTime 2026-06-10T04:01:29Z). jobs.json marked sent + sent message id appended + threadActivity; Google Task OEtkRE5WeDNfLVk4NXRUNA deleted. No-double-email gate passed (latest pre-send message was still Rand's 6/9 intro; no Brian/Kerri reply after task creation). Ball with Obi (employer-brand decision-maker); next touch is examples+pricing or a call via Brian Calendly.
+
+## 2026-06-10 send+close | H0027-shack15 / H0031-sf-brewing-co | Kerri
+Brian directed (interactive): clear SHACK15 + SF Brewing tasks from Hardware FYI list.
+- H0027 SHACK15: SENT decline to Cheyenne Rose (cheyenne@shack15.com) as Brian, signed Brian, reply-all on live thread msg ...kl1IrAAA= — "SHACK15 priced out of our budget for this one, passing for SF Tech Week, hope to host there in future." jobs.json status=sent; Google Task deleted. SF Tech Week venue search continues (BuzzWorks H0018 front-runner; Werqwise/SHACK15 now out).
+- H0031 SF Brewing: SKIPPED + Google Task deleted. Superseded by 6/10 Kerri→Benji forward handing the reply to Benji; the queued Brian-direct Jul 22/23 draft would have double-mailed/contradicted the end-of-month steer.
