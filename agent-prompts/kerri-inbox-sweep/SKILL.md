@@ -420,17 +420,20 @@ ENRICHMENT (run after customer lookup and before drafting):
 
   Person rule: create a person page only when the person is likely to recur, owns a decision, signs a deal, is part of an active sponsor/customer/vendor thread, or Brian explicitly asks to remember them. Otherwise keep person detail in the company/thread state.
 
-FULL THREAD READ (mandatory before drafting):
+FULL THREAD READ (mandatory before drafting — scope: this gate fires whenever a draft will be written or rewritten. Pure triage decisions (auto-skip, dedup, no-task, 🆕 marker on an existing pending job) do NOT require loading the full chain; the moment you decide a draft is happening, this gate is mandatory):
   1. Use the mailbox thread tool (`read_thread`, Gmail get_thread, or Superhuman get_thread) to read the entire available chain from oldest to newest.
+     • QUOTED TEXT DOES NOT COUNT. The quoted tail inside the latest message is NOT a thread read — Gmail-style quoting usually carries only the immediately prior message, so anything 2+ messages back is silently missing (this is exactly how the H0059 GrayMatter draft on 2026-06-09 missed Rand's earned-vs-paid/budget caution from two messages earlier). Prior jobs.json entries and old task summaries don't count either; they are summaries, not the chain. Call the thread tool every time you draft.
   2. Build a compact thread state before writing:
      - What they want
      - What we promised
      - Last sender + latest ask
+     - Still-live concerns, objections, or sensitivities raised ANYWHERE earlier in the chain (pricing posture, earned-vs-paid, budget caution, timing constraints, a prior "no" to something)
      - Brand/property boundary
      - Approval gate
      - Missing facts / risks
      - Recommended next action
-  3. Save/update that compact state on the job and, when material, on the company/deal page. Do not draft from the latest email alone.
+  3. Save that compact state as a `threadState` object on the jobs.json job (`{ readAt, tool, messageCount, messages: [{n, from, date, gist}], whatTheyWant, whatWePromised, risks }`) and, when material, on the company/deal page. This artifact is the PROOF the read happened: a freshly drafted job with no `threadState` is a process miss — count it in the run grade as `threadReadMisses`. Do not draft from the latest email alone.
+  4. Fail closed: if the thread tool errors or cannot return the full chain, do NOT set `ACTION: send`. Create the task as `ACTION: redo` with a ⚠ line ("full chain unavailable — drafted from latest message only") so Brian knows the draft is single-message-sourced.
 
 DRAFTING:
   0. Drafting is the quality escalation point. Before writing or rewriting an email body, perform the MATERIAL DRAFTING PASS: load draft-learnings, sponsor templates, relevant company/person pages, prior thread state, and any needed routed context. Use GPT-5.5 Extra High via a drafting sub-agent when available; otherwise use the current run with the full material context loaded. Baseline triage context is not enough to draft.
@@ -439,6 +442,7 @@ DRAFTING:
   3. jobId — already resolved in CUSTOMER LOOKUP above (either reused from companies.json or freshly assigned + registered). Use exactly that value; do NOT re-increment.
   3a. ANSWER EVERY ASK (mandatory coverage pass — do this BEFORE writing a word of the reply):
      - Enumerate EVERY distinct ask, question, instruction, and embedded request in the inbound — including imperative instructions ("use this link"), FYIs that want acknowledgement, and each sub-bullet. Number them.
+     - ALSO enumerate every still-live sensitivity from the FULL THREAD READ thread state (earlier-chain objections, pricing/budget posture, constraints, prior "no"s). Each one must either shape the draft's tone/content or be consciously dropped with a reason in the task's ask bullets. A draft that contradicts or ignores something the counterparty said earlier in the chain is a coverage miss even if it answers the latest message perfectly. (Why: 2026-06-09 H0059 GrayMatter — the draft pitched a hard sell to Obi while ignoring Rand's "we prioritize earned media, open depending on scope and budget" from two messages earlier; the task summary knew it, the draft didn't.)
      - Write the reply so every numbered item is answered, or explicitly deferred — never silently omitted. Folding two asks into one vague line counts as a miss.
      - Self-check before you set `ACTION: send`: do not mark a draft send-ready until every enumerated item maps to a line (or an explicit deferral) in the draft. If any item can't be answered, surface it in the ⚠ flag line (or the relevant ask bullet) rather than dropping it.
      - Why: Brian flagged (2026-05-29, H0034 Jiga) that drafts from both Kerri and Codex routinely answer only half a sponsor's email. Canonical rule lives in draft-learnings.md (2026-05-29 H0034 entry). Applies to ALL sponsor/customer replies.
