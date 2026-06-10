@@ -16,6 +16,7 @@ How multiple team agents write into the same brain without stepping on each othe
 - Agents work directly on `main` for routine writes (draft-learnings, candidates, raw evidence, log entries, minor wiki edits). These auto-fast-forward.
 - Agents open a feature branch + PR for **material writes**: new decisions, ownership changes, deal status transitions, person/company truth restatements, anything affecting external commitments.
 - PR review: the affected domain owner reviews (Brian for KMG-wide, Ari for finance, Benji for digital). Auto-merge after approval.
+- **Send-authority files are always material.** The Stop-hook auto-sync (`scripts/kerri-sync.sh`) refuses to commit them: `data/autonomy-policy.json`, `agent-prompts/kerri-inbox-sweep/SKILL.md`, `agent-prompts/kerri-skill/SKILL.md`, `agent-prompts/kerri-skill/references/email.md`, `agent-prompts/kerri-morning-brief/SKILL.md` (the `SEND_AUTHORITY` list in the script). Edits to these reach `main` only through an explicit reviewed commit or PR; if one is dirty when a session stops, the hook leaves it uncommitted and warns. Added 2026-06-09 after the hook pushed half-finished autonomy work to `main` mid-build.
 
 ## Conflict resolution
 

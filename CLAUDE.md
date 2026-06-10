@@ -11,6 +11,7 @@ Claude Code is the **sole runner** for all Kerri work (interactive + scheduled) 
 - **Before you stop:** update `NOW.md` (Last action / Next action / Last touched) if you changed anything in flight.
 - Manual sync if ever needed: `bash scripts/kerri-sync.sh`. Never force-push.
 - **Material writes still go via PR** (org structure, finance, partnerships, hard rules — see `multi-agent-write-rules.md`). The auto-sync handles routine writes to `main`; for a material change, open the PR before you stop rather than letting the hook push it.
+- **Send-authority files are never auto-committed.** The Stop hook skips `data/autonomy-policy.json`, `agent-prompts/kerri-inbox-sweep/SKILL.md`, `agent-prompts/kerri-skill/SKILL.md`, `agent-prompts/kerri-skill/references/email.md`, and `agent-prompts/kerri-morning-brief/SKILL.md` (the `SEND_AUTHORITY` list in `kerri-sync.sh`). If one is dirty at Stop time, the hook leaves it uncommitted and prints a warning. These files define what Kerri may send autonomously, so they only land on `main` via an explicit reviewed commit or PR.
 
 ## Brain read order (consequential actions only)
 

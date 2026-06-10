@@ -42,6 +42,19 @@ ELIGIBLE=(
   "HANDOFF.md"
 )
 
+# Send-authority files: NEVER auto-committed, even though they sit inside
+# eligible paths. These define what Kerri may send or do autonomously, so they
+# only land on main via an explicit reviewed commit or PR (see
+# brain/wiki/workflows/multi-agent-write-rules.md). Added 2026-06-09 after the
+# Stop hook pushed half-finished send-authority work to main mid-build.
+SEND_AUTHORITY=(
+  "data/autonomy-policy.json"
+  "agent-prompts/kerri-inbox-sweep/SKILL.md"
+  "agent-prompts/kerri-skill/SKILL.md"
+  "agent-prompts/kerri-skill/references/email.md"
+  "agent-prompts/kerri-morning-brief/SKILL.md"
+)
+
 # Anything changed (staged, unstaged, or untracked) within the eligible set?
 CHANGES="$(git status --porcelain -- "${ELIGIBLE[@]}" 2>/dev/null)"
 [ -z "$CHANGES" ] && exit 0   # nothing brain-relevant changed → silent no-op
@@ -55,6 +68,16 @@ git add -- "${ELIGIBLE[@]}" 2>/dev/null
 # Safety net: unstage anything sensitive that slipped through.
 for bad in $(git diff --cached --name-only 2>/dev/null | grep -iE '(\.env|secret|token|credential|\.key$|\.pem$|kerrios\.json$|/\.local/)'); do
   git reset -q HEAD -- "$bad" 2>/dev/null
+done
+
+# Send-authority guard: unstage send-authority files and leave them dirty in
+# the working tree. They require a human-reviewed commit or PR; the Stop hook
+# must never push them.
+for sa in "${SEND_AUTHORITY[@]}"; do
+  if ! git diff --cached --quiet -- "$sa" 2>/dev/null; then
+    git reset -q HEAD -- "$sa" 2>/dev/null
+    echo "kerri-sync: NOT auto-committing send-authority file '$sa'. It stays uncommitted; land it via a reviewed commit or PR." >&2
+  fi
 done
 
 # Nothing left staged after safety filter → no-op.
