@@ -12,7 +12,7 @@ secondary_contacts: []
 mailbox: brian@hardwarefyi.com
 send_from: brian@hardwarefyi.com
 last_contact_date: 2026-06-09
-last_sender: them
+last_sender: us
 last_message_subject: "RE: Hardware FYI sponsorship"
 thread_internet_message_ids: []
 next_action_date: null
@@ -30,7 +30,7 @@ AI-powered EDA / PCB design tool. Brian sent a personal outreach Jun 8 explainin
 ## Pipeline state
 
 - **Status: active, Interest stage.** Adrian replied Jun 9: audience "good potential fit," declined call, asked for pricing/metrics/examples/audience detail by email. Rewritten full-answer reply (rate-card pricing + media-kit stats + verified example links) queued as H0118, pending Brian approval.
-- **Last sender: them** (Adrian, Jun 9). Ball in our court once Brian checks the task.
+- **Last sender: us** (Kerri, Jun 9 23:48 ET). Full pricing/metrics/examples/audience reply SENT on Brian approval. Ball with Adrian: he evaluates internally, then sends budget + goal so we can return 2-3 fitted packages.
 
 ## Source
 - Cold outreach converted. Kerri initial outreach, Brian personal follow-up.

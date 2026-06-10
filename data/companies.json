@@ -1620,9 +1620,56 @@
       "firstSeenAt": "2026-06-09T21:58:45Z",
       "note": "Newsletter platform vendor. Sam Brady (Austin TX sales) connected w/ Brian via LinkedIn; intro call 2026-06-09 w/ Brian + Benji re: migrating Hardware FYI newsletter off Substack to beehiiv. Post-call sent onboarding resources (migration docs, subscriber import, custom domains, API, case study).",
       "wikiPage": "brain/wiki/companies/beehiiv.md"
+    },
+    "oroforge.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T19:00:00Z",
+      "jobId": "H0140",
+      "name": "OroForge",
+      "note": "Early-stage prospect (HWFYI). Building a \"minimum viable PLM\" for hardware startups/SMBs (founder hit PLM sticker-shock at 10K+ enterprise tools). Founder David Orozco Cosio (ex-hardware eng); brought in a co-founder Jan 2026, ~6mo building. Reached out to Benji, took Brian Calendly 2026-06-09 (Granola 97982603). Stage: Prospect — Brian steered away from spend at this stage, toward free meetup + Benji content feedback; sponsorship when they hit PMF. Based San Diego.",
+      "prefix": "H",
+      "primaryContact": "david@oroforge.com",
+      "slug": "oroforge",
+      "wikiPage": "brain/wiki/companies/oroforge.md"
+    },
+    "niiahene": {
+      "aliases": [
+        "nii.ahene@gmail.com",
+        "netinfluencer.com"
+      ],
+      "firstSeenAt": "2026-06-09T15:30:00Z",
+      "jobId": "G0016",
+      "name": "Nii Ahene (NextGen Venture Partners / Net Influencer)",
+      "note": "KMG corp-dev/investor relationship (not a sponsor). B2B investor + operator: invested in Arkaea/Payload, board of Work Week, runs Net Influencer (creator-economy media). 2026-06-09 call w/ Brian+Ari (Granola 3fe5e039) — Brian/Ari pitched the Kerri Media holdco thesis; Nii bullish on it (vs. their prior CRM thesis). Nii offered a Net Influencer editorial interview to put KMG on investment-banker/PE radar, and intros to small creators fitting the high-LTV algorithm. Explore a possible creator-economy event partnership. Confidential KMG ownership/financial detail kept in brain/.local, NOT synced.",
+      "prefix": "G",
+      "primaryContact": "nii.ahene@gmail.com",
+      "slug": "nii-ahene",
+      "wikiPage": "brain/wiki/people/nii-ahene.md"
+    },
+    "mesoware.com": {
+      "aliases": [],
+      "firstSeenAt": "2026-06-09T22:46:11Z",
+      "jobId": "H0141",
+      "name": "Mesoware",
+      "note": "Brian-directed first-touch outreach (congrats on launch + future partnership). Palo Alto robotics: AI-powered automation for manufacturing; $1.5M pre-seed led by Pillar VC, launched 2026-06-09. Co-founder Shalin Patel (ex-Tesla, ex-Matic Robots).",
+      "prefix": "H",
+      "primaryContact": "shalin@mesoware.com",
+      "slug": "mesoware",
+      "wikiPage": "brain/wiki/companies/mesoware.md"
+    },
+    "crestlinehotels.com": {
+      "jobId": "G0017",
+      "prefix": "G",
+      "name": "Newport News Marriott at City Center",
+      "slug": "newport-news-marriott",
+      "primaryContact": "Simone.Waltrip@crestlinehotels.com",
+      "aliases": [],
+      "firstSeenAt": "2026-06-10T00:05:36Z",
+      "note": "Venue option (managed by Crestline Hotels) for the joint KMG + Standard & Works Ironclads / Maritime Defense Summit in Hampton Roads. 2026-06-09: Simone Waltrip declined availability for Oct 19 and Oct 23, 2026; offered to check alternate dates.",
+      "wikiPage": "brain/wiki/companies/newport-news-marriott.md"
     }
   },
   "description": "Customer registry. Domain -> stable jobId per the 2026-05-24 customer-ID rule (a company keeps the same jobId across all threads forever). Lookup: lowercase sender domain, normalize obvious mail/marketing subdomains (mail.acme.com -> acme.com), then look up directly OR scan `aliases` arrays for a match. Company is the identity — multiple domains/aliases can map to one jobId; never split one company across two jobIds.",
   "schema": "companies-v1",
-  "updatedAt": "2025-06-09T22:05:00.000Z"
+  "updatedAt": "2026-06-09T18:35:00-04:00"
 }
