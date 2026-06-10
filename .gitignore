@@ -48,6 +48,9 @@ coverage/
 output/
 artifacts/
 
+# Claude Code transient worktree state (agent isolation; never canonical)
+.claude/worktrees/
+
 # Local-only brain content (S/W boundary, per-machine learnings, etc.)
 brain/.local/
 brain/.obsidian/workspace*.json

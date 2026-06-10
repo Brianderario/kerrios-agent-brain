@@ -115,4 +115,4 @@ Prompts not yet authored; sequence last. Ari pod stays behind explicit approval-
 
 ## Activation checklist (HISTORICAL — activated 2026-05-29, Claude Code sole runner 2026-06-08)
 
-All routines are now live as Claude Code scheduled tasks. The 13 active tasks: `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `kerri-revenue-standup`, `kerri-renewal-watchdog`, `standard-works-issue-writer`, `kerri-industry-intel`. Codex automations should be disabled to prevent double-runs.
+All routines are now live as Claude Code scheduled tasks. The 14 active tasks: `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `kerri-revenue-standup`, `kerri-renewal-watchdog`, `standard-works-issue-writer`, `kerri-industry-intel`, `kerri-self-improve`. Codex automations should be disabled to prevent double-runs.
