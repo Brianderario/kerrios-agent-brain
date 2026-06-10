@@ -499,3 +499,6 @@ Brian directed (interactive): forward the SF Brewing Co. event thread to Benji a
 Brian directed (interactive): clear SHACK15 + SF Brewing tasks from Hardware FYI list.
 - H0027 SHACK15: SENT decline to Cheyenne Rose (cheyenne@shack15.com) as Brian, signed Brian, reply-all on live thread msg ...kl1IrAAA= — "SHACK15 priced out of our budget for this one, passing for SF Tech Week, hope to host there in future." jobs.json status=sent; Google Task deleted. SF Tech Week venue search continues (BuzzWorks H0018 front-runner; Werqwise/SHACK15 now out).
 - H0031 SF Brewing: SKIPPED + Google Task deleted. Superseded by 6/10 Kerri→Benji forward handing the reply to Benji; the queued Brian-direct Jul 22/23 draft would have double-mailed/contradicted the end-of-month steer.
+
+## [2026-06-10 00:12 ET] lead-research | linkedin-enrichment: 0 contacts linked, 0 none-found, 56 remaining | Kerri
+BLOCKED at start: chrome-devtools browser instance is not logged into LinkedIn (search URL redirected to /uas/login). No LinkedIn pages were loaded beyond the login wall; no profiles touched. Brian needs to sign into LinkedIn once in the chrome-devtools-managed Chrome, then re-run. Input list: data/lead-research/needs-contact-2026-06-10.json (56 companies). leads-master.json untouched.
