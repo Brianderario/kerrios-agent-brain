@@ -10,6 +10,16 @@
 2. **The graduation ramp** ("definitely agreed on earning it"): a class moves ASK → AUTO-LOGGED only when (a) ≥20 approvals in class AND Brian edit rate ≤10% AND zero double-email incidents, and (b) Brian explicitly flips it. Demotion back to ASK is automatic on any double-email, any Brian "that was wrong," or edit rate regression.
 3. **Stale-approval escalation:** items waiting 7+ days are ESCALATED — red banner at top of the morning brief Approval Queue + a line in the morning text, priced or not. Shipped same session: `scripts/approval-queue-digest.mjs` (`escalated` flag, `escalateAgeDays: 7`, `totals.escalated`, 🔴 escalation line) + morning-brief SKILL consumption rules. Tests 225/225, check exit 0.
 
+## Amendment 2026-06-10 — internal-only S-prefix auto-sends
+
+**Decided by:** Brian (interactive, 2026-06-10). Corrects the original "S-prefix never auto-sends" condition, which was too broad.
+
+The S/W boundary is about not pulling S/W internal **content** into Kerri's brain and not sending to **external** parties. A reply whose recipients are all trusted-internal (Brian and/or Zach, both already in `trustedInternal`) is internal S/W coordination, not a boundary crossing. So:
+
+- `internal-recipient-reply` now auto-sends an **S-prefix** reply **when INTERNAL-ONLY** — every To+Cc recipient is in `trustedInternal` and no external party is on the thread. It sends via Superhuman from **brian@standardandworks.com** (no HWFYI auto-CC; Brian's notification is native to his S/W mailbox + the morning-brief Auto-logged section).
+- **Still gated (unchanged):** any S-prefix reply with an external recipient, and anything touching S/W pricing / commercial terms / content drafts / legal / finance (the `neverAuto` substance gate applies regardless of recipients). Brain writes stay boundary-safe: body scrubbed from `jobs.json`, minimal queue marker only.
+- **Net:** Benji, Ari, and Zach all auto-answer on internal-only threads. Enforced in `data/autonomy-policy.json` (conditions) + the AUTO-LOGGED SEND PATH and INTERNAL TEAMMATE DIRECT REQUEST branch in `agent-prompts/kerri-inbox-sweep/SKILL.md`.
+
 ## What stays gated (unchanged)
 
 `sponsor-substantive-reply`, `renewal-draft`, `cold-send` (batch gate), and all permanent NEVER-AUTO gates: CRM mutations, pricing, legal/contracts, finance/spend, permissions, identity, S/W boundary.

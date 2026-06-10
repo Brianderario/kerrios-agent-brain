@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-09",
+  "updatedAt": "2026-06-10",
   "decision": "brain/wiki/decisions/2026-06-09-autonomy-boundary.md",
-  "approvedBy": "Brian, interactive session 2026-06-09. Per-class promotions are Brian-only; Kerri never edits tiers in this file.",
+  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file.",
   "tiers": {
     "auto": "Act with no approval. Internal-only, no external send, no commercial or financial risk.",
     "auto-logged": "Act without per-thread approval, then notify: entry in the morning-brief Auto-logged section + the standard auto-CC on every kerri@ send. No text alert (texts are the interrupt lane).",
@@ -18,8 +18,8 @@
       "promotedBy": "Brian",
       "conditions": [
         "Every recipient (To + Cc) of the outgoing reply exactly matches an address in trustedInternal. One non-matching address means fall back to ask.",
-        "Send identity is Kerri (kerri@hardwarefyi.com) only. If SEND IDENTITY rules resolve to a Brian-voice send, fall back to ask.",
-        "H or G prefix jobs only. S-prefix (Standard & Works) never auto-sends.",
+        "Send identity is Kerri (kerri@hardwarefyi.com) for an H/G job, OR the Superhuman S/W account (brian@standardandworks.com) for an internal-only S-prefix job. POST-CALL SENDER LOCK and Gmail (brian@kerrihq.com) draft-only jobs still fall back to ask.",
+        "Prefix gate: H or G auto-send as Kerri. S-prefix (Standard & Works) auto-sends ONLY when internal-only -- every To+Cc recipient is in trustedInternal (Brian/Zach/Kerri) and no external party is on the reply; it then sends via Superhuman from brian@standardandworks.com with NO HWFYI auto-CC and boundary-safe brain writes (body scrubbed from jobs.json). Any external recipient on an S-prefix reply -> never auto-sends, fall back to ask.",
         "The no-double-email gate runs exactly as for approved sends.",
         "The reply makes no commitment on pricing, legal, finance, spend, CRM, or scope. If the draft would, fall back to ask.",
         "Policy file unreadable or class missing: fall back to ask. Fail closed, always."
