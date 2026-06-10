@@ -1,3 +1,6 @@
+## [2026-06-10 18:19 EDT] lead-research | 0 sourced, queue 49->48 ready, 1 dedup'd (HARD RULE 4) | Kerri
+Healthy-queue no-op: queue above 25 floor, no sourcing. Pulled Firestorm Labs (launchfirestorm.com) from #2 queue slot — defense-tech, HARD RULE 4 — and flagged it DNC in pool. Queue 48 ready.
+
 ## [2026-06-10 09:35 ET] cold-outreach | 10 drafts, 6 skipped (existing-rel), today=10/10 week=25/50 | Kerri
 
 Staged 10 personalized HWFYI cold drafts (H0142-H0151: Tsavorite, Empower Semi, ECM PCB Stator, yieldWerx, Green Circuits, Sunstone, East West Mfg, Ocean Infinity, Plus One Robotics, GreyOrange) into one batch task on the HardwareFYI list; #8-10 recruiting-angle. Skipped 6 already-registered companies. Queue 65->49.
