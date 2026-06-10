@@ -1,14 +1,18 @@
-## [2026-06-09 18:41 ET] eod-review | 5 meetings, 2 drafts, 0 flagged | Kerri
-
-3 transcribed (Nii Ahene investor call -> G0016 kerrihq draft cc Ari; Sam/beehiiv ESP call -> deduped vs pending H0139, meeting page only; David Orozco/OroForge prospect -> H0140 HWFYI draft + Benji intro). Hampton Roads/Ironclads no-transcript = already-handled (S&W boundary), no task. Brian/Benji 1:1 auto-skip. New cos OroForge H0140 + Nii G0016; KMG financials -> .local. No sends.
-
 # KerriOS Brain Log
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 Prior months live in `brain/log-archive/log-<YYYY-MM>.md` (rotated by `scripts/rotate-brain-log.mjs`); this file holds the current month only.
 
+## [2026-06-09 22:15 ET] brain-push | dd376b3 | Kerri
+
+Belt-and-suspenders nightly flush: pushed 2 already-committed gap-sweep commits the gap-sweep session left unpushed to origin (e3563d2 NOW.md baton trim + CLAUDE-ROUTINES task-count sync + .claude/worktrees gitignore; dd376b3 gap-sweep log). No new eligible changes to stage — only data/companies.json dirty (4 new CRM entries from today's interactive/meeting sessions), intentionally outside push scope per commit c964f8e; committed directly by the next writing routine. Validation green: npm run check exit 0, npm test 263/263. Hygiene fix: relocated an orphaned 18:41 eod-review entry that had been prepended above this H1, restoring chronological order. No Brian alert (silent on success).
+
 ## [2026-06-09 21:59 ET] gap-sweep | auto:3 pr:1 task:1 | Kerri
 Whole-system A-Q sweep, all green: npm check exit 0 / test 263, 14 routines enabled+firing, state 125 files clean, all connectors reachable, gates intact, revenue-goal wiring PASS. Auto-fixed: NOW.md trim 35->28 lines, CLAUDE-ROUTINES active-task count 13->14 (+kerri-self-improve), gitignore .claude/worktrees/. PR #17: de-Codex brain-push Read-first list (class B — retired Codex paths loaded nightly). Task NFN4: connector-probe alias map (recurring 3-run class M). Note: 4 leftover loop-build worktrees gitignored (deletion left to Brian).
+
+## [2026-06-09 18:41 ET] eod-review | 5 meetings, 2 drafts, 0 flagged | Kerri
+
+3 transcribed (Nii Ahene investor call -> G0016 kerrihq draft cc Ari; Sam/beehiiv ESP call -> deduped vs pending H0139, meeting page only; David Orozco/OroForge prospect -> H0140 HWFYI draft + Benji intro). Hampton Roads/Ironclads no-transcript = already-handled (S&W boundary), no task. Brian/Benji 1:1 auto-skip. New cos OroForge H0140 + Nii G0016; KMG financials -> .local. No sends.
 
 ## [2026-06-09 18:26 ET] interactive | PR #16 MERGED (Wave 3: autonomy scorecard + self-improve routine) | Kerri (Claude interactive)
 Resolved merge conflicts with main's tier-based autonomy-policy.json (auto-logged send path, trustedInternal, graduation). Updated scorecard + tests from stage-based to tier-based schema. Fixed smart-quote syntax error in inbox-sweep-prompt test. 263/263 tests pass. All 4 loop-build waves now on main. Self-improve routine registered in manifest (shim pending).
