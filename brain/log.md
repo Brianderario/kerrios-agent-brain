@@ -535,3 +535,5 @@ COLD BATCH 2026-06-09 (1/2) — drafts 1-5 (H0129 Allen Control Systems, H0130 A
 - 2026-06-10: inbox-sweep created H0001 Aris Machina task (sponsor-substantive-reply, Brian-sender) — William Steel proposal (bundle A+C ~$17K initial, ~$2K/mo after, Kinetic interest) ahead of Thu 1400-1630 CET call; pre-call ack draft holds all price/scope, awaiting approval. [Kerri]
 
 - 2026-06-10: inbox-sweep skipped H0001 Aris Machina — Brian checked the task with ACTION: skip, sent the reply himself. No send. Task deleted. | Kerri
+
+- 2026-06-10: MATERIAL (PR pending): Brian retired Savant as a KMG property (no revenue) and set the property lineup to Hardware FYI / Kinetic / Standard & Works, with S&W treated as a full property in the KMG Console "for tracking purposes" pending the Zach deal (KMG-side data only; S/W boundary rules unchanged). Decided during the kerrihq-rails Console mockup review. Filed as brain/candidates/2026-06-10-property-lineup-savant-retired.md because git/Bash was unavailable to open the required PR this session; wiki edits (savant.md retired, standard-and-works.md Console-tracking note) go via PR next session. | Kerri
