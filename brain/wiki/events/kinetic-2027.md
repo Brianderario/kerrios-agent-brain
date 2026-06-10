@@ -93,3 +93,9 @@ See [[../candidates/2026-05-24-kinetic-2026-sponsor-roster]] — 23 sponsor comp
 - 2026-05-26: Wendy Hom / Westin St. Francis followed up on the Marriott post-event survey for Kinetic 2026. Kerri registered Westin St. Francis as H0020 and queued an approval task asking Brian to complete the survey before sending the acknowledgment.
 - 2026-05-26: Phirum Men / Westin St. Francis sent a separate post-event thank-you and confirmed the Area GM survey remains open through June 2, 2026. Kerri updated H0020 instead of creating a duplicate task.
 - 2026-05-24: seeded; sponsor renewal pipeline active
+
+## Sponsor prospectus (2026-06-10)
+
+- **Editable source (Canva):** "Kinetic 2027 Sponsor Prospectus", design id `DAHMNfE04aM`, 8 pages, imported from `kinetic-2027-prospectus-redesigned.pdf` (Rev B) so Brian + Benji can edit. Includes full pricing (à la carte menu, tier thresholds $60K/$30K/$10K) — pricing is intentional in the prospectus, unlike the media kit.
+- Import-induced word-spacing artifacts in body text were repaired and verified across all 8 pages on import day.
+- Source PDF remains at `~/Downloads/kinetic-2027-prospectus-redesigned.pdf`.
