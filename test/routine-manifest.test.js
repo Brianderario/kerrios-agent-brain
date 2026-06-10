@@ -108,6 +108,16 @@ test('every manifest routine appears in CLAUDE-ROUTINES.md', () => {
 // Machine-specific cross-check: every live ~/.claude/scheduled-tasks shim dir must
 // have a manifest entry. Skipped when the dir is absent (CI on another machine),
 // mirroring check-doc-reality.mjs's shim gating.
+//
+// Personal-namespace exclusion: `brian-*` shims are Brian's PERSONAL scheduled
+// tasks (health, household, etc.), not KMG routines. By standing rule, personal
+// health data never enters the KMG brain/GitHub repo — not even task slugs — so
+// they are excluded by prefix rather than allowlisted by name. KMG routines live
+// under the `kerri-*` / `standard-works-*` namespaces (the same convention the
+// CLAUDE-ROUTINES.md cross-check above relies on); any new KMG routine must NOT
+// use the `brian-` prefix or this test will silently skip it.
+const PERSONAL_SHIM_PREFIX = 'brian-';
+
 test('every ~/.claude/scheduled-tasks shim has a manifest entry (skipped if dir absent)', (t) => {
   const stDir = path.join(os.homedir(), '.claude', 'scheduled-tasks');
   if (!fs.existsSync(stDir)) {
@@ -118,7 +128,8 @@ test('every ~/.claude/scheduled-tasks shim has a manifest entry (skipped if dir 
   const shims = fs
     .readdirSync(stDir, { withFileTypes: true })
     .filter((e) => e.isDirectory())
-    .map((e) => e.name);
+    .map((e) => e.name)
+    .filter((s) => !s.startsWith(PERSONAL_SHIM_PREFIX));
   const missing = shims.filter((s) => !manifestNames.has(s));
   assert.deepEqual(
     missing,

@@ -1,6 +1,6 @@
 {
   "schema": "routines-manifest-v1",
-  "description": "Single source of truth for the Kerri scheduled-routine fleet. Every cron + event-triggered routine appears here exactly once. routine-liveness-check.mjs drives its registry from this file (the dark-detection logic stays in named evaluator functions in the script, mapped to entries by `evaluator`), and a completeness test asserts that every live scheduled-task and every CLAUDE-ROUTINES.md cron routine has an entry here. Add a routine? Add it here too, or the test goes red. All times are ET (America/New_York). cron strings mirror agent-prompts/CLAUDE-ROUTINES.md.",
+  "description": "Single source of truth for the Kerri scheduled-routine fleet. Every cron + event-triggered routine appears here exactly once. routine-liveness-check.mjs drives its registry from this file (the dark-detection logic stays in named evaluator functions in the script, mapped to entries by `evaluator`), and a completeness test asserts that every live scheduled-task and every CLAUDE-ROUTINES.md cron routine has an entry here. Add a routine? Add it here too, or the test goes red. Scope: KMG routines only (`kerri-*` / `standard-works-*` namespaces). `brian-*` scheduled tasks are Brian's personal tasks and are deliberately excluded from this manifest and its completeness test — personal data never enters the KMG brain. All times are ET (America/New_York). cron strings mirror agent-prompts/CLAUDE-ROUTINES.md.",
   "updatedAt": "2026-06-09",
   "routines": [
     {

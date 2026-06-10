@@ -145,6 +145,11 @@ export function checkDocReality(root, opts = {}) {
     if (fs.existsSync(stDir)) {
       shimsChecked = true;
       for (const shim of listDirs(stDir)) {
+        // `brian-*` shims are Brian's personal scheduled tasks, outside the KMG
+        // brain by standing rule — they never get an agent-prompts/ dir here, so
+        // an orphan warning for them is pure noise. Same namespace convention as
+        // test/routine-manifest.test.js (KMG = kerri-* / standard-works-*).
+        if (shim.startsWith('brian-')) continue;
         if (!promptDirs.includes(shim)) {
           warnings.push({ kind: 'orphan-shim', detail: `~/.claude/scheduled-tasks/${shim} has no matching agent-prompts/ dir` });
         }
