@@ -35,6 +35,10 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - `brian@hardwarefyi.com` and `kerri@hardwarefyi.com` → custom local Outlook MCP.
 - Match the exact account Brian names before searching or reading mail. Do not treat Gmail, Superhuman, and Outlook as interchangeable.
 
+## "How do routines report runs / file tasks to the KMG Console?"
+
+- [[wiki/workflows/console-reporting]] — Console MCP contract for run reporting, board tasks, approvals readback, adjustments (STAGED until prod deploy)
+
 ## "How should we reply to a sponsor asking what products include?"
 
 - [[wiki/workflows/hwfyi-sponsor-reply-templates]] — product-education reply shape based on Brian's H0001 Aris Machina send
