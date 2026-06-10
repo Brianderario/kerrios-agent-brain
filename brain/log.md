@@ -3,6 +3,9 @@
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 Prior months live in `brain/log-archive/log-<YYYY-MM>.md` (rotated by `scripts/rotate-brain-log.mjs`); this file holds the current month only.
 
+## [2026-06-10 01:15 ET] lead-research | alt-contacts: 22 companies enriched, 46 alt contacts added (42 with verified email), 5 primaries promoted | Kerri
+HARD RULE 5b backfill for >=500-employee companies in the pool. Promoted verified-email primaries at Ansys (Payal Cudia), SOLIDWORKS/Dassault (Tad Clarke), Cadence (Phil Bishop), Synopsys (Kati Wright) - all flipped needs-contact -> needs-hook - plus filled the empty Siemens DISW primary (Lori Pearl). Originals demoted to altContacts. CRM Leads tab synced (22 rows). 53 Apollo credits used. No second contact found at Ocean Infinity; only 1 alt at Altair and 3D Systems.
+
 ## [2026-06-09 23:55 ET] lead-research | 936 found, 33 queued, 71 dedup'd | Kerri
 On-demand backfill (Brian chat-authorized): Apollo bulk run across Brian's three segments — software-for-hardware-mfrs ~60% (startups 11-200 + legacy 201-2000), products/services to mfrs ~25%, service providers ~15% (-15 penalty, 0 queued). 704 unique after dedup -> 105 enriched -> 95 added to pool (53 with marketing contact, 48 verified emails). Pool 258->353; cold-outreach queue 27->60 (top-scored, 2+ intent signals, all with concrete hookSeeds). Excluded under HARD RULE 4: Impulse Space, Northwood Space, Starfish Space, Avalanche Energy, IMS, Hadrian, Castelion, True Anomaly, BigBear.ai, Dignitas, Redwire, Ursa Major, Relativity. Caught Kinetic-roster near-miss (Fictiv/First Resonance/Dirac deduped) + yaskawa.com fuzzy-name skip. ~170 Apollo credits. Full audit: data/lead-research/batches/2026-06-09-backfill.json.
 
