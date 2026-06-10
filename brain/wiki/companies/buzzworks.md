@@ -7,7 +7,7 @@ slug: buzzworks
 
 # BuzzWorks
 
-scope: venue/vendor prospect · updated: 2026-06-09
+scope: venue/vendor prospect · updated: 2026-06-10
 
 ## Context
 
@@ -17,6 +17,7 @@ scope: venue/vendor prospect · updated: 2026-06-09
 
 ## Recent Activity
 
+- 2026-06-10 14:38 ET: **Vlad answered both finalize-questions.** All evenings Oct 5–11 are still open. No photos to share, but for the panel he has cordless mics and streams media to the venue TVs from a laptop over HDMI (no projector/screen or separate stage), typically set up in front of the bar and visible throughout. Kerri queued a new H0018 warm-holding reply (Kerri-sender, task `RHJvbHVYMllrazZoV0VodA`) confirming the setup works and saying we will confirm our target date then set a finalize call. **No date or spend committed — the date pick + final BuzzWorks go is Brian's** (he passed on SHACK15 on budget the same morning). Awaiting Brian approval.
 - 2026-06-09 23:46 ET: **Brian named BuzzWorks his front-runner** for the SF Tech Week event after comparing aesthetics (BuzzWorks taproom/beer-hall vibe beat Werqwise's WeWork-style coworking look) and economics (SHACK15 priced out at ~$44–46K all-in, breaking the 50% margin target on ~$60K sponsorship; BuzzWorks ~$17–20K all-in clears it). On Brian's explicit approval, Kerri SENT a reply-all on the existing thread (superseding the queued holding draft) asking Vlad for (1) open October evening dates for ~100–125 guests, week of Oct 5–11 preferred, and (2) panel-setup photos + AV/sightline details (mics, screen/projector, sound, stage placement) before a finalize call. H0018 task completed; jobs.json status=sent. Awaiting Vlad's reply.
 - 2026-06-09: Vlad followed up a third time ("is this still on the table, or have you moved in another direction?"). Ball had been in our court since 5/27 (~2 weeks; no call placed, no reply). Kerri queued H0018 approval task with a warm holding reply (superseded by the 23:46 send above).
 - 2026-05-27: Vlad replied that he is available by phone weekdays 9am-4pm PT, can coordinate catering for a small fee with KMG paying the invoice, or can introduce a preferred caterer directly. Kerri created a new H0018 approval task asking for the rough catering coordination fee/range before a setup call.
@@ -25,8 +26,9 @@ scope: venue/vendor prospect · updated: 2026-06-09
 
 ## Open Questions
 
-- Which Oct. 5-11 evening dates are open for the event?
-- Can BuzzWorks coordinate light bites for roughly 100-125 people, and what would that cost?
+- ANSWERED 2026-06-10: all Oct 5-11 evenings open. AV = cordless mics + laptop-to-TV (HDMI) in front of the bar; no projector/screen/stage.
+- Which specific October evening does Brian want, and is BuzzWorks the final venue choice? (Brian decision.)
+- Can BuzzWorks coordinate light bites for roughly 100-125 people, and what would that cost? (To raise on the finalize call.)
 - If KMG brings outside catering, what outside catering fee or vendor requirements apply?
 - What deposit, cancellation, insurance/COI, load-in, and final-payment terms apply?
 - Does Brian prefer the $5,000 venue-fee/no-minimum option or the $1,000 fee/$10,000 bar-minimum option if BuzzWorks stays in consideration?
