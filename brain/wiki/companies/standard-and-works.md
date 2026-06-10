@@ -29,7 +29,7 @@ External partnership entity. **Separate legal entity from KMG.** Boundary rules 
 
 ## Mailbox
 
-- `brian@standardandworks.com` — Brian's S/W primary email, native on Superhuman. The Superhuman MCP (UUID `52549600-ff50-4fab-9014-a0e476bfe09a`) is connected directly as this account. Added to the inbox sweep 2026-05-24.
+- `brian@standardandworks.com` — Brian's S/W primary email, native on Superhuman. The Superhuman MCP is connected directly as this account (resolve the connector by name; its UUID changes across reconnects). Added to the inbox sweep 2026-05-24. NOTE (Brian, 2026-06-10): this inbox is legitimately near-empty; most S&W-adjacent inbound (Hampton Roads, Ironclads/Defense Summit, Zach threads) arrives at brian@kerrihq.com instead. An empty sweep read here is normal, not an outage.
 - `zach@standardandworks.com` — Zach (external — boundary applies).
 
 ## Sends from brian@standardandworks.com
