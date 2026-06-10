@@ -38,8 +38,10 @@ Each S&W issue (Tue/Thu) → Kerri slices into single-story posts, drafts into �
 
 ## Open
 
-- Brian: confirm Terafab rewrite format (task aVkyTU1HNklYcl8tNUtzZw), then Kerri drafts slices 2-4 (Anduril Kuwait, NextEra/Dominion, SpaceX IPO).
+- Brian: post Wed 6/10 promo ($180B post, task R2J3TUJqYkRPNnhiYUxXOQ), then Terafab Thu (task aVkyTU1HNklYcl8tNUtzZw); Kerri then drafts slices 2-4 (Anduril Kuwait, NextEra/Dominion, SpaceX IPO).
+- Zach email SENT 6/9 (Kerri-sender): kill recommendations entirely (Brian's call, fundamentally against referring traffic out this early) + welcome-email tune-up. Awaiting Zach reply on who flips the switches.
 - Standing routine wiring (slice step into/alongside the S&W Issue Writer Mon/Wed runner) — awaiting explicit yes.
-- Profile-as-landing-page edits to Brian's LinkedIn headline/featured section.
+- Brian LinkedIn profile: DUAL-BRAND (he sells HWFYI too, must not become S&W-only). Plan proposed 6/9: portfolio headline, About rewrite, Featured = 2 cards (HWFYI subscribe + S&W subscribe w/ UTM), split banner.
+- Strategic-commenting target list proposed 6/9 (American Dynamism founders/VCs + econ-dev/site-selection world + governors). Brian to pick lane.
 - X as second surface (optional, LinkedIn first).
 - Zach's pre-existing decision-maker readership cross-promo (raised, unanswered).
