@@ -3,6 +3,10 @@
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 Prior months live in `brain/log-archive/log-<YYYY-MM>.md` (rotated by `scripts/rotate-brain-log.mjs`); this file holds the current month only.
 
+## [2026-06-10 07:51 ET] pipeline-followup (on-demand, Brian-requested) | 3 drafts: H0030 CoLab, H0024 Neural Concept, H0126 Summit Interconnect | Kerri
+
+Brian asked to set up Google Tasks follow-ups for pending deals quiet 7+ days. Filtered active + last_sender=us deals; 3 qualified (CoLab 12d, Neural Concept 8d, Summit Interconnect 7d). Staged 📈 PIPELINE-H01/H02/H03 approval tasks on the HWFYI list with matching jobs.json entries (source=pipeline-followup, routing verified against brian@hardwarefyi.com sent threads). All ACTION:send, Brian-sender, approval-gated — nothing sent. Deal frontmatter + pipeline-followup-state updated. Others <7d, last_sender=them, or dormant (excluded).
+
 ## [2026-06-10 01:15 ET] lead-research | alt-contacts: 22 companies enriched, 46 alt contacts added (42 with verified email), 5 primaries promoted | Kerri
 HARD RULE 5b backfill for >=500-employee companies in the pool. Promoted verified-email primaries at Ansys (Payal Cudia), SOLIDWORKS/Dassault (Tad Clarke), Cadence (Phil Bishop), Synopsys (Kati Wright) - all flipped needs-contact -> needs-hook - plus filled the empty Siemens DISW primary (Lori Pearl). Originals demoted to altContacts. CRM Leads tab synced (22 rows). 53 Apollo credits used. No second contact found at Ocean Infinity; only 1 alt at Altair and 3D Systems.
 

@@ -16,11 +16,11 @@ last_contact_date: 2026-05-29
 last_sender: us
 last_message_subject: "Re: CoLab Newsletter Sponsorship in 2026"
 thread_internet_message_ids: []
-next_action_date: 2026-06-08
-last_nudge_date: null
-nudge_count: 0
+next_action_date: 2026-06-19
+last_nudge_date: 2026-06-10
+nudge_count: 1
 created_at: 2026-06-09
-updated_at: 2026-06-09
+updated_at: 2026-06-10
 source: kinetic-2026-roster
 ---
 
