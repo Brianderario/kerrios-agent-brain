@@ -1,3 +1,7 @@
+## [2026-06-10 09:35 ET] cold-outreach | 10 drafts, 6 skipped (existing-rel), today=10/10 week=25/50 | Kerri
+
+Staged 10 personalized HWFYI cold drafts (H0142-H0151: Tsavorite, Empower Semi, ECM PCB Stator, yieldWerx, Green Circuits, Sunstone, East West Mfg, Ocean Infinity, Plus One Robotics, GreyOrange) into one batch task on the HardwareFYI list; #8-10 recruiting-angle. Skipped 6 already-registered companies. Queue 65->49.
+
 # KerriOS Brain Log
 
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
