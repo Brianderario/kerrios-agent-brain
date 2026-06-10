@@ -11,8 +11,6 @@ Working directory: `~/Documents/Documents - Brian's MacBook Air/KerriOS/`
 
 Read first:
 
-- `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/00-shared-context/README.md`
-- `/Users/brianderario/Desktop/Codex Kerri Agent/Codex Kerri Agent Master/01-brian-kerri-agent/subagents/brain-push/README.md`
 - `AGENTS.md`
 - `brain/AGENTS.md`
 - `brain/wiki/workflows/agent-brain-protocol.md`
