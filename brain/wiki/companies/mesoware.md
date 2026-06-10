@@ -13,4 +13,5 @@ Palo Alto robotics startup building AI-powered automation for manufacturing: the
 
 - **Primary contact:** Shalin Patel (co-founder) — shalin@mesoware.com (Apollo-verified). Ex-Tesla (product design / battery structural), ex-Matic Robots (Sr. Mechanical Design Engineer), University of Waterloo. Co-founders: Joe Mattekatt, Pei Liang Guo.
 - **Fit:** Strong Hardware FYI audience match (manufacturing automation + robotics; HWFYI reaches 17K+ hardware engineering leaders).
-- **Source:** Brian forwarded Shalin's LinkedIn launch post to kerri@ on 2026-06-09 and asked Kerri to congratulate + explore a future partnership and add to the tracker. First-touch outreach drafted as job H0141 (Kerri-sender), awaiting approval.
+- **Source:** Brian forwarded Shalin's LinkedIn launch post to kerri@ on 2026-06-09 and asked Kerri to congratulate + explore a future partnership and add to the tracker. First-touch outreach (job H0141, Kerri-sender) **SENT 2026-06-09 23:35 ET** (Brian approved via Google Tasks). Congrats on launch + open partnership door, no package pitched. Awaiting Shalin's reply.
+- **Pipeline status:** `Prospect` (CY2026 Revenue Goal) — first contact made, no proposal/price sent yet. Source: H0141 sent 2026-06-09. CRM sheet row pending (see Kerri MG pipeline-update task).
