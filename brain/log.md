@@ -7,6 +7,9 @@
 Append-only chronological record. Newest entries at top. Format: `## [YYYY-MM-DD HH:MM ET] <action> | <slug> | <agent>`.
 Prior months live in `brain/log-archive/log-<YYYY-MM>.md` (rotated by `scripts/rotate-brain-log.mjs`); this file holds the current month only.
 
+## [2026-06-09 21:59 ET] gap-sweep | auto:3 pr:1 task:1 | Kerri
+Whole-system A-Q sweep, all green: npm check exit 0 / test 263, 14 routines enabled+firing, state 125 files clean, all connectors reachable, gates intact, revenue-goal wiring PASS. Auto-fixed: NOW.md trim 35->28 lines, CLAUDE-ROUTINES active-task count 13->14 (+kerri-self-improve), gitignore .claude/worktrees/. PR #17: de-Codex brain-push Read-first list (class B — retired Codex paths loaded nightly). Task NFN4: connector-probe alias map (recurring 3-run class M). Note: 4 leftover loop-build worktrees gitignored (deletion left to Brian).
+
 ## [2026-06-09 18:26 ET] interactive | PR #16 MERGED (Wave 3: autonomy scorecard + self-improve routine) | Kerri (Claude interactive)
 Resolved merge conflicts with main's tier-based autonomy-policy.json (auto-logged send path, trustedInternal, graduation). Updated scorecard + tests from stage-based to tier-based schema. Fixed smart-quote syntax error in inbox-sweep-prompt test. 263/263 tests pass. All 4 loop-build waves now on main. Self-improve routine registered in manifest (shim pending).
 
