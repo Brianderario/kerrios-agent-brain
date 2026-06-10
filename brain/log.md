@@ -502,3 +502,4 @@ Brian directed (interactive): clear SHACK15 + SF Brewing tasks from Hardware FYI
 
 ## [2026-06-10 00:12 ET] lead-research | linkedin-enrichment: 0 contacts linked, 0 none-found, 56 remaining | Kerri
 BLOCKED at start: chrome-devtools browser instance is not logged into LinkedIn (search URL redirected to /uas/login). No LinkedIn pages were loaded beyond the login wall; no profiles touched. Brian needs to sign into LinkedIn once in the chrome-devtools-managed Chrome, then re-run. Input list: data/lead-research/needs-contact-2026-06-10.json (56 companies). leads-master.json untouched.
+## [2026-06-10 00:35 ET] lead-research | linkedin-enrichment: 32 linked, 24 none-found, 0 remaining | Kerri
