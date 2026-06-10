@@ -29,3 +29,7 @@ PCB / interconnect manufacturer sponsor prospect for Hardware FYI.
 
 - 2026-05-27: `brian@hardwarefyi.com` thread `Summit Interconnect x Hardware FYI - 2026 Partnership`.
 - 2026-05-27: Granola meeting `Caroline Gonzales and Brian D'Erario`.
+
+## Activity
+
+- 2026-06-10: Brian sent a follow-up nudge; Carrie replied she is building a proposal for her boss to select Q3-Q4 placements (folding in meetings with other advertisers), expects an answer next week, asked patience. Queued H0028 Brian-sender warm holding reply (no pressure, offered audience numbers / past results / Package A one-pager to support the internal sell). Deal stays Interest. Note: a duplicate jobId H0126 (sent) exists for this customer in jobs.json; canonical is H0028.
