@@ -1,3 +1,7 @@
+## [2026-06-10 19:35 EDT] interactive | Mercury access correction to Ari (G0006 QB/Stripe thread) | Kerri
+
+Brian corrected the record: Kerri already has Mercury access to Hardware FYI. My 6/10 22:50Z reply to Ari had said "not yet, no Mercury access on my end" and asked Brian to add me. Per Brian's direct instruction, replied-all on the "Solve QB stripe integration" thread (Ari ari@kerrihq.com, Brian CC, auto-CC brian@hardwarefyi.com) confirming I'm set up on Mercury, so Stripe+QBO+Mercury are all in for cash-side tie-out; held read-only/flag-before-edit posture. Caveat noted to Brian: no Mercury MCP connector exists, so I can't pull the Mercury bank feed programmatically the way I can with Stripe/QBO once those MCPs exist; the only Mercury signal in kerri@'s mailbox is invoice-notification CCs. Approval = Brian interactive 2026-06-10.
+
 ## [2026-06-10 18:33 EDT] eod-review | 0 meetings, 0 drafts, 0 flagged | Kerri
 
 All-day OOO; no real meetings. 2 duplicate recurring Brian/Benji 1:1 auto-skipped (no agenda/transcript); attendee-less Personal Commitment blocks + OOO excluded. Granola+Reclaim both empty for the day. State/grade written, no tasks, no text.
