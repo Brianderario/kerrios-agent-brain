@@ -1,20 +1,15 @@
 # Savant
 
-scope: property · updated: 2026-05-24
+scope: property (retired) · updated: 2026-06-10
 
-KMG-owned property. Status placeholder — fill in scope, audience, lead, and active workstreams when the next session touches it.
+**Retired as an active KMG property on 2026-06-10** per Brian (Console mockup review session): no revenue, no active workstreams. Removed from the KMG Console entirely (dashboards, pipeline, property switcher, revenue charts). Page kept for history.
 
 ## Core facts
 
+- **Status:** Retired 2026-06-10. Not part of the KMG property lineup.
 - **Parent:** [[kmg]]
-- **Slack:** `#savant`
+- **Slack:** `#savant` (dormant)
 
 ## Related
 
-- [[kmg]] — parent
-
-## TBD
-
-- Editorial / product scope
-- Lead + ops
-- Active deals
+- [[kmg]] — parent; current lineup is Hardware FYI, Kinetic, Standard & Works (tracked)

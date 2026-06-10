@@ -7,7 +7,7 @@ slug: standard-and-works
 
 # Standard & Works (S&W)
 
-scope: external partner · updated: 2026-05-24
+scope: external partner · updated: 2026-06-10
 
 External partnership entity. **Separate legal entity from KMG.** Boundary rules apply on every interaction.
 
@@ -18,6 +18,7 @@ External partnership entity. **Separate legal entity from KMG.** Boundary rules 
 - **Contact:** [[zach-silber]]
 - **Domain:** standardandworks.com
 - **Agreement:** Collaboration agreement signed 2026-04-07. 50/50 net revenue split on jointly-produced output (currently the S&W newsletter).
+- **KMG Console status:** Surfaced as a full property in the KMG Console for tracking purposes as of 2026-06-10 (per Brian, Console mockup review). Tracking/visualization only — conditional on the Zach deal continuing and may be reversed. Only KMG-side data (joint deals, KMG's revenue share, KMG-side activity) appears under it; this is NOT a legal or boundary change, and all boundary rules below remain fully in force.
 - **Approval list (Google Tasks):** "Standard & Works"
 
 ## Boundary rules (do not bypass)

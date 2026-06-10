@@ -1,6 +1,6 @@
 # Kerri Media Group (KMG)
 
-scope: parent company · updated: 2026-05-24
+scope: parent company · updated: 2026-06-10
 
 The umbrella entity for all owned KMG media properties. Renamed from KerriHQ Inc. on 2026-05-23.
 
@@ -10,7 +10,8 @@ The umbrella entity for all owned KMG media properties. Renamed from KerriHQ Inc
 - **CEO:** [[brian-derario]]
 - **CFO:** [[ari-lewis]]
 - **CDO:** [[benji-chia]]
-- **Owned properties:** [[hardware-fyi]], [[kinetic]], [[savant]]
+- **Owned properties:** [[hardware-fyi]], [[kinetic]] ([[savant]] retired 2026-06-10: no revenue)
+- **Property lineup (Console / tracking):** Hardware FYI, Kinetic, [[standard-and-works]] — S&W is surfaced as a full property for tracking purposes per Brian 2026-06-10 (KMG-side data only; boundary unchanged)
 - **External partnership:** 50/50 net rev collab with [[standard-and-works]] (separate legal entity)
 - **AI agent (org brain):** [[kerri]]
 
