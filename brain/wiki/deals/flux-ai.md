@@ -11,8 +11,8 @@ primary_contact_email: adrian@flux.ai
 secondary_contacts: []
 mailbox: brian@hardwarefyi.com
 send_from: brian@hardwarefyi.com
-last_contact_date: 2026-06-08
-last_sender: us
+last_contact_date: 2026-06-09
+last_sender: them
 last_message_subject: "RE: Hardware FYI sponsorship"
 thread_internet_message_ids: []
 next_action_date: null
@@ -29,8 +29,8 @@ AI-powered EDA / PCB design tool. Brian sent a personal outreach Jun 8 explainin
 
 ## Pipeline state
 
-- **Status: active.** Brian outreach + Kerri follow-up both sent Jun 8. Waiting for Adrian's response.
-- **Last sender: us** (Kerri follow-up Jun 8, after Brian's personal email same day).
+- **Status: active, Interest stage.** Adrian replied Jun 9: audience "good potential fit," declined call, asked for pricing/metrics/examples/audience detail by email. Rewritten full-answer reply (rate-card pricing + media-kit stats + verified example links) queued as H0118, pending Brian approval.
+- **Last sender: them** (Adrian, Jun 9). Ball in our court once Brian checks the task.
 
 ## Source
 - Cold outreach converted. Kerri initial outreach, Brian personal follow-up.
