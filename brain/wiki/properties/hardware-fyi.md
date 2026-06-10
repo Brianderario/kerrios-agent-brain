@@ -100,6 +100,12 @@ Pricing for that bundle is not quote-ready until Brian/Benji confirm the current
 2. Lead with the **webinar bundle** (above) when timing or geography rules out a happy hour.
 3. Standalone Partner Program / Primary Placement should NOT be the primary recommendation in a lead-gen conversation — they're support layers, not the lead-gen engine.
 
+## Media kit
+
+- **Current version: Media Kit 2026** (created 2026-06-10 by Kerri, content choices approved by Brian in-session). Files: `~/Projects/hwfyi-media-kit-2026/Hardware FYI Media Kit 2026.pdf` (sponsor-ready, 19 pages) + same-name `.pptx`. Rebuilt from the 2025 kit PDF; the original design-tool source was not available, so the rebuild is image-based (unchanged pages preserved pixel-exact).
+- Changes vs 2025 kit: headline subscriber count 16,000+ → **20,000+** (Brian's call; kit's own chart shows ~23K Q1 2026), growth claim corrected from "112% quarterly" to "over 30% quarterly", cover year → 2026, products overview expanded to six items, and five new pages: Partner Program, Content & Research, Kinetic year-one proof (350 attendees / 27 sponsors / 8.4/10 satisfaction + 2 approved survey quotes), SF Tech Week (Oct 5-9, 2026), Executive Dinners. **No pricing anywhere**, per Brian.
+- The 2025 kit's 16,000+ and "112% quarterly growth" claims are retired — do not quote them.
+
 ## Related
 
 - [[kinetic]] — flagship event
