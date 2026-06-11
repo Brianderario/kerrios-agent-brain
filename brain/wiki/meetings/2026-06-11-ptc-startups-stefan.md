@@ -28,6 +28,6 @@ scope: meeting · date: 2026-06-11 ~9:00 ET · deal: [[../deals/ptc]] (H0104) ·
 - 20,000 subscribers, twice weekly. Partner Program "Tools From Our Sponsors" section pulls **25–125 clicks/send**. Primary Placement = middle slot, subject line + ~175 words. Custom-content comp: a Drafter DFM guide drove **10,000+ signups**.
 
 ## Next steps
-- **Brian:** send $25/50/75K packages + projected metrics (queued: Console `4ab3cbba-da03-4829-9138-8df041321571`, jobs.json H0104, Brian manual send; no media kit/rate card attachments).
+- **Brian:** sent $25/50/75K packages + projected metrics on 2026-06-11 17:54 ET from `brian@hardwarefyi.com` to Stefan (`sbergsma@ptc.com`), subject `Hardware FYI x PTC for Startups — package options`; Console task `4ab3cbba-da03-4829-9138-8df041321571` closed `done` / `sent`. No media kit/rate card attachments.
 - **Brian:** coordinate with Roberto/Onshape on placement overlap before finalizing.
 - **Kerri:** no rate-card one-pager needed for this send per Brian's 2026-06-11 correction.
