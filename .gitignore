@@ -34,6 +34,11 @@ data/routine-liveness-alert-state.json
 data/routine-heartbeats.json
 data/sweep-cadence.log
 data/lead-research/batches/
+data/lead-research/alt-contacts-matches-*.json
+data/lead-research/linkedin-enrichment-*.json
+data/lead-research/needs-contact-*.json
+data/trackers.json
+data/leads-master.json.bak*
 brain/.local/sw-newsletter-drafts/
 data/sw-newsletter/state.json
 data/events/
