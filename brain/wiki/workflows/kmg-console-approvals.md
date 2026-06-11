@@ -25,11 +25,19 @@ becomes the queue store and Google Tasks goes away entirely (not done yet).
 | Sync server + local backup console | `~/Projects/kerri-console` | `Brianderario/kerri-console` (private) | launchd agent `com.kerri.console` on Brian's Mac, http://localhost:4180 |
 | This handoff + session state | KerriOS brain (`NOW.md`, `brain/log.md` 2026-06-11 entry, this page) | `Brianderario/kerrios-agent-brain` (private) | n/a |
 
-Key files in kerrihq-rails (commit `1e13991`):
+Key shipped Rails commits:
+- `1e13991` — full task review page, parsed task notes, approve/edit/redo/skip actions, API decision payloads.
+- `3008612` — whole-card task click targets and removal of task approve/skip from board-level summary context.
+- `d2ea48a` — operating-surface refresh: clearer dashboard/shell/sidebar, task sync status, safer Other approvals lane, mobile review polish, and failed-agent visibility.
+
+Key files in kerrihq-rails:
 - `app/views/tasks/show.html.erb` — the per-card review page
 - `app/services/task_notes.rb` — parses sweep-formatted task notes into context + draft email (13 specs in `spec/services/task_notes_spec.rb`)
 - `app/controllers/tasks_controller.rb` — show / approve (optional `edited_body`) / skip (optional `reason`) / redo (with `guidance`)
 - `app/controllers/api/v1/tasks_controller.rb` — adds `?resolved=pending` and serializes `resolution`, `resolution_payload`, `resolved_at`
+- `app/services/console_status.rb` — shared read model for shell/dashboard counts and task-sync freshness
+- `app/views/dashboard/index.html.erb` — Brian Tasks / Agent Activity / CRM-Pipeline / Sync-Revenue operating surface
+- `app/views/shared/shell/_topbar.html.erb` — topbar task count and sync-state indicators
 - migration `20260611060000_add_resolution_payload_to_tasks.rb` — jsonb payload (edited draft body, redo guidance, skip reason, `applied_at` stamp)
 
 Key file in kerri-console: `server.mjs` (zero-dependency Node). Its `README.md`
@@ -73,16 +81,29 @@ documents the architecture; `public/index.html` is the local backup UI.
   written to production, so it never appeared in Render logs).
 - Render API (deploys, one-off jobs): `~/.kerri-chief/secrets/render.env`.
 
-## State as of 2026-06-11 ~01:30 ET
+## State as of 2026-06-11 ~01:56 ET
 
-- Review page + actions DEPLOYED and verified live in Brian's Chrome on the
-  production URL (H0119 C-Infinity renders fully; suite 1190 examples 0
-  failures, rubocop + brakeman clean).
-- Sync LIVE: first run mirrored 20 cards (full bodies), applied one
-  pre-existing harmless web skip (H0026 record card), auto-closed the stale
-  already-sent Flux card.
+- Review page + actions are deployed. Production URL:
+  https://kerrihq-rails-xtua.onrender.com/organizations/c7ec4a59-c794-492a-aa61-d926ee8c61d1/tasks
+- Render deploy `dep-d8l4pvjrjlhs7395gev0` is live at Rails commit `d2ea48a`.
+- The current Console UX separates the three things Brian asked to keep clear:
+  Brian's tasks, what agents are doing, and CRM/revenue/pipeline context.
+- Topbar shows the current Brian task count and task-sync state (`TASK SYNC: LIVE`
+  when mirrored Google Tasks are fresh).
+- The old Approvals page is now "Other approvals"; task items there are
+  REVIEW-only and cannot approve/skip from summary context.
+- Sync LIVE: latest manual sync returned `{"ok":true,"mirrored":20,"decisionsApplied":0}`.
 - Approve buttons on the production board are REAL: an approve queues an
   actual external send at the next sweep (~hourly).
+- Validation on `d2ea48a`: full Rails suite 1184 examples / 0 failures / 1
+  pending; rubocop clean; brakeman 0 warnings; `yarn build` + `yarn build:css`
+  clean except the existing Browserslist caniuse-lite age warning; local
+  Playwright verified dashboard, task card click-through, full review page,
+  task board, agents, revenue, Other approvals, and mobile dashboard/tasks/review.
+- Production `/up` was green. Authenticated production UI smoke was intentionally
+  not run from Codex because the available login-secret path would echo
+  credentials through Playwright output; use Brian's real Chrome session for a
+  final production click-through if needed.
 
 ## Open / next steps
 
@@ -95,17 +116,20 @@ documents the architecture; `public/index.html` is the local backup UI.
 2. The sync depends on Brian's Mac being awake; if the Console must be live
    while the laptop sleeps, move the sync into the rails app itself (needs the
    Google creds in Render env) or accept the staleness window.
-3. Mobile polish of the review page; surface a "decisions waiting" count in
-   the Console header.
-4. Per-person assignment of mirrored cards (currently unassigned = visible to
-   all org members; fine for a 3-person team, revisit with more users).
+3. Do a safe authenticated production browser smoke from Brian's real Chrome
+   session or another non-echoing path. Codex already verified the same code
+   locally with Playwright and production health via `/up`.
+4. Continue CRM/revenue polish inside the Console so the old sheet views become
+   reference surfaces rather than the daily control plane.
 
 ## How to verify it still works (any session)
 
 1. `curl -s http://127.0.0.1:4180/api/queue | head -c 300` — local server up,
    queue parsing.
 2. `curl -s -X POST http://127.0.0.1:4180/api/sync-now` — expect `{"ok":true,...}`.
-3. Open the production tasks URL, click any card, confirm the full email shows.
-4. `tail ~/Projects/kerri-console/audit.log` — every action and sync is logged.
-5. Rails: `cd ~/Projects/kerrihq-rails && bundle exec rspec` (needs the PATH
-   export from `kerrihq-rails-dev-env` memory).
+3. Open the production tasks URL in Brian's authenticated Chrome, click any
+   card, confirm the full email shows.
+4. Confirm the task board has no board-level task APPROVE/SKIP buttons; decisions
+   should only happen on the full review page.
+5. `tail ~/Projects/kerri-console/audit.log` — every action and sync is logged.
+6. Rails: `cd ~/Projects/kerrihq-rails && BUNDLE_PATH=/tmp/kerrihq-rails-bundle bundle exec rspec`.
