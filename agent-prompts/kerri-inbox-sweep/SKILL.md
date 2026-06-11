@@ -71,7 +71,7 @@ DATA FILES (paths relative to the KerriOS repo root):
   • `data/inbox-sweep-state.json` — per-mailbox cursor state: { lastSuccessfulSweepAt, seenMessageIds (cap 500), lastErrorAt, lastErrorReason, lastErrorAlertedAt } per mailbox, plus lastDailyGradeAt / lastWeeklyGradeAt / updatedAt.
   • `data/jobs.json` — one entry per draft action (schema below).
   • `data/job-counters.json` — { H, S, G } last-assigned counters. Bump ONLY when a brand-new company gets its first jobId.
-  • `data/companies.json` — customer registry, domain → { jobId, name, slug, prefix, primaryContact, aliases[], firstSeenAt, wikiPage }. jobId is per-customer, persistent forever.
+  • `data/companies.json` — READ-ONLY snapshot of the KMG Console CRM (the system of record since 2026-06-11), domain → { jobId, name, slug, prefix, aliases[], note, consoleId }. Used only as the offline fallback for CUSTOMER LOOKUP; company writes go to the Console API and the snapshot is refreshed via `node scripts/console-crm-snapshot.mjs`. Never hand-edit.
   • `data/trackers.json` — FOLLOW-UP TRACKERS (P3). Array of { trackerId, kind: "teammate-owned" | "warm-prospect", company, domain, mailbox, subject, owner, lastInboundAt, internetMessageIds[], dueAt, note, status: "open" | "escalated" | "closed", createdAt }. Initialize the file with an empty array if missing.
   • `data/inbox-sweep-grades.json` — rolling quality ledger (runs/daily/weekly). Compact scores only, no raw bodies.
   Read-only before drafting:
@@ -117,7 +117,7 @@ STEP 1 — LOAD STATE (two-stage, cheap by default)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TRIAGE LOAD (every run): inbox-sweep-state.json; compact grades summary; pending jobs only from jobs.json (id/routing/task fields, not old sent jobs); open trackers from trackers.json; `node scripts/console-task-api.mjs list --resolved pending --per-page 100` (Brian decisions not yet acknowledged); `node scripts/console-task-api.mjs list --open --per-page 100` (open board for duplicate/orphan detection); and, for any pending job with `consoleTaskId`, `node scripts/console-task-api.mjs show --id <consoleTaskId>` when the list payload is stale or missing that card.
 
-MATERIAL LOAD (only when triage finds an approval decision, new task-worthy mail, a redo, an internal reply to write, a tracker escalation, or an orphan/miss): job-counters.json, full jobs.json for the affected entries, companies.json for lookup, draft-learnings + sponsor templates before any draft, routed wiki pages as needed, NOW.md and brain/log.md only on material runs.
+MATERIAL LOAD (only when triage finds an approval decision, new task-worthy mail, a redo, an internal reply to write, a tracker escalation, or an orphan/miss): job-counters.json, full jobs.json for the affected entries, Console CRM lookup per CUSTOMER LOOKUP (snapshot companies.json only as offline fallback), draft-learnings + sponsor templates before any draft, routed wiki pages as needed, NOW.md and brain/log.md only on material runs.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — PROCESS DECISIONS FROM KERRI CONSOLE TASKS
@@ -183,10 +183,12 @@ TRIAGE LADDER, per email, in order. The first matching rung disposes of the emai
   8. WARM-PROSPECT NO-ASK (P3): real prospect/sponsor signal but no actionable ask → tracker { kind: "warm-prospect", dueAt per the stated timeline, default now+7d } plus, when commercially material, the pipeline update per the revenue rules. At dueAt the tracker surfaces as a pipeline-nudge draft task.
   9. NEW EXTERNAL TASK-WORTHY MAIL → full external flow: CUSTOMER LOOKUP, ENRICHMENT, FULL THREAD READ, DRAFT, autonomy tier, then task creation (STEP 4).
 
-CUSTOMER LOOKUP (mandatory before any jobId use):
+CUSTOMER LOOKUP (mandatory before any jobId use — the KMG Console is the CRM of record per brain/wiki/decisions/2026-06-11-brain-console-storage-split.md):
   1. Sender domain, lowercased; normalize mail/marketing subdomains to root.
-  2. Look up companies.json by domain, then by every entry's aliases. Before assigning ANY fresh jobId, also scan existing jobs.json entries for the domain: if a jobId exists anywhere for this company, REUSE it and never bump the counter (a split jobId defeats the no-double-email gate; this was the Summit Interconnect H0126/H0028 incident).
-  3. Found with jobId → reuse. Found without → assign next counter, write back. Not found → fuzzy-check name/signature against existing companies first (new domain for a known company = alias, reuse jobId); only a genuinely new company gets a fresh counter value and a new companies.json entry + minimal wiki page `brain/wiki/companies/<slug>.md`.
+  2. Look up the Console: GET https://kerrihq-rails-xtua.onrender.com/api/v1/companies?domain=<domain> with `Authorization: Bearer $KERRIHQ_AGENT_API_KEY` (from ~/.kerri-chief/secrets/kerrihq.env); the filter matches aliases too. Before assigning ANY fresh jobId, also scan existing jobs.json entries for the domain: if a jobId exists anywhere for this company, REUSE it and never bump the counter (a split jobId defeats the no-double-email gate; this was the Summit Interconnect H0126/H0028 incident).
+  3. Found with job_id → reuse. Found without → assign next counter, PATCH /companies/:id with job_id. Not found → fuzzy-check name/signature against existing companies first (new domain for a known company = alias, PATCH it into the record's aliases and reuse the jobId); only a genuinely new company gets a fresh counter value and a POST /companies { name, domain, job_id, slug, aliases: [], crm_notes (1-2 line who/why), first_seen_at } plus POST /people for the primary contact. NO new wiki company pages — relationship facts go in crm_notes.
+  4. After any company write, refresh the snapshot: `node scripts/console-crm-snapshot.mjs`.
+  CONSOLE-DOWN FALLBACK: if the API is unreachable, reuse existing jobIds from the read-only snapshot data/companies.json (domain, then aliases). FAIL CLOSED on misses: never mint a new jobId or register a company while the API is down — ship the task as review-required and retry next run.
   Slug: lowercase, whitespace and &/+ to hyphens, strip punctuation, max 60 chars.
 
 ENRICHMENT (progressive, never bloat): none (known company, fresh page) / light (default human inbound: sender, role, company, why it matters, pointers) / deep (sponsor or pricing/contract/finance/event signal, decision asked of the team, attachment or proposal, high-value company, or you cannot draft safely without it). Raw research and uncertain claims go to brain/candidates/, not wiki truth. Person pages only for recurring or decision-owning people.
@@ -246,7 +248,7 @@ When a sweep observes a concrete improvement (repeated edits, brittle rule, auto
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 6 — SAVE STATE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Write inbox-sweep-state.json (cursors, seenMessageIds capped 500, error fields), job-counters.json, jobs.json, companies.json (if touched), trackers.json, wiki pages touched, draft-learnings additions, and one brain/log.md line per material event.
+Write inbox-sweep-state.json (cursors, seenMessageIds capped 500, error fields), job-counters.json, jobs.json, trackers.json, wiki pages touched, draft-learnings additions, and one brain/log.md line per material event. Company writes already went to the Console API during CUSTOMER LOOKUP; refresh the snapshot (`node scripts/console-crm-snapshot.mjs`) if any company was created or changed this run — never edit companies.json directly.
 
 WRITE VALIDATION (mandatory, fail closed): after writing inbox-sweep-state.json, re-read it and confirm every mailbox lastSuccessfulSweepAt and updatedAt parses as valid ISO within 10 minutes of now. Compute timestamps INSIDE the writing process, never via an interpolated shell variable (two prior incidents wrote `undefined` cursors). A failed validation means the sweep is NOT successful: restore or re-stamp the cursor, re-verify, and record the process miss.
 
