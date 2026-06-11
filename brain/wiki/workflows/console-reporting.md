@@ -45,3 +45,9 @@ Brian resolving a `needs_approval` card moves it to `done` with `resolution` = `
 - [[agent-brain-protocol]] — the 4-step loop these reports feed
 - [[google-tasks-improvement-suggestions]] — suggestion rail (unchanged)
 - Console API docs: `/api_docs` in the Console (full tool list, 23 tools)
+
+## 5. Outreach recording (Brian decision 2026-06-10, evening)
+
+The Console NEVER sends email. Sends stay on the existing approval rail (Google Tasks + Kerri's mailbox MCPs). After a send completes, the sending agent calls `record_outreach` (deal_id, summary, contact_emails incl CCs, job_ref, thread_subject) so the Console stays the source of truth for who was contacted where. Same for calls/LinkedIn touches (channel param).
+
+Division of record: **brain** = deep knowledge + quick text for agents; **Console** = the dynamic shared picture for humans AND agents (CRM, pipeline, tasks, revenue, agent runs). Update both, the same way Google Tasks and the brain are updated today.
