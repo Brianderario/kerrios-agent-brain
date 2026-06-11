@@ -26,7 +26,7 @@ scope: decision · updated: 2026-06-11 · authority: Brian (interactive session 
 
 ## What did NOT change
 
-- **CRM mutations stay approval-gated** per the `neverAuto` gate — the store moved, the gate did not.
+- **Material CRM judgment stays approval-gated** per the `neverAuto` gate — the store moved, the gate did not. Source-backed Hardware FYI pipeline stage bookkeeping is act-and-report: if live evidence clearly proves a stage move, Kerri updates the Console deal automatically and logs the evidence instead of asking Brian to approve clerical pipeline maintenance.
 - **S/W boundary applies to the Console** exactly as it did to the brain: S/W internal ops never become Console records.
 - jobId semantics ([[../workflows/customer-id-protocol]]): one company, one jobId, forever; counters stay local in `data/job-counters.json`.
 - The inbox sweep's send gate, no-double-email rules, and jobs.json task ledger.

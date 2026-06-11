@@ -15,7 +15,7 @@ Autonomous "go into an app from email" requires both to be true:
 
 A new dimension in `data/autonomy-policy.json`. The existing tiers/classes govern outbound **email**; `actions` governs **non-send actions** (operating connected apps/services, in-tool changes). Three tiers:
 
-- **act-and-report** — execute now, no pre-ask, **verify the result**, then log (brain/log.md + NOW.md + morning-brief Auto-logged). For **reversible** settings/config changes in a connected tool (feature on/off, list/recommendation membership, automation enable/disable) and **internal coordination/housekeeping** (scheduling, teammate invites, status, Kerri's own records). Read/diagnostic actions always qualify.
+- **act-and-report** — execute now, no pre-ask, **verify the result**, then log (brain/log.md + NOW.md + morning-brief Auto-logged). For **reversible** settings/config changes in a connected tool (feature on/off, list/recommendation membership, automation enable/disable), **internal coordination/housekeeping** (scheduling, teammate invites, status, Kerri's own records), and source-backed Hardware FYI pipeline stage bookkeeping. Read/diagnostic actions always qualify.
 - **draft-and-confirm** — show Brian the exact change first, like an email draft. For **customer/partner-facing content or copy** (welcome emails, public posts, newsletter body, website copy) and anything externally visible that is not a pure reversible toggle.
 - **gate** — approval-first, never auto. Inherits `neverAuto`.
 
@@ -23,7 +23,7 @@ This mirrors how the beehiiv task actually went well: turning recommendations of
 
 ## Hard gates (unchanged, enforced everywhere)
 
-`neverAuto`, now including irreversible/destructive actions: CRM mutations; pricing/packages/tiers; legal/contracts/signatures; finance/any spend (refunds or COGS > $2,500); permission/access-control/identity changes; **irreversible or destructive actions (hard deletes, purges, anything with no one-step undo)**; anything crossing the S/W boundary as commercial/content/legal/finance substance. External email sends keep their existing approval gate.
+`neverAuto`, now including irreversible/destructive actions: material CRM judgment calls; pricing/packages/tiers; legal/contracts/signatures; finance/any spend (refunds or COGS > $2,500); permission/access-control/identity changes; **irreversible or destructive actions (hard deletes, purges, anything with no one-step undo)**; anything crossing the S/W boundary as commercial/content/legal/finance substance. External email sends keep their existing approval gate. Source-backed Hardware FYI pipeline stage bookkeeping is the explicit exception: if an approved send, buyer reply, booked meeting, proposal/package/pricing send, contract event, or explicit decline clearly proves the stage move, Kerri updates the Console deal automatically and logs the evidence.
 
 ## Escalate-on-block (the safety net)
 

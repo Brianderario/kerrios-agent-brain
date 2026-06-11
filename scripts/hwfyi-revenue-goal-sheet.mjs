@@ -2,9 +2,9 @@
 /**
  * Ensure/read the Hardware FYI CY2026 revenue-goal tracker tab.
  *
- * The canonical HWFYI Sheet remains the source of truth. This script creates a
- * readable "CY2026 Revenue Goal" pipeline board at the top of the tab and keeps
- * a structured automation ledger lower on the same tab.
+ * The KMG Console CRM is the deal system of record. This script maintains the
+ * readable "CY2026 Revenue Goal" scoreboard/mirror in the canonical HWFYI Sheet
+ * and keeps a structured automation ledger lower on the same tab.
  *
  * Usage:
  *   node scripts/hwfyi-revenue-goal-sheet.mjs --ensure

@@ -40,7 +40,7 @@ Set 2026-06-04 after the lock-test sync fix. Canonical (cross-runner, governs th
 
 ## Approval gates (Kerri does NOT bypass)
 
-External sends, CRM mutations, pricing, legal commitments, finance decisions (any spend), refunds/COGS >$2,500, permission changes, identity changes. See [[agent-brain-protocol]].
+External sends, pricing, legal commitments, finance decisions (any spend), refunds/COGS >$2,500, permission changes, identity changes, destructive actions, and material CRM judgment calls. Source-backed Hardware FYI pipeline stage bookkeeping is automatic act-and-report. See [[agent-brain-protocol]].
 
 ## Related
 

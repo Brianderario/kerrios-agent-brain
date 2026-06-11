@@ -417,7 +417,8 @@ test('autonomy tiers are fail-closed and scoped to internal-recipient-reply', ()
     'pricing/packages/terms NEVER go out autonomously',
     'any condition uncertainty falls back to ask',
     'The file is Brian-edited only; a sweep may demote a class to ask (on any double-email or Brian correction), never promote.',
-    'Never invent pricing or mutate CRM from inbox context alone.'
+    'Do not ask Brian to approve clerical pipeline movement.',
+    'Never invent pricing, values, package commitments, or revenue claims from inbox context alone.'
   ]);
 
   // The policy file is the enforcement surface: only internal-recipient-reply may act
@@ -439,6 +440,7 @@ test('autonomy tiers are fail-closed and scoped to internal-recipient-reply', ()
   for (const gated of ['CRM', 'pricing', 'legal', 'finance', 'permission', 'S/W boundary']) {
     assert.ok(neverAuto.includes(gated), `neverAuto missing "${gated}"`);
   }
+  assert.match(neverAuto, /source-backed pipeline stage bookkeeping is act-and-report/);
   assert.match(autonomyPolicy.graduation.promotion, /only Brian flips the tier/);
   assert.match(autonomyPolicy.graduation.demotion, /demotion is always allowed; promotion never is/);
   assert.match(

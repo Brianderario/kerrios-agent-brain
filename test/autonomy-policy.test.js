@@ -122,4 +122,9 @@ test('neverAuto preserves every permanent hard gate', () => {
   for (const gate of ['CRM', 'pricing', 'legal', 'finance', 'identity', 'S/W boundary']) {
     assert.ok(all.includes(gate), `neverAuto missing ${gate}`);
   }
+  assert.match(all, /source-backed pipeline stage bookkeeping is act-and-report/);
+  assert.match(
+    policy.actions['act-and-report'].scope.join(' '),
+    /Source-backed Hardware FYI pipeline bookkeeping/
+  );
 });

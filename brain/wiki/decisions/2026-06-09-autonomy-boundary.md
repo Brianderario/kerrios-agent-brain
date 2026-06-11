@@ -22,7 +22,7 @@ The S/W boundary is about not pulling S/W internal **content** into Kerri's brai
 
 ## What stays gated (unchanged)
 
-`sponsor-substantive-reply`, `renewal-draft`, `cold-send` (batch gate), and all permanent NEVER-AUTO gates: CRM mutations, pricing, legal/contracts, finance/spend, permissions, identity, S/W boundary.
+`sponsor-substantive-reply`, `renewal-draft`, `cold-send` (batch gate), and all permanent NEVER-AUTO gates: material CRM judgment calls, pricing, legal/contracts, finance/spend, permissions, identity, S/W boundary. Source-backed Hardware FYI pipeline stage bookkeeping was later carved out as act-and-report on 2026-06-11; it does not authorize pricing, commitments, or uncertain CRM changes.
 
 ## Enforcement status
 
