@@ -88,6 +88,7 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 ## "How should the company-agent architecture work?" / "Where do Benji/Ari/Brian agents fit?"
 
 - [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — Brian/Kerri, Benji/CDO, Ari/CFO pods and the perceive/propose/record/improve loop
+- [[wiki/decisions/2026-06-11-benji-ea-board]] — Kerri as Benji's EA: benji@ sweep coverage, in-mailbox approvals, privacy-from-Brian default
 - [[wiki/agents/registry]] — active and planned agents
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — autonomy ladder and living-brain bet
 - [[wiki/decisions/2026-05-26-agent-folder-master]] — folder-level context entrypoints for building automations around a specific agent or subagent
