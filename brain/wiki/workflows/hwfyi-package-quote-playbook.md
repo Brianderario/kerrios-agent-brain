@@ -1,6 +1,6 @@
 # HWFYI Package-Quote Playbook
 
-scope: workflow · updated: 2026-05-29 · source: Brian's sent Modelwise email 2026-05-29 (H0023), the gold-standard package-quote reply
+scope: workflow · updated: 2026-06-11 · source: Brian's sent Modelwise email 2026-05-29 (H0023), the gold-standard package-quote reply; Brian rule on price objections 2026-06-11 (NTOP)
 
 How Brian writes a **post-call sponsor package quote**. Use this whenever the next step in a sponsor thread is "here are the ways we could work together + price." This is the format Kerri's drafts (sweep, EOD, and interactive) kept getting wrong — they produced abstract, single-product, list-priced "tiers." Brian writes concrete, mixed-product **bundles**. Match the pattern below.
 
@@ -24,6 +24,16 @@ How Brian writes a **post-call sponsor package quote**. Use this whenever the ne
 - **Pricing is holistic, not strict line-item.** Brian rounds and bundles for a clean number (e.g., 3x Primary ≈ $5K). Don't force exact line-item sums; don't refuse to bundle/discount. Quote the package price.
 - **Check the ad-calendar Sheet before committing run timing.** Hardware FYI newsletter Tue/Sat slot availability lives in the canonical Sheet (see [[../properties/hardware-fyi]] "Newsletter schedule — SOURCE OF TRUTH"). Re-read it live before promising specific publish/run dates; don't quote dates from memory.
 - **New package prices need Brian's confirmation.** If you're templating prices Brian hasn't set for that account, flag it in the task PRICING NOTE and don't treat the draft as auto-sendable.
+
+## Price objections: never negotiate price, sell ROI
+
+(Brian rule, 2026-06-11, from the NTOP thread.) **Never get into a one-to-one discussion with a customer about price.** The price is downstream of the value we create for them, so a pricing debate is one we always lose. When a sponsor pushes back on price or asks "why does it cost X":
+
+- Do NOT defend, justify, or itemize the price, and do NOT preemptively offer a discount.
+- Redirect to ROI against *their* stated goals: what the campaign delivers (the buyer audience, leads, content assets) and why that's worth it for what they're trying to do.
+- Reshaping the package (different bundle, shorter term, smaller scope) to hit their budget is fine — that changes the value delivered, which is different from haggling on the same package.
+
+This applies to every sponsor draft: replies to price pushback, follow-ups after a quote, and renewal conversations.
 
 ## Reference: Brian's Modelwise packages (2026-05-29)
 
