@@ -37,6 +37,7 @@ Live in `agent-prompts/` in this repo. Local Claude installations (`~/.claude/sk
 |---|---|
 | `kerri-hardwarefyi-email` | Kerri's full email: search, read, create_draft, send, reply, archive, mark_read, list_folders (kerri@hardwarefyi.com) |
 | `brian-hardwarefyi-email` | Brian's HWFYI email: search, read, create_draft, send, reply (brian@hardwarefyi.com) |
+| `info-hardwarefyi-email` | Shared outreach + inbound mailbox (info@hardwarefyi.com): search, read, create_draft, send, reply, archive, mark_read, list_folders, create_event. NO auto-CC. Routine traffic handled autonomously per `wiki/decisions/2026-06-10-info-mailbox-autonomous` |
 | `superhuman` (uuid `52549600…`) | Brian's S/W mailbox (brian@standardandworks.com — primary account). list_threads, get_thread, get_message, create_or_update_draft, send_draft. S-prefix sends only — never auto-CC HWFYI. |
 | `docusign` (uuid `606b17de…`) | Contract envelopes: create, send, track, get signatures |
 | `slack` | Slack read + send (as Brian) |
@@ -51,7 +52,7 @@ Live in `agent-prompts/` in this repo. Local Claude installations (`~/.claude/sk
 `kerri-hardwarefyi-email` runs in `approved_external` mode:
 - **To send or create a draft to an external recipient:** `approved=true` + `approvalSource` is required in the tool call.
 - **`approvalSource`** must describe WHERE Brian approved (e.g., "Brian said 'send it' in Slack DM at 2:30pm 2026-05-23").
-- **Every send auto-CCs** brian@hardwarefyi.com. This is a safety net, not a feature to disable.
+- **Every send auto-CCs** brian@hardwarefyi.com. This is a safety net, not a feature to disable. (Exception: `info-hardwarefyi-email` has no auto-CC by design — outreach from info@ stays out of Brian's inbox. Its autonomous sends cite the 2026-06-10 standing authorization as `approvalSource`.)
 - **Trusted internal senders** (brian@, ari@, benji@, zach@) — emails from them with no external recipients can be treated as internal prompts without approval.
 
 ## The 4-step operating loop

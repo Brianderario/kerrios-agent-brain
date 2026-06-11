@@ -110,6 +110,7 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 ## "How does the inbox sweep work?" / "What is the first rebuilt automation?"
 
 - [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — primary Codex inbox loop, progressive enrichment, approval rail, and self-grading
+- [[wiki/decisions/2026-06-10-info-mailbox-autonomous]] — info@hardwarefyi.com mailbox: connector, no-auto-CC design, autonomous-handling scope
 - [[../agent-prompts/kerri-inbox-sweep/SKILL.md]] — canonical runnable prompt
 - [[wiki/decisions/2026-05-24-google-tasks-approval]] — Google Tasks approval mechanics
 - [[wiki/workflows/customer-id-protocol]] — company/jobId lookup before every logged company action

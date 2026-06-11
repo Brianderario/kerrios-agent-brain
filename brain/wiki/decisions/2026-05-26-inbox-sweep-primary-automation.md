@@ -22,6 +22,7 @@ Cadence: every 15 minutes. Model: GPT-5.5 high. The first action is an atomic lo
 
 - `kerri@hardwarefyi.com` via custom Hardware FYI email MCP
 - `brian@hardwarefyi.com` via custom Hardware FYI email MCP
+- `info@hardwarefyi.com` via custom Hardware FYI email MCP (`info-hardwarefyi-email`), added 2026-06-10 — outreach + inbound, handled autonomously per [[2026-06-10-info-mailbox-autonomous]]
 - `brian@kerrihq.com` via Gmail, draft-only by default
 - `brian@standardandworks.com` via Superhuman, with S/W boundary rules
 
