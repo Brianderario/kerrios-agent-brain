@@ -2,7 +2,7 @@
   "version": 1,
   "updatedAt": "2026-06-10",
   "decision": "brain/wiki/decisions/2026-06-09-autonomy-boundary.md",
-  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Google Task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach.",
+  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Google Task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach. Amended 2026-06-10 evening (Brian, interactive): info@hardwarefyi.com added as a Kerri-handled mailbox with autonomous handling of its outreach + inbound ('That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'); scoped via mailboxOverrides below, class tiers unchanged.",
   "tiers": {
     "auto": "Act with no approval. Internal-only, no external send, no commercial or financial risk.",
     "auto-logged": "Act without per-thread approval, then notify: entry in the morning-brief Auto-logged section + the standard auto-CC on every kerri@ send. No text alert (texts are the interrupt lane).",
@@ -55,6 +55,20 @@
     "gmail-draft-only": {
       "tier": "brian-sends",
       "rampEligible": false
+    }
+  },
+  "mailboxOverrides": {
+    "info@hardwarefyi.com": {
+      "grantedAt": "2026-06-10",
+      "grantedBy": "Brian, interactive session 2026-06-10, after Benji granted Graph access to info@: 'That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'",
+      "effect": "Routine traffic at info@ is handled autonomously at the auto-logged tier instead of ask: scheduling-logistics-reply, warm-thread-holding-reply, and pipeline-nudge replies to mail received at info@, plus cold-send when sent FROM info@. sponsor-substantive-reply and renewal-draft keep their class tiers even at info@ (commercial substance stays Brian's call). The neverAuto list gates enactment everywhere, unchanged.",
+      "conditions": [
+        "Send identity is info@hardwarefyi.com via the info-hardwarefyi-email MCP; sends from info@ carry NO auto-CC (GRAPH_DEFAULT_CC intentionally empty; cold outreach stays out of Brian's inbox and morning brief per the standing cold-outreach rule).",
+        "The hard no-double-email gate, S/W boundary, and DNC suppression run exactly as for approved sends.",
+        "approvalSource on these sends: 'auto: info@ mailbox autonomous handling per Brian standing authorization (interactive, 2026-06-10)'.",
+        "Auto-logged info@ inbound replies (non-cold-outreach) appear in the morning-brief Auto-logged section; cold-send mechanics are recorded in cold-outreach-state.json and jobs.json only.",
+        "Any reply that would quote pricing, commit Brian's time or money, or touch a neverAuto topic falls back to its class tier (ask)."
+      ]
     }
   },
   "trustedInternal": [
