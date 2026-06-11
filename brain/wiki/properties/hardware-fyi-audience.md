@@ -8,7 +8,8 @@ scope: property · updated: 2026-06-03 · parent: [[hardware-fyi]]
 
 ## List basics (qualitative, canonical)
 
-- **Hardware FYI newsletter** — ~17,000 engineers/builders, twice weekly (Tue/Sat).
+- **Combined readership: 20,000+ readers across the two newsletters** (Hardware FYI newsletter + Weekend Wire). Authoritative, Benji-stated 2026-06-11 ("kerri question" email to Kerri: "in the pitch, update this knowledge. It should be 20,000+ readers between two newsletters."). This is the figure to quote in pitches and the media kit going forward; it supersedes the older single-newsletter "~17,000/week" framing and the media-kit "16,000+" subscriber headline. Benji owns the audience number, so treat this as canonical. Pitch deck / media-kit PDF copy still carry the old numbers and need a Benji/Brian asset edit to match.
+- **Hardware FYI newsletter** — ~17,000 engineers/builders, twice weekly (Tue/Sat). _(Single-newsletter figure; for total reach use the 20,000+ combined number above.)_
 - Industry-base audience: semiconductors, robotics, EVs, energy, defense, advanced manufacturing. Peer-tone, builder audience.
 - Source: [[hardware-fyi]] core facts. List size + cadence are Brian-stated; treat the count as approximate until Benji confirms a live subscriber export number.
 
@@ -55,7 +56,7 @@ These are the numbers to quote as fact once captured. **Only Brian/Benji can sup
 - [ ] Seniority mix % — _pending (NOT in 2025 media kit)_
 - [ ] US vs international geo split — _pending (NOT in 2025 media kit)_
 - [ ] Company-size split — _pending (NOT in 2025 media kit)_
-- [x] Confirmed list size + cadence — **partial:** media kit says 16,000+ subscribers, two weekly newsletters (Hardware FYI newsletter + Weekend Wire). ⚠ headline vs chart vs brain inconsistency (16K / ~23K / ~17K) — still needs a Benji live-export number to nail down.
+- [x] Confirmed list size + cadence — **Benji-confirmed 2026-06-11: 20,000+ readers across the two newsletters** (Hardware FYI newsletter + Weekend Wire). This is the number to quote in pitches; it resolves the prior headline vs chart vs brain inconsistency (16K / ~23K / ~17K) in favor of 20,000+ combined per the audience owner. A precise live-export subscriber count would still be nice-to-have, but the pitch figure is now settled.
 - [ ] Top-performing topics / what readers react to — _pending_
 
 **RESOLVED — open question (asked 2026-06-02, answered 2026-06-03):** Brian said the 2025 media kit holds true demographics. Kerri did a full 14-page review of *Hardware FYI Media Kit 2025.pdf* (Drive id `1OTlAf0VdeDqEAmDCr6zc7HF9-HDBv-_g`) — it does **not** contain demographic % splits. It carries engagement metrics (45%+ open, 0.08% unsub, 16,000+ subs, growth chart) + industry/education logos + product descriptions, but no industry / seniority / geography / company-size percentages. **The Apollo-derived Tier A sample remains the only quantitative demographic data we have.** True Tier B demographic %s need a real source — a full-list analytics export (Beehiiv/ESP) or a Benji-supplied breakdown. Possible alternate source to check next: *Hardware FYI x AllSpice Metrics Report (2025)* — a campaign metrics report that may carry audience cuts the kit omits.
