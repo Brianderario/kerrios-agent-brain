@@ -13,22 +13,30 @@
 // session identity by transcript). It MONITORS and alerts Brian when:
 //   • the reaper LaunchAgent is not loaded (leaks would pile up unreaped)
 //   • the reaper hasn't logged recently (it may be stalled)
-//   • the reaper's last scan saw an abnormal number of claude processes (pileup)
-//   • system load or free memory crosses a ceiling
+//   • leaked scheduled sessions are resident past the reaper's own reap limits
+//     (the reaper should keep this at ~0; a pileup means it's blind or failing)
+//   • TOTAL claude processes cross a high catch-all ceiling (runaway pileup)
+//   • system load crosses a ceiling
 //
-// It leans on the reaper's own log rather than re-implementing the ps+transcript
-// identity check, so the two stay in agreement.
+// It runs the reaper's OWN scan (imported from inbox-sweep-reaper.mjs, read-only)
+// rather than re-implementing the ps+transcript identity check, so the two stay in
+// agreement. It deliberately does NOT trust the reaper's log for counts: a blind
+// reaper logs healthy numbers (the 2026-05-31 incident logged "0 claude procs"
+// while 70 piled up), and the raw total conflates Brian's open interactive desktop
+// chats with leaks (2026-06-10: 16 idle-but-legitimate open chats pushed the total
+// past the old threshold of 20 and false-alarmed his phone).
 //
 // Usage:
 //   node scripts/resource-watchdog.mjs                 # gather + print JSON
 //   node scripts/resource-watchdog.mjs --alert          # + text Brian on a high finding
-//   node scripts/resource-watchdog.mjs --json --reaper-loaded false --load 25 ...   # test hooks
+//   node scripts/resource-watchdog.mjs --json --reaper-loaded false --leaked-scheduled 5 --load 25 ...   # test hooks
 
 import fs from 'node:fs';
 import os from 'node:os';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { scanScheduledSessions } from './inbox-sweep-reaper.mjs';
 
 const TEXT_ALERT = '/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs';
 const REAPER_LABEL = 'com.kerri.inbox-sweep-reaper';
@@ -49,10 +57,15 @@ function parseArgs(values) {
 }
 
 const DEFAULT_THRESHOLDS = {
-  // Total resident claude procs. Interactive + handoff + a couple scheduled
-  // tasks legitimately run ~10; the leak incident hit ~48. 20 only fires on a
-  // genuine pileup (the reaper keeps leaked sweeps near 1 when it's working).
-  maxClaudeProcs: 20,
+  // Leaked scheduled sessions resident RIGHT NOW (already past the reaper's own
+  // age+idle limits). A healthy reaper clears these within one 5-min scan, so a
+  // straggler or two is a race, but 3+ means the reaper is blind or failing.
+  maxLeakedScheduled: 2,
+  // Catch-all on TOTAL claude procs, for pileups the identity check can't see
+  // (e.g. the marker regex going blind — then leakedScheduled reads 0 too).
+  // Brian's normal desktop use runs ~28-30 procs with many chats open
+  // (measured 2026-06-10); the leak incident hit 48-70. 40 splits those.
+  maxClaudeProcs: 40,
   reaperLogStaleMin: 15, // reaper runs every 5 min → a 15-min gap means it's stalled
   loadCeiling: Math.max(8, os.cpus().length * 2.5) // incident peaked at load 23
 };
@@ -69,8 +82,11 @@ export function assessResources(metrics, thresholds = DEFAULT_THRESHOLDS) {
   } else if (metrics.reaperLoaded === true && metrics.reaperLogAgeMin != null && metrics.reaperLogAgeMin > thresholds.reaperLogStaleMin) {
     findings.push({ kind: 'reaper-stalled', severity: 'high', detail: `reaper loaded but last logged ${metrics.reaperLogAgeMin}m ago (>${thresholds.reaperLogStaleMin}m) — may be stalled` });
   }
+  if (metrics.leakedScheduled != null && metrics.leakedScheduled > thresholds.maxLeakedScheduled) {
+    findings.push({ kind: 'leaked-scheduled', severity: 'high', detail: `${metrics.leakedScheduled} leaked scheduled sessions resident past reap limits (>${thresholds.maxLeakedScheduled}) — reaper is missing them` });
+  }
   if (metrics.claudeProcs != null && metrics.claudeProcs > thresholds.maxClaudeProcs) {
-    findings.push({ kind: 'session-pileup', severity: 'high', detail: `${metrics.claudeProcs} claude processes resident (>${thresholds.maxClaudeProcs}) — possible session leak` });
+    findings.push({ kind: 'session-pileup', severity: 'high', detail: `${metrics.claudeProcs} claude processes resident (>${thresholds.maxClaudeProcs}) — runaway pileup` });
   }
   if (metrics.load1 != null && metrics.load1 > thresholds.loadCeiling) {
     findings.push({ kind: 'load-high', severity: 'high', detail: `1-min load ${metrics.load1.toFixed(1)} over ceiling ${thresholds.loadCeiling.toFixed(1)}` });
@@ -93,32 +109,37 @@ function reaperLogAgeMin() {
   }
 }
 
-// Last "scan: N claude procs" the reaper logged — its own count, no duplicate ps.
-function lastClaudeProcCount() {
+// Live counts via the reaper's own exported scan (read-only — it kills nothing).
+// Returns nulls if the scan itself throws, so a broken scan can never read as
+// "0 leaks, all healthy".
+async function liveSessionCounts() {
   try {
-    const lines = fs.readFileSync(REAPER_LOG, 'utf8').trimEnd().split('\n');
-    for (let i = lines.length - 1; i >= 0 && i >= lines.length - 50; i -= 1) {
-      const m = lines[i].match(/scan:\s*(\d+)\s*claude procs/);
-      if (m) return Number(m[1]);
-    }
-  } catch { /* fall through */ }
-  return null;
+    const { procs, toKill } = await scanScheduledSessions();
+    return { claudeProcs: procs.size, leakedScheduled: toKill.length };
+  } catch {
+    return { claudeProcs: null, leakedScheduled: null };
+  }
 }
 
-function gather(args) {
+async function gather(args) {
   const num = (k) => (args[k] != null && args[k] !== true ? Number(args[k]) : undefined);
   const bool = (k) => (args[k] === 'true' ? true : args[k] === 'false' ? false : undefined);
+  // Only pay for the ps+transcript scan when a test flag doesn't override both counts.
+  const counts = (num('claude-procs') !== undefined && num('leaked-scheduled') !== undefined)
+    ? { claudeProcs: undefined, leakedScheduled: undefined }
+    : await liveSessionCounts();
   return {
     reaperLoaded: bool('reaper-loaded') ?? reaperLoaded(),
     reaperLogAgeMin: num('reaper-log-age') ?? reaperLogAgeMin(),
-    claudeProcs: num('claude-procs') ?? lastClaudeProcCount(),
+    claudeProcs: num('claude-procs') ?? counts.claudeProcs,
+    leakedScheduled: num('leaked-scheduled') ?? counts.leakedScheduled,
     load1: num('load') ?? os.loadavg()[0]
   };
 }
 
-function main() {
+async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const metrics = gather(args);
+  const metrics = await gather(args);
   const verdict = assessResources(metrics);
   const report = { checkedAt: new Date().toISOString(), reaperLabel: REAPER_LABEL, metrics, ...verdict };
 
@@ -144,12 +165,15 @@ function main() {
     process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
   } else {
     process.stdout.write(`resource-watchdog: ${report.ok ? 'OK' : report.findings.length + ' finding(s)'}\n`);
-    process.stdout.write(`  reaper=${metrics.reaperLoaded} logAge=${metrics.reaperLogAgeMin}m claudeProcs=${metrics.claudeProcs} load=${metrics.load1 != null ? metrics.load1.toFixed(1) : '?'}\n`);
+    process.stdout.write(`  reaper=${metrics.reaperLoaded} logAge=${metrics.reaperLogAgeMin}m claudeProcs=${metrics.claudeProcs} leakedScheduled=${metrics.leakedScheduled} load=${metrics.load1 != null ? metrics.load1.toFixed(1) : '?'}\n`);
     for (const f of report.findings) process.stdout.write(`  ${f.severity === 'high' ? '✗' : '⚠'} [${f.kind}] ${f.detail}\n`);
   }
   process.exit(0);
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
-  main();
+  main().catch((e) => {
+    process.stderr.write(`resource-watchdog error: ${e && e.message}\n`);
+    process.exit(1);
+  });
 }

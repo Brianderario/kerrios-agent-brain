@@ -205,9 +205,12 @@ function transcriptIdleMs(sessionId, now) {
   }
 }
 
-async function main() {
+// The reaper's full scan, factored out so the resource-watchdog can run the SAME
+// ps+transcript identity check read-only (it imports this instead of re-implementing,
+// keeping one source of truth for what counts as a leaked scheduled session).
+// Returns { procs, toKill, liveInboxSweepSessions }; kills nothing.
+export async function scanScheduledSessions(now = Date.now()) {
   const procs = listClaudeProcs();
-  const now = Date.now();
   const toKill = []; // [{ pid, ppid, ageMin, idleMin }]
   let liveInboxSweepSessions = 0; // alive inbox-sweep runs = real owners of the run-lock
 
@@ -227,6 +230,12 @@ async function main() {
     if (idleMs < IDLE_LIMIT_MS) continue; // still working (or unknown) -> spare
     toKill.push({ pid, ppid: info.ppid, ageMin: Math.round(ageMs / 60000), idleMin: Math.round(idleMs / 60000) });
   }
+  return { procs, toKill, liveInboxSweepSessions };
+}
+
+async function main() {
+  const now = Date.now();
+  const { procs, toKill, liveInboxSweepSessions } = await scanScheduledSessions(now);
 
   if (toKill.length === 0) {
     log(`scan: ${procs.size} claude procs, 0 leaked scheduled sessions to reap`);
