@@ -3,7 +3,6 @@
 This is the catalog. One line per page. Read [[routing]] for the topic map; read this for "what pages exist."
 
 ## Workflows
-- wiki/workflows/kmg-console-approvals.md — KMG Console approvals system: goals, code locations, sync, next steps (how the brain works)
 
 - [[wiki/workflows/llm-wiki-pattern]] — the Karpathy LLM-wiki pattern this brain implements
 - [[wiki/workflows/agent-brain-protocol]] — exact read/write contract every agent follows
