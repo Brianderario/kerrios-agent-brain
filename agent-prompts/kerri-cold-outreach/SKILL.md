@@ -164,12 +164,12 @@ Apply every rule in `voice.md` and every lesson in `draft-learnings.md`. Specifi
 - **Opening:** name, comma. e.g. "Jane,". Per voice.md, occasionally "Hi Jane, hope you're well" if cold and we want a slightly warmer beat (use sparingly for cold — it can feel forced).
 - **Body structure:**
   1. Start with "I'm Kerri, and I work on partnerships at Hardware FYI."
-  2. Say what Hardware FYI is in this shape: "We're a media company with a newsletter covering hardware manufacturing, read by over 17,000 hardware engineering leaders and decision makers."
+  2. Say what Hardware FYI is in this shape: "We're a media company with a newsletter covering hardware manufacturing, read by over 19,000 hardware engineering leaders and decision makers."
   3. Tie the company to that audience in one specific sentence: "<Company> seems like a strong fit because <specific fit>."
   4. Ask in this warmer shape: "If this is interesting, I'd love to have a conversation about partnering together. Happy to answer any questions."
   5. Close with `Best,` then `Kerri`.
-- **Recruiting angle for manufacturers.** When the target is a hardware manufacturer (not a software vendor), lean into the recruiting value prop. Manufacturers don't sponsor HWFYI to find customers; our readers aren't their buyers. They sponsor to put their employer brand in front of the 17K engineers and engineering leaders they want to HIRE. It's the same inventory (Primary Placement, Partner Program, Custom Content, Webinars), positioned for recruiting instead of demand gen.
-  - Frame step 3 around hiring: e.g., "I saw <Company> is hiring <N> engineering roles right now. Our audience of 17,000+ hardware engineers and engineering leaders is exactly the talent pool you're trying to reach, and sponsors use us to get their name in front of them."
+- **Recruiting angle for manufacturers.** When the target is a hardware manufacturer (not a software vendor), lean into the recruiting value prop. Manufacturers don't sponsor HWFYI to find customers; our readers aren't their buyers. They sponsor to put their employer brand in front of the 19K engineers and engineering leaders they want to HIRE. It's the same inventory (Primary Placement, Partner Program, Custom Content, Webinars), positioned for recruiting instead of demand gen.
+  - Frame step 3 around hiring: e.g., "I saw <Company> is hiring <N> engineering roles right now. Our audience of 19,000+ hardware engineers and engineering leaders is exactly the talent pool you're trying to reach, and sponsors use us to get their name in front of them."
   - The right buyer may be a talent/recruiting leader (Head of Talent, VP People, technical recruiting) rather than marketing. Match the pitch to whoever is in the To: line.
   - Do not invent recruiting-specific packages or pricing that aren't on the rate card; position existing products for the hiring goal and let Brian shape the package on the call.
   - Tag these drafts `recruiting-angle` in the task notes so replies can be tracked as a distinct motion.

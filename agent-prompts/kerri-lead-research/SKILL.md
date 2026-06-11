@@ -23,7 +23,7 @@ Scheduled runs must use a cheap preflight before loading broad context or callin
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ICP — WHO IS A QUALITY SPONSOR LEAD (4 lanes in priority order, all US-based)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Hardware FYI sells newsletter/event/content sponsorships AND recruiting access to ~17K hardware engineering leaders + decision-makers (startup-heavy: semiconductors, robotics, EVs, energy, advanced manufacturing). A quality lead fits ONE of these lanes, in priority order:
+Hardware FYI sells newsletter/event/content sponsorships AND recruiting access to ~19K hardware engineering leaders + decision-makers (startup-heavy: semiconductors, robotics, EVs, energy, advanced manufacturing). A quality lead fits ONE of these lanes, in priority order:
 
 1. **Companies selling software to US hardware manufacturers (TOP PRIORITY).** PLM/PDM, EDA/CAD, MES, simulation/CAE, factory analytics, sourcing/supply-chain, quality, robotics middleware, embedded tooling. There are hundreds of these companies and they are the highest-fit sponsors. Apollo ICP search on those keywords/industries, `country = US`.
 2. **Lookalikes of proven sponsors.** Companies resembling our 23 Kinetic 2026 sponsors + any closed/active sponsor in the KMG Console CRM (the read-only snapshot `data/companies.json` is fine for the seed scan). Apollo similar-orgs off those seeds.

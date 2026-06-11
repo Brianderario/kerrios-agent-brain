@@ -504,7 +504,7 @@ test('cold outreach prompt keeps first-touch emails short and partnership-focuse
   assertAll(coldOutreachPrompt, [
     '4-5 short sentences after the greeting',
     "I'm Kerri, and I work on partnerships at Hardware FYI.",
-    "We're a media company with a newsletter covering hardware manufacturing, read by over 17,000 hardware engineering leaders and decision makers.",
+    "We're a media company with a newsletter covering hardware manufacturing, read by over 19,000 hardware engineering leaders and decision makers.",
     '<Company> seems like a strong fit because <specific fit>.',
     "If this is interesting, I'd love to have a conversation about partnering together. Happy to answer any questions.",
     'omit by default on first cold outreach'

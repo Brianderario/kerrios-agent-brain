@@ -46,7 +46,7 @@ Brian closes warmly, often with forward motion. **The closing is part of the voi
   - "Happy to share details on either/both if you all are interested!"
   - "we'd be happy to discuss!"
 - **Specific time anchors** — "1.5 weeks give or take", "next 2 weeks", "next week", "over the next week". Brian commits to ranges, not vague "soon."
-- **Concrete pitch numbers** — "17,000 hardware engineering leaders every week across two newsletters and create custom content with our partners". Always lead pitches with numbers. (Number updated from 20K → 17K on 2026-05-25 per Brian.)
+- **Concrete pitch numbers** — "19,000 hardware engineering leaders every week across two newsletters and create custom content with our partners". Always lead pitches with numbers. (Number history: 20K → 17K on 2026-05-25, then → 19,000 on 2026-06-11, both per Brian.)
 - **Calendly link offer** — "My calendar can be found [here]." Used as a low-friction scheduling option.
 - **Forward-looking pitch close** — "Looking forward to continuing to work together!" / "If there are any other marketing plans for the rest of the year that we can support, please let us know."
 

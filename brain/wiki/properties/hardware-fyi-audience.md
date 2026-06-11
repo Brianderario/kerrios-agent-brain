@@ -9,7 +9,7 @@ scope: property · updated: 2026-06-03 · parent: [[hardware-fyi]]
 ## List basics (qualitative, canonical)
 
 - **Combined readership: 20,000+ readers across the two newsletters** (Hardware FYI newsletter + Weekend Wire). Authoritative, Benji-stated 2026-06-11 ("kerri question" email to Kerri: "in the pitch, update this knowledge. It should be 20,000+ readers between two newsletters."). This is the figure to quote in pitches and the media kit going forward; it supersedes the older single-newsletter "~17,000/week" framing and the media-kit "16,000+" subscriber headline. Benji owns the audience number, so treat this as canonical. Pitch deck / media-kit PDF copy still carry the old numbers and need a Benji/Brian asset edit to match.
-- **Hardware FYI newsletter** — ~17,000 engineers/builders, twice weekly (Tue/Sat). _(Single-newsletter figure; for total reach use the 20,000+ combined number above.)_
+- **Hardware FYI newsletter** — **19,000 subscribers**, twice weekly (Tue/Sat). Brian-corrected 2026-06-11 (was ~17,000): "Hardware FYI has 19,000 subscribers and not 17,000 — adjust in the brain and wherever else you're pulling that number from." This is the single-newsletter subscriber figure to use in outreach; for total reach across both newsletters use the 20,000+ combined number above.
 - Industry-base audience: semiconductors, robotics, EVs, energy, defense, advanced manufacturing. Peer-tone, builder audience.
 - Source: [[hardware-fyi]] core facts. List size + cadence are Brian-stated; treat the count as approximate until Benji confirms a live subscriber export number.
 
