@@ -66,6 +66,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-06-10-info-mailbox-autonomous]] — info@hardwarefyi.com joins the inbox sweep via new `info-hardwarefyi-email` MCP; routine outreach + inbound handled autonomously (no auto-CC), commercial substance stays Brian's call
 - [[wiki/decisions/2026-06-11-benji-ea-board]] — Benji's EA board greenlit: benji@ joins the sweep, approvals live in his own mailbox (Drafts + send/edit/skip replies), private from Brian by default, Brian-CC opt-in only
 - [[wiki/decisions/2026-06-11-brain-console-storage-split]] — brain keeps how-we-work; KMG Console is the CRM of record (companies/contacts/deals); CRM Google Sheet demoted to one-way verification mirror
+- [[wiki/decisions/2026-06-11-console-brain-port]] — Console hosts the permissioned brain: knowledge records with provenance, domain/sensitivity grants (Brian master, Ari finance/legal, Benji HWFYI/content, Zach S&W), scoped agents, approval proof trails, idempotent KerriOS importer (kerrihq-rails `77e061e`)
 
 ## Deals · Meetings · Candidates · Raw
 
