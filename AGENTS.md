@@ -49,7 +49,7 @@ Data rules:
 Write rules:
 
 - Company facts can be proposed as memory candidates or wiki updates.
-- External sends, CRM changes, pricing, legal, finance, permission changes, purchases, and deletes require an approval path.
+- External sends, pricing, legal, finance, permission changes, purchases, deletes, and material CRM judgment calls require an approval path. Source-backed pipeline bookkeeping is different: when an approved send, buyer reply, booked meeting, proposal, contract, or explicit decline clearly changes a Hardware FYI deal stage, update the Console CRM automatically, verify it, and log it.
 - Keep changes compact and source-linked. Do not dump raw transcripts, raw emails, or broad logs into the brain.
 
 For another agent:
