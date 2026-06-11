@@ -51,12 +51,37 @@ const CONNECTORS = {
   'console-tasks': { kind: 'cli', requiredBy: ['kerri-inbox-sweep', 'kerri-morning-brief', 'kerri-eod-meetings-review', 'kerri-gap-sweep'] },
   'kerri-hardwarefyi-email': { kind: 'session', requiredBy: ['kerri-inbox-sweep'] },
   'brian-hardwarefyi-email': { kind: 'session', requiredBy: ['kerri-inbox-sweep'] },
+  'info-hardwarefyi-email': { kind: 'session', requiredBy: ['kerri-inbox-sweep'] },
   gmail: { kind: 'session', requiredBy: ['kerri-inbox-sweep', 'kerri-morning-brief'] },
   superhuman: { kind: 'session', requiredBy: ['kerri-inbox-sweep'] },
+  gtasks: { kind: 'session', requiredBy: ['legacy-approval-history'] },
   granola: { kind: 'session', requiredBy: ['kerri-eod-meetings-review'] },
   reclaim: { kind: 'session', requiredBy: ['kerri-morning-brief', 'kerri-eod-meetings-review'] },
   slack: { kind: 'session', requiredBy: ['kerri-inbox-sweep'] }
 };
+
+const SESSION_CONNECTOR_ALIASES = {
+  'kerri-gdocs': ['gtasks'],
+  'google-tasks': ['gtasks'],
+  'reclaim-ai': ['reclaim'],
+  'kerri@hardwarefyi.com-email': ['kerri-hardwarefyi-email'],
+  'brian@hardwarefyi.com-email': ['brian-hardwarefyi-email'],
+  'info@hardwarefyi.com-email': ['info-hardwarefyi-email']
+};
+
+function expandAvailableConnectors(available) {
+  if (!available) return null;
+  const expanded = new Set();
+  for (const item of available) {
+    const name = String(item || '').trim().toLowerCase();
+    if (!name) continue;
+    expanded.add(name);
+    for (const alias of SESSION_CONNECTOR_ALIASES[name] || []) {
+      expanded.add(alias);
+    }
+  }
+  return expanded;
+}
 
 function probeSendblue(skipLive) {
   if (!fs.existsSync(TEXT_ALERT)) return { status: 'down', detail: 'send-text-alert.mjs not found' };
@@ -98,7 +123,7 @@ function probeConsoleTasks(opts) {
 }
 
 export function probeConnectors(root, opts = {}) {
-  const available = opts.available; // Set or null
+  const available = expandAvailableConnectors(opts.available); // Set or null
   const results = [];
   for (const [name, cfg] of Object.entries(CONNECTORS)) {
     let verdict;

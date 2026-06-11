@@ -198,6 +198,16 @@ test('inbox sweep cross-checks live task status before trusting the listing', ()
   ]);
 });
 
+test('console health attention only halts on structural queue failures', () => {
+  assertAll(prompt, [
+    'If health returns `status: attention`, inspect the failing checks before deciding.',
+    'halt only when a structural/integrity check is failing',
+    'If `pending_decisions` is the only failing check and the structural checks are clean, continue into STEP 2 and process those decisions',
+    "Brian's approvals/skips/redos are waiting for agent acknowledgement, not that the board is structurally mismatched",
+    'If the only attention check is `pending_decisions`, process STEP 2 instead of deadlocking the queue.'
+  ]);
+});
+
 // v1: "keeps EOD approvals on existing email chains" + orphan handling. The rewrite
 // collapsed v1's EOD title-rewrite micro-procedure (🌙 <jobId> renaming, EOD-H01 source
 // tags, job.source checks) into two hard rules: orphan tasks fail closed, and

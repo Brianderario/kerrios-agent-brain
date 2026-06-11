@@ -35,7 +35,7 @@ function run(fx, extra = []) {
   return JSON.parse(r.stdout);
 }
 
-const ALL_SESSION = 'kerri-hardwarefyi-email,brian-hardwarefyi-email,gmail,superhuman,granola,reclaim,slack';
+const ALL_SESSION = 'kerri-hardwarefyi-email,brian-hardwarefyi-email,info-hardwarefyi-email,gmail,superhuman,gtasks,granola,reclaim,slack';
 
 test('all connectors present in session → ok', () => {
   const rep = run(fixture(), ['--available', ALL_SESSION]);
@@ -49,6 +49,13 @@ test('missing granola in session → down + eod at risk', () => {
   assert.equal(rep.ok, false);
   assert.ok(rep.down.includes('granola'));
   assert.ok(rep.routinesAtRisk.includes('kerri-eod-meetings-review'));
+});
+
+test('session connector aliases count as their canonical connectors', () => {
+  const present = 'Kerri@hardwarefyi.com-email,brian@hardwarefyi.com-email,info@hardwarefyi.com-email,gmail,superhuman,kerri-gdocs,granola,reclaim-ai,slack';
+  const rep = run(fixture(), ['--available', present]);
+  assert.equal(rep.ok, true);
+  assert.deepEqual(rep.down, []);
 });
 
 test('session connectors are non-fatal when no --available given', () => {
