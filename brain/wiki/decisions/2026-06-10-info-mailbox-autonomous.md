@@ -18,11 +18,18 @@ Brian, interactive session 2026-06-10, after Benji granted Microsoft Graph acces
 
 ## Autonomy scope (recorded in data/autonomy-policy.json → mailboxOverrides)
 
-Auto-logged at info@: scheduling-logistics-reply, warm-thread-holding-reply, pipeline-nudge replies to mail received at info@, and cold-send sent from info@.
+Auto-logged at info@: scheduling-logistics-reply, warm-thread-holding-reply, pipeline-nudge, and sponsor-substantive-reply received at info@, plus cold-send sent from info@. renewal-draft keeps its class tier (money implications, not addressed by the grant). The `neverAuto` list is unchanged: autonomous replies never quote pricing, packages, or terms.
 
-Still Brian's call, unchanged: sponsor-substantive-reply, renewal-draft, and everything on the `neverAuto` list (pricing, contracts, finance/spend, CRM mutations, permissions, S/W boundary). Any reply that would quote pricing or commit Brian's time or money falls back to an approval task.
+## Amendment, same session (Brian, 2026-06-10 evening)
 
-Interpretation note: Brian's grant was broad ("handle that autonomously"). Kerri scoped it to routine traffic and kept commercial substance at the existing class tiers, because those tiers were set deliberately on 2026-06-09 and "never makes commitments without approval" is a standing hard rule. If Brian wants sponsor-substantive replies at info@ autonomous too, that is a one-line tier change he makes in autonomy-policy.json.
+Brian confirmed the broader scope and added four binding rules: "Yes, and please loop Benji and me in if somebody reaches out. Put my calendar up if they're looking for sponsorship, and put Benji's calendar up if they're looking for content. Never guess and only act if you definitively know. Always flag to me if there's an issue."
+
+1. **Loop-in:** every autonomous reply to real human inbound at info@ CCs brian@hardwarefyi.com + benji@hardwarefyi.com. Cold outreach from info@ still CCs nobody.
+2. **Calendar routing** (links pulled from real sent threads and verified live against Calendly's booking API 2026-06-10):
+   - Sponsorship / advertising / partnership-commercial intent → Brian: `https://calendly.com/brian-hardwarefyi/30min` (owner verified Brian D'Erario)
+   - Content / editorial / newsletter-feature intent → Benji: `https://calendly.com/hardwarefyi/30min` (owner verified **Benjamin Chia** — the brand-neutral slug books with Benji, so never offer it for sponsorship; his personal alternate is `calendly.com/chiajbenjamin/30min`)
+3. **Never guess:** facts in autonomous replies must be definitively known (wiki, verified thread history, canonical docs). Ambiguous or mixed intent → no calendar, fall back to an approval task. Pricing questions → offer the call + correct calendar, never numbers.
+4. **Always flag issues:** errors, ambiguity, boundary questions, surprises at info@ → flagged to Brian (task or text), never silently handled or dropped.
 
 ## Related
 
