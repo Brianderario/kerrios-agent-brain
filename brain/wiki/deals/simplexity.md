@@ -25,7 +25,7 @@ source: kinetic-reconnection
 
 # Simplexity Product Development -- Active deal (newsletter sponsorship)
 
-Product development consultancy. Brian followed up Jun 7 asking about newsletter sponsorship: "if you have a rough budget or timing in mind, send it over and I can put together a few options across The Analog / Weekend Wire."
+Product development consultancy. Brian followed up Jun 7 asking about newsletter sponsorship: "if you have a rough budget or timing in mind, send it over and I can put together a few options across The Analog / Weekend Wire." (Note: Brian's email used the old edition names; going forward, refer to it as the Hardware FYI newsletter, twice weekly Tue/Sat.)
 
 ## Pipeline state
 

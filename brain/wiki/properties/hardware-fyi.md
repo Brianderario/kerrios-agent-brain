@@ -19,7 +19,7 @@ KMG-owned media property. Industry newsletter + community + events for hardware 
 - **Domain:** hardwarefyi.com
 - **Lead:** [[brian-derario]] (CEO) — content + sponsor relationships
 - **Ops:** [[benji-chia]] (CDO) — distribution, growth, automation
-- **Active newsletters:** Hardware FYI newsletter (flagship), Weekend Wire
+- **Active newsletter:** Hardware FYI newsletter -- twice weekly (Tue/Sat). Former names for the two editions ("The Analogue" for Tuesday, "Weekend Wire" for Saturday) are retired; sponsors see one newsletter.
 - **Event flagship:** [[kinetic]] (annual SF conference, last edition 2026-05-12 to 13)
 - **Job-prefix code in sweep:** `H####`
 - **Approval list (Google Tasks):** "Hardware FYI"

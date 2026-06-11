@@ -80,7 +80,7 @@ Format:
 7. **Added:** Routing pattern — when an inquiry isn't for him, Brian names the right teammate, says what they own, then pitches what he owns ("If you want this to be covered in the Kinetic newsletter, that would be Benji! I handle all of our sponsored options...").
 8. **Added:** Colloquialisms he actually uses — "crushed his talk", "photo dump", "tapped in", "give or take". Don't sterilize.
 9. **Added:** Specific-time-anchor habit — "1.5 weeks give or take", "next 2 weeks". Brian commits to ranges, not vague "soon."
-10. **Added:** Numbers-in-pitch habit — "20,000 hardware engineering leaders every week across two newsletters." Always lead pitches with concrete reach numbers.
+10. **Added:** Numbers-in-pitch habit — "20,000 hardware engineering leaders every week" via the Hardware FYI newsletter (twice weekly, Tue/Sat). Always lead pitches with concrete reach numbers. (Do not say "two newsletters" -- it is one newsletter with two sends per week.)
 
 **Rule:** Voice extraction has to be grounded in actual sends. Prior voice.md was speculative — derived from generalized "good email" advice, not from Brian's behavior. The new voice.md is observational, with the source corpus cited and example emails quoted verbatim. Refresh this rewrite quarterly or when Brian flags more than 3 drafts in a row for tone reasons.
 

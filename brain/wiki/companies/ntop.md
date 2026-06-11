@@ -17,7 +17,7 @@ nTop (formerly nTopology) is a NYC computational-design software company (implic
 
 ## Relationship
 
-- **2025 contract (executed):** SOW HWFYI-2025-011, $12,500, 6-month Weekend Wire sponsorship Sep 2025 - Mar 2026 (26 sends + 6 native/feature pieces + 1 event). Contract doc: Google Doc 1nyEPCc0J2gs-K6doyPdT34I4xgBu9chUTT-Rn7y60rM.
+- **2025 contract (executed):** SOW HWFYI-2025-011, $12,500, 6-month Hardware FYI newsletter sponsorship (Saturday edition, called "Weekend Wire" in the contract -- retired name) Sep 2025 - Mar 2026 (26 sends + 6 native/feature pieces + 1 event). Contract doc: Google Doc 1nyEPCc0J2gs-K6doyPdT34I4xgBu9chUTT-Rn7y60rM.
 - **2026 renewal (STALLED):** CRM HWFYI-2026-018, $12.5K. Mike Fynn balked at price 3/25 to 3/30; DocuSign envelope went out ~4/1 then total silence, no invoice or sends. Removed from CY2026 booked revenue in the 2026-06-09 contract audit (2025 spillover ~$5.4K preserved). Source: brain/candidates/2026-06-09-contract-revenue-audit.md.
 - Still listed in the Hardware FYI newsletter "Tools From Our Sponsors" partner block as of late May 2026.
 

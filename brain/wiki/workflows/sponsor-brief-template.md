@@ -13,7 +13,7 @@ Benji wants Kerri to learn to produce **sponsor advertising-metrics reports** ("
 
 This is a **build task**, not a one-pass sweep action. Picked up by Kerri 2026-06-11; not yet built. Plan to scope in an interactive session:
 1. Read the Colab report structure section by section (sections, KPIs, layout).
-2. Map each KPI to a data source we can pull per sponsor: placements/sends scheduled, opens, clicks, CTR, audience size (live figure to quote now is **19,000** Hardware FYI newsletter subscribers, Brian-set 2026-06-11; the **20,000+ combined across HWFYI + Weekend Wire** number goes live after a pending subscriber upload — see [[../properties/hardware-fyi-audience]]).
+2. Map each KPI to a data source we can pull per sponsor: placements/sends scheduled, opens, clicks, CTR, audience size (live figure to quote now is **19,000** Hardware FYI newsletter subscribers, Brian-set 2026-06-11; **20,000+** goes live after a pending subscriber upload -- see [[../properties/hardware-fyi-audience]]). Note: there is one newsletter (Hardware FYI), twice weekly Tue/Sat.
 3. Decide output format (PDF/Canva/Doc) and a generation path from campaign data.
 4. Return a short v1 plan to Benji before building.
 
