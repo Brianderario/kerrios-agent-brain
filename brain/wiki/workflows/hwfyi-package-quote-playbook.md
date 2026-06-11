@@ -31,6 +31,9 @@ How Brian writes a **post-call sponsor package quote**. Use this whenever the ne
 
 - Do NOT defend, justify, or itemize the price, and do NOT preemptively offer a discount.
 - Redirect to ROI against *their* stated goals: what the campaign delivers (the buyer audience, leads, content assets) and why that's worth it for what they're trying to do.
+- **When the sponsor doesn't see the value, there are exactly two moves** (Brian, 2026-06-11):
+  1. **Prove the value with evidence** — audience data ([[../properties/hardware-fyi-audience]], with its tier caveats), past campaign results, live issue examples showing where their units run, comparable sponsor outcomes.
+  2. **Suggest a different product that delivers the value they're actually looking for** — if Primary Placements aren't landing for their goal, maybe it's a Custom Article, Partner Program term, or webinar that maps to it. Re-bundle around their goal.
 - Reshaping the package (different bundle, shorter term, smaller scope) to hit their budget is fine — that changes the value delivered, which is different from haggling on the same package.
 
 This applies to every sponsor draft: replies to price pushback, follow-ups after a quote, and renewal conversations.
