@@ -12,7 +12,7 @@ secondary_contacts:
   - "Alex Lumsden <alexlumsden@colabsoftware.com>"
 mailbox: brian@hardwarefyi.com
 send_from: brian@hardwarefyi.com
-last_contact_date: 2026-05-29
+last_contact_date: 2026-06-10
 last_sender: us
 last_message_subject: "Re: CoLab Newsletter Sponsorship in 2026"
 thread_internet_message_ids: []
@@ -20,7 +20,7 @@ next_action_date: 2026-06-19
 last_nudge_date: 2026-06-10
 nudge_count: 1
 created_at: 2026-06-09
-updated_at: 2026-06-10
+updated_at: 2026-06-11
 source: kinetic-2026-roster
 ---
 

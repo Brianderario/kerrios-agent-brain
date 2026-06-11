@@ -11,7 +11,7 @@ primary_contact_email: Caroline.Gonzales@SummitInterconnect.com
 secondary_contacts: []
 mailbox: brian@hardwarefyi.com
 send_from: brian@hardwarefyi.com
-last_contact_date: 2026-06-03
+last_contact_date: 2026-06-10
 last_sender: us
 last_message_subject: "RE: [External] - Re: Summit Interconnect x Hardware FYI - 2026 Partnership"
 thread_internet_message_ids: []
@@ -19,7 +19,7 @@ next_action_date: 2026-06-15
 last_nudge_date: 2026-06-10
 nudge_count: 1
 created_at: 2026-06-09
-updated_at: 2026-06-10
+updated_at: 2026-06-11
 source: partnership-discussion
 ---
 
