@@ -1,8 +1,9 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-06-10",
   "decision": "brain/wiki/decisions/2026-06-09-autonomy-boundary.md",
-  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Google Task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach. Amended 2026-06-10 evening (Brian, interactive): info@hardwarefyi.com added as a Kerri-handled mailbox with autonomous handling of its outreach + inbound ('That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'); scoped via mailboxOverrides below, class tiers unchanged.",
+  "decisionActions": "brain/wiki/decisions/2026-06-10-app-action-autonomy.md",
+  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Google Task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach. Amended 2026-06-10 evening (Brian, interactive): info@hardwarefyi.com added as a Kerri-handled mailbox with autonomous handling of its outreach + inbound ('That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'); scoped via mailboxOverrides below, class tiers unchanged. Amended 2026-06-10 night (Brian, interactive — selected 'Raise act-authority (bounded)' when asked how to make future email-triggered app/long-running tasks hands-off): added the `actions` block governing NON-SEND actions (operating connected apps/services). Reversible config/ops + internal coordination = act-and-report (no pre-ask); customer/partner-facing content = draft-and-confirm; the neverAuto gate is inherited unchanged. Plus the escalateOnBlock rule. See decisionActions.",
   "tiers": {
     "auto": "Act with no approval. Internal-only, no external send, no commercial or financial risk.",
     "auto-logged": "Act without per-thread approval, then notify: entry in the morning-brief Auto-logged section + the standard auto-CC on every kerri@ send. No text alert (texts are the interrupt lane).",
@@ -73,6 +74,53 @@
       ]
     }
   },
+  "actions": {
+    "note": "The tiers/classes above govern OUTBOUND EMAIL. This block governs NON-SEND actions: operating connected apps/services and making in-tool changes, whether triggered by an email request or by Brian directly. The neverAuto gate applies to enactment here too. Added 2026-06-10 (Brian: 'Raise act-authority (bounded)'); see decisionActions.",
+    "tiers": {
+      "act-and-report": "Execute now with no pre-ask, verify the result, then log it (brain/log.md + NOW.md + morning-brief Auto-logged). No text unless Brian must act today.",
+      "draft-and-confirm": "Show Brian the exact change first, like an email draft; proceed on his ok.",
+      "gate": "Approval-first, never auto. Inherits neverAuto."
+    },
+    "act-and-report": {
+      "tier": "act-and-report",
+      "scope": [
+        "Reversible settings/config changes in a connected service: feature on/off, list or recommendation membership, automation enable/disable — anything with a one-step undo.",
+        "Internal coordination and housekeeping: scheduling, teammate calendar invites, status updates, edits to Kerri's own records/state.",
+        "Read and diagnostic actions in any connected tool."
+      ],
+      "conditions": [
+        "The change is reversible in one step (or trivially undoable). If it is not, it is a gate, not act-and-report.",
+        "The runner can actually reach the tool — a connected MCP/API, or a live browser in an interactive session. If it cannot, this is a BLOCK: escalate, do not silently park (see escalateOnBlock).",
+        "Verify the end state before reporting done. Brian is non-technical and judges by the result plus Kerri's account, so correctness is on Kerri.",
+        "Log to brain/log.md + NOW.md + the morning-brief Auto-logged section."
+      ]
+    },
+    "draft-and-confirm": {
+      "tier": "draft-and-confirm",
+      "scope": [
+        "Customer- or partner-facing content and copy: welcome emails, public posts, newsletter body, website copy.",
+        "Anything externally visible that is not a pure reversible config toggle."
+      ],
+      "note": "Show the exact proposed text/change; proceed on Brian's ok. For an S/W-facing surface, Brian is the sanctioned cross-boundary point."
+    },
+    "gate": {
+      "tier": "gate",
+      "inherits": "neverAuto",
+      "examples": [
+        "Money movement, spend, pricing, financial commitments.",
+        "Legal, contracts, signatures.",
+        "Permission, access-control, sharing, or identity changes.",
+        "Irreversible or destructive actions: hard deletes, purges, anything with no one-step undo.",
+        "CRM mutations.",
+        "Anything crossing the S/W boundary as commercial, content, legal, or finance substance."
+      ]
+    },
+    "escalateOnBlock": {
+      "rule": "When a task is blocked on missing access or a capability the current runner lacks, do NOT silently park it. Email Brian a 4-part request: (1) the task, (2) who it is for, (3) the exact access or session needed, (4) what it unblocks. Keep the parked task tied to that escalation so it cannot go stale. In an interactive session the block is often removable directly (e.g., a live browser via claude-in-chrome) — do it instead of emailing.",
+      "memory": "feedback_escalate_on_block",
+      "addedBy": "Brian 2026-06-10"
+    }
+  },
   "trustedInternal": [
     "brian@kerrihq.com",
     "brian@hardwarefyi.com",
@@ -103,6 +151,7 @@
     "legal / contracts / signatures",
     "finance / any spend; refunds or COGS over $2,500",
     "permission or identity changes",
+    "irreversible or destructive actions (hard deletes, purges, anything with no one-step undo)",
     "anything crossing the S/W boundary"
   ]
 }
