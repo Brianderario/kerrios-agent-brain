@@ -24,7 +24,7 @@ accountId, the contracts-folder requirement, and the exact `createEnvelope` call
 
 - **Approval-gated.** A contract is an **external send** + a **legal commitment** → hard gate. Build the
   envelope as a DRAFT (`status:"created"`). Never send without `approved=true` + `approvalSource`
-  (where/when Brian approved), routed through Google Tasks first.
+  (where/when Brian approved), routed through Kerri Console first.
 - **No double-send.** Before building, prove no contract already went out for this jobId (brain `log.md`
   / `data/jobs.json` / DocuSign `getEnvelopes`). A re-send needs explicit `SECOND SEND APPROVED BY BRIAN`.
 - **jobId is per-customer.** CUSTOMER LOOKUP first; reuse the existing jobId (Duro = `H0014`).
@@ -67,9 +67,10 @@ accountId, the contracts-folder requirement, and the exact `createEnvelope` call
   **envelopeId**. (If you ever re-lay-out the MASTER signature block, re-calibrate the offsets per the
   reference before sending — placement is template-specific.)
 
-### 5. Approval gate (Google Tasks)
-- Create a Google Task on the **Hardware FYI** list, title `<JOBID> — <Company> — Partner Program contract`.
-- Notes: filled-field summary (legal name, signer + email, fee, term, deliverables, payment terms, start
+### 5. Approval gate (Kerri Console)
+- Create a Kerri Console task under **Hardware FYI**, title `<JOBID> — <Company> — Partner Program contract`.
+- Use `node scripts/console-task-api.mjs create --status needs_approval --agent-slug send-partner-contract --property-slug hardware-fyi --job-ref <JOBID> --external-ref kerrios:contract:<JOBID>:<sha12>`.
+- Body: filled-field summary (legal name, signer + email, fee, term, deliverables, payment terms, start
   date), the **filled Google Doc link**, and the **envelopeId**. Do NOT send until Brian approves.
 
 ### 6. Send on approval

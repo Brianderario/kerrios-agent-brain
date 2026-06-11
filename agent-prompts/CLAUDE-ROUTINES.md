@@ -68,7 +68,7 @@ Cron times below are the historical Claude schedule in ET (assumes the Mac clock
 
 | Routine | cron | Prompt | Perceive → Propose → Gate → Act → Record → Improve |
 |---|---|---|---|
-| `kerri-inbox-sweep` | `*/15 * * * *` | `kerri-inbox-sweep/SKILL.md` | 4 mailboxes → drafts/tasks → Google Tasks checkbox → send on approval → `jobs.json` + cursors + grades + `draft-learnings.md` → `💡 SUGGESTION` task |
+| `kerri-inbox-sweep` | `*/15 * * * *` | `kerri-inbox-sweep/SKILL.md` | 4 mailboxes → drafts/tasks → Kerri Console approval → send on approval → `jobs.json` + cursors + grades + `draft-learnings.md` → `💡 SUGGESTION` task |
 | `kerri-morning-brief` | `57 6 * * 1-5` | `kerri-morning-brief/SKILL.md` | today's mtgs + Chase alerts + Tasks → HTML brief → none (read-only) → email kerri→brian@kerrihq + text if attention needed → `output/morning-brief/` + grade → brief-quality miss. STEP 0 preflight (`scripts/morning-brief-run-state.mjs --start`) stamps run-started + writes an in-progress HTML skeleton so a mid-run crash is never silent; STEP 4 `--finish` marks the run complete. |
 | `kerri-morning-brief-retry` | `15 7 * * 1-5` | `kerri-morning-brief-retry/SKILL.md` | guard `morning-brief-run-state.mjs --check-needed` → if brief already delivered (or weekend) silent no-op, else re-run `kerri-morning-brief/SKILL.md` → recovers a crashed/missing 7:00am run ~07:18 ET, before the 07:30 liveness dark threshold. Auto-recovery counterpart to the STEP 0 crash-evidence stamp. |
 | `kerri-brain-push` | `0 22 * * *` | `kerri-brain-push/SKILL.md` | brain/prompt diff → commit set → push gate → push → `brain/log.md` + `brain-push-state.json` → hygiene fix. *(Overlaps the Stop-hook auto-sync `kerri-sync.sh` — open decision: keep as belt-and-suspenders or drop.)* |
@@ -78,7 +78,7 @@ Cron times below are the historical Claude schedule in ET (assumes the Mac clock
 
 | Routine | cron | Prompt | Loop |
 |---|---|---|---|
-| `kerri-eod-meetings-review` | `28 18 * * 1-5` | `kerri-eod-meetings-review/SKILL.md` | calendar + Granola → follow-up drafts + recap → Google Tasks approval → drafts → meeting/entity memory + `jobs.json` routing → recap/recording miss |
+| `kerri-eod-meetings-review` | `28 18 * * 1-5` | `kerri-eod-meetings-review/SKILL.md` | calendar + Granola → follow-up drafts + recap → Kerri Console approval → drafts → meeting/entity memory + `jobs.json` routing → recap/recording miss |
 
 ## Loop 2 · Sales pod (first-day core audit passed 2026-05-31 — revenue agents now scheduled)
 

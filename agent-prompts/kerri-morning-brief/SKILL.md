@@ -83,7 +83,7 @@ Use America/New_York.
 
 - Today: 00:00 ET to 23:59 ET.
 - Chase spend window: yesterday 00:00 ET to 23:59 ET. If today is Monday, still use Sunday only unless Brian later asks for weekend rollup.
-- Pending task window: all open Google Tasks in the three Kerri lists, emphasizing overdue, due today, and approval tasks.
+- Pending task window: all open Kerri Console tasks, emphasizing overdue, due today, approval tasks, and queue-health warnings.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — COLLECT SIGNALS
@@ -118,16 +118,18 @@ Chase spend from Gmail:
 - If a message has a merchant but no amount, list it as `amount unknown` and do not include it in the total.
 - If Gmail is unavailable, include a visible "Chase unavailable" card in the HTML and record the degraded state.
 
-Google Tasks:
+Kerri Console tasks:
 
-- Read Hardware FYI, Standard & Works, and Kerri MG lists.
+- Run `node scripts/console-task-api.mjs health`.
+- Run `node scripts/console-task-api.mjs list --open --per-page 100`.
 - Include pending tasks needing Brian's attention:
-  - tasks with status `needsAction`
-  - approval tasks where checking means send/approve
+  - tasks with status `needs_approval`, `action_needed`, or `discuss`
+  - approval tasks where Console approve means send/approve
   - tasks due today or overdue
   - Kerri `💡 SUGGESTION:` tasks needing a decision
-- Exclude completed tasks unless completed status changed since yesterday and the completion matters.
-- For each task, capture list, title, due date, action Brian needs to take, and why it matters in one line.
+- Exclude done tasks unless completion changed since yesterday and the completion matters.
+- For each task, capture property, title, due date, action Brian needs to take, and why it matters in one line.
+- If health status is `attention` or `waiting`, show the health label in the brief and record the degraded source. Never invent queue contents.
 
 Approval queue (dollars + latency):
 
@@ -160,9 +162,9 @@ Hardware FYI Revenue Focus:
 - Always include one concise Revenue Focus card tied to `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md`.
 - Read the canonical `CY2026 Revenue Goal` tab in the Hardware FYI Sheet when a current goal-progress number is needed. Use `node scripts/hwfyi-revenue-goal-sheet.mjs --pipeline-summary` for booked/open/weighted/status counts when Sheets credentials are available. If the tab cannot be read or is stale, explicitly label the card as task/deal-derived rather than a fresh revenue-total read.
 - When showing pipeline, use the central statuses exactly: `Prospect`, `Interest`, `Contract Won`, `Contract Lost`. Prioritize next actions from `Interest` first, then high-value `Prospect`; do not treat lead-research-only names as pipeline.
-- Build the next-move recommendation from pending Hardware FYI Google Tasks, active `brain/wiki/deals/` pages, recent `brain/log.md` entries, and visible pipeline/cold-outreach state.
-- Surface approval lag as a blocker: if cold-outreach, pipeline, or renewal drafts have been waiting on Brian's approval for more than 24 hours, say so explicitly with counts and age (e.g., "10 cold drafts + 2 renewal drafts waiting since yesterday — revenue is blocked on your checkbox"). Unapproved drafts are the cheapest revenue unlock of the morning.
-- Prefer one concrete next move WITH the action verb Brian takes: "approve the <Company> renewal draft", "call <Name> to close <deal>", "check the cold batch in Hardware FYI tasks". A number without an action is not decision-ready.
+- Build the next-move recommendation from pending Hardware FYI Console tasks, active `brain/wiki/deals/` pages, recent `brain/log.md` entries, and visible pipeline/cold-outreach state.
+- Surface approval lag as a blocker: if cold-outreach, pipeline, or renewal drafts have been waiting on Brian's approval for more than 24 hours, say so explicitly with counts and age (e.g., "10 cold drafts + 2 renewal drafts waiting since yesterday — revenue is blocked on your approval"). Unapproved drafts are the cheapest revenue unlock of the morning.
+- Prefer one concrete next move WITH the action verb Brian takes: "approve the <Company> renewal draft", "call <Name> to close <deal>", "open the cold batch in Kerri Console". A number without an action is not decision-ready.
 - Do not send, price, commit inventory, or mutate CRM from the morning brief. Route any external action into the relevant approval workflow.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -318,10 +320,10 @@ Allowed writes:
 
 - Append one compact run entry to `data/morning-brief-state.json`.
 - Append one line to `brain/log.md` if the brief escalated an important open loop or identified a system gap.
-- Create a Kerri MG Google Task only when the brief finds a concrete system/process improvement, deduped against existing open `💡 SUGGESTION:` tasks.
+- Create a Kerri MG Console task only when the brief finds a concrete system/process improvement, deduped against existing open `💡 SUGGESTION:` tasks.
 - Do not write Chase transaction details into `brain/log.md` or wiki pages. Store only aggregate/degraded-state metadata in `data/morning-brief-state.json`.
 
-Do not create duplicate tasks for inbox items already represented in Google Tasks.
+Do not create duplicate tasks for inbox items already represented in Kerri Console.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 6 — SELF-GRADE
@@ -365,7 +367,7 @@ ERROR HANDLING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 - If calendar tools fail, still produce a degraded brief from Tasks + KerriOS and say "calendar unavailable."
-- If Google Tasks fails, do not invent approval state; say "Tasks unavailable" if sending a brief.
+- If Kerri Console tasks fail, do not invent approval state; say "Console tasks unavailable" if sending a brief.
 - If Gmail/Chase search fails, still produce the HTML with a "Chase unavailable" card.
 - If email delivery fails, write the brief to `data/morning-brief-fallback-<YYYY-MM-DD>.md` and record the failure in state.
 - Never send external emails or mutate external source-of-truth systems from the morning brief.

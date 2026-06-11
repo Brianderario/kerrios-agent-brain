@@ -3,12 +3,12 @@
   "updatedAt": "2026-06-10",
   "decision": "brain/wiki/decisions/2026-06-09-autonomy-boundary.md",
   "decisionActions": "brain/wiki/decisions/2026-06-10-app-action-autonomy.md",
-  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Google Task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach. Amended 2026-06-10 evening (Brian, interactive): info@hardwarefyi.com added as a Kerri-handled mailbox with autonomous handling of its outreach + inbound ('That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'); scoped via mailboxOverrides below, class tiers unchanged. Amended 2026-06-10 night (Brian, interactive — selected 'Raise act-authority (bounded)' when asked how to make future email-triggered app/long-running tasks hands-off): added the `actions` block governing NON-SEND actions (operating connected apps/services). Reversible config/ops + internal coordination = act-and-report (no pre-ask); customer/partner-facing content = draft-and-confirm; the neverAuto gate is inherited unchanged. Plus the escalateOnBlock rule. See decisionActions.",
+  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Kerri Console task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach. Amended 2026-06-10 evening (Brian, interactive): info@hardwarefyi.com added as a Kerri-handled mailbox with autonomous handling of its outreach + inbound ('That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'); scoped via mailboxOverrides below, class tiers unchanged. Amended 2026-06-10 night (Brian, interactive — selected 'Raise act-authority (bounded)' when asked how to make future email-triggered app/long-running tasks hands-off): added the `actions` block governing NON-SEND actions (operating connected apps/services). Reversible config/ops + internal coordination = act-and-report (no pre-ask); customer/partner-facing content = draft-and-confirm; the neverAuto gate is inherited unchanged. Plus the escalateOnBlock rule. See decisionActions. Amended 2026-06-11: Console Tasks replaced Google Tasks as the approval surface.",
   "tiers": {
     "auto": "Act with no approval. Internal-only, no external send, no commercial or financial risk.",
     "auto-logged": "Act without per-thread approval, then notify: entry in the morning-brief Auto-logged section + the standard auto-CC on every kerri@ send. No text alert (texts are the interrupt lane).",
-    "ask": "Default. Draft to Google Tasks; send only after Brian checks the box.",
-    "ask-batch": "One daily batch task; one checkbox approves the batch.",
+    "ask": "Default. Draft to Kerri Console tasks; send only after Brian approves in Console.",
+    "ask-batch": "One daily batch task; one Console approval approves the batch.",
     "brian-sends": "Kerri drafts only; Brian sends manually from his own mailbox.",
     "never-auto": "Permanent hard gate. No track record promotes these."
   },
@@ -22,7 +22,7 @@
         "Send identity is Kerri (kerri@hardwarefyi.com) for an H/G context, OR the Superhuman S/W account (brian@standardandworks.com) for an internal-only S-prefix thread (no HWFYI auto-CC, boundary scrubs apply).",
         "The no-double-email gate runs exactly as for approved sends.",
         "The reply does not ENACT a gated decision (granting access, committing spend, signing, mutating CRM, crossing the S/W boundary). Discussing gated topics and routing the decision to Brian inside the reply is required and is NOT grounds to hold the reply (Brian decision 2026-06-10; the earlier blanket no-commitment hedge caused the Ari QB/Stripe miss).",
-        "If part of the request needs Brian personally, the reply still sends, covering everything else and naming what is queued for Brian, plus one Google Task for Brian's specific action.",
+        "If part of the request needs Brian personally, the reply still sends, covering everything else and naming what is queued for Brian, plus one Kerri Console task for Brian's specific action.",
         "Policy file unreadable: the P1 rule in the sweep prompt still applies as a standing Brian decision (2026-06-10); identity, boundary, and no-double-email rules remain mandatory."
       ]
     },
@@ -51,7 +51,7 @@
     "cold-send": {
       "tier": "ask-batch",
       "rampEligible": false,
-      "note": "Brand + volume risk. One-checkbox daily batch stays."
+      "note": "Brand + volume risk. One Console approval for the daily batch stays."
     },
     "gmail-draft-only": {
       "tier": "brian-sends",

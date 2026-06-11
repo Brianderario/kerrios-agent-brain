@@ -4,7 +4,7 @@
 // kerri-gap-sweep class M. Two kinds of connector:
 //   • CLI-checkable (cli): things this standalone process can actually verify —
 //     the Sendblue text-alert path (how every watchdog reaches Brian), git,
-//     and the gtasks list-id config. These get a real reachable/down verdict.
+//     and the Kerri Console task API config. These get a real reachable/down verdict.
 //   • Session-scoped (session): MCP connectors (email mailboxes, Granola,
 //     Reclaim, Slack) only exist inside a Claude/Codex session, so a CLI can't
 //     probe them. Run from a session (e.g. the gap-sweep) and pass
@@ -17,7 +17,7 @@
 //
 // Usage:
 //   node scripts/connector-probe.mjs
-//   node scripts/connector-probe.mjs --available "kerri-hardwarefyi-email,gtasks,granola"
+//   node scripts/connector-probe.mjs --available "kerri-hardwarefyi-email,granola"
 //   node scripts/connector-probe.mjs --alert            # text Brian if a required connector is down
 //   node scripts/connector-probe.mjs --json --root <dir> --skip-live   # test hooks
 
@@ -25,6 +25,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { resolveConfig } from './console-task-api.mjs';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const TEXT_ALERT = '/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs';
@@ -47,7 +48,7 @@ function parseArgs(values) {
 const CONNECTORS = {
   sendblue: { kind: 'cli', requiredBy: ['all-watchdogs', 'kerri-inbox-sweep', 'kerri-morning-brief', 'kerri-eod-meetings-review', 'kerri-gap-sweep'] },
   git: { kind: 'cli', requiredBy: ['kerri-brain-push', 'kerri-gap-sweep'] },
-  gtasks: { kind: 'session', cliProxy: 'gtasks-lists.json', requiredBy: ['kerri-inbox-sweep', 'kerri-eod-meetings-review', 'kerri-gap-sweep'] },
+  'console-tasks': { kind: 'cli', requiredBy: ['kerri-inbox-sweep', 'kerri-morning-brief', 'kerri-eod-meetings-review', 'kerri-gap-sweep'] },
   'kerri-hardwarefyi-email': { kind: 'session', requiredBy: ['kerri-inbox-sweep'] },
   'brian-hardwarefyi-email': { kind: 'session', requiredBy: ['kerri-inbox-sweep'] },
   gmail: { kind: 'session', requiredBy: ['kerri-inbox-sweep', 'kerri-morning-brief'] },
@@ -74,6 +75,28 @@ function probeGit(root) {
     : { status: 'down', detail: 'not a git repo / git missing' };
 }
 
+function probeConsoleTasks(opts) {
+  try {
+    const config = resolveConfig({ envFile: opts.consoleEnvFile });
+    if (opts.skipLive) return { status: 'reachable', detail: `token configured for ${config.baseUrl}` };
+    const script = path.join(repoRoot, 'scripts', 'console-task-api.mjs');
+    const r = spawnSync(process.execPath, [script, 'health'], {
+      encoding: 'utf8',
+      timeout: 20000,
+      env: {
+        ...process.env,
+        KERRIHQ_SYNC_TOKEN: config.token,
+        KERRIHQ_API_BASE: config.baseUrl
+      }
+    });
+    if (r.status === 0) return { status: 'reachable', detail: 'health ok' };
+    const detail = (r.stderr || r.stdout || '').trim().split('\n').slice(-1)[0] || `exit ${r.status}`;
+    return { status: 'down', detail: `health failed: ${detail}` };
+  } catch (error) {
+    return { status: 'down', detail: error.message };
+  }
+}
+
 export function probeConnectors(root, opts = {}) {
   const available = opts.available; // Set or null
   const results = [];
@@ -82,6 +105,7 @@ export function probeConnectors(root, opts = {}) {
     if (cfg.kind === 'cli') {
       if (name === 'sendblue') verdict = probeSendblue(opts.skipLive);
       else if (name === 'git') verdict = probeGit(root);
+      else if (name === 'console-tasks') verdict = probeConsoleTasks(opts);
       else verdict = { status: 'unverified', detail: 'no probe' };
     } else {
       // session connector
@@ -115,7 +139,11 @@ function main() {
   const available = args.available && args.available !== true
     ? new Set(String(args.available).split(',').map((s) => s.trim()).filter(Boolean))
     : null;
-  const report = probeConnectors(root, { available, skipLive: Boolean(args['skip-live']) });
+  const report = probeConnectors(root, {
+    available,
+    skipLive: Boolean(args['skip-live']),
+    consoleEnvFile: args['console-env-file'] && args['console-env-file'] !== true ? args['console-env-file'] : undefined
+  });
 
   if (args.alert && report.down.length) {
     const msg = `⚠️ Connectors down: ${report.down.join(', ')} — at risk: ${report.routinesAtRisk.join(', ')}`;

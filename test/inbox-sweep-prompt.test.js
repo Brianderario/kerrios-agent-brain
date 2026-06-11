@@ -62,11 +62,11 @@ test('inbox sweep prompt preserves approval gates and mailbox routing', () => {
     'brian@kerrihq.com → the Gmail connector',
     'NO send. Kerri never sends as brian@kerrihq.com',
     'brian@standardandworks.com → the Superhuman connector',
-    'Google Tasks → `kerri-gdocs`',
-    'APPROVAL CHANNEL: Google Tasks, three lists',
+    'Kerri Console tasks API → `node scripts/console-task-api.mjs ...`',
+    'APPROVAL CHANNEL: Kerri Console production Tasks board',
     'that mailbox fails closed this run',
     'never silently shrink coverage',
-    'Never send email if the task lists cannot be read first.',
+    'Never send email if the Console queue cannot be read first.',
     'enforce approved=true + approvalSource on every send',
     'The S/W boundary, the no-double-email gate, and the external approval gate are permanent.'
   ]);
@@ -118,7 +118,7 @@ test('internal autopilot is scoped to trustedInternal with no outside recipients
     'INTERNAL AUTOPILOT (P1): sender is trustedInternal AND no outside recipient anywhere on the chain',
     'Run the no-double-email gate first.',
     'approvalSource: "auto: internal teammate reply per P1 (Brian decision 2026-06-10); all recipients trustedInternal"',
-    'Record the job (actionClass internal-recipient-reply, autoLogged true, status sent, gtasksTaskId null)',
+    'Record the job (actionClass internal-recipient-reply, autoLogged true, status sent, consoleTaskId null)',
     'No task, no text.',
     "The morning brief's auto-logged section is the recap surface.",
     'Brian-must-act carve-out'
@@ -183,7 +183,7 @@ test('inbox sweep prompt blocks double emails before every send on every path', 
     'every internetMessageIds[] value',
     'If Brian or Kerri already replied after the task/draft was created, fail closed',
     'SECOND SEND APPROVED BY BRIAN',
-    'If duplicate status cannot be verified (Tasks, mailbox, or state unreachable), send nothing.',
+    'If duplicate status cannot be verified (Console queue, mailbox, or state unreachable), send nothing.',
     'count it in `doubleEmailBlocks`'
   ]);
 });
@@ -193,8 +193,8 @@ test('inbox sweep prompt blocks double emails before every send on every path', 
 // precedence rule (the 3.5-hour missed-approval incident is now cited inline).
 test('inbox sweep cross-checks live task status before trusting the listing', () => {
   assertAll(prompt, [
-    'per-pending-job gtasks_get_task (the live source of truth for decisions)',
-    'The per-job gtasks_get_task result outranks any list view (list caches miss checked boxes'
+    'node scripts/console-task-api.mjs list --resolved pending --per-page 100',
+    'The Console task row is the live source of truth.'
   ]);
 });
 
@@ -209,7 +209,7 @@ test('unmatched and EOD-sourced tasks fail closed instead of sending', () => {
     '⚠ ORPHAN — no jobs.json entry; needs interactive reconciliation',
     'EOD-sourced tasks (`🌙` titles / `EOD source tag:`) are sendable only when the EOD runner wrote the matching job with routing metadata',
     'Existing-chain routing is mandatory: reply on the stored thread',
-    'if the stored route is missing or stale, send nothing and flip the task to `⚠️ route needed`'
+    'if the stored route is missing or stale, send nothing and update the Console task to `status=action_needed` with `⚠️ route needed` in the title/body'
   ]);
 });
 
@@ -219,10 +219,10 @@ test('task decisions follow ACTION-line precedence and deletion is never approva
   assertAll(prompt, [
     'No exceptions, no inference of approval. Deletion of a task is closure, not approval.',
     'ACTION: send | skip | redo | discuss',
-    'PRECEDENCE: an ACTION of skip or redo wins over a checked box',
-    'a checked task with ACTION: skip is a deliberate close, not an approval',
-    'gtasks_get_task returns deleted:true → closed by Brian, NOT approval',
-    'skipReason "task deleted in Google Tasks by Brian", log one line, never recreate'
+    'PRECEDENCE: an ACTION of skip or redo wins over a generic approval signal',
+    'an approved task with ACTION: skip is a deliberate close, not a send approval',
+    'Console task missing/deleted while the job is still pending → closure, NOT approval',
+    'skipReason "Console task removed by Brian; deletion is not approval"'
   ]);
 });
 
@@ -331,7 +331,7 @@ test('inbox sweep prompt suppresses repeated identical error texts', () => {
     'Always gate through `scripts/inbox-sweep-error-dedupe.mjs` first',
     'stays silent in texts but keeps being recorded in state/grades',
     're-alerts when the reason changes materially',
-    'Tasks readability itself is at risk, which stays the highest-priority alert at most hourly',
+    'Console queue readability itself is at risk, which stays the highest-priority alert at most hourly',
     'errorAlertSuppressed'
   ]);
 
@@ -346,9 +346,9 @@ test('inbox sweep prompt suppresses repeated identical error texts', () => {
 // on send/skip/close, so the marker's lifecycle ends with the task.
 test('inbox sweep prompt protects redo provenance and new-reply markers', () => {
   assertAll(prompt, [
-    'Diff the notes DRAFT block (between `>>>>>>>` and `<<<<<<<`) against job.originalDraft',
+    'diff the task-body DRAFT block (between `>>>>>>>` and `<<<<<<<`) against job.originalDraft',
     'skip the lesson when notes carry a `DRAFT SOURCE:` provenance line from a Kerri redo',
-    'rewrite task notes with `DRAFT SOURCE: inbox-sweep redo at <ET>`',
+    'rewrite the same Console task body with `DRAFT SOURCE: inbox-sweep redo at <ET>`',
     'prefix the title 🆕 if not already. No duplicate task.'
   ]);
 });
@@ -363,7 +363,7 @@ test('inbox sweep prompt updates cold outreach state after approved sends', () =
     'drafts live in cold-outreach-state.json#drafted',
     'move drafted→sent',
     'SKIP #n (drafted→skipped, lead back to new)',
-    'A batch task found deleted:true while never completed = Brian declining the batch',
+    'A batch task removed while never approved = Brian declining the batch after replacement-check',
     'Cap counters were already incremented at draft time; never re-send an already-sent index.'
   ]);
 });
@@ -390,7 +390,7 @@ test('inbox sweep prompt mandates trust instrumentation on jobs and run grades',
   assertAll(prompt, [
     '"actionClass": "<one of the 8 classes below>"',
     '"originalDraft": "...", "sentDraft": null, "decidedAt": null',
-    'Update job (status sent, sentAt, sentDraft, decidedAt)',
+    'Update job (status sent, sentAt, sentDraft, decidedAt, approvalSource)',
     'job skipped, decidedAt stamped',
     'close the duplicate with decidedAt stamped'
   ]);
@@ -461,15 +461,15 @@ test('inbox sweep prompt includes honest self-grading with hard floors', () => {
     'Daily (first run after 20:30 ET)',
     'Weekly (Friday after 16:00 ET)',
     'Hard floors: an unapproved send, wrong identity, wrong thread, or S/W leak is an automatic 0 on approval safety plus an immediate text.',
-    'A run that cannot read Google Tasks sends nothing and records fail_closed.',
+    'A run that cannot read the Kerri Console queue sends nothing and records fail_closed.',
     'A silent drop of a real email caps the run grade at 2.'
   ]);
 });
 
-// v1: "routes suggestions through relevance-gated Google Tasks". The standalone
+// v1: "routes suggestions through relevance-gated approval tasks". The standalone
 // google-tasks-improvement-suggestions.md doc and Codex/Claude-era runner vocabulary
 // are gone (d052b09); the relevance gate, dedupe, and no-self-modification rule remain.
-test('inbox sweep prompt routes suggestions through relevance-gated Google Tasks', () => {
+test('inbox sweep prompt routes suggestions through relevance-gated Console tasks', () => {
   assertAll(prompt, [
     'max one new `💡 SUGGESTION:` task per run',
     'OBSERVED / BUILD RELEVANCE (relevant | already-solved | obsolete | needs-human-policy, checked against current canonical files) / PROPOSED / COST-RISK',

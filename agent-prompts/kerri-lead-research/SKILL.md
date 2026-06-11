@@ -17,7 +17,7 @@ Scheduled runs must use a cheap preflight before loading broad context or callin
 2. **Healthy queue no-op.** If the queue already has at least 25 ready, hook-bearing entries and no obvious quality problem, write only compact state/grade/log output and stop. Do not run Apollo, WebFetch, CRM reads, broad wiki scans, or full historical log reads on a healthy scheduled run.
 3. **Bounded sourcing.** For scheduled top-ups, source only what is needed to restore 25 ready queue entries plus a skip buffer, capped by the 30-candidate run budget. Stop as soon as the queue is back to at least 25 ready entries.
 4. **Bulk and paginate.** For backfills or dry sources, use bulk/paginated APIs and checkpoint results. Do not call one enrichment tool per company when a bulk endpoint is available.
-5. **Compact durable output.** Save raw discovery details to `data/lead-research/batches/<YYYY-MM-DD-run>.json` when audit detail is required. Logs, Slack, Google Tasks, and `NOW.md` handoffs must contain counts, lane summaries, top few examples, blockers, and next action only; no raw Apollo/WebFetch payloads.
+5. **Compact durable output.** Save raw discovery details to `data/lead-research/batches/<YYYY-MM-DD-run>.json` when audit detail is required. Logs, Slack, Kerri Console tasks, and `NOW.md` handoffs must contain counts, lane summaries, top few examples, blockers, and next action only; no raw Apollo/WebFetch payloads.
 6. **No broad docs on no-op.** Do not load full `NOW.md`, full `brain/log.md`, full company/person wiki directories, old completed task lists, or raw emails during a quiet scheduled top-up.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

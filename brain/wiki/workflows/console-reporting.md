@@ -1,14 +1,14 @@
 # Console reporting protocol (KMG Console / kerrihq-rails)
 
-scope: workflow · created: 2026-06-10 · status: **STAGED, not yet active** (activates when the Console deploys to production and an API key is issued)
+scope: workflow · created: 2026-06-10 · status: **ACTIVE** (Rails production Console is the approval queue)
 
-Every scheduled KMG routine reports its runs to the Console (mission control) and files human-facing work onto the Tasks board there. Google Tasks stays the approval book of record until Brian confirms board parity; during the transition, routines write to BOTH.
+Every scheduled KMG routine reports its runs to the Console (mission control) and files human-facing work onto the Tasks board there. Kerri Console Tasks is the approval book of record. Do not create new Google Tasks approval items.
 
 ## Connection
 
-- MCP endpoint: `https://kerrihq-rails.onrender.com/mcp/sse`, Bearer API key (scopes: `agents:write`, `tasks:read`, `tasks:write`)
-- REST fallback: `POST https://kerrihq-rails.onrender.com/api/v1/agent_runs` and `/api/v1/tasks`
-- The API key will live in `brain/.local/` (gitignored) once issued. NEVER commit it.
+- REST/API base: `https://kerrihq-rails-xtua.onrender.com/api/v1`
+- Local helper: `node scripts/console-task-api.mjs health|list|show|create|update|mark-applied`
+- API key: `~/.kerri-chief/secrets/kerrihq.env` (`KERRIHQ_SYNC_TOKEN`, scopes `tasks:read tasks:write`; NEVER commit it)
 
 ## 1. Report every run (end of routine, success AND failure)
 
@@ -24,17 +24,17 @@ A run that crashes before reporting is caught by the Console's daily health chec
 
 ## 2. File tasks on the board
 
-When a routine would create a Google Task today, ALSO call `create_task`:
+When a routine needs Brian's attention, create a Console task:
 - `title`: same `<JOBID> — <Company> — <Subject>` format
 - `status`: `needs_approval` for approval-rail items; `action_needed` / `waiting_reply` / `discuss` per the situation
-- `body`: ACTION line + context + draft, same as the Google Task notes
+- `body`: ACTION line + context + draft
 - `job_ref`: the H/S/G jobId
-- `property_slug`: `hardware-fyi` | `kinetic` | `standard-and-works`
-- `external_ref`: the Google Task id (keeps the two rails linked and the mirror idempotent)
+- `property_slug`: `hardware-fyi` | `kerri-media-group` | `standard-works`
+- `external_ref`: deterministic idempotency key, usually `kerrios:<routine>:<jobId>:<sha12>`
 
 ## 3. Read approvals back
 
-Brian resolving a `needs_approval` card moves it to `done` with `resolution` = `approved` | `skipped`. Poll via `list_tasks` (filter `status: done`) and treat `approved` exactly like a checked Google Tasks box, `skipped` like an explicit skip. During the transition, Google Tasks remains authoritative on conflicts.
+Brian resolving a `needs_approval` card moves it to `done` with `resolution` = `approved` | `skipped`; redo leaves it open with `resolution=redo_requested`. Poll `node scripts/console-task-api.mjs list --resolved pending --per-page 100`. After applying a decision, call `node scripts/console-task-api.mjs mark-applied --id <taskId> --note "<what happened>"` so the decision is acknowledged and will not execute twice.
 
 ## 4. Adjustment requests
 
@@ -43,11 +43,11 @@ Brian resolving a `needs_approval` card moves it to `done` with `resolution` = `
 ## Related
 
 - [[agent-brain-protocol]] — the 4-step loop these reports feed
-- [[google-tasks-improvement-suggestions]] — suggestion rail (unchanged)
+- [[google-tasks-improvement-suggestions]] — legacy relevance rules for improvement suggestions; delivery is now Console tasks
 - Console API docs: `/api_docs` in the Console (full tool list, 23 tools)
 
 ## 5. Outreach recording (Brian decision 2026-06-10, evening)
 
-The Console NEVER sends email. Sends stay on the existing approval rail (Google Tasks + Kerri's mailbox MCPs). After a send completes, the sending agent calls `record_outreach` (deal_id, summary, contact_emails incl CCs, job_ref, thread_subject) so the Console stays the source of truth for who was contacted where. Same for calls/LinkedIn touches (channel param).
+The Console NEVER sends email. Sends stay in Kerri's mailbox MCPs after Brian approves in Console. After a send completes, the sending agent calls `record_outreach` (deal_id, summary, contact_emails incl CCs, job_ref, thread_subject) so the Console stays the source of truth for who was contacted where. Same for calls/LinkedIn touches (channel param).
 
-Division of record: **brain** = deep knowledge + quick text for agents; **Console** = the dynamic shared picture for humans AND agents (CRM, pipeline, tasks, revenue, agent runs). Update both, the same way Google Tasks and the brain are updated today.
+Division of record: **brain** = deep knowledge + quick text for agents; **Console** = the dynamic shared picture for humans AND agents (CRM, pipeline, tasks, revenue, agent runs). Update both; do not add a third Google Tasks control surface back into the loop.

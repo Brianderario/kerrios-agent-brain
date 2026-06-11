@@ -54,7 +54,7 @@ Use live/source-backed surfaces before acting on revenue state:
 - `Hardware FYI CRM`, especially `Contract List`, `Contract Breakdown`, `Leads`, `Newsletter Ad Calendar`, and `Event, Webinar & Custom Content Schedule`.
 - Stripe, invoice, contract, or DocuSign evidence when cash/booking status matters.
 - Custom Hardware FYI/Kerri mailbox threads for current buyer intent and sent-history proof.
-- Google Tasks approval packets for drafted asks and pending sends.
+- Kerri Console approval packets for drafted asks and pending sends.
 - `data/leads-master.json`, `data/cold-outreach-queue.json`, `data/cold-outreach-state.json`, and `data/pipeline-followup-state.json` as local operating ledgers, never as a substitute for live CRM/payment truth.
 
 If a run cannot refresh a live source, label the recommendation as not-current and avoid claiming fresh revenue totals.

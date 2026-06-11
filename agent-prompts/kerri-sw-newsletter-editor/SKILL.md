@@ -78,7 +78,7 @@ If the writer left a beehiiv draft (`currentDraftId` is set):
 - Replace the body with the edited Markdown
 - Save as draft (still don't publish)
 
-If Chrome bridge fails: update the existing Google Task notes (`📰 SW-NEWS-<targetDate>`) with the edited version + a one-line `EDITOR PASS COMPLETE` header.
+If Chrome bridge fails: update the existing Kerri Console task body (`📰 SW-NEWS-<targetDate>`) with the edited version + a one-line `EDITOR PASS COMPLETE` header.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 6 — SLACK BRIAN
@@ -92,7 +92,7 @@ Flags raised: <N>
   · <flag 2>
   · …
 
-Beehiiv draft updated: <yes | fallback to Google Task>
+Beehiiv draft updated: <yes | fallback to Kerri Console>
 Marketing-copy sub-agent runs after publish.
 ```
 

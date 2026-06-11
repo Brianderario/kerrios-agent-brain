@@ -8,21 +8,34 @@ import { fileURLToPath } from 'node:url';
 
 const script = fileURLToPath(new URL('../scripts/connector-probe.mjs', import.meta.url));
 
-function fixture({ gtasks = true } = {}) {
+function fixture({ consoleTasks = true } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'kerrios-conn-'));
   fs.mkdirSync(path.join(root, 'data'), { recursive: true });
+  const envFile = path.join(root, 'kerrihq.env');
   spawnSync('git', ['init', '-q'], { cwd: root }); // make the git probe reachable
-  if (gtasks) fs.writeFileSync(path.join(root, 'data', 'gtasks-lists.json'), JSON.stringify({ H: 'x', S: 'y', G: 'z' }));
-  return root;
+  if (consoleTasks) fs.writeFileSync(envFile, 'KERRIHQ_SYNC_TOKEN=krri_test\nKERRIHQ_API_BASE=https://example.test/api/v1\n');
+  return { root, envFile };
 }
 
-function run(root, extra = []) {
-  const r = spawnSync('node', [script, '--root', root, '--json', '--skip-live', ...extra], { encoding: 'utf8' });
+function run(fx, extra = []) {
+  const env = { ...process.env };
+  delete env.KERRIHQ_SYNC_TOKEN;
+  delete env.KERRIHQ_API_BASE;
+  const r = spawnSync('node', [
+    script,
+    '--root',
+    fx.root,
+    '--json',
+    '--skip-live',
+    '--console-env-file',
+    fx.envFile,
+    ...extra
+  ], { encoding: 'utf8', env });
   assert.equal(r.status, 0, r.stderr);
   return JSON.parse(r.stdout);
 }
 
-const ALL_SESSION = 'kerri-hardwarefyi-email,brian-hardwarefyi-email,gmail,superhuman,gtasks,granola,reclaim,slack';
+const ALL_SESSION = 'kerri-hardwarefyi-email,brian-hardwarefyi-email,gmail,superhuman,granola,reclaim,slack';
 
 test('all connectors present in session → ok', () => {
   const rep = run(fixture(), ['--available', ALL_SESSION]);
@@ -45,10 +58,10 @@ test('session connectors are non-fatal when no --available given', () => {
   assert.equal(rep.ok, true); // unverified session connectors never fail the probe
 });
 
-test('missing gtasks config (cli proxy) → down', () => {
-  const rep = run(fixture({ gtasks: false }));
-  const gtasks = rep.connectors.find((c) => c.name === 'gtasks');
-  assert.equal(gtasks.status, 'down');
+test('missing Console task config → down', () => {
+  const rep = run(fixture({ consoleTasks: false }));
+  const consoleTasks = rep.connectors.find((c) => c.name === 'console-tasks');
+  assert.equal(consoleTasks.status, 'down');
   assert.equal(rep.ok, false);
 });
 

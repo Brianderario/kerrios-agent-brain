@@ -85,7 +85,7 @@ From the cold funnel report (or cold-outreach-state.json as fallback):
 - **Notable replies** (positive sentiment replies with company name and note, from the funnel report's `replied.notable` array)
 - **Second-touch pipeline** (from the funnel report's `secondTouch` section: eligible count, sent count, drafted count)
 - **Meetings booked from outreach** (if tracked)
-- **Batch approval lag** (time between batch creation and Brian checking the box, are drafts sitting?)
+- **Batch approval lag** (time between batch creation and Brian approving in Console, are drafts sitting?)
 - **Queue depth** (how many ready prospects remain in `data/cold-outreach-queue.json`)
 
 Flags:
