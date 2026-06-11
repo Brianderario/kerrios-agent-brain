@@ -27,8 +27,14 @@ const ACTION_CLASSES = [
 const policy = JSON.parse(fs.readFileSync(POLICY_PATH, 'utf8'));
 
 test('policy parses and carries the decision pointer', () => {
-  assert.equal(policy.version, 1);
+  // Version 2 = the 2026-06-10 act-authority amendment (Brian, interactive — PR #18):
+  // it added the `actions` block for NON-SEND app/service actions and its own decision
+  // page. The email send tiers/classes were not changed by the bump, which the tier
+  // tests below keep pinning independently.
+  assert.equal(policy.version, 2);
   assert.equal(policy.decision, 'brain/wiki/decisions/2026-06-09-autonomy-boundary.md');
+  assert.equal(policy.decisionActions, 'brain/wiki/decisions/2026-06-10-app-action-autonomy.md');
+  assert.ok(policy.actions && policy.actions.tiers, 'version 2 is defined by the actions block; missing it means the file drifted');
 });
 
 test('classes cover exactly the 8-value actionClass enum', () => {

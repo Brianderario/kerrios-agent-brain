@@ -409,7 +409,12 @@ test('autonomy tiers are fail-closed and scoped to internal-recipient-reply', ()
   assertAll(prompt, [
     'read data/autonomy-policy.json',
     'defaulting to an approval task',
-    'auto-logged currently covers internal-recipient-reply only',
+    // Amended 2026-06-10 evening (Brian standing authorization, recorded in
+    // autonomy-policy.json mailboxOverrides): auto-logged widened from
+    // "internal-recipient-reply only" to also cover the info@ mailbox override.
+    // The override's own safety floor (no autonomous pricing) is pinned with it.
+    'auto-logged covers internal-recipient-reply (rung 3) plus the info@ mailbox override',
+    'pricing/packages/terms NEVER go out autonomously',
     'any condition uncertainty falls back to ask',
     'The file is Brian-edited only; a sweep may demote a class to ask (on any double-email or Brian correction), never promote.',
     'Never invent pricing or mutate CRM from inbox context alone.'
