@@ -2,6 +2,10 @@
 
 Topic → file map. Use this to find the right wiki page without reading the full index. Read 1–3 pages on a routed topic; don't auto-load more.
 
+## "KMG Console / approvals / task board / where Brian approves emails"
+
+- [[wiki/workflows/kmg-console-approvals]] — system handoff: goals, code locations (GitHub), sync architecture, state, next steps
+
 ## "How does the brain work?"
 
 - [[wiki/workflows/llm-wiki-pattern]]
