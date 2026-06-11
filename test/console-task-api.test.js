@@ -8,9 +8,11 @@ import {
   buildUrl,
   consoleRequest,
   markApplied,
+  parseArgs,
   parseEnvText,
   resolveConfig,
   taskCreatePayload,
+  taskEventPayload,
   taskUpdatePayload
 } from '../scripts/console-task-api.mjs';
 
@@ -122,6 +124,42 @@ test('task payload helpers map agent fields to Rails API fields', () => {
       resolution: null,
       resolution_payload: {}
     }
+  });
+});
+
+test('task event payload helper records proof events with metadata', () => {
+  const payload = taskEventPayload({
+    eventType: 'sent',
+    note: 'Sent approved draft',
+    metadataJson: '{"message_id":"abc123"}',
+    occurredAt: '2026-06-11T12:00:00Z'
+  });
+
+  assert.deepEqual(payload, {
+    event: {
+      event_type: 'sent',
+      note: 'Sent approved draft',
+      occurred_at: '2026-06-11T12:00:00Z',
+      metadata: { message_id: 'abc123' }
+    }
+  });
+
+  assert.deepEqual(parseArgs([
+    'event',
+    '--id',
+    'task-1',
+    '--event-type',
+    'sent',
+    '--note',
+    'Sent approved draft',
+    '--metadata-json',
+    '{"message_id":"abc123"}'
+  ]), {
+    command: 'event',
+    id: 'task-1',
+    eventType: 'sent',
+    note: 'Sent approved draft',
+    metadataJson: '{"message_id":"abc123"}'
   });
 });
 

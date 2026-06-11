@@ -35,18 +35,22 @@ Key shipped kerri-console commit:
 
 Key files in kerrihq-rails:
 - `app/views/tasks/show.html.erb` — the per-card review page
+- `app/models/task_event.rb` — proof receipts for task creation, Brian decisions, agent pickup, sends, and manual notes
 - `app/services/task_notes.rb` — parses sweep-formatted task notes into context + draft email (13 specs in `spec/services/task_notes_spec.rb`)
 - `app/controllers/tasks_controller.rb` — show / approve (optional `edited_body`) / skip (optional `reason`) / redo (with `guidance`)
 - `app/controllers/api/v1/tasks_controller.rb` — Rails-owned task queue API, `?resolved=pending`, job/external/source filters, and resolution payload serialization
+- `app/controllers/api/v1/task_events_controller.rb` — API proof append endpoint at `POST /api/v1/tasks/:task_id/events`
 - `app/controllers/api/v1/task_queue_health_controller.rb` + `app/services/task_queue_health.rb` — visible queue mismatch health (`QUEUE: RAILS OK`, waiting decisions, stale checks)
+- `app/services/console_today.rb` — first-screen day cockpit read model: tasks, manual capture, schedule, revenue next actions, agent reliability, proof trail
 - `app/services/console_status.rb` — shared read model for shell/dashboard counts and queue health
-- `app/views/dashboard/index.html.erb` — Brian Tasks / Agent Activity / CRM-Pipeline / Queue Health operating surface
+- `app/views/dashboard/index.html.erb` — Today cockpit plus Brian Tasks / Agent Activity / CRM-Pipeline / Queue Health operating surface
 - `app/views/shared/shell/_topbar.html.erb` — topbar task count and queue-state indicators
 - migration `20260611060000_add_resolution_payload_to_tasks.rb` — jsonb payload (edited draft body, redo guidance, skip reason, `applied_at` stamp)
+- migration `20260611153000_add_task_sources_and_events.rb` — explicit task source ownership and task proof events
 
 Key helper in KerriOS: `scripts/console-task-api.mjs`, which all scheduled
 agents should use for `health`, `list`, `show`, `create`, `update`, and
-`mark-applied`.
+`mark-applied`. Use `event` for additional proof receipts.
 
 ## How the data flows
 
@@ -70,6 +74,9 @@ agents should use for `health`, `list`, `show`, `create`, `update`, and
 5. After applying a decision, inbox-sweep calls
    `node scripts/console-task-api.mjs mark-applied --id <taskId> --note "<result>"`
    so no approval can execute twice.
+6. If the routine has concrete proof beyond the applied stamp, append it:
+   `node scripts/console-task-api.mjs event --id <taskId> --event-type sent --note "<what happened>" --metadata-json '{"message_id":"..."}'`.
+   These receipts appear in the task review page and the dashboard Proof Trail.
 
 ## Credentials (never in any repo)
 
@@ -85,6 +92,12 @@ agents should use for `health`, `list`, `show`, `create`, `update`, and
   https://kerrihq-rails-xtua.onrender.com/organizations/c7ec4a59-c794-492a-aa61-d926ee8c61d1/tasks
 - Rails includes queue-health UI/API (`/api/v1/task_queue_health`) and task
   API filters for `job_ref`, `external_ref`, `resolution`, and `source`.
+- Rails tasks now carry explicit source ownership (`source_kind`, `source_ref`,
+  `source_details`) so retained `gtask_*` ids are idempotency evidence, not
+  proof that Google Tasks still owns the queue.
+- The dashboard has a Today cockpit for quick manual capture, next task actions,
+  revenue next actions, schedule visibility, agent reliability, and task proof
+  receipts. Native email remains out of scope for this pass.
 - KerriOS includes `scripts/console-task-api.mjs`, and the key scheduled
   approval producers have been updated to file Console tasks directly.
 - The current Console UX separates the three things Brian asked to keep clear:
@@ -109,9 +122,12 @@ rollback.
    specific waiting/failing label.
 2. `node scripts/console-task-api.mjs list --open --per-page 20` — confirms the
    agent-facing queue can be read.
-3. Open the production tasks URL in Brian's authenticated Chrome, click any
+3. `node scripts/console-task-api.mjs event --id <testTaskId> --event-type proof_note --note "verification"` — confirms proof receipts can be appended.
+4. Open the production tasks URL in Brian's authenticated Chrome, click any
    card, confirm the full email shows.
-4. Confirm the task board has no board-level task APPROVE/SKIP buttons; decisions
+5. Confirm the task board has no board-level task APPROVE/SKIP buttons; decisions
    should only happen on the full review page.
-5. Rails: `cd ~/Projects/kerrihq-rails && BUNDLE_PATH=/tmp/kerrihq-rails-bundle bundle exec rspec`.
-6. KerriOS: `npm run check && npm test`.
+6. Open the production dashboard and confirm Today shows capture, next actions,
+   schedule, revenue next, agent reliability, and proof trail.
+7. Rails: `cd ~/Projects/kerrihq-rails && BUNDLE_PATH=/tmp/kerrihq-rails-bundle bundle exec rspec`.
+8. KerriOS: `npm run check && npm test`.

@@ -123,6 +123,17 @@ export function taskUpdatePayload(args) {
   return { task: payload };
 }
 
+export function taskEventPayload(args) {
+  return {
+    event: compact({
+      event_type: required(args.eventType, '--event-type'),
+      note: args.note,
+      occurred_at: args.occurredAt,
+      metadata: metadataPayload(args)
+    })
+  };
+}
+
 export async function markApplied({ id, note, config, fetchImpl, now = new Date() }) {
   const existing = await consoleRequest({ endpoint: `/tasks/${required(id, '--id')}`, config, fetchImpl });
   const currentPayload = existing.data?.resolution_payload || {};
@@ -209,6 +220,18 @@ export function parseArgs(argv) {
       case '--note':
         args.note = rest[++i];
         break;
+      case '--event-type':
+        args.eventType = rest[++i];
+        break;
+      case '--metadata-json':
+        args.metadataJson = rest[++i];
+        break;
+      case '--metadata-file':
+        args.metadataFile = rest[++i];
+        break;
+      case '--occurred-at':
+        args.occurredAt = rest[++i];
+        break;
       case '--per-page':
         args.perPage = rest[++i];
         break;
@@ -216,7 +239,7 @@ export function parseArgs(argv) {
         throw new Error(`Unknown argument: ${arg}`);
     }
   }
-  if (!command) throw new Error('Missing command: health | list | show | create | update | mark-applied');
+  if (!command) throw new Error('Missing command: health | list | show | create | update | mark-applied | event');
   return args;
 }
 
@@ -261,6 +284,14 @@ export async function run(argv = process.argv.slice(2), io = { stdout: process.s
     case 'mark-applied':
       result = await markApplied({ id: args.id, note: args.note, config });
       break;
+    case 'event':
+      result = await consoleRequest({
+        endpoint: `/tasks/${required(args.id, '--id')}/events`,
+        method: 'POST',
+        body: taskEventPayload(args),
+        config
+      });
+      break;
     default:
       throw new Error(`Unknown command: ${args.command}`);
   }
@@ -277,6 +308,12 @@ function compact(object) {
   return Object.fromEntries(
     Object.entries(object).filter(([, value]) => value !== undefined && value !== null && value !== '')
   );
+}
+
+function metadataPayload(args) {
+  if (args.metadataJson) return JSON.parse(args.metadataJson);
+  if (args.metadataFile) return JSON.parse(fs.readFileSync(args.metadataFile, 'utf8'));
+  return undefined;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
