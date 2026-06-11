@@ -49,7 +49,7 @@ Industrial software (Creo, Windchill, Onshape, ThingWorx). Kinetic 2026 confirme
 
 - **Status: active. Last sender: us** (post-call package quote drafted 2026-06-11).
 - **Package quote queued** — Console task `4ab3cbba-da03-4829-9138-8df041321571` (external_ref `H0104-ptc-startups-packages-20260611`), jobs.json H0104, **needs_approval / Brian manual send.** Tiers $75/50/25K (Saturday Partner Program, content-led, one SF Tech Week happy hour + a HWFYI happy hour in the flagship). See the task body for the full draft.
-- **Gates before send:** (1) Onshape/Roberto coordination, (2) media kit + rate card attachments (exceed email MCP inline limit → Brian sends from his own client), (3) **rate card must be built** (media kit has no pricing). Tier prices confirmed on the call; per-package product mix + projected metrics are Kerri's construction.
+- **Gate before send:** Onshape/Roberto coordination. Brian corrected the manual-send note on 2026-06-11: do **not** attach or mention the media kit or rate card; close with "Happy to answer any questions you may have and jump on another call if needed!" Tier prices confirmed on the call; per-package product mix + projected metrics are Kerri's construction.
 - Primary contact: Stefan Bergsma <sbergsma@ptc.com>. Original Kinetic contacts: Brenna Robillard, Will Hirschtick.
 
 ## Metrics basis (for the quote)

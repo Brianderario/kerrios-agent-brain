@@ -22,12 +22,12 @@ scope: meeting · date: 2026-06-11 ~9:00 ET · deal: [[../deals/ptc]] (H0104) ·
 
 ## Budget + ask
 - Budget confirmed substantial ("not $5K"). Partner Program starts ~$12K; newsletter ads ~$1K/day.
-- Brian agreed to send **three tiers — $75K / $50K / $25K — each with projected metrics** (impressions, leads, product mix), plus media kit + rate card. Can scale down from $25K if needed.
+- Brian agreed to send **three tiers — $75K / $50K / $25K — each with projected metrics** (impressions, leads, product mix). Can scale down from $25K if needed.
 
 ## HWFYI numbers stated on the call
 - 20,000 subscribers, twice weekly. Partner Program "Tools From Our Sponsors" section pulls **25–125 clicks/send**. Primary Placement = middle slot, subject line + ~175 words. Custom-content comp: a Drafter DFM guide drove **10,000+ signups**.
 
 ## Next steps
-- **Brian:** send $25/50/75K packages + projected metrics + media kit + rate card (queued: Console `4ab3cbba-da03-4829-9138-8df041321571`, jobs.json H0104, Brian manual send).
+- **Brian:** send $25/50/75K packages + projected metrics (queued: Console `4ab3cbba-da03-4829-9138-8df041321571`, jobs.json H0104, Brian manual send; no media kit/rate card attachments).
 - **Brian:** coordinate with Roberto/Onshape on placement overlap before finalizing.
-- **Kerri (open):** build the rate-card one-pager (media kit has no pricing).
+- **Kerri:** no rate-card one-pager needed for this send per Brian's 2026-06-11 correction.
