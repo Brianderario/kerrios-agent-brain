@@ -122,7 +122,7 @@ From the combined RSS + email signals, identify companies that:
 - Are US-based (or likely US-based based on context)
 - Operate in hardware/manufacturing/industrial/robotics/defense/aerospace
 - Raised a funding round (any size) in the last 30 days
-- Are NOT already registered in `data/companies.json` as an active deal
+- Are NOT already registered in the KMG Console CRM as an active deal (lookup `GET /api/v1/companies?domain=<d>`; the read-only snapshot `data/companies.json` is fine for this check)
 
 For the top 5 (sorted by round size descending), call `apollo_organizations_enrich` with their domain. Extract:
 - Total funding
@@ -187,7 +187,7 @@ Top 3-5 industry themes or notable moves:
    - Do NOT modify deal files directly. The pipeline-followup and inbox-sweep own deal state.
 
 3. Cross-reference with existing companies:
-   - If a company in the intel is in `data/companies.json`, note the jobId in the digest
+   - If a company in the intel has a Console CRM record (domain lookup; the read-only snapshot `data/companies.json` is fine for this read), note the jobId in the digest
 
 ### STEP 6 -- Log + clean up
 

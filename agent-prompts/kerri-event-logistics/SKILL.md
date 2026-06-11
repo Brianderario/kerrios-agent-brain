@@ -28,7 +28,7 @@ If ambiguous, ask one clarifying question. Don't guess.
 DATA + BRAIN PER EVENT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**Customer ID protocol — mandatory for every vendor / venue interaction.** Venues, AV vendors, caterers, photographers, security, printing — every external company you draft to or register in the brain is a customer entry. Before assigning any jobId or creating a `brain/wiki/companies/<slug>.md` page, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]]. Typical prefix for vendors is G (KMG general). Same vendor across multiple events = same jobId. Reuse if found by domain, alias, or fuzzy name match.
+**Customer ID protocol — mandatory for every vendor / venue interaction.** Venues, AV vendors, caterers, photographers, security, printing — every external company you draft to or register is a customer entry in the KMG Console (the CRM of record). Before assigning any jobId or registering a company in the Console, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]] against the Console API (`GET /api/v1/companies?domain=<d>`; snapshot `data/companies.json` is read-only offline fallback). Typical prefix for vendors is G (KMG general). Same vendor across multiple events = same jobId. Reuse if found by domain, alias, or fuzzy name match.
 
 Each event gets a slug like `sf-tech-week-2026` or `kinetic-2027` or `dc-maritime-defense-2026`. Files:
 
@@ -106,7 +106,7 @@ MODE: VENUE
 For the event slug Brian named:
 
 1. Read state.json. If missing required fields (date / city / headcount / vibe), do INIT first.
-2. **Check the brain for prior relationships.** Scan `brain/wiki/companies/` and recent meeting/email history for venues Brian has worked with. The Westin St. Francis (Wendy Hom) was Kinetic 2026; that relationship is warm and worth using if it matches.
+2. **Check for prior relationships.** Look up candidate venues in the Console (`GET /api/v1/companies?domain=<d>`, read `crm_notes`; the snapshot `data/companies.json` works for a quick name scan) and check recent meeting/email history for venues Brian has worked with. The Westin St. Francis (Wendy Hom) was Kinetic 2026; that relationship is warm and worth using if it matches.
 3. **Web search for matching venues:**
    - Search queries like `<city> <neighborhood> venue <headcount> <vibe-tier> <type>` and variations
    - Try Peerspace, Eventbrite venue listings, local event-industry directories
@@ -143,7 +143,7 @@ Brian says: "Kerri, draft inquiry to <X> for <event>." Or names multiple venues/
 For each target:
 
 1. Pull event context from state.json — date, city, headcount, vibe, budget ceiling (if shareable), any constraints (kosher catering, AV needs, accessibility).
-2. **Check brain for prior relationship.** If a `brain/wiki/companies/<slug>.md` exists or the brain has email history with this contact, mention it in the draft (e.g., "we worked with you on Kinetic 2026 last May — would love to revisit").
+2. **Check for prior relationship.** If a Console company record exists (relationship context in `crm_notes`) or the brain has email history with this contact, mention it in the draft (e.g., "we worked with you on Kinetic 2026 last May — would love to revisit").
 3. Apply `voice.md` (HWFYI voice — this is HWFYI/KMG side outbound). Direct, peer-tone, specific. Brian's sign-off.
 4. Draft body — 4–6 sentences:
    - Intro line (warm if relationship exists, neutral if cold; name the event and the slot)
@@ -198,7 +198,7 @@ BRAIN WRITES (uniform across modes)
 
 After any consequential action:
 - Update `brain/wiki/events/<slug>.md` (compact, source-linked)
-- Update or create `brain/wiki/companies/<vendor-or-venue-slug>.md` if a new venue/vendor surfaced as a real candidate (not for every WebFetch — only for ones in shortlist or beyond)
+- Update or create the venue/vendor's Console company record, relationship facts into `crm_notes` (compact, source-linked; `brain/wiki/companies/` is frozen), if a new venue/vendor surfaced as a real candidate (not for every WebFetch — only for ones in shortlist or beyond)
 - Append a one-liner to `brain/log.md`: `## [<datetime>] event-<mode> | <slug> | Kerri`
 
 Pre-decision working files (state.json, raw venue research dumps) stay in `data/events/<slug>/` (gitignored). Only the compact summary lives in the brain wiki.

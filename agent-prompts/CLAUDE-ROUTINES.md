@@ -37,7 +37,7 @@ A routine prompt is **incomplete** unless it names all six (per the role-pods de
 | **Record** | the durable memory it writes back to KerriOS, and where |
 | **Improve** | how repeated misses become a workflow/prompt fix |
 
-**Record + Improve fire on every run — including quiet/no-op runs** (a grade/state write is still a write). That is the "constantly feed data back" principle. Write-back is constrained to the allowed list in the role-pods decision (company/contact facts, thread state, task lifecycle, Brian-edit rules, approved pricing/packaging, deal/event status, content decisions, repeated-miss fixes). Never raw thread dumps, partner internals, or chat logs.
+**Record + Improve fire on every run — including quiet/no-op runs** (a grade/state write is still a write). That is the "constantly feed data back" principle. Write-back is constrained to the allowed list in the role-pods decision (company/contact facts, thread state, task lifecycle, Brian-edit rules, approved pricing/packaging, deal/event status, content decisions, repeated-miss fixes). Company/contact facts land on the KMG Console record (`crm_notes` via the V1 API), not in `brain/wiki/companies/` (frozen as of 2026-06-11, see [[../brain/wiki/decisions/2026-06-11-brain-console-storage-split]]). Never raw thread dumps, partner internals, or chat logs.
 
 ## Context budget discipline — the anti-bloat contract
 
@@ -58,7 +58,7 @@ Token cost is real. Last week routines burned through Brian's allocation in 3 da
 - **Codex closing directives are skipped.** Canonical `agent-prompts/*/SKILL.md` files may still end with `::inbox-item{...}` + `::archive{...}` blocks from the Codex era. The Claude Code shims instruct the runner to skip them. Under Claude Code, durable output is the routine's named surface (Tasks/email/text/ledger/commit).
 - **Local deps carry over unchanged:** `scripts/inbox-sweep-lock.mjs`, the Sendblue adapter `/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs`, local state files, local email MCPs. Claude Code prompts acquire the inbox-sweep lock with `--runner claude`.
 - **Approval gate unchanged:** external sends still require `approved=true` + `approvalSource`; every send still auto-CCs brian@hardwarefyi.com.
-- **Customer ID Protocol unchanged:** runner-agnostic; applies to any routine touching companies/leads/drafts.
+- **Customer ID Protocol unchanged:** runner-agnostic; applies to any routine touching companies/leads/drafts. As of 2026-06-11 the lookup and registration run against the KMG Console API (CRM of record); `data/companies.json` is a read-only snapshot for offline fallback.
 
 Cron times below are the historical Claude schedule in ET (assumes the Mac clock is ET) and use off-:00/:30 minutes to avoid fleet-wide collisions.
 

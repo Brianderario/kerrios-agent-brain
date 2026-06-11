@@ -22,7 +22,7 @@ HARD RULES (do not bypass — ever)
 5. **Voice-matched + specific.** Every nudge MUST reference the last message in the thread. No "just checking in" / "circling back" / "wanted to follow up" generic openers. Apply `agent-prompts/kerri-skill/references/voice.md` and `brain/wiki/workflows/draft-learnings.md`.
 6. **Approval-gated brain writes.** This agent updates deal frontmatter (last_nudge_date, nudge_count, next_action_date) on every run. It does NOT update last_contact_date or status — those flip when a real send/reply happens (handled by inbox-sweep).
 7. **HWFYI + general only in v1.** No S/W pipeline nudges. S/W deal state (if any) stays out of this agent until Brian explicitly green-lights an S/W pipeline mode.
-8. **Customer ID protocol.** Every deal references a `jobId`. If a deal in `brain/wiki/deals/` has `jobId: null`, look it up in `data/companies.json` by domain. If the company isn't registered, skip the deal this run and log to `state.skipped[]` with reason "no jobId — register company first via inbox-sweep customer lookup."
+8. **Customer ID protocol.** Every deal references a `jobId`. If a deal in `brain/wiki/deals/` has `jobId: null`, look it up by domain in the KMG Console (`GET /api/v1/companies?domain=<d>`; the read-only snapshot `data/companies.json` is the offline fallback). If the company isn't registered, skip the deal this run and log to `state.skipped[]` with reason "no jobId — register company first via inbox-sweep customer lookup."
 9. **Central status gate.** Before drafting, cross-check the company in `CY2026 Revenue Goal`. If the central status is `Contract Won` or `Contract Lost`, skip and log the source. If the local deal file says active but the central tab says lost/won, the central tab wins until fresh source evidence says otherwise.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -52,8 +52,8 @@ Read + write every run:
   }
   ```
 - `data/jobs.json` — inbox-sweep state. Pipeline appends a new job entry per nudge draft so the inbox-sweep send path picks it up via consoleTaskId/consoleExternalRef.
-- `data/job-counters.json` — H/S/G counters. Pipeline does NOT bump counters; it reuses jobIds already assigned in companies.json.
-- `data/companies.json` — domain → {jobId, …} registry. Read-only here.
+- `data/job-counters.json` — H/S/G counters. Pipeline does NOT bump counters; it reuses jobIds already assigned in the Console CRM.
+- `data/companies.json` — domain → {jobId, …}; a generated READ-ONLY snapshot of the KMG Console (the CRM of record). Use it for the in-memory domain map; the Console API is authoritative.
 
 Read-only:
 - `brain/wiki/deals/*.md` — one file per deal. Frontmatter holds pipeline state.
@@ -93,7 +93,7 @@ If `state.seeded == false`:
 2. For each sponsor, check whether `brain/wiki/deals/<slug>.md` already exists. If yes, skip. If no, create it with:
    - `status: dormant` (NOT active — Brian must flip to active to start renewal nudges)
    - `relationship_tier: kinetic-2026-sponsor`
-   - `jobId: null` (no companies.json entry yet — will be auto-created by inbox-sweep on first real inbound)
+   - `jobId: null` (no Console company record yet — will be auto-created by inbox-sweep on first real inbound)
    - `last_contact_date: 2026-05-23` (the Kinetic thank-you send window)
    - `last_sender: us`
    - `mailbox: brian@hardwarefyi.com`
@@ -134,7 +134,7 @@ STEP 1 — LOAD + FILTER DEALS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. Read `data/pipeline-followup-state.json` → state in memory.
-2. Read `data/companies.json` → domain map in memory.
+2. Read `data/companies.json` (read-only Console snapshot) → domain map in memory. For any single-company lookup that matters, the Console API is authoritative.
 3. Read `data/jobs.json` → recent jobs in memory (for thread context lookup later).
 4. Read all `brain/wiki/deals/*.md` files. Parse frontmatter. Discard the README.
 5. Read the `CY2026 Revenue Goal` status ledger when available. Treat rows with `Prospect` or `Interest` as open; treat `Contract Won` and `Contract Lost` as closed.

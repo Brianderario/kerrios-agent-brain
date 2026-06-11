@@ -28,7 +28,7 @@ Read-only:
 - `agent-prompts/kerri-skill/references/voice-sw-industrialist.md` — voice
 - `brain/wiki/workflows/sw-newsletter-production-rules.md` — canonical S&W newsletter production rules and mailbox routing
 - `data/sw-newsletter/sources.json` — curated source list per category (editable)
-- `brain/wiki/companies/standard-and-works.md` — S&W boundary rules
+- `brain/wiki/companies/standard-and-works.md` — S&W boundary rules (frozen legacy page; still the boundary-policy reference, but company CRM facts live in the KMG Console)
 - Recent published archive: WebFetch `https://www.standardandworks.com/` to see what shipped this week (avoid repeating Lead topics, dedup stories)
 - Gmail voice archive: `brian@kerrihq.com` via Gmail plugin, query `from:editor@standardandworks.com newer_than:90d`
 - Suggestion inbox: any email from Brian or Zach to kerri@hardwarefyi.com in last 48 hours with subject containing `[SW]`, `[Industrialist]`, `S&W suggestion`, or sent FROM brian@standardandworks.com / zach@standardandworks.com to kerri-hardwarefyi-email (see STEP 2)

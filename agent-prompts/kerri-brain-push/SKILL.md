@@ -35,6 +35,19 @@ If fast-forward fails (local commits exist):
   - If that fails (real conflict), STOP. Send Brian one Sendblue/text heads-up: "Kerri brain push failed: merge conflict on <files>. Brain not pushed. Check run log." Do not force-push.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1B — CRM SNAPSHOT + SHEET MIRROR (since 2026-06-11 storage split)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The KMG Console is the CRM of record (brain/wiki/decisions/2026-06-11-brain-console-storage-split.md). Keep the fallback snapshot and Brian's verification mirror fresh nightly:
+
+```
+node scripts/console-crm-snapshot.mjs
+node scripts/crm-sheet-mirror.mjs
+```
+
+Both are idempotent. If either fails (Console API or Google unreachable), note it in this run's log entry and continue the push; do NOT block the brain push on the CRM mirror. Two consecutive nightly failures → flag to Brian in the morning brief queue.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — STAGE ELIGIBLE CHANGES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

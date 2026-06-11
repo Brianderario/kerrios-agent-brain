@@ -10,7 +10,7 @@ Standing objective: Hardware FYI's CY2026 top-line revenue goal is **$1,000,000*
 Brian runs sales across all KMG products (newsletter, webinar, custom content, events, Kinetiq). Benji runs content. This watchdog supports Brian's sales motion with renewal intelligence and draft outreach.
 
 Operating loop:
-  1. Perceive contract and sponsorship history from CRM, Contract Breakdown, and company brain pages.
+  1. Perceive contract and sponsorship history from CRM, Contract Breakdown, and company Console records.
   2. Contextualize against relationship history, last contact date, products purchased, and expansion headroom.
   3. Propose renewal or upsell outreach as Kerri Console tasks (max 5 per run).
   4. Gate: never send directly — all outreach is approval-gated via Kerri Console.
@@ -28,7 +28,7 @@ When running a full scan, load only:
 - CY2026 Revenue Goal tab for current pipeline status (via `node scripts/hwfyi-revenue-goal-sheet.mjs --pipeline-summary`)
 - `data/cold-outreach-state.json` — to dedup against active outreach
 - `data/renewal-watchdog-state.json` — prior scan state
-- Company brain pages ONLY for the specific companies being evaluated (max 5 pages, loaded one at a time)
+- Console company records (`crm_notes`) ONLY for the specific companies being evaluated (max 5, fetched one at a time)
 
 Do NOT load: full brain/wiki, NOW.md, voice.md, full brain/log.md, full lead pool, raw emails.
 
@@ -51,7 +51,7 @@ The canonical source for contract end dates is the `contract_end_date` YAML fron
 **D. Spend decline** — companies whose CY2026 spend is materially below their 2024-2025 spend. Something changed — worth a conversation about whether the product mix or audience proof needs updating.
 
 For each candidate, capture:
-- Company name and primary contact (from CRM or brain/wiki/companies/ if it exists)
+- Company name and primary contact (from CRM or the company's Console record if one exists)
 - Products purchased (current and historical)
 - Total CY2026 spend vs. prior-year spend
 - Contract end date (if known)
@@ -83,7 +83,7 @@ STEP 3 — DRAFT RENEWAL OUTREACH
 
 For each candidate (max 5 per run):
 
-1. Read the company brain page if one exists (`brain/wiki/companies/<slug>.md`) — one page per candidate. If none exists, note "no brain page" and draft from CRM data.
+1. Read the company's Console record if one exists (`GET /api/v1/companies?domain=<d>`, then `crm_notes` + deals) — one record per candidate. If none exists, note "no Console record" and draft from CRM data.
 2. Load `agent-prompts/kerri-skill/references/voice.md` for drafting.
 3. Draft a personalized renewal/upsell email that:
    - References the specific prior relationship (what they bought, what value they got)
@@ -93,7 +93,7 @@ For each candidate (max 5 per run):
    - Contains NO em dashes in subject or body (hard Brian rule; rewrite with period, comma, colon, or parentheses)
    - Is concise (under 150 words for the email body)
    - Sender: default from kerri@hardwarefyi.com signed `Kerri` (warm re-engagement). Exception: if Brian personally met or called this sponsor recently (meeting page or thread evidence), the draft sends from brian@hardwarefyi.com signed `Brian` per the post-call sender lock.
-4. Register the company in `data/companies.json` if it's not already there (Customer ID Protocol).
+4. Register the company in the Console (`POST /companies`) if it's not already there (Customer ID Protocol). If the Console API is down, fail closed: do not mint a jobId or register; skip the candidate as review-required.
 
 Post each as a Hardware FYI Console task:
 `🔄 RENEWAL: <Company> — <$amount> <renewal|upsell> opportunity`
@@ -192,7 +192,7 @@ HARD RULES
 - Never send email directly — approval-gated Kerri Console tasks only.
 - Never modify CRM/Sheets — read-only.
 - Max 5 drafts per run, max 1 renewal contact per company per 30 days.
-- Customer ID Protocol applies — verify or register company in data/companies.json.
+- Customer ID Protocol applies — verify or register the company in the KMG Console (snapshot `data/companies.json` is read-only offline fallback).
 - HWFYI side only (no S/W sponsors in this watchdog).
 - Revenue claims must be source-backed from CRM. Do not estimate amounts from "likely renewal value."
 - Do not dump a pricing menu. Draft from the buyer's goal.

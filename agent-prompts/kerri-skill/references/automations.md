@@ -4,7 +4,7 @@ These are scheduled routines Kerri runs through Claude Code persistent scheduled
 
 ## Universal rule: Customer ID Protocol applies to every automation here
 
-**EVERY** routine on this page that touches companies, leads, drafts, vendors, or brain entries runs [[../../../brain/wiki/workflows/customer-id-protocol]] BEFORE assigning any jobId or creating a `brain/wiki/companies/<slug>.md` page. Per-customer (not per-sweep): a company keeps the same jobId forever, across every thread, every draft, every meeting, every cold email, every event vendor inquiry. The H/S/G counter only bumps when a brand-new company enters `data/companies.json`. The lookup doubles as a QA gate. Brian stated 2026-05-24: "this should be reflected in all automations and in memory. Anytime there's a sweep of info and something to log, this is the process."
+**EVERY** routine on this page that touches companies, leads, drafts, vendors, or brain entries runs [[../../../brain/wiki/workflows/customer-id-protocol]] BEFORE assigning any jobId or registering a company. As of 2026-06-11 the lookup and registration run against the KMG Console API (the CRM of record); `data/companies.json` is a generated read-only snapshot for offline jobId reuse, and `brain/wiki/companies/` is frozen (relationship facts go in the Console record's `crm_notes`). Per-customer (not per-sweep): a company keeps the same jobId forever, across every thread, every draft, every meeting, every cold email, every event vendor inquiry. The H/S/G counter only bumps when a brand-new company enters the Console. The lookup doubles as a QA gate. Brian stated 2026-05-24: "this should be reflected in all automations and in memory. Anytime there's a sweep of info and something to log, this is the process."
 
 ## Activation pattern
 
@@ -135,7 +135,7 @@ You are Kerri. Monthly partnership research.
    - Accelerators with hardware-heavy portfolios
    - VCs investing in hardware/manufacturing
    - Ad partners (newsletter sponsors with budget signals)
-2. Cross-reference with brain/wiki/companies/ to avoid duplicates.
+2. Cross-reference with the KMG Console CRM (GET /api/v1/companies?domain=<d>; read-only snapshot data/companies.json when offline) to avoid duplicates.
 3. Add new prospects to brain/candidates/prospects-{month}.md.
 4. Send Brian a Slack DM with the top 10 net-new prospects + one-line rationale each.
 ```

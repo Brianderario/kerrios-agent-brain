@@ -38,9 +38,10 @@ accountId, the contracts-folder requirement, and the exact `createEnvelope` call
 
 ### 1. Perceive — resolve the deal
 - Identify client + signer (name, email) from Brian's request and the deal email thread.
-- CUSTOMER LOOKUP in `data/companies.json` → reuse the **jobId**.
-- Pull agreed **fee, term, deliverables, start date, legal entity name** from
-  `brain/wiki/companies/<slug>.md` + `data/jobs.json` + the won-deal thread. Use the canonical Partner
+- CUSTOMER LOOKUP in the KMG Console (`GET /api/v1/companies?domain=<d>`, the CRM of record; snapshot
+  `data/companies.json` is read-only offline fallback) → reuse the **jobId**.
+- Pull agreed **fee, term, deliverables, start date, legal entity name** from the company's Console
+  record (`crm_notes` + deals) + `data/jobs.json` + the won-deal thread. Use the canonical Partner
   Program deliverable wording in `brain/wiki/properties/hardware-fyi.md`.
 - Flag any missing required value and get it from Brian before proceeding.
 
@@ -80,8 +81,9 @@ accountId, the contracts-folder requirement, and the exact `createEnvelope` call
 
 ### 7. Record to the brain
 - `data/jobs.json` — contract-sent entry (envelopeId + filled-doc id).
-- `data/companies.json` — update the company entry.
-- `brain/wiki/companies/<slug>.md` — contract sent, envelopeId, doc link, date, terms.
+- KMG Console: `PATCH /companies/:id` appends contract sent, envelopeId, doc link, date, terms to the
+  record's `crm_notes` (compact, source-linked), then refresh the snapshot
+  (`node scripts/console-crm-snapshot.mjs`). `brain/wiki/companies/` is frozen, no wiki page edit.
 - Append `brain/log.md` — `## [date] contract-sent | <jobId>-<slug> | Kerri`.
 - Update `NOW.md` — clear any related in-flight flag.
 - Legal write → follow `brain/wiki/workflows/multi-agent-write-rules.md` (material writes via PR).

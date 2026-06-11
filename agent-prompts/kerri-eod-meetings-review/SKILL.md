@@ -46,8 +46,8 @@ The Granola cloud MCP is connected at `https://mcp.granola.ai/mcp`. The exact to
 
 **Brain (wiki writes):**
 - Per-meeting recap → `brain/wiki/meetings/<YYYY-MM-DD>-<slug>.md`
-- Person/company updates → `brain/wiki/people/<slug>.md`, `brain/wiki/companies/<slug>.md`
-- **Before creating or updating ANY `brain/wiki/companies/<slug>.md`, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]].** Same company = same jobId forever; register new companies in `data/companies.json` (with `aliases: []`) AND bump `data/job-counters.json` ONLY if genuinely new. Reuse existing jobId if found by domain, alias, or fuzzy name match. This is mandatory and doubles as a QA gate.
+- Person updates → `brain/wiki/people/<slug>.md`. Company/relationship facts → the company's KMG Console record: `PATCH /companies/:id` appending to `crm_notes` (compact, source-linked). `brain/wiki/companies/` is frozen, never create or update pages there.
+- **Before creating or updating ANY company's Console record, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]] against the Console API** (`GET /api/v1/companies?domain=<d>`; snapshot `data/companies.json` is read-only offline fallback). Same company = same jobId forever; register new companies via `POST /companies` (with `aliases: []`) AND bump `data/job-counters.json` ONLY if genuinely new. If the Console API is unreachable, fail closed: reuse snapshot jobIds read-only, never register or mint new (mark review-required). Reuse existing jobId if found by domain, alias, or fuzzy name match. This is mandatory and doubles as a QA gate.
 - Append a log line to `brain/log.md` (one entry per run, not per meeting)
 - Follow [[../../brain/wiki/workflows/agent-brain-protocol]] for read/write rules
 
@@ -182,9 +182,9 @@ scope: meeting · updated: <YYYY-MM-DD>
 
 Cap each meeting page at ~2KB. Don't dump raw transcripts. Don't include S/W internal content (if the meeting touches S/W, the page goes under `brain/.local/meetings/` instead — gitignored).
 
-**B) Update person/company pages** (if material new facts emerged):
+**B) Update person pages + company Console records** (if material new facts emerged):
 
-If the transcript surfaced a notable new fact about a person or company (new role, new product, new ask, new constraint), append a short dated line to the relevant `brain/wiki/people/<slug>.md` or `brain/wiki/companies/<slug>.md`. Compact + source-linked: `(src: meetings/<YYYY-MM-DD>-<slug>.md)`.
+If the transcript surfaced a notable new fact about a person or company (new role, new product, new ask, new constraint), append a short dated line to the relevant `brain/wiki/people/<slug>.md`. Company facts go to the Console instead: `PATCH /companies/:id` appending the dated line to the record's `crm_notes` (`brain/wiki/companies/` is frozen, never edit pages there). Either way, compact + source-linked: `(src: meetings/<YYYY-MM-DD>-<slug>.md)`.
 
 Don't restate existing facts. Don't dump verbatim quotes.
 
@@ -216,7 +216,7 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
   - Internal team → from brian@hardwarefyi.com (most common)
 - Pull the recipient's email from the calendar attendee list.
 - **Revenue/sponsor context merge is mandatory before drafting.** If the meeting involves a Hardware FYI sponsor, advertiser, partner, event sponsor, paid media buyer, or sales prospect, do not draft from today's transcript alone. Before writing copy:
-  - Read the counterparty company page plus the 1-3 most relevant person pages.
+  - Read the counterparty's Console company record (`crm_notes` + deals) plus the 1-3 most relevant person pages.
   - Read `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` and classify the follow-up as cash collected, pipeline advanced, product value improved, or revenue system improved.
   - Search meeting memory for the same company and same non-Brian attendees from the last 30 days, especially sales/catalog/budget/timing calls.
   - Search sent mail for Brian's most recent message to the company/contact and for any promised catalog, package rundown, pricing, event, or content example.
@@ -230,7 +230,7 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
   - Merge the current meeting with that prior context into a one-line recommendation thesis before drafting.
   - If the prior context changes the action from "soft follow-up" to "commercial recommendation," the draft must name the concrete product surfaces, proof points, sequence, and next decision. Do not collapse it to "let's compare notes" or a vague "we can put together options."
   - If prior context cannot be checked, fail closed to `ACTION: redo` with `CONTEXT REVIEW REQUIRED`; list the missing searches rather than creating a weak send-ready draft.
-- **Existing-chain routing is mandatory before drafting.** Brian's preference is to keep client communication on one email chain. Before writing the draft, search the chosen sender mailbox for the counterparty/company plus likely subject terms from the calendar title, transcript, and company page. Read the best matching full thread oldest-to-newest.
+- **Existing-chain routing is mandatory before drafting.** Brian's preference is to keep client communication on one email chain. Before writing the draft, search the chosen sender mailbox for the counterparty/company plus likely subject terms from the calendar title, transcript, and the company's Console record (`crm_notes`). Read the best matching full thread oldest-to-newest.
   - If Brian/Kerri/Benji was already emailing the client about this matter, the EOD draft MUST be a reply on that exact chain. Preserve the existing `Re:` subject and capture the mailbox's thread identifiers in the task and `jobs.json`.
   - If multiple plausible chains exist, do not guess. Create the Console task with `ACTION: redo`, put `ROUTING REVIEW REQUIRED` in the routing block, list the candidate subjects/participants, and do not mark it send-ready until Brian or a later sweep chooses the chain.
   - If no existing chain is found after a real search, state `Existing chain: no verified chain found` in the routing block. New-message routing is allowed only when the search found no prior chain and the meeting context does not imply one.
@@ -284,7 +284,7 @@ Record the returned task ID in today's `eod-state.json` under `tasksCreated`.
 
 **F) Append the EOD draft to `data/jobs.json` immediately after task creation. Task creation + jobs.json append are ONE atomic operation — never leave one without the other.**
 
-This is what lets the inbox sweep process Brian's Console approval safely. A task with no matching jobs.json entry is an ORPHAN and must not be sendable. **Hard gate:** resolve the stable company `jobId` through the customer-id protocol BEFORE you create the task (so the title already carries the right jobId and you never mint a new number for a company that already exists), then create the task and append the job in the same step. If you cannot write a send-ready job (missing thread routing, can't resolve the jobId, company lookup ambiguous), do NOT leave a bare approval task — set it to `ACTION: redo` / `Send mode: review-required` per the rule below, or do not create the task at all. Use the stable company `jobId`; do not use the day's `EOD-H01` counter as the customer jobId. If the company is genuinely new, register it through `data/companies.json` before writing the job.
+This is what lets the inbox sweep process Brian's Console approval safely. A task with no matching jobs.json entry is an ORPHAN and must not be sendable. **Hard gate:** resolve the stable company `jobId` through the customer-id protocol BEFORE you create the task (so the title already carries the right jobId and you never mint a new number for a company that already exists), then create the task and append the job in the same step. If you cannot write a send-ready job (missing thread routing, can't resolve the jobId, company lookup ambiguous), do NOT leave a bare approval task — set it to `ACTION: redo` / `Send mode: review-required` per the rule below, or do not create the task at all. Use the stable company `jobId`; do not use the day's `EOD-H01` counter as the customer jobId. If the company is genuinely new, register it in the Console (`POST /companies`) before writing the job; if the Console API is down, fail closed: do not register or mint a jobId, mark the task review-required.
 
 Append:
 ```

@@ -15,7 +15,7 @@ How Kerri reads and writes the KerriOS company brain.
 2. **`KerriOS/brain/AGENTS.md`** — mutation rules
 3. **`KerriOS/brain/index.md`** — top-level entry
 4. **`KerriOS/brain/routing.md`** — topic map (which wiki dir maps to which question)
-5. **One to three routed wiki pages** (e.g., `brain/wiki/companies/{slug}.md`, `brain/wiki/people/{slug}.md`, `brain/wiki/deals/{slug}.md`)
+5. **One to three routed wiki pages** (e.g., `brain/wiki/people/{slug}.md`, `brain/wiki/deals/{slug}.md`). Company context is the exception: it lives in the KMG Console, not the wiki (see the routing table and lookup pattern below). `brain/wiki/companies/` is frozen (legacy pages remain for git history only).
 6. **`KerriOS/data/kerrios.agent-seed.json`** for structured context
 7. **`brain/raw/`** only when evidence is required
 
@@ -27,7 +27,7 @@ Per `brain/routing.md`:
 |---|---|
 | Source-of-truth boundaries / what's canonical | `wiki/workflows/source-of-truth.md` |
 | Person profile / contact | `wiki/people/{slug}.md` |
-| Company context / outreach history | `wiki/companies/{slug}.md` |
+| Company context / outreach history / CRM | KMG Console record (`GET /api/v1/companies?domain={d}`, read `crm_notes` + deals); `wiki/companies/` is frozen, legacy pages in git history only |
 | Property / portfolio | `wiki/properties/` |
 | Deals / external commitments | `wiki/deals/` + `wiki/decisions/` |
 | Meeting recap / notes | `wiki/meetings/` |
@@ -51,12 +51,17 @@ Per `brain/routing.md`:
 
 ## Common patterns
 
-**"What do we know about Acme Corp?"**
+**"What do we know about Acme Corp?"** (CRM questions route to the KMG Console, the system of record for companies/contacts/deals as of 2026-06-11)
 ```
-Read brain/routing.md → companies route
-Read brain/wiki/companies/acme.md (if exists)
-If missing, check data/kerrios.agent-seed.json for "Acme" mentions
-If still missing, flag the gap, ask Brian, propose a candidate
+GET https://kerrihq-rails-xtua.onrender.com/api/v1/companies?domain=acme.com
+  (header: Authorization: Bearer $KERRIHQ_AGENT_API_KEY, token in ~/.kerri-chief/secrets/kerrihq.env;
+   the lookup matches aliases too, or use ?job_id=<id>)
+Read the record: crm_notes (relationship facts), jobId, deals; people via GET /api/v1/people
+If the Console API is down: read the snapshot data/companies.json (READ-ONLY offline fallback;
+   never mint a jobId or register a company while the API is down: fail closed, mark review-required)
+If still missing, flag the gap, ask Brian; register new companies via POST /companies
+   per brain/wiki/workflows/customer-id-protocol.md
+Do NOT read or write brain/wiki/companies/ (frozen; legacy pages exist only for git history)
 ```
 
 **"Update the deal status for D-1234."**

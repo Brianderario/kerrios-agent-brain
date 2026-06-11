@@ -15,13 +15,13 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 ## "Who is X?" (person)
 
-- `wiki/people/<slug>.md` — primary
-- Slug convention: lowercase-kebab. Example: `brian-derario.md`
+- KMG team + Zach: `wiki/people/<slug>.md` (brian-derario, ari-lewis, benji-chia, zach-silber)
+- External contacts: **KMG Console CRM** — `GET /api/v1/people?company_id=…` or search by email (token `KERRIHQ_AGENT_API_KEY` in `~/.kerri-chief/secrets/kerrihq.env`). Legacy `wiki/people/` pages are frozen (git history).
 
 ## "What is X?" (company / property / partner)
 
 - KMG entities: `wiki/properties/<slug>.md`
-- External companies (incl. partners): `wiki/companies/<slug>.md`
+- External companies (incl. partners): **KMG Console CRM is the system of record** (2026-06-11 split, [[wiki/decisions/2026-06-11-brain-console-storage-split]]) — `GET /api/v1/companies?domain=<d>` / `?job_id=<id>`; relationship context lives in the record's `crm_notes`. `wiki/companies/` is frozen (legacy pages in git history; exception: [[wiki/companies/standard-and-works]] remains the boundary page). Offline fallback: snapshot `data/companies.json` (read-only).
 
 ## "Why did we do X?" (decision history)
 
@@ -146,10 +146,10 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/agent-brain-protocol]] — approval gates
 - [[wiki/workflows/multi-agent-write-rules]] — multi-agent flow
 
-## "How do I assign a job ID?" / "Is this customer already in the brain?"
+## "How do I assign a job ID?" / "Is this customer already in the CRM?"
 
-- [[wiki/workflows/customer-id-protocol]] — **MANDATORY universal lookup** before any company/jobId write. Per-customer (not per-sweep); same company keeps same jobId forever. Lookup doubles as QA gate.
-- `../data/companies.json` — the registry (domain → {jobId, …})
+- [[wiki/workflows/customer-id-protocol]] — **MANDATORY universal lookup** before any company/jobId write. Per-customer (not per-sweep); same company keeps same jobId forever. Lookup doubles as QA gate. Runs against the Console API since 2026-06-11.
+- `../data/companies.json` — READ-ONLY Console snapshot (offline fallback only; refreshed by `scripts/console-crm-snapshot.mjs`)
 - `../data/job-counters.json` — counter state (only bumps on brand-new customer)
 
 ## "Who gets the investor update?" / "investor update distribution list" / "quarterly update"
