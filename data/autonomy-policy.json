@@ -3,7 +3,7 @@
   "updatedAt": "2026-06-10",
   "decision": "brain/wiki/decisions/2026-06-09-autonomy-boundary.md",
   "decisionActions": "brain/wiki/decisions/2026-06-10-app-action-autonomy.md",
-  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Kerri Console task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach. Amended 2026-06-10 evening (Brian, interactive): info@hardwarefyi.com added as a Kerri-handled mailbox with autonomous handling of its outreach + inbound ('That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'); scoped via mailboxOverrides below, class tiers unchanged. Amended 2026-06-10 night (Brian, interactive — selected 'Raise act-authority (bounded)' when asked how to make future email-triggered app/long-running tasks hands-off): added the `actions` block governing NON-SEND actions (operating connected apps/services). Reversible config/ops + internal coordination = act-and-report (no pre-ask); customer/partner-facing content = draft-and-confirm; the neverAuto gate is inherited unchanged. Plus the escalateOnBlock rule. See decisionActions. Amended 2026-06-11: Console Tasks replaced Google Tasks as the approval surface.",
+  "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Kerri Console task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach. Amended 2026-06-10 evening (Brian, interactive): info@hardwarefyi.com added as a Kerri-handled mailbox with autonomous handling of its outreach + inbound ('That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'); scoped via mailboxOverrides below, class tiers unchanged. Amended 2026-06-10 night (Brian, interactive — selected 'Raise act-authority (bounded)' when asked how to make future email-triggered app/long-running tasks hands-off): added the `actions` block governing NON-SEND actions (operating connected apps/services). Reversible config/ops + internal coordination = act-and-report (no pre-ask); customer/partner-facing content = draft-and-confirm; the neverAuto gate is inherited unchanged. Plus the escalateOnBlock rule. See decisionActions. Amended 2026-06-11: Console Tasks replaced Google Tasks as the approval surface. Amended 2026-06-11 (Brian, interactive): source-backed Hardware FYI pipeline stage bookkeeping should be automatic, not a Brian approval task; material CRM judgment, pricing, commitments, legal, finance, permission, and destructive changes remain gated.",
   "tiers": {
     "auto": "Act with no approval. Internal-only, no external send, no commercial or financial risk.",
     "auto-logged": "Act without per-thread approval, then notify: entry in the morning-brief Auto-logged section + the standard auto-CC on every kerri@ send. No text alert (texts are the interrupt lane).",
@@ -86,6 +86,7 @@
       "scope": [
         "Reversible settings/config changes in a connected service: feature on/off, list or recommendation membership, automation enable/disable — anything with a one-step undo.",
         "Internal coordination and housekeeping: scheduling, teammate calendar invites, status updates, edits to Kerri's own records/state.",
+        "Source-backed Hardware FYI pipeline bookkeeping: update Console deal stage when an approved send, buyer reply, booked meeting, proposal/package/pricing send, contract event, or explicit decline clearly proves the stage move.",
         "Read and diagnostic actions in any connected tool."
       ],
       "conditions": [
@@ -111,7 +112,7 @@
         "Legal, contracts, signatures.",
         "Permission, access-control, sharing, or identity changes.",
         "Irreversible or destructive actions: hard deletes, purges, anything with no one-step undo.",
-        "CRM mutations.",
+        "Material CRM judgment calls: invented values, unverified relationship claims, uncertain company/deal matches, regressions, reopening terminal deals, or changes that create commitments.",
         "Anything crossing the S/W boundary as commercial, content, legal, or finance substance."
       ]
     },
@@ -146,7 +147,7 @@
     "neverText": "Auto-logged sends never use the Sendblue/text path. Texts mean act today. Decided by Brian 2026-06-09."
   },
   "neverAuto": [
-    "CRM mutations",
+    "material CRM judgment calls; source-backed pipeline stage bookkeeping is act-and-report",
     "pricing / packages / tiers",
     "legal / contracts / signatures",
     "finance / any spend; refunds or COGS over $2,500",
