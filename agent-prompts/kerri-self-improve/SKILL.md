@@ -143,7 +143,7 @@ If any action class shows `readiness === "READY FOR REVIEW"` in the scorecard:
 
    ## What this would change
 
-   If Brian promotes this class to stage 2, Kerri would be able to send <action-class> emails without a Kerri Console approval item. Every send would still auto-CC brian@hardwarefyi.com and carry a 4-hour undo window. Any incident would auto-demote back to stage 1.
+   If Brian promotes this class to stage 2, Kerri would be able to send <action-class> emails without a Savant approval item. Every send would still auto-CC brian@hardwarefyi.com and carry a 4-hour undo window. Any incident would auto-demote back to stage 1.
 
    ## How to promote
 
@@ -204,6 +204,6 @@ SESSION NOTES
 
 - This routine NEVER sends externally. No email, no Slack, no text. It writes to the brain only.
 - This routine NEVER modifies autonomy-policy.json. That file changes only through Brian's PRs.
-- This routine NEVER creates Kerri Console approval items.
+- This routine NEVER creates Savant approval items.
 - If jobs.json is empty or absent, the run is a quiet no-op that still records a heartbeat.
 - The improvement page and candidate pages are brain writes, not material writes, so they commit to main (not via PR). The candidate page is the PROPOSAL; the PR that changes the policy file is the DECISION.

@@ -1,13 +1,16 @@
-# KMG Console approvals — system handoff
+# Savant approvals — system handoff
 
 > Written 2026-06-11 for any agent (or human reviewer) picking this work up cold.
 > Owner: Brian D'Erario (non-technical; judges by whether the system works).
 > Built by Kerri (Claude) at Brian's direction across 2026-06-10/11.
+> Renamed 2026-06-12: **Savant** is the production product name. Older notes
+> that say Kerri Console / KMG Console / Console refer to Savant unless the
+> context clearly means a local shell or browser console.
 
 ## The goal
 
 Brian reviews and approves every external email Kerri queues, plus decision
-items, in ONE place: the **production KMG Console tasks board**,
+items, in ONE place: the **production Savant tasks board**,
 https://kerrihq-rails-xtua.onrender.com/organizations/c7ec4a59-c794-492a-aa61-d926ee8c61d1/tasks
 
 Clicking any card must show the FULL story (context, asks, warnings) and the
@@ -20,7 +23,7 @@ items.
 
 | Piece | Local path | GitHub | Deployed |
 |---|---|---|---|
-| KMG Console web app (Rails 8) | `~/Projects/kerrihq-rails` | `kerrihq/kerrihq-rails` (push to main auto-deploys) | Render service `srv-d8kvn767r5hc739fjo9g`, https://kerrihq-rails-xtua.onrender.com |
+| Savant web app (Rails 8; formerly KMG Console) | `~/Projects/kerrihq-rails` | `kerrihq/kerrihq-rails` (push to main auto-deploys) | Render service `srv-d8kvn767r5hc739fjo9g`, https://kerrihq-rails-xtua.onrender.com |
 | Legacy sync server + local backup console | `~/Projects/kerri-console` | `Brianderario/kerri-console` (private) | launchd agent `com.kerri.console` on Brian's Mac, http://localhost:4180, legacy/disabled by default after cutover |
 | This handoff + session state | KerriOS brain (`NOW.md`, `brain/log.md` 2026-06-11 entry, this page) | `Brianderario/kerrios-agent-brain` (private) | n/a |
 
@@ -63,7 +66,7 @@ agents should use for `health`, `list`, `show`, `create`, `update`, and
    deterministic `consoleExternalRef` such as
    `kerrios:<routine>:<jobId>:<sha12>`, in `data/jobs.json` or the relevant
    routine state file.
-3. Brian approves, skips, edits, or requests rewrite in the production Console.
+3. Brian approves, skips, edits, or requests rewrite in production Savant.
    Rails archives approve/skip cards immediately and stores the decision in
    `resolution` / `resolution_payload`.
 4. The **inbox-sweep** polls
@@ -99,8 +102,8 @@ agents should use for `health`, `list`, `show`, `create`, `update`, and
   revenue next actions, schedule visibility, agent reliability, and task proof
   receipts. Native email remains out of scope for this pass.
 - KerriOS includes `scripts/console-task-api.mjs`, and the key scheduled
-  approval producers have been updated to file Console tasks directly.
-- The current Console UX separates the three things Brian asked to keep clear:
+  approval producers have been updated to file Savant tasks directly.
+- The current Savant UX separates the three things Brian asked to keep clear:
   Brian's tasks, what agents are doing, and CRM/revenue/pipeline context.
 - Topbar shows the current Brian task count and queue-health state
   (`QUEUE: RAILS OK`, waiting decisions, or failing checks).
@@ -112,7 +115,7 @@ agents should use for `health`, `list`, `show`, `create`, `update`, and
 ## Legacy bridge status
 
 `~/Projects/kerri-console` remains a local backup/legacy reader for old Google
-Tasks mirrors. It is not production infrastructure after the Console cutover.
+Tasks mirrors. It is not production infrastructure after the Savant cutover.
 Do not re-enable it as the approval source unless Brian explicitly asks for a
 rollback.
 

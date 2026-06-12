@@ -22,7 +22,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 
 ## People
 
-**External contacts live in the KMG Console CRM since 2026-06-11** ([[wiki/decisions/2026-06-11-brain-console-storage-split]]) — query `/api/v1/people`. Legacy external-person pages under `wiki/people/` are frozen (git history). Team pages stay current:
+**External contacts live in Savant CRM since 2026-06-11** ([[wiki/decisions/2026-06-11-brain-console-storage-split]]) — query `/api/v1/people`. Legacy external-person pages under `wiki/people/` are frozen (git history). Team pages stay current:
 
 - [[wiki/people/brian-derario]] — CEO, KMG
 - [[wiki/people/ari-lewis]] — CFO, KMG
@@ -37,11 +37,11 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/properties/kinetic]] — annual SF conference
 - [[wiki/events/kinetic-2026]] — year-one event (May 2026, SF); post-event deliverables incl. canonical photos link
 - [[wiki/events/sf-tech-week-2026-sponsor-prospects]] — tiered SF Tech Week sponsor prospect list (Kinetic roster + advertisers + Tech Week-history research, 2026-06-02)
-- [[wiki/properties/savant]] — placeholder; fill in next session
+- [[wiki/properties/savant]] — production KMG operating app formerly called Kerri/KMG Console (`kerrihq-rails` on Render); source of truth for CRM, tasks, approvals, revenue surfaces, newsletter inventory, agent runs, and permissioned brain records
 
 ## Companies
 
-**FROZEN 2026-06-11** — the KMG Console CRM is the system of record for companies, contacts, and deals ([[wiki/decisions/2026-06-11-brain-console-storage-split]]). Lookup via `GET /api/v1/companies?domain=<d>` / `?job_id=<id>`; relationship context in `crm_notes`. All 163 legacy pages under `wiki/companies/` were backfilled into the Console and remain in git history only; do not create or update pages here. One exception stays live:
+**FROZEN 2026-06-11** — Savant CRM is the system of record for companies, contacts, and deals ([[wiki/decisions/2026-06-11-brain-console-storage-split]]). Lookup via `GET /api/v1/companies?domain=<d>` / `?job_id=<id>`; relationship context in `crm_notes`. All 163 legacy pages under `wiki/companies/` were backfilled into Savant and remain in git history only; do not create or update pages here. One exception stays live:
 
 - [[wiki/companies/standard-and-works]] — S0001 — external 50/50 partnership (boundary page, kept in the brain because the boundary is how-we-work, not CRM data)
 
@@ -65,8 +65,8 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-06-09-kerri-brian-comms]] — channel map: Google Tasks = approvals BOR, email = two-way backbone, text = interrupt lane only, Slack retired as the personal channel
 - [[wiki/decisions/2026-06-10-info-mailbox-autonomous]] — info@hardwarefyi.com joins the inbox sweep via new `info-hardwarefyi-email` MCP; routine outreach + inbound handled autonomously (no auto-CC), commercial substance stays Brian's call
 - [[wiki/decisions/2026-06-11-benji-ea-board]] — Benji's EA board greenlit: benji@ joins the sweep, approvals live in his own mailbox (Drafts + send/edit/skip replies), private from Brian by default, Brian-CC opt-in only
-- [[wiki/decisions/2026-06-11-brain-console-storage-split]] — brain keeps how-we-work; KMG Console is the CRM of record (companies/contacts/deals); CRM Google Sheet demoted to one-way verification mirror
-- [[wiki/decisions/2026-06-11-console-brain-port]] — Console hosts the permissioned brain: knowledge records with provenance, domain/sensitivity grants (Brian master, Ari finance/legal, Benji HWFYI/content, Zach S&W), scoped agents, approval proof trails, idempotent KerriOS importer (kerrihq-rails `77e061e`)
+- [[wiki/decisions/2026-06-11-brain-console-storage-split]] — brain keeps how-we-work; Savant is the CRM of record (companies/contacts/deals); CRM Google Sheet demoted to one-way verification mirror
+- [[wiki/decisions/2026-06-11-console-brain-port]] — Savant hosts the permissioned brain: knowledge records with provenance, domain/sensitivity grants (Brian master, Ari finance/legal, Benji HWFYI/content, Zach S&W), scoped agents, approval proof trails, idempotent KerriOS importer (kerrihq-rails `77e061e`)
 
 ## Deals · Meetings · Candidates · Raw
 
@@ -82,4 +82,4 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/meetings/2026-05-28-shiv-hardware-fyi]] — ATOMS HWFYI requirements-management GTM discussion
 - `candidates/` — uncertain/conflicting claims pending review
 - `raw/` — append-only evidence
-- wiki/workflows/kmg-console-approvals.md — KMG Console approvals system handoff (goals, code on GitHub, sync architecture, open steps)
+- wiki/workflows/kmg-console-approvals.md — Savant approvals system handoff (goals, code on GitHub, sync architecture, open steps)

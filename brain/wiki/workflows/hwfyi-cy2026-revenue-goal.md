@@ -21,7 +21,7 @@ If an item does none of those, it should not displace a revenue action unless it
 
 ## System Of Record
 
-The **KMG Console CRM** is the system of record for companies, contacts, and deals. Use the Console API for pipeline writes:
+The **Savant CRM** is the system of record for companies, contacts, and deals. Use the Savant API for pipeline writes:
 
 - Companies: `GET /api/v1/companies?domain=<domain>` or `?job_id=<jobId>`
 - Deals: `GET /api/v1/deals`, `POST /api/v1/deals`, `PATCH /api/v1/deals/:id`, `PATCH /api/v1/deals/:id/update_stage`
@@ -33,7 +33,7 @@ The **`CY2026 Revenue Goal`** tab in the canonical Hardware FYI Sheet is now the
 - Tab: `CY2026 Revenue Goal`
 - Maintainer helper: `node scripts/hwfyi-revenue-goal-sheet.mjs --ensure|--check|--read`
 
-Use the tab when Brian asks "where are we against the $1M goal?" or when an automation needs current revenue totals. Existing tracker, Console CRM, Stripe, contracts, and thread evidence feed the scoreboard. Do not create a Brian task because the old sheet helper cannot write a row; update the Console deal first, then refresh/check the sheet mirror when available.
+Use the tab when Brian asks "where are we against the $1M goal?" or when an automation needs current revenue totals. Existing tracker, Savant CRM, Stripe, contracts, and thread evidence feed the scoreboard. Do not create a Brian task because the old sheet helper cannot write a row; update the Savant deal first, then refresh/check the sheet mirror when available.
 
 If the tab's `Last verified at` / freshness note is stale, say so and refresh from source surfaces before making a current revenue claim.
 
@@ -46,7 +46,7 @@ Use exactly these Hardware FYI statuses in revenue-facing notes and the sheet mi
 - **Contract Won:** signed/accepted/booked CY2026 revenue with source evidence from Contract Breakdown, contract, invoice, Stripe, or an explicit acceptance.
 - **Contract Lost:** explicit no, paid path declined, organic-only/cross-promo-only response, or Brian/Benji closes the paid opportunity.
 
-Console deal stage mapping:
+Savant deal stage mapping:
 
 - `Prospect` -> `lead`
 - `Interest` -> `qualified`
@@ -56,9 +56,9 @@ Console deal stage mapping:
 - `Contract Won` -> `closed_won`
 - `Contract Lost` -> `closed_lost`
 
-Stage changes require source-backed evidence. Cold outreach only creates a `Prospect` after an approved send actually goes out; lead research alone must not create pipeline rows. Inbox sweep and EOD meetings review must update the Console deal when replies, approved sends, meetings, contracts, or skips provide new stage evidence. Pipeline follow-up can update the Console deal when its own nudges are approved/sent or when it observes a source-backed stale/lost condition, but it must not overwrite live Contract Won/Lost rows without fresh evidence.
+Stage changes require source-backed evidence. Cold outreach only creates a `Prospect` after an approved send actually goes out; lead research alone must not create pipeline rows. Inbox sweep and EOD meetings review must update the Savant deal when replies, approved sends, meetings, contracts, or skips provide new stage evidence. Pipeline follow-up can update the Savant deal when its own nudges are approved/sent or when it observes a source-backed stale/lost condition, but it must not overwrite live Contract Won/Lost rows without fresh evidence.
 
-Pipeline stage bookkeeping is automatic. Do not ask Brian to approve a clerical stage move when the source evidence is clear. Run `scripts/console-pipeline-update.mjs --apply`, verify the returned deal stage, append a compact `brain/log.md` line, and refresh `data/companies.json` or the sheet mirror when the run touched CRM state. Create a `⚠️ PIPELINE UPDATE NEEDED` discuss task only when the evidence is ambiguous, the Console API is unavailable, the company cannot be matched safely, or the intended change would regress or reopen a terminal deal.
+Pipeline stage bookkeeping is automatic. Do not ask Brian to approve a clerical stage move when the source evidence is clear. Run `scripts/console-pipeline-update.mjs --apply`, verify the returned deal stage, append a compact `brain/log.md` line, and refresh `data/companies.json` or the sheet mirror when the run touched CRM state. Create a `⚠️ PIPELINE UPDATE NEEDED` discuss task only when the evidence is ambiguous, the Savant API is unavailable, the company cannot be matched safely, or the intended change would regress or reopen a terminal deal.
 
 Mandatory trigger mapping for source-backed signals:
 
@@ -73,7 +73,7 @@ Mandatory trigger mapping for source-backed signals:
 
 A sent proposal email is not complete until its CRM update has succeeded or a fail-closed `⚠️ PIPELINE UPDATE NEEDED` task exists with the exact blocker. A buyer reply that signals interest or loss is not complete until the CRM reflects an active or closed sales state.
 
-Dollar values require source-backed commercial terms. If Brian/Kerri has touched the company but no pricing/proposal/counter/contract/invoice has been sent or received, keep the company in pipeline as `Prospect` or `Interest` with amount `TBD` / zero ledger value. Do not add estimated pricing from the target list, prior sponsor norms, or "likely close" analysis. When a proposal/package/pricing send contains exactly three package prices, set the Console deal value to the middle package; include the package prices in the pipeline evidence line so `scripts/console-pipeline-update.mjs` can write it. If the prices are ambiguous, absent, or not exactly three package options, leave value unchanged until there is clearer source evidence. The summary `Pipeline Amount` is priced open pipeline only; unpriced real opportunities stay visible but do not count toward the amount.
+Dollar values require source-backed commercial terms. If Brian/Kerri has touched the company but no pricing/proposal/counter/contract/invoice has been sent or received, keep the company in pipeline as `Prospect` or `Interest` with amount `TBD` / zero ledger value. Do not add estimated pricing from the target list, prior sponsor norms, or "likely close" analysis. When a proposal/package/pricing send contains exactly three package prices, set the Savant deal value to the middle package; include the package prices in the pipeline evidence line so `scripts/console-pipeline-update.mjs` can write it. If the prices are ambiguous, absent, or not exactly three package options, leave value unchanged until there is clearer source evidence. The summary `Pipeline Amount` is priced open pipeline only; unpriced real opportunities stay visible but do not count toward the amount.
 
 Keep outreach targets separate in `brain/wiki/workflows/hwfyi-cy2026-gap-close-targets.md`. That page can hold companies Kerri should pursue to close the gap, but it is not pipeline and should not be used for revenue claims.
 
@@ -85,7 +85,7 @@ Use live/source-backed surfaces before acting on revenue state:
 - `Hardware FYI CRM`, especially `Contract List`, `Contract Breakdown`, `Leads`, `Newsletter Ad Calendar`, and `Event, Webinar & Custom Content Schedule`.
 - Stripe, invoice, contract, or DocuSign evidence when cash/booking status matters.
 - Custom Hardware FYI/Kerri mailbox threads for current buyer intent and sent-history proof.
-- Kerri Console approval packets for drafted asks and pending sends.
+- Savant approval packets for drafted asks and pending sends.
 - `data/leads-master.json`, `data/cold-outreach-queue.json`, `data/cold-outreach-state.json`, and `data/pipeline-followup-state.json` as local operating ledgers, never as a substitute for live CRM/payment truth.
 
 If a run cannot refresh a live source, label the recommendation as not-current and avoid claiming fresh revenue totals.
@@ -96,7 +96,7 @@ If a run cannot refresh a live source, label the recommendation as not-current a
 - `kerri-inbox-sweep`: catches sponsor/customer replies, approval decisions, payment/admin blockers, and approved sends; it must tag Hardware FYI items by revenue bucket and update `Prospect` / `Interest` / `Contract Won` / `Contract Lost` when the source evidence supports a stage change.
 - `kerri-eod-meetings-review`: converts sponsor/prospect meetings into source-backed follow-up tasks, deal memory, and central-tab stage changes when the meeting creates or changes a commercial state.
 - `kerri-lead-research`: keeps the top of funnel full with ICP-scored sponsor targets tied to likely Hardware FYI products. It does not create central pipeline rows for uncontacted leads.
-- `kerri-cold-outreach`: turns the top ready leads into approval-gated, one-to-one outreach drafts; it never sends directly. After inbox-sweep sends an approved cold draft, the company becomes `Prospect` in the Console deal pipeline, then appears in the sheet mirror.
+- `kerri-cold-outreach`: turns the top ready leads into approval-gated, one-to-one outreach drafts; it never sends directly. After inbox-sweep sends an approved cold draft, the company becomes `Prospect` in the Savant deal pipeline, then appears in the sheet mirror.
 - `kerri-pipeline-followup`: owns warm-deal nudges where Brian/Kerri sent last and the counterparty has gone quiet; it never sends directly. It reads and maintains the same central statuses.
 - `kerri-gap-sweep`: checks that the above machinery remains live, deduped, approval-gated, and wired to this goal.
 - `kerri-brain-push`: ships eligible prompt/brain improvements so the revenue system keeps learning.

@@ -23,7 +23,7 @@ This mirrors how the beehiiv task actually went well: turning recommendations of
 
 ## Hard gates (unchanged, enforced everywhere)
 
-`neverAuto`, now including irreversible/destructive actions: material CRM judgment calls; pricing/packages/tiers; legal/contracts/signatures; finance/any spend (refunds or COGS > $2,500); permission/access-control/identity changes; **irreversible or destructive actions (hard deletes, purges, anything with no one-step undo)**; anything crossing the S/W boundary as commercial/content/legal/finance substance. External email sends keep their existing approval gate. Source-backed Hardware FYI pipeline stage bookkeeping is the explicit exception: if an approved send, buyer reply, booked meeting, proposal/package/pricing send, contract event, or explicit decline clearly proves the stage move, Kerri updates the Console deal automatically and logs the evidence.
+`neverAuto`, now including irreversible/destructive actions: material CRM judgment calls; pricing/packages/tiers; legal/contracts/signatures; finance/any spend (refunds or COGS > $2,500); permission/access-control/identity changes; **irreversible or destructive actions (hard deletes, purges, anything with no one-step undo)**; anything crossing the S/W boundary as commercial/content/legal/finance substance. External email sends keep their existing approval gate. Source-backed Hardware FYI pipeline stage bookkeeping is the explicit exception: if an approved send, buyer reply, booked meeting, proposal/package/pricing send, contract event, or explicit decline clearly proves the stage move, Kerri updates the Savant deal automatically and logs the evidence.
 
 ## Escalate-on-block (the safety net)
 

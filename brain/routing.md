@@ -2,8 +2,9 @@
 
 Topic → file map. Use this to find the right wiki page without reading the full index. Read 1–3 pages on a routed topic; don't auto-load more.
 
-## "KMG Console / approvals / task board / where Brian approves emails"
+## "Savant / KMG Console / approvals / task board / where Brian approves emails"
 
+- [[wiki/properties/savant]] — canonical definition: production KMG operating app (`kerrihq-rails` on Render), formerly Kerri/KMG Console
 - [[wiki/workflows/kmg-console-approvals]] — system handoff: goals, code locations (GitHub), sync architecture, state, next steps
 
 ## "How does the brain work?"
@@ -16,12 +17,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 ## "Who is X?" (person)
 
 - KMG team + Zach: `wiki/people/<slug>.md` (brian-derario, ari-lewis, benji-chia, zach-silber)
-- External contacts: **KMG Console CRM** — `GET /api/v1/people?company_id=…` or search by email (token `KERRIHQ_AGENT_API_KEY` in `~/.kerri-chief/secrets/kerrihq.env`). Legacy `wiki/people/` pages are frozen (git history).
+- External contacts: **Savant CRM** — `GET /api/v1/people?company_id=…` or search by email (token `KERRIHQ_AGENT_API_KEY` in `~/.kerri-chief/secrets/kerrihq.env`). Legacy `wiki/people/` pages are frozen (git history).
 
 ## "What is X?" (company / property / partner)
 
 - KMG entities: `wiki/properties/<slug>.md`
-- External companies (incl. partners): **KMG Console CRM is the system of record** (2026-06-11 split, [[wiki/decisions/2026-06-11-brain-console-storage-split]]) — `GET /api/v1/companies?domain=<d>` / `?job_id=<id>`; relationship context lives in the record's `crm_notes`. `wiki/companies/` is frozen (legacy pages in git history; exception: [[wiki/companies/standard-and-works]] remains the boundary page). Offline fallback: snapshot `data/companies.json` (read-only).
+- External companies (incl. partners): **Savant CRM is the system of record** (2026-06-11 split, [[wiki/decisions/2026-06-11-brain-console-storage-split]]) — `GET /api/v1/companies?domain=<d>` / `?job_id=<id>`; relationship context lives in the record's `crm_notes`. `wiki/companies/` is frozen (legacy pages in git history; exception: [[wiki/companies/standard-and-works]] remains the boundary page). Offline fallback: snapshot `data/companies.json` (read-only).
 
 ## "Why did we do X?" (decision history)
 
@@ -39,9 +40,9 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - `brian@hardwarefyi.com` and `kerri@hardwarefyi.com` → custom local Outlook MCP.
 - Match the exact account Brian names before searching or reading mail. Do not treat Gmail, Superhuman, and Outlook as interchangeable.
 
-## "How do routines report runs / file tasks to the KMG Console?"
+## "How do routines report runs / file tasks to Savant?"
 
-- [[wiki/workflows/console-reporting]] — Console MCP contract for run reporting, board tasks, approvals readback, adjustments (STAGED until prod deploy)
+- [[wiki/workflows/console-reporting]] — Savant MCP/API contract for run reporting, board tasks, approvals readback, adjustments
 
 ## "How should we reply to a sponsor asking what products include?"
 
@@ -148,8 +149,8 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 ## "How do I assign a job ID?" / "Is this customer already in the CRM?"
 
-- [[wiki/workflows/customer-id-protocol]] — **MANDATORY universal lookup** before any company/jobId write. Per-customer (not per-sweep); same company keeps same jobId forever. Lookup doubles as QA gate. Runs against the Console API since 2026-06-11.
-- `../data/companies.json` — READ-ONLY Console snapshot (offline fallback only; refreshed by `scripts/console-crm-snapshot.mjs`)
+- [[wiki/workflows/customer-id-protocol]] — **MANDATORY universal lookup** before any company/jobId write. Per-customer (not per-sweep); same company keeps same jobId forever. Lookup doubles as QA gate. Runs against the Savant API since 2026-06-11.
+- `../data/companies.json` — READ-ONLY Savant snapshot (offline fallback only; refreshed by `scripts/console-crm-snapshot.mjs`)
 - `../data/job-counters.json` — counter state (only bumps on brand-new customer)
 
 ## "Who gets the investor update?" / "investor update distribution list" / "quarterly update"

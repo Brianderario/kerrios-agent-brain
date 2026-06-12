@@ -66,11 +66,11 @@ test('inbox sweep prompt preserves approval gates and mailbox routing', () => {
     'brian@kerrihq.com → the Gmail connector',
     'NO send. Kerri never sends as brian@kerrihq.com',
     'brian@standardandworks.com → the Superhuman connector',
-    'Kerri Console tasks API → `node scripts/console-task-api.mjs ...`',
-    'APPROVAL CHANNEL: Kerri Console production Tasks board',
+    'Savant tasks API → `node scripts/console-task-api.mjs ...`',
+    'APPROVAL CHANNEL: Savant production Tasks board',
     'that mailbox fails closed this run',
     'never silently shrink coverage',
-    'Never send email if the Console queue cannot be read first.',
+    'Never send email if the Savant queue cannot be read first.',
     'enforce approved=true + approvalSource on every send',
     'The S/W boundary, the no-double-email gate, and the external approval gate are permanent.'
   ]);
@@ -187,7 +187,7 @@ test('inbox sweep prompt blocks double emails before every send on every path', 
     'every internetMessageIds[] value',
     'If Brian or Kerri already replied after the task/draft was created, fail closed',
     'SECOND SEND APPROVED BY BRIAN',
-    'If duplicate status cannot be verified (Console queue, mailbox, or state unreachable), send nothing.',
+    'If duplicate status cannot be verified (Savant queue, mailbox, or state unreachable), send nothing.',
     'count it in `doubleEmailBlocks`'
   ]);
 });
@@ -198,7 +198,7 @@ test('inbox sweep prompt blocks double emails before every send on every path', 
 test('inbox sweep cross-checks live task status before trusting the listing', () => {
   assertAll(prompt, [
     'node scripts/console-task-api.mjs list --resolved pending --per-page 100',
-    'The Console task row is the live source of truth.'
+    'The Savant task row is the live source of truth.'
   ]);
 });
 
@@ -223,7 +223,7 @@ test('unmatched and EOD-sourced tasks fail closed instead of sending', () => {
     '⚠ ORPHAN — no jobs.json entry; needs interactive reconciliation',
     'EOD-sourced tasks (`🌙` titles / `EOD source tag:`) are sendable only when the EOD runner wrote the matching job with routing metadata',
     'Existing-chain routing is mandatory: reply on the stored thread',
-    'if the stored route is missing or stale, send nothing and update the Console task to `status=action_needed` with `⚠️ route needed` in the title/body'
+    'if the stored route is missing or stale, send nothing and update the Savant task to `status=action_needed` with `⚠️ route needed` in the title/body'
   ]);
 });
 
@@ -235,8 +235,8 @@ test('task decisions follow ACTION-line precedence and deletion is never approva
     'ACTION: send | skip | redo | discuss',
     'PRECEDENCE: an ACTION of skip or redo wins over a generic approval signal',
     'an approved task with ACTION: skip is a deliberate close, not a send approval',
-    'Console task missing/deleted while the job is still pending → closure, NOT approval',
-    'skipReason "Console task removed by Brian; deletion is not approval"'
+    'Savant task missing/deleted while the job is still pending → closure, NOT approval',
+    'skipReason "Savant task removed by Brian; deletion is not approval"'
   ]);
 });
 
@@ -345,7 +345,7 @@ test('inbox sweep prompt suppresses repeated identical error texts', () => {
     'Always gate through `scripts/inbox-sweep-error-dedupe.mjs` first',
     'stays silent in texts but keeps being recorded in state/grades',
     're-alerts when the reason changes materially',
-    'Console queue readability itself is at risk, which stays the highest-priority alert at most hourly',
+    'Savant queue readability itself is at risk, which stays the highest-priority alert at most hourly',
     'errorAlertSuppressed'
   ]);
 
@@ -362,7 +362,7 @@ test('inbox sweep prompt protects redo provenance and new-reply markers', () => 
   assertAll(prompt, [
     'diff the task-body DRAFT block (between `>>>>>>>` and `<<<<<<<`) against job.originalDraft',
     'skip the lesson when notes carry a `DRAFT SOURCE:` provenance line from a Kerri redo',
-    'rewrite the same Console task body with `DRAFT SOURCE: inbox-sweep redo at <ET>`',
+    'rewrite the same Savant task body with `DRAFT SOURCE: inbox-sweep redo at <ET>`',
     'prefix the title 🆕 if not already. No duplicate task.'
   ]);
 });
@@ -393,11 +393,11 @@ test('inbox sweep performs CRM pipeline updates after revenue sends and replies'
     '`wants-to-do-deal` when they say they want to move forward or do a deal',
     '`declined`, `moving-on`, `not-doing-deal`, or `organic-only` for lost evidence',
     'A sent proposal email is not complete until the CRM update has succeeded',
-    'For every H-prefix sent job, immediately run the CRM PIPELINE AUTO-UPDATE rule below before marking the Console task applied'
+    'For every H-prefix sent job, immediately run the CRM PIPELINE AUTO-UPDATE rule below before marking the Savant task applied'
   ]);
 });
 
-test('EOD meetings review converts commercial meeting signals into Console CRM stages', () => {
+test('EOD meetings review converts commercial meeting signals into Savant CRM stages', () => {
   assertAll(eodMeetingsPrompt, [
     'Buyer requests package/pricing/details, wants to learn more, receives proposal, accepts a next commercial step, or gives verbal renewal intent',
     'Buyer says they want to move forward or do a deal -> active sales conversation / `--signal wants-to-do-deal`',
@@ -502,7 +502,7 @@ test('inbox sweep prompt includes honest self-grading with hard floors', () => {
     'Daily (first run after 20:30 ET)',
     'Weekly (Friday after 16:00 ET)',
     'Hard floors: an unapproved send, wrong identity, wrong thread, or S/W leak is an automatic 0 on approval safety plus an immediate text.',
-    'A run that cannot read the Kerri Console queue sends nothing and records fail_closed.',
+    'A run that cannot read the Savant queue sends nothing and records fail_closed.',
     'A silent drop of a real email caps the run grade at 2.'
   ]);
 });
@@ -510,7 +510,7 @@ test('inbox sweep prompt includes honest self-grading with hard floors', () => {
 // v1: "routes suggestions through relevance-gated approval tasks". The standalone
 // google-tasks-improvement-suggestions.md doc and Codex/Claude-era runner vocabulary
 // are gone (d052b09); the relevance gate, dedupe, and no-self-modification rule remain.
-test('inbox sweep prompt routes suggestions through relevance-gated Console tasks', () => {
+test('inbox sweep prompt routes suggestions through relevance-gated Savant tasks', () => {
   assertAll(prompt, [
     'max one new `💡 SUGGESTION:` task per run',
     'OBSERVED / BUILD RELEVANCE (relevant | already-solved | obsolete | needs-human-policy, checked against current canonical files) / PROPOSED / COST-RISK',

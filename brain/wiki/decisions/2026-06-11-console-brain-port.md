@@ -1,15 +1,15 @@
 ---
 name: 2026-06-11-console-brain-port
-description: The Kerri Console now hosts a permissioned brain layer ported from KerriOS — knowledge records with provenance, domain/sensitivity grants, scoped agents, approval proof trails, and an idempotent KerriOS importer.
+description: Savant (formerly Kerri Console) hosts a permissioned brain layer ported from KerriOS — knowledge records with provenance, domain/sensitivity grants, scoped agents, approval proof trails, and an idempotent KerriOS importer.
 ---
 
-# Decision: Console hosts the permissioned brain (KerriOS port)
+# Decision: Savant hosts the permissioned brain (KerriOS port)
 
-scope: decision · updated: 2026-06-11 · authority: Brian (implementation prompt, Codex Kerri Agent Master/00-shared-context/kerri-console-brain-port-implementation-prompt.md)
+scope: decision · updated: 2026-06-12 · authority: Brian (implementation prompt, Codex Kerri Agent Master/00-shared-context/kerri-console-brain-port-implementation-prompt.md; product renamed to Savant 2026-06-12)
 
 ## What shipped
 
-kerrihq-rails commit `77e061e` (branch `kerri/brain-port`, merged to main) adds the permissioned brain layer to the Console:
+kerrihq-rails commit `77e061e` (branch `kerri/brain-port`, merged to main) added the permissioned brain layer to Savant, then known as the Console:
 
 - **Domains + permission grants** — explicit per-user and per-agent access (domain, record kind, source, sensitivity ceiling, action list). Brian = master via owner membership; Ari = finance/legal breadth; Benji = Hardware FYI + content; Zach = Standard & Works only. Agents get the intersection of their own grants and their owner's.
 - **Knowledge records** — durable facts imported from this repo with provenance (path, content hash, timestamps) and lifecycle (imported → candidate → canonical, stale, superseded). Candidates need human promotion.
@@ -20,6 +20,6 @@ kerrihq-rails commit `77e061e` (branch `kerri/brain-port`, merged to main) adds 
 
 ## What this means for agents working in this repo
 
-- This repo stays the **source of truth for prompts and durable how-we-work pages**; the Console mirrors the wiki as permissioned records via the importer (Sources → KerriOS Brain → Run import). Nothing about the write rules here changes.
-- The Console approval queue (`/organizations/<org>/approval_requests` + API) is the audit lane for sensitive actions; the task board remains the day-to-day card surface.
+- This repo stays the **source of truth for prompts and durable how-we-work pages**; Savant mirrors the wiki as permissioned records via the importer (Sources → KerriOS Brain → Run import). Nothing about the write rules here changes.
+- The Savant approval queue (`/organizations/<org>/approval_requests` + API) is the audit lane for sensitive actions; the task board remains the day-to-day card surface.
 - Full architecture + extension guide: `docs/brain-architecture.md` in kerrihq-rails.

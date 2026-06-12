@@ -19,10 +19,10 @@ This is a draft-and-approval loop, not an auto-send loop.
    - Target exactly 10 approval-ready drafts per weekday when at least 10 qualified queue entries exist.
    - Hard caps remain 10/day and 50/rolling-7.
    - If fewer than 10 survive dedupe/enrichment, draft the surviving qualified count and create one `COLD BATCH SHORT` deficit task that states how many more qualified prospects are needed.
-   - Post one Hardware FYI Kerri Console task: `☀️ COLD BATCH <date> — <N> drafts`.
+   - Post one Hardware FYI Savant task: `☀️ COLD BATCH <date> — <N> drafts`.
 
 3. **Approve / send** — `kerri-inbox-sweep`.
-   - Sends only after Brian approves the batch task in Kerri Console.
+   - Sends only after Brian approves the batch task in Savant.
    - Honors per-draft `SEND #n`, `SKIP #n`, and `REDO #n` controls.
    - Records each sent draft in `data/cold-outreach-state.json`.
    - Promotes the contacted company to `Prospect` in `CY2026 Revenue Goal` only after the send actually happens.
@@ -42,7 +42,7 @@ Default scheduled runs are cheap preflight runs first. They should load compact 
 - Lead research stops once the queue is back to at least 25 ready entries. It sources only the number needed to restore that threshold plus a skip buffer, uses bulk/paginated APIs for backfills, saves raw discovery batches to `data/lead-research/batches/`, and logs only compact summaries.
 - Cold outreach scans a bounded queue slice. Inspect at most 25 queue entries to produce the 10 approval-ready drafts; if fewer than 10 survive that slice, create the smaller batch plus one `COLD BATCH SHORT` task instead of continuing unbounded.
 - Cold outreach loads voice rules, draft learnings, company/person detail, and revenue proof only after cap and queue preflight show draft work will actually happen.
-- Console task output stays compact: one batch task, one deficit task if needed, two or three metadata lines per draft, no raw enrichment payloads, and no per-draft approval tasks.
+- Savant task output stays compact: one batch task, one deficit task if needed, two or three metadata lines per draft, no raw enrichment payloads, and no per-draft approval tasks.
 
 ## Source-Of-Truth Rules
 
