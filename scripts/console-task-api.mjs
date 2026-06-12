@@ -91,7 +91,8 @@ export function taskCreatePayload(args) {
     status: args.status || 'needs_approval',
     job_ref: args.jobRef,
     external_ref: args.externalRef,
-    due_on: args.dueOn
+    due_on: args.dueOn,
+    on_complete: onCompletePayload(args)
   };
   return compact({
     task: compact(task),
@@ -120,6 +121,9 @@ export function taskUpdatePayload(args) {
   }
   if (args.clearResolution) payload.resolution = null;
   if (args.clearResolutionPayload) payload.resolution_payload = {};
+  const onComplete = onCompletePayload(args);
+  if (onComplete !== undefined) payload.on_complete = onComplete;
+  if (args.clearOnComplete) payload.on_complete = {};
   return { task: payload };
 }
 
@@ -201,6 +205,15 @@ export function parseArgs(argv) {
         break;
       case '--resolution-payload-file':
         args.resolutionPayloadFile = rest[++i];
+        break;
+      case '--on-complete-json':
+        args.onCompleteJson = rest[++i];
+        break;
+      case '--on-complete-file':
+        args.onCompleteFile = rest[++i];
+        break;
+      case '--clear-on-complete':
+        args.clearOnComplete = true;
         break;
       case '--clear-resolution':
         args.clearResolution = true;
@@ -313,6 +326,15 @@ function compact(object) {
 function metadataPayload(args) {
   if (args.metadataJson) return JSON.parse(args.metadataJson);
   if (args.metadataFile) return JSON.parse(fs.readFileSync(args.metadataFile, 'utf8'));
+  return undefined;
+}
+
+// Structured "what happens when Brian marks this done" payload. The Console
+// executes it server-side on completion (never on skip) — see the Rails
+// TaskCompletionAction service. Shape: {"action":"create_deal","params":{...}}.
+function onCompletePayload(args) {
+  if (args.onCompleteJson) return JSON.parse(args.onCompleteJson);
+  if (args.onCompleteFile) return JSON.parse(fs.readFileSync(args.onCompleteFile, 'utf8'));
   return undefined;
 }
 
