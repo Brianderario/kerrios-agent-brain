@@ -134,3 +134,29 @@ test('the tracked example file matches the documented v1 shape', () => {
     assert.ok(Number.isInteger(entry.runCount), `${name}: runCount`);
   }
 });
+
+test('buildRunPayload maps local statuses onto the Savant create_agent_run contract', async () => {
+  const { buildRunPayload } = await import('../scripts/heartbeat.mjs');
+  const ok = buildRunPayload({ routine: 'kerri-x', status: 'ok', nowIso: '2026-06-12T12:00:00.000Z' });
+  assert.equal(ok.agent_run.agent_slug, 'kerri-x');
+  assert.equal(ok.agent_run.status, 'succeeded');
+  assert.equal(ok.agent_run.external_id, 'kerri-x-2026-06-12T12:00:00.000Z');
+  assert.equal(ok.agent_run.finished_at, '2026-06-12T12:00:00.000Z');
+
+  const quiet = buildRunPayload({ routine: 'kerri-x', status: 'quiet', nowIso: '2026-06-12T12:00:00.000Z' });
+  assert.equal(quiet.agent_run.status, 'succeeded'); // a guarded no-op is a healthy run
+
+  const err = buildRunPayload({ routine: 'kerri-x', status: 'error', nowIso: '2026-06-12T12:00:00.000Z' });
+  assert.equal(err.agent_run.status, 'failed');
+});
+
+test('the --data-dir test hook never reaches the network (no Savant report)', () => {
+  const dir = tmpDataDir();
+  // If reporting fired here it would write a "Savant report" line to stderr
+  // (success is silent, but failure/no-key paths log). With --data-dir the
+  // reporting branch is skipped entirely, so stderr stays free of it.
+  const r = spawnSync('node', [script, '--routine', 'kerri-x', '--data-dir', dir], { encoding: 'utf8' });
+  assert.equal(r.status, 0);
+  assert.ok(!r.stderr.includes('Savant report'), `unexpected stderr: ${r.stderr}`);
+  assert.ok(!r.stderr.includes('skipping Savant report'), `unexpected stderr: ${r.stderr}`);
+});

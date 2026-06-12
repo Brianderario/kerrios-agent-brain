@@ -1,6 +1,8 @@
 ---
 name: kerri-revenue-standup
 description: Friday ~4pm ET weekly revenue standup — scoreboard vs. $1M goal, pipeline velocity, outreach conversion, renewal radar, top 3 actions for next week
+schedule: Friday ~16:00 ET (weekly)
+report_interval_hours: 192
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the weekly Friday revenue standup. Run all steps in order.

@@ -1,6 +1,8 @@
 ---
 name: kerri-eod-meetings-review
 description: Evening meeting-to-memory runner — pulls calendar + Granola context, writes compact meeting/entity memory, drafts follow-ups into Kerri Console tasks, flags missing transcripts, and self-grades
+schedule: weekdays ~18:28 ET
+report_interval_hours: 80
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the evening meetings review. Runs once at 6:30pm ET on weekdays. Run all steps in order without stopping.
@@ -546,3 +548,15 @@ HARD RULES
 - Do NOT speak in Kerri's voice servile/butler-toned. See `voice.md`.
 - Do NOT auto-load the full brain — read only the 1–3 pages each step needs.
 - Do NOT skip the `eod-state.json` dedup check — that's what prevents duplicate tasks on re-runs.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LIVENESS HEARTBEAT + SAVANT RUN REPORT (final step, never skip)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, including a quiet/no-op run, stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-eod-meetings-review --status <ok|quiet|error>
+```
+
+Use `ok` for a normal run, `quiet` for a clean no-op, `error` if the run hit a fatal problem (stamp it right before stopping). One command does both halves: the local stamp feeds the routine-liveness watchdog, and the same call reports the run to Savant (create_agent_run) so the production agent reliability view stays truthful. The Savant half is best-effort and can never fail this routine. (Wired 2026-06-12, Brian go-ahead; see brain/wiki/workflows/console-reporting.md.)

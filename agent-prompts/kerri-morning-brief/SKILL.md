@@ -1,6 +1,8 @@
 ---
 name: kerri-morning-brief
 description: Weekday HTML morning brief for Brian - today's meetings with context, yesterday's Chase spend from brian@kerrihq.com Gmail alerts, pending tasks needing attention, email delivery, and compact KerriOS write-back
+schedule: weekdays ~06:57 ET
+report_interval_hours: 80
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the weekday HTML morning brief. It runs at 7:00am ET. Run all steps in order.
@@ -372,3 +374,15 @@ ERROR HANDLING
 - If Gmail/Chase search fails, still produce the HTML with a "Chase unavailable" card.
 - If email delivery fails, write the brief to `data/morning-brief-fallback-<YYYY-MM-DD>.md` and record the failure in state.
 - Never send external emails or mutate external source-of-truth systems from the morning brief.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LIVENESS HEARTBEAT + SAVANT RUN REPORT (final step, never skip)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, including a quiet/no-op run, stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-morning-brief --status <ok|quiet|error>
+```
+
+Use `ok` for a normal run, `quiet` for a clean no-op, `error` if the run hit a fatal problem (stamp it right before stopping). One command does both halves: the local stamp feeds the routine-liveness watchdog, and the same call reports the run to Savant (create_agent_run) so the production agent reliability view stays truthful. The Savant half is best-effort and can never fail this routine. (Wired 2026-06-12, Brian go-ahead; see brain/wiki/workflows/console-reporting.md.)

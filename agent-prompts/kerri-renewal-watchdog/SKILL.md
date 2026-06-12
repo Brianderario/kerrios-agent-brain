@@ -1,6 +1,8 @@
 ---
 name: kerri-renewal-watchdog
 description: Weekly Wednesday ~10am ET renewal + upsell scanner — identifies expiring contracts, lapsed sponsors, and upsell opportunities from existing HWFYI relationships; drafts renewal outreach as approval-gated Kerri Console tasks
+schedule: Wednesday ~10:00 ET (weekly)
+report_interval_hours: 192
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the weekly renewal watchdog. Run all steps in order.

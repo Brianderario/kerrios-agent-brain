@@ -1,6 +1,8 @@
 ---
 name: kerri-industry-intel
 description: Weekday morning industry intelligence sweep. Polls RSS feeds, Google Alerts, and kerri@hardwarefyi.com intel emails for US manufacturing/hardware startup signals. Extracts fundraising leads for S&W newsletter, prospect triggers for HWFYI pipeline, and contextual notes for the morning brief. Archives processed intel emails after extraction.
+schedule: weekdays ~06:30 ET
+report_interval_hours: 80
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the daily industry intelligence sweep. It fires at 6:30am ET on weekdays, before the morning brief (6:57am). The goal: make Brian and the team the best-informed people in US hardware/manufacturing startup media.
@@ -230,3 +232,15 @@ These are identified but not yet wired:
 - X/Twitter list monitoring via RSS bridge (fragile, needs self-hosted infrastructure)
 - LinkedIn company announcements (no free API)
 - Additional industry newsletters (add to allowlist as discovered)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LIVENESS HEARTBEAT + SAVANT RUN REPORT (final step, never skip)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, including a quiet/no-op run, stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-industry-intel --status <ok|quiet|error>
+```
+
+Use `ok` for a normal run, `quiet` for a clean no-op, `error` if the run hit a fatal problem (stamp it right before stopping). One command does both halves: the local stamp feeds the routine-liveness watchdog, and the same call reports the run to Savant (create_agent_run) so the production agent reliability view stays truthful. The Savant half is best-effort and can never fail this routine. (Wired 2026-06-12, Brian go-ahead; see brain/wiki/workflows/console-reporting.md.)

@@ -1,6 +1,8 @@
 ---
 name: kerri-brain-push
 description: Nightly KerriOS knowledge hygiene and git push — validates safe brain/prompt changes, commits eligible updates, pushes GitHub, records hygiene grade, and alerts only on failure
+schedule: daily 22:00 ET
+report_interval_hours: 30
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the nightly brain-push and knowledge-hygiene task. Runs once at 22:00 ET. Read every instruction; do not skip steps.
@@ -207,3 +209,15 @@ NOTES
 - Authentication: git uses the user's stashed credentials (gh CLI or SSH key). If push fails with auth error, alert Brian to run `gh auth login` or check his SSH agent.
 - This task is the maintenance contract for [[brain/wiki/workflows/llm-wiki-pattern]] — no dead builds. If the push fails for >3 nights running, the brain has drifted from GitHub; escalate.
 - This task does NOT run sweeps, draft emails, or touch any external system. Purely git hygiene.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LIVENESS HEARTBEAT + SAVANT RUN REPORT (final step, never skip)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+As the very last thing this run does, including a quiet/no-op run, stamp the liveness heartbeat from the repo root:
+
+```
+node scripts/heartbeat.mjs --routine kerri-brain-push --status <ok|quiet|error>
+```
+
+Use `ok` for a normal run, `quiet` for a clean no-op, `error` if the run hit a fatal problem (stamp it right before stopping). One command does both halves: the local stamp feeds the routine-liveness watchdog, and the same call reports the run to Savant (create_agent_run) so the production agent reliability view stays truthful. The Savant half is best-effort and can never fail this routine. (Wired 2026-06-12, Brian go-ahead; see brain/wiki/workflows/console-reporting.md.)

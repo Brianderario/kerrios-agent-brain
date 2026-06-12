@@ -512,10 +512,10 @@ test('inbox sweep prompt includes honest self-grading with hard floors', () => {
 // are gone (d052b09); the relevance gate, dedupe, and no-self-modification rule remain.
 test('inbox sweep prompt routes suggestions through relevance-gated Savant tasks', () => {
   assertAll(prompt, [
-    'max one new `💡 SUGGESTION:` task per run',
-    'OBSERVED / BUILD RELEVANCE (relevant | already-solved | obsolete | needs-human-policy, checked against current canonical files) / PROPOSED / COST-RISK',
-    'Scan for an existing open duplicate first.',
-    'the sweep itself never self-modifies its prompt or policy tiers'
+    'max one new `💡 SUGGESTION:` card per run',
+    'relevant | already-solved | obsolete | needs-human-policy',
+    'Dedup against open 💡 cards AND brain/log.md denial lines.',
+    'sweep itself never self-modifies its prompt or policy tiers'
   ]);
 });
 
