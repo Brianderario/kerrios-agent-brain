@@ -28,6 +28,10 @@ const coldOutreachPrompt = fs.readFileSync(
   new URL('../agent-prompts/kerri-cold-outreach/SKILL.md', import.meta.url),
   'utf8'
 );
+const eodMeetingsPrompt = fs.readFileSync(
+  new URL('../agent-prompts/kerri-eod-meetings-review/SKILL.md', import.meta.url),
+  'utf8'
+);
 const autonomyPolicy = JSON.parse(
   fs.readFileSync(new URL('../data/autonomy-policy.json', import.meta.url), 'utf8')
 );
@@ -375,6 +379,31 @@ test('inbox sweep prompt updates cold outreach state after approved sends', () =
     'SKIP #n (drafted→skipped, lead back to new)',
     'A batch task removed while never approved = Brian declining the batch after replacement-check',
     'Cap counters were already incremented at draft time; never re-send an already-sent index.'
+  ]);
+});
+
+test('inbox sweep performs CRM pipeline updates after revenue sends and replies', () => {
+  assertAll(prompt, [
+    'CRM PIPELINE AUTO-UPDATE (mandatory after every H-prefix send/reply/disposition)',
+    'after any approved send, autonomous info@ send, buyer reply, booked meeting, proposal/package/pricing send, contract event, or explicit decline',
+    'node scripts/console-pipeline-update.mjs --apply --job-id <JOBID> --signal "<signal>"',
+    '`approved-send` for first real outreach/contact with no pricing',
+    '`asked-for-info` when the buyer asks for audience, pricing, examples, details, or wants to learn more',
+    '`proposal-sent` / `package-sent` / `pricing-sent` when our sent email includes a proposal, package menu, or pricing',
+    '`wants-to-do-deal` when they say they want to move forward or do a deal',
+    '`declined`, `moving-on`, `not-doing-deal`, or `organic-only` for lost evidence',
+    'A sent proposal email is not complete until the CRM update has succeeded',
+    'For every H-prefix sent job, immediately run the CRM PIPELINE AUTO-UPDATE rule below before marking the Console task applied'
+  ]);
+});
+
+test('EOD meetings review converts commercial meeting signals into Console CRM stages', () => {
+  assertAll(eodMeetingsPrompt, [
+    'Buyer requests package/pricing/details, wants to learn more, receives proposal, accepts a next commercial step, or gives verbal renewal intent',
+    'Buyer says they want to move forward or do a deal -> active sales conversation / `--signal wants-to-do-deal`',
+    'Explicit no / paid path declined / organic-only path / moving on',
+    'node scripts/console-pipeline-update.mjs --apply --job-id <JOBID> --signal "<signal>"',
+    'Do not leave a source-backed active sales conversation out of the pipeline.'
   ]);
 });
 

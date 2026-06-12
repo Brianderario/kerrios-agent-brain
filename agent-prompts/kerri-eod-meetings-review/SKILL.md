@@ -221,12 +221,13 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
   - Search meeting memory for the same company and same non-Brian attendees from the last 30 days, especially sales/catalog/budget/timing calls.
   - Search sent mail for Brian's most recent message to the company/contact and for any promised catalog, package rundown, pricing, event, or content example.
   - Include the revenue classification and the concrete next revenue move in the Console task body.
-  - If the meeting changes the commercial stage, update the central `CY2026 Revenue Goal` tab with exactly one of: `Prospect`, `Interest`, `Contract Won`, `Contract Lost`.
-    - Meeting/contact with no proposal yet -> `Prospect`.
-    - Buyer requests package/pricing/details, receives proposal, accepts a next commercial step, or gives verbal renewal intent -> `Interest`.
-    - Signed/accepted/booked revenue evidence -> `Contract Won`.
-    - Explicit no / paid path declined / organic-only path -> `Contract Lost`.
-    - If a source-backed Hardware FYI meeting changes pipeline stage, update the Console deal with `node scripts/console-pipeline-update.mjs --apply --job-id <JOBID> --status "<Prospect|Interest|Contract Won|Contract Lost>" --source "<calendar/Granola pointer>" --evidence "<one-line proof>"`, verify the returned stage, and log it. Create a `⚠️ PIPELINE UPDATE NEEDED — <Company>` task only when Console is unavailable, the company/deal cannot be matched safely, or the move would regress/reopen a closed deal.
+  - If the meeting changes the commercial stage, update the central `CY2026 Revenue Goal` mirror and the Console CRM.
+    - Meeting/contact with no proposal yet -> `Prospect` / `--signal approved-send` or `booked-meeting`.
+    - Buyer requests package/pricing/details, wants to learn more, receives proposal, accepts a next commercial step, or gives verbal renewal intent -> `Interest` / `--signal asked-for-info`, `booked-meeting`, or `proposal-sent`.
+    - Buyer says they want to move forward or do a deal -> active sales conversation / `--signal wants-to-do-deal`.
+    - Signed/accepted/booked revenue evidence -> `Contract Won` / `--signal accepted`, `signed`, or `booked-revenue`.
+    - Explicit no / paid path declined / organic-only path / moving on -> `Contract Lost` / `--signal declined`, `moving-on`, `not-doing-deal`, or `organic-only`.
+    - If a source-backed Hardware FYI meeting changes pipeline stage, update the Console deal with `node scripts/console-pipeline-update.mjs --apply --job-id <JOBID> --signal "<signal>" --source "<calendar/Granola pointer>" --evidence "<one-line proof>"`, verify the returned stage, refresh `data/companies.json` when CRM changed, and log it. Create a `⚠️ PIPELINE UPDATE NEEDED — <Company>` task only when Console is unavailable, the company/deal cannot be matched safely, or the move would regress/reopen a closed deal. Do not leave a source-backed active sales conversation out of the pipeline.
   - Merge the current meeting with that prior context into a one-line recommendation thesis before drafting.
   - If the prior context changes the action from "soft follow-up" to "commercial recommendation," the draft must name the concrete product surfaces, proof points, sequence, and next decision. Do not collapse it to "let's compare notes" or a vague "we can put together options."
   - If prior context cannot be checked, fail closed to `ACTION: redo` with `CONTEXT REVIEW REQUIRED`; list the missing searches rather than creating a weak send-ready draft.

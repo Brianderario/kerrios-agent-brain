@@ -2,8 +2,9 @@
 // Source-backed pipeline stage updater for the KMG Console CRM.
 //
 // This is intentionally narrow: it updates factual deal stage bookkeeping from
-// evidence already observed by an agent. It does not invent values, change
-// pricing, send email, or override closed deals.
+// evidence already observed by an agent. It does not invent pricing, send email,
+// or override closed deals. It only writes deal value when the value is present
+// in source-backed commercial terms.
 
 import fs from 'node:fs';
 import os from 'node:os';
@@ -23,12 +24,23 @@ const STAGE_ORDER = {
 };
 const CLOSED_STAGES = new Set(['closed_won', 'closed_lost']);
 const MAX_NOTE_LENGTH = 5000;
+const VALUE_STAGES = new Set(['proposal_sent', 'contract_sent', 'negotiation', 'closed_won']);
 
 const STATUS_TO_STAGE = new Map([
   ['prospect', 'lead'],
   ['lead', 'lead'],
+  ['approved send', 'lead'],
+  ['contacted', 'lead'],
+  ['outreach sent', 'lead'],
   ['interest', 'qualified'],
   ['qualified', 'qualified'],
+  ['active sales conversation', 'qualified'],
+  ['asked for info', 'qualified'],
+  ['asked for information', 'qualified'],
+  ['asked for details', 'qualified'],
+  ['asked for audience', 'qualified'],
+  ['booked meeting', 'qualified'],
+  ['learning more', 'qualified'],
   ['proposal', 'proposal_sent'],
   ['proposal sent', 'proposal_sent'],
   ['proposal_sent', 'proposal_sent'],
@@ -37,17 +49,64 @@ const STATUS_TO_STAGE = new Map([
   ['contract sent', 'contract_sent'],
   ['contract_sent', 'contract_sent'],
   ['negotiation', 'negotiation'],
+  ['move forward', 'negotiation'],
+  ['moving forward', 'negotiation'],
+  ['wants to do a deal', 'negotiation'],
+  ['wants deal', 'negotiation'],
+  ['verbal yes', 'negotiation'],
   ['contract won', 'closed_won'],
   ['closed won', 'closed_won'],
   ['closed_won', 'closed_won'],
+  ['accepted', 'closed_won'],
+  ['signed', 'closed_won'],
+  ['booked revenue', 'closed_won'],
   ['won', 'closed_won'],
   ['contract lost', 'closed_lost'],
   ['closed lost', 'closed_lost'],
   ['closed_lost', 'closed_lost'],
   ['lost', 'closed_lost'],
   ['declined', 'closed_lost'],
+  ['not doing a deal', 'closed_lost'],
+  ['moving on', 'closed_lost'],
+  ['moved on', 'closed_lost'],
+  ['no deal', 'closed_lost'],
+  ['not a fit', 'closed_lost'],
+  ['organic only', 'closed_lost'],
   ['pass', 'closed_lost'],
   ['passed', 'closed_lost']
+]);
+
+const SIGNAL_TO_STAGE = new Map([
+  ['approved-send', 'lead'],
+  ['cold-send', 'lead'],
+  ['outreach-sent', 'lead'],
+  ['contacted', 'lead'],
+  ['buyer-replied', 'qualified'],
+  ['buyer-interested', 'qualified'],
+  ['asked-for-info', 'qualified'],
+  ['asked-for-information', 'qualified'],
+  ['asked-for-details', 'qualified'],
+  ['asked-for-audience', 'qualified'],
+  ['booked-meeting', 'qualified'],
+  ['learning-more', 'qualified'],
+  ['proposal-sent', 'proposal_sent'],
+  ['package-sent', 'proposal_sent'],
+  ['pricing-sent', 'proposal_sent'],
+  ['contract-sent', 'contract_sent'],
+  ['wants-to-do-deal', 'negotiation'],
+  ['move-forward', 'negotiation'],
+  ['moving-forward', 'negotiation'],
+  ['verbal-yes', 'negotiation'],
+  ['accepted', 'closed_won'],
+  ['signed', 'closed_won'],
+  ['booked-revenue', 'closed_won'],
+  ['declined', 'closed_lost'],
+  ['moving-on', 'closed_lost'],
+  ['moved-on', 'closed_lost'],
+  ['not-doing-deal', 'closed_lost'],
+  ['no-deal', 'closed_lost'],
+  ['not-a-fit', 'closed_lost'],
+  ['organic-only', 'closed_lost']
 ]);
 
 export function parseEnvText(text) {
@@ -134,6 +193,31 @@ export function normalizeStage(value) {
   return stage;
 }
 
+export function normalizeSignal(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[_\s]+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+export function stageFromSignal(signal) {
+  const key = normalizeSignal(signal);
+  const stage = SIGNAL_TO_STAGE.get(key);
+  if (!stage) {
+    throw new Error(`Unknown pipeline signal: ${signal}`);
+  }
+  return stage;
+}
+
+export function resolveTargetStage(args) {
+  if (args.stage || args.status) return normalizeStage(args.stage || args.status);
+  if (args.signal) return stageFromSignal(args.signal);
+  throw new Error('Missing --stage, --status, or --signal');
+}
+
 export function transitionDecision(currentStage, targetStage, { force = false } = {}) {
   if (currentStage === targetStage) {
     return { allowed: true, noop: true, reason: 'already at target stage' };
@@ -156,6 +240,50 @@ export function transitionDecision(currentStage, targetStage, { force = false } 
 export function evidenceLine({ targetStage, source, evidence, at = new Date() }) {
   const sourceText = source ? ` Source: ${source}.` : '';
   return `Pipeline update ${at.toISOString()}: stage=${targetStage}.${sourceText} Evidence: ${required(evidence, '--evidence')}`;
+}
+
+export function parseMoneyAmount(value) {
+  const text = String(value || '').trim();
+  const match = text.match(/^\$?\s*([0-9][0-9,]*)(?:\.([0-9]+))?\s*([kKmM])?$/);
+  if (!match) return null;
+  if (!text.includes('$') && !match[3]) return null;
+  const base = Number(`${match[1].replace(/,/g, '')}${match[2] ? `.${match[2]}` : ''}`);
+  if (!Number.isFinite(base) || base <= 0) return null;
+  const suffix = String(match[3] || '').toLowerCase();
+  const multiplier = suffix === 'm' ? 1000000 : suffix === 'k' ? 1000 : 1;
+  return Math.round(base * multiplier);
+}
+
+export function extractPackageValues(text) {
+  const matches = String(text || '').match(/\$?\s*[0-9][0-9,]*(?:\.[0-9]+)?\s*[kKmM]?\b/g) || [];
+  return matches
+    .map((match) => parseMoneyAmount(match))
+    .filter((amount) => amount !== null);
+}
+
+export function middlePackageValueFromText(text) {
+  const values = extractPackageValues(text);
+  if (values.length !== 3) return null;
+  return values[1];
+}
+
+export function resolveDealValue(args, { targetStage } = {}) {
+  if (!VALUE_STAGES.has(targetStage)) return null;
+  if (args.value !== undefined && args.value !== null && args.value !== '') {
+    const explicit = parseMoneyAmount(String(args.value)) || Number(String(args.value).replace(/[$,]/g, ''));
+    if (explicit === null) throw new Error(`Invalid --value: ${args.value}`);
+    if (!Number.isFinite(explicit) || explicit <= 0) throw new Error(`Invalid --value: ${args.value}`);
+    return explicit;
+  }
+
+  const packageText = [args.packagePrices, args.evidence, args.source].filter(Boolean).join(' ');
+  return middlePackageValueFromText(packageText);
+}
+
+export function valuesEqual(currentValue, targetValue) {
+  if (targetValue === null || targetValue === undefined) return true;
+  const current = Number(currentValue || 0);
+  return Number.isFinite(current) && Math.round(current) === Math.round(targetValue);
 }
 
 export function appendEvidence(notes, line) {
@@ -220,13 +348,16 @@ export function chooseDeal(deals, { dealId, dealType = 'sponsorship' } = {}) {
 }
 
 export function dealCreatePayload(company, args) {
+  const targetStage = resolveTargetStage(args);
+  const value = resolveDealValue(args, { targetStage });
   return {
     deal: {
       name: args.dealName || `${company.name} Hardware FYI sponsorship`,
       deal_type: args.dealType || 'sponsorship',
       company_id: company.id,
+      ...(value === null ? {} : { value }),
       notes: evidenceLine({
-        targetStage: normalizeStage(args.stage || args.status),
+        targetStage,
         source: args.source,
         evidence: args.evidence,
         at: args.now || new Date()
@@ -236,11 +367,12 @@ export function dealCreatePayload(company, args) {
 }
 
 export async function updatePipeline(args, deps = {}) {
-  const targetStage = normalizeStage(args.stage || args.status);
+  const targetStage = resolveTargetStage(args);
   const config = deps.config || resolveConfig();
   const fetchImpl = deps.fetchImpl || globalThis.fetch;
   const now = args.now || deps.now || new Date();
   const apply = args.apply === true;
+  const targetValue = resolveDealValue(args, { targetStage });
 
   const company = await findCompany(args, { config, fetchImpl });
   const allDeals = await fetchAll('/deals', { config, fetchImpl });
@@ -264,7 +396,13 @@ export async function updatePipeline(args, deps = {}) {
       });
       deal = created.data;
     } else {
-      deal = { id: '(new deal)', stage: 'lead', notes: createBody.deal.notes, deal_type: createBody.deal.deal_type };
+      deal = {
+        id: '(new deal)',
+        stage: 'lead',
+        notes: createBody.deal.notes,
+        deal_type: createBody.deal.deal_type,
+        value: createBody.deal.value
+      };
     }
   }
 
@@ -289,6 +427,19 @@ export async function updatePipeline(args, deps = {}) {
     }
   }
 
+  if (!valuesEqual(deal.value, targetValue)) {
+    operations.push({ type: 'update_value', deal_id: deal.id, body: { deal: { value: targetValue } } });
+    if (apply && !String(deal.id).startsWith('(')) {
+      deal = (await consoleRequest({
+        endpoint: `/deals/${deal.id}`,
+        method: 'PATCH',
+        body: { deal: { value: targetValue } },
+        config,
+        fetchImpl
+      })).data;
+    }
+  }
+
   if (!decision.noop) {
     operations.push({ type: 'update_stage', deal_id: deal.id, body: { stage: targetStage } });
     if (apply && !String(deal.id).startsWith('(')) {
@@ -305,8 +456,14 @@ export async function updatePipeline(args, deps = {}) {
   return {
     applied: apply,
     company: { id: company.id, name: company.name, job_id: company.job_id },
-    deal: { id: deal.id, stage: apply ? deal.stage : targetStage, previous_stage: previousStage },
+    deal: {
+      id: deal.id,
+      stage: apply ? deal.stage : targetStage,
+      previous_stage: previousStage,
+      value: targetValue === null ? deal.value : (apply ? deal.value : targetValue)
+    },
     target_stage: targetStage,
+    target_value: targetValue,
     decision,
     operations
   };
@@ -353,17 +510,29 @@ export function parseArgs(argv) {
       case '--stage':
         args.stage = argv[++i];
         break;
+      case '--signal':
+      case '--event':
+        args.signal = argv[++i];
+        break;
       case '--source':
         args.source = argv[++i];
         break;
       case '--evidence':
         args.evidence = argv[++i];
         break;
+      case '--value':
+        args.value = argv[++i];
+        break;
+      case '--package-prices':
+        args.packagePrices = argv[++i];
+        break;
       default:
         throw new Error(`Unknown argument: ${arg}`);
     }
   }
-  required(args.stage || args.status, '--stage or --status');
+  if (!args.stage && !args.status && !args.signal) {
+    throw new Error('Missing --stage, --status, or --signal');
+  }
   required(args.evidence, '--evidence');
   if (!args.companyId && !args.jobId && !args.domain) {
     throw new Error('Missing company lookup. Provide --company-id, --job-id, or --domain.');

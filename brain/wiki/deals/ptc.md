@@ -49,6 +49,7 @@ Industrial software (Creo, Windchill, Onshape, ThingWorx). Kinetic 2026 confirme
 
 - **Status: waiting_reply. Last sender: us** (post-call package quote sent 2026-06-11 17:54 ET).
 - **Package quote sent** — Console task `4ab3cbba-da03-4829-9138-8df041321571` (external_ref `H0104-ptc-startups-packages-20260611`) is closed `done` / `sent`. Brian-sender email went from `brian@hardwarefyi.com` to Stefan (`sbergsma@ptc.com`) with subject `Hardware FYI x PTC for Startups — package options`; Sent Items message id `AAMkAGM5MDNhYWQxLWEwYzgtNGFhNy04MjA3LTgyYzg0ZDBkMTU2MQBGAAAAAADOFu6CbcXLTqnMZ3Yeb1nqBwAtSTsYtUoQT6MqRxoKF3BIAAAAAAEJAAAtSTsYtUoQT6MqRxoKF3BIAABkl3GTAAA=`. No attachments.
+- **Console CRM:** open deal `1e98c701-3d75-4fcb-a8ce-e6444622dcca` is `proposal_sent` with value **$50,000** (middle package from the $75K / $50K / $25K send), verified live 2026-06-11 18:04 ET.
 - **Send constraints preserved:** no media kit or rate card attached or mentioned. The Saturday Partner Program placement was positioned to avoid Tuesday Onshape overlap; coordinate with Roberto before contracting/fulfillment if Stefan moves forward. Tier prices confirmed on the call; per-package product mix + projected metrics are Kerri's construction.
 - Primary contact: Stefan Bergsma <sbergsma@ptc.com>. Original Kinetic contacts: Brenna Robillard, Will Hirschtick.
 

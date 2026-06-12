@@ -25,7 +25,7 @@ The **KMG Console CRM** is the system of record for companies, contacts, and dea
 
 - Companies: `GET /api/v1/companies?domain=<domain>` or `?job_id=<jobId>`
 - Deals: `GET /api/v1/deals`, `POST /api/v1/deals`, `PATCH /api/v1/deals/:id`, `PATCH /api/v1/deals/:id/update_stage`
-- Helper: `node scripts/console-pipeline-update.mjs --apply --job-id <H####> --status "<Prospect|Interest|Contract Won|Contract Lost>" --source "<thread/task/log pointer>" --evidence "<one-line evidence>"`
+- Helper: `node scripts/console-pipeline-update.mjs --apply --job-id <H####> --signal "<signal>" --source "<thread/task/log pointer>" --evidence "<one-line evidence>"` (or `--status "<Prospect|Interest|Contract Won|Contract Lost>"` when the exact stage is already known)
 
 The **`CY2026 Revenue Goal`** tab in the canonical Hardware FYI Sheet is now the revenue scoreboard and verification mirror:
 
@@ -60,7 +60,20 @@ Stage changes require source-backed evidence. Cold outreach only creates a `Pros
 
 Pipeline stage bookkeeping is automatic. Do not ask Brian to approve a clerical stage move when the source evidence is clear. Run `scripts/console-pipeline-update.mjs --apply`, verify the returned deal stage, append a compact `brain/log.md` line, and refresh `data/companies.json` or the sheet mirror when the run touched CRM state. Create a `⚠️ PIPELINE UPDATE NEEDED` discuss task only when the evidence is ambiguous, the Console API is unavailable, the company cannot be matched safely, or the intended change would regress or reopen a terminal deal.
 
-Dollar values require source-backed commercial terms. If Brian/Kerri has touched the company but no pricing/proposal/counter/contract/invoice has been sent or received, keep the company in pipeline as `Prospect` or `Interest` with amount `TBD` / zero ledger value. Do not add estimated pricing from the target list, prior sponsor norms, or "likely close" analysis. The summary `Pipeline Amount` is priced open pipeline only; unpriced real opportunities stay visible but do not count toward the amount.
+Mandatory trigger mapping for source-backed signals:
+
+- Approved first outreach/contact with no pricing -> `--signal approved-send` -> `lead` / `Prospect`.
+- Buyer asks for audience, examples, pricing, details, or wants to learn more -> `--signal asked-for-info` -> `qualified` / `Interest`.
+- Buyer books a commercial meeting or accepts another next step -> `--signal booked-meeting` -> `qualified` / `Interest`.
+- Brian/Kerri sends a proposal, package menu, or pricing -> `--signal proposal-sent`, `package-sent`, or `pricing-sent` -> `proposal_sent`.
+- Buyer says they want to do a deal, move forward, or gives a verbal yes -> `--signal wants-to-do-deal` -> `negotiation`.
+- Contract or order paperwork goes out -> `--signal contract-sent` -> `contract_sent`.
+- Signed, accepted, booked, invoiced, or paid revenue -> `--signal accepted`, `signed`, or `booked-revenue` -> `closed_won`.
+- Explicit no, moving on, no paid path, organic-only, or not a fit -> `--signal declined`, `moving-on`, `not-doing-deal`, or `organic-only` -> `closed_lost`.
+
+A sent proposal email is not complete until its CRM update has succeeded or a fail-closed `⚠️ PIPELINE UPDATE NEEDED` task exists with the exact blocker. A buyer reply that signals interest or loss is not complete until the CRM reflects an active or closed sales state.
+
+Dollar values require source-backed commercial terms. If Brian/Kerri has touched the company but no pricing/proposal/counter/contract/invoice has been sent or received, keep the company in pipeline as `Prospect` or `Interest` with amount `TBD` / zero ledger value. Do not add estimated pricing from the target list, prior sponsor norms, or "likely close" analysis. When a proposal/package/pricing send contains exactly three package prices, set the Console deal value to the middle package; include the package prices in the pipeline evidence line so `scripts/console-pipeline-update.mjs` can write it. If the prices are ambiguous, absent, or not exactly three package options, leave value unchanged until there is clearer source evidence. The summary `Pipeline Amount` is priced open pipeline only; unpriced real opportunities stay visible but do not count toward the amount.
 
 Keep outreach targets separate in `brain/wiki/workflows/hwfyi-cy2026-gap-close-targets.md`. That page can hold companies Kerri should pursue to close the gap, but it is not pipeline and should not be used for revenue claims.
 

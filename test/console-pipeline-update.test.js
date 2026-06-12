@@ -3,8 +3,12 @@ import test from 'node:test';
 
 import {
   appendEvidence,
+  extractPackageValues,
+  middlePackageValueFromText,
   normalizeStage,
   parseArgs,
+  resolveTargetStage,
+  stageFromSignal,
   transitionDecision,
   updatePipeline
 } from '../scripts/console-pipeline-update.mjs';
@@ -12,9 +16,22 @@ import {
 test('normalizes Hardware FYI pipeline vocabulary to Console deal stages', () => {
   assert.equal(normalizeStage('Prospect'), 'lead');
   assert.equal(normalizeStage('Interest'), 'qualified');
+  assert.equal(normalizeStage('asked for information'), 'qualified');
   assert.equal(normalizeStage('proposal sent'), 'proposal_sent');
+  assert.equal(normalizeStage('wants to do a deal'), 'negotiation');
   assert.equal(normalizeStage('Contract Won'), 'closed_won');
+  assert.equal(normalizeStage('not doing a deal'), 'closed_lost');
   assert.equal(normalizeStage('declined'), 'closed_lost');
+});
+
+test('infers pipeline stages from source-backed sales signals', () => {
+  assert.equal(stageFromSignal('approved-send'), 'lead');
+  assert.equal(stageFromSignal('asked-for-info'), 'qualified');
+  assert.equal(stageFromSignal('proposal-sent'), 'proposal_sent');
+  assert.equal(stageFromSignal('wants-to-do-deal'), 'negotiation');
+  assert.equal(stageFromSignal('moving-on'), 'closed_lost');
+  assert.equal(resolveTargetStage({ signal: 'package-sent' }), 'proposal_sent');
+  assert.throws(() => stageFromSignal('vague good vibes'), /Unknown pipeline signal/);
 });
 
 test('stage transition policy allows forward and terminal moves but refuses regressions', () => {
@@ -35,6 +52,13 @@ test('appendEvidence is idempotent for the same evidence line', () => {
   assert.equal(appendEvidence(line, line), line);
 });
 
+test('extracts the middle value from exactly three package prices', () => {
+  assert.deepEqual(extractPackageValues('Sent $75K / $50K / $25K package options.'), [75000, 50000, 25000]);
+  assert.equal(middlePackageValueFromText('Sent $75K / $50K / $25K package options.'), 50000);
+  assert.equal(middlePackageValueFromText('Sent $75K and $50K package options.'), null);
+  assert.equal(middlePackageValueFromText('Follow-up sent on 2026-06-11 with no package value.'), null);
+});
+
 test('parseArgs requires evidence and a company lookup key', () => {
   assert.deepEqual(parseArgs([
     '--apply',
@@ -42,17 +66,88 @@ test('parseArgs requires evidence and a company lookup key', () => {
     'H0118',
     '--status',
     'Contract Lost',
+    '--package-prices',
+    '$75K/$50K/$25K',
     '--evidence',
     'Buyer declined paid path'
   ]), {
     apply: true,
     jobId: 'H0118',
     status: 'Contract Lost',
+    packagePrices: '$75K/$50K/$25K',
     evidence: 'Buyer declined paid path'
   });
 
   assert.throws(() => parseArgs(['--status', 'Interest', '--evidence', 'asked for pricing']), /Missing company lookup/);
   assert.throws(() => parseArgs(['--job-id', 'H0118', '--status', 'Interest']), /Missing --evidence/);
+  assert.throws(() => parseArgs(['--job-id', 'H0118', '--evidence', 'asked for pricing']), /Missing --stage, --status, or --signal/);
+  assert.equal(parseArgs([
+    '--job-id',
+    'H0118',
+    '--signal',
+    'asked-for-info',
+    '--evidence',
+    'Buyer asked for details.'
+  ]).signal, 'asked-for-info');
+});
+
+test('updatePipeline writes middle package value for three-package sends', async () => {
+  const calls = [];
+  const fetchImpl = fakeFetch(calls, {
+    'GET /companies?job_id=H0104': {
+      data: [{ id: 'company-ptc', name: 'PTC', job_id: 'H0104' }],
+      meta: { has_more: false }
+    },
+    'GET /deals?page=1&per_page=100': {
+      data: [{
+        id: 'deal-ptc',
+        company_id: 'company-ptc',
+        deal_type: 'sponsorship',
+        stage: 'qualified',
+        value: '0.0',
+        notes: 'Old note'
+      }],
+      meta: { has_more: false }
+    },
+    'PATCH /deals/deal-ptc': {
+      data: {
+        id: 'deal-ptc',
+        company_id: 'company-ptc',
+        deal_type: 'sponsorship',
+        stage: 'qualified',
+        value: '0.0',
+        notes: 'updated'
+      }
+    },
+    'PATCH /deals/deal-ptc/update_stage': {
+      data: {
+        id: 'deal-ptc',
+        company_id: 'company-ptc',
+        deal_type: 'sponsorship',
+        stage: 'proposal_sent',
+        value: '50000.0',
+        notes: 'updated'
+      }
+    }
+  });
+
+  const result = await updatePipeline({
+    apply: true,
+    jobId: 'H0104',
+    status: 'Package Sent',
+    source: 'H0104 PTC sent email',
+    evidence: 'Brian sent three package options: $75K / $50K / $25K.',
+    now: new Date('2026-06-11T22:05:00Z')
+  }, {
+    config: { baseUrl: 'https://console.test/api/v1', token: 'secret' },
+    fetchImpl
+  });
+
+  assert.equal(result.target_value, 50000);
+  assert.equal(result.deal.stage, 'proposal_sent');
+  assert.equal(Number(result.deal.value), 50000);
+  assert.deepEqual(result.operations.map((op) => op.type), ['update_notes', 'update_value', 'update_stage']);
+  assert.equal(calls.find((call) => call.body?.deal?.value === 50000).path, '/deals/deal-ptc');
 });
 
 test('updatePipeline updates notes and stage for an existing company deal', async () => {
