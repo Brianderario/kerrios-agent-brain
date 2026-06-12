@@ -135,14 +135,15 @@ Prepend an entry to `brain/log.md` (under the H1, above the most recent entry):
 <one-line summary of what was pushed>
 ```
 
-Commit this log update as a SECOND commit (so the log entry is itself part of git history). Push it too.
+Commit this log update as a SECOND commit (so the log entry is itself part of git history). Push it too. Stage `brain/log.md` EXPLICITLY — never `commit -am`. Some runtime-state files (e.g. `data/pipeline-followup-state.json`) are gitignored yet still tracked from the pre-migration snapshot, so `-am` silently re-commits their churn into the log commit (observed 2026-06-11, run 76dc517/981df79). An explicit add keeps this second commit to the log alone.
 
 ```
-git -c user.name="Kerri" -c user.email="kerri@hardwarefyi.com" commit -am "kerri: log nightly push"
+git add brain/log.md
+git -c user.name="Kerri" -c user.email="kerri@hardwarefyi.com" commit -m "kerri: log nightly push"
 git push origin main
 ```
 
-This second commit can no-op if the log line was already added in the day's first commit.
+This second commit can no-op if the log line was already added in the day's first commit (nothing staged after `git add brain/log.md` → skip the commit and push).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5B — HYGIENE GRADE
