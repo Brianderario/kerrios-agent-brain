@@ -1,15 +1,21 @@
 # Hardware FYI (HWFYI)
 
-scope: property · updated: 2026-05-29
+scope: property · updated: 2026-06-12
 
-## Newsletter schedule — SOURCE OF TRUTH
+## Newsletter ad calendar — SOURCE OF TRUTH
 
-Hardware FYI newsletter editorial/ad calendar + contracts + revenue + Partner Program tracker live in one Google Sheet (Brian-designated canonical, 2026-05-29):
+**Savant** (Newsletter Inventory) is the source of truth for the Hardware FYI newsletter ad calendar as of 2026-06-12. All issue dates, primary placements, partner program slots, and sponsor commitments live there.
+
+- **Savant inventory:** `https://kerrihq-rails-xtua.onrender.com/organizations/.../newsletter_inventory` (web UI) or via the V1 API `/api/v1/newsletter_inventory_imports` (bulk upsert, `brain:import` scope).
+- **Read Savant before answering any "what's booked / what's open / when does X run" question.** It supersedes memory of placement dates -- always check live, since slots get booked between sessions.
+
+### Google Sheet (verification mirror, contracts, revenue)
+
+The Google Sheet retains contracts, revenue ledger, CY2026 revenue goal, and Partner Program tracker tabs. It is NOT authoritative for the ad calendar (issue dates / sponsor placements) -- Savant is.
 
 - **Sheet:** https://docs.google.com/spreadsheets/d/1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk/edit (fileId `1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk`)
-- **Tabs/sections:** Contracts list · Product/revenue ledger · **Ad calendar** (Tue/Sat issues, `Status` TRUE=booked / FALSE=available) · Partner Program tracker · monthly event/webinar/panel rollups.
+- **Tabs/sections:** Contracts list · Product/revenue ledger · ~~Ad calendar~~ (legacy, use Savant) · Partner Program tracker · monthly event/webinar/panel rollups.
 - **CY2026 goal tab:** `CY2026 Revenue Goal` is the central `$1,000,000` revenue tracker and pipeline. It was created 2026-06-07 and seeded from the live `Contract Breakdown` tab at `$578,164.73` booked/earned CY2026 revenue from 408 source rows. The top of the tab is a readable board: Goal / Closed Won / Pipeline Amount / Gap to Goal, then status columns `Prospect`, `Interest`, `Contract Won`, `Contract Lost` with compact deal cards. The structured automation ledger starts lower on the same tab. Current strict seed: `$50,000` priced open pipeline / `$32,000` weighted, from 1 Prospect, 9 Interest, 33 Contract Won, and 2 Contract Lost rows. The board excludes untouched outreach targets and does not assign dollar value until pricing/proposed terms are source-backed; unpriced real opportunities stay visible as `TBD`. Cash collection still needs separate Stripe/invoice reconciliation. Maintain/check it with `node scripts/hwfyi-revenue-goal-sheet.mjs --ensure|--seed-contract-breakdown|--seed-pipeline|--pipeline-summary|--check|--read`.
-- **Read this before answering any "what's booked / what's open / when does X run" question.** It supersedes memory of placement dates — always re-read live, since slots get booked between sessions.
 
 KMG-owned media property. Industry newsletter + community + events for hardware / industrial base / advanced manufacturing.
 
