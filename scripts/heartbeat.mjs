@@ -90,10 +90,12 @@ export function applyHeartbeat(state, { routine, status, nowIso }) {
 
 // Pure payload builder for the Savant create_agent_run POST (exported for tests).
 // ok/quiet both report "succeeded": a guarded no-op is still a healthy run.
+// agent_slug rides at the top level (the controller does params.require on
+// it directly); the run attributes nest under agent_run.
 export function buildRunPayload({ routine, status, nowIso }) {
   return {
+    agent_slug: routine,
     agent_run: {
-      agent_slug: routine,
       status: status === 'error' ? 'failed' : 'succeeded',
       external_id: `${routine}-${nowIso}`,
       output: `Heartbeat report: routine finished with local status "${status}" at ${nowIso}.`,

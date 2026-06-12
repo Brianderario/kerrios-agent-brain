@@ -138,7 +138,7 @@ test('the tracked example file matches the documented v1 shape', () => {
 test('buildRunPayload maps local statuses onto the Savant create_agent_run contract', async () => {
   const { buildRunPayload } = await import('../scripts/heartbeat.mjs');
   const ok = buildRunPayload({ routine: 'kerri-x', status: 'ok', nowIso: '2026-06-12T12:00:00.000Z' });
-  assert.equal(ok.agent_run.agent_slug, 'kerri-x');
+  assert.equal(ok.agent_slug, 'kerri-x');
   assert.equal(ok.agent_run.status, 'succeeded');
   assert.equal(ok.agent_run.external_id, 'kerri-x-2026-06-12T12:00:00.000Z');
   assert.equal(ok.agent_run.finished_at, '2026-06-12T12:00:00.000Z');
