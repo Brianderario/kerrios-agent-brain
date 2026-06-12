@@ -48,6 +48,11 @@ data/revenue-standup-state.json
 data/pipeline-followup-state.json
 data/backups/
 
+# Transient sweep/sync artifacts (never canonical; must not reach the shared repo)
+data/kerri-sync-conflict.marker
+data/*.bak-*
+data/cold-second-touch-body-*.txt
+
 # Coverage + build artifacts
 coverage/
 output/

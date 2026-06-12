@@ -118,6 +118,17 @@ test('every manifest routine appears in CLAUDE-ROUTINES.md', () => {
 // use the `brian-` prefix or this test will silently skip it.
 const PERSONAL_SHIM_PREFIX = 'brian-';
 
+// One-time / dated task shims: scheduled-tasks that run once for a specific
+// calendar purpose (e.g. a DST cron bump on a fixed date) and then retire. They
+// are NOT recurring monitored routines, so by design they have no manifest entry
+// and the liveness checker should never expect them to keep firing. Excluded by
+// explicit allowlist (not a prefix) so each addition is a deliberate, reviewed
+// decision — a typo'd recurring routine can't silently skip monitoring the way a
+// loose prefix match would let it.
+const ONE_TIME_SHIMS = new Set([
+  'cloud-routines-dst-fix', // one-time Nov 1 2026 EDT→EST cron bump; retire after it runs
+]);
+
 test('every ~/.claude/scheduled-tasks shim has a manifest entry (skipped if dir absent)', (t) => {
   const stDir = path.join(os.homedir(), '.claude', 'scheduled-tasks');
   if (!fs.existsSync(stDir)) {
@@ -129,7 +140,7 @@ test('every ~/.claude/scheduled-tasks shim has a manifest entry (skipped if dir 
     .readdirSync(stDir, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name)
-    .filter((s) => !s.startsWith(PERSONAL_SHIM_PREFIX));
+    .filter((s) => !s.startsWith(PERSONAL_SHIM_PREFIX) && !ONE_TIME_SHIMS.has(s));
   const missing = shims.filter((s) => !manifestNames.has(s));
   assert.deepEqual(
     missing,
