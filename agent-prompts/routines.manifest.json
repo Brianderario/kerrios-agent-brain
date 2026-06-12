@@ -1,151 +1,203 @@
 {
-  "schema": "routines-manifest-v1",
-  "description": "Single source of truth for the Kerri scheduled-routine fleet. Every cron + event-triggered routine appears here exactly once. routine-liveness-check.mjs drives its registry from this file (the dark-detection logic stays in named evaluator functions in the script, mapped to entries by `evaluator`), and a completeness test asserts that every live scheduled-task and every CLAUDE-ROUTINES.md cron routine has an entry here. Add a routine? Add it here too, or the test goes red. Scope: KMG routines only (`kerri-*` / `standard-works-*` namespaces). `brian-*` scheduled tasks are Brian's personal tasks and are deliberately excluded from this manifest and its completeness test — personal data never enters the KMG brain. All times are ET (America/New_York). cron strings mirror agent-prompts/CLAUDE-ROUTINES.md.",
-  "updatedAt": "2026-06-09",
-  "routines": [
-    {
-      "name": "kerri-inbox-sweep",
-      "cron": "*/15 * * * *",
-      "core": true,
-      "monitored": true,
-      "cadenceDescription": "weekdays every 15 min, 06:00-22:45 ET; weekends 10:00 and 16:00 ET",
-      "evaluator": "inbox-sweep",
-      "stateFiles": ["inbox-sweep-state.json", "sweep-cadence.log"]
-    },
-    {
-      "name": "kerri-morning-brief",
-      "cron": "57 6 * * 1-5",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "weekdays ~06:57 ET",
-      "evaluator": "morning-brief",
-      "stateFiles": ["morning-brief-state.json", "morning-brief-run-state.json"]
-    },
-    {
-      "name": "kerri-morning-brief-retry",
-      "cron": "15 7 * * 1-5",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "weekdays ~07:18 ET; guarded retry, silent no-op when the brief already delivered",
-      "evaluator": "heartbeat-weekday",
-      "fireMinuteEt": 438,
-      "graceMinutes": 90,
-      "stateFiles": []
-    },
-    {
-      "name": "kerri-industry-intel",
-      "cron": "30 6 * * 1-5",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "weekdays ~06:30 ET",
-      "evaluator": "industry-intel",
-      "stateFiles": ["industry-intel-state.json"]
-    },
-    {
-      "name": "kerri-cold-outreach",
-      "cron": "7 9 * * 1-5",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "weekdays ~09:07 ET; targets 10 approval-ready drafts, never auto-sends",
-      "evaluator": "heartbeat-weekday",
-      "fireMinuteEt": 547,
-      "graceMinutes": 90,
-      "stateFiles": ["cold-outreach-state.json"]
-    },
-    {
-      "name": "kerri-pipeline-followup",
-      "cron": "33 8 * * 2,4",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "Tue + Thu ~08:33 ET; approval-gated, never sends",
-      "evaluator": "heartbeat-weekday",
-      "fireMinuteEt": 513,
-      "graceMinutes": 120,
-      "activeWeekdays": ["Tue", "Thu"],
-      "stateFiles": ["pipeline-followup-state.json"]
-    },
-    {
-      "name": "kerri-lead-research",
-      "cron": "13 18 * * 1-5",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "weekdays ~18:13 ET; maintains 25 ready prospects",
-      "evaluator": "heartbeat-weekday",
-      "fireMinuteEt": 1093,
-      "graceMinutes": 120,
-      "stateFiles": []
-    },
-    {
-      "name": "kerri-eod-meetings-review",
-      "cron": "28 18 * * 1-5",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "weekdays ~18:28 ET",
-      "evaluator": "eod-meetings-review",
-      "stateFiles": ["eod-grades.json", "eod-state.json"]
-    },
-    {
-      "name": "kerri-revenue-standup",
-      "cron": "0 16 * * 5",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "Friday ~16:00 ET; read-only scoreboard vs $1M (schedule activation pending Brian confirmation)",
-      "evaluator": "heartbeat-weekday",
-      "fireMinuteEt": 960,
-      "graceMinutes": 180,
-      "activeWeekdays": ["Fri"],
-      "stateFiles": ["revenue-standup-state.json"]
-    },
-    {
-      "name": "kerri-renewal-watchdog",
-      "cron": "0 10 * * 3",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "Wednesday ~10:00 ET; scans CRM for expiring contracts (schedule activation pending Brian confirmation)",
-      "evaluator": "heartbeat-weekday",
-      "fireMinuteEt": 600,
-      "graceMinutes": 180,
-      "activeWeekdays": ["Wed"],
-      "stateFiles": ["renewal-watchdog-state.json"]
-    },
-    {
-      "name": "kerri-gap-sweep",
-      "cron": "41 21 * * *",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "daily 21:41 ET",
-      "evaluator": "gap-sweep",
-      "stateFiles": ["gap-sweep-state.json"]
-    },
-    {
-      "name": "kerri-brain-push",
-      "cron": "0 22 * * *",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "daily 22:00 ET",
-      "evaluator": "brain-push",
-      "stateFiles": ["brain-push-state.json"]
-    },
-    {
-      "name": "kerri-self-improve",
-      "cron": "0 17 * * 0",
-      "core": false,
-      "monitored": true,
-      "cadenceDescription": "Sundays ~17:00 ET; weekly self-improvement (scorecard + edit-pattern analysis)",
-      "evaluator": "heartbeat-weekday",
-      "fireMinuteEt": 1020,
-      "graceMinutes": 120,
-      "activeWeekdays": ["Sun"],
-      "stateFiles": []
-    },
-    {
-      "name": "standard-works-issue-writer",
-      "cron": null,
-      "core": false,
-      "monitored": false,
-      "cadenceDescription": "event-triggered (S/W newsletter issue cadence), not cron; never auto-posts",
-      "evaluator": null,
-      "stateFiles": []
-    }
-  ]
+ "schema": "routines-manifest-v1",
+ "description": "Single source of truth for the Kerri scheduled-routine fleet. Every cron + event-triggered routine appears here exactly once. routine-liveness-check.mjs drives its registry from this file (the dark-detection logic stays in named evaluator functions in the script, mapped to entries by `evaluator`), and a completeness test asserts that every live scheduled-task and every CLAUDE-ROUTINES.md cron routine has an entry here. Add a routine? Add it here too, or the test goes red. Scope: KMG routines only (`kerri-*` / `standard-works-*` namespaces). `brian-*` scheduled tasks are Brian's personal tasks and are deliberately excluded from this manifest and its completeness test — personal data never enters the KMG brain. All times are ET (America/New_York). cron strings mirror agent-prompts/CLAUDE-ROUTINES.md.",
+ "updatedAt": "2026-06-12",
+ "routines": [
+  {
+   "name": "kerri-inbox-sweep",
+   "cron": "*/15 * * * *",
+   "core": true,
+   "monitored": true,
+   "cadenceDescription": "weekdays every 15 min, 06:00-22:45 ET; weekends 10:00 and 16:00 ET",
+   "evaluator": "inbox-sweep",
+   "stateFiles": [
+    "inbox-sweep-state.json",
+    "sweep-cadence.log"
+   ]
+  },
+  {
+   "name": "kerri-morning-brief",
+   "cron": "57 6 * * 1-5",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "weekdays ~06:57 ET",
+   "evaluator": "morning-brief",
+   "stateFiles": [
+    "morning-brief-state.json",
+    "morning-brief-run-state.json"
+   ]
+  },
+  {
+   "name": "kerri-morning-brief-retry",
+   "cron": "15 7 * * 1-5",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "weekdays ~07:18 ET; guarded retry, silent no-op when the brief already delivered",
+   "evaluator": "heartbeat-weekday",
+   "fireMinuteEt": 438,
+   "graceMinutes": 90,
+   "stateFiles": []
+  },
+  {
+   "name": "kerri-industry-intel",
+   "cron": "30 6 * * 1-5",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "weekdays ~06:30 ET",
+   "evaluator": "industry-intel",
+   "stateFiles": [
+    "industry-intel-state.json"
+   ]
+  },
+  {
+   "name": "kerri-cold-outreach",
+   "cron": "7 9 * * 1-5",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "weekdays ~09:07 ET; targets 10 approval-ready drafts, never auto-sends",
+   "evaluator": "heartbeat-weekday",
+   "fireMinuteEt": 547,
+   "graceMinutes": 90,
+   "stateFiles": [
+    "cold-outreach-state.json"
+   ]
+  },
+  {
+   "name": "kerri-pipeline-followup",
+   "cron": "33 8 * * 2,4",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "Tue + Thu ~08:33 ET; approval-gated, never sends",
+   "evaluator": "heartbeat-weekday",
+   "fireMinuteEt": 513,
+   "graceMinutes": 120,
+   "activeWeekdays": [
+    "Tue",
+    "Thu"
+   ],
+   "stateFiles": [
+    "pipeline-followup-state.json"
+   ]
+  },
+  {
+   "name": "kerri-lead-research",
+   "cron": "13 18 * * 1-5",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "weekdays ~18:13 ET; maintains 25 ready prospects",
+   "evaluator": "heartbeat-weekday",
+   "fireMinuteEt": 1093,
+   "graceMinutes": 120,
+   "stateFiles": []
+  },
+  {
+   "name": "kerri-eod-meetings-review",
+   "cron": "28 18 * * 1-5",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "weekdays ~18:28 ET",
+   "evaluator": "eod-meetings-review",
+   "stateFiles": [
+    "eod-grades.json",
+    "eod-state.json"
+   ]
+  },
+  {
+   "name": "kerri-revenue-standup",
+   "cron": "0 16 * * 5",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "Friday ~16:00 ET; read-only scoreboard vs $1M (schedule activation pending Brian confirmation)",
+   "evaluator": "heartbeat-weekday",
+   "fireMinuteEt": 960,
+   "graceMinutes": 180,
+   "activeWeekdays": [
+    "Fri"
+   ],
+   "stateFiles": [
+    "revenue-standup-state.json"
+   ]
+  },
+  {
+   "name": "kerri-renewal-watchdog",
+   "cron": "0 10 * * 3",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "Wednesday ~10:00 ET; scans CRM for expiring contracts (schedule activation pending Brian confirmation)",
+   "evaluator": "heartbeat-weekday",
+   "fireMinuteEt": 600,
+   "graceMinutes": 180,
+   "activeWeekdays": [
+    "Wed"
+   ],
+   "stateFiles": [
+    "renewal-watchdog-state.json"
+   ]
+  },
+  {
+   "name": "kerri-gap-sweep",
+   "cron": "41 21 * * *",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "daily 21:41 ET",
+   "evaluator": "gap-sweep",
+   "stateFiles": [
+    "gap-sweep-state.json"
+   ]
+  },
+  {
+   "name": "kerri-brain-push",
+   "cron": "0 22 * * *",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "daily 22:00 ET",
+   "evaluator": "brain-push",
+   "stateFiles": [
+    "brain-push-state.json"
+   ]
+  },
+  {
+   "name": "kerri-build-proposal",
+   "cron": "0 23 * * *",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "daily ~23:00 ET; emails Brian the proposed prompt for the next overnight build run (revenue first); send-only-to-Brian, never launches the loop itself",
+   "evaluator": "heartbeat-weekday",
+   "fireMinuteEt": 1380,
+   "graceMinutes": 90,
+   "activeWeekdays": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stateFiles": []
+  },
+  {
+   "name": "kerri-self-improve",
+   "cron": "0 17 * * 0",
+   "core": false,
+   "monitored": true,
+   "cadenceDescription": "Sundays ~17:00 ET; weekly self-improvement (scorecard + edit-pattern analysis)",
+   "evaluator": "heartbeat-weekday",
+   "fireMinuteEt": 1020,
+   "graceMinutes": 120,
+   "activeWeekdays": [
+    "Sun"
+   ],
+   "stateFiles": []
+  },
+  {
+   "name": "standard-works-issue-writer",
+   "cron": null,
+   "core": false,
+   "monitored": false,
+   "cadenceDescription": "event-triggered (S/W newsletter issue cadence), not cron; never auto-posts",
+   "evaluator": null,
+   "stateFiles": []
+  }
+ ]
 }
