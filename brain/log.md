@@ -1,3 +1,6 @@
+## [2026-06-12 18:18 ET] lead-research | 0 found, 0 queued, 0 dedup'd | Kerri
+Preflight no-op: cold-outreach queue healthy at 29 ready hook-bearing entries (≥25 threshold). Pool 354 leads. No Apollo/WebFetch/CRM sourcing run.
+
 ## [2026-06-12 09:52 ET] interactive | COLD BATCH 2026-06-12 SENT — all 9 (H0171-H0179) from kerri@ on Brian's live approval | Kerri
 
 Brian, at the keyboard, chose "Send the staged 9" when asked what "run a batch now" meant. No-double-email gate passed (0 collisions vs state.sent). All 9 sent ~09:52 ET from kerri@ with auto-CC brian@hardwarefyi.com: Altium (naomi.hamels@), Mastercam (alex.meystelman@), Saratech (adeo@), VIAS3D (agonzalez@), Xavor (fmalik@), PCB Piezotronics (eyax@), Vertech (mgallagher@), Edgescale AI (robb@), 3D Systems (rachael.dalton-taggart@). approvalSource on every send cites the interactive approval + card 512409a0. Card resolved approved + mark-applied so the sweep cannot re-send. State: today 9/10, week 50/50 (weekly cap reached — no more cold batches until the new week), drafted[] cleared into sent[]. Replies route per the cold-conversion tagging in inbox-sweep STEP 2c.
