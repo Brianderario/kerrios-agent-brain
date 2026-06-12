@@ -164,7 +164,7 @@ Route every finding into exactly one bucket:
 - deleting any file or removing code
 Open the PR with a clear title + the finding + the proposed diff. Do not merge.
 
-**KERRI MG TASK (`💡 SUGGESTION:` / `⚠️ GAP:`).** Anything needing a human decision or design, or that you cannot safely fix:
+**KERRI MG TASK (`💡 SUGGESTION:` / `⚠️ GAP:`).** Anything needing a human decision or design, or that you cannot safely fix. `💡 SUGGESTION:` cards follow the approve/deny contract in `brain/wiki/workflows/google-tasks-improvement-suggestions.md`: RECOMMENDATION-first body, no open policy questions, and an `on_complete` `agent_apply` payload so Brian's approval is self-executing. Typical triggers:
 - missing prompts the architecture expects (e.g. Inbound sales, Event sales)
 - expired/unarmed routines needing re-arm (gap class I)
 - build/test failures whose fix is non-obvious
