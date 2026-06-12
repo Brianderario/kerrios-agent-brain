@@ -1,8 +1,76 @@
 {
   "schema": "v1",
-  "lastRunAt": "2026-06-09T12:42:55Z",
+  "lastRunAt": "2026-06-11T12:45:51.694Z",
   "seeded": true,
-  "perDealCounters": {},
-  "drafted": [],
+  "perDealCounters": {
+    "colab-software": {
+      "lastNudgeDate": "2026-06-10",
+      "nudgeCount": 1,
+      "lastTaskId": "MEpHVTZUNlZ5YU5OVjAzVA"
+    },
+    "neural-concept": {
+      "lastNudgeDate": "2026-06-10",
+      "nudgeCount": 1,
+      "lastTaskId": "c2liVHlHQnFiczZ6Q2RVdw"
+    },
+    "summit-interconnect": {
+      "lastNudgeDate": "2026-06-10",
+      "nudgeCount": 1,
+      "lastTaskId": "czBJMU9MVFBuUUVUMG9JdA"
+    },
+    "mfg-flow": {
+      "lastNudgeDate": "2026-06-11",
+      "nudgeCount": 1,
+      "lastTaskId": "NkpFZmRQSm1tMWl3UUpQQQ"
+    },
+    "plexus": {
+      "lastNudgeDate": "2026-06-11",
+      "nudgeCount": 1,
+      "lastTaskId": "bnlYdlpKcy1Kb3Y2VmpnWA"
+    },
+    "xscape-photonics": {
+      "lastNudgeDate": "2026-06-11",
+      "nudgeCount": 1,
+      "lastTaskId": "azVUUlVRTUo5bWx5R1g4Sg"
+    }
+  },
+  "drafted": [
+    {
+      "slug": "colab-software",
+      "draftedAt": "2026-06-10T11:49:36.991Z",
+      "gtasksTaskId": "MEpHVTZUNlZ5YU5OVjAzVA",
+      "jobId": "H0030"
+    },
+    {
+      "slug": "neural-concept",
+      "draftedAt": "2026-06-10T11:49:36.991Z",
+      "gtasksTaskId": "c2liVHlHQnFiczZ6Q2RVdw",
+      "jobId": "H0024"
+    },
+    {
+      "slug": "summit-interconnect",
+      "draftedAt": "2026-06-10T11:49:36.991Z",
+      "gtasksTaskId": "czBJMU9MVFBuUUVUMG9JdA",
+      "jobId": "H0126"
+    },
+    {
+      "slug": "mfg-flow",
+      "draftedAt": "2026-06-11T12:45:51.694Z",
+      "gtasksTaskId": "NkpFZmRQSm1tMWl3UUpQQQ",
+      "jobId": "H0122"
+    },
+    {
+      "slug": "plexus",
+      "draftedAt": "2026-06-11T12:45:51.694Z",
+      "gtasksTaskId": "bnlYdlpKcy1Kb3Y2VmpnWA",
+      "jobId": "H0128"
+    },
+    {
+      "slug": "xscape-photonics",
+      "draftedAt": "2026-06-11T12:45:51.694Z",
+      "gtasksTaskId": "azVUUlVRTUo5bWx5R1g4Sg",
+      "jobId": "H0121"
+    }
+  ],
   "skipped": []
 }
