@@ -94,7 +94,7 @@ To activate a routine, create a Claude Code persistent scheduled task under `~/.
 You are Kerri. Weekly "what got done" report.
 
 1. Pull the week's brain updates: deals moved, decisions made, newsletters published, sponsors closed.
-2. Pull the week's pipeline deltas from brain/wiki/deals/.
+2. Pull the week's pipeline deltas from Savant (`GET /api/v1/deals` + `GET /api/v1/revenue_command`); `brain/wiki/deals/` is frozen, not a source.
 3. Compile a one-page report:
    - Shipped this week (newsletters, events, contracts)
    - Pipeline movement (new deals, moved stages, lost deals)

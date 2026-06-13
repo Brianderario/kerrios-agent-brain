@@ -26,10 +26,10 @@ Per `brain/routing.md`:
 | Question type | Where to read |
 |---|---|
 | Source-of-truth boundaries / what's canonical | `wiki/workflows/source-of-truth.md` |
-| Person profile / contact | `wiki/people/{slug}.md` |
-| Company context / outreach history / CRM | KMG Console record (`GET /api/v1/companies?domain={d}`, read `crm_notes` + deals); `wiki/companies/` is frozen, legacy pages in git history only |
+| Person profile / contact (external) | Savant CRM (`GET /api/v1/people?company_id={id}`); `wiki/people/` is frozen (internal team pages brian/ari/benji/zach only, in git history) |
+| Company context / outreach history / CRM | Savant record (`GET /api/v1/companies?domain={d}`, read `crm_notes` + the `deals` summary); `wiki/companies/` is frozen, legacy pages in git history only |
 | Property / portfolio | `wiki/properties/` |
-| Deals / external commitments | `wiki/deals/` + `wiki/decisions/` |
+| Deals / pipeline / external commitments | Savant CRM (`GET /api/v1/deals?stage={s}` or `GET /api/v1/companies/{id}` for a company's deals); `wiki/deals/` is frozen; deal *rationale/decisions* live in `wiki/decisions/` |
 | Meeting recap / notes | `wiki/meetings/` |
 | Workflow / operating contract | `wiki/workflows/` |
 | Uncertain or unowned claim | `candidates/` |
@@ -64,20 +64,22 @@ If still missing, flag the gap, ask Brian; register new companies via POST /comp
 Do NOT read or write brain/wiki/companies/ (frozen; legacy pages exist only for git history)
 ```
 
-**"Update the deal status for D-1234."**
+**"Update the deal status for Acme."**
 ```
-Read brain/wiki/deals/D-1234.md
-Confirm change is approved (deal stage changes may need Brian sign-off)
-Edit the wiki page with the new status + source line
-Record the edit in brain/audit/ if material
+Find the deal in Savant (GET /api/v1/deals or GET /api/v1/companies/{id})
+Move the stage with source-backed evidence: scripts/console-pipeline-update.mjs --apply
+  (or PATCH /api/v1/deals/:id/update_stage). Material judgment calls still get Brian sign-off.
+Do NOT read or edit brain/wiki/deals/ (frozen). The Savant deal is the system of record.
 ```
 
 **"Brian just had a call with X — capture the recap."**
 ```
 Append the Granola transcript pointer to brain/raw/{date}-{topic}.md
-Draft a compact recap → propose as brain/wiki/meetings/{date}-{slug}.md
-Update brain/wiki/people/{x}.md with any new facts (Brian approves first)
-Propose follow-up tasks via Kerri's task surface (TBD: tasks layer)
+Draft a compact recap → propose as brain/wiki/meetings/{date}-{slug}.md (the narrative is brain knowledge)
+Record any new ENTITY facts in Savant: company crm_notes (PATCH /api/v1/companies/:id),
+  a new/updated contact (POST/PATCH /api/v1/people), or a deal stage move via console-pipeline-update.mjs.
+  Do NOT write external contact facts to brain/wiki/people/ (frozen).
+Propose follow-up tasks via the Savant Console task board.
 ```
 
 ## What NOT to read

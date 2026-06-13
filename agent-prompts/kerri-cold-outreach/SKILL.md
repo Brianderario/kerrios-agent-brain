@@ -30,8 +30,8 @@ HARD RULES (do not bypass — ever)
 2. **No bulk patterns.** Every draft is distinct. If you find yourself reusing phrases, regenerate with different framing. The voice file is `agent-prompts/kerri-skill/references/voice.md` — apply it strictly.
 3. **Personalization required.** Every cold email must reference something specific about the recipient: recent funding, product launch, job change, content they published, a mutual connection. If you can't find a real personalization angle from Apollo enrichment, SKIP that target. Do not send generic.
 4. **Dedup is absolute.** Skip any prospect with:
-   - An existing `brain/wiki/people/<slug>.md` page
-   - Any internetMessageId in `data/jobs.json` (the inbox sweep's history)
+   - An existing Savant contact: `GET /api/v1/people?company_id=<id>` on the company's Console record (the CRM is the system of record for contacts; `brain/wiki/people/` is frozen and is NOT the dedup source)
+   - Any internetMessageId in `data/jobs.json` (the inbox sweep's send/reply ledger)
    - Entry in `data/cold-do-not-contact.json`
    - Entry in `data/cold-outreach-state.json#sent` within 90 days
 5. **HWFYI boundary only.** This agent sends from `kerri@hardwarefyi.com` or `brian@hardwarefyi.com` only. NEVER from `brian@standardandworks.com` (S/W cold outreach is a separate concern — not yet built).
@@ -76,8 +76,8 @@ Read-only:
 - `agent-prompts/kerri-skill/references/voice.md` — Brian's voice (apply every rule)
 - `brain/wiki/workflows/draft-learnings.md` — accumulated lessons
 - `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` — revenue goal, product lens, and source-surface rules
-- `brain/wiki/people/` — relationship history (dedup source)
-- `data/jobs.json` — inbox sweep state (dedup source)
+- Savant CRM contacts (`GET /api/v1/people?company_id=<id>`) + company `crm_notes` — existing-relationship + dedup source (the system of record; `brain/wiki/people/` is frozen, do not read it for this)
+- `data/jobs.json` — inbox sweep send/reply ledger (dedup source)
 - Legacy `gtasksTaskId` fields may exist in historical `drafted[]` rows. Preserve them for old batches, but never create a new one.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -122,7 +122,7 @@ For each target in the bounded queue slice until 10 qualified drafts are created
 
 A) **Dedup checks** (in order, skip target if any hit):
    - Email exists in `cold-do-not-contact.json` → skip, remove from queue silently.
-   - `brain/wiki/people/<slug>.md` exists (slug = kebab-case of name) → skip, log to `state.skipped[]`.
+   - A Savant contact already exists for this email/company (`GET /api/v1/people?company_id=<id>`, the CRM system of record) → skip, log to `state.skipped[]`. (`brain/wiki/people/` is frozen — do not use it as the dedup source.)
    - Email in `data/jobs.json` internetMessageIds → already in active sweep flow, skip.
    - Email in `cold-outreach-state.json#sent` with `sentAt` within last 90 days → skip.
    - **Company-level relationship check (MANDATORY — added 2026-06-08 after Codex cold-emailed 5 existing sponsors/advertisers).** Run the customer-id-protocol lookup against the Console API (`GET /api/v1/companies?domain=<d>`; snapshot `data/companies.json` only as offline fallback) using the target's email domain. If the company already exists with a `jobId`, read the Console record's `crm_notes` plus any deals on the record. If they show ANY existing business relationship — active or past sponsor, advertiser, partner, pipeline prospect with a quoted/active deal, Kinetic or SFTW event participant, or any contract history — SKIP with reason `existing-relationship: <status>`. Also check parent/subsidiary relationships (e.g., Onshape → PTC). Cold outreach is for genuinely new prospects only. Sending a generic cold intro to a company we already work with damages the relationship and makes us look disorganized. When in doubt, skip and flag for Brian.
@@ -138,7 +138,7 @@ C) **Find the hook.** Combine Apollo data + the optional `hookSeed` from the que
    - Hiring momentum (specific role they're recruiting for)
    - Recent press / press release
    - Specific job-change signal (the contact moved roles in last 60 days)
-   - A mutual connection from `brain/wiki/people/` (someone Brian already knows at the company or in their network)
+   - A mutual connection from the Savant CRM contacts / company `crm_notes` (someone Brian already knows at the company or in their network)
 
    **If no concrete hook is found from any source: SKIP this target.** Move it to `state.skipped[]` with reason "no personalization angle" and leave it in the queue for a manual review. Do not send generic.
 
@@ -359,11 +359,11 @@ STEP 9 — POST-SEND BRAIN WRITES (handled by inbox sweep, not this agent)
 When Brian checks the `☀️ COLD BATCH` task, the inbox sweep picks it up at its next firing and sends every draft still marked `SEND #n` (skipping `SKIP #n`, regenerating `REDO #n`). After each successful send, the inbox sweep should:
 1. Update `data/cold-outreach-state.json#sent` (move that draft from `drafted[]` to `sent[]`)
 2. Flip the lead's `status` to `emailed` in `data/leads-master.json` and mirror it to the CRM "Leads" tab via `node scripts/sheets-append.mjs` (see lead-research SKILL for the writer; CSV fallback if Sheets scope absent)
-3. Create `brain/wiki/people/<slug>.md` for the prospect (compact: name, email, company, title, cold-outreach-date)
+3. Register the contact in Savant — the CRM is the system of record for people. `POST /api/v1/people` (or `PATCH /api/v1/people/:id` if already present) with `{ name, email, title, company_id: <the company's Console id>, contact_type: "sponsor_contact", source: "cold-outreach" }`. **Never create `brain/wiki/people/<slug>.md` — that directory is frozen.** The Savant contact record (plus `jobs.json`) is the durable record that future cold-outreach runs dedup against.
 4. Create or update the company's Console record, putting the relationship fact in `crm_notes` (compact, source-linked; `brain/wiki/companies/` is frozen, never create pages there)
 5. Create/update the central `CY2026 Revenue Goal` row with status `Prospect` because contact has now actually happened. Do not mark `Interest` until the buyer replies, asks for details/pricing, takes a meeting, or receives a proposal/package.
 
-The `sent[]` state update is mandatory now that cold outreach approval tasks are posted through the same Kerri Console rail as inbox replies. If the post-send people/company backfill cannot be completed safely, create a compact Kerri MG suggestion task instead of silently losing the follow-up.
+The `sent[]` state update is mandatory now that cold outreach approval tasks are posted through the same Kerri Console rail as inbox replies. If the post-send Savant contact/company registration cannot be completed safely, create a compact Kerri MG suggestion task instead of silently losing the follow-up.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ON-DEMAND DISCOVERY (now delegated)
@@ -393,7 +393,7 @@ WHAT THIS AGENT NEVER DOES
 - Send email directly. Drafts only. Inbox sweep sends after Brian approves.
 - Exceed the volume caps. The caps are not "soft guidelines."
 - Send generic / template / non-personalized cold email.
-- Cold an existing relationship (anyone in `brain/wiki/people/` OR any company whose Console record, `crm_notes` plus deals, shows an existing relationship).
+- Cold an existing relationship (any Savant CRM contact, OR any company whose Console record — `crm_notes` plus deals — shows an existing relationship).
 - Cross the S/W boundary (no cold outreach from brian@standardandworks.com — that's a separate, not-yet-built sub-agent).
 - Use `apollo_emailer_campaigns_*` tools. Apollo is for enrichment only. Sending happens via Microsoft Graph through the kerri-hardwarefyi-email MCP.
 - Write cold-outreach drafts into `brain/wiki/` durably. The brain captures sent + replied relationships only.

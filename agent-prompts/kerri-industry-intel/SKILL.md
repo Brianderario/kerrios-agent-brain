@@ -184,9 +184,9 @@ Top 3-5 industry themes or notable moves:
    - Update `sourceHealth` with per-source fetch success/fail counts
    - Update `apolloCallsToday` and `apolloCallsDate`
 
-2. Cross-reference with existing deals:
-   - If a company in the intel matches a slug in `brain/wiki/deals/`, note it in the digest as "existing deal -- context update"
-   - Do NOT modify deal files directly. The pipeline-followup and inbox-sweep own deal state.
+2. Cross-reference with existing deals (Savant is the deal system of record):
+   - If a company in the intel has an open deal in Savant (`GET /api/v1/companies?domain=<d>` returns its `deals` summary, or `GET /api/v1/deals`), note it in the digest as "existing deal -- context update". `brain/wiki/deals/` is frozen; do not read it.
+   - Do NOT modify deals from this read-only intel routine. The pipeline-followup and inbox-sweep own deal state in Savant.
 
 3. Cross-reference with existing companies:
    - If a company in the intel has a Console CRM record (domain lookup; the read-only snapshot `data/companies.json` is fine for this read), note the jobId in the digest

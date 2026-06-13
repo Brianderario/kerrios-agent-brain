@@ -48,7 +48,7 @@ The Granola cloud MCP is connected at `https://mcp.granola.ai/mcp`. The exact to
 
 **Brain (wiki writes):**
 - Per-meeting recap → `brain/wiki/meetings/<YYYY-MM-DD>-<slug>.md`
-- Person updates → `brain/wiki/people/<slug>.md`. Company/relationship facts → the company's KMG Console record: `PATCH /companies/:id` appending to `crm_notes` (compact, source-linked). `brain/wiki/companies/` is frozen, never create or update pages there.
+- External contact + company/relationship facts → Savant (the system of record): a contact via `POST`/`PATCH /api/v1/people` tied to the company, and/or a dated line appended to the company's `crm_notes` (`PATCH /api/v1/companies/:id`), compact + source-linked. `brain/wiki/people/` and `brain/wiki/companies/` are frozen — never create or update entity pages there (the internal team pages brian/ari/benji/zach are the only `wiki/people/` exception, for org context).
 - **Before creating or updating ANY company's Console record, run the lookup in [[../../brain/wiki/workflows/customer-id-protocol]] against the Console API** (`GET /api/v1/companies?domain=<d>`; snapshot `data/companies.json` is read-only offline fallback). Same company = same jobId forever; register new companies via `POST /companies` (with `aliases: []`) AND bump `data/job-counters.json` ONLY if genuinely new. If the Console API is unreachable, fail closed: reuse snapshot jobIds read-only, never register or mint new (mark review-required). Reuse existing jobId if found by domain, alias, or fuzzy name match. This is mandatory and doubles as a QA gate.
 - Append a log line to `brain/log.md` (one entry per run, not per meeting)
 - Follow [[../../brain/wiki/workflows/agent-brain-protocol]] for read/write rules
@@ -184,9 +184,9 @@ scope: meeting · updated: <YYYY-MM-DD>
 
 Cap each meeting page at ~2KB. Don't dump raw transcripts. Don't include S/W internal content (if the meeting touches S/W, the page goes under `brain/.local/meetings/` instead — gitignored).
 
-**B) Update person pages + company Console records** (if material new facts emerged):
+**B) Update Savant contacts + company records** (if material new facts emerged):
 
-If the transcript surfaced a notable new fact about a person or company (new role, new product, new ask, new constraint), append a short dated line to the relevant `brain/wiki/people/<slug>.md`. Company facts go to the Console instead: `PATCH /companies/:id` appending the dated line to the record's `crm_notes` (`brain/wiki/companies/` is frozen, never edit pages there). Either way, compact + source-linked: `(src: meetings/<YYYY-MM-DD>-<slug>.md)`.
+If the transcript surfaced a notable new fact about a person or company (new role, new product, new ask, new constraint), record it in Savant (the system of record for entities): update/create the contact via `POST`/`PATCH /api/v1/people` tied to the company, and/or append a short dated line to the company's `crm_notes` (`PATCH /api/v1/companies/:id`). `brain/wiki/people/` and `brain/wiki/companies/` are frozen — never edit entity pages there. Compact + source-linked: `(src: meetings/<YYYY-MM-DD>-<slug>.md)`.
 
 Don't restate existing facts. Don't dump verbatim quotes.
 
@@ -218,7 +218,7 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
   - Internal team → from brian@hardwarefyi.com (most common)
 - Pull the recipient's email from the calendar attendee list.
 - **Revenue/sponsor context merge is mandatory before drafting.** If the meeting involves a Hardware FYI sponsor, advertiser, partner, event sponsor, paid media buyer, or sales prospect, do not draft from today's transcript alone. Before writing copy:
-  - Read the counterparty's Console company record (`crm_notes` + deals) plus the 1-3 most relevant person pages.
+  - Read the counterparty's Savant company record (`crm_notes` + deals) plus the 1-3 most relevant Savant contacts (`GET /api/v1/people?company_id=<id>`).
   - Read `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` and classify the follow-up as cash collected, pipeline advanced, product value improved, or revenue system improved.
   - Search meeting memory for the same company and same non-Brian attendees from the last 30 days, especially sales/catalog/budget/timing calls.
   - Search sent mail for Brian's most recent message to the company/contact and for any promised catalog, package rundown, pricing, event, or content example.

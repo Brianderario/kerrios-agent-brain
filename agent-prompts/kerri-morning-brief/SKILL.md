@@ -73,7 +73,7 @@ Read-only unless the brief creates or closes an action:
 - `data/cold-outreach-state.json` - for batch approval lag (drafts waiting on Brian)
 - approval queue digest: run `node scripts/approval-queue-digest.mjs --json --exclude-cold` (pure read over `data/jobs.json`, omits cold-outreach drafts from the daily queue; tolerates missing files and returns an empty queue)
 - `output/industry-intel/<today YYYY-MM-DD>.md` if it exists - today's intel digest (runs at 6:30, before this brief)
-- `brain/wiki/deals/*.md` for active Hardware FYI/KMG revenue deals only
+- Savant deals (`GET /api/v1/deals?stage=lead,qualified,proposal_sent,contract_sent,negotiation`, token `KERRIHQ_AGENT_API_KEY`) for active Hardware FYI/KMG revenue deals — the CRM is the system of record. `brain/wiki/deals/` is frozen; do not read deal status from it (it is stale).
 
 Note: `output/` is intentionally gitignored. The HTML brief is a local delivery artifact, not canonical KerriOS truth.
 
@@ -149,7 +149,7 @@ Auto-logged sends + autonomy ramp (Brian decision 2026-06-09, `brain/wiki/decisi
 - If `autonomy-report.mjs` fails to run, show "Auto-logged report unavailable" and record the degraded source. Never invent send records.
 
 - Read `brain/log.md` recent entries.
-- Read `brain/wiki/deals/` index/pages only for active deals referenced by tasks or recent logs.
+- Read active deals from the Savant CRM (`GET /api/v1/deals`) when referenced by tasks or recent logs — that is the deal system of record. `brain/wiki/deals/` is frozen and stale; do not read it.
 - Read `brain/candidates/` only for candidates updated in the last 7 days or explicitly referenced by today's agenda.
 - Read today's industry-intel digest (`output/industry-intel/<YYYY-MM-DD>.md`) if present and pull at most 1-2 items that warrant a CEO read this morning: a prospect trigger (funding/launch at an ICP-fit company), a sponsor in the news, or a competitive move. Skip the section silently if the digest is missing or has nothing actionable.
 - Add one optional "Kerri's read" item when there is a genuinely useful pattern, risk, or opportunity Brian should see this morning:
@@ -162,9 +162,9 @@ Auto-logged sends + autonomy ramp (Brian decision 2026-06-09, `brain/wiki/decisi
 Hardware FYI Revenue Focus:
 
 - Always include one concise Revenue Focus card tied to `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md`.
-- Read the canonical `CY2026 Revenue Goal` tab in the Hardware FYI Sheet when a current goal-progress number is needed. Use `node scripts/hwfyi-revenue-goal-sheet.mjs --pipeline-summary` for booked/open/weighted/status counts when Sheets credentials are available. If the tab cannot be read or is stale, explicitly label the card as task/deal-derived rather than a fresh revenue-total read.
+- Get goal-progress numbers from Savant (the system of record): `GET /api/v1/revenue_command` returns booked/open/weighted and the owed-deliverables roll-up against the $1M target. The `CY2026 Revenue Goal` tab in the Hardware FYI Sheet is a one-way mirror for cross-checking only; if you cite it, treat it as a mirror, and if it disagrees with Savant, Savant wins.
 - When showing pipeline, use the central statuses exactly: `Prospect`, `Interest`, `Contract Won`, `Contract Lost`. Prioritize next actions from `Interest` first, then high-value `Prospect`; do not treat lead-research-only names as pipeline.
-- Build the next-move recommendation from pending Hardware FYI Console tasks, active `brain/wiki/deals/` pages, recent `brain/log.md` entries, and visible pipeline/cold-outreach state.
+- Build the next-move recommendation from pending Hardware FYI Console tasks, active Savant deals (`GET /api/v1/deals`), recent `brain/log.md` entries, and visible pipeline/cold-outreach state.
 - Surface approval lag as a blocker: if cold-outreach, pipeline, or renewal drafts have been waiting on Brian's approval for more than 24 hours, say so explicitly with counts and age (e.g., "10 cold drafts + 2 renewal drafts waiting since yesterday - revenue is blocked on your approval"). Unapproved drafts are the cheapest revenue unlock of the morning.
 - Prefer one concrete next move WITH the action verb Brian takes: "approve the <Company> renewal draft", "call <Name> to close <deal>", "open the cold batch in Kerri Console". A number without an action is not decision-ready.
 - Do not send, price, commit inventory, or make material CRM judgment calls from the morning brief. Source-backed pipeline stage bookkeeping may be performed by the owning routine and reported here; route external actions into the relevant approval workflow.
