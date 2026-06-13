@@ -72,7 +72,8 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 ## "What deals are open?"
 
-- `wiki/deals/<slug>.md`
+- **Savant CRM is the system of record** (2026-06-11 split, completed for deals 2026-06-13, [[wiki/decisions/2026-06-11-brain-console-storage-split]]): `GET /api/v1/deals?stage=<s>&event_id=<id>` (token `KERRIHQ_AGENT_API_KEY` in `~/.kerri-chief/secrets/kerrihq.env`). Deals for one company: `GET /api/v1/companies/:id` returns a `deals` summary array.
+- `wiki/deals/` is frozen (legacy pages stay in git history; no longer imported into the Brain). Do not read deal status from the Brain; it drifts. Use the CRM.
 
 ## "What's the status of <event>?" / "Venues / vendors for X event"
 

@@ -35,6 +35,17 @@ scope: decision · updated: 2026-06-12 · authority: Brian (interactive session 
 
 If the Savant API is unreachable mid-run: reuse jobIds from the snapshot (read-only), and **fail closed on new registrations** — mark review-required, never mint a jobId blind. Rationale: two live sources of truth caused the H0049/H0050 duplicate-identity incident.
 
+## Update 2026-06-13: deals fully CRM-owned
+
+The split was incomplete: companies and people wiki pages were frozen, but the importer still ingested `brain/wiki/deals/` as canonical `deal` knowledge records, producing 37 stale prose duplicates of the live Savant pipeline. This caused the redundant, drift-prone "deals" in the Brain and the empty-looking entity views Brian flagged.
+
+Completed the split for deals (rails commit `e089d2e`, authority: Brian interactive 2026-06-13, "full clean split, one central location per fact"):
+- `Kerrios::Classifier` now freezes `brain/wiki/deals/` (skipped, same "Savant CRM is the system of record" reason as people/companies). No new deal brain records are created.
+- The 37 existing `deal` knowledge records were retired to `stale` (kept for history, excluded from the active hub and from `active` API reads).
+- The Knowledge Hub shows only domains that hold knowledge (no empty entity cards), relabels "People & Orgs" to "Team & Partners" (the `people` domain holds only the internal team, renamed "Team"), and states the rule in its header.
+
+Standing rule for every agent and teammate: **entities (companies, people, deals, events) live in the Savant CRM; the Brain holds how-we-work knowledge and links to the CRM, it never copies entity records.** `wiki/deals/` joins `wiki/companies/` and external `wiki/people/` as frozen.
+
 ## Supersedes
 
 - `brain/candidates/2026-06-11-brain-console-storage-split.md` (promoted)
