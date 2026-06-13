@@ -37,6 +37,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/properties/kinetic]] — annual SF conference
 - [[wiki/events/kinetic-2026]] — year-one event (May 2026, SF); post-event deliverables incl. canonical photos link
 - [[wiki/events/sf-tech-week-2026-sponsor-prospects]] — tiered SF Tech Week sponsor prospect list (Kinetic roster + advertisers + Tech Week-history research, 2026-06-02)
+- [[wiki/events/ai-for-hardware-vendor-universe]] — exhaustive ~350-vendor map of the software/AI-for-hardware stack across 9 floor lanes, for the proving-ground demo event; CRM-flagged existing vs net-new (2026-06-13, 7-agent sweep)
 - [[wiki/properties/savant]] — production KMG operating app formerly called Kerri/KMG Console (`kerrihq-rails` on Render); source of truth for CRM, tasks, approvals, revenue surfaces, newsletter inventory, agent runs, and permissioned brain records
 
 ## Companies
