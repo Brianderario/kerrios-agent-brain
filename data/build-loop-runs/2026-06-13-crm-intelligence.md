@@ -26,7 +26,7 @@ Rules:
 
 ## ITEM 1 - Account Signal Ledger
 
-Status: shipped locally, pending commit/deploy
+Status: live in production
 Started: 2026-06-13 10:49 EDT
 
 Brainstorm:
@@ -58,7 +58,7 @@ Verification:
 
 ## ITEM 2 - CRM Hygiene Score
 
-Status: shipped locally, pending commit/deploy
+Status: live in production
 
 Brainstorm:
 - Agents need to know whether a CRM record is usable before acting on it.
@@ -80,7 +80,7 @@ Verification:
 
 ## ITEM 3 - Deal Health
 
-Status: shipped locally, pending commit/deploy
+Status: live in production
 
 Brainstorm:
 - Deal health should answer "what is at risk and what should happen next" from real Savant records.
@@ -101,7 +101,7 @@ Verification:
 
 ## ITEM 4 - Stakeholder Map
 
-Status: shipped locally, pending commit/deploy
+Status: live in production
 
 Brainstorm:
 - Modern CRMs help teams reason about buying committees. Savant needed the same without duplicating contacts.
@@ -122,7 +122,7 @@ Verification:
 
 ## ITEM 5 - Proposal / Asset Engagement Tracking
 
-Status: shipped locally, pending commit/deploy
+Status: live in production
 
 Brainstorm:
 - Engagement should not be a new disconnected event store.
@@ -143,6 +143,8 @@ Verification:
 
 ## Final QA
 
+- Rails commit: `4687cb7 Add CRM intelligence layer`.
+- Render deploy: `dep-d8mn4fv7f7vs73f8hev0`, live at 2026-06-13 15:09:40Z.
 - Migration: `bin/rails db:migrate` passed.
 - Loader: `bundle exec rails zeitwerk:check` passed.
 - Style: `bundle exec rubocop <new app/spec files>` passed, 15 files, no offenses.
@@ -150,6 +152,10 @@ Verification:
 - Full tests: 1531 examples, 0 failures, 1 pre-existing pending (`spec/models/user_spec.rb`).
 - Browser smoke: local test server on port 3037; disposable test account; deal page and company page verified on desktop 1280px and mobile 390px. All new sections present, no horizontal overflow.
 - Documentation: `docs/crm-intelligence.md` added; `docs/brain-architecture.md` updated.
-
-Open deployment step:
-- Commit, push to `main`, wait for Render deploy, and production-probe the new API/page surfaces.
+- Production probes:
+  - `/up` returned 200.
+  - `GET /api/v1/deals?per_page=1` returned health, hygiene, fulfillment, stakeholder count, and engagement count.
+  - `GET /api/v1/deals/:id/stakeholders` returned 200.
+  - `GET /api/v1/account_signals?per_page=1` returned signal rows with engagement flag.
+  - `GET /api/v1/companies/:id` returned hygiene, recent signals, engagement count, and deal summaries with health/hygiene.
+  - `GET /api/v1/account_signals?per_page=10` sample had 0 orphan rows.
