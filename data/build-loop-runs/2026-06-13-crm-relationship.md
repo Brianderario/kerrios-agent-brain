@@ -43,3 +43,23 @@ PROD PROOF: deploy cbaa6b2 live, /up 200. No API regression — company API stil
 
 ## RUN COMPLETE
 All 3 items SHIPPED + VERIFIED. Additive only, real data only (every number traces to a record; blank/em-dash when absent), no API field removed/renamed, no new top-level surface, RailsBlocks idiom. Gates green each ship. Commits: 1c5a4f0 (company deals), 95962a6 (person backlink+deals), cbaa6b2 (company context+people). Brian's ask — "click into a company and see the deals we've done and people who work there" — is now fully satisfied, plus the reverse (click a person → see their company + the deals they own).
+
+---
+
+## CHAPTER 2 — Brain ↔ CRM de-duplication (Brian: full clean split, one source per fact)
+
+DIAGNOSIS (prod data, 131 brain knowledge records): the Brain redundantly stores entities the CRM owns. Worst offender: **37 `deal` records** (domain `pipeline`, all canonical) = prose duplicates of the 52 live CRM deals → go stale, mislead agents. The `people` domain holds only the 4 internal team members (not the 161 CRM contacts) → reads "empty." Root cause = an ASYMMETRY: the importer's classifier already FREEZES people/company wiki pages ("Savant CRM is the system of record") but still imports `brain/wiki/deals/` as canonical deal records.
+
+PLAN (complete the 2026-06-11 storage split for deals; one source per fact):
+1. classifier.rb — freeze `brain/wiki/deals/` (skip, "CRM is system of record for deals"), symmetric with people/companies. Stops re-import.
+2. data migration — retire the 37 existing `deal` records (canonical→stale, reversible); rename `people` domain display name → "Team".
+3. hub — show only domains with ≥1 active record (kills empty cards incl. now-empty pipeline); add explicit "entities live in the CRM" routing line; relabel category "People & Orgs"→"Team & Partners".
+4. brain repo routing.md — "What deals are open?" → Savant CRM GET /api/v1/deals; note wiki/deals frozen; extend the storage-split decision page to include deals.
+5. QA: rubocop/rspec/brakeman + prod verify (active deal brain records = 0; hub clean).
+
+### CHAPTER 2 — SHIPPED + VERIFIED (rails e089d2e → Render live)
+Completed the Brain↔CRM storage split for deals. Classifier freezes brain/wiki/deals (no new dupes); data migration retired the 37 existing deal records (canonical→stale) + renamed `people` domain → "Team"; hub hides empty domains + relabels "People & Orgs"→"Team & Partners" + states the entity↔CRM rule. Brain routing.md + storage-split decision page updated.
+PROD PROOF (GET /api/v1/knowledge_records): active deal brain records = **0**; total deal = 37, all status **stale** (history kept); CRM /deals /companies /people all intact. /up 200. Gates: rubocop clean, rspec 1501/0, brakeman 0. UI (hub hide-empty, Team label) covered by request specs (behind login).
+
+## CHAPTER 2 RESULT
+One source of truth per fact: entities (companies/people/deals/events) = Savant CRM; Brain = how-we-work knowledge that links to the CRM, never copies it. The empty/duplicate "companies/people/deals" in the Brain are gone; an agent pointed at the Brain now finds only real knowledge and a clear pointer to the CRM for entities.
