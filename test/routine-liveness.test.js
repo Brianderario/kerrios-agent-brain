@@ -105,36 +105,39 @@ test('inbox-sweep weekend before first checkpoint → ok', () => {
   assert.equal(rep.ok, true);
 });
 
-test('inbox-sweep weekend after missed morning checkpoint → dark core', () => {
+// Weekend coverage is a single 18:00 ET run (kerri-inbox-sweep-weekend, cron
+// `0 18 * * 6,0`) writing the shared inbox-sweep-state.json. Pre-2026-06-13 the
+// weekend checkpoints were [10:00, 16:00]; the weekday/weekend split collapsed them
+// to one 18:00 run, so these assert the single-checkpoint model with a 35m grace.
+test('inbox-sweep weekend within the 18:00 fire+grace window → ok (no premature dark)', () => {
   const root = fixture({
-    'inbox-sweep-state.json': sweepState('2026-06-05T22:00:00Z')
+    'inbox-sweep-state.json': sweepState('2026-06-05T22:00:00Z') // stale: Fri 18:00 ET
   });
-  const rep = run(root, '2026-06-06T15:00:00Z'); // 11:00 ET Saturday
-  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
-  assert.equal(sweep.status, 'dark');
-  assert.equal(rep.ok, false);
-  assert.deepEqual(rep.darkCore, ['kerri-inbox-sweep']);
-});
-
-test('inbox-sweep weekend after morning success and before afternoon checkpoint → ok', () => {
-  const root = fixture({
-    'inbox-sweep-state.json': sweepState('2026-06-06T14:05:00Z')
-  });
-  const rep = run(root, '2026-06-06T19:00:00Z'); // 15:00 ET Saturday
+  const rep = run(root, '2026-06-06T22:20:00Z'); // 18:20 ET Saturday — inside fire+grace
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
   assert.equal(sweep.status, 'ok');
   assert.equal(rep.ok, true);
 });
 
-test('inbox-sweep weekend after missed afternoon checkpoint → dark core', () => {
+test('inbox-sweep weekend after missed 18:00 checkpoint → dark core', () => {
   const root = fixture({
-    'inbox-sweep-state.json': sweepState('2026-06-06T14:05:00Z')
+    'inbox-sweep-state.json': sweepState('2026-06-05T22:00:00Z') // last run Fri, none Sat
   });
-  const rep = run(root, '2026-06-06T21:00:00Z'); // 17:00 ET Saturday
+  const rep = run(root, '2026-06-06T23:00:00Z'); // 19:00 ET Saturday — past 18:35 grace
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
   assert.equal(sweep.status, 'dark');
   assert.equal(rep.ok, false);
   assert.deepEqual(rep.darkCore, ['kerri-inbox-sweep']);
+});
+
+test('inbox-sweep weekend after 18:00 success → ok', () => {
+  const root = fixture({
+    'inbox-sweep-state.json': sweepState('2026-06-06T22:10:00Z') // Sat 18:10 ET run
+  });
+  const rep = run(root, '2026-06-06T23:00:00Z'); // 19:00 ET Saturday
+  const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
+  assert.equal(sweep.status, 'ok');
+  assert.equal(rep.ok, true);
 });
 
 test('missing state file → unknown, not dark', () => {

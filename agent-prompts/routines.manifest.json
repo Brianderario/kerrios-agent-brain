@@ -1,15 +1,27 @@
 {
  "schema": "routines-manifest-v1",
  "description": "Single source of truth for the Kerri scheduled-routine fleet. Every cron + event-triggered routine appears here exactly once. routine-liveness-check.mjs drives its registry from this file (the dark-detection logic stays in named evaluator functions in the script, mapped to entries by `evaluator`), and a completeness test asserts that every live scheduled-task and every CLAUDE-ROUTINES.md cron routine has an entry here. Add a routine? Add it here too, or the test goes red. Scope: KMG routines only (`kerri-*` / `standard-works-*` namespaces). `brian-*` scheduled tasks are Brian's personal tasks and are deliberately excluded from this manifest and its completeness test — personal data never enters the KMG brain. All times are ET (America/New_York). cron strings mirror agent-prompts/CLAUDE-ROUTINES.md.",
- "updatedAt": "2026-06-12",
+ "updatedAt": "2026-06-13",
  "routines": [
   {
    "name": "kerri-inbox-sweep",
-   "cron": "*/15 * * * *",
+   "cron": "*/15 6-23 * * 1-5",
    "core": true,
    "monitored": true,
-   "cadenceDescription": "weekdays every 15 min, 06:00-22:45 ET; weekends 10:00 and 16:00 ET",
+   "cadenceDescription": "weekdays every 15 min, 06:00-22:45 ET; weekends one run 18:00 ET (fired by kerri-inbox-sweep-weekend, shared inbox-sweep-state.json — its weekend liveness is covered by this entry's evaluator)",
    "evaluator": "inbox-sweep",
+   "stateFiles": [
+    "inbox-sweep-state.json",
+    "sweep-cadence.log"
+   ]
+  },
+  {
+   "name": "kerri-inbox-sweep-weekend",
+   "cron": "0 18 * * 6,0",
+   "core": false,
+   "monitored": false,
+   "cadenceDescription": "weekends one run 18:00 ET (Sat + Sun); runs the same kerri-inbox-sweep prompt and writes the shared inbox-sweep-state.json. monitored:false here on purpose — weekend liveness is evaluated by the kerri-inbox-sweep entry's weekend branch off the shared state file, so a second monitor on the same file would double-count",
+   "evaluator": null,
    "stateFiles": [
     "inbox-sweep-state.json",
     "sweep-cadence.log"

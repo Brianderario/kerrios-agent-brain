@@ -230,7 +230,13 @@ const EVALUATORS = {
     // Windowed: high-cadence on weekdays, intentionally sparse on weekends.
     evaluate(last, et, age) {
       if (et.isWeekend) {
-        const weekendRuns = [10 * 60, 16 * 60];
+        // Weekend coverage is a single 18:00 ET run fired by kerri-inbox-sweep-weekend
+        // (cron `0 18 * * 6,0`), which writes this same inbox-sweep-state.json. Before
+        // 2026-06-13 the weekday sweep ran all week and the weekend checkpoints were
+        // [10:00, 16:00]; the weekday/weekend split (kerri-inbox-sweep → `*/15 6-23 * * 1-5`)
+        // moved weekend coverage to one 18:00 run, so the stale checkpoints were
+        // false-paging Brian every Sat/Sun from ~10:35 ET until the 18:11 run landed.
+        const weekendRuns = [18 * 60];
         const grace = 35;
         const dueRuns = weekendRuns.filter((minute) => et.minutesOfDay >= minute + grace);
         if (dueRuns.length === 0) {
