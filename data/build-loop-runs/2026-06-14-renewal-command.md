@@ -125,3 +125,21 @@ Brian confirmed the deletion of the $1M revenue command screen by commit `3298e7
 - **LIVE in prod:** Item 1 (`c02480a`) + Item 3 (`1f95826`). Both verified.
 - **Dropped per Brian:** Item A + Item 2 (the $1M screen was intentionally retired).
 - Report Console task `4bb35e8c` resolved.
+
+## FOLLOW-UP — "fix the not-papered gap" (Brian, 2026-06-14) — ✅ SHIPPED + VERIFIED
+
+Brian: "can you fix that gap?" → chose **data truth only**: make the CRM able to record signed paper on event-less newsletter deals, then record Eight Sleep's verified signed SOW. No external sends.
+
+**Root cause found:** a `Contract` was hard-wired to an event (`contracts.event_id` NOT NULL + the signing flow read the event), but all 5 renewals are newsletter sponsorships with no event — so a genuinely-signed newsletter deal could never carry a contract and always showed "not papered" (incl. Eight Sleep, which has an executed DocuSign SOW).
+
+**WORK (rails `99298a2`, off main):**
+- Migration: `contracts.event_id` made nullable.
+- `Contract`: `belongs_to :event` now optional; `requires_pipeline_record` still guarantees a contract belongs to a deal or event sponsor.
+- `contract_signing_controller`: skip the event-scoped sponsor invite when a contract has no event (defensive; newsletter contracts never enter the signing flow).
+- Data migration: recorded Eight Sleep's executed SOW (signed 2026-01-27, DocuSign envelope febfa1e3 completed 2026-02-25, $10K, 3x Primary + 1x Kinetic Fireside) as a signed contract on deal `1c723603`. Records an agreement already held; nothing sent, no terms invented. Guarded + idempotent.
+
+**Real-data discipline:** nTop + Loombotic stay papered=false (genuinely verbal, no paper). Jiga + EMI also stay papered=false — I could NOT verify a signed contract record for them from the CRM (notes are just "imported from the CY2026 contract breakdown"), so I did not fabricate one. If Brian/Benji confirm those have executed paper, backfilling them is a one-line follow-up.
+
+**GATES:** rubocop 0; full rspec **1572/0**; brakeman 0. Simulated the data migration against a deal carrying the prod UUID → exactly one signed event-less $10K contract, idempotent on re-run, `papered?` true.
+
+**SHIP + VERIFY (prod, deploy `99298a2` live 00:37 ET):** `/up` 200; both migrations ran; `GET /api/v1/renewals` now shows **Eight Sleep papered=true**, the other four papered=false (correct). No regression: `/api/v1/deals` + `/api/v1/deliverables` 200, worklist route 302. within_days=30 → Eight Sleep (papered) + Loombotic (not).
