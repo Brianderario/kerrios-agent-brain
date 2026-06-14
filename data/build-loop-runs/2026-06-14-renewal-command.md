@@ -110,3 +110,18 @@ Built a throwaway integration branch (worklist + parked A/2) to prove the parked
 
 ### THE ONE DECISION FOR BRIAN
 Approve restoring the $1M revenue command screen (silently deleted by commit `3298e78` on 6/13, which also removed the polled `/api/v1/revenue_command` endpoint). It's repaired + tested on branch `renewal-command-2026-06-14` and brings the renewal-radar tile (Item 2) with it. One word and it deploys; if the removal was intentional, drop the branch and it stays gone.
+
+## DECISION — Brian: the $1M screen removal was INTENTIONAL (2026-06-14)
+
+Brian confirmed the deletion of the $1M revenue command screen by commit `3298e78` was intentional, not an accident. Accordingly:
+
+- **ITEM A (restore) — DROPPED.** The $1M screen + `GET /api/v1/revenue_command` stay gone, as Brian intends.
+- **ITEM 2 (renewal radar tile) — DROPPED.** It lived on the $1M screen, so it goes with it.
+- Branch `renewal-command-2026-06-14` deleted from origin and locally. No code from it ever reached production.
+
+**Nothing shipped needs reverting.** Verified prod `main` has zero references to revenue_command/RevenueCommand, and `Deal#papered?` (shipped standalone with Item 3) does not depend on the removed screen. Items 1 (`/api/v1/renewals`) and 3 (renewals worklist) remain live, verified, and self-contained.
+
+### FINAL OUTCOME
+- **LIVE in prod:** Item 1 (`c02480a`) + Item 3 (`1f95826`). Both verified.
+- **Dropped per Brian:** Item A + Item 2 (the $1M screen was intentionally retired).
+- Report Console task `4bb35e8c` resolved.
