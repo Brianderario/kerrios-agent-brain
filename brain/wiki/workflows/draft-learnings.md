@@ -122,3 +122,9 @@ Format:
 Enforced structurally in kerri-inbox-sweep SKILL.md DRAFTING items 1 and 3 (2026-06-12).
 
 - 2026-06-14 (cold-outreach cadence) — Before processing an approved ☀️ COLD BATCH whose approval has aged across a prior sweep, grep brain/log.md + NOW.md for a documented deliverability hold/deferral on that batch (consoleTaskId/jobId) and honor it instead of sending same-day. Root cause: 6/14 sweep sent the GAP2 batch the prior weekend sweep had deliberately held for "Mon-AM wave 2," putting 18 cold first-touches from kerri@ out in one calendar day vs the batch's own ~10/day note. The cold-batch analog of the P8 brain-log-before-send check. Filed as 💡 27998fe4 (touches SKILL send behavior → interactive apply).
+
+- 2026-06-15 (content-led Partner Program package grouping, Brian-edited on the Aris Machina H0001 SOW) — When building a content-led HWFYI bundle on the SOW deliverables block, group it the way Brian cleaned it up, not as a flat list:
+  1. **Partner Program (6 Months)** carries the recurring brand assets — Tools We Love feature 2x/week (logo placement is implied by the Partner Program, not a separate line).
+  2. **Custom Content Guide** + the **co-branded / joint landing page** travel together — the landing page ties to the content piece it supports, not to the Partner Program.
+  3. **Primary Placements** are framed as the distribution that *drives* the Content Guide (e.g. "3x Primary Placements to drive the Content Guide"), not a standalone deliverable.
+  Each capability sits with the thing it serves (recurring presence vs. the content asset vs. the distribution behind it). Reference SOW: "Aris Machina x Hardware FYI 2026" (docId 1MyGBRljAuFFeVFRiapBGIIuzHhPxFQlZoHvAoUUTml0), $15K / 6mo, sent to William Steel 2026-06-15.
