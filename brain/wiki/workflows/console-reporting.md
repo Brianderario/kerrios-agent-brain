@@ -37,6 +37,18 @@ When a routine needs Brian's attention, create a Savant task:
 
 Brian resolving a `needs_approval` card moves it to `done` with `resolution` = `approved` | `skipped`; redo leaves it open with `resolution=redo_requested`. Poll `node scripts/console-task-api.mjs list --resolved pending --per-page 100`. After applying a decision, call `node scripts/console-task-api.mjs mark-applied --id <taskId> --note "<what happened>"` so the decision is acknowledged and will not execute twice.
 
+## 3a. Interactive sends clear their own card (Brian rule, 2026-06-15)
+
+When an email is sent **interactively from chat** (Brian riffs/edits a draft live, outside the sweep approval-card flow), close the matching card the moment the send succeeds, so it cannot be approved again and double-send:
+
+```
+node scripts/console-task-api.mjs list --open                     # find by jobId / external_ref (short hex in logs is a prefix)
+node scripts/console-task-api.mjs update --id <fullId> --status done --resolution sent_interactively
+node scripts/console-task-api.mjs event  --id <fullId> --event-type sent --note "<what/where>" --metadata-json '{"message_id":"..."}'
+```
+
+Then mark the `data/jobs.json` job `status: sent` + `sentMessageId` in lockstep (else the next sweep re-sends). Do NOT use `mark-applied` here (that path is the sweep acknowledging its own approved send). **Safety:** `--status done` fires a card's server-side `on_complete` only when the payload is non-blank and `resolution != "skipped"` (`TaskCompletionAction.run!`); queued email-reply cards carry a blank `on_complete`, so closing is side-effect-free. If a card carries an `on_complete` (e.g. `create_deal`) whose effect you already performed by hand, resolve with `--resolution skipped` (or `--clear-on-complete` first) so it does not double-execute.
+
 ## 4. Adjustment requests
 
 `list_open_adjustments` returns Brian's plain-English feedback on agents filed in Savant. The brain-maintenance routine applies them to `agent-prompts/` here (normal PR/commit rules), then calls `resolve_adjustment` (`applied` | `dismissed`, with a note). Rails never pushes to this repo; prompts stay git-sourced.
