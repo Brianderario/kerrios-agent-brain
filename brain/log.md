@@ -1,3 +1,7 @@
+## [2026-06-15 18:42 ET] eod-review | 6 meetings, 0 drafts, 5 flagged (+1 auto-skip, +1 SUGGESTION) | Kerri
+
+3rd straight transcript-blind run (Granola MCP down, local granola.db encrypted, Reclaim Zoom AI summary off). 5 substantive external calls (Melissa Skabich/PCE, Ali BenBen/Kickstarter, Tom Babb/Gauntlet, Protolabs+Benji, Phil Strazzulla/SSR) → 5C manual-recap tasks; Brian/Benji 1:1 auto-skipped. Filed deduped SUGGESTION 3b5f774e to restore a transcript source. No drafts/sends. Xometry 15:30 excluded (Brian no-RSVP + already covered by open H0033).
+
 ## [2026-06-15 18:17 ET] lead-research | NO-OP: queue healthy at 221 ready/hook-bearing (≥25), pool=355 | Kerri
 Preflight no-op per TOKEN BUDGET CONTRACT — queue far above 25-ready threshold, no sourcing run (no Apollo/WebFetch/CRM). Hygiene note: queue at 221 is over its 100-entry cap; pruning is the cold-outreach drain's concern, not a sourcing trigger. Pool unchanged at 355 leads.
 
