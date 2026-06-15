@@ -203,6 +203,18 @@
    "stateFiles": []
   },
   {
+   "name": "kerri-pipeline-staleness",
+   "cron": "50 8 * * 1-5",
+   "core": false,
+   "monitored": false,
+   "cadenceDescription": "weekdays ~08:50 ET; staleness sweep — 30d no prospect reply demotes one phase (act-and-report), 60d files an approval-gated close suggestion. Keyed on real mailbox last-reply, not CRM last_activity_at. monitored:false (report routine, not a safety-critical liveness target); logic is the tested scripts/pipeline-staleness.mjs",
+   "evaluator": null,
+   "stateFiles": [
+    "pipeline-staleness-signals.json",
+    "pipeline-staleness-report.json"
+   ]
+  },
+  {
    "name": "standard-works-issue-writer",
    "cron": null,
    "core": false,
