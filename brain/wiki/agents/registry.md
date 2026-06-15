@@ -24,6 +24,16 @@ As of [[../decisions/2026-05-25-agent-architecture-and-role-pods]], agents are o
 
 All pods share the same KerriOS loop: perceive -> propose -> approve/act -> record -> improve.
 
+## Functional desks (Savant console org chart)
+
+As of 2026-06-15, the Savant console Agents page presents the routines as an org chart instead of a flat list: **Kerri** (chief of staff, the one external face) sits at the top, and every routine is grouped under one of three functional desks, each with a named lead we can call by name. This is the org-facing view of the same agents; the role-pod architecture above is the owner-facing view.
+
+- **Sales — lead "Dex" (revenue desk):** inbox sweep, cold outreach, lead research, pipeline follow-up, renewal + upsell watchdog, revenue standup, event logistics, send-partner-contract.
+- **Ops — lead "Miles" (runs the machine):** morning brief (+retry), EOD meetings review, brain push, gap sweep.
+- **Content — lead "Quill" (writer + intel):** S&W newsletter writer/editor/marketing, industry intel.
+
+Source of truth for the grouping is `Agent::DESK_BY_SLUG` in kerrihq-rails (`app/models/agent.rb`); keep this section and that map in sync. A routine not listed there falls back to the Ops desk so it still appears. Naming and grouping approved by Brian 2026-06-15.
+
 ## Local context folders (historical)
 
 Legacy Codex automation context packs at `/Users/brianderario/Desktop/Codex Kerri Agent/` are no longer used. All routines now run from `~/.claude/scheduled-tasks/` shims that load canonical `agent-prompts/*/SKILL.md` prompts. Durable facts and decisions write back to KerriOS.
