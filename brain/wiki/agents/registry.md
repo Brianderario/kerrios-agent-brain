@@ -28,11 +28,13 @@ All pods share the same KerriOS loop: perceive -> propose -> approve/act -> reco
 
 As of 2026-06-15, the Savant console Agents page presents the routines as an org chart instead of a flat list: **Kerri** (chief of staff, the one external face) sits at the top, and every routine is grouped under one of three functional desks, each with a named lead we can call by name. This is the org-facing view of the same agents; the role-pod architecture above is the owner-facing view.
 
-- **Sales — lead "Dex" (revenue desk):** inbox sweep, cold outreach, lead research, pipeline follow-up, renewal + upsell watchdog, revenue standup, event logistics, send-partner-contract.
-- **Ops — lead "Miles" (runs the machine):** morning brief (+retry), EOD meetings review, brain push, gap sweep.
-- **Content — lead "Quill" (writer + intel):** S&W newsletter writer/editor/marketing, industry intel.
+- **Sales (lead "Dex"), pure revenue pre-sale and post-sale:** inbox sweep (+weekend variant), cold outreach, lead research, pipeline follow-up, pipeline staleness, renewal + upsell watchdog, revenue standup, send-partner-contract.
+- **Ops (lead "Miles"), support + customer success + event management + internal machine:** morning brief (+retry), EOD meetings review, event logistics, brain push, gap sweep, self-improve, build proposal.
+- **Content (lead "Quill"), writing + the intel that feeds it:** S&W newsletter writer/editor/marketing, industry intel.
 
-Source of truth for the grouping is `Agent::DESK_BY_SLUG` in kerrihq-rails (`app/models/agent.rb`); keep this section and that map in sync. A routine not listed there falls back to the Ops desk so it still appears. Naming and grouping approved by Brian 2026-06-15.
+Desk definitions (Brian, 2026-06-15): Sales drives revenue only, both pre-sale and post-sale; Ops covers support, customer success, event management, and the internal machine; Content is writing plus the intel that feeds it. Event logistics is Ops (event management), not Sales; send-partner-contract is Sales (post-sale revenue).
+
+Source of truth for the grouping is `Agent::DESK_BY_SLUG` in kerrihq-rails (`app/models/agent.rb`); keep this section and that map in sync. Any routine with a canonical `agent-prompts/<slug>/SKILL.md` syncs to the console automatically; one not listed in the map falls back to the Ops desk so it still appears. The weekend inbox sweep has no separate canonical prompt (it reuses the inbox-sweep prompt on a weekend cron) so it is not a distinct console card. Naming and grouping approved by Brian 2026-06-15.
 
 ## Local context folders (historical)
 
