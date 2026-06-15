@@ -1,3 +1,6 @@
+## [2026-06-15 18:17 ET] lead-research | NO-OP: queue healthy at 221 ready/hook-bearing (≥25), pool=355 | Kerri
+Preflight no-op per TOKEN BUDGET CONTRACT — queue far above 25-ready threshold, no sourcing run (no Apollo/WebFetch/CRM). Hygiene note: queue at 221 is over its 100-entry cap; pruning is the cold-outreach drain's concern, not a sourcing trigger. Pool unchanged at 355 leads.
+
 ## [2026-06-15 09:32 ET] cold-outreach | 10 drafts, 4 skipped (existing-rel), today=10 week=10 | Kerri
 
 Staged ☀️ COLD BATCH 2026-06-15 (task 436e634d) — 10 HWFYI sponsor prospects (software-for-hardware demand-gen + hardware-mfr recruiting/brand), jobIds H0453-H0462 reserved. Email-history check caught 4 existing relationships (Luminary/Bolt/Overview/UPTIVE) and routed them out. CRM company-write blocked by classifier; registration deferred to inbox-sweep STEP 9 via data/cold-pending-registration-2026-06-15.json. Deliverability note added (18 cold sends Sun 6/14).
