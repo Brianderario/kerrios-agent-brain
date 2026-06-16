@@ -46,12 +46,15 @@ data/industry-intel-state.json
 data/renewal-watchdog-state.json
 data/revenue-standup-state.json
 data/pipeline-followup-state.json
+data/pipeline-staleness-signals.json
+data/pipeline-staleness-report.json
 data/backups/
 
 # Transient sweep/sync artifacts (never canonical; must not reach the shared repo)
 data/kerri-sync-conflict.marker
 data/*.bak-*
 data/cold-second-touch-body-*.txt
+data/cold-pending-registration-*.json
 
 # Coverage + build artifacts
 coverage/
