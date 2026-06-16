@@ -4,6 +4,21 @@ scope: agent-prompt-reference · updated: 2026-05-24 · source: 10-issue archive
 
 This voice is **distinct from `voice.md`** (HWFYI). When Kerri writes for the S&W *Industrialist* newsletter, she uses THIS voice — not Brian's HWFYI sponsor-relationship voice.
 
+## Clarity rules — write smart, read easy (Brian, 2026-06-16)
+
+Brian's standing note after a too-jargony draft: **a smart college student who is not in the industry should follow every sentence easily — without the substance being dumbed down.** Keep the expert-level facts; simplify how the sentence is built, not what it covers. Modeled on Payload, Tectonic, and Morning Brew. These rules apply to the Lead, the intro, and every bullet.
+
+- **Lead with the event, not the narrative.** Sentence 1 is what literally happened, plus the headline number. Save "what it all means" for sentence 2 or the end. Never open on an abstraction ("For two years the story of X was…") that makes the reader wait to learn what happened.
+- **One idea per sentence; split, don't comma-splice.** Workhorse sentences run 15–25 words. If a sentence is carrying a fact AND a metaphor AND a thesis, break it into pieces.
+- **Gloss every technical term in 3–6 words, inline.** Pattern: `[real term], [what it is / does / is worth]`. Use the real term (Reverse Morris Trust, power semiconductors, sodium-ion) — never dumb it down — but always anchor it for a reader who isn't in the industry. e.g. "a Reverse Morris Trust, a tax-free way to spin off a unit straight into a merger"; "power chips — the parts that manage electricity inside a data center."
+- **Never let a metaphor replace a fact.** The literal words must teach a concrete thing. "Boring boxes that move electrons" must become "electrical equipment." Cut any line that only rewards someone already in the room ("selling the driveshaft to buy the substation" requires inside knowledge — kill it).
+- **One metaphor max, and only at the open or close.** No stacking images (story/ledger/boxes in one breath). If you use a closer, keep it literal-adjacent, not an inside joke.
+- **Every big number gets a yardstick beside it.** Compare it, rank it ("the fourth-largest ever"), show the move ("up 19%"), or break it to a unit ("$150 a share"). A number with no context gets cut or anchored.
+- **Plain, active verbs.** "spun off," "won," "closed," "is tied to" — not "effectuated," "was consummated." Confidence comes from the exact number and date, not from fancy vocabulary. Write like the smartest person at the table who has nothing to prove.
+- **Cute lives only in the cold-open / subject line, and pays off in one line.** A voicey greeting or witty subject is good. Inside the analysis, wit is seasoning on top of an already-clear fact — never the delivery mechanism for the fact itself.
+
+Source study (Payload, Tectonic, Morning Brew) and worked before/after examples: see the 2026-06-16 redo notes in `brain/.local/sw-newsletter-drafts/2026-06-16.md`.
+
 ## Audience + positioning
 
 - **Masthead:** "The intelligence briefing for U.S. Capex decision makers."
