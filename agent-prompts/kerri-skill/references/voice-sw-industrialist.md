@@ -2,20 +2,20 @@
 
 scope: agent-prompt-reference · updated: 2026-05-24 · source: 10-issue archive review at standardandworks.com (Feb–May 2026, including AMCA/SendCutSend, Camden, NC Defense, Colossus, El Segundo, OKC Olympics, Florence of Hard Tech, North Slope Data Center, Steel/Ships/AI)
 
-This voice is **distinct from `voice.md`** (HWFYI). When Kerri writes for the S&W *Industrialist* newsletter, she uses THIS voice — not Brian's HWFYI sponsor-relationship voice.
+This voice is **distinct from `voice.md`** (HWFYI). When Kerri writes for the S&W *Industrialist* newsletter, she uses THIS voice, not Brian's HWFYI sponsor-relationship voice.
 
-## Clarity rules — write smart, read easy (Brian, 2026-06-16)
+## Clarity rules: write smart, read easy (Brian, 2026-06-16)
 
-Brian's standing note after a too-jargony draft: **a smart college student who is not in the industry should follow every sentence easily — without the substance being dumbed down.** Keep the expert-level facts; simplify how the sentence is built, not what it covers. Modeled on Payload, Tectonic, and Morning Brew. These rules apply to the Lead, the intro, and every bullet.
+Brian's standing note after a too-jargony draft: **a smart college student who is not in the industry should follow every sentence easily, without the substance being dumbed down.** Keep the expert-level facts; simplify how the sentence is built, not what it covers. Modeled on Payload, Tectonic, and Morning Brew. These rules apply to the Lead, the intro, and every bullet. (Note: no em dashes, ever, per Brian's hard rule. Use commas, colons, periods, or parentheses instead. This applies to the published issue AND these notes.)
 
-- **Lead with the event, not the narrative.** Sentence 1 is what literally happened, plus the headline number. Save "what it all means" for sentence 2 or the end. Never open on an abstraction ("For two years the story of X was…") that makes the reader wait to learn what happened.
-- **One idea per sentence; split, don't comma-splice.** Workhorse sentences run 15–25 words. If a sentence is carrying a fact AND a metaphor AND a thesis, break it into pieces.
-- **Gloss every technical term in 3–6 words, inline.** Pattern: `[real term], [what it is / does / is worth]`. Use the real term (Reverse Morris Trust, power semiconductors, sodium-ion) — never dumb it down — but always anchor it for a reader who isn't in the industry. e.g. "a Reverse Morris Trust, a tax-free way to spin off a unit straight into a merger"; "power chips — the parts that manage electricity inside a data center."
-- **Never let a metaphor replace a fact.** The literal words must teach a concrete thing. "Boring boxes that move electrons" must become "electrical equipment." Cut any line that only rewards someone already in the room ("selling the driveshaft to buy the substation" requires inside knowledge — kill it).
-- **One metaphor max, and only at the open or close.** No stacking images (story/ledger/boxes in one breath). If you use a closer, keep it literal-adjacent, not an inside joke.
+- **Lead with the event, not the narrative.** Sentence 1 is what literally happened, plus the headline number. Save "what it all means" for sentence 2 or the end. Never open on an abstraction ("For two years the story of X was...") that makes the reader wait to learn what happened.
+- **One idea per sentence; split, don't comma-splice.** Workhorse sentences run 15 to 25 words. If a sentence is carrying a fact AND a metaphor AND a thesis, break it into pieces.
+- **Gloss every technical term in a few words, inline.** Use the real term (Reverse Morris Trust, power semiconductors, sodium-ion); never dumb it down, but always anchor it for a reader who isn't in the industry. Set the gloss off with a comma or parentheses, not an em dash. e.g. "a Reverse Morris Trust, a tax-free way to spin off a unit straight into a merger"; "power chips (the parts that manage electricity inside a data center)."
+- **Never let a metaphor replace a fact.** The literal words must teach a concrete thing. "Boring boxes that move electrons" must become "electrical equipment." Cut any line that only rewards someone already in the room ("selling the driveshaft to buy the substation" requires inside knowledge, so kill it).
+- **One metaphor max, and only at the open or close.** No stacking images (story, ledger, and boxes in one breath). If you use a closer, keep it literal-adjacent, not an inside joke.
 - **Every big number gets a yardstick beside it.** Compare it, rank it ("the fourth-largest ever"), show the move ("up 19%"), or break it to a unit ("$150 a share"). A number with no context gets cut or anchored.
-- **Plain, active verbs.** "spun off," "won," "closed," "is tied to" — not "effectuated," "was consummated." Confidence comes from the exact number and date, not from fancy vocabulary. Write like the smartest person at the table who has nothing to prove.
-- **Cute lives only in the cold-open / subject line, and pays off in one line.** A voicey greeting or witty subject is good. Inside the analysis, wit is seasoning on top of an already-clear fact — never the delivery mechanism for the fact itself.
+- **Plain, active verbs.** "spun off," "won," "closed," "is tied to," not "effectuated," "was consummated." Confidence comes from the exact number and date, not from fancy vocabulary. Write like the smartest person at the table who has nothing to prove.
+- **Cute lives only in the cold-open or subject line, and pays off in one line.** A voicey greeting or witty subject is good. Inside the analysis, wit is seasoning on top of an already-clear fact, not the delivery mechanism for the fact itself.
 
 Source study (Payload, Tectonic, Morning Brew) and worked before/after examples: see the 2026-06-16 redo notes in `brain/.local/sw-newsletter-drafts/2026-06-16.md`.
 
@@ -23,7 +23,7 @@ Source study (Payload, Tectonic, Morning Brew) and worked before/after examples:
 
 - **Masthead:** "The intelligence briefing for U.S. Capex decision makers."
 - **Readers:** capital allocators, industrial-base policymakers, hard-tech investors, defense-procurement officials, manufacturing-renaissance operators. They make $10M–$10B decisions and want signal, not narrative.
-- **Bylines:** "Zach Silber & Brian D'Erario" (co), or solo "Zach Silber" (Zach is the primary editorial driver). Kerri's drafts are credited to the human writers — Kerri does not byline.
+- **Bylines:** "Zach Silber & Brian D'Erario" (co), or solo "Zach Silber" (Zach is the primary editorial driver). Kerri's drafts are credited to the human writers, Kerri does not byline.
 
 ## Tone (the core distinction)
 
@@ -33,7 +33,7 @@ Source study (Payload, Tectonic, Morning Brew) and worked before/after examples:
 | Register | Peer-warm, founder-direct | Analyst-sober, briefing-style |
 | Use of "we" | First-person to sponsors as Brian | First-person plural editorial ("we noted last week…") |
 | Exclamation marks | OK, signals energy | Almost never |
-| Colloquialisms ("crushed", "tapped in") | Yes | No — capex audiences read these as soft |
+| Colloquialisms ("crushed", "tapped in") | Yes | No, capex audiences read these as soft |
 | Numbers | When relevant | **Always.** Dollar amounts, percentages, dates, contract values. If a number exists, use it. |
 | Named sources | Sometimes | **Always.** Quote attributable people by name + title + organization. Anonymous quotes are an anti-pattern here. |
 | Editorial thesis | One-line takeaway optional | **Required for the Lead.** What pattern does this story reveal that capex readers should care about? |
@@ -50,21 +50,21 @@ Source study (Payload, Tectonic, Morning Brew) and worked before/after examples:
 - **WTI crude** (CL=F): price, arrow
 - **Copper** (HG=F): price + cents/lb, arrow
 
-No commentary on these — they're a sober dashboard at the top.
+No commentary on these, they're a sober dashboard at the top.
 
 ### 2. The Lead
 
 Two-paragraph analytical writeup of THE story of the issue. Pattern observed:
 
 - Para 1: introduces the news item(s) with specific dollar/scale figures. Connects to a broader thesis if one is available (e.g., AMCA + SendCutSend → "the New Factory Middle"). Names the companies, founders, funding stage, deal size.
-- Para 2: explains what this means for capex audiences — the structural shift, the precedent, the read-through to related sectors. Quotes a primary or expert source when possible.
+- Para 2: explains what this means for capex audiences, the structural shift, the precedent, the read-through to related sectors. Quotes a primary or expert source when possible.
 
 Length: ~150–300 words. Never breathless. The Lead's job is to *frame* the week, not to read like every other tech-news roundup.
 
 **What earns Lead position:**
 - Huge capex commitments (funding round, factory build, government contract)
 - Strategic partnerships that signal industry restructuring
-- A unique thesis we can draw across multiple data points (preferred — this is the S&W edge)
+- A unique thesis we can draw across multiple data points (preferred, this is the S&W edge)
 - Policy moves with material capex implications
 
 Brian's call (2026-05-24): **the unique-thesis angle is always preferred when available**, even if the headline dollar figure is smaller than another story that week.
@@ -91,7 +91,7 @@ Tight, scannable, every bullet must have a concrete number or a concrete commitm
 
 ### 4. Dealbook
 
-4 transactions. Pattern: M&A, capital raises, major contract awards, IPO/SPAC moves. Format same as bullets — concrete numbers and a link.
+4 transactions. Pattern: M&A, capital raises, major contract awards, IPO/SPAC moves. Format same as bullets, concrete numbers and a link.
 
 ### 5. Closing
 
@@ -102,7 +102,7 @@ One line. "Back Tuesday." / "Back Thursday." Nothing more.
 Used when there's a single story big enough to fill an issue. Examples: "How Oklahoma City Won the Olympics", "North Carolina Mobilizes to Land Defense Spending", "The Florence of Hard Tech".
 
 Structure observed:
-1. **Location-anchored opener.** "Raleigh –" / "El Segundo, California is…" — physical place, immediately grounds the story.
+1. **Location-anchored opener.** "Raleigh –" / "El Segundo, California is…", physical place, immediately grounds the story.
 2. **Identify a problem or anomaly.** Often paired with a named-source quote that frames the gap.
 3. **Mechanism / coalition / lever.** What's being done about it.
 4. **Specifics with dollar magnitudes.** Always.
@@ -116,27 +116,27 @@ Used when:
 - A major policy or capex event needs deeper treatment than 3 bullets
 - A story benefits from a place-based narrative
 
-Kerri's writer agent should NOT default to this format — when in doubt, ship the standard "Plus" issue. Long-form is reserved for stories where the human writers have material to add.
+Kerri's writer agent should NOT default to this format, when in doubt, ship the standard "Plus" issue. Long-form is reserved for stories where the human writers have material to add.
 
 ## Specific phrases / signature moves
 
 From observed issues:
 
-- **"Plus:" subtitle** — every standard-format issue uses "Plus: [item], [item], [item], and [item]." in the preview text. This is a distinctive S&W move. Kerri must use it on every standard issue.
+- **"Plus:" subtitle**, every standard-format issue uses "Plus: [item], [item], [item], and [item]." in the preview text. This is a distinctive S&W move. Kerri must use it on every standard issue.
 - **Specific-place openers** for long-form: "Raleigh –", "El Segundo, California is…"
 - **Thesis labels** that compound across issues: "the New Factory Middle", "the Florence of Hard Tech". When a story unlocks a new thesis, name it explicitly and reuse it in future issues.
-- **Named officials with title + body:** "Senator Bob Brinson observed: '…'" — never anonymous, never paraphrased without attribution.
+- **Named officials with title + body:** "Senator Bob Brinson observed: '…'", never anonymous, never paraphrased without attribution.
 
 ## Anti-patterns (will get flagged by the editor sub-agent)
 
 - Exclamation marks (almost never appropriate)
-- "Big news!" / "Excited to share" / "We're thrilled" — adversary-builder voice, wrong audience
-- Vague-magnitude phrasing ("substantial investment", "significant raise") — always quantify
-- Anonymous "sources say" / "industry observers note" — name the source
+- "Big news!" / "Excited to share" / "We're thrilled", adversary-builder voice, wrong audience
+- Vague-magnitude phrasing ("substantial investment", "significant raise"), always quantify
+- Anonymous "sources say" / "industry observers note", name the source
 - One-paragraph Leads (the Lead is always two grafs)
 - Bullets without a number AND a link
 - Hype words: "revolutionary", "game-changing", "groundbreaking"
-- Conclusion-before-evidence — the Lead opens with the news, not "Here's what we think…"
+- Conclusion-before-evidence, the Lead opens with the news, not "Here's what we think…"
 - Generic transitions: "Meanwhile…", "In other news…"
 
 ## When in doubt
@@ -145,7 +145,7 @@ If a story doesn't fit cleanly into the standard 5 categories, ask: does it move
 
 If a Lead candidate doesn't have a clean two-paragraph framing, demote it to a bullet under the right category. The Lead earns its position; it isn't filled by default.
 
-If the editor sub-agent flags an issue as "too breathless / too HWFYI-toned" — that's a real flag. Capex audiences don't read tech-news voice. Cool down the language.
+If the editor sub-agent flags an issue as "too breathless / too HWFYI-toned", that's a real flag. Capex audiences don't read tech-news voice. Cool down the language.
 
 ## What this file is NOT
 
