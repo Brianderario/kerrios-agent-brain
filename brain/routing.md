@@ -15,6 +15,7 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 ## "How does the brain work?"
 
+- [[wiki/decisions/2026-06-17-savant-as-company-hub]] — **target architecture: Savant is becoming the single brain hub** (knowledge + agent operating layer), git demoted to backing store; read this first for where the brain is headed
 - [[wiki/workflows/llm-wiki-pattern]]
 - [[wiki/workflows/agent-brain-protocol]]
 - [[wiki/workflows/multi-agent-write-rules]]

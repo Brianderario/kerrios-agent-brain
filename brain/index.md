@@ -72,6 +72,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-06-11-benji-ea-board]] — Benji's EA board greenlit: benji@ joins the sweep, approvals live in his own mailbox (Drafts + send/edit/skip replies), private from Brian by default, Brian-CC opt-in only
 - [[wiki/decisions/2026-06-11-brain-console-storage-split]] — brain keeps how-we-work; Savant is the CRM of record (companies/contacts/deals); CRM Google Sheet demoted to one-way verification mirror
 - [[wiki/decisions/2026-06-11-console-brain-port]] — Savant hosts the permissioned brain: knowledge records with provenance, domain/sensitivity grants (Brian master, Ari finance/legal, Benji HWFYI/content, Zach S&W), scoped agents, approval proof trails, idempotent KerriOS importer (kerrihq-rails `77e061e`)
+- [[wiki/decisions/2026-06-17-savant-as-company-hub]] — **Savant becomes the single company hub end to end**: brain (knowledge + agent operating layer) source of truth moves to Savant, git demoted to automated backing store + runner disk copy; supersedes the read side of the 6/11 split; 5-phase build plan inside
 
 ## Deals · Meetings · Candidates · Raw
 
