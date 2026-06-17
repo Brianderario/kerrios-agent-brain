@@ -6,7 +6,7 @@
   "approvedBy": "Brian, interactive session 2026-06-09 (initial). Amended 2026-06-10 (Brian, interactive): internal-recipient-reply may auto-send S-prefix replies when INTERNAL-ONLY (all recipients trustedInternal, e.g. Brian/Zach), via Superhuman from brian@standardandworks.com. Per-class TIER promotions remain Brian-only; Kerri never edits tiers in this file. Amended 2026-06-10 PM (Brian, interactive): internal teammate emails ALWAYS get an autonomous reply when no outside recipient is on the chain; gated topics gate enactment, not conversation; a Kerri Console task is created only when Brian himself must act. Applies to mail from Brian (all three of his mailboxes), Ari, Benji, Zach. Amended 2026-06-10 evening (Brian, interactive): info@hardwarefyi.com added as a Kerri-handled mailbox with autonomous handling of its outreach + inbound ('That's where we've got an outreach from and inbound, so you should be able to handle that autonomously moving forward.'); scoped via mailboxOverrides below, class tiers unchanged. Amended 2026-06-10 night (Brian, interactive — selected 'Raise act-authority (bounded)' when asked how to make future email-triggered app/long-running tasks hands-off): added the `actions` block governing NON-SEND actions (operating connected apps/services). Reversible config/ops + internal coordination = act-and-report (no pre-ask); customer/partner-facing content = draft-and-confirm; the neverAuto gate is inherited unchanged. Plus the escalateOnBlock rule. See decisionActions. Amended 2026-06-11: Console Tasks replaced Google Tasks as the approval surface. Amended 2026-06-11 (Brian, interactive): source-backed Hardware FYI pipeline stage bookkeeping should be automatic, not a Brian approval task; material CRM judgment, pricing, commitments, legal, finance, permission, and destructive changes remain gated.",
   "tiers": {
     "auto": "Act with no approval. Internal-only, no external send, no commercial or financial risk.",
-    "auto-logged": "Act without per-thread approval, then notify: entry in the morning-brief Auto-logged section + the standard auto-CC on every kerri@ send. No text alert (texts are the interrupt lane).",
+    "auto-logged": "Act without per-thread approval, then notify: entry in the morning-brief Auto-logged section + the standard auto-CC on every kerri@ send. No text alert (Kerri no longer texts Brian; the Sendblue path was retired from Kerri on 2026-06-17).",
     "ask": "Default. Draft to Kerri Console tasks; send only after Brian approves in Console.",
     "ask-batch": "One daily batch task; one Console approval approves the batch.",
     "brian-sends": "Kerri drafts only; Brian sends manually from his own mailbox.",
@@ -67,7 +67,7 @@
         "LOOP-IN RULE (Brian, 2026-06-10): every autonomous reply to real human inbound at info@ CCs brian@hardwarefyi.com AND benji@hardwarefyi.com. Cold-send outreach FROM info@ still carries no CC (cold outreach stays out of Brian's view per the standing rule). GRAPH_DEFAULT_CC stays empty; the sweep adds these CCs explicitly on inbound replies.",
         "CALENDAR ROUTING (Brian, 2026-06-10; links verified live against Calendly's booking API 2026-06-10): sponsorship / advertising / partnership-commercial intent -> Brian's Calendly https://calendly.com/brian-hardwarefyi/30min (owner verified Brian D'Erario). Content / editorial / newsletter-feature intent -> Benji's Calendly https://calendly.com/hardwarefyi/30min (owner verified Benjamin Chia; his personal alternate is https://calendly.com/chiajbenjamin/30min). NOTE: calendly.com/hardwarefyi/30min looks brand-neutral but books with BENJI — never offer it for sponsorship.",
         "NEVER GUESS (Brian, 2026-06-10): every factual claim in an autonomous info@ reply must be definitively known (brain wiki, verified thread history, canonical docs). Intent ambiguous or mixed (sponsorship vs content unclear)? Do NOT pick a calendar — fall back to ask (approval task). Pricing question? Offer the call + correct calendar, never numbers. Anything Kerri cannot answer definitively falls back to ask.",
-        "ALWAYS FLAG ISSUES (Brian, 2026-06-10): any error, ambiguity, boundary question, or surprise at info@ gets flagged to Brian (task or text per the standard alert rules) instead of being silently handled or silently dropped.",
+        "ALWAYS FLAG ISSUES (Brian, 2026-06-10): any error, ambiguity, boundary question, or surprise at info@ gets flagged to Brian (Console task or short email; Kerri no longer texts) instead of being silently handled or silently dropped.",
         "The hard no-double-email gate, S/W boundary, and DNC suppression run exactly as for approved sends.",
         "approvalSource on these sends: 'auto: info@ mailbox autonomous handling per Brian standing authorization (interactive, 2026-06-10)'.",
         "Auto-logged info@ inbound replies (non-cold-outreach) appear in the morning-brief Auto-logged section; cold-send mechanics are recorded in cold-outreach-state.json and jobs.json only."
@@ -77,7 +77,7 @@
   "actions": {
     "note": "The tiers/classes above govern OUTBOUND EMAIL. This block governs NON-SEND actions: operating connected apps/services and making in-tool changes, whether triggered by an email request or by Brian directly. The neverAuto gate applies to enactment here too. Added 2026-06-10 (Brian: 'Raise act-authority (bounded)'); see decisionActions.",
     "tiers": {
-      "act-and-report": "Execute now with no pre-ask, verify the result, then log it (brain/log.md + NOW.md + morning-brief Auto-logged). No text unless Brian must act today.",
+      "act-and-report": "Execute now with no pre-ask, verify the result, then log it (brain/log.md + NOW.md + morning-brief Auto-logged). No text (Kerri no longer texts Brian; it surfaces via the task, log, and morning brief).",
       "draft-and-confirm": "Show Brian the exact change first, like an email draft; proceed on his ok.",
       "gate": "Approval-first, never auto. Inherits neverAuto."
     },
@@ -144,7 +144,7 @@
       "morning-brief-auto-logged-section",
       "auto-cc-on-send"
     ],
-    "neverText": "Auto-logged sends never use the Sendblue/text path. Texts mean act today. Decided by Brian 2026-06-09."
+    "neverText": "Kerri never texts Brian. The Sendblue/text path was retired from Kerri on 2026-06-17 (Brian stood up the separate Hermes agent to own texting). Brian-attention rides on the Console task plus email; the Sendblue adapter and credentials are retained for Hermes only. Do not call send-text-alert.mjs from any Kerri routine."
   },
   "neverAuto": [
     "material CRM judgment calls; source-backed pipeline stage bookkeeping is act-and-report",

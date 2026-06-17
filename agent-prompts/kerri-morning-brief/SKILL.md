@@ -145,7 +145,7 @@ Auto-logged sends + autonomy ramp (Brian decision 2026-06-09, `brain/wiki/decisi
 - Run `node scripts/autonomy-report.mjs --auto-logged --json` from the repo root (default window: last 24 hours; pass `--since <ISO>` only if the previous brief's send time is known and older). Pure read over `data/jobs.json`; tolerates missing files.
 - Render its `items` as the `Auto-Logged Sends` section directly under the Approval Queue: one row per send with jobId, company, recipients, subject, and sent time. This section is the canonical notification for auto-logged sends (plus the auto-CC Brian already received). If there are zero items, show one quiet line ("No auto-logged sends in the last day.") so Brian can see the rail is alive.
 - Run `node scripts/autonomy-report.mjs --ramp --json`. If `readyForPromotion` is non-empty, add one line to the Auto-Logged Sends section: "`<class>` met the graduation bar (<n> approvals, <edit rate>, 0 double-emails) - promote? You flip the tier in `data/autonomy-policy.json`; Kerri never does." If empty, say nothing about the ramp.
-- Auto-logged sends NEVER earn a Sendblue/text line (policy `notifications.neverText`; texts are the interrupt lane).
+- Auto-logged sends NEVER earn a separate alert; they appear only inside the brief. (Kerri no longer texts Brian at all; the Sendblue text path was retired from Kerri on 2026-06-17 and the separate Hermes agent owns texting now.)
 - If `autonomy-report.mjs` fails to run, show "Auto-logged report unavailable" and record the degraded source. Never invent send records.
 
 - Read `brain/log.md` recent entries.
@@ -283,25 +283,7 @@ Subject: Kerri Morning Brief: <Weekday, Month D>
 
 Use the custom Hardware FYI email MCP/local wrapper for `kerri@hardwarefyi.com`, not Gmail or the standard Outlook connector. This is an internal Kerri-to-Brian delivery and does not count as an external email send. Do not CC `brian@hardwarefyi.com` unless Brian explicitly asks; the morning brief belongs in `brian@kerrihq.com`.
 
-If the brief contains pending tasks, a blocker, degraded data coverage, or any other concrete Brian action, send one short Sendblue/text heads-up after the HTML artifact is written:
-
-```text
-Kerri morning brief needs attention: <pending task count> task(s), <blocker/data issue if any>. Check the brief.
-```
-
-If the approval queue contains any item older than 3 days that ALSO has a priced dollar amount, add exactly one extra line for it inside that same single text. Do not send a second text for this; the morning brief still sends at most one Sendblue/text message per run:
-
-```text
-Stale approvals: <count> older than 3 days, $<sum of their priced dollars> at stake. Oldest: <jobId> <company> (<age>d).
-```
-
-Stale unpriced (TBD) items stay in the brief's Approval Queue section but do not earn a text line - UNLESS they are escalated (7+ days, `escalated: true` in the digest). Escalated items always earn a line in the single text, priced or not (Brian-approved 2026-06-09; an unpriced item sat silently for 13 days under the priced-only rule). Format, still inside the same single text:
-
-```text
-🔴 Escalated: <count> waiting 7+ days. <jobId> <company> (<age>d)[, ...]. Decide or skip today.
-```
-
-Use `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`. Do not use Slack or iMessage as the primary morning-brief attention channel. If the brief has no Brian action and no degraded coverage, do not text.
+NO TEXT HEADS-UP (changed 2026-06-17). Kerri no longer texts Brian. The HTML morning-brief email above is the whole delivery: pending tasks, blockers, degraded data coverage, stale approvals, and 7+ day escalations are all surfaced inside the brief itself (Approval Queue section) and in the Savant Console. Do NOT call send-text-alert.mjs or send any Sendblue/Slack/iMessage heads-up. The Sendblue text path was retired from Kerri and the separate Hermes agent owns texting now. (Previously this step sent at most one Sendblue text per run when the brief had a Brian action; that behavior is removed.)
 
 If email delivery fails, write `data/morning-brief-fallback-<YYYY-MM-DD>.md` containing the HTML path, intended sender/recipient, subject, summary, and failure reason.
 
@@ -359,7 +341,7 @@ If three consecutive briefs have low `actionability` or high noise, create a Ker
 STEP 7 - ARCHIVE AUTOMATION CHAT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The morning brief's durable surfaces are the delivered email, `output/morning-brief/<YYYY-MM-DD>.html`, `output/morning-brief/latest.html`, `data/morning-brief-state.json`, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
+The morning brief's durable surfaces are the delivered email, `output/morning-brief/<YYYY-MM-DD>.html`, `output/morning-brief/latest.html`, and `data/morning-brief-state.json`. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
 
 (Codex-era note: the `::inbox-item{...}` + `::archive{...}` closing directives were a Codex runner requirement. Under Claude Code, skip them - the durable surfaces listed above are the routine's output. This paragraph is retained only so older transcripts make sense.)
 
