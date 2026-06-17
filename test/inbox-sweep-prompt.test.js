@@ -376,9 +376,22 @@ test('inbox sweep prompt updates cold outreach state after approved sends', () =
     'COLD BATCH (title starts `☀️ COLD BATCH`)',
     'drafts live in cold-outreach-state.json#drafted',
     'move drafted→sent',
-    'SKIP #n (drafted→skipped, lead back to new)',
+    'SKIP #n (drafted→skipped, lead back to new',
     'A batch task removed while never approved = Brian declining the batch after replacement-check',
     'Cap counters were already incremented at draft time; never re-send an already-sent index.'
+  ]);
+});
+
+// 2026-06-17: cold-outreach defers net-new company registration to send time because the
+// harness auto-mode classifier blocks autonomous production-CRM writes on unattended runs
+// (root cause of the 6/16 3/10 COLD BATCH SHORT). The sweep registers the reserved jobId
+// at SEND time (after Brian's approval, when the write is permitted) and SKIP releases it.
+test('inbox sweep cold batch registers deferred company at send time and releases on skip', () => {
+  assertAll(prompt, [
+    'cold-pending-registration.json',
+    'POST /api/v1/companies` with that stub payload reusing the reserved `job_id`',
+    'drop the consumed entry from `cold-pending-registration.json`',
+    'drop this jobId\'s entry from `cold-pending-registration.json` if present'
   ]);
 });
 

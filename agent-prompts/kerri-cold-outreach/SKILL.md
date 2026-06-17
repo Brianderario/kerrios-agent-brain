@@ -247,6 +247,8 @@ For each draft created (each block in the batch task):
 
 Save state. (One batch task id is shared across all of the day's drafted entries; `batchIndex` distinguishes them.)
 
+For each genuinely-new company whose jobId was RESERVED (not reused) per HARD RULE 8, also save its stub to `data/cold-pending-registration.json` (append; keyed by `job_id`) with the full payload the sweep needs to register it at send time: `{ job_id, name, domain, slug, contact: { name, email, title }, crm_notes, reservedAt, batchExternalRef }`. This is the durable handoff so STEP 9 can create the Console company/contact records for approved drafts without re-deriving them. Reused-jobId companies (already in the CRM) get NO pending entry.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 6.5 - SECOND TOUCH DRAFTING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -365,9 +367,10 @@ STEP 9 — POST-SEND BRAIN WRITES (handled by inbox sweep, not this agent)
 When Brian checks the `☀️ COLD BATCH` task, the inbox sweep picks it up at its next firing and sends every draft still marked `SEND #n` (skipping `SKIP #n`, regenerating `REDO #n`). After each successful send, the inbox sweep should:
 1. Update `data/cold-outreach-state.json#sent` (move that draft from `drafted[]` to `sent[]`)
 2. Flip the lead's `status` to `emailed` in `data/leads-master.json` and mirror it to the CRM "Leads" tab via `node scripts/sheets-append.mjs` (see lead-research SKILL for the writer; CSV fallback if Sheets scope absent)
-3. Register the contact in Savant — the CRM is the system of record for people. `POST /api/v1/people` (or `PATCH /api/v1/people/:id` if already present) with `{ name, email, title, company_id: <the company's Console id>, contact_type: "sponsor_contact", source: "cold-outreach" }`. **Never create `brain/wiki/people/<slug>.md` — that directory is frozen.** The Savant contact record (plus `jobs.json`) is the durable record that future cold-outreach runs dedup against.
-4. Create or update the company's Console record, putting the relationship fact in `crm_notes` (compact, source-linked; `brain/wiki/companies/` is frozen, never create pages there)
-5. Create/update the central `CY2026 Revenue Goal` row with status `Prospect` because contact has now actually happened. Do not mark `Interest` until the buyer replies, asks for details/pricing, takes a meeting, or receives a proposal/package.
+3. **Register the company in the Console FIRST if the draft's jobId is in `data/cold-pending-registration.json`** (a reserved-but-unregistered jobId from a scheduled cold-outreach run — see HARD RULE 8). This is the send-time write the draft step deferred, and it works because the sweep runs after Brian's approval (the harness allows it here, unlike the unattended draft run). `POST /api/v1/companies` with the stub payload (`name, domain, slug, crm_notes` + the reserved `job_id` as the customer id/`job_ref`); on success, remove that entry from `cold-pending-registration.json` and refresh the snapshot (`node scripts/console-crm-snapshot.mjs`). If the company is already in the Console (the GET found it after all), reuse it and just drop the pending entry. Never create `brain/wiki/companies/<slug>.md` — that directory is frozen.
+4. Register the contact in Savant — the CRM is the system of record for people. `POST /api/v1/people` (or `PATCH /api/v1/people/:id` if already present) with `{ name, email, title, company_id: <the company's Console id>, contact_type: "sponsor_contact", source: "cold-outreach" }`. **Never create `brain/wiki/people/<slug>.md` — that directory is frozen.** The Savant contact record (plus `jobs.json`) is the durable record that future cold-outreach runs dedup against.
+5. Append the relationship fact to the company's Console `crm_notes` (`PATCH /api/v1/companies/:id`; compact, source-linked; `brain/wiki/companies/` is frozen, never create pages there).
+6. Create/update the central `CY2026 Revenue Goal` row with status `Prospect` because contact has now actually happened. Do not mark `Interest` until the buyer replies, asks for details/pricing, takes a meeting, or receives a proposal/package.
 
 The `sent[]` state update is mandatory now that cold outreach approval tasks are posted through the same Kerri Console rail as inbox replies. If the post-send Savant contact/company registration cannot be completed safely, create a compact Kerri MG suggestion task instead of silently losing the follow-up.
 
