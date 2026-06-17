@@ -213,7 +213,7 @@ function isBlankOnComplete(onComplete) {
 // Close one card if not already done. Honors the §3a on_complete safety:
 // a non-blank on_complete fires server-side on done (unless resolution=skipped),
 // so refuse rather than silently double-execute a create_deal etc.
-async function closeOneCard({ id, resolution, label, config, fetchImpl }) {
+async function closeOneCard({ id, resolution, proof, label, config, fetchImpl }) {
   const existing = await consoleRequest({ endpoint: `/tasks/${id}`, config, fetchImpl });
   const card = existing.data || existing;
   if (card.status === 'done') {
@@ -226,10 +226,19 @@ async function closeOneCard({ id, resolution, label, config, fetchImpl }) {
       `effect by hand, re-run with --resolution skipped (or clear it first: update --clear-on-complete).`
     );
   }
+  // Carry completion proof so the server's status->done proof gate accepts the
+  // close (it requires resolution_payload.completion_proof or applied_at).
+  // Merge with any existing payload so we never clobber prior resolution data.
+  const task = { status: 'done', resolution };
+  if (proof && Object.keys(proof).length) {
+    const existingPayload =
+      card.resolution_payload && typeof card.resolution_payload === 'object' ? card.resolution_payload : {};
+    task.resolution_payload = { ...existingPayload, completion_proof: proof };
+  }
   const updated = await consoleRequest({
     endpoint: `/tasks/${id}`,
     method: 'PATCH',
-    body: { task: { status: 'done', resolution } },
+    body: { task },
     config,
     fetchImpl
   });
@@ -271,9 +280,26 @@ export async function closeJob({
   };
   if (dryRun) return { dryRun: true, jobsFile: jobsPath, plan };
 
-  // 1) Close the cards FIRST (send, then recap).
-  const cards = [await closeOneCard({ id: sendCardId, resolution, label: 'send', config, fetchImpl })];
-  if (recapId) cards.push(await closeOneCard({ id: recapId, resolution, label: 'recap', config, fetchImpl }));
+  // 1) Close the cards FIRST (send, then recap). Each done-transition carries
+  //    completion proof so the server's proof gate accepts it; `note`/messageId
+  //    we already have is the natural proof.
+  const sentAtIso = now.toISOString().replace(/\.\d{3}Z$/, 'Z');
+  const sendProof = compact({
+    type: 'email_send',
+    message_id: messageId,
+    note: note || 'Sent interactively; card closed in lockstep.',
+    completed_at: sentAtIso,
+    source: 'close-job'
+  });
+  const recapProof = compact({
+    type: 'recap_close',
+    message_id: messageId,
+    note: 'Recap closed in lockstep with the interactive follow-up send.',
+    completed_at: sentAtIso,
+    source: 'close-job'
+  });
+  const cards = [await closeOneCard({ id: sendCardId, resolution, proof: sendProof, label: 'send', config, fetchImpl })];
+  if (recapId) cards.push(await closeOneCard({ id: recapId, resolution, proof: recapProof, label: 'recap', config, fetchImpl }));
 
   // 2) Log a sent receipt on the send card — only when we just closed it, so
   //    idempotent re-runs do not pile up duplicate receipts.
