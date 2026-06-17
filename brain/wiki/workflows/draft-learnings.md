@@ -128,3 +128,17 @@ Enforced structurally in kerri-inbox-sweep SKILL.md DRAFTING items 1 and 3 (2026
   2. **Custom Content Guide** + the **co-branded / joint landing page** travel together — the landing page ties to the content piece it supports, not to the Partner Program.
   3. **Primary Placements** are framed as the distribution that *drives* the Content Guide (e.g. "3x Primary Placements to drive the Content Guide"), not a standalone deliverable.
   Each capability sits with the thing it serves (recurring presence vs. the content asset vs. the distribution behind it). Reference SOW: "Aris Machina x Hardware FYI 2026" (docId 1MyGBRljAuFFeVFRiapBGIIuzHhPxFQlZoHvAoUUTml0), $15K / 6mo, sent to William Steel 2026-06-15.
+
+## [2026-06-17] H0106 — Protolabs — FOLLOW-UPS MUST BE COMPLETE (Brian-flagged)
+
+**What changed:** The Protolabs post-call follow-up was drafted as a "following up, will send more details" email when all the requested information was already available. Brian flagged that the follow-up should have contained everything in one send.
+
+**Why:** Brian does not manage email chains. If Kerri sends a follow-up that promises a second email with the actual content, Brian has to go produce and send that second email himself. That defeats the purpose of Kerri handling follow-ups end-to-end. The follow-up IS the delivery, not a placeholder for it.
+
+**Rule:** **Follow-up emails must be self-contained and complete. Never send a follow-up that promises a future send ("I'll send the details," "more information to follow," "will share shortly").** Before drafting any follow-up:
+1. Inventory everything promised or discussed in the call/meeting (from transcript, notes, brain log).
+2. If all information and attachments are available, draft a complete follow-up that delivers everything in one email.
+3. If something is genuinely missing (an attachment, a data point only Brian has), do NOT send a partial follow-up. Instead, email Brian requesting exactly what's needed ("I need [X] to complete the [Company] follow-up"). Brian will provide it, then Kerri sends the one complete follow-up.
+4. The follow-up goes out once, fully loaded, or not at all.
+
+Related: [[feedback-attach-what-you-have]], [[feedback-post-call-followups]].
