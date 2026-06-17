@@ -8,6 +8,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/agent-brain-protocol]] — exact read/write contract every agent follows
 - [[wiki/workflows/multi-agent-write-rules]] — how team agents share the brain without stepping on each other
 - [[wiki/workflows/source-of-truth]] — what's canonical vs evidence vs chat
+- [[wiki/workflows/definition-of-done-gate]] — THE pre-send gate (7 steps): read full state, name the real deliverable, research+inventory, attach, completeness, escalate-not-park, restate. Umbrella over the brain-log/followups/attach/escalate fragment rules. From the 2026-06-17 retro.
 - [[wiki/workflows/draft-learnings]] — accumulated lessons from Kerri's draft edits
 - [[wiki/workflows/hwfyi-sponsor-reply-templates]] — reusable Hardware FYI sponsor reply structures based on Brian's sent emails
 - [[wiki/workflows/hwfyi-cy2026-revenue-goal]] — standing $1M CY2026 Hardware FYI revenue operating goal and automation mapping
