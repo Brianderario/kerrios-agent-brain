@@ -5,7 +5,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 
 export const DEFAULT_BASE_URL = 'https://kerrihq-rails-xtua.onrender.com/api/v1';
 export const DEFAULT_ENV_FILE = path.join(os.homedir(), '.kerri-chief', 'secrets', 'kerrihq.env');
@@ -158,6 +158,167 @@ export async function markApplied({ id, note, config, fetchImpl, now = new Date(
   });
 }
 
+// ---- close-job: atomic interactive/approved send close-out ----------------
+// One command does the FULL lockstep — close the Console send card, close the
+// paired recap card, log the sent receipt, AND flip the data/jobs.json job —
+// card-first with a verify before the jobs.json write. This exists because on
+// 2026-06-17 an interactive send flipped jobs.json to sent but left the cards
+// in needs_approval (re-approvable / re-sendable for ~12h). Card-first ordering
+// means a partial failure leaves the card CLOSED (not re-approvable), never a
+// jobs.json-only state that the sweep would re-send.
+
+const CLOSED_JOB_STATUSES = new Set(['done', 'sent', 'skipped', 'cancelled']);
+
+export function resolveJobsFile(jobsFile) {
+  if (jobsFile) return jobsFile;
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  return path.join(here, '..', 'data', 'jobs.json');
+}
+
+export function loadJobs(jobsFile) {
+  const data = JSON.parse(fs.readFileSync(jobsFile, 'utf8'));
+  if (!Array.isArray(data)) throw new Error(`Expected ${jobsFile} to be a JSON array of jobs`);
+  return data;
+}
+
+// Pick the jobs.json job to close. By --card: exact consoleTaskId match. By
+// --job: the single OPEN job with that jobId (duplicates exist — old skipped +
+// active). All-closed is treated as idempotent (re-runs are safe); ambiguous
+// open duplicates require --card to disambiguate rather than guessing.
+export function selectCloseTarget(jobs, { job, card }) {
+  if (card) {
+    const index = jobs.findIndex((j) => j && j.consoleTaskId === card);
+    return { index, job: index >= 0 ? jobs[index] : null, cardId: card };
+  }
+  if (!job) throw new Error('close-job needs --job <jobId> or --card <consoleTaskId>');
+  const matches = jobs.map((j, i) => ({ j, i })).filter(({ j }) => j && j.jobId === job);
+  if (matches.length === 0) throw new Error(`No data/jobs.json job found with jobId ${job}`);
+  const open = matches.filter(({ j }) => !CLOSED_JOB_STATUSES.has(String(j.status)));
+  if (open.length === 1) return { index: open[0].i, job: open[0].j, cardId: open[0].j.consoleTaskId };
+  if (open.length === 0) {
+    const withCard = matches.filter(({ j }) => j.consoleTaskId);
+    const pool = withCard.length ? withCard : matches;
+    const pick = pool[pool.length - 1];
+    return { index: pick.i, job: pick.j, cardId: pick.j.consoleTaskId, alreadyClosed: true };
+  }
+  throw new Error(
+    `${open.length} open jobs.json jobs share jobId ${job}; pass --card <consoleTaskId> to pick one`
+  );
+}
+
+function isBlankOnComplete(onComplete) {
+  return !onComplete || (typeof onComplete === 'object' && Object.keys(onComplete).length === 0);
+}
+
+// Close one card if not already done. Honors the §3a on_complete safety:
+// a non-blank on_complete fires server-side on done (unless resolution=skipped),
+// so refuse rather than silently double-execute a create_deal etc.
+async function closeOneCard({ id, resolution, label, config, fetchImpl }) {
+  const existing = await consoleRequest({ endpoint: `/tasks/${id}`, config, fetchImpl });
+  const card = existing.data || existing;
+  if (card.status === 'done') {
+    return { id, label, changed: false, status: 'done', resolution: card.resolution, note: 'already done' };
+  }
+  if (!isBlankOnComplete(card.on_complete) && resolution !== 'skipped') {
+    throw new Error(
+      `Card ${id} (${label}) carries a non-blank on_complete: ${JSON.stringify(card.on_complete)}. ` +
+      `Closing with resolution=${resolution} would fire it server-side. If you already performed that ` +
+      `effect by hand, re-run with --resolution skipped (or clear it first: update --clear-on-complete).`
+    );
+  }
+  const updated = await consoleRequest({
+    endpoint: `/tasks/${id}`,
+    method: 'PATCH',
+    body: { task: { status: 'done', resolution } },
+    config,
+    fetchImpl
+  });
+  const u = updated.data || updated;
+  return { id, label, changed: true, status: u.status, resolution: u.resolution };
+}
+
+export async function closeJob({
+  job,
+  card,
+  recapCard,
+  resolution = 'sent_interactively',
+  messageId,
+  note,
+  jobsFile,
+  dryRun = false,
+  config = resolveConfig(),
+  fetchImpl = globalThis.fetch,
+  now = new Date()
+}) {
+  const jobsPath = resolveJobsFile(jobsFile);
+  const jobs = loadJobs(jobsPath);
+  const target = selectCloseTarget(jobs, { job, card });
+  const jobObj = target.job;
+  const sendCardId = target.cardId || (jobObj && jobObj.consoleTaskId);
+  if (!sendCardId) {
+    throw new Error(`No Console card id for ${job || card} (job has no consoleTaskId; pass --card)`);
+  }
+  const recapId = recapCard || (jobObj && jobObj.routing && jobObj.routing.recapCardId) || null;
+
+  const plan = {
+    jobId: jobObj ? jobObj.jobId : null,
+    company: jobObj ? jobObj.company : null,
+    sendCardId,
+    recapCardId: recapId,
+    resolution,
+    messageId: messageId || null,
+    jobStatusBefore: jobObj ? jobObj.status : '(no jobs.json job)'
+  };
+  if (dryRun) return { dryRun: true, jobsFile: jobsPath, plan };
+
+  // 1) Close the cards FIRST (send, then recap).
+  const cards = [await closeOneCard({ id: sendCardId, resolution, label: 'send', config, fetchImpl })];
+  if (recapId) cards.push(await closeOneCard({ id: recapId, resolution, label: 'recap', config, fetchImpl }));
+
+  // 2) Log a sent receipt on the send card — only when we just closed it, so
+  //    idempotent re-runs do not pile up duplicate receipts.
+  let eventLogged = false;
+  if (cards[0].changed && (messageId || note)) {
+    await consoleRequest({
+      endpoint: `/tasks/${sendCardId}/events`,
+      method: 'POST',
+      body: { event: compact({ event_type: 'sent', note, metadata: messageId ? { message_id: messageId } : undefined }) },
+      config,
+      fetchImpl
+    });
+    eventLogged = true;
+  }
+
+  // 3) VERIFY the send card reads done before mutating jobs.json.
+  const verify = await consoleRequest({ endpoint: `/tasks/${sendCardId}`, config, fetchImpl });
+  const verifyStatus = (verify.data || verify).status;
+  if (verifyStatus !== 'done') {
+    throw new Error(
+      `Aborted before jobs.json flip: send card ${sendCardId} reads status=${verifyStatus}, expected done. ` +
+      `Cards touched: ${JSON.stringify(cards)}`
+    );
+  }
+
+  // 4) Flip jobs.json LAST, in lockstep.
+  let jobFlip;
+  if (target.index >= 0) {
+    const j = jobs[target.index];
+    const before = { status: j.status, resolution: j.resolution, sentAt: j.sentAt, sentMessageId: j.sentMessageId };
+    j.status = 'done';
+    j.resolution = resolution;
+    if (!j.sentAt) j.sentAt = now.toISOString().replace(/\.\d{3}Z$/, 'Z');
+    if (messageId) j.sentMessageId = messageId;
+    j.autoLogged = true;
+    const after = { status: j.status, resolution: j.resolution, sentAt: j.sentAt, sentMessageId: j.sentMessageId };
+    fs.writeFileSync(jobsPath, `${JSON.stringify(jobs, null, 2)}\n`);
+    jobFlip = { changed: true, before, after };
+  } else {
+    jobFlip = { changed: false, note: 'no matching jobs.json job to flip (closed card only)' };
+  }
+
+  return { ok: true, jobsFile: jobsPath, plan, cards, eventLogged, jobFlip };
+}
+
 export function parseArgs(argv) {
   const [command, ...rest] = argv;
   const args = { command };
@@ -248,11 +409,29 @@ export function parseArgs(argv) {
       case '--per-page':
         args.perPage = rest[++i];
         break;
+      case '--job':
+        args.job = rest[++i];
+        break;
+      case '--card':
+        args.card = rest[++i];
+        break;
+      case '--recap-card':
+        args.recapCard = rest[++i];
+        break;
+      case '--message-id':
+        args.messageId = rest[++i];
+        break;
+      case '--jobs-file':
+        args.jobsFile = rest[++i];
+        break;
+      case '--dry-run':
+        args.dryRun = true;
+        break;
       default:
         throw new Error(`Unknown argument: ${arg}`);
     }
   }
-  if (!command) throw new Error('Missing command: health | list | show | create | update | mark-applied | event');
+  if (!command) throw new Error('Missing command: health | list | show | create | update | mark-applied | event | close-job');
   return args;
 }
 
@@ -296,6 +475,19 @@ export async function run(argv = process.argv.slice(2), io = { stdout: process.s
       break;
     case 'mark-applied':
       result = await markApplied({ id: args.id, note: args.note, config });
+      break;
+    case 'close-job':
+      result = await closeJob({
+        job: args.job || args.jobRef,
+        card: args.card || args.id,
+        recapCard: args.recapCard,
+        resolution: args.resolution || 'sent_interactively',
+        messageId: args.messageId,
+        note: args.note,
+        jobsFile: args.jobsFile,
+        dryRun: args.dryRun,
+        config
+      });
       break;
     case 'event':
       result = await consoleRequest({

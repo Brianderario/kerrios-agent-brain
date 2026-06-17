@@ -37,17 +37,25 @@ When a routine needs Brian's attention, create a Savant task:
 
 Brian resolving a `needs_approval` card moves it to `done` with `resolution` = `approved` | `skipped`; redo leaves it open with `resolution=redo_requested`. Poll `node scripts/console-task-api.mjs list --resolved pending --per-page 100`. After applying a decision, call `node scripts/console-task-api.mjs mark-applied --id <taskId> --note "<what happened>"` so the decision is acknowledged and will not execute twice.
 
-## 3a. Interactive sends clear their own card (Brian rule, 2026-06-15)
+## 3a. Interactive sends clear their own card (Brian rule, 2026-06-15; hardened 2026-06-17)
 
-When an email is sent **interactively from chat** (Brian riffs/edits a draft live, outside the sweep approval-card flow), close the matching card the moment the send succeeds, so it cannot be approved again and double-send:
+When an email is sent **interactively from chat** (Brian riffs/edits a draft live, outside the sweep approval-card flow), the matching card must close the moment the send succeeds, so it cannot be approved again and double-send. **Use the one atomic command — never hand-do the steps separately:**
 
 ```
-node scripts/console-task-api.mjs list --open                     # find by jobId / external_ref (short hex in logs is a prefix)
-node scripts/console-task-api.mjs update --id <fullId> --status done --resolution sent_interactively
-node scripts/console-task-api.mjs event  --id <fullId> --event-type sent --note "<what/where>" --metadata-json '{"message_id":"..."}'
+node scripts/console-task-api.mjs close-job --job <jobId> --message-id <id> --note "<what/where>"
 ```
 
-Then mark the `data/jobs.json` job `status: sent` + `sentMessageId` in lockstep (else the next sweep re-sends). Do NOT use `mark-applied` here (that path is the sweep acknowledging its own approved send). **Safety:** `--status done` fires a card's server-side `on_complete` only when the payload is non-blank and `resolution != "skipped"` (`TaskCompletionAction.run!`); queued email-reply cards carry a blank `on_complete`, so closing is side-effect-free. If a card carries an `on_complete` (e.g. `create_deal`) whose effect you already performed by hand, resolve with `--resolution skipped` (or `--clear-on-complete` first) so it does not double-execute.
+`close-job` does the FULL lockstep in one shot, **card-first with a verify before the jobs.json write**:
+1. closes the Console **send** card (`status=done`, `resolution=sent_interactively`),
+2. closes the paired **recap** card (read from the job's `routing.recapCardId`) the same way,
+3. logs a `sent` event receipt on the send card (only if newly closed — re-runs don't duplicate),
+4. re-reads the send card to confirm it is `done`, then flips the `data/jobs.json` job (`status=done`, `resolution`, `sentAt`, `sentMessageId`).
+
+It is **idempotent** (safe to re-run; already-closed cards/jobs are detected and left alone) and selects the single *open* job for that jobId automatically — if duplicates are ambiguous it asks for `--card <consoleTaskId>`. Options: `--card <id>` (target a specific send card instead of `--job`), `--recap-card <id>` (override), `--resolution <r>` (default `sent_interactively`), `--dry-run` (print the plan, mutate nothing).
+
+**Why one command:** on 2026-06-17 an interactive send flipped `jobs.json` to sent but left the cards in `needs_approval` (re-approvable / re-sendable for ~12h). Doing the four steps by hand is what allowed the half-completion; `close-job` is card-first so a partial failure leaves the card closed (not re-approvable), never a `jobs.json`-only state the sweep would re-send.
+
+Do NOT use `mark-applied` here (that path is the sweep acknowledging its own approved send). **Safety (built into `close-job`):** `--status done` fires a card's server-side `on_complete` only when the payload is non-blank and `resolution != "skipped"` (`TaskCompletionAction.run!`); queued email-reply cards carry a blank `on_complete`, so closing is side-effect-free. If a card carries a non-blank `on_complete` (e.g. `create_deal`) whose effect you already performed by hand, `close-job` refuses with an instructive error — re-run with `--resolution skipped` (or clear it first via `update --clear-on-complete`).
 
 ## 4. Adjustment requests
 
