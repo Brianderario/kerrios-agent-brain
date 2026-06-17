@@ -1232,3 +1232,16 @@ Brian (interactive chat) asked to pull all AllSpice June 23 dinner invites, send
 
 ## 2026-06-17 crm | Boltline contact enrichment | Kerri
 Brian asked for the Boltline (H0469) contact. No prior email correspondence in any mailbox (brian@/kerri@/info@ HWFYI + brian@kerrihq — "boltline" hits were our own HWFYI Substack issues, not two-way contact). Relationship is editorial: HWFYI published "Inside Boltline," interviewing Brent Bradbury. Apollo one-off enrich (Brian standing approval for single non-mass credits): Brent Bradbury — Head of Business at Boltline AND VP Software at Stoke Space (Boltline spun out of Stoke), Seattle WA. Only verified email is brent@stokespace.com (Stoke address; no boltline.com email surfaced), LinkedIn linkedin.com/in/brentabradbury. Created+linked Person 2abb3d4c to Boltline; contact also captured in crm_notes. NOTE: company contact_* columns are not API-writable (strong params), so contacts attach via the People relation only. No outreach.
+
+## 2026-06-17 ~09:35 ET — tasks:resolve proof-gating rollout SHIPPED (after a rollback + fix)
+
+The kerrihq-rails proof-gating change (PR #115) is now LIVE in production and verified end-to-end. Path it took:
+
+1. Prereqs landed: `console-task-api.mjs close-job` now sends `resolution_payload.completion_proof` (brain main, harmless on old server); seed backfill (later replaced) to grant `tasks:resolve`.
+2. Merged #115 → deployed (Render, commit a4551c7). Proof gate worked (422 on no-proof done), BUT the db/seeds.rb Ruby backfill did NOT grant `tasks:resolve` to the prod key → `close-job`/`mark-applied` 403'd. **Rolled back immediately** (to 7662cc9); prod restored + verified.
+3. Brian chose the in-git fix. Replaced the seed block with a guaranteed-to-run data migration **GrantTasksResolveToTaskWriters** (raw jsonb SQL: `scopes @> '["tasks:write"]' ... || '["tasks:resolve"]'`), verified in dev (grants once, idempotent, reversible). PR #116, CI green, merged (b160e6c).
+4. Manually triggered the deploy (the earlier rollback had flipped Render `autoDeploy` off); deploy went live. **Verified on prod:** no-proof done → 422; `mark-applied` → 200; `close-job` → 200 with proof stored. Restored `autoDeploy=yes`.
+
+**Net state now:** `/api/v1/tasks` requires `tasks:resolve` for resolution writes + `completion_proof`/`applied_at` to move a task to done. The prod agent key has `tasks:resolve`. `console-task-api.mjs` (close-job sends proof; mark-applied/redo carry the scope) all work. Scheduled agents (inbox sweep `mark-applied`, interactive `close-job`) are unaffected going forward.
+
+**Leftover:** three throwaway TEST task cards exist in prod (done/closed, not in the open queue) from verification — `5435dd66`, `daf15567`, `6323d359` — API v1 has no delete; harmless, titled "TEST".
