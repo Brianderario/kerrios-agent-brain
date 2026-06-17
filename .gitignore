@@ -17,6 +17,7 @@ data/gtasks-lists.json
 data/.inbox-sweep-run-lock/
 data/cold-outreach-queue.json
 data/cold-outreach-state.json
+data/cold-pending-registration.json
 data/cold-do-not-contact.json
 data/cold-outreach-fallback-*.json
 data/leads-master.json
