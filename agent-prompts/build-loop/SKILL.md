@@ -1,9 +1,9 @@
 ---
 name: build-loop
-description: Autonomous overnight/unattended build loop for KMG software work (usually Savant / kerrihq-rails). Cycles brainstorm → plan → work → review per item until the task list is finished or the stop time hits. Trigger when Brian says "build loop", "/build-loop", "run this overnight", "work on this while I sleep", or hands over a build task list for unattended execution.
+description: Autonomous overnight/unattended build loop for KMG software work (usually Savant / kerrihq-rails). Cycles brainstorm → plan → work → review → compound per item until the task list is finished or the stop time hits. Trigger when Brian says "build loop", "/build-loop", "run this overnight", "work on this while I sleep", or hands over a build task list for unattended execution.
 ---
 
-# Build Loop — unattended brainstorm → plan → work → review
+# Build Loop — unattended brainstorm → plan → work → review → compound
 
 You are Kerri running an unattended engineering session. Brian is asleep or away: nobody will answer questions, approve sends, or catch mistakes. Everything below exists so that the morning state is strictly better than the evening state, with zero damage possible.
 
@@ -16,7 +16,7 @@ You are Kerri running an unattended engineering session. Brian is asleep or away
 
 ## Setup (once, before the first item)
 
-1. Read the task list from the invocation prompt. If it references brain pages (vision docs, playbooks), read those pages.
+1. Read the task list from the invocation prompt. If it references brain pages (vision docs, playbooks), read those pages. Also read `brain/wiki/workflows/compound-engineering.md` (the methodology this loop runs) and `brain/wiki/workflows/savant-build-learnings.md` (past code Learnings + Patterns) so prior lessons shape tonight's work before any code is written. A learning nobody reads is just a log.
 2. Read `NOW.md` and the last ~10 lines of `brain/log.md` in the KerriOS repo (`~/Documents/Documents - Brian's MacBook Air/KerriOS/`) so you do not collide with in-flight work.
 3. Confirm the working environment: for kerrihq-rails work, repo is `~/Projects/kerrihq-rails`, every Bash call needs `export PATH="/opt/homebrew/opt/ruby@3.4/bin:/opt/homebrew/opt/postgresql@17/bin:$PATH"`, Postgres via `brew services start postgresql@17` if not running. Production deploys = push to `main` on GitHub → Render auto-deploys (`db:prepare` runs migrations). Production API: `https://kerrihq-rails-xtua.onrender.com/api/v1`, token in `~/.kerri-chief/secrets/kerrihq.env`, Render API key in `~/.kerri-chief/secrets/render.env` (service `srv-d8kvn767r5hc739fjo9g`).
 4. Create the run ledger: `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/build-loop-runs/<YYYY-MM-DD>.md` (mkdir -p as needed). Log every phase transition there with a timestamp. This file is the crash-recovery state: if the session restarts, read it first and resume.
@@ -25,7 +25,7 @@ You are Kerri running an unattended engineering session. Brian is asleep or away
 ## The loop (per item)
 
 ### Phase 1 — BRAINSTORM
-Generate at least three meaningfully different approaches. For each: what existing models/services/pages it builds on, what it touches, what could break, what data it needs and whether that data actually exists (check the schema and the production API, do not assume). Kill any approach that needs data KMG does not have, invents numbers (phantom-pipeline rule), requires a human decision overnight, or adds a new surface Brian did not ask for. Pick the approach with the best value-to-blast-radius ratio and write one paragraph in the ledger: chosen approach + why + what was rejected.
+First, check `brain/wiki/workflows/savant-build-learnings.md` for any Learning or Pattern touching this item's area (its tags, the models/services it will hit) and let those shape or rule out approaches up front. Then generate at least three meaningfully different approaches. For each: what existing models/services/pages it builds on, what it touches, what could break, what data it needs and whether that data actually exists (check the schema and the production API, do not assume). Kill any approach that needs data KMG does not have, invents numbers (phantom-pipeline rule), requires a human decision overnight, or adds a new surface Brian did not ask for. Pick the approach with the best value-to-blast-radius ratio and write one paragraph in the ledger: chosen approach + why + what was rejected.
 
 ### Phase 2 — PLAN
 Write a concrete step plan in the ledger: migrations, models, services, controllers, views, tests, and the exact verification you will run at the end (which specs, which production URL or API call proves it works). Define "done" for the item in one sentence a non-engineer can verify. If the plan exceeds what one night can safely ship, cut scope now: ship a complete smaller thing, not a partial bigger thing. Note descoped pieces in the ledger as candidates for a follow-up item.
@@ -45,6 +45,9 @@ Implement. Follow the repo's CLAUDE.md conventions (RSpec + FactoryBot, RailsBlo
 2. Verify in production: `/up` returns 200, `console-task-api.mjs health` structural checks unchanged, plus the item-specific verification from Phase 2 (hit the real page or API and confirm the feature behaves; for pages behind login, verify via the API and view-level request specs).
 3. **Rollback rule:** if the deploy fails, or `/up` breaks, or the API smoke check regresses, immediately `git revert` the item's commits, push, confirm the rollback deploy goes live and health recovers, mark the item FAILED in the ledger with the evidence, and move to the next item. A broken production at 7am is the only unforgivable outcome.
 4. Write the ledger entry: what shipped, the production proof (URL/API call + what it returned), commit SHAs.
+
+### Phase 6 — COMPOUND
+This is the step that makes the loop actually compound: capture the durable lesson so the next item (and the next agent) does not relearn it. Append one entry to `brain/wiki/workflows/savant-build-learnings.md` in the Learning format on that page (Problem / Fix / Lesson / Tags), for every item, whether it SHIPPED or FAILED. Write the lesson, not the diary: a convention you discovered, a gotcha in the schema or API, a review catch that would recur, why a FAILED item failed and how to avoid that class next time. Skip only a truly mechanical item with nothing reusable to say. Do not edit earlier entries; append below the marker. If this is the third-or-more Learning pointing at the same rule, also note in the ledger that a Pattern doc may be due (promotion is a reviewed step, not automatic). This is a brain write, so it rides the same commit + push as the log line in the next section.
 
 Then take the next item from the list.
 

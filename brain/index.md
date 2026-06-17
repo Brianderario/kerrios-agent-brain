@@ -15,6 +15,8 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/customer-id-protocol]] — universal per-customer jobId lookup; ALL automations + ad-hoc drafts run this before any company/jobId write
 - [[wiki/workflows/investor-update-distro]] — KMG quarterly investor update distribution list and send pattern
 - [[wiki/workflows/post-call-followup-protocol]] — mandatory pre-draft research + asset inventory + completeness test for post-call follow-up emails
+- [[wiki/workflows/compound-engineering]] — how we build Savant so each unit of work makes the next easier; the methodology behind the build loop
+- [[wiki/workflows/savant-build-learnings]] — code-side Learnings + Pattern docs store; the build loop's compound step reads + appends here
 
 ## Agents
 

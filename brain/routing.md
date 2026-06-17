@@ -7,6 +7,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/properties/savant]] — canonical definition: production KMG operating app (`kerrihq-rails` on Render), formerly Kerri/KMG Console
 - [[wiki/workflows/kmg-console-approvals]] — system handoff: goals, code locations (GitHub), sync architecture, state, next steps
 
+## "How do we build Savant?" / "build loop" / "compound engineering" / "where do code learnings go?"
+
+- [[wiki/workflows/compound-engineering]] — the methodology: the brainstorm -> plan -> work -> review -> compound loop, Learnings vs Pattern docs, autofix classes, token discipline. Read before a build session.
+- [[wiki/workflows/savant-build-learnings]] — the code-side Learnings + Pattern docs store; read at brainstorm, append after each item ships
+- [[../agent-prompts/build-loop/SKILL.md]] — the runnable unattended build loop (Phase 6 COMPOUND implements the above)
+
 ## "How does the brain work?"
 
 - [[wiki/workflows/llm-wiki-pattern]]
