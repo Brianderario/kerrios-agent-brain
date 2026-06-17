@@ -156,3 +156,9 @@ Enforced structurally in kerri-inbox-sweep SKILL.md DRAFTING items 1 and 3 (2026
 8. Run the completeness test before presenting: does this email give the recipient everything they need to make a decision?
 
 Related: [[post-call-followup-protocol]], [[feedback-attach-what-you-have]], [[feedback-post-call-followups]].
+
+## [2026-06-17] EXTERNAL-TITLE RULE — Brian "leads partnerships," never "runs Hardware FYI" (Brian-flagged)
+
+**What changed:** On the xDOF / H0495 Brian-signed congrats draft, the line read "I run Hardware FYI, a newsletter read by about 19,000 people." Brian corrected it: in external-facing copy describe him as leading partnerships at Hardware FYI, not running/owning it.
+**Why:** Brian's exact words (kerri@ "Email this person" thread, 2026-06-17 ~13:56 ET): "Don't say I run hardware FYI. Say I lead partnerships and save that to memory because you keep inferring that I run hardware FYI. I do internally but not externally." Recurring inference miss across drafts.
+**Rule:** In any external Brian-signed body, write "I lead partnerships at Hardware FYI" (or equivalent). Scrub "I run / I own / founder / CEO of Hardware FYI" from outside-facing sends. Internal context (brain, CRM notes) may still record he is CEO/owner. Mirrors Claude memory [[feedback-brian-external-title]].
