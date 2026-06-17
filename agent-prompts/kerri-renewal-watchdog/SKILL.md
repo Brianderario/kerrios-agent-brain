@@ -167,8 +167,7 @@ Append one line to `brain/log.md` (revenue-at-stake = the sum of the opportunity
 ## [YYYY-MM-DD HH:MM ET] renewal-watchdog | scanned:N drafted:N revenue-at-stake:$X top:Company1,Company2 | Kerri
 ```
 
-Send a Sendblue text alert ONLY when renewal drafts are created:
-`node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "🔄 X renewal drafts ready: Company1, Company2. Check Kerri Console."`
+Do NOT send a text. Kerri no longer texts Brian (the Sendblue text path was retired from Kerri on 2026-06-17; the separate Hermes agent owns texting now). Renewal drafts surface as their Savant Console cards; that is the attention signal. Do not call send-text-alert.mjs.
 
 **Improvement triggers:**
 - 3+ consecutive runs with zero candidates → 💡 SUGGESTION: CRM contract dates may be stale/missing

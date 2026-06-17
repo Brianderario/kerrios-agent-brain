@@ -46,7 +46,7 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
     'brian@kerrihq.com',
     'output/morning-brief/<YYYY-MM-DD>.html',
     'Never send external emails',
-    'Sendblue/text heads-up',
+    'NO TEXT HEADS-UP',
     'Codex-era note',
     'Under Claude Code, skip them',
     'data/morning-brief-state.json',
@@ -59,7 +59,7 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
   // Codex closing directives were retired 2026-06-09; the prompt must no longer instruct them.
   assert.doesNotMatch(files.morning, /ending with exactly two raw directive lines/i);
 
-  // Approval queue section: digest-driven, first in the body, stale priced items reach the text alert.
+  // Approval queue section: digest-driven, first in the body, escalations surfaced in the email (not a text — Kerri stopped texting 2026-06-17).
   for (const required of [
     'node scripts/approval-queue-digest.mjs --json',
     'Approval Queue',
@@ -68,8 +68,8 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
     'dollars then age',
     'totals line',
     'older than 3 days',
-    'Stale approvals:',
-    'at most one Sendblue/text message per run',
+    'ESCALATION banner',
+    'Decide or explicitly skip today',
     'Approval queue unavailable'
   ]) {
     assert.match(files.morning, new RegExp(escapeRegExp(required)));
@@ -81,7 +81,7 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
     'node scripts/autonomy-report.mjs --ramp --json',
     'Auto-Logged Sends',
     'No auto-logged sends in the last day.',
-    'NEVER earn a Sendblue/text line',
+    'NEVER earn a separate alert',
     'Kerri never does',
     'Auto-logged report unavailable'
   ]) {
@@ -107,7 +107,7 @@ test('EOD meetings review queues drafts instead of sending', () => {
     '"eodSourceTag": "<run-local source tag, e.g. EOD-H01; never use as the customer jobId>"',
     'Append the EOD draft to `data/jobs.json`',
     '"source": "eod-meetings-review"',
-    'Sendblue/text heads-up',
+    'email heads-up',
     'no Brian-facing text, Slack, email, or task',
     'Codex-era note',
     'Under Claude Code, skip them',
@@ -129,7 +129,7 @@ test('brain push validates before committing and excludes runtime state', () => 
     'git diff --check',
     'NEVER stage',
     'data/brain-push-state.json',
-    'Sendblue/text path as the primary Brian attention channel',
+    'Failure alerts go by email',
     'no Brian-facing notification',
     'Codex-era note',
     'Under Claude Code, skip them'

@@ -32,7 +32,7 @@ git pull --ff-only origin main
 If fast-forward fails (local commits exist):
   - Check `git status` to see what's locally committed.
   - Try `git pull --rebase origin main`.
-  - If that fails (real conflict), STOP. Send Brian one Sendblue/text heads-up: "Kerri brain push failed: merge conflict on <files>. Brain not pushed. Check run log." Do not force-push.
+  - If that fails (real conflict), STOP. Send Brian one email heads-up: "Kerri brain push failed: merge conflict on <files>. Brain not pushed. Check run log." Do not force-push.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 1B — CRM SNAPSHOT + SHEET MIRROR (since 2026-06-11 storage split)
@@ -78,7 +78,7 @@ Verify nothing sensitive is staged:
 ```
 git diff --cached --stat
 ```
-If you see suspect filenames (env, secret, token, credential, .key, .pem), unstage them immediately with `git reset HEAD <file>` and send Brian one Sendblue/text heads-up.
+If you see suspect filenames (env, secret, token, credential, .key, .pem), unstage them immediately with `git reset HEAD <file>` and send Brian one email heads-up.
 
 Run these checks before committing:
 
@@ -88,7 +88,7 @@ npm test
 git diff --check
 ```
 
-If checks fail, do not commit. Create `data/brain-push-fallback-<YYYY-MM-DD>.md` with the failure summary and send Brian one Sendblue/text heads-up.
+If checks fail, do not commit. Create `data/brain-push-fallback-<YYYY-MM-DD>.md` with the failure summary and send Brian one email heads-up.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3 — COMMIT
@@ -122,7 +122,7 @@ STEP 4 — PUSH
 git push origin main
 ```
 
-If push is rejected (remote moved ahead between pull and push), repeat from Step 1. Maximum 2 retries; on third failure, send Brian one Sendblue/text heads-up and exit.
+If push is rejected (remote moved ahead between pull and push), repeat from Step 1. Maximum 2 retries; on third failure, send Brian one email heads-up and exit.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — APPEND THIS RUN TO LOG
@@ -185,17 +185,15 @@ STEP 6 — SILENT ON SUCCESS
 
 Do not notify Brian on success. Brian sees the GitHub activity feed. Only alert on failure.
 
-Failure alerts use the Sendblue/text path as the primary Brian attention channel:
+Failure alerts go by email, the standard Brian channel. Kerri no longer texts Brian: the Sendblue text path was retired from Kerri on 2026-06-17 and the separate Hermes agent owns texting now. Do NOT call send-text-alert.mjs. On failure, send one short internal email from `kerri@hardwarefyi.com` to `brian@kerrihq.com` (subject like `[Kerri] Brain push failed <YYYY-MM-DD>`) with the one-line cause, and record the failure in `brain/log.md` so the nightly gap-sweep also catches it.
 
-`node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`
-
-Slack is only for supporting error detail when text succeeds but the error needs more context than a short heads-up can carry.
+Slack is only for supporting error detail when the email is sent but the error needs more context than a short note can carry.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 7 — ARCHIVE AUTOMATION CHAT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The brain push's durable surfaces are git commits/pushes, `brain/log.md`, `data/brain-push-state.json`, fallback files, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
+The brain push's durable surfaces are git commits/pushes, `brain/log.md`, `data/brain-push-state.json`, fallback files, and the email heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
 
 (Codex-era note: the `::inbox-item{...}` + `::archive{...}` closing directives were a Codex runner requirement. Under Claude Code, skip them; the durable surfaces listed above are the routine's output. Retained only so older transcripts make sense.)
 

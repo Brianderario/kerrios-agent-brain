@@ -14,23 +14,29 @@
 //
 // Usage:
 //   node scripts/routine-liveness-check.mjs                 # evaluate + print JSON
-//   node scripts/routine-liveness-check.mjs --alert         # + text Brian if a core routine is dark
-//   node scripts/routine-liveness-check.mjs --alert --dry-run   # show the alert, don't send
+//   node scripts/routine-liveness-check.mjs --alert         # + record an alert if a core routine is dark
+//   node scripts/routine-liveness-check.mjs --alert --dry-run   # show the alert, don't record
 //   node scripts/routine-liveness-check.mjs --root <dir> --now <ISO>   # test hooks
 //
 // Exit code is always 0 on a successful evaluation (health is reported in JSON +
-// via the text alert, not the exit code) and 1 only on an internal error.
+// via the recorded alert, not the exit code) and 1 only on an internal error.
+//
+// Kerri no longer texts Brian: the Sendblue text path was retired from Kerri on
+// 2026-06-17 and the separate Hermes agent owns texting now. This monitor used to
+// text Brian directly; it now records the alert to data/routine-liveness-alerts.jsonl
+// so the signal is not lost (gap-sweep reads liveness state; Hermes/Brian can tail
+// the log). It does not call send-text-alert.mjs.
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const TEXT_ALERT = '/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs';
-// Persists which routines currently have an OPEN dark-alert, so we text Brian ONCE when a
+// Persists which routines currently have an OPEN dark-alert, so we record an alert ONCE when a
 // routine goes dark (not every 15-min tick) and ONCE when it recovers.
 const ALERT_STATE_FILE = 'routine-liveness-alert-state.json';
+// Durable alert log, written instead of texting Brian (Sendblue retired from Kerri 2026-06-17).
+const ALERT_LOG_FILE = 'routine-liveness-alerts.jsonl';
 // Single source of truth for the routine fleet. The REGISTRY (what exists, cron, core,
 // monitored flag, which evaluator runs) is driven from here; the bespoke evaluator
 // FUNCTIONS still live in this file and are mapped by the manifest's `evaluator` name.
@@ -487,18 +493,19 @@ function writeAlertState(root, state) {
   } catch {}
 }
 
-function sendText(message, dryRun) {
+// Record the alert to a durable log instead of texting Brian. Kerri no longer texts
+// (Sendblue retired from Kerri 2026-06-17; Hermes owns texting). Returns the same
+// { message, sent } shape callers/tests expect; `sent` stays false because nothing is
+// texted, and `recorded` reflects whether the log write succeeded.
+function recordAlert(message, dryRun, root) {
   const out = { message, sent: false };
   if (dryRun) return out;
-  const r = spawnSync(process.execPath, [TEXT_ALERT, '--message', message], { encoding: 'utf8' });
-  if (r.error) {
-    out.error = r.error.message;
-  } else if (r.status !== 0) {
-    let detail = `exit ${r.status}`;
-    try { const j = JSON.parse(r.stdout); if (j && j.error) detail = j.error; } catch { /* keep */ }
-    out.error = detail;
-  } else {
-    out.sent = true;
+  try {
+    const line = `${JSON.stringify({ at: new Date().toISOString(), message })}\n`;
+    fs.appendFileSync(path.join(root, 'data', ALERT_LOG_FILE), line);
+    out.recorded = true;
+  } catch (err) {
+    out.error = err.message;
   }
   return out;
 }
@@ -523,7 +530,7 @@ function main() {
     if (newlyDark.length) {
       const dark = report.routines.filter((r) => newlyDark.includes(r.routine));
       const lines = dark.map((r) => `${r.routine}: ${r.detail}`).join(' · ');
-      report.alert = sendText(`⚠️ Routine liveness: ${dark.length} dark — ${lines}`, dryRun);
+      report.alert = recordAlert(`⚠️ Routine liveness: ${dark.length} dark — ${lines}`, dryRun, root);
     }
     // One recovery ping when a previously-alerted routine comes back to normal.
     if (recovered.length) {
@@ -531,7 +538,7 @@ function main() {
       const lines = back
         .map((r) => `${r.routine}${r.ageMinutes != null ? ` (last success ${r.ageMinutes}m ago)` : ''}`)
         .join(' · ');
-      report.recovery = sendText(`✅ Routine liveness recovered: ${lines}`, dryRun);
+      report.recovery = recordAlert(`✅ Routine liveness recovered: ${lines}`, dryRun, root);
     }
     // Persist the open-alert set so the next run can dedup. Never persist on a dry run.
     if (!dryRun) writeAlertState(root, nextState);

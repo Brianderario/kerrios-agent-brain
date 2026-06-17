@@ -27,7 +27,7 @@ Interpret the exit code:
 
 From that directory, read `NOW.md` first, then load and follow `agent-prompts/kerri-morning-brief/SKILL.md` exactly (reading referenced files relative to that path). Produce and deliver today's brief now — its STEP 0 preflight re-stamps the run and its STEP 4 `--finish` marks it complete, so this retry and the liveness safety net both register the recovery.
 
-Same hard gates as the primary brief: the email send requires `approved=true` + `approvalSource` per that prompt's send rules; do NOT auto-CC `brian@hardwarefyi.com` (the morning brief goes to `brian@kerrihq.com` only); send the Sendblue text heads-up per the prompt's rules.
+Same hard gates as the primary brief: the email send requires `approved=true` + `approvalSource` per that prompt's send rules; do NOT auto-CC `brian@hardwarefyi.com` (the morning brief goes to `brian@kerrihq.com` only); do NOT send any text (Kerri no longer texts Brian; the Sendblue path was retired from Kerri on 2026-06-17).
 
 After a successful recovery, append exactly one date-prefixed line to `brain/log.md` noting that the primary 7:00am run failed and this retry delivered the brief, so the failure stays on the record for the nightly gap-sweep.
 

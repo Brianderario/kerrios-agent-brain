@@ -72,8 +72,8 @@ test('missing Console task config → down', () => {
   assert.equal(rep.ok, false);
 });
 
-test('sendblue adapter is checked and reachable on this host', () => {
+test('sendblue is no longer a Kerri connector (Kerri stopped texting 2026-06-17)', () => {
   const rep = run(fixture(), ['--available', ALL_SESSION]);
   const sb = rep.connectors.find((c) => c.name === 'sendblue');
-  assert.equal(sb.status, 'reachable');
+  assert.equal(sb, undefined); // Kerri no longer texts; Sendblue adapter is retained for Hermes only
 });

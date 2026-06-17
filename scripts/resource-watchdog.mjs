@@ -38,7 +38,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { scanScheduledSessions } from './inbox-sweep-reaper.mjs';
 
-const TEXT_ALERT = '/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs';
+// Kerri no longer texts Brian: the Sendblue text path was retired from Kerri on
+// 2026-06-17 and the separate Hermes agent owns texting now. High findings are
+// recorded to this durable log instead of texting; gap-sweep and Hermes can read it.
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ALERT_LOG = path.join(repoRoot, 'data', 'resource-watchdog-alerts.jsonl');
 const REAPER_LABEL = 'com.kerri.inbox-sweep-reaper';
 const REAPER_LOG = path.join(os.homedir(), '.kerri-chief', 'runtime', 'logs', 'inbox-sweep-reaper.log');
 
@@ -148,15 +152,12 @@ async function main() {
     const msg = `⚠️ Host/reaper: ${report.findings.map((f) => f.detail).join(' · ')}`;
     report.alert = { message: msg, sent: false };
     if (!args['dry-run']) {
-      const r = spawnSync(process.execPath, [TEXT_ALERT, '--message', msg], { encoding: 'utf8' });
-      if (r.error) {
-        report.alert.error = r.error.message;
-      } else if (r.status !== 0) {
-        let detail = `exit ${r.status}`;
-        try { const j = JSON.parse(r.stdout); if (j && j.error) detail = j.error; } catch { /* keep */ }
-        report.alert.error = detail;
-      } else {
-        report.alert.sent = true;
+      // Record the alert to a durable log instead of texting Brian (Sendblue retired from Kerri 2026-06-17).
+      try {
+        fs.appendFileSync(ALERT_LOG, `${JSON.stringify({ at: new Date().toISOString(), message: msg })}\n`);
+        report.alert.recorded = true;
+      } catch (err) {
+        report.alert.error = err.message;
       }
     }
   }

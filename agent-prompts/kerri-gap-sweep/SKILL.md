@@ -43,7 +43,7 @@ git fetch origin main
 git pull --ff-only origin main
 ```
 
-If fast-forward fails, try `git pull --rebase origin main`. On a real conflict, STOP, text Brian one heads-up, do not force-push.
+If fast-forward fails, try `git pull --rebase origin main`. On a real conflict, STOP, email Brian one heads-up, do not force-push.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 1.5 — CONTEXT HYGIENE (NOW.md trim)
@@ -76,7 +76,7 @@ Walk these gap classes. For each finding, capture: file/path, gap class, severit
 
 **D. Loop-contract completeness.** Every scheduled/automation prompt must name all six loop fields (perceive, contextualize/propose, approval gate, act-after-approval, record/write-back, improve). Flag any automation prompt missing one or more — especially a missing **record** or **improve** step (the framework treats those as incomplete).
 
-**E. Broken scripts / paths.** Every script a prompt invokes (e.g. `scripts/inbox-sweep-lock.mjs`, `/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs`) must exist and be executable. Flag missing or non-executable script paths referenced anywhere in `agent-prompts/**`.
+**E. Broken scripts / paths.** Every script a prompt invokes (e.g. `scripts/inbox-sweep-lock.mjs`) must exist and be executable. Flag missing or non-executable script paths referenced anywhere in `agent-prompts/**`. (Note: as of 2026-06-17 Kerri prompts no longer invoke `send-text-alert.mjs`; the Sendblue adapter is retained only for the separate Hermes agent, so do not expect or flag Kerri prompts for calling it.)
 
 **F. Build/test health.** Run and capture results:
 ```
@@ -104,7 +104,7 @@ These are **read-only inspections**. For all of J–Q you observe, judge, and ro
 - class M → `node scripts/connector-probe.mjs --available "<comma-sep MCP connectors present THIS session>" --json` (pass the connectors you can actually see; without `--available` the session-scoped ones report `session-scoped`)
 - class N → `node scripts/resource-watchdog.mjs --json`
 - class C → `node scripts/check-doc-reality.mjs --json` (also runs inside `npm run check`)
-Two of these also run always-on between sweeps as launchd agents: `com.kerri.routine-liveness` (class J, every 15m) and `com.kerri.resource-watchdog` (class N, every 10m), both texting Brian directly on a high finding. Classes K and P have no script yet — inspect them by hand (`git`/`NOW.md`/`brain/log.md` for K; Kerri Console queue age for P).
+Two of these also run always-on between sweeps as launchd agents: `com.kerri.routine-liveness` (class J, every 15m) and `com.kerri.resource-watchdog` (class N, every 10m), both recording a high finding to a durable alert log (`data/routine-liveness-alerts.jsonl`, `data/resource-watchdog-alerts.jsonl`) rather than texting (Kerri no longer texts Brian; Sendblue retired from Kerri 2026-06-17). Classes K and P have no script yet — inspect them by hand (`git`/`NOW.md`/`brain/log.md` for K; Kerri Console queue age for P).
 
 **J. Routine execution liveness (did it actually run + succeed?).** Class I asks "is it armed"; this asks "did it fire and finish clean." For each scheduled routine, read its state/grade file and compare the last-success timestamp + run counter against its cadence:
 - `kerri-inbox-sweep` → `data/inbox-sweep-state.json` (cursors) + `data/inbox-sweep-grades.json` (run counter). Flag if the latest cursor is older than ~2× the */15 cadence **inside the 6:00–22:45 ET active window** (a >35-min silence while it should be running = the silent-death / cron-gap failure mode). Also flag abnormal **double-fires** (two grades in the same minute) — a thrash signal.
@@ -112,7 +112,7 @@ Two of these also run always-on between sweeps as launchd agents: `com.kerri.rou
 - `kerri-eod-meetings-review` → `data/eod-state.json` + `data/eod-grades.json`. Flag a missed weekday run or a recurring no-transcript fallback (Granola down → see class M).
 - `kerri-brain-push` → `data/brain-push-state.json`. Flag a missed nightly push.
 - `kerri-gap-sweep` → this ledger (`data/gap-sweep-state.json`). Flag a gap in the run history.
-Routine liveness findings are **read-only** — never re-fire a routine yourself; a routine that silently stopped is a **high**-severity → task (+ text if a core routine like inbox-sweep is dark).
+Routine liveness findings are **read-only** — never re-fire a routine yourself; a routine that silently stopped is a **high**-severity → task (+ email if a core routine like inbox-sweep is dark; Kerri no longer texts).
 
 **K. Cross-runner sync + handoff health.** The git brain is shared state between the Claude and Codex runners; `NOW.md` is the live handoff baton. Check:
 - local repo vs `origin/main`: `git fetch` then ahead/behind/diverged. Unpushed commits or a behind-state = cross-runner drift risk.
@@ -125,15 +125,15 @@ Mechanical sync hygiene (a hook path typo, whitespace) is auto-fixable; an actua
 - `data/jobs.json` "pending" jobs should each still map to a real open Kerri Console task via `consoleTaskId` or `consoleExternalRef` (an orphaned job = a send/approval that silently fell on the floor).
 - `data/job-counters.json` must not lag behind the max jobId present in `jobs.json` (a behind-counter re-issues IDs and corrupts routing).
 - cursor files (`inbox-sweep-state.json`, `eod-state.json`, etc.) must not contain a future-dated or wildly-stale cursor.
-A malformed/corrupt live state file is **high** severity. **Do not auto-edit live state files** — they are gitignored runtime data, not hygiene targets; editing one risks clobbering a routine mid-flight. Validate read-only, route to a task, and (if corruption is active) text Brian.
+A malformed/corrupt live state file is **high** severity. **Do not auto-edit live state files** — they are gitignored runtime data, not hygiene targets; editing one risks clobbering a routine mid-flight. Validate read-only, route to a task, and (if corruption is active) email Brian (Kerri no longer texts; the Sendblue path was retired from Kerri on 2026-06-17).
 
-**M. Connector / MCP + adapter availability.** Each routine depends on external surfaces — the email MCPs (`kerri-hardwarefyi-email`, `brian-hardwarefyi-email`, Superhuman, Gmail), Granola (transcripts), Reclaim (calendar), the Sendblue text adapter (`/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs`), Kerri Console task API, Slack. Probe which are present/reachable this session and flag any that a *scheduled* routine relies on but is currently degraded or missing (real incidents: Granola not connected, Reclaim ISO-Z parse error, Sendblue "missing config"). Read-only → task. **Never** attempt to re-auth, rewrite credentials, or edit MCP config to "fix" it — that is Brian's call.
+**M. Connector / MCP + adapter availability.** Each routine depends on external surfaces — the email MCPs (`kerri-hardwarefyi-email`, `brian-hardwarefyi-email`, Superhuman, Gmail), Granola (transcripts), Reclaim (calendar), Kerri Console task API, Slack. Probe which are present/reachable this session and flag any that a *scheduled* routine relies on but is currently degraded or missing (real incidents: Granola not connected, Reclaim ISO-Z parse error). Read-only → task. **Never** attempt to re-auth, rewrite credentials, or edit MCP config to "fix" it — that is Brian's call. (The Sendblue text adapter is NO LONGER a Kerri dependency as of 2026-06-17; Kerri no longer texts. It is retained only for the separate Hermes agent, so do not flag it as a degraded Kerri surface.)
 
 **N. Host / resource health.** The memory-leak failure mode (leaked inbox-sweep sessions → load 23 → Mac thrash). Check:
 - piled-up / leaked Claude Code sessions (especially orphaned `kerri-inbox-sweep` sessions whose runner never closed stdin).
 - the auto-reaper LaunchAgent `com.kerri.inbox-sweep-reaper` is loaded and its script `scripts/inbox-sweep-reaper.mjs` exists + is executable.
 - runaway growth in runtime/log/`artifacts/` dirs.
-A live session pileup or a dead reaper is **high** severity → text Brian + task. Inspection only — **never SIGKILL interactive or handoff sessions** from this agent; the reaper owns that and verifies session identity by transcript.
+A live session pileup or a dead reaper is **high** severity → email Brian + task. Inspection only — **never SIGKILL interactive or handoff sessions** from this agent; the reaper owns that and verifies session identity by transcript.
 
 **O. Safety-gate integrity (inspect-only — ALWAYS escalate, NEVER auto-fix).** Verify — never modify — that the safety apparatus is intact:
 - `kerri-hardwarefyi-email` is still in `approved_external` mode and the auto-CC-to-`brian@hardwarefyi.com` net is intact.
@@ -170,10 +170,10 @@ Open the PR with a clear title + the finding + the proposed diff. Do not merge.
 - missing prompts the architecture expects (e.g. Inbound sales, Event sales)
 - expired/unarmed routines needing re-arm (gap class I)
 - build/test failures whose fix is non-obvious
-- gitignore leaks of sensitive files (also text Brian immediately — high severity)
+- gitignore leaks of sensitive files (also email Brian immediately — high severity)
 - a recurring gap class (see Step 5)
 
-**System-health findings (classes J–Q) are inspect-and-escalate — they are NEVER auto-fixed.** The only auto-fixes this agent ever applies are the pure-mechanical doc/path/whitespace items above (A–I territory). A finding that the system isn't running smoothly is information for a human, not a thing to operate on: never re-fire a routine, never edit a live state file, never re-auth a connector, never kill a session, never touch a gate. Route J–Q findings to a task (or, for class O wording-drift, a PR), and text Brian for any **high**-severity operational finding (dark core routine, corrupt live state, session pileup / dead reaper, live gate weakening).
+**System-health findings (classes J–Q) are inspect-and-escalate — they are NEVER auto-fixed.** The only auto-fixes this agent ever applies are the pure-mechanical doc/path/whitespace items above (A–I territory). A finding that the system isn't running smoothly is information for a human, not a thing to operate on: never re-fire a routine, never edit a live state file, never re-auth a connector, never kill a session, never touch a gate. Route J–Q findings to a task (or, for class O wording-drift, a PR), and email Brian for any **high**-severity operational finding (dark core routine, corrupt live state, session pileup / dead reaper, live gate weakening).
 
 When in doubt about which bucket, choose the *more conservative* one. An auto-fix you are not 100% sure is mechanical belongs in a PR or a task.
 
@@ -189,9 +189,7 @@ STEP 4 — ACT
 - Open PRs for the material bucket via `gh pr create` (or stage a branch + PR). One PR may bundle related mechanical-adjacent edits; keep behavior-changing edits reviewable.
 - Create Kerri MG tasks for the decision bucket. Dedup against existing open gap tasks — never file the same gap twice. Max 3 new gap tasks per run; if more, file the top 3 by severity and roll the rest into the ledger.
 
-If a Brian-facing task, PR, blocker, or high-severity finding exists, send one Sendblue/text heads-up:
-`node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`
-If nothing needs Brian's attention (clean sweep or only auto-fixes applied), send no text.
+Brian-facing findings surface as their Kerri MG Console tasks and PRs (created above); that is the attention signal. Kerri no longer texts Brian (the Sendblue text path was retired from Kerri on 2026-06-17; the separate Hermes agent owns texting now). Do NOT call send-text-alert.mjs. If a high-severity finding needs Brian's eyes faster than the Console, send one short internal email from `kerri@hardwarefyi.com` to `brian@kerrihq.com`. If nothing needs Brian's attention (clean sweep or only auto-fixes applied), do nothing extra.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — RECORD (gap ledger + grade)

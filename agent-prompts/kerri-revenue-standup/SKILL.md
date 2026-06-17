@@ -162,8 +162,7 @@ Second-touch: X eligible, X sent, X drafted | Notable: [company names or "none"]
 3. [Company — Person — $XX,XXX — specific action]
 ```
 
-Also send a Sendblue text with the one-line headline:
-`node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "HWFYI weekly: $XXX,XXX closed, $XXX,XXX gap, [status]. Top move: [one sentence]."`
+Do NOT send a text. Kerri no longer texts Brian (the Sendblue text path was retired from Kerri on 2026-06-17; the separate Hermes agent owns texting now). The standup output above is the deliverable; do not call send-text-alert.mjs.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 7 — RECORD + IMPROVE

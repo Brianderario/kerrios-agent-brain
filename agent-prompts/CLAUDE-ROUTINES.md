@@ -12,7 +12,7 @@ All routines run as **persistent `scheduled-tasks` MCP jobs** under `~/.claude/s
 
 Key operational facts:
 
-1. **Claude Code must be running for jobs to fire.** If the Mac is asleep or no session is open, nothing runs. `com.kerri.routine-liveness` (launchd, every 15m) catches a routine that has gone dark and texts Brian.
+1. **Claude Code must be running for jobs to fire.** If the Mac is asleep or no session is open, nothing runs. `com.kerri.routine-liveness` (launchd, every 15m) catches a routine that has gone dark and records an alert to `data/routine-liveness-alerts.jsonl` (Kerri no longer texts Brian; the Sendblue path was retired from Kerri on 2026-06-17 and Hermes owns texting).
 2. **No expiry.** The scheduled-tasks MCP jobs are persistent. No re-arm job needed. `kerri-gap-sweep` class I + the liveness watchdog watch that tasks stay `enabled` and keep firing.
 
 ## Date & time handling — ET clock, never the harness `currentDate`
@@ -55,8 +55,8 @@ Token cost is real. Last week routines burned through Brian's allocation in 3 da
 
 ## Migration deltas from the Codex prompts (apply when porting)
 
-- **Codex closing directives are skipped.** Canonical `agent-prompts/*/SKILL.md` files may still end with `::inbox-item{...}` + `::archive{...}` blocks from the Codex era. The Claude Code shims instruct the runner to skip them. Under Claude Code, durable output is the routine's named surface (Tasks/email/text/ledger/commit).
-- **Local deps carry over unchanged:** `scripts/inbox-sweep-lock.mjs`, the Sendblue adapter `/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs`, local state files, local email MCPs. Claude Code prompts acquire the inbox-sweep lock with `--runner claude`.
+- **Codex closing directives are skipped.** Canonical `agent-prompts/*/SKILL.md` files may still end with `::inbox-item{...}` + `::archive{...}` blocks from the Codex era. The Claude Code shims instruct the runner to skip them. Under Claude Code, durable output is the routine's named surface (Tasks/email/ledger/commit). Kerri no longer texts Brian (Sendblue path retired from Kerri 2026-06-17).
+- **Local deps carry over unchanged:** `scripts/inbox-sweep-lock.mjs`, local state files, local email MCPs. Claude Code prompts acquire the inbox-sweep lock with `--runner claude`. (The Sendblue adapter `/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs` is NO LONGER a Kerri dependency as of 2026-06-17 — Kerri no longer texts; it is retained only for the separate Hermes agent.)
 - **Approval gate unchanged:** external sends still require `approved=true` + `approvalSource`; every send still auto-CCs brian@hardwarefyi.com.
 - **Customer ID Protocol unchanged:** runner-agnostic; applies to any routine touching companies/leads/drafts. As of 2026-06-11 the lookup and registration run against the KMG Console API (CRM of record); `data/companies.json` is a read-only snapshot for offline fallback.
 

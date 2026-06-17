@@ -32,6 +32,9 @@ data/brain-push-state.json
 data/brain-push-fallback-*.md
 data/gap-sweep-state.json
 data/routine-liveness-alert-state.json
+data/routine-liveness-alerts.jsonl
+data/resource-watchdog-alerts.jsonl
+data/connector-probe-alerts.jsonl
 data/routine-heartbeats.json
 data/sweep-cadence.log
 data/lead-research/batches/

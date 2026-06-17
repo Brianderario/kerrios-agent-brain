@@ -58,10 +58,9 @@ The Granola cloud MCP is connected at `https://mcp.granola.ai/mcp`. The exact to
 - Accumulated lessons: `brain/wiki/workflows/draft-learnings.md` (read at start)
 - Hardware FYI revenue goal: `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` (read before processing any sponsor/customer/prospect meeting)
 
-**Sendblue notifications:**
-- Brian attention heads-up: `node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message "<one-line alert>"`
-- Brian DM channel: U09TLEXF70V
-- Use Sendblue for the short Brian-facing heads-up whenever EOD creates follow-up/manual-recap tasks, needs a decision, or hits a blocker. Slack is only for supporting error detail when text succeeds but the error needs more context than a short heads-up can carry; it is not the primary Brian attention channel.
+**Brian attention (no text):**
+- Kerri no longer texts Brian. The Sendblue text path was retired from Kerri on 2026-06-17 and the separate Hermes agent owns texting now. Do NOT call send-text-alert.mjs.
+- EOD's follow-up/manual-recap tasks, decisions, and blockers surface as Savant Console tasks and inside the EOD recap; that is the attention signal. Slack stays available only for supporting error detail, never as a primary Brian attention channel.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DATA FILES
@@ -96,7 +95,7 @@ STEP 2 — LOAD STATE + REFERENCES
 
 1. Read `data/eod-state.json` for today's entry. If present, hold `meetingsProcessed` and `tasksCreated` arrays — they're the dedup keys.
 2. Read `data/jobs.json`. Hold all pending/sent/skipped jobs in memory so EOD does not create a duplicate approval task for a thread or company already waiting on Brian.
-3. Run `node scripts/console-task-api.mjs health`. If the Console queue is unavailable or returns attention status, send Brian one Sendblue/text heads-up and halt without creating drafts.
+3. Run `node scripts/console-task-api.mjs health`. If the Console queue is unavailable or returns attention status, send Brian one email heads-up and halt without creating drafts.
 4. Read `draft-learnings.md` and `voice.md` fully.
 5. Read (reference context, skip if already familiar from this session):
    - `brain/wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder.md`
@@ -244,7 +243,7 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
 
 **E) Post the draft as a Kerri Console task in the matching property:**
 
-This is mandatory for every proposed meeting follow-up. Do not leave proposed drafts only in Slack, local files, candidate notes, or the digest. If Kerri Console is down, write the full draft packet to `data/eod-fallback-<YYYY-MM-DD>.json` and send Brian one Sendblue/text heads-up that approval packets could not be posted.
+This is mandatory for every proposed meeting follow-up. Do not leave proposed drafts only in Slack, local files, candidate notes, or the digest. If Kerri Console is down, write the full draft packet to `data/eod-fallback-<YYYY-MM-DD>.json` and send Brian one email heads-up that approval packets could not be posted.
 
 Determine the property per counterparty:
 - HWFYI advertiser/partner/contact → `hardware-fyi` (H prefix)
@@ -437,7 +436,7 @@ Prune entries older than 14 days from this file.
 STEP 7 — RUN DIGEST
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-When there are drafts, no-transcript manual-recap tasks, pending transcript retries, or a blocker that needs Brian's attention, send ONE concise Sendblue/text heads-up to Brian. Keep it under 320 characters and point him to Kerri Console or the local EOD output, not Slack.
+When there are drafts, no-transcript manual-recap tasks, pending transcript retries, or a blocker that needs Brian's attention, send ONE concise email heads-up to Brian (from kerri@hardwarefyi.com to brian@kerrihq.com) and point him to Kerri Console or the local EOD output, not Slack. Kerri no longer texts (Sendblue retired from Kerri 2026-06-17).
 
 Text format:
 
@@ -522,7 +521,7 @@ If transcript-missing rate is high for 3 runs, or follow-up drafts are repeatedl
 STEP 10 — ARCHIVE AUTOMATION CHAT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The EOD review's durable surfaces are Kerri Console tasks, `data/jobs.json`, `data/eod-state.json`, `data/eod-grades.json`, KerriOS meeting/entity memory, the CRM "Conferences" tab, `brain/log.md`, fallback files, and the Sendblue/text heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
+The EOD review's durable surfaces are Kerri Console tasks, `data/jobs.json`, `data/eod-state.json`, `data/eod-grades.json`, KerriOS meeting/entity memory, the CRM "Conferences" tab, `brain/log.md`, fallback files, and the email heads-up when Brian attention is needed. After those writes/sends are complete, archive the automation chat so Brian does not accumulate notification-only automation threads.
 
 (Codex-era note: the `::inbox-item{...}` + `::archive{...}` closing directives were a Codex runner requirement. Under Claude Code, skip them; the durable surfaces listed above are the routine's output. Retained only so older transcripts make sense.)
 
@@ -532,10 +531,10 @@ Do not auto-archive only if the chat itself is the only deliverable, Brian expli
 ERROR HANDLING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-- If both calendar sources fail → send Brian one Sendblue/text heads-up: "Kerri EOD error: no calendar reachable. No tasks created." Then halt.
+- If both calendar sources fail → send Brian one email heads-up: "Kerri EOD error: no calendar reachable. No tasks created." Then halt.
 - If Granola is reachable but returns 0 meetings for today → proceed; ALL meetings hit STEP 5C path (legit if Granola was off).
-- If Kerri Console task API fails → write everything to a fallback file `data/eod-fallback-<YYYY-MM-DD>.json` and send Brian one Sendblue/text heads-up.
-- If the brain wiki write fails → don't roll back the Console tasks; record the failure in the run log and send a Sendblue/text heads-up if Brian action is needed.
+- If Kerri Console task API fails → write everything to a fallback file `data/eod-fallback-<YYYY-MM-DD>.json` and send Brian one email heads-up.
+- If the brain wiki write fails → don't roll back the Console tasks; record the failure in the run log and send an email heads-up if Brian action is needed.
 - Never send emails directly. Drafts ONLY go to Kerri Console tasks. Inbox sweep picks up approved tasks and executes sends per its approval flow.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -305,30 +305,29 @@ test('inbox sweep prompt makes internal CC suggestions explicit and approval-gat
 // ("Codex-era note", "Under Claude Code, skip them", send-update.js prohibition) were
 // removed by d052b09 along with the Codex runner itself (SESSION NOTES: "Retired:
 // Codex runner"); the alert discipline survived in STEP 4 and STEP 8.
-test('inbox sweep prompt sends brief text alerts only for tasks and real attention needs', () => {
+// Updated 2026-06-17: Kerri no longer texts Brian. The Sendblue text path was retired
+// from Kerri and the separate Hermes agent owns texting now. The sweep's attention signal
+// is the Savant Console task itself; genuine errors go by email, never text.
+test('inbox sweep prompt no longer texts Brian — Console + email only', () => {
   assertAll(prompt, [
-    'node /Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs --message',
+    'Kerri does NOT text Brian',
+    'NO TEXT ALERTS (changed 2026-06-17)',
+    'Do NOT call send-text-alert.mjs',
+    'the separate Hermes agent owns texting now',
     'Slack → supporting error detail only, never the primary alert path.',
-    'TEXT ALERT after each successful task creation (and only then)',
-    'Max 5 per run',
-    'Stamp taskAlertedAt on success',
-    'no Slack fallback, no retry spam',
-    'Never include email bodies, S/W internals, or pricing in a text.',
-    'Quiet run (no new artifacts, no decisions, no alert-worthy issue): no texts, no Slack, no email, no task',
-    'Texts exist for new tasks and genuine attention needs only.'
+    'Quiet run (no new artifacts, no decisions, no alert-worthy issue): no Slack, no email, no task'
   ]);
+
+  // The prompt must NOT instruct an actual text send (it only names send-text-alert.mjs to forbid it).
+  assert.doesNotMatch(prompt, /send-text-alert\.mjs --message/);
+  assert.doesNotMatch(prompt, /TEXT ALERT after each successful task creation/);
 
   // Codex closing directives were retired 2026-06-09; the prompt must not reintroduce them.
   assert.doesNotMatch(prompt, /ending with exactly two raw directive lines/i);
   assert.doesNotMatch(prompt, /::inbox-item|::archive/);
 
-  assert.match(automationDoc, /brief Sendblue\/text heads-up/);
-  assert.match(automationDoc, /send-text-alert\.mjs --message/);
-  assert.match(automationDoc, /separate from iMessage Handoff/);
-  assert.match(
-    automationDoc,
-    /if there is no task, decision, blocker, error, or other Brian action, it sends no text/
-  );
+  assert.match(automationDoc, /Kerri no longer texts Brian/);
+  assert.doesNotMatch(automationDoc, /send-text-alert\.mjs --message/);
   assert.match(automationDoc, /Durable output policy/);
   assert.match(automationDoc, /Codex.*closing directives are no longer needed/);
 });
@@ -336,21 +335,21 @@ test('inbox sweep prompt sends brief text alerts only for tasks and real attenti
 // v1: "suppresses repeated identical error texts". The REPEATED FAILURE ALERT DEDUPE
 // block became STEP 6 error bookkeeping + STEP 8 error rules, gated through the
 // dedicated script (which has its own behavioral test file).
-test('inbox sweep prompt suppresses repeated identical error texts', () => {
+test('inbox sweep prompt suppresses repeated identical error alerts (email, not text)', () => {
   assertAll(prompt, [
     'lastErrorAt, lastErrorReason, lastErrorAlertedAt',
     'stamp lastErrorAt + a short stable lastErrorReason via `scripts/inbox-sweep-error-dedupe.mjs`',
     'on recovery, clear the error fields so the next distinct outage can alert once',
-    'one brief text per NEW failure',
+    'one brief email per NEW failure',
     'Always gate through `scripts/inbox-sweep-error-dedupe.mjs` first',
-    'stays silent in texts but keeps being recorded in state/grades',
+    'stays silent but keeps being recorded in state/grades',
     're-alerts when the reason changes materially',
     'Savant queue readability itself is at risk, which stays the highest-priority alert at most hourly',
     'errorAlertSuppressed'
   ]);
 
-  assert.match(automationDoc, /Repeated identical connector errors are deduped/);
-  assert.match(automationDoc, /first outage alert only/);
+  assert.match(automationDoc, /Repeated identical connector errors are still deduped/);
+  assert.match(automationDoc, /first occurrence recorded/);
   assert.match(automationDoc, /silent fail-closed grading/);
 });
 
@@ -514,7 +513,7 @@ test('inbox sweep prompt includes honest self-grading with hard floors', () => {
     'draft quality, approval safety, brain write-back',
     'Daily (first run after 20:30 ET)',
     'Weekly (Friday after 16:00 ET)',
-    'Hard floors: an unapproved send, wrong identity, wrong thread, or S/W leak is an automatic 0 on approval safety plus an immediate text.',
+    'Hard floors: an unapproved send, wrong identity, wrong thread, or S/W leak is an automatic 0 on approval safety plus an immediate email to Brian.',
     'A run that cannot read the Savant queue sends nothing and records fail_closed.',
     'A silent drop of a real email caps the run grade at 2.'
   ]);

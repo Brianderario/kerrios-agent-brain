@@ -3,22 +3,24 @@
 //
 // kerri-gap-sweep class M. Two kinds of connector:
 //   • CLI-checkable (cli): things this standalone process can actually verify —
-//     the Sendblue text-alert path (how every watchdog reaches Brian), git,
-//     and the Kerri Console task API config. These get a real reachable/down verdict.
+//     git and the Kerri Console task API config. These get a real reachable/down verdict.
 //   • Session-scoped (session): MCP connectors (email mailboxes, Granola,
 //     Reclaim, Slack) only exist inside a Claude/Codex session, so a CLI can't
 //     probe them. Run from a session (e.g. the gap-sweep) and pass
 //     --available "<csv of present MCP connectors>" to get a real verdict;
 //     otherwise they report 'session-scoped' and don't fail the probe.
 //
-// `ok` is false only when a REQUIRED, verifiable connector is DOWN. The most
-// important one is sendblue: if the alert path is down, the watchdogs can't
-// warn Brian — so this probe surfaces that loudly.
+// `ok` is false only when a REQUIRED, verifiable connector is DOWN.
+//
+// Kerri no longer texts Brian: the Sendblue text path was retired from Kerri on
+// 2026-06-17 and the separate Hermes agent owns texting now. Sendblue is therefore
+// no longer a Kerri connector and is not probed here, and --alert records to a
+// durable log (data/connector-probe-alerts.jsonl) instead of texting.
 //
 // Usage:
 //   node scripts/connector-probe.mjs
 //   node scripts/connector-probe.mjs --available "kerri-hardwarefyi-email,granola"
-//   node scripts/connector-probe.mjs --alert            # text Brian if a required connector is down
+//   node scripts/connector-probe.mjs --alert            # record an alert if a required connector is down
 //   node scripts/connector-probe.mjs --json --root <dir> --skip-live   # test hooks
 
 import fs from 'node:fs';
@@ -28,7 +30,6 @@ import { fileURLToPath } from 'node:url';
 import { resolveConfig } from './console-task-api.mjs';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const TEXT_ALERT = '/Users/brianderario/.kerri-chief/runtime/scripts/send-text-alert.mjs';
 
 function parseArgs(values) {
   const out = { _: [] };
@@ -46,7 +47,6 @@ function parseArgs(values) {
 
 // connector → kind + which routines need it
 const CONNECTORS = {
-  sendblue: { kind: 'cli', requiredBy: ['all-watchdogs', 'kerri-inbox-sweep', 'kerri-morning-brief', 'kerri-eod-meetings-review', 'kerri-gap-sweep'] },
   git: { kind: 'cli', requiredBy: ['kerri-brain-push', 'kerri-gap-sweep'] },
   'console-tasks': { kind: 'cli', requiredBy: ['kerri-inbox-sweep', 'kerri-morning-brief', 'kerri-eod-meetings-review', 'kerri-gap-sweep'] },
   'kerri-hardwarefyi-email': { kind: 'session', requiredBy: ['kerri-inbox-sweep'] },
@@ -81,16 +81,6 @@ function expandAvailableConnectors(available) {
     }
   }
   return expanded;
-}
-
-function probeSendblue(skipLive) {
-  if (!fs.existsSync(TEXT_ALERT)) return { status: 'down', detail: 'send-text-alert.mjs not found' };
-  if (skipLive) return { status: 'reachable', detail: 'adapter present (live dry-run skipped)' };
-  const r = spawnSync(process.execPath, [TEXT_ALERT, '--dry-run', '--message', 'connector-probe'], { encoding: 'utf8', timeout: 20000 });
-  if (r.status === 0) return { status: 'reachable', detail: 'dry-run ok' };
-  let detail = (r.stderr || r.stdout || '').trim().split('\n').slice(-1)[0] || `exit ${r.status}`;
-  try { const j = JSON.parse(r.stdout); if (j && j.error) detail = j.error; } catch { /* keep detail */ }
-  return { status: 'down', detail: `dry-run failed: ${detail}` };
 }
 
 function probeGit(root) {
@@ -128,8 +118,7 @@ export function probeConnectors(root, opts = {}) {
   for (const [name, cfg] of Object.entries(CONNECTORS)) {
     let verdict;
     if (cfg.kind === 'cli') {
-      if (name === 'sendblue') verdict = probeSendblue(opts.skipLive);
-      else if (name === 'git') verdict = probeGit(root);
+      if (name === 'git') verdict = probeGit(root);
       else if (name === 'console-tasks') verdict = probeConsoleTasks(opts);
       else verdict = { status: 'unverified', detail: 'no probe' };
     } else {
@@ -174,15 +163,15 @@ function main() {
     const msg = `⚠️ Connectors down: ${report.down.join(', ')} — at risk: ${report.routinesAtRisk.join(', ')}`;
     report.alert = { message: msg, sent: false };
     if (!args['dry-run']) {
-      const r = spawnSync(process.execPath, [TEXT_ALERT, '--message', msg], { encoding: 'utf8' });
-      if (r.error) {
-        report.alert.error = r.error.message;
-      } else if (r.status !== 0) {
-        let detail = `exit ${r.status}`;
-        try { const j = JSON.parse(r.stdout); if (j && j.error) detail = j.error; } catch { /* keep */ }
-        report.alert.error = detail;
-      } else {
-        report.alert.sent = true;
+      // Record the alert to a durable log instead of texting Brian (Sendblue retired from Kerri 2026-06-17).
+      try {
+        fs.appendFileSync(
+          path.join(root, 'data', 'connector-probe-alerts.jsonl'),
+          `${JSON.stringify({ at: new Date().toISOString(), message: msg })}\n`
+        );
+        report.alert.recorded = true;
+      } catch (err) {
+        report.alert.error = err.message;
       }
     }
   }

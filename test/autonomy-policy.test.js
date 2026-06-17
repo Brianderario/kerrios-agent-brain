@@ -114,7 +114,7 @@ test('auto-logged notifications are brief + auto-CC, never text', () => {
     'morning-brief-auto-logged-section',
     'auto-cc-on-send'
   ]);
-  assert.match(policy.notifications.neverText, /never use the Sendblue\/text path/);
+  assert.match(policy.notifications.neverText, /Kerri never texts Brian/);
 });
 
 test('neverAuto preserves every permanent hard gate', () => {
