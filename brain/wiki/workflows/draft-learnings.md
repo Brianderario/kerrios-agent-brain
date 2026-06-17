@@ -129,16 +129,30 @@ Enforced structurally in kerri-inbox-sweep SKILL.md DRAFTING items 1 and 3 (2026
   3. **Primary Placements** are framed as the distribution that *drives* the Content Guide (e.g. "3x Primary Placements to drive the Content Guide"), not a standalone deliverable.
   Each capability sits with the thing it serves (recurring presence vs. the content asset vs. the distribution behind it). Reference SOW: "Aris Machina x Hardware FYI 2026" (docId 1MyGBRljAuFFeVFRiapBGIIuzHhPxFQlZoHvAoUUTml0), $15K / 6mo, sent to William Steel 2026-06-15.
 
-## [2026-06-17] H0106 — Protolabs — FOLLOW-UPS MUST BE COMPLETE (Brian-flagged)
+## [2026-06-17] H0106 Protolabs + H0154 Kickstarter + H0119 C-Infinity — POST-CALL FOLLOW-UP FAILURE PATTERN (Brian-flagged)
 
-**What changed:** The Protolabs post-call follow-up was drafted as a "following up, will send more details" email when all the requested information was already available. Brian flagged that the follow-up should have contained everything in one send.
+**What changed:** All three post-call follow-ups were drafted as empty placeholders ("following up, will send details") when all the information was already available through Kerri's own tools. Brian flagged the pattern and asked for a durable fix.
 
-**Why:** Brian does not manage email chains. If Kerri sends a follow-up that promises a second email with the actual content, Brian has to go produce and send that second email himself. That defeats the purpose of Kerri handling follow-ups end-to-end. The follow-up IS the delivery, not a placeholder for it.
+- **H0106 Protolabs:** Initial draft contained no metrics report, no packages, no customer overlap, no attendee list. Final sent version: full metrics report PDF attached, 3 packages with pricing ($20K/$12K/$5K), SF Tech Week add-on ($15K/$6K), customer overlap list from brain (12+ named companies by vertical), Kinetic attendee list attached, live issue link.
+- **H0154 Kickstarter:** Initial draft contained no audience breakdown, no pricing, no happy hour list, no media kit. Final sent version: full audience demographics (seniority/geo/company-size splits), engagement metrics ($38-46 CPC, $112-133 CPM), test recommendation (3x Primary $5K + Custom Content $5K), happy hour guest list attached, media kit PDF attached, live issue link.
+- **H0119 C-Infinity:** Draft approved but couldn't send because the media kit attachment was too large for the automation. Sat unresolved in the queue.
 
-**Rule:** **Follow-up emails must be self-contained and complete. Never send a follow-up that promises a future send ("I'll send the details," "more information to follow," "will share shortly").** Before drafting any follow-up:
-1. Inventory everything promised or discussed in the call/meeting (from transcript, notes, brain log).
-2. If all information and attachments are available, draft a complete follow-up that delivers everything in one email.
-3. If something is genuinely missing (an attachment, a data point only Brian has), do NOT send a partial follow-up. Instead, email Brian requesting exactly what's needed ("I need [X] to complete the [Company] follow-up"). Brian will provide it, then Kerri sends the one complete follow-up.
-4. The follow-up goes out once, fully loaded, or not at all.
+**Root causes (three failures, not one):**
 
-Related: [[feedback-attach-what-you-have]], [[feedback-post-call-followups]].
+1. **Didn't use available tools before drafting.** Kerri asked Brian what was discussed on the calls instead of pulling Granola transcripts. The transcripts, Drive files, brain wiki, and local attachments had everything needed.
+2. **Didn't inventory available assets.** Metrics report was on Drive. Attendee lists were on disk. Audience data was in the brain. Package playbook was in the brain. Media kit was local. All accessible, none used.
+3. **Drafted acknowledgments instead of deliverables.** The emails treated the follow-up as a formality ("great chatting") instead of the actual business output (everything the recipient needs to make a decision).
+
+**Why:** Brian does not manage email chains. If Kerri sends a follow-up that promises a second email with the actual content, Brian has to go produce and send that second email himself. That defeats the purpose of Kerri handling follow-ups end-to-end. The follow-up IS the delivery, not a placeholder for it. A post-call email that doesn't deliver what was promised is worse than no email at all.
+
+**Rule:** **Before drafting any post-call follow-up, run the full research and asset-inventory protocol at [[post-call-followup-protocol]].** The protocol requires:
+1. Pull Granola transcript (never ask Brian what was discussed)
+2. Read the full email thread
+3. Read relevant brain wiki pages (audience, pricing, playbook, products)
+4. Search Drive for referenced documents
+5. Check local files for attachments
+6. Inventory every deliverable promised on the call against what you have access to
+7. Draft only when you can deliver everything in one email, or request the missing piece from Brian first
+8. Run the completeness test before presenting: does this email give the recipient everything they need to make a decision?
+
+Related: [[post-call-followup-protocol]], [[feedback-attach-what-you-have]], [[feedback-post-call-followups]].

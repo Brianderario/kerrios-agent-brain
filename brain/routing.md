@@ -50,6 +50,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/draft-learnings]] — reusable Brian-edit lessons from task drafts
 - [[wiki/properties/hardware-fyi]] — current sponsor products, product-selection rules, and lead-gen positioning
 
+## "How do I write a post-call follow-up?" / "follow-up after a meeting"
+
+- [[wiki/workflows/post-call-followup-protocol]] — **MANDATORY read before drafting any post-call follow-up.** Full research sweep (Granola transcript, email thread, brain wiki, Drive, local files), deliverable inventory, completeness test. Born from H0106/H0154/H0119 failures (2026-06-17).
+- [[wiki/workflows/hwfyi-package-quote-playbook]] — if the follow-up includes package pricing
+- [[wiki/workflows/draft-learnings]] — accumulated lessons from Brian's edits
+
 ## "What's our audience / readership / demographics?" / sponsor asks for industry / seniority / geography / company-size splits
 
 - [[wiki/properties/hardware-fyi-audience]] — audience demographics. Tier A = directional Apollo sample (quote with caveat); Tier B = canonical media-kit numbers (pending Brian/Benji). Read before answering any audience-fit question.
