@@ -94,6 +94,7 @@ Newsletter placements are awareness-leaning even when CTA-driven. When a sponsor
 ### Happy hours
 - **Range:** 200–500 leads per event.
 - Highest-yield lead-gen product HWFYI runs. Use these as the centerpiece of any lead-volume conversation.
+- **Table sponsorship — $5,000 standalone** (Brian-set 2026-06-17 on the H0059 GrayMatter quote; first time the quarterly SF happy hour was priced as a standalone line rather than bundled into a larger package). Sponsor gets a table + swag/demo presence, ~150–300 attendees (students through mid-level engineers — strongest in-person fit for a **recruiting / new-grad / intern** buyer), and the full attendee lead list afterward. Prior precedent only bundled "2x happy hour" into $25K+ packages (Summit Interconnect 2026-05-29); this is the canonical à-la-carte number now. SF Tech Week event remains the more senior, priced event ($15K Presenting / $6K Supporting).
 
 ### Bundle pattern — "near-lead-guarantee" offer
 
