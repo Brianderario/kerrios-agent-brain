@@ -76,3 +76,6 @@ data/attachments/
 
 # Local handoff scratch files
 AGENT-HANDOFF-GAPS.md
+
+# Hardware FYI subscriber exports (PII — local only, never pushed)
+data/hardware-fyi-subscribers-*.csv
