@@ -34,3 +34,10 @@ export SOURCE_KEYS="${SOURCE_KEYS:-kerrios_brain,claude_memory}"
 cd "$RAILS_DIR"
 echo "brain-to-savant-sync: pushing [$SOURCE_KEYS] to $CONSOLE_URL"
 bundle exec rails kerrios:console_push
+
+# Phase 4: also mirror the agent operating layer (SKILL.md prompts) into the
+# Savant Agent registry. Read-mirror only; git stays the source of truth the
+# runner loads. Non-fatal if it fails, so a prompt-mirror hiccup never blocks
+# the knowledge sync above.
+echo "brain-to-savant-sync: mirroring agent prompts to $CONSOLE_URL"
+bundle exec rails kerrios:push_agent_prompts || echo "brain-to-savant-sync: agent-prompt mirror failed (non-fatal)" >&2
