@@ -17,7 +17,7 @@ Operating loop:
   5. **Record** the improvement page to `brain/wiki/improvements/`, the heartbeat, and a brain/log.md line.
   6. **Improve** the improvement routine itself: if the scorecard or edit-pattern scan missed something, note it for the next run.
 
-Working directory: `~/Documents/Documents - Brian's MacBook Air/KerriOS/`
+Working directory: `~/Projects/kerrios-agent-brain/`
 
 TOKEN BUDGET CONTRACT:
   This is a read-heavy, write-light routine. Load:
@@ -68,6 +68,13 @@ Read `data/jobs.json` fully. For every job where `status === "sent"` AND `origin
    - "Brian removes the Calendly link from sponsor replies"
    - "Brian always adds a specific sign-off on cold sends"
    - "Brian corrects the same factual pattern (e.g., wrong product name)"
+
+2b. Also cluster every edit by **edit TYPE**, across ALL action classes (not only within one):
+   - **structural** — reorder / split / merge / cut a section
+   - **tonal** — more or less formal, shorter, warmer, blunter
+   - **factual** — name / price / date / product correction
+   - **removal** — drops a recurring element (Calendly link, opening pleasantry, a sign-off, a hedge phrase)
+   A type that recurs across multiple classes is a stronger, more general signal than a single-class pattern: "Brian removes the Calendly link from every reply, sponsor and scheduling alike" becomes ONE broad draft-learnings rule, not four narrow ones. In the improvement page, report the top recurring edit type with its count and the jobs that show it, alongside the per-class patterns.
 
 3. For each pattern found, check if it already exists as a rule in `brain/wiki/workflows/draft-learnings.md`. If the pattern is new (not yet captured), flag it as a **proposed new rule**.
 

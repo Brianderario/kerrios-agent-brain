@@ -39,6 +39,7 @@ Scan the draft for the anti-patterns enumerated in `voice-sw-industrialist.md`:
 | Hype words: "groundbreaking", "revolutionary", "game-changing", "thrilled", "excited" | Rewrite to factual claim with a number |
 | Anonymous sources ("industry observers", "sources say") | Cut the sentence OR mark `[FACT-CHECK: name needed]` |
 | Vague magnitude ("substantial investment", "significant raise") | Replace with the actual dollar figure from the source; if not available, demote to a bullet with `[$ TK]` flag |
+| Percentage or multiple with no base ("up 15%", "tripled", "doubled") | Add the base so the reader sees the scale: "rose from $2.0M to $2.3M (15%)". The S&W audience is quant — a bare % hides the magnitude that makes the story matter |
 | One-paragraph Lead | Split or expand to two. Para 1 = news + numbers, Para 2 = what it means + named quote |
 | Bullets without a number | Replace with a bullet that has one, or cut the bullet |
 | Bullets without a link | Cut or repair (re-fetch the source) |
@@ -53,10 +54,10 @@ The Lead is the growth lever. Hold it to `sw-lead-writing-playbook.md` and FIX i
 
 - **Does it open on a hook, or on the news?** If sentence one is the news ("On Wednesday the Commerce Department signed..."), the Lead has failed the top rule. Rewrite the open as a hook (inversion / rule-first / naive question), then let the news follow.
 - **AI-slop sweep (hard fails — cut or rewrite):** the negation formula ("not just X but Y", "no longer X, it's Y", "isn't about X, it's about Y"); a manufactured rule-of-three list; setup-payoff filler / cute one-liners that perform structure instead of carrying a fact (Brian's 2026-06-18 cut: "...Washington wrote the check, the company kept the company, and the public got jobs and a factory. A stake rewrites that." — a triad capped by a punchline; delete that kind of bridge and go straight to the substance); Wikipedia hedge voice; performing-insight phrases ("the timing follows the constraint").
-- **Recycled-frame check:** compare the Lead's central move against the prior issue (WebFetch standardandworks.com). If it reuses the prior issue's rhetorical frame, rewrite the angle.
+- **Recycled-frame check:** compare the Lead's central move against the **last 2–3 issues' recorded frames** in `data/sw-newsletter/state.json` (the writer now logs each Lead's frame at STEP 7.5), falling back to a WebFetch of standardandworks.com for the prior issue if the log is empty. If it reuses a recent rhetorical frame, rewrite the angle — a fresh topic carried on a stale frame still reads as formulaic.
 - **One metaphor max, at open or close. Every claim a number. No em dashes.**
 
-If the Lead is sound, leave it. If it fails any of the above, rewrite it to the playbook and note "[LEAD REWRITTEN]" in your Slack summary with one line on why.
+If the Lead is sound, leave it. If it fails any of the above, rewrite it to the playbook and note "[LEAD REWRITTEN — <old frame> → <new frame>]" in your Slack summary with one line on why, so Brian/Zach see exactly what changed and can override before send.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3 — FACT-CHECK SIGNALS

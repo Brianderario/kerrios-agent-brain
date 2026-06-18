@@ -35,13 +35,15 @@ Identify:
 - Lead's two paragraphs (the key analytical content)
 - 2–3 most distinctive bullets from the roundup
 
+Social is a discovery tool — it exists to spark curiosity and earn the click, not to recap the issue. Pick the Lead's sharpest insight plus the single most surprising or counterintuitive bullet; skip the obvious headline stories (the reader who wants the full list clicks through). Curate for the hook, not for coverage.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — DRAFT TWITTER/X THREAD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Format: 4–7 tweets, ≤280 chars each.
 
-Tweet 1 (hook): Restate the Lead headline OR the most striking number in the Lead. Don't editorialize — frame the news.
+Tweet 1 (hook): Open on the hook, not the announcement — the surprising premise, contrarian angle, or naive question the Lead's thesis turns on. This is the same "never open on the news, open on a hook" rule the newsletter Lead follows. "Acme raised $100M" is the headline and a dead tweet 1; "The last two Sunbelt capex rounds beat the entire prior year combined" is a hook. The literal headline can wait for the link tweet.
 Tweet 2: The thesis line — what the Lead reveals structurally.
 Tweet 3 onwards: 1 distinctive item per tweet, each with a number. Pick from the bullets, not the Lead.
 Final tweet: Link to the issue + a one-line subscribe CTA.
