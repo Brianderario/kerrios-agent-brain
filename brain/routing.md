@@ -2,6 +2,8 @@
 
 Topic → file map. Use this to find the right wiki page without reading the full index. Read 1–3 pages on a routed topic; don't auto-load more.
 
+> **Read from Savant (since 2026-06-17).** This map tells you *what* to look for; read the actual content from the Savant hub with `node scripts/brain-api.mjs search "<keywords>"` then `get <id>`. The `[[wiki/...]]` paths below are the git fallback if Savant is unreachable. See [[wiki/decisions/2026-06-17-savant-as-company-hub]].
+
 ## "Savant / KMG Console / approvals / task board / where Brian approves emails"
 
 - [[wiki/properties/savant]] — canonical definition: production KMG operating app (`kerrihq-rails` on Render), formerly Kerri/KMG Console

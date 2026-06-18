@@ -1,13 +1,13 @@
 # KerriOS Brain Instructions
 
-This vault is the human-readable KerriOS company brain.
+This vault is the human-readable KerriOS company brain. As of 2026-06-17 durable knowledge is read from **Savant** (the company hub, see [[wiki/decisions/2026-06-17-savant-as-company-hub]]); this git vault is the offline fallback + backing store.
 
 Read order for agents:
 
-1. [[index]]
-2. [[log]]
-3. [[routing]]
-4. One to three routed wiki pages
+1. [[index]] + [[routing]] — the topic map: decide *what to look for*
+2. [[log]] — recent in-flight activity (stays in git, not Savant)
+3. One to three routed knowledge records from Savant: `node scripts/brain-api.mjs search "<keywords>"` then `get <id>`
+4. Offline fallback: if Savant is unreachable, read the matching `wiki/...` page from this vault directly
 5. Raw source files only when evidence is required
 
 Mutation rules:

@@ -62,7 +62,9 @@ Decided 2026-06-17.
 
 **Phase 1 — Claude memory push: DONE + LIVE (2026-06-17, Brian approved).** Created the `claude_memory` SourceSystem in production via a targeted Render one-off job (not a full db:seed, to avoid resetting other seeded data), in the same org that owns `kerrios_brain`. Pushed via `SOURCE_KEYS=claude_memory rake kerrios:console_push`: +46 created, 0 errors, 4 skipped (the 3 `personal_*` files + `brian_health_tracking`, exactly as designed). Verified retrievable in prod: feedback rules as `agent_instruction` (e.g. no-emdashes), `MEMORY` index as `operational_doc`. **Phase 1 is fully complete:** the entire brain (106 active git-brain records + 46 memory records) now lives in production Savant, with personal-life and health context deliberately excluded.
 
-**Phases 2-5: pending.** Each ships and verifies independently against production; can run interactively or as a build-loop task list ([[../../../agent-prompts/build-loop/SKILL.md]]).
+**Phase 2 — flip the read path: DONE + LIVE (2026-06-17).** Durable knowledge is now read from Savant; the git wiki is an offline fallback. Shipped: `scripts/brain-api.mjs` (read helper over `/api/v1/knowledge_records`: `search`/`list`/`get`, brain:read agent key, verified against prod). Read protocol flipped in [[../workflows/agent-brain-protocol]], the KerriOS `CLAUDE.md`, [[../../AGENTS]], and a [[../../routing]] banner: Savant-first via brain-api.mjs, git fallback if unreachable; `NOW.md` + `brain/log.md` stay git (live/transient). Freshness: `scripts/brain-to-savant-sync.sh` resyncs both sources to Savant and is wired into the nightly brain-push (STEP 4B, non-blocking, idempotent); verified live (+0/~4/=139, 0 errors). Writes still go to git until Phase 3.
+
+**Phases 3-5: pending.** Phase 3 flips the write/authoring path (write in Savant, export to git); Phase 4 moves the operating layer (prompts/skills) into Savant with export-to-disk; Phase 5 demotes git to backing store. Each ships and verifies independently against production; can run interactively or as a build-loop task list ([[../../../agent-prompts/build-loop/SKILL.md]]).
 
 ## Related
 

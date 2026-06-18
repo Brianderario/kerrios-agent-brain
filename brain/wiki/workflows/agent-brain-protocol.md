@@ -1,16 +1,21 @@
 # Agent Brain Protocol
 
-scope: workflow · updated: 2026-05-24
+scope: workflow · updated: 2026-06-17
 
 The minimum read/write contract every team agent honors. Implements [[llm-wiki-pattern]].
 
 ## Read protocol (every consequential action)
 
+Durable knowledge is sourced from **Savant** (the company hub) as of [[../decisions/2026-06-17-savant-as-company-hub]]. The local git wiki under `brain/wiki/` is an **offline fallback only**.
+
 1. **Always:** `CLAUDE.md` is auto-loaded by Claude Code at session start. Treat as the operating preamble.
-2. **Entry:** `brain/AGENTS.md` (mutation rules) → `brain/index.md` (catalog) → `brain/routing.md` (topic map).
-3. **Routed reads:** pull the 1–3 wiki pages `routing.md` points to for the topic at hand. Read fully.
-4. **Evidence if needed:** `brain/raw/` only when the wiki cites a raw file you need to verify.
-5. **Stop.** Do not read more pages than the task requires. Context window discipline.
+2. **Live state (git):** read `NOW.md` (session baton) and the recent tail of `brain/log.md` for what is in flight. These stay in git: they are transient and intentionally not in Savant.
+3. **Durable knowledge (Savant):** find the pages you need with `node scripts/brain-api.mjs search "<keywords>" [--kind workflow|decision|property|agent_instruction|...]`, then `node scripts/brain-api.mjs get <id>` for the full body. `brain/routing.md` + `brain/index.md` are still the topic map for *what to look for*; the content is read from Savant. Read only the 1-3 records the task needs.
+4. **Offline fallback:** if Savant is unreachable (brain-api.mjs errors), read the matching `brain/wiki/...` file from git directly. Same content; git is the synced backing store.
+5. **Evidence if needed:** raw evidence lives in Savant as `source_pointer` records; the bodies stay in `brain/raw/` (read the file only when you must verify).
+6. **Stop.** Do not read more than the task requires. Context-window discipline.
+
+> **Writes still go to git** (wiki / candidates / log, per the table below) until the write-path flip (Phase 3 of [[../decisions/2026-06-17-savant-as-company-hub]]). The git -> Savant sync keeps Savant current; after an interactive durable write, trigger a resync (`SOURCE_KEYS=... rake kerrios:console_push` from kerrihq-rails) or let the nightly push carry it.
 
 ## Write protocol (any new fact, decision, or learning)
 

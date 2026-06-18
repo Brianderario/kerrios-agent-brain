@@ -15,17 +15,19 @@ Claude Code is the **sole runner** for all Kerri work (interactive + scheduled) 
 
 ## Brain read order (consequential actions only)
 
-0. `NOW.md` — live handoff baton (what's in flight right now)
+Durable knowledge is read from **Savant** (the company hub) since 2026-06-17 (`brain/wiki/decisions/2026-06-17-savant-as-company-hub.md`). The local git wiki is an offline fallback.
+
+0. `NOW.md` — live handoff baton (what's in flight right now). **Stays in git** (transient, not in Savant).
 1. `brain/AGENTS.md` — mutation rules
-2. `brain/index.md` — page catalog (terse)
-3. `brain/routing.md` — topic → file map (terse)
-4. 1–3 routed wiki pages under `brain/wiki/`
+2. `brain/index.md` + `brain/routing.md` — the topic map: use them to decide *what to look for*
+3. **Durable knowledge → Savant:** `node scripts/brain-api.mjs search "<keywords>" [--kind workflow|decision|property|agent_instruction|...]`, then `node scripts/brain-api.mjs get <id>` for the full body. Pull only the 1–3 records the task needs.
+4. **Offline fallback:** if Savant is unreachable (brain-api.mjs errors), read the matching `brain/wiki/...` file from git directly (same content; git is the synced backing store).
 5. `data/kerrios.agent-seed.json` only if structured cross-cutting context is needed
 6. `brain/raw/` only when evidence verification is required
 
 **Do not auto-load the whole brain.** That defeats the LLM-wiki pattern. See `brain/wiki/workflows/llm-wiki-pattern.md` for why; `brain/wiki/workflows/agent-brain-protocol.md` for the exact contract.
 
-**Source priority:** wiki > seed JSON > raw > chat history. Chat is never canonical.
+**Source priority:** Savant knowledge (git wiki = offline mirror) > seed JSON > raw > chat history. Chat is never canonical. **Writes still go to git** until the Phase 3 write-path flip; the git → Savant sync keeps Savant current.
 
 ## Canonical agent prompts
 
