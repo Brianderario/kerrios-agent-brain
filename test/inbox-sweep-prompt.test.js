@@ -206,9 +206,11 @@ test('console health attention only halts on structural queue failures', () => {
   assertAll(prompt, [
     'If health returns `status: attention`, inspect the failing checks before deciding.',
     'halt only when a structural/integrity check is failing',
-    'If `pending_decisions` is the only failing check and the structural checks are clean, continue into STEP 2 and process those decisions',
-    "Brian's approvals/skips/redos are waiting for agent acknowledgement, not that the board is structurally mismatched",
-    'If the only attention check is `pending_decisions`, process STEP 2 instead of deadlocking the queue.'
+    '`stale_resolved_open` (resolved cards still open), `missing_send_subject`, `invalid_assignees`, `legacy_google_active`',
+    'If the ONLY failing checks are the acknowledgement-hygiene pair `pending_decisions` and/or `agent_done_without_proof`, and all structural/integrity checks are clean, continue into STEP 2 and process/acknowledge those decisions',
+    'are waiting for agent acknowledgement with a proof receipt, not that the board is structurally mismatched',
+    '`agent_done_without_proof` is error-severity but is acknowledgement hygiene, not a structural mismatch: clear it by writing the missing receipt (`mark-applied`), never by halting the sweep.',
+    'If the only failing checks are the acknowledgement-hygiene pair `pending_decisions` and/or `agent_done_without_proof` (structural checks clean), process/acknowledge them in STEP 2 instead of deadlocking the queue.'
   ]);
 });
 
