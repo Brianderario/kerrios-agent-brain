@@ -56,7 +56,13 @@ Git stays the intact fallback until the final phase, so nothing is one-way until
 
 ## Status
 
-Decided 2026-06-17. Build pending: Phase 1 is the next concrete step. The build can run interactively or as a build-loop task list ([[../../../agent-prompts/build-loop/SKILL.md]]) since every phase ships and verifies independently against production.
+Decided 2026-06-17.
+
+**Phase 1 — git brain coverage: SHIPPED + LIVE + VERIFIED (2026-06-17).** kerrihq-rails [PR #117](https://github.com/kerrihq/kerrihq-rails/pull/117) merged to `main` (squash `9134bbe`), deployed to Render. The importer now gives every brain file an intentional import-or-skip decision (zero catch-all fallthroughs): added `brain/wiki/improvements/`; made root operating/handoff docs and the `share/` S&W writer pack explicit reasoned skips; added the Claude memory layer as a second importer source (`claude_memory`) with personal-life + health files never imported. Pushed to production via `rake kerrios:console_push`: +10 created, +7 updated, 126 unchanged, 0 errors. Parity proven: 106 importable files = 106 active records = 0 active orphans = 0 files without a record; 37 legacy deal pages remain intentionally `stale` (history, excluded from active agent reads). Full suite green (1617 examples), rubocop + brakeman clean.
+
+**Phase 1 — Claude memory push: PENDING one prod step.** The `console_push` task is generalized to push the memory source (`SOURCE_KEYS=claude_memory`), and the local dry-run shows 46 importable memory records (personal/health skipped). It is not yet in production because prod lacks the `claude_memory` SourceSystem (the seed change is merged but prod does not auto-run seeds). Remaining step: create the `claude_memory` source in prod (seed/console run), then push. Worth a quick Brian confirm that assistant-memory belongs in the team-visible hub before it lands.
+
+**Phases 2-5: pending.** Each ships and verifies independently against production; can run interactively or as a build-loop task list ([[../../../agent-prompts/build-loop/SKILL.md]]).
 
 ## Related
 
