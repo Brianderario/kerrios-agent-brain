@@ -14,6 +14,8 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/compound-engineering]] — the methodology: the brainstorm -> plan -> work -> review -> compound loop, Learnings vs Pattern docs, autofix classes, token discipline. Read before a build session.
 - [[wiki/workflows/savant-build-learnings]] — the code-side Learnings + Pattern docs store; read at brainstorm, append after each item ships
 - [[../agent-prompts/build-loop/SKILL.md]] — the runnable unattended build loop (Phase 6 COMPOUND implements the above)
+- [[wiki/workflows/savant-build-backlog]] — **the living build queue**; what to build next, what's shipped, what's retired. The nightly kerri-build-proposal routine pulls from here (stops repeat proposals). Groom it with Brian.
+- [[../agent-prompts/kerri-build-proposal/SKILL.md]] — nightly 11pm routine that proposes the next overnight slice from the backlog
 
 ## "How does the brain work?"
 

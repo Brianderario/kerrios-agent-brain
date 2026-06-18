@@ -18,6 +18,8 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/post-call-followup-protocol]] — mandatory pre-draft research + asset inventory + completeness test for post-call follow-up emails
 - [[wiki/workflows/compound-engineering]] — how we build Savant so each unit of work makes the next easier; the methodology behind the build loop
 - [[wiki/workflows/savant-build-learnings]] — code-side Learnings + Pattern docs store; the build loop's compound step reads + appends here
+- [[wiki/workflows/savant-build-backlog]] — living queue of Savant product improvements (shipped/retired/candidate); the nightly build-proposal routine pulls the next undone slice from here so it stops repeating
+- [[wiki/workflows/audience-graph-project]] — scoped supervised build for the subscriber/audience moat (pillar 2); not an overnight item
 
 ## Agents
 
