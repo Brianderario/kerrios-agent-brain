@@ -170,6 +170,7 @@ Apply every rule in `voice.md` and every lesson in `draft-learnings.md`. Specifi
 - **Sender identity:** Default from `kerri@hardwarefyi.com` (use `kerri-hardwarefyi-email` MCP at send time). For prospects where the relationship would clearly come from Brian directly (e.g., founder-to-founder), use `brian@hardwarefyi.com`. Default to Kerri when uncertain.
 - **Subject line:** simple and specific. Default pattern: `Hardware FYI x <Company>`. No "Re:" unless actually responding. No clickbait. No emojis in subject.
 - **Body length:** 4-5 short sentences after the greeting, plus `Best,` / `Kerri`. Keep it warm and plain, not robotic.
+- **Spacing + scannability (Brian, 2026-06-18 — HARD RULE).** Put a BLANK LINE between every beat so the email scans on a phone: greeting / opener / who-we-are + fit / one CTA / sign-off, each its own short paragraph. Never bunch the lines into one block. The "I'm Kerri / I work on partnerships" line is its own paragraph, spaced from the opener. A wall-of-text draft is a fail even when the words are right. (See `hwfyi-sales-writing-playbook.md` A5 + rubric item 5.)
 - **Opening:** name, comma. e.g. "Jane,". Per voice.md, occasionally "Hi Jane, hope you're well" if cold and we want a slightly warmer beat (use sparingly for cold — it can feel forced).
 - **Body structure:**
   1. Start with "I'm Kerri, and I work on partnerships at Hardware FYI."

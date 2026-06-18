@@ -73,7 +73,7 @@ Aaron Ross's fallback when you may have the wrong person: "If audience fit is no
 
 - **25-50 words is the target, ~75 the hard cap.** Under 75 words gets ~83% more replies.
 - **Reading grade 3-5.** Short Anglo-Saxon words, one idea per sentence. (Grade 8+ tanks replies.)
-- **Write for the phone.** One-line sentences, white space between them. Assume it is read on a phone with no scroll.
+- **Write for the phone, with real whitespace (Brian, 2026-06-18 — hard rule).** Put a BLANK LINE between every beat so the email is scannable in one glance: greeting, then the hook, then who-we-are plus the fit, then the one CTA, then the sign-off, each its own short paragraph. Never run the beats together as one block. In particular, the "I work on partnerships" identity line is its own paragraph, spaced from the opener. Bunched, wall-of-text drafts are a fail even when the words are good.
 
 ### A6. Subject lines (Lavender; Salesloft)
 
@@ -173,7 +173,7 @@ Run this on every sales draft (the drafter writes to it; a critic pass checks ag
 2. **One specific, true relevance token.** A real trigger/technographic/firmographic signal, not "engineers are hard to reach." No invented facts. (A3)
 3. **Audience-fit, not product, on a first touch.** ([[feedback_first_touch_audience_fit]])
 4. **Exactly one CTA**, interest- or value-based on a cold touch (not a time ask). (A4)
-5. **Length + grade:** under ~75 words on a cold touch, reading grade 3-5, phone-readable. (A5)
+5. **Length, grade, and SPACING:** under ~75 words on a cold touch, reading grade 3-5, and laid out for a phone with a blank line between each beat (greeting / hook / identity + fit / CTA / sign-off), each its own short paragraph, never one bunched block. (A5)
 6. **Subject** is a short neutral noun phrase, Title Case, no question/number/emoji/first name. (A6)
 7. **Value framed in the buyer's terms,** never display metrics; price (if any) is downstream of value. (B3, C3, [[feedback_sales_value_first]])
 8. **Price objections reframed, never defended/itemized/pre-discounted.** (B5, [[feedback_no_price_negotiation]])
@@ -196,17 +196,21 @@ BEFORE (current cold-outreach STEP 4 template):
 
 Fails rubric 1 (opens about us), 4 (soft "conversation" ask), 2 (generic fit), 3 (no real token).
 
-AFTER (this playbook):
+AFTER (this playbook) — note the blank line between every beat:
 > Subject: Recruiting Reach
 >
 > Jane,
-> You are hiring four robotics engineers in Boston right now. That is usually a sign of a product push that needs senior engineering mindshare fast.
-> I lead partnerships at Hardware FYI, the newsletter 19,000+ hardware engineers and engineering leaders read every week. That audience is the exact talent pool those roles compete for.
+>
+> You are hiring four robotics engineers in Boston right now. That usually means a product push that needs senior engineering mindshare fast.
+>
+> I work on partnerships at Hardware FYI, the newsletter 19,000+ hardware engineers and engineering leaders read every week. That audience is the exact talent pool those roles compete for.
+>
 > Want the breakdown of how other robotics teams have used us to put their employer brand in front of those engineers?
+>
 > Best,
 > Kerri
 
-Passes all ten. Opens on their hiring trigger, identity compressed to line two, audience tied to their goal (hiring), one value-offer CTA, ~70 words, neutral two-word subject, no em dashes, no AI tells, sign-off matches sender.
+Passes all ten. Opens on their hiring trigger, identity in its own line-two paragraph (spaced from the opener), audience tied to their goal (hiring), one value-offer CTA, ~70 words, a blank line between each beat so it scans on a phone, neutral two-word subject, no em dashes, no AI tells, sign-off matches sender.
 
 ### Price-objection reply
 
