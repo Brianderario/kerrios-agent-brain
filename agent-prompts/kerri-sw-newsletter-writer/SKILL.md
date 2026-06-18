@@ -15,7 +15,7 @@ HARD RULES
 2. **Numbers everywhere.** Every bullet, every Lead claim, every Dealbook item must have a dollar amount, date, output figure, or contract value. Vague-magnitude phrasing is a flag for the editor.
 3. **Named sources only.** No anonymous "sources say." Every quote = name + title + organization.
 4. **No exclamation marks.** No "groundbreaking", "revolutionary", "game-changing". No "we're thrilled" / "big news" — those are HWFYI voice.
-5. **The Lead earns its position.** If you can't write two solid paragraphs that draw a thesis or frame a structural shift, demote the candidate to a bullet and pick a different Lead.
+5. **The Lead earns its position, and it is written to the playbook.** If you can't write two solid paragraphs that draw a thesis or frame a structural shift, demote the candidate to a bullet and pick a different Lead. The Lead is the newsletter's growth lever (Brian, 2026-06-18): it must be writing people *want* to read, not a competent summary. Write it to `agent-prompts/kerri-skill/references/sw-lead-writing-playbook.md` — the single most important rule there is **never open on the news, open on a hook** (inversion / rule-first / naive question), then isomorphism + inverted so-what. The Lead goes through a study-then-critic loop (STEP 6.5), not a single pass.
 6. **Output is a complete draft.** Markets snapshot + Lead + 5-6 category roundups (3 bullets each when the pool supports it) + Dealbook (4-6 items) + closing line. Brian's 2026-05-26 direction: keep the sent-issue writing style, but expand the format and make the issue more comprehensive.
 7. **S/W boundary applies in reverse.** S&W's published content IS the 50/50 partnership output. Pre-publish drafts stay gitignored at `brain/.local/sw-newsletter-drafts/` so internal editorial deliberation doesn't enter the shared brain.
 8. **Story Freshness Gate (HARD RULE — Brian, 2026-06-09).** Every bullet and Dealbook item must have been published AFTER the last sent issue and BEFORE the current issue's staging date. Verify every source URL's publication date before staging. A story is stale if it was published before the last issue, already appeared in a prior issue, or comes from a roundup/listicle with no specific in-window announcement. If a section has zero in-window stories, omit the section entirely rather than padding with old news. Linking to a months-old source destroys credibility with serious industrial readers.
@@ -26,6 +26,7 @@ DATA FILES
 
 Read-only:
 - `agent-prompts/kerri-skill/references/voice-sw-industrialist.md` — voice
+- `agent-prompts/kerri-skill/references/sw-lead-writing-playbook.md` — how to write the Lead (hook-first, copywork-derived; load before drafting the Lead)
 - `brain/wiki/workflows/sw-newsletter-production-rules.md` — canonical S&W newsletter production rules and mailbox routing
 - `data/sw-newsletter/sources.json` — curated source list per category (editable)
 - `brain/wiki/companies/standard-and-works.md` — S&W boundary rules (frozen legacy page; still the boundary-policy reference, but company CRM facts live in the KMG Console)
@@ -131,7 +132,10 @@ Each section is an H2 heading (`## Defense & Space`, etc.).
   - No separate parenthetical source name like `([Source Name](url))`
   - One sentence per bullet, no narrative
   - Every bullet must contain a number (dollar amount, date, output figure, contract value)
-- Skip a category entirely if you don't have 3 strong items — better to ship 4 strong sections than pad with weak bullets
+- **Err toward MORE bullets, not fewer (Brian, 2026-06-18).** Each category must carry ALL the most important in-window stories on its beat, comprehensive coverage, not a thinly curated few. A serious industrial reader expects the roundup to be complete. Target 3+ bullets per section and include a 4th/5th when the news supports it.
+- **Widen sourcing to hit that bar.** Don't rely on the big wires alone — pull the trade press per beat (e.g. FreightWaves, Utility Dive / Energy-Storage.news, Defense News / DefenseScoop / USNI, MedTech & Manufacturing Dive, SpaceNews / Payload). A too-strict drop rule (2026-06-18) produced a thin issue; the fix is broader coverage, not a lower bar on freshness or accuracy.
+- Accept a strong operational or scale number (jobs, MW, sq ft, tonnage, units, capacity multiple) when a clean dollar figure genuinely doesn't exist — better a real non-dollar number than dropping an important story.
+- Only omit a category if it genuinely has ZERO in-window stories. Freshness gate still absolute: never pad with stale or pre-window items.
 
 Dealbook: 4 transactions. M&A, capital raises, large contract awards. Same bullet format: `**Company** [action verb phrase](source-url) rest of one-sentence description.`
 
@@ -225,6 +229,19 @@ Back <Tuesday | Thursday>.
 ```
 
 The Lead headline should match the "Plus" preview pattern: name 2–3 of the most distinctive items from the issue. Examples to mirror: "AMCA, SendCutSend, and The New Factory Middle" / "Camden Becomes A Missile Factory Town" / "AI Finds The Factory Floor In El Segundo".
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 7.5 — LEAD QUALITY LOOP (mandatory; this is what makes the Lead good)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The Lead is never a single pass. Run this loop, modeled on the 2026-06-18 process Brian approved:
+
+1. **Study before writing.** Load `agent-prompts/kerri-skill/references/sw-lead-writing-playbook.md` and hold its hook patterns + anti-slop rules in front of you as you draft the Lead. (For a major thematic issue, optionally spawn a sub-agent to pull 2-3 fresh exemplar passages from a best-in-lane writer named in the playbook, so you imitate live writing, not just rules.)
+2. **Write the Lead hook-first.** Open on a hook, never on the news. Apply the recipe: hook → glossed deal + hero number → isomorphism → inverted so-what.
+3. **Adversarial critic pass.** Spawn ONE sub-agent as a ruthless copy critic. Give it the drafted Lead, the playbook, and the prior issue's Lead (so it can catch any recycled frame). Instruct it to flag every AI-writing tell (negation formula, constructed rule-of-three, setup-payoff filler, em dashes, hype, performing-insight phrases), every buried lede, every oversized sentence, and to verify the open is a real hook. It returns a ranked objection list; it does NOT rewrite.
+4. **Rewrite against the objections.** Fix each one. The 2026-06-18 critic caught the Lead unconsciously recycling the prior issue's "the bottleneck moved off the chip" frame — exactly the kind of thing a single pass misses.
+
+Only the Lead and any section intros need this loop. Bullets are facts and don't.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 8 — DELIVER (beehiiv primary, Kerri Console fallback)
