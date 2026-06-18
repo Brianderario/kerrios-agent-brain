@@ -26,7 +26,7 @@ DATA FILES
 
 Read-only:
 - `agent-prompts/kerri-skill/references/voice-sw-industrialist.md` — voice
-- `agent-prompts/kerri-skill/references/sw-lead-writing-playbook.md` — how to write the Lead (hook-first, copywork-derived; load before drafting the Lead)
+- `agent-prompts/kerri-skill/references/sw-lead-writing-playbook.md` — how to write the whole issue. Part 1 = the Lead (hook-first, copywork-derived; load before drafting the Lead). Part 2 = the whole issue (subject/preview, the "so what" bullet, section pacing, the WATCH line, the close, the whole-issue rubric); apply Part 2 when building the roundups + Dealbook (STEP 5).
 - `brain/wiki/workflows/sw-newsletter-production-rules.md` — canonical S&W newsletter production rules and mailbox routing
 - `data/sw-newsletter/sources.json` — curated source list per category (editable)
 - `brain/wiki/companies/standard-and-works.md` — S&W boundary rules (frozen legacy page; still the boundary-policy reference, but company CRM facts live in the KMG Console)
@@ -133,6 +133,7 @@ Each section is an H2 heading (`## Defense & Space`, etc.).
   - One sentence per bullet, no narrative
   - Every bullet must contain a number (dollar amount, date, output figure, contract value)
 - **Err toward MORE bullets, not fewer (Brian, 2026-06-18).** Each category must carry ALL the most important in-window stories on its beat, comprehensive coverage, not a thinly curated few. A serious industrial reader expects the roundup to be complete. Target 3+ bullets per section and include a 4th/5th when the news supports it.
+- **End every bullet on the "so what," not the bare fact (playbook Part 2).** A reporting bullet stops at what happened; a framing bullet adds a consequence clause that tells a capital allocator what it changes (`... which means / leaving / putting <second-order effect>`). One fact, one move: a structural force, an incentive restatement, OR a second-order implication, not all three. Every number does a job (yardstick, before/after delta, or second-order figure), never naked. The consequence must be supported by the source, never invented. If a bullet ends on the fact, it is not done.
 - **Widen sourcing to hit that bar.** Don't rely on the big wires alone — pull the trade press per beat (e.g. FreightWaves, Utility Dive / Energy-Storage.news, Defense News / DefenseScoop / USNI, MedTech & Manufacturing Dive, SpaceNews / Payload). A too-strict drop rule (2026-06-18) produced a thin issue; the fix is broader coverage, not a lower bar on freshness or accuracy.
 - Accept a strong operational or scale number (jobs, MW, sq ft, tonnage, units, capacity multiple) when a clean dollar figure genuinely doesn't exist — better a real non-dollar number than dropping an important story.
 - Only omit a category if it genuinely has ZERO in-window stories. Freshness gate still absolute: never pad with stale or pre-window items.

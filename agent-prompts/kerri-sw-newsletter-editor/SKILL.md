@@ -14,7 +14,7 @@ INPUTS
 - `brain/.local/sw-newsletter-drafts/<targetDate>.md` — the writer's output
 - `data/sw-newsletter/state.json` — `currentDraftId` (beehiiv post URL if Chrome bridge worked), `lastRunAt`
 - `agent-prompts/kerri-skill/references/voice-sw-industrialist.md` — voice rules (the anti-patterns list especially)
-- `agent-prompts/kerri-skill/references/sw-lead-writing-playbook.md` — the Lead-quality standard you enforce in STEP 2.5
+- `agent-prompts/kerri-skill/references/sw-lead-writing-playbook.md` — the writing standard. Part 1 = the Lead-quality standard you enforce in STEP 2.5. Part 2 = the whole-issue rubric you run in STEP 4 (subject/preview, "so what" bullets, section pacing, WATCH line, close).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 1 — RESOLVE TARGET
@@ -79,6 +79,7 @@ STEP 4 — STRUCTURAL CHECKS
 - Coverage is comprehensive: each of the 6 category sections carries the most important in-window stories on its beat, ideally 3+ bullets each. Flag a section that looks thin (fewer than 3) given the news available, since the writer is now told to err toward more bullets. A section is omitted only if it genuinely had zero in-window stories.
 - Dealbook has 4+ items
 - Closing line is "Back Tuesday." or "Back Thursday."
+- **Whole-issue craft (playbook Part 2 rubric):** check that every sector + Dealbook bullet ends on a "so what" consequence clause (what it changes for a capital allocator), not a trailing bare fact; that numbers do a job (yardstick / before-after delta / second-order figure), none naked; that each section is consequence-ordered with the lead noun bolded; that the subject names the day's most consequential thing and the preview adds a second hook (no repeat of the subject); and that the close lands a dry forward line rather than a summary. Flag a bullet that ends on the bare fact with `[SO-WHAT?]` and a naked number with `[FRAME #]` for the writer/human to sharpen. Do NOT invent a consequence the source does not support: flag, don't fabricate.
 
 If any structural rule fails: leave the rest of the draft, add a single `[STRUCTURE FLAG]` line at the top with what's missing.
 
