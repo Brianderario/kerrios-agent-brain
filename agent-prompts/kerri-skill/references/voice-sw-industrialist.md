@@ -139,6 +139,20 @@ From observed issues:
 - Conclusion-before-evidence, the Lead opens with the news, not "Here's what we think…"
 - Generic transitions: "Meanwhile…", "In other news…"
 
+### The 7 AI-writing tells (HARD RULE — Brian, 2026-06-17)
+
+Brian flagged the lead twice in one issue for reading as machine-written. Never use any of the seven dead giveaways of AI writing (full rule in the memory layer, `feedback_no_ai_tells`):
+
+1. Em dashes (already banned, ever).
+2. **The "no longer X, it's Y" / "not just X, but Y" / "it's not about X, it's about Y" negation formula.** Banned outright. State the point directly. (Killed line: "the hard part is no longer the processor, it's getting all of them to act as one machine.")
+3. Rule-of-three with alliteration ("clear, concise, compelling").
+4. Wikipedia voice (balanced, please-everyone). Write with a point of view.
+5. Clichéd metaphors ("rich tapestry", "landscape of", "in today's fast-paced world"). Also retire any metaphor we have reused across issues (e.g. "the bottleneck is moving").
+6. Hype adjectives ("exciting", "powerful", "revolutionary", "groundbreaking", "transformative").
+7. Setup-payoff (rhetorical question → "the answer lies in" → generic explanation). Open with the fact.
+
+Before staging, grep the draft for "no longer", "not just", "not only", "isn't about", "it's about", "rather than simply" and rewrite every hit.
+
 ## When in doubt
 
 If a story doesn't fit cleanly into the standard 5 categories, ask: does it move capex, or does it move opinion? If capex → use it; pick the closest category. If opinion → save for long-form or skip.
