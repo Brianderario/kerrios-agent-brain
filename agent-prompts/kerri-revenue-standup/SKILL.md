@@ -64,6 +64,7 @@ From the CY2026 Revenue Goal tab, this week's brain/log entries, and state files
 - Deals **lost or gone dark** this week
 - **New prospects** created this week (from cold outreach sends, inbound, meetings)
 - **Net pipeline change** ($$ added minus $$ removed/lost this week)
+- **Advancement by channel** — of the deals that advanced, how many came from each acquisition engine: renewal (existing sponsor), warm pipeline (prior relationship), inbound, cold outreach. Derive the channel from the deal/contact `source` where present (cold contacts carry `source: cold-outreach`; renewals come from renewal-watchdog touches; inbound from the sweep) and label the rest `unknown` — never guess a channel. This shows which engine is actually producing: a week where every advance is a renewal while cold outreach is silent is a different week than the inverse, and it directly informs the STEP 5 priority calls (renewals > warm > inbound > cold).
 
 If the revenue-standup-state has prior-week data, show the trend: "pipeline grew $X" or "pipeline shrank $X vs. last week."
 

@@ -321,6 +321,9 @@ Compose one concise Slack DM to U09TLEXF70V. Format:
 👉 One Console approval on "☀️ COLD BATCH <date>" sends all. Change a draft's SEND line to SKIP to drop it.
 ```
 
+**Funnel line — reply rate is the revenue signal.** After the draft list, run `node scripts/cold-funnel-report.mjs --json` and append one line to the DM:
+`📈 Funnel to date: <sent> sent · <replied> replied (<replyRate>%) · <positive> positive · <awaiting> awaiting`. Draft volume is an input; reply rate is the output that actually predicts revenue — surface it on every batch so a stalling conversion shows up the day it slips, not at the Friday standup. If the funnel shows reply rate under 3% across the last 20+ sends, also append `⚠️ Conversion soft — tighten ICP/hook (revisit lead-research lanes).` This is read-only reporting; it never changes the caps or the drafts.
+
 If nothing was processed (queue empty, all skipped): post nothing to Slack. The "queue empty" task post (STEP 1) already handles the empty-state signal.
 
 If the batch has fewer than 10 drafts, include the deficit line:

@@ -301,6 +301,7 @@ By lane:
   conferences (ME/EE shows) — 20 found, 9 to pool, 3 queued
   recruiting-mfg (manufacturers hiring engineers) — 5 found, 2 to pool, 1 queued
   funding / hiring boosts applied to the above
+  Queue mix (standing ready queue by lane): software-to-mfg <a>% · lookalike <b>% · conference <c>% · recruiting-mfg <d>%
 
 Top of queue:
   1. Jane @ Acme Hardware (score 78) — raised $25M Series B; exhibited DesignCon
@@ -310,6 +311,8 @@ Cold-outreach drafts the next morning batch at ~9am.
 ```
 
 If nothing was added (all dedup'd or no signal): post a short "lead research ran clean, pool + queue unchanged" message. In a backfill run, report `<N> added to pool` and the running pool total.
+
+**Top-priority drought guard (queue quality, not just depth).** Compute Queue mix from the `lane` field on the current `data/cold-outreach-queue.json` entries. `software-to-mfg` is the top-priority, highest-fit lane (the ICP's #1 lane). If it is under 30% of the standing ready queue — the queue is filling from weaker lanes while the best lane runs dry — append `⚠️ Queue skewing off top lane (software-to-mfg <a>%) — source that lane next run` to the DM and bias the next top-up toward Source 1. Depth alone is not health: a 25-deep queue of weak-fit leads will not move the `$1,000,000` goal. This is a read-only check on existing data; it never deletes queue entries.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 BRAIN LOG

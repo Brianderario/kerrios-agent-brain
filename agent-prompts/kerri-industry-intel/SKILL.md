@@ -154,9 +154,11 @@ New signals: <count>
 
 ## HWFYI prospect triggers
 
-Companies that raised money AND fit the HWFYI audience (hardware/manufacturing decision-makers):
+Companies that raised money AND fit the HWFYI audience (hardware/manufacturing decision-makers). Tag each with its CRM status from the STEP 5 cross-reference so a warm relationship is never cold-pitched:
 
-- **CompanyName** -- raised $XM Series B. <Why they'd sponsor HWFYI or attend Kinetic>. Domain: example.com
+- **CompanyName** `[net-new | existing deal H0042 | existing company, no deal]` -- raised $XM Series B. <Why they'd sponsor HWFYI or attend Kinetic>. Domain: example.com
+
+**→ Handoff:** close this section with one line — `N net-new high-fit prospects (no existing deal/company) flagged for lead-research sourcing`. These are exactly the recent-funding candidates `kerri-lead-research`'s funding lane should pick up on its next run. Do NOT write them to `data/cold-outreach-queue.json` from here — queueing is lead-research's job, after its dedup + hook enrichment (writing the shared queue from two routines risks duplicates and unvetted entries). Existing-deal companies are context updates only; never cold-pitch a live relationship (check-email-before-cold rule).
 
 ## Industry context (morning brief)
 

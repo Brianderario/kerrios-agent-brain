@@ -58,7 +58,7 @@ For each candidate, capture:
 - Total CY2026 spend vs. prior-year spend
 - Contract end date (if known)
 - Last contact date and who sent last (from CRM/deal notes/mailbox if available)
-- Renewal/upsell opportunity (what to propose and approximate $$)
+- Renewal/upsell opportunity (what to propose and approximate $$). **Every dollar figure must cite its source.** A prior-year renewal amount = the signed contract value (Savant deal `value` or the DocuSign envelope) or the Contract Breakdown row; a proposed upsell amount = an existing published package/product price, not a freehand estimate. If a number cannot be sourced, write the opportunity with no dollar figure rather than inventing one — an unpriced-but-real opportunity beats a plausible fake one (phantom-data rule, same as the STEP 6 "do not guess" rule on the brain-log sum).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — DEDUP + PRIORITIZE

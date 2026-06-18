@@ -293,14 +293,17 @@ If at least one draft was created OR at least one dormant close-out happened: po
 📈 Pipeline <YYYY-MM-DD HH:MM ET> · <X drafted, Y closed-as-dormant>
 
 ✅ Drafts (<X>):
-  • PIPELINE-H01 <Company> — nudge #<n> (<days> days quiet)
+  • PIPELINE-H01 <Company> ($<deal value, omit if unpriced>) — nudge #<n> (<days> days quiet)
   • ...
 
 🌑 Closed-as-dormant (<Y>):
-  • <Company> — <N> nudges, no reply
+  • <Company> ($<deal value, omit if unpriced>) — <N> nudges, no reply
 
+💰 Revenue at stake: $<sum of drafted deal values> across <X> drafts (top: <Company> $<value>)
 📊 State: <total active deals>, <total dormant>, <today's count>/5 daily cap
 ```
+
+**Revenue at stake** = the sum of the Savant `value` field across the deals drafted this run; it weights the day's nudges by dollars so a $50K deal reads as more urgent than a $2K one and Brian can approve in priority order. If a deal's `value` is null, omit its dollar figure and exclude it from the sum — never invent or estimate (phantom-data rule). Read-only reporting; it never changes which deals get nudged or the 5/day cap.
 
 If nothing was drafted AND no close-outs happened: post NOTHING anywhere. Stay quiet.
 

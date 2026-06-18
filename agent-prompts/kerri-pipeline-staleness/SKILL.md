@@ -44,9 +44,10 @@ node scripts/pipeline-staleness.mjs --signals data/pipeline-staleness-signals.js
 ## STEP 4 — File the human-judgment items
 - For each `propose_close` (60+ days): file ONE approval-gated Console suggestion card per the `💡 SUGGESTION:` contract (or a single batched card listing them), recommending `closed_lost` with the evidence (deal, stage, days silent, last touch date). NEVER close it yourself.
 - For `owe_reply`: these are deals where *we* are sitting on the prospect's reply. Surface them in the run summary so they get answered. Do not demote.
+- For `no_signal` (no findable two-way thread): these deals can never demote because there is no evidence to act on — so they can rot invisibly, which is the exact failure this routine exists to prevent. Count them every run; if **3 or more** come back `no_signal`, file ONE batched `💡 SUGGESTION:` card titled `⚠️ PIPELINE SIGNAL GAP — <N> deals, no thread found`, listing each (deal, company, stage). A persistent no-signal deal is usually a wrong/missing CRM contact or domain, not a dead deal — surfacing it gets the thread relinked so the decay clock can start. Never demote or close a `no_signal` deal.
 
 ## STEP 5 — Report + record
-- Post a tight summary to the morning brief handoff / a Console task: counts (demoted / proposed-close / owe-reply / fresh), and the per-deal demotions with the day counts.
+- Post a tight summary to the morning brief handoff / a Console task: counts (demoted / proposed-close / owe-reply / no-signal / fresh), and the per-deal demotions with the day counts.
 - Append one dated line to `brain/log.md`. Update `NOW.md` only if something needs Brian.
 
 ## Safety (do not bypass)
