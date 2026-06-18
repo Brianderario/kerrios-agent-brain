@@ -15,9 +15,11 @@ Durable knowledge is sourced from **Savant** (the company hub) as of [[../decisi
 5. **Evidence if needed:** raw evidence lives in Savant as `source_pointer` records; the bodies stay in `brain/raw/` (read the file only when you must verify).
 6. **Stop.** Do not read more than the task requires. Context-window discipline.
 
-> **Writes still go to git** (wiki / candidates / log, per the table below) until the write-path flip (Phase 3 of [[../decisions/2026-06-17-savant-as-company-hub]]). The git -> Savant sync keeps Savant current; after an interactive durable write, trigger a resync (`SOURCE_KEYS=... rake kerrios:console_push` from kerrihq-rails) or let the nightly push carry it.
+> **Authoring is bidirectional (Phase 3 of [[../decisions/2026-06-17-savant-as-company-hub]], live 2026-06-17).** Canonical knowledge can be authored in **Savant** (the `/brain` UI) or in git. The nightly sync reconciles both directions: Savant edits export to git (`scripts/savant-to-brain-export.sh`), then git edits import to Savant (`scripts/brain-to-savant-sync.sh`). The arbiter is each record's content hash, so neither side clobbers the other. The one genuine conflict — the *same page* edited in both git and Savant inside one sync window — resolves git-wins (the Savant edit is dropped); so don't edit a given page in both places at once. `NOW.md` + `brain/log.md` stay git-only (live/transient).
 
 ## Write protocol (any new fact, decision, or learning)
+
+Canonical knowledge has two authoring surfaces since 2026-06-17: humans edit in Savant's `/brain` UI (those edits export to git automatically), and agents/humans edit the git files below (which import to Savant). Either way the content lands in both. Agents writing brand-new durable knowledge still create the git file per the table below (it imports to Savant on the next sync), or file a candidate via `POST /api/v1/knowledge_records` (status `candidate`) for human promotion. The paths below are still authoritative for where a git write goes:
 
 | Type of write | Where it lands | Approval gate |
 |---|---|---|

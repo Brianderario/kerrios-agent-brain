@@ -27,7 +27,7 @@ Durable knowledge is read from **Savant** (the company hub) since 2026-06-17 (`b
 
 **Do not auto-load the whole brain.** That defeats the LLM-wiki pattern. See `brain/wiki/workflows/llm-wiki-pattern.md` for why; `brain/wiki/workflows/agent-brain-protocol.md` for the exact contract.
 
-**Source priority:** Savant knowledge (git wiki = offline mirror) > seed JSON > raw > chat history. Chat is never canonical. **Writes still go to git** until the Phase 3 write-path flip; the git → Savant sync keeps Savant current.
+**Source priority:** Savant knowledge (git wiki = offline mirror) > seed JSON > raw > chat history. Chat is never canonical. **Authoring is bidirectional (since 2026-06-17, Phase 3):** canonical knowledge is edited in Savant's `/brain` UI (exports to git) or in git (imports to Savant); the nightly sync reconciles both with a content-hash arbiter (git wins only on a same-page double-edit in one window). `NOW.md` + `brain/log.md` stay git-only.
 
 ## Canonical agent prompts
 

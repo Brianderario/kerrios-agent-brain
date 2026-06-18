@@ -48,6 +48,18 @@ node scripts/crm-sheet-mirror.mjs
 Both are idempotent. If either fails (Console API or Google unreachable), note it in this run's log entry and continue the push; do NOT block the brain push on the CRM mirror. Two consecutive nightly failures → flag to Brian in the morning brief queue.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1C — SAVANT→GIT EXPORT (since 2026-06-17 hub write-flip, Phase 3)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Savant is the authoring surface for canonical knowledge (brain/wiki/decisions/2026-06-17-savant-as-company-hub.md). Pull edits made in Savant's /brain UI back into git BEFORE staging, so they get committed this run:
+
+```
+bash scripts/savant-to-brain-export.sh
+```
+
+Safe by construction (`Kerrios::GitExporter`): writes a git file only when it is unchanged since its last import (content-hash match) but the Savant body differs — a genuine Savant-side edit. A git file edited locally since import is NEVER overwritten (STEP 4B's import carries it git→Savant instead); frontmatter is preserved. Record the written/created/skipped_git_newer counts in this run's log. If it fails (Console/Render unreachable, missing brain:read key, ruby env absent), note it and continue; do NOT block the push. The exported files are picked up by STEP 2 staging below.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — STAGE ELIGIBLE CHANGES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
