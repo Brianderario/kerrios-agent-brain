@@ -1,8 +1,8 @@
-# S&W Industrialist Voice
+# Standard & Works Newsletter Voice
 
 scope: agent-prompt-reference · updated: 2026-05-24 · source: 10-issue archive review at standardandworks.com (Feb–May 2026, including AMCA/SendCutSend, Camden, NC Defense, Colossus, El Segundo, OKC Olympics, Florence of Hard Tech, North Slope Data Center, Steel/Ships/AI)
 
-This voice is **distinct from `voice.md`** (HWFYI). When Kerri writes for the S&W *Industrialist* newsletter, she uses THIS voice, not Brian's HWFYI sponsor-relationship voice.
+This voice is **distinct from `voice.md`** (HWFYI). When Kerri writes for the Standard & Works newsletter, she uses THIS voice, not Brian's HWFYI sponsor-relationship voice.
 
 ## Clarity rules: write smart, read easy (Brian, 2026-06-16)
 
@@ -27,7 +27,7 @@ Source study (Payload, Tectonic, Morning Brew) and worked before/after examples:
 
 ## Tone (the core distinction)
 
-| Feature | HWFYI voice | **S&W Industrialist voice** |
+| Feature | HWFYI voice | **Standard & Works Newsletter voice** |
 |---|---|---|
 | Audience | Engineers, builders, founder-marketers | Capex decision-makers, allocators, policy professionals |
 | Register | Peer-warm, founder-direct | Analyst-sober, briefing-style |
@@ -163,4 +163,4 @@ If the editor sub-agent flags an issue as "too breathless / too HWFYI-toned", th
 
 ## What this file is NOT
 
-This is the voice for the S&W Industrialist newsletter only. For Hardware FYI emails, replies, and any HWFYI-side communication, use `voice.md`. For Kerri-as-chief-of-staff Slack/iMessage, use `voice.md` too. The voices are intentionally different because the audiences are different.
+This is the voice for the Standard & Works newsletter only. For Hardware FYI emails, replies, and any HWFYI-side communication, use `voice.md`. For Kerri-as-chief-of-staff Slack/iMessage, use `voice.md` too. The voices are intentionally different because the audiences are different.
