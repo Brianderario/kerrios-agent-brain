@@ -18,7 +18,13 @@ export PATH="/opt/homebrew/opt/ruby@3.4/bin:/opt/homebrew/opt/postgresql@17/bin:
 
 RAILS_DIR="${KERRIHQ_RAILS_DIR:-$HOME/Projects/kerrihq-rails}"
 SECRETS="${KERRI_SECRETS_FILE:-$HOME/.kerri-chief/secrets/kerrihq.env}"
-export KERRIOS_ROOT="${KERRIOS_ROOT:-$HOME/Documents/Documents - Brian's MacBook Air/KerriOS}"
+# Default the repo root in a plain double-quoted assignment. The path contains an
+# apostrophe ("Brian's MacBook Air"); inside a ${VAR:-default} expansion bash treats
+# that apostrophe as an unterminated single quote and fails to parse the whole script.
+if [ -z "${KERRIOS_ROOT:-}" ]; then
+  KERRIOS_ROOT="$HOME/Documents/Documents - Brian's MacBook Air/KerriOS"
+fi
+export KERRIOS_ROOT
 
 if [ ! -d "$RAILS_DIR" ]; then
   echo "savant-to-brain-export: kerrihq-rails not found at $RAILS_DIR; skipping (export unavailable on this host)." >&2
