@@ -1,3 +1,7 @@
+## [2026-06-18 09:35 ET] cold-outreach | 8 drafts, 2 hard-skipped, today=8 week=35 | Kerri
+
+Staged 8/10 HWFYI cold drafts (GoEngineer, KeyShot, Inductive Automation, KETIV, IMAGINiT, Nota3D, Symetri, Methods) as Console batch dca4dbac (reserved H0497-H0504, pending-registration deferred per HARD RULE 8). Email-history check pulled Quilter (organic Benji/Brian relationship) + MacroFab (already cold-emailed 5/08+5/27); both CRM notes wrongly said no email sent, now flagged in snapshot. 2-short held on quality; SHORT task fc15dc9a filed with lead-research refill ask. 56 second-touch candidates eligible, deferred to a dedicated pass.
+
 ## [2026-06-18 08:47 ET] pipeline-followup | 1 draft, 0 closed-dormant | Kerri
 
 Drafted nudge #1 for Augury (Erin Martin/demand gen, H0162) — demographics sent 6/12, 6d quiet, staged as PIPELINE-H01 Console card (approval-gated). Skipped Squint (H0160 = internal Benji thread collision, no prospect context) + Colab (not due, 7d<12d). Cleared 6/16 deferred CRM PATCH (Simplexity) + migrated stale colab-software state key. Both deal next_action_date PATCHes applied 200.
