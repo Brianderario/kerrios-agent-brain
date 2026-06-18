@@ -79,6 +79,7 @@ Read + write every run:
 Read-only:
 - `agent-prompts/kerri-skill/references/voice.md` — Brian's voice (apply every rule)
 - `brain/wiki/workflows/draft-learnings.md` — accumulated lessons
+- `brain/wiki/workflows/hwfyi-sales-writing-playbook.md` — the canonical sales-writing craft (opener patterns, one-CTA hierarchy, length/subject rules, the 8 reply-killers, the 10-point pre-send rubric). Apply Part A + run the rubric on every draft (see STEP 4).
 - `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` — revenue goal, product lens, and source-surface rules
 - Savant CRM contacts (`GET /api/v1/people?company_id=<id>`) + company `crm_notes` — existing-relationship + dedup source (the system of record; `brain/wiki/people/` is frozen, do not read it for this)
 - `data/jobs.json` — inbox sweep send/reply ledger (dedup source)
@@ -186,6 +187,7 @@ Apply every rule in `voice.md` and every lesson in `draft-learnings.md`. Specifi
 - **No em dashes:** never use an em dash in the subject or body of any draft. Rewrite with a period, comma, colon, or parentheses. Hard Brian rule.
 - **Calendar link:** omit by default on first cold outreach. Add it only if Brian explicitly asks for calendar-forward cold emails.
 - **No footer (HARD RULE 8b).** The email ends at the `Best, / Kerri` (or `Brian`) sign-off. No unsubscribe line, no postal address, no compliance boilerplate — it should read like a normal 1:1 note, not a marketing blast.
+- **Run the pre-send rubric (apply now; one item deferred).** Before posting each draft, check it against the 10-point pre-send SALES rubric in `brain/wiki/workflows/hwfyi-sales-writing-playbook.md`. Apply items 2-10 immediately: one real relevance token (no invented facts), audience-fit-first, exactly one interest/value CTA (not a time ask) per HARD RULE one-goal, under ~75 words at reading grade 3-5, a neutral two-word subject, value framed not display metrics, no price defense, no em dashes / AI tells, sign-off matches sender. Rubric item 1 (open on the buyer's WORLD with identity in line two, instead of the "I'm Kerri / We're a media company" opener in the body shape above) is a PROPOSED opener upgrade from the playbook's Part A1, pending Brian's sign-off; until he approves it, keep the body shape above.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — POST AS ONE DAILY BATCH TASK

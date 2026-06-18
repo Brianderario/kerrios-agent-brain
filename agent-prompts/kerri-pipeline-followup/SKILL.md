@@ -64,6 +64,7 @@ Read-only:
 - **Savant deals API** (`GET /api/v1/deals`, token `KERRIHQ_AGENT_API_KEY`) — the deal system of record: stage, company, value, contract_end_date, next_action_date, renewal_status. This replaces the old `brain/wiki/deals/` files, which are frozen and must not be read.
 - `data/jobs.json` — the inbox-sweep send/reply ledger; the source for `last_contact_date` (most recent `sentAt` for the deal's jobId) and `last_sender` (us if the latest thread event is our send with no later inbound).
 - `brain/wiki/workflows/draft-learnings.md` — voice lessons.
+- `brain/wiki/workflows/hwfyi-sales-writing-playbook.md` — the canonical sales-writing craft. For warm nudges apply Part A7 (every follow-up ADDS one new thing; the clean takeaway/breakup reopens dead threads), Part B (the Cialdini/Voss/Challenger/Enns persuasion + objection moves for replies), and Part D (sentence craft), then run the 10-point pre-send rubric before staging.
 - `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` — revenue lens and source-surface rules.
 - `agent-prompts/kerri-skill/references/voice.md` — Brian's voice rules.
 
