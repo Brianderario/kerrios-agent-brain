@@ -4,6 +4,8 @@ scope: workflow · updated: 2026-05-24 · sources: [Karpathy gist](https://gist.
 
 KMG's brain is built on Karpathy's LLM-wiki pattern, not RAG and not Notion. Three layers, three operations, zero auto-load.
 
+> **Migrated to the Savant hub (2026-06-17).** Savant (`kerrihq-rails`) is now the source of truth for the brain; this git-wiki pattern is the **backing-store layer** beneath it (versioned audit, offline fallback, the runner's on-disk copy). The principles below still describe how the git layer is structured and why knowledge *compounds* rather than being re-retrieved; just read "the brain" as Savant-with-a-git-mirror now. See [[source-of-truth]] and [[../decisions/2026-06-17-savant-as-company-hub]].
+
 ## Three layers
 
 1. **Raw sources** (`brain/raw/`) — append-only evidence. Transcripts, email pulls, meeting notes, exported reports. LLMs read these; never edit.
