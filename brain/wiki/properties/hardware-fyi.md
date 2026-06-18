@@ -58,8 +58,7 @@ Two packages on the Hardware FYI newsletter. Use these consistently in sponsor c
 
 - **Primary Placement** — $1,500 line-item placement anchor for quote-menu conversations. Older package anchors were $10K / 6 sends or $6K / 3 sends; use the current line-item anchor when Brian asks for product-by-product pricing. Full ad unit (image + copy + CTA) inside the Hardware FYI newsletter. Reference example: [Colab ad in "what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say).
 - **Partner Program** — $12.5K / 6 months standard. **Sold in flexible durations** — Brian uses **2-month and 3-month** terms inside package bundles (observed in the 2026-05-29 Modelwise quote), not only the 6-mo standard. Sales-list format: Partner Program (6 Months); 2x per week feature in Tools We Love; 3x Primary Placement, with one usable during an approved one-month trial; logo in the Partner Program sponsor image + on the website. Reference examples below.
-- **Custom article / Custom Content Article** — $2.5K.
-- **Custom content** — price depends on execution when the deliverable is not a standard custom article or research report.
+- **Custom Content / Custom Content Article** — **starts at $5,000** (Brian-corrected 2026-06-18 on the H0059 GrayMatter quote). This **supersedes the earlier $2.5K figure**, which was stale — **do not quote $2,500**. A full editorial feature where Benji captures the company/customer story; runs as content, not an ad. Price scales up from $5K with scope/execution; research reports are a separate, higher product (below).
 - **Custom research report** — starts at $6K.
 
 ### Package quoting (observed practice, 2026-05-29)
