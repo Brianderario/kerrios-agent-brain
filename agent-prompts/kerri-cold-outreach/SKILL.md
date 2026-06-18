@@ -1,6 +1,6 @@
 ---
 name: kerri-cold-outreach
-description: Daily (M–F) + on-demand cold outreach to seeded prospects. Apollo-enriches, drafts 1:1 personalized cold emails per Brian's voice, posts ONE daily batch approval task to Kerri Console. Hard caps 10/day, 50/rolling-7. Never mail-merge. Always dedup against existing relationships. Boundary-aware (HWFYI side only).
+description: Daily (M–F) + on-demand cold outreach to seeded prospects. Apollo-enriches, drafts 1:1 personalized cold emails per Brian's voice, posts ONE daily batch approval task to Kerri Console. Default caps 25/day, 100/rolling-7 (Brian-relaxed 2026-06-18 from 10/50; real ceiling is ~100/day). Never mail-merge. Always dedup against existing relationships. Boundary-aware (HWFYI side only).
 schedule: weekdays ~09:07 ET
 report_interval_hours: 80
 ---
@@ -26,7 +26,7 @@ Scheduled runs must use cheap preflight, bounded candidate loading, and compact 
 HARD RULES (do not bypass — ever)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. **Volume caps + daily target.** Target exactly 10 approval-ready drafts per weekday when at least 10 qualified queue entries survive dedupe/enrichment. Max 10 drafts/day. Max 50 drafts/rolling-7-days. Counted from `data/cold-outreach-state.json`. If a run would exceed either cap, stop short and log how many were skipped.
+1. **Volume caps + daily target.** Target ~10 approval-ready drafts per scheduled weekday morning when at least 10 qualified queue entries survive dedupe/enrichment (quality per batch is the point, not raw volume). **Daily cap 25, weekly cap 100 drafts/rolling-7-days** (Brian relaxed these from 10/50 on 2026-06-18: he is fine with higher volume; the only real ceiling is not sending ~100 in a single day). Counted from `data/cold-outreach-state.json`. An explicit Brian-directed interactive batch may exceed the 25 daily default, up to the ~100/day hard ceiling. Watch deliverability (bounces, spam complaints) as volume rises and dial back if it degrades. If a run would exceed the applicable cap, stop short and log how many were skipped.
 2. **No bulk patterns.** Every draft is distinct. If you find yourself reusing phrases, regenerate with different framing. The voice file is `agent-prompts/kerri-skill/references/voice.md` — apply it strictly.
 3. **Personalization required.** Every cold email must reference something specific about the recipient: recent funding, product launch, job change, content they published, a mutual connection. If you can't find a real personalization angle from Apollo enrichment, SKIP that target. Do not send generic.
 4. **Dedup is absolute.** Skip any prospect with:
@@ -115,8 +115,8 @@ STEP 2 — LOAD STATE + CHECK CAPS
 
 1. Run the cheap preflight first: read cap counters, queue length/top slice, and do-not-contact count before loading drafting context or broad history.
 2. Recompute counters if `weekStart` or `todayDate` is stale.
-3. `availableToday = 10 - todayCount`. `availableWeek = 50 - weekCount`. `targetDrafts = 10`. `budget = min(availableToday, availableWeek, targetDrafts)`. The agent may inspect more than `budget` queue entries to find 10 qualified survivors, but it may not create more than `budget` drafts.
-4. If `budget <= 0`: post a single Slack DM to Brian (U09TLEXF70V): "❄️ Cold cap reached — `todayCount=<n>/10, weekCount=<m>/50`. Resumes <next-day or next-Monday>." Exit silently otherwise.
+3. `availableToday = 25 - todayCount`. `availableWeek = 100 - weekCount`. `targetDrafts = 10` (the per-morning quality target; the higher caps just give headroom for extra or interactive batches, see HARD RULE 1). `budget = min(availableToday, availableWeek, targetDrafts)`. The agent may inspect more than `budget` queue entries to find qualified survivors, but it may not create more than `budget` drafts.
+4. If `budget <= 0`: post a single Slack DM to Brian (U09TLEXF70V): "❄️ Cold cap reached — `todayCount=<n>/25, weekCount=<m>/100`. Resumes <next-day or next-Monday>." Exit silently otherwise.
 5. Only after `budget > 0` and the queue is non-empty should the agent load the remaining REFERENCE files needed for drafting and dedupe.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -205,7 +205,7 @@ Create ONE task with `node scripts/console-task-api.mjs create --status needs_ap
   ACTION: send
   (Check the box to approve and SEND every draft still marked SEND below. To DROP one, change its `SEND #n` line to `SKIP #n`. To regenerate one, change it to `REDO #n`. You can also edit any draft body in place before checking.)
 
-  ☀️ COLD BATCH <date> — <N>/10 personalized cold emails, sponsor prospecting for Hardware FYI. Each is 1:1, Apollo-enriched, hook-specific, no footer. Caps after this batch: today <todayCount+N>/10 · week <weekCount+N>/50.
+  ☀️ COLD BATCH <date> — <N>/10 personalized cold emails, sponsor prospecting for Hardware FYI. Each is 1:1, Apollo-enriched, hook-specific, no footer. Caps after this batch: today <todayCount+N>/25 · week <weekCount+N>/100.
   Revenue goal: each SEND draft has a plausible path to the Hardware FYI `$1,000,000` CY2026 target.
   Review rule: every draft block must include `company fit:`, `person fit:`, and `qualification:` so Brian can evaluate whether the company belongs in Hardware FYI outreach, whether the recipient is the right buyer, and what evidence makes this more than a contextually relevant random company.
 
@@ -264,7 +264,7 @@ After the primary outreach batch is staged (or skipped due to empty queue/caps),
 - No matching email in `secondTouchSent[]` (we haven't already followed up)
 - No matching email in `secondTouchDrafted[]` (a draft isn't already queued)
 
-**Volume:** Draft at most 5 second-touch emails per run. These count toward the same daily (10/day) and weekly (50/week) caps as primary outreach. If the primary batch consumed the full budget, skip second-touch drafting silently.
+**Volume:** Draft at most 5 second-touch emails per run. These count toward the same daily (25/day) and weekly (100/week) caps as primary outreach. If the primary batch consumed the full budget, skip second-touch drafting silently.
 
 **Drafting rules:**
 - The second touch is a SHORT, value-add follow-up (3-4 sentences max after the greeting).
@@ -320,7 +320,7 @@ Compose one concise Slack DM to U09TLEXF70V. Format:
 ⏭️ Skipped (<M>):
   • <name @ company> — <reason: dedup | no hook | dnc>
 
-📊 Caps: today <todayCount>/10 · week <weekCount>/50
+📊 Caps: today <todayCount>/25 · week <weekCount>/100
 👉 One Console approval on "☀️ COLD BATCH <date>" sends all. Change a draft's SEND line to SKIP to drop it.
 ```
 
