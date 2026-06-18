@@ -34,7 +34,7 @@ When running a full scan, load only:
 
 Do NOT load: full brain/wiki, NOW.md, voice.md, full brain/log.md, full lead pool, raw emails.
 
-Load `agent-prompts/kerri-skill/references/voice.md` ONLY when drafting renewal emails in STEP 3.
+Load `agent-prompts/kerri-skill/references/voice.md` ONLY when drafting renewal emails in STEP 3. Also load `brain/wiki/workflows/hwfyi-sales-writing-playbook.md` for the drafting craft (Part B persuasion + value / cost-of-inaction, Part C the renewal/upsell narrative arc and option anchoring, Part D sentence craft) and run its 10-point pre-send rubric on each renewal draft.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 1 — SCAN CRM FOR RENEWAL OPPORTUNITIES

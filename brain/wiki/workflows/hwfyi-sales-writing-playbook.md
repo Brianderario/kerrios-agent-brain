@@ -11,7 +11,7 @@ This page is the HOW (the craft). It does not override Brian's hard rules; it op
 - [[draft-learnings]] — accumulated Brian-edit lessons.
 - [[definition-of-done-gate]] — the pre-send gate that wraps all of this.
 
-Drafting routines that should load this: [[../../agent-prompts/kerri-cold-outreach]] (cold first-touch + follow-up), [[../../agent-prompts/kerri-pipeline-followup]] (warm nudges + reply handling), [[../../agent-prompts/kerri-lead-research]] (hook + relevance craft, Part A3), [[../../agent-prompts/kerri-renewal-watchdog]] (renewal outreach). The inbox-sweep DRAFTING section (replies + package quotes) should reference it too, but that is a send-authority file → proposed, not auto-edited. (kerri-cold-outreach + kerri-pipeline-followup are wired as of 2026-06-18; the others are proposed one-line reference adds, see the run report.)
+Drafting routines that should load this: [[../../agent-prompts/kerri-cold-outreach]] (cold first-touch + follow-up), [[../../agent-prompts/kerri-pipeline-followup]] (warm nudges + reply handling), [[../../agent-prompts/kerri-lead-research]] (hook + relevance craft, Part A3), [[../../agent-prompts/kerri-renewal-watchdog]] (renewal outreach). The inbox-sweep DRAFTING section (replies + package quotes) should reference it too, but that is a send-authority file → proposed, not auto-edited. (kerri-cold-outreach, kerri-pipeline-followup, and kerri-renewal-watchdog are wired as of 2026-06-18. kerri-lead-research finds leads but does not draft emails, so it is not wired; cold-outreach applies Part A3's relevance lens to the hooks lead-research selects. The inbox-sweep DRAFTING pointer is the only remaining send-authority proposal, see the run report.)
 
 ## The stance everything is built on (cross-links, not duplicated)
 
