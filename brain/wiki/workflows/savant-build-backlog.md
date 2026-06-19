@@ -1,6 +1,6 @@
 # Savant Build Backlog
 
-scope: workflow · updated: 2026-06-17 · owner: Brian + Kerri
+scope: workflow · updated: 2026-06-18 · owner: Brian + Kerri
 
 The living queue of Savant product improvements. This is the memory that stops the nightly [[../../../agent-prompts/kerri-build-proposal/SKILL.md]] routine from re-proposing the same thing: it reconciles shipped items off the list, never proposes a retired/declined slice, and pulls the next undone candidate. Brian and Kerri groom this together; Brian can add ideas any time. Grounded in [[../properties/savant-product-vision]] (the ten pillars).
 
@@ -24,10 +24,25 @@ The living queue of Savant product improvements. This is the memory that stops t
 | Front-page Overview redesign (NEEDS YOU queue + revenue band) | 6/9 | 2026-06-12 |
 | Mobile nav drawer + PWA (Savant on the phone) | - | 2026-06-12 |
 | Brain hub migration: full coverage, read-flip, write-flip, operating-layer, git-demote (Phases 1-5) | - | 2026-06-17 |
+| Gap-closing pipeline: GET /api/v1/deals/:id/deal_brief (Crm::DealBrief) + Pipeline worklist screen under Revenue | 4/5 | 2026-06-18 (79e9395, 790424b) |
+| PWA installability (active service worker, app shortcuts, safe offline) + mobile bottom nav for daily lanes | - | 2026-06-18 |
+| Monaco redesign Phase 1: foundation (tokens/serif/pill component classes/shell) + Overview reskin | 6/9 | 2026-06-18 (d4ddfda) |
 
-## Overnight-safe candidates (the queue — pull the top undone one)
+## Directed active work — Monaco redesign (Brian directive 2026-06-18, takes priority)
 
-Ranked revenue/leverage first. All are additive, internal, real-data-only (phantom-pipeline rule), inside existing Savant nav, no external sends — i.e. safe for the unattended loop. Verified undone as of 2026-06-17.
+Brian directed the build loop on 2026-06-18: "Execute the Monaco-inspired design (pure-black canvas, editorial serif display, floating pill nav, monochrome + violet→magenta accent, calm morning-brief home) across ALL of Savant. Keep the DATA whole; change the LAYOUT. Then wire a Claude SDK agent ('Ask Savant'). Run the loop until Savant looks like the future of a media company's OS." This is presentation-only (additive, view-layer, no migrations/API/sends) so it is overnight-safe AND it is Brian's standing same-day instruction — it outranks the generic candidates below until the screens are done. Foundation + Overview shipped 2026-06-18 (d4ddfda).
+
+| Slice | Screens | Status |
+|-------|---------|--------|
+| Daily operating lanes | Tasks board, Approvals + Approval requests, Pipeline worklist + Deals kanban | **proposed 2026-06-18** |
+| CRM + knowledge | Companies + People, Knowledge records (Brain) | candidate |
+| Revenue + content | Renewals + Revenue, Newsletter inventory + issues | candidate |
+| Events + chrome | Events + Sponsor portal, Command palette + mobile bottom-nav polish + login screen | candidate |
+| Ask Savant agent (Claude SDK) | additive read-only endpoint (anthropic gem + agents infra), grounded in knowledge_records + CRM, streamed into the ask bar; any action approval-gated | candidate (multi-item; sequence after the reskins) |
+
+## Overnight-safe candidates (the queue — pull the top undone one when no directed work is open)
+
+Ranked revenue/leverage first. All are additive, internal, real-data-only (phantom-pipeline rule), inside existing Savant nav, no external sends — i.e. safe for the unattended loop. Verified undone as of 2026-06-17. These wait behind the directed Monaco work above.
 
 | # | Candidate | Pillar | Value / revenue tie | Night-sized "done" | Status |
 |---|-----------|--------|---------------------|--------------------|--------|
@@ -49,3 +64,4 @@ Too big, or need external data / paid credits / external sends, which the build-
 ## Grooming log
 
 - 2026-06-17 — Backlog created. Seeded Shipped from the 6/12-6/14 ledgers + brain log; verified candidates 1-5 undone against the codebase; recorded the $1M screen permanent exclusion. Replaces "re-derive from scratch" with "pull next undone."
+- 2026-06-18 — Reconciled the 6/18 ledger: moved gap-closing pipeline (deal_brief API + Pipeline worklist), PWA + mobile nav, and Monaco Phase 1 (foundation + Overview) into Shipped. Added Brian's 2026-06-18 Monaco-redesign directive as Directed active work (overnight-safe, presentation-only, outranks the generic queue) and PROPOSED tonight's slice = the 3 daily operating lanes (Tasks, Approvals, Pipeline + Deals kanban). Generic candidates 1-5 (Pricing intel, Signal feed, etc.) still undone, parked behind the directed work; offered Pricing intel as the pivot option in the email.
