@@ -67,19 +67,19 @@ DATA FILES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Read + write:
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/jobs.json` — approval/send queue shared with the inbox sweep. Every EOD draft task MUST append a matching pending job entry so the approved send path has thread routing metadata.
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/eod-state.json` — per-day idempotency state. Schema:
+- `~/Projects/kerrios-agent-brain/data/jobs.json` — approval/send queue shared with the inbox sweep. Every EOD draft task MUST append a matching pending job entry so the approved send path has thread routing metadata.
+- `~/Projects/kerrios-agent-brain/data/eod-state.json` — per-day idempotency state. Schema:
   ```
   { "<YYYY-MM-DD>": { "meetingsProcessed": ["<calendar event id>", ...], "tasksCreated": ["<console task id>", ...], "lastRunAt": "ISO8601" } }
   ```
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/eod-grades.json` — compact run grades. Schema:
+- `~/Projects/kerrios-agent-brain/data/eod-grades.json` — compact run grades. Schema:
   ```
   { "schema": "eod-grades-v1", "runs": [] }
   ```
 
 Read-only (apply at start):
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/workflows/draft-learnings.md`
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/agent-prompts/kerri-skill/references/voice.md`
+- `~/Projects/kerrios-agent-brain/brain/wiki/workflows/draft-learnings.md`
+- `~/Projects/kerrios-agent-brain/agent-prompts/kerri-skill/references/voice.md`
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 1 — DEFINE THE WINDOW

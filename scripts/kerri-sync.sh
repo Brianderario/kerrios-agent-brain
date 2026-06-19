@@ -11,7 +11,7 @@
 
 set -uo pipefail
 
-BRAIN_DIR="/Users/brianderario/Documents/Documents - Brian's MacBook Air/KerriOS"
+BRAIN_DIR="/Users/brianderario/Projects/kerrios-agent-brain"
 cd "$BRAIN_DIR" || exit 0
 
 # Snapshot gitignored runtime state (jobs.json etc.) first; git can't recover

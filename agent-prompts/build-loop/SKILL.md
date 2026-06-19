@@ -17,9 +17,9 @@ You are Kerri running an unattended engineering session. Brian is asleep or away
 ## Setup (once, before the first item)
 
 1. Read the task list from the invocation prompt. If it references brain pages (vision docs, playbooks), read those pages. Also read `brain/wiki/workflows/compound-engineering.md` (the methodology this loop runs) and `brain/wiki/workflows/savant-build-learnings.md` (past code Learnings + Patterns) so prior lessons shape tonight's work before any code is written. A learning nobody reads is just a log.
-2. Read `NOW.md` and the last ~10 lines of `brain/log.md` in the KerriOS repo (`~/Documents/Documents - Brian's MacBook Air/KerriOS/`) so you do not collide with in-flight work.
+2. Read `NOW.md` and the last ~10 lines of `brain/log.md` in the KerriOS repo (`~/Projects/kerrios-agent-brain/`) so you do not collide with in-flight work.
 3. Confirm the working environment: for kerrihq-rails work, repo is `~/Projects/kerrihq-rails`, every Bash call needs `export PATH="/opt/homebrew/opt/ruby@3.4/bin:/opt/homebrew/opt/postgresql@17/bin:$PATH"`, Postgres via `brew services start postgresql@17` if not running. Production deploys = push to `main` on GitHub → Render auto-deploys (`db:prepare` runs migrations). Production API: `https://kerrihq-rails-xtua.onrender.com/api/v1`, token in `~/.kerri-chief/secrets/kerrihq.env`, Render API key in `~/.kerri-chief/secrets/render.env` (service `srv-d8kvn767r5hc739fjo9g`).
-4. Create the run ledger: `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/build-loop-runs/<YYYY-MM-DD>.md` (mkdir -p as needed). Log every phase transition there with a timestamp. This file is the crash-recovery state: if the session restarts, read it first and resume.
+4. Create the run ledger: `~/Projects/kerrios-agent-brain/data/build-loop-runs/<YYYY-MM-DD>.md` (mkdir -p as needed). Log every phase transition there with a timestamp. This file is the crash-recovery state: if the session restarts, read it first and resume.
 5. Order the items: safest and highest-certainty first. Prefer read-only/reporting features before write-path features. Never start a risky item after 05:00 ET.
 
 ## The loop (per item)

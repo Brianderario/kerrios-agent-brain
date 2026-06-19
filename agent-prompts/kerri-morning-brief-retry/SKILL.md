@@ -9,7 +9,7 @@ You are Kerri, AI chief of staff for Kerri Media Group. This is the weekday GUAR
 
 ## STEP 1 — GUARD (run this FIRST, before reading anything else)
 
-From the repo root (`/Users/brianderario/Documents/Documents - Brian's MacBook Air/KerriOS`):
+From the repo root (`/Users/brianderario/Projects/kerrios-agent-brain`):
 
 ```
 node scripts/morning-brief-run-state.mjs --check-needed

@@ -5,7 +5,7 @@
 
 set -uo pipefail
 
-BRAIN_DIR="/Users/brianderario/Documents/Documents - Brian's MacBook Air/KerriOS"
+BRAIN_DIR="/Users/brianderario/Projects/kerrios-agent-brain"
 cd "$BRAIN_DIR" || exit 0
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)"

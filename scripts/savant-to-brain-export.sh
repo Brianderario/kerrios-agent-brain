@@ -22,7 +22,7 @@ SECRETS="${KERRI_SECRETS_FILE:-$HOME/.kerri-chief/secrets/kerrihq.env}"
 # apostrophe ("Brian's MacBook Air"); inside a ${VAR:-default} expansion bash treats
 # that apostrophe as an unterminated single quote and fails to parse the whole script.
 if [ -z "${KERRIOS_ROOT:-}" ]; then
-  KERRIOS_ROOT="$HOME/Documents/Documents - Brian's MacBook Air/KerriOS"
+  KERRIOS_ROOT="$HOME/Projects/kerrios-agent-brain"
 fi
 export KERRIOS_ROOT
 

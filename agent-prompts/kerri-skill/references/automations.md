@@ -44,11 +44,11 @@ To activate a routine, create a Claude Code persistent scheduled task under `~/.
 **Mailboxes:** kerri@hardwarefyi.com and brian@hardwarefyi.com (custom Hardware FYI email MCPs), brian@kerrihq.com (Gmail MCP, draft-only), brian@standardandworks.com (Superhuman MCP).
 **Approval channel:** Kerri Console production Tasks board. Each job becomes a Console task; Brian's approve/skip/redo resolution is the send authority; ACTION line in the task body remains the machine-readable intent for send/skip/redo. The Console task itself is Brian's attention signal; Kerri no longer texts Brian (the Sendblue/text path was retired from Kerri on 2026-06-17 and the separate Hermes agent owns texting now — do not call send-text-alert.mjs). Repeated identical connector errors are still deduped through `data/inbox-sweep-state.json`: first occurrence recorded, then silent fail-closed grading for the same reason inside the suppression window. Full flow lives at `agent-prompts/kerri-inbox-sweep/SKILL.md` — that file is the source of truth.
 **Data files:**
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/job-counters.json` — persistent H/S/G counters
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/jobs.json` — open job registry (dedup + state)
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/inbox-sweep-state.json` — per-mailbox cursors + seen message IDs
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/data/inbox-sweep-grades.json` — per-run/daily/weekly self-grades
-- `~/Documents/Documents - Brian's MacBook Air/KerriOS/brain/wiki/workflows/draft-learnings.md` — accumulated draft lessons
+- `~/Projects/kerrios-agent-brain/data/job-counters.json` — persistent H/S/G counters
+- `~/Projects/kerrios-agent-brain/data/jobs.json` — open job registry (dedup + state)
+- `~/Projects/kerrios-agent-brain/data/inbox-sweep-state.json` — per-mailbox cursors + seen message IDs
+- `~/Projects/kerrios-agent-brain/data/inbox-sweep-grades.json` — per-run/daily/weekly self-grades
+- `~/Projects/kerrios-agent-brain/brain/wiki/workflows/draft-learnings.md` — accumulated draft lessons
 
 **Prompt:** Lives at `agent-prompts/kerri-inbox-sweep/SKILL.md`. Approval channel is Kerri Console production Tasks. Console approve = send (auto-detects edited body); skip/redo are explicit Console resolutions, with ACTION line retained for compatibility. Kerri's build/workflow suggestions land as Console tasks with a `💡 SUGGESTION:` prefix (max 1/run, dedup'd against existing open suggestions).
 

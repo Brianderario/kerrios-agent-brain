@@ -4,7 +4,7 @@ How Kerri reads and writes the KerriOS company brain.
 
 ## Locations
 
-- **Local vault (live store):** `/Users/brianderario/Documents/Documents - Brian's MacBook Air/KerriOS/`
+- **Local vault (live store):** `/Users/brianderario/Projects/kerrios-agent-brain/`
 - **GitHub agent-seed (sanitized):** https://github.com/Brianderario/kerrios-agent-brain
 - **Live data file:** `KerriOS/data/kerrios.json` (gitignored — never read directly to share with external agents)
 - **Sanitized export:** `KerriOS/data/kerrios.agent-seed.json` (safe for external agents)
@@ -94,7 +94,7 @@ Propose follow-up tasks via the Savant Console task board.
 When the local brain has material changes that should propagate to the sanitized seed:
 
 ```bash
-cd "/Users/brianderario/Documents/Documents - Brian's MacBook Air/KerriOS"
+cd "/Users/brianderario/Projects/kerrios-agent-brain"
 npm run export:agent-seed
 git add data/kerrios.agent-seed.json brain/
 git commit -m "Update agent-seed: <summary of changes>"
