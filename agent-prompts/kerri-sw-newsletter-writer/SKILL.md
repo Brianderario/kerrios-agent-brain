@@ -263,13 +263,14 @@ STEP 8 — DELIVER (beehiiv primary, Kerri Console fallback)
    `ed.chain().focus().insertContentAt({from:node0.nodeSize, to:state.doc.content.size}, BODY_HTML).run()` where BODY_HTML uses `<h2>` section heads, `<ul><li>`, and real `<a href>` links.
    (Privacy note: the JS-result filter blocks returning text that contains URLs — pass HTML IN freely, but return only short status from `javascript_tool`.)
 7. **Verify** via screenshots: click THE FLOOR snippet's "Preview" toggle (confirm the dashboard renders), and scroll the body to confirm sections + blue links.
-8. Leave as an **unscheduled synced Draft** (do NOT publish — Brian/Zach's call after the editor sub-agent). Capture `/posts/<uuid>` → `state.json#currentDraftId` as `beehiiv:<uuid>`.
+8. **Set the post thumbnail + "feature on right" tag — MANDATORY every issue** (Zach standing request, 2026-06-19; recent issues defaulted to the S&W logo on the archive and missed above-the-fold because no thumbnail/tag was set). Click **"Add thumbnail"** and set a **1200x630 image tied to the Lead story — not generic stock**. Source order: (1) the Lead source's own image or a news photo of the actual company/event; (2) the picker's **Getty Images** tab for a company- or subject-specific editorial shot (licensed, but only ~3 single-use credits/month — reserve for company-specific needs); (3) the picker's **Unsplash** tab for a free on-topic industrial image. Then add the content tag **"feature on right"** so the issue lands above the fold on standardandworks.com. Confirm BOTH are set via screenshot before leaving the draft. Canonical rule: `brain/wiki/workflows/sw-newsletter-production-rules.md` (Thumbnail & Feature Rule).
+9. Leave as an **unscheduled synced Draft** (do NOT publish — Brian/Zach's call after the editor sub-agent). Capture `/posts/<uuid>` → `state.json#currentDraftId` as `beehiiv:<uuid>`.
 
 **Fallback path (Chrome bridge fails):**
 
 Create a Kerri Console task under `property_slug=standard-works`:
 - Title: `📰 SW-NEWS-<targetDate> — <Lead headline>`
-- Body: the full Markdown draft with a header: `BEEHIIV PASTE: Open beehiiv → /posts/template-library → "S&w industrialist" → Start writing → paste body below. Title + preview text are at the top of this block.`
+- Body: the full Markdown draft with a header: `BEEHIIV PASTE: Open beehiiv → /posts/template-library → "S&w industrialist" → Start writing → paste body below. Title + preview text are at the top of this block. Before leaving the draft, set a relevant 1200x630 thumbnail tied to the Lead (Getty/Unsplash in the picker) + the "feature on right" content tag — both are mandatory every issue.`
 - Use `node scripts/console-task-api.mjs create --status action_needed --agent-slug kerri-sw-newsletter-writer --property-slug standard-works --external-ref kerrios:sw-news:<targetDate> --title "<title>" --body-file <draft-file>`.
 
 Either path: also write the draft Markdown to `brain/.local/sw-newsletter-drafts/<targetDate>.md` for audit and editor handoff.

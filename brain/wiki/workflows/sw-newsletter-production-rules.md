@@ -166,6 +166,14 @@ Zach is the sole listed author on The Industrialist. Do NOT add Brian as a co-au
 
 Recurring S&W automation runs should create the review draft from Beehiiv's template library: Beehiiv -> Newsletter -> Template Library -> The Industrialist -> Use Template. Then replace the template title, preview/subtitle, and body with the current issue. Stage only the reader-facing body in Beehiiv; source notes, claims-to-check, handoff email, and LinkedIn copy stay in the local draft. Remove stale template body/image content unless Brian explicitly asks to keep it. Leave the post as an unscheduled synced draft for review.
 
+## Thumbnail & Feature Rule (Zach standing request, 2026-06-19)
+
+Every issue ships with a relevant post thumbnail and the **"feature on right"** content tag, both set before the draft is staged for review. Recent issues defaulted to the Standard & Works logo on the website archive (no thumbnail set) and missed above-the-fold placement (no feature tag). This is mandatory on every issue, primary path and Console fallback alike.
+
+- **Thumbnail:** a 1200x630 image tied to the **Lead story**, not generic stock. Source order: (1) the Lead source's own image or a news photo of the actual company/event; (2) Beehiiv's built-in **Getty Images** for a company- or subject-specific editorial shot (licensed, but only ~3 single-use credits per month, so reserve for company-specific needs); (3) Beehiiv's **Unsplash** for a free on-topic industrial image. Set it via "Add thumbnail" in the post editor.
+- **Feature tag:** apply the **"feature on right"** content tag so the issue lands above the fold on standardandworks.com.
+- **Verify** both are set (screenshot) before leaving the draft. The editor pass re-checks them as a backstop.
+
 ## Boundary
 
 Published issues are shareable S&W output. Pre-publish drafts and editorial deliberation stay local or in the agreed draft surface until Brian/Zach approve staging or sending.

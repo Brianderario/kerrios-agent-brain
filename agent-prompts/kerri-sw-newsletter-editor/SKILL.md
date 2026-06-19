@@ -92,6 +92,7 @@ Write the edited Markdown back to `brain/.local/sw-newsletter-drafts/<targetDate
 If the writer left a beehiiv draft (`currentDraftId` is set):
 - Use Chrome MCP to navigate to the beehiiv post editor
 - Replace the body with the edited Markdown
+- **Backstop the thumbnail + feature tag (mandatory every issue):** confirm the draft has a post thumbnail set AND the **"feature on right"** content tag. If either is missing, set it now — thumbnail = a 1200x630 image tied to the Lead (Getty/Unsplash in the picker), tag = "feature on right". Confirm via screenshot. Canonical rule: `brain/wiki/workflows/sw-newsletter-production-rules.md` (Thumbnail & Feature Rule).
 - Save as draft (still don't publish)
 
 If Chrome bridge fails: update the existing Kerri Console task body (`📰 SW-NEWS-<targetDate>`) with the edited version + a one-line `EDITOR PASS COMPLETE` header.

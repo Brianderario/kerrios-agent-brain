@@ -115,6 +115,7 @@ The editor/critic pass checks the draft issue against this before staging (in ad
 8. **Comprehensive within each category** (all the most important stories of the last couple of days; more bullets not fewer), accuracy + freshness bar unchanged.
 9. **House hard rules:** no em dashes, no exclamation marks, no hype adjectives, none of the AI-writing tells (especially the "not just X but Y" / "no longer X, it's Y" negation formula, rule-of-three triads, Wikipedia voice, setup-payoff).
 10. **Every link live and every FLOOR/number re-verified at the literal close** before staging (the Story Freshness + FLOOR re-pull gate).
+11. **Thumbnail + feature tag set:** a relevant 1200x630 image tied to the Lead (not generic stock) is the post thumbnail, and the **"feature on right"** content tag is applied so the issue lands above the fold. Mandatory every issue (`brain/wiki/workflows/sw-newsletter-production-rules.md`).
 
 ## WORKED BEFORE / AFTER (real 2026-06-18 bullets)
 The 6/18 issue is already strong; the upgrade is ending bullets on the so-what instead of a trailing fact.
