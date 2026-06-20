@@ -28,7 +28,7 @@ const { google } = require("googleapis");
 const { OAuth2Client } = require("google-auth-library");
 
 const REPO_ROOT = process.env.KERRIOS_ROOT ||
-  join(homedir(), "Documents", "Documents - Brian's MacBook Air", "KerriOS");
+  join(homedir(), "Projects", "kerrios-agent-brain");
 const DEFAULT_SPREADSHEET_ID = "1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk";
 const TAB_DEFAULT = "Leads";
 const HEADER = [
