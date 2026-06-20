@@ -13,12 +13,14 @@ export PATH="/opt/homebrew/opt/ruby@3.4/bin:/opt/homebrew/opt/postgresql@17/bin:
 
 RAILS_DIR="${KERRIHQ_RAILS_DIR:-$HOME/Projects/kerrihq-rails}"
 SECRETS="${KERRI_SECRETS_FILE:-$HOME/.kerri-chief/secrets/kerrihq.env}"
-# Point the kerrios.rake source reader at the relocated git brain. The rake task
-# (kerrihq-rails lib/tasks/kerrios.rake) still DEFAULTS KERRIOS_ROOT to the retired
-# iCloud path, so without this export the kerrios_brain push silently skips ("local
-# root not found"). Set in a plain assignment, not a ${VAR:-default} expansion: the
-# old default path contains an apostrophe ("Brian's MacBook Air") that breaks bash
-# parsing inside the expansion. Mirrors savant-to-brain-export.sh.
+# Point the kerrios.rake source reader at the relocated git brain. As of
+# kerrihq-rails#120 (2026-06-19) the rake task (lib/tasks/kerrios.rake) REQUIRES
+# KERRIOS_ROOT and aborts if it is unset, so this export is mandatory (previously it
+# defaulted to the retired iCloud path and the push silently skipped). Set in a plain
+# assignment, not a ${VAR:-default} expansion: the retired default path contained an
+# apostrophe ("Brian's MacBook Air") that broke bash parsing inside the expansion;
+# the relocated path has none, but the plain-assignment form is kept. Mirrors
+# savant-to-brain-export.sh.
 if [ -z "${KERRIOS_ROOT:-}" ]; then
   KERRIOS_ROOT="$HOME/Projects/kerrios-agent-brain"
 fi

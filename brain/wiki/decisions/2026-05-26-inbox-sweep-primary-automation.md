@@ -23,7 +23,7 @@ Cadence: every 15 minutes. Model: GPT-5.5 high. The first action is an atomic lo
 - `kerri@hardwarefyi.com` via custom Hardware FYI email MCP
 - `brian@hardwarefyi.com` via custom Hardware FYI email MCP
 - `info@hardwarefyi.com` via custom Hardware FYI email MCP (`info-hardwarefyi-email`), added 2026-06-10 — outreach + inbound, handled autonomously per [[2026-06-10-info-mailbox-autonomous]]
-- `brian@kerrihq.com` via Gmail, draft-only by default
+- `brian@kerrihq.com` via Gmail (read/draft) + **`mcp__kerri-gdocs__gmail_send` for real sends** — on Brian's approval the reply is SENT via gmail_send (sends as `Brian D'Erario <brian@kerrihq.com>`), not left as a manual Gmail draft. The built-in Gmail connector is draft-only; the custom kerri-gdocs MCP does the actual send. Approval still required before any send.
 - `brian@standardandworks.com` via Superhuman, with S/W boundary rules
 
 ## Approval Surface
@@ -62,7 +62,7 @@ It also runs daily and weekly reviews. Daily review turns the top repeated misse
 ## Boundaries
 
 - Brian remains approval authority for external sends and material commitments.
-- Gmail/Kerri HQ threads are draft-only unless Brian explicitly routes the send through Kerri.
+- Gmail / Kerri HQ threads: Kerri drafts, and **on Brian's approval SENDS via `mcp__kerri-gdocs__gmail_send`** (the built-in Gmail connector cannot send; the custom kerri-gdocs MCP does). Do not stop at a Gmail draft once Brian has approved. Approval is still required before every send (Brian remains approval authority).
 - S/W internal content is not copied into the shared brain.
 - No raw emails or private thread dumps enter the repo.
 - Failed Google Tasks read means fail closed: no sends.

@@ -35,6 +35,29 @@ const DASH_NAMES = {
   '―': 'horizontal bar',
 };
 
+// "Deliverable" nouns: documents/assets a recipient is meant to receive.
+const ASSET_NOUN =
+  `(?:one[- ]?sheeter|one[- ]?pager|sheet|deck|slides?|proposal|draft|report|` +
+  `contract|agreement|invoice|media ?kit|document|doc|file|pdf|quote|brief|` +
+  `recap|write[- ]?up|summary|spec|mockup|wireframe)`;
+// Verbs that mean "I will hand this over in a later message".
+const DEFER_VERB =
+  `(?:send|get|share|forward|shoot|deliver|provide|` +
+  `put together|pull together|have ready|send over|shoot over)`;
+// "I'll send you the one-sheeter" / "I'm going to put together a proposal".
+const DEFER_PROMISE_RE = new RegExp(
+  `\\b(?:i'?ll|i will|i'?m going to|i am going to|let me)\\s+` +
+  `(?:${DEFER_VERB})\\b[^.!?\\n]{0,40}\\b${ASSET_NOUN}\\b`,
+  'i',
+);
+// "Sending the deck shortly" / "the proposal is on its way" — same defer, reframed.
+const DEFER_PROMISE_RE2 = new RegExp(
+  `\\b(?:sending|forwarding)\\b[^.!?\\n]{0,40}\\b${ASSET_NOUN}\\b` +
+  `|\\b${ASSET_NOUN}\\b[^.!?\\n]{0,25}\\b(?:is coming|to follow|on its way|` +
+  `will follow|by (?:eod|end of day|tomorrow|this afternoon))`,
+  'i',
+);
+
 function log(line) {
   try {
     fs.appendFileSync(LOG_PATH, line + '\n');
@@ -100,6 +123,15 @@ function runChecks(toolName, toolInput) {
   // 4. Promises an attachment but none is attached on this call.
   if (/\b(attached|i'?ve attached|see attached|media kit|enclosed|attachment)\b/i.test(text) && !hasAttachment(toolInput)) {
     violations.push('Body references an attachment (e.g. "attached"/"media kit") but no attachment is on this call. Attach the file via the attachments param, or remove the promise.');
+  }
+
+  // 5. Promises to hand over a deliverable in a LATER message, nothing attached now.
+  //    This is the "I'll send it later" failure: the job is meant to be finished now,
+  //    but the email defers the asset to a send no background run will ever make.
+  //    Fix: finish and attach it on this call, OR capture the hand-off as a durable
+  //    one-time scheduled task / Console card so it actually happens. Never a bare promise.
+  if (!hasAttachment(toolInput) && (DEFER_PROMISE_RE.test(text) || DEFER_PROMISE_RE2.test(text))) {
+    violations.push('Body promises to send a deliverable later (e.g. "I\'ll send the one-sheeter") with nothing attached. Finish and attach it on this call, or remove the promise and capture the hand-off as a durable scheduled task / Console card so it actually happens.');
   }
 
   return violations;

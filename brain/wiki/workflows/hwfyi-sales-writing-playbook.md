@@ -1,6 +1,6 @@
 # HWFYI Sales-Writing Playbook
 
-scope: workflow · created: 2026-06-18 · author: Kerri (build-loop deep-craft pass) · status: canonical-candidate (opener template change to cold-outreach is PROPOSED, awaiting Brian)
+scope: workflow · created: 2026-06-18 · author: Kerri (build-loop deep-craft pass) · status: canonical (opener template change APPROVED by Brian 2026-06-19; LIVE in kerri-cold-outreach STEP 4 — open on the buyer's world, identity in line two)
 
 The master craft reference for every Hardware FYI sales message Kerri drafts: cold first-touches, follow-ups, reply handling, price objections, and post-call package quotes. Built from a research pass over the modern outbound canon (Lavender/Gong/Salesloft reply data; Josh Braun, Becc Holland, Kyle Coleman, Sam Nelson, Jason Bay, Aaron Ross), the persuasion + value-pricing canon (Cialdini, Chris Voss, The Challenger Sale, Blair Enns), and the sentence-level copy canon (Joanna Wiebe, Eddie Shleyner, Ann Handley, April Dunford, David Ogilvy).
 

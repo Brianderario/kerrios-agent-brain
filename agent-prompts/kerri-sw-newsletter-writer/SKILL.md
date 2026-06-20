@@ -28,7 +28,8 @@ Read-only:
 - `agent-prompts/kerri-skill/references/voice-sw-newsletter.md` — voice
 - `agent-prompts/kerri-skill/references/sw-lead-writing-playbook.md` — how to write the whole issue. Part 1 = the Lead (hook-first, copywork-derived; load before drafting the Lead). Part 2 = the whole issue (subject/preview, the "so what" bullet, section pacing, the WATCH line, the close, the whole-issue rubric); apply Part 2 when building the roundups + Dealbook (STEP 5).
 - `brain/wiki/workflows/sw-newsletter-production-rules.md` — canonical S&W newsletter production rules and mailbox routing
-- `data/sw-newsletter/sources.json` — curated source list per category (editable)
+- `data/sw-newsletter/sources.json` — curated publication source list per category (editable)
+- `data/sw-newsletter/tracked-companies.json` — the KMG hard-tech company universe (~533 cos) + Relay "Wire" feed + the Hard Tech Watchlist X List + the Relay-sector→S&W-section map. This is the company-first discovery layer the writer leads STEP 3 with (see STEP 3a).
 - `brain/wiki/companies/standard-and-works.md` — S&W boundary rules (frozen legacy page; still the boundary-policy reference, but company CRM facts live in the KMG Console)
 - Recent published archive: WebFetch `https://www.standardandworks.com/` to see what shipped this week (avoid repeating Lead topics, dedup stories)
 - Gmail voice archive: `brian@kerrihq.com` via Gmail plugin, query `from:editor@standardandworks.com newer_than:90d`
@@ -86,7 +87,13 @@ Mark each suggestion as **must-include** (if Brian or Zach used `[REQUIRED]` in 
 STEP 3 — SCAN SOURCES + BUILD CANDIDATE POOL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-For each category in `data/sw-newsletter/sources.json`, WebFetch the source URLs and extract the last ~48 hours of headlines with links. Filter for capex-relevance:
+**3a — Company-tracking pass (do this FIRST; these are the companies S&W exists to cover).** Before the publication scan, pull the KMG hard-tech company universe's news from `data/sw-newsletter/tracked-companies.json`:
+- **Relay "The Wire" feed** (relay.industries/map, via Brian's logged-in Chrome): a real-time, company- and sector-tagged firehose of the US industrial base, pre-filtered to almost exactly our universe (~533 companies). Pull the in-window items, map each item's `sectors` to the 6 S&W sections via `tracked-companies.json#sectorMap`, and seed the candidate pool with them. Highest-signal discovery layer — start here.
+- **Hard Tech Watchlist (X List)** (x.com/i/lists/2068048818567057848): scan recent posts for in-window milestones the trade press has not picked up yet (criticality, first flight, contract award, factory open, first silicon) — companies announce on X before the wires.
+
+These are DISCOVERY inputs, NOT a bypass of the bar: every item still needs a dollar/output figure, a named source, and an in-window publication date, verified against the underlying source URL. A tracked-company story beats a generic trade-press item of equal magnitude, and the Wire's cross-company patterns often carry the issue's Lead hook (feed them into STEP 4 too). Apply the scope filter (route only hardware / defense / energy / mfg / maritime / materials items; let AI / software / biotech pass to Hardware FYI).
+
+**3b — Publication scan.** For each category in `data/sw-newsletter/sources.json`, WebFetch the source URLs and extract the last ~48 hours of headlines with links. Filter for capex-relevance:
 - Dollar figure attached (funding, contract, capex announcement)
 - Named company (no rumor-only items)
 - Within S&W beats (defense, semis, energy, mfg, maritime, supply chain) + industrial policy

@@ -18,9 +18,11 @@ export PATH="/opt/homebrew/opt/ruby@3.4/bin:/opt/homebrew/opt/postgresql@17/bin:
 
 RAILS_DIR="${KERRIHQ_RAILS_DIR:-$HOME/Projects/kerrihq-rails}"
 SECRETS="${KERRI_SECRETS_FILE:-$HOME/.kerri-chief/secrets/kerrihq.env}"
-# Default the repo root in a plain double-quoted assignment. The path contains an
-# apostrophe ("Brian's MacBook Air"); inside a ${VAR:-default} expansion bash treats
-# that apostrophe as an unterminated single quote and fails to parse the whole script.
+# Default the repo root in a plain assignment, then export it. As of kerrihq-rails#120
+# (2026-06-19) kerrios.rake REQUIRES KERRIOS_ROOT and aborts if unset, so this export is
+# mandatory. Plain assignment (not a ${VAR:-default} expansion) because the retired
+# iCloud default ("Brian's MacBook Air") had an apostrophe that bash mis-parsed as an
+# unterminated quote inside the expansion; the relocated path has none, but the form is kept.
 if [ -z "${KERRIOS_ROOT:-}" ]; then
   KERRIOS_ROOT="$HOME/Projects/kerrios-agent-brain"
 fi
