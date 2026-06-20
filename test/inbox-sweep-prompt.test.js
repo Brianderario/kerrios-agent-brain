@@ -64,7 +64,10 @@ test('inbox sweep prompt preserves approval gates and mailbox routing', () => {
     'kerri@hardwarefyi.com → `kerri-hardwarefyi-email`',
     'brian@hardwarefyi.com → `brian-hardwarefyi-email`',
     'brian@kerrihq.com → the Gmail connector',
-    'NO send. Kerri never sends as brian@kerrihq.com',
+    // 2026-06-19 (Brian-approved): Kerri now SENDS as brian@kerrihq via gmail_send on an
+    // APPROVED task (replaces the old draft-only "never sends" rule). The load-bearing
+    // safety invariant is approval-gating, asserted here:
+    "Sending still requires Brian's approval of the task first",
     'brian@standardandworks.com → the Superhuman connector',
     'Savant tasks API → `node scripts/console-task-api.mjs ...`',
     'APPROVAL CHANNEL: Savant production Tasks board',
@@ -544,14 +547,19 @@ test('state writes are validated and timestamps computed in-process', () => {
 });
 
 test('cold outreach prompt keeps first-touch emails short and partnership-focused', () => {
+  // 2026-06-19 (Brian-approved): opener upgraded to the four-beat structure — open on
+  // THEIR world, identity + audience proof in line two — replacing the old identity-first
+  // "I'm Kerri / We're a media company" opener. Test now asserts the new structure while
+  // keeping the short + partnership-focused + one-interest-CTA guarantees.
   assertAll(coldOutreachPrompt, [
-    '4-5 short sentences after the greeting',
-    "I'm Kerri, and I work on partnerships at Hardware FYI.",
-    "We're a media company with a newsletter covering hardware manufacturing, read by over 19,000 hardware engineering leaders and decision makers.",
-    '<Company> seems like a strong fit because <specific fit>.',
-    "If this is interesting, I'd love to have a conversation about partnering together. Happy to answer any questions.",
-    'omit by default on first cold outreach'
+    'the four-beat cold first-touch',
+    'NEVER open about us',
+    'I work on partnerships at Hardware FYI, the newsletter over 19,000 hardware engineers and engineering leaders read each week.',
+    'under ~75 words at reading grade 3-5',
+    'exactly one interest/value CTA (not a time ask)'
   ]);
+  // The retired identity-first opener must never regress back in.
+  assert.doesNotMatch(coldOutreachPrompt, /I'm Kerri, and I work on partnerships at Hardware FYI\./);
   assert.doesNotMatch(coldOutreachPrompt, /3–5 sentences/);
 });
 
