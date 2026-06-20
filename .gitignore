@@ -25,6 +25,11 @@ data/leads-crm-export-*.csv
 data/eod-state.json
 data/eod-grades.json
 data/eod-fallback-*.json
+data/eod-body-*.txt
+data/eod-notx-*.txt
+data/eod-task-*.txt
+data/eod-conferences-*.json
+data/presend-lint.log
 data/morning-brief-state.json
 data/morning-brief-run-state.json
 data/morning-brief-fallback-*.md
