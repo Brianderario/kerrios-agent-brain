@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-19",
+  "purpose": "The KMG hard-tech company universe Standard & Works exists to cover every week. Wired into the newsletter writer's STEP 3 so each issue is built COMPANY-first (what our companies did) and not just PUBLICATION-first (what the trade press happened to write). A milestone from one of these companies should not depend on a generic outlet noticing it.",
+
+  "primarySource": {
+    "name": "Relay 'The Wire' feed",
+    "map": "https://relay.industries/map/",
+    "by": "Relay Industries (Robert Johns, @RobertJohns)",
+    "what": "Real-time reindustrialization news firehose. Each item is tagged with company, sectors[], location, source, url, date. Covers ~533 US industrial-base companies across 21 sectors. Pre-filtered to almost exactly our universe, so it is the single highest-signal discovery layer for the issue.",
+    "howToPull": "Load relay.industries/map in Brian's logged-in Chrome (Claude-in-Chrome). The app fetches a news-feed endpoint returning {generatedAt, items:[{headline,date,summary,company,location,sectors,source,url,status}]}. Fetch it from INSIDE the page and read only the fields. The resource URL carries an API key in its query string, so never surface the URL; extract only headline/company/sectors/date/source. Keep only items published after the last sent issue and before staging (Story Freshness Gate).",
+    "fullUniverseSnapshot": "/Users/brianderario/.claude/skills/hard-tech-roundup/references/relay-builders-directory.md (533-company roster + sector decode, pulled 2026-06-19)"
+  },
+
+  "socialSource": {
+    "name": "Hard Tech Watchlist (X List)",
+    "url": "https://x.com/i/lists/2068048818567057848",
+    "what": "133 of our tracked companies + founders on X. Scan recent posts for in-window milestones the trade press has not picked up yet (criticality, first flight, contract award, factory open, first silicon) — companies announce on X before the wires. Verify and quantify against a real source before using.",
+    "peopleMap": "/Users/brianderario/.claude/skills/hard-tech-roundup/references/hard-tech-people-map.md"
+  },
+
+  "sectorMap": {
+    "comment": "Relay sector tags -> S&W canonical section. Route each tracked-company item into the matching section's candidate pool.",
+    "Defense & Space": ["space", "defense", "aerospace", "drones"],
+    "Semiconductors & Electronics": ["semiconductors", "electronics", "optics", "compute"],
+    "Energy & Materials": ["energy", "nuclear", "materials", "mining"],
+    "Manufacturing & Automation": ["manufacturing", "robotics", "construction"],
+    "Maritime & Shipbuilding": ["maritime"],
+    "Supply Chain & Freight": ["logistics", "mobility"]
+  },
+
+  "rules": [
+    "DISCOVERY, NOT A BYPASS. The Wire + X List surface candidates; every item still has to clear the writer's hard rules — a dollar/output figure, a named source, and an in-window publication date verified against the underlying source URL.",
+    "Tracked beats generic. A story about a company in this universe is preferred over a generic trade-press item of equal magnitude. These are the companies we cover.",
+    "Scope filter. Relay tags many AI / software / biotech firms that are out of S&W's capex-industrial scope. Route only the hardware / defense / energy / manufacturing / maritime / materials items; let the rest pass to Hardware FYI.",
+    "Lead candidates too. The Wire often carries the issue's strongest Lead hook (a cross-company pattern). Feed its items into STEP 4, not just the roundups."
+  ]
+}

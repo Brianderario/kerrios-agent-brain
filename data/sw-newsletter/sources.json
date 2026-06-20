@@ -2,6 +2,7 @@
   "version": 1,
   "updatedAt": "2026-05-24",
   "notes": "Source feeds the S&W writer scans Mon/Wed nights to build the Industrialist issue. Add/edit as Brian + Zach find better signal-to-noise sources. The writer pulls headlines, filters for capex-relevance, dedups against last issue, then drafts.",
+  "companyTracking": "STEP 3a now leads with data/sw-newsletter/tracked-companies.json (the KMG company universe: Relay 'Wire' feed + Hard Tech Watchlist X List), company-first, BEFORE this publication scan. These publication feeds are the second pass.",
   "byCategory": {
     "defense-and-space": [
       { "name": "Breaking Defense", "url": "https://breakingdefense.com/", "rssHint": "https://breakingdefense.com/feed/" },
