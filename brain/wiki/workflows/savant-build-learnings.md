@@ -103,6 +103,42 @@ Keep each entry plain enough that Don could read it cold and a future agent coul
 **Lesson:** A git worktree + a separate DB (DATABASE_URL) is the clean way to run unattended work alongside another session — the only shared resources left (the Postgres SERVER and the git object store) are concurrency-safe by design. Gotchas: a fresh worktree has EMPTY gitignored `app/assets/builds` so ALL system specs fail until you copy/rebuild the JS+CSS; one isolated DB used for both schema + rspec needs `db:environment:set RAILS_ENV=test` (it gets stamped `development` by `db:schema:load`); and re-fetch + `merge-base --is-ancestor origin/main HEAD` before every push because a co-tenant session may advance main. Don't park on a co-tenant collision when isolation is available — but DO surface it in the report so the human can avoid double-booking the repo.
 **Tags:** ops, git-worktree, isolation, concurrency, database, deploy, system-specs, assets, build-loop, [[draft-learnings]]
 
+## [2026-06-19] revenue/pricing-intelligence — a full-members-only read screen over the real demand curve
+**Problem:** Ship a read-only Pricing Intelligence view under Revenue that shows KMG's realized demand curve
+(win/loss + realized price by deal category and by deal-size band) from REAL closed deals only, zero invented
+numbers, gated to full members (the external partner must never see pricing), no migration.
+**Fix:** `Revenue::PricingIntelligence.new(deals_relation).call` (in-memory aggregation over `deals.closed`,
+PORO+`call`+string-keys like the `Crm::*Brief`s) returning `by_category` (deal_type), `by_size_band`, `totals`,
+`excluded_unpriced_closed`. `PricingIntelligenceController` mirrors PipelineController BUT adds a
+`before_action :require_pipeline_access` (raise `Pundit::NotAuthorizedError unless can_see_pipeline?`), and
+feeds the service `policy_scope(@organization.deals)`. Monaco view (panel + `overflow-x-auto` tables + per-segment
+empty-state). Nav link inside the existing `unless current_user_is_event_guest?` Revenue block. Commits 0dff010
+(service+spec) + 2160915 (view/route/access). Full suite 1711/0.
+**Lesson:** (1) **The renewals/pipeline `authorize @organization, :show?` gate is NOT full-members-only** — it
+admits event_guests (data merely scoped). For a screen the external partner must not see AT ALL, add an explicit
+`before_action` raising `Pundit::NotAuthorizedError unless current_user.can_see_pipeline?(@organization)`; the
+ApplicationController rescue turns it into a 302 redirect (= "blocked" in the request matrix). Put the nav link
+inside the existing `unless current_user_is_event_guest?` block (already hides it from the partner) and key
+`nav-item-active` on `/pricing_intelligence` (does NOT collide with the worklist's `/pipeline` check). (2) **Feed
+aggregate services `policy_scope(@organization.deals)`, not `@organization.deals`** — then DealPolicy::Scope's
+restricted-event filter flows into the numbers for free (proven: Ironclad $77K deal IN for an allow-listed member,
+OUT for a blocked one, in one request spec). (3) **Real deal facts for any pricing/segmenting work:** `deal_type`
+is nearly uniform (40/41 won = sponsorship) so it's a weak-but-honest always-present category; the size-band is
+where the curve lives. Price stats use **closed_won value only** (lost values are proposed, not realized); null/zero
+values are excluded from every stat AND can't be size-banded (mostly the lost) — surface them as an explicit
+excluded count, never invent a band. (4) **Verify an aggregation service on REAL data BEFORE deploy, no prod
+write:** pull the real rows read-only from `/api/v1`, build unsaved `Deal.new(...)` instances, and run the service
+over them (it takes any Deal enumerable) — reproduced the exact prod curve (won=41 median=$10K bands 4/16/13/6/2)
+while the feature was still on a branch. (5) **Capybara `have_content("By deal category")` fails on a `.microlabel`
+title** because CSS `text-transform: uppercase` renders "BY DEAL CATEGORY"; the failure message says "found ... using
+a case insensitive search." Match uppercased/microlabel UI text with `have_content(/by deal category/i)`, not a literal
+(sibling of the design-system "sentence-casing breaks the literal assertion" gotcha). (6) **Reuse last night's worktree
+by rebasing onto origin/main, not local main:** `git checkout -B <branch> origin/main` — local `main` had drifted 10
+behind because prior runs deploy via `git push origin HEAD:main` and never fast-forward local main; origin/main is the
+deployed ground truth, so base the branch (and verify the foundation helpers exist) there, then re-prep the dedicated test DB.
+**Tags:** revenue, pricing, services, authz, pundit, can-see-pipeline, policy-scope, nav, system-specs, capybara,
+phantom-data, deals, verification, worktree, [[draft-learnings]], [[compound-engineering]]
+
 ## Patterns (generalized from multiple Learnings)
 
 <!-- Promote a rule here only after several Learnings above point the same way. Each pattern cites the Learnings it came from. None yet. -->
