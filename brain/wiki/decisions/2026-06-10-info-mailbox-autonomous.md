@@ -25,8 +25,8 @@ Auto-logged at info@: scheduling-logistics-reply, warm-thread-holding-reply, pip
 Brian confirmed the broader scope and added four binding rules: "Yes, and please loop Benji and me in if somebody reaches out. Put my calendar up if they're looking for sponsorship, and put Benji's calendar up if they're looking for content. Never guess and only act if you definitively know. Always flag to me if there's an issue."
 
 1. **Loop-in:** every autonomous reply to real human inbound at info@ CCs brian@hardwarefyi.com + benji@hardwarefyi.com. Cold outreach from info@ still CCs nobody.
-2. **Calendar routing** (links pulled from real sent threads and verified live against Calendly's booking API 2026-06-10):
-   - Sponsorship / advertising / partnership-commercial intent → Brian: `https://calendly.com/brian-hardwarefyi/30min` (owner verified Brian D'Erario)
+2. **Calendar routing** (originally Calendly, verified 2026-06-10; **updated 2026-06-20: Brian's side moved to Reclaim, Benji's stays Calendly**):
+   - Sponsorship / advertising / partnership-commercial intent → Brian: `https://app.reclaim.ai/m/brian-derario/hardware-fyi-meeting` (Reclaim, Hardware FYI side, 30 min, Zoom; owner Brian D'Erario; replaced his retired Calendly link 2026-06-20)
    - Content / editorial / newsletter-feature intent → Benji: `https://calendly.com/hardwarefyi/30min` (owner verified **Benjamin Chia** — the brand-neutral slug books with Benji, so never offer it for sponsorship; his personal alternate is `calendly.com/chiajbenjamin/30min`)
 3. **Never guess:** facts in autonomous replies must be definitively known (wiki, verified thread history, canonical docs). Ambiguous or mixed intent → no calendar, fall back to an approval task. Pricing questions → offer the call + correct calendar, never numbers.
 4. **Always flag issues:** errors, ambiguity, boundary questions, surprises at info@ → flagged to Brian (task or text), never silently handled or dropped.

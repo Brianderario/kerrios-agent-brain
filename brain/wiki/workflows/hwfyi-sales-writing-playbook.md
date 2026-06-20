@@ -131,7 +131,7 @@ Never defend, justify, or itemize the price, and never preemptively discount (th
 
 ## PART C — THE POST-CALL QUOTE / PROPOSAL
 
-The package SHAPE, the discount ladder, the concrete content titles, and the Calendly rule are all in [[hwfyi-package-quote-playbook]]. Use it for the body. This section adds the NARRATIVE and the option psychology that wrap it.
+The package SHAPE, the discount ladder, the concrete content titles, and the booking-link rule are all in [[hwfyi-package-quote-playbook]]. Use it for the body. This section adds the NARRATIVE and the option psychology that wrap it.
 
 ### C1. The narrative arc
 
@@ -140,7 +140,7 @@ Their world → the gap and its cost → the bridge → the options → a low-fr
 - Name the gap and its cost: "Right now they do not meet you where they already pay attention, and that quiet costs you pipeline every month."
 - Bridge to the audience, not the product (value-first).
 - Present the packages (per [[hwfyi-package-quote-playbook]]).
-- Close on one small step. When the ask is "review and reply," close with "Let me know if I can answer any other questions!" and no Calendly (per the quote playbook's Calendly rule).
+- Close on one small step. When the ask is "review and reply," close with "Let me know if I can answer any other questions!" and no booking link (per the quote playbook's booking-link rule).
 
 ### C2. Presenting tiered options (Enns)
 

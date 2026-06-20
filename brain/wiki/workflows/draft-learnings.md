@@ -37,7 +37,7 @@ Format:
 
 **Why:** Models default to abstract/named/single-product/list-priced/strategy-narrated and over-stuff the offer (a webinar for an early-GTM prospect Brian had said should start with content). Brian sells with concrete bundles, real product names, rate-card value framing, shown-not-told proof, and a low-friction "review and reply" close.
 
-**Rule:** For post-call sponsor package quotes, follow [[hwfyi-package-quote-playbook]]: 2–3 mixed-product bundles named Package A/B/C, anchored high→low with rate-card on the top tier; real product names + flexible Partner Program durations; lead with content and don't bolt on webinars/events unless the buyer's goal calls for it; give concrete article titles; link a live issue and point to the slots; close with "Let me know if I can answer any other questions!" and **Calendly only when the ask is a meeting**, not when the ask is "review these and reply."
+**Rule:** For post-call sponsor package quotes, follow [[hwfyi-package-quote-playbook]]: 2–3 mixed-product bundles named Package A/B/C, anchored high→low with rate-card on the top tier; real product names + flexible Partner Program durations; lead with content and don't bolt on webinars/events unless the buyer's goal calls for it; give concrete article titles; link a live issue and point to the slots; close with "Let me know if I can answer any other questions!" and **a booking link only when the ask is a meeting**, not when the ask is "review these and reply."
 
 ## [2026-05-27] EOD-H02 — Duro Labs
 
@@ -63,7 +63,7 @@ Format:
 
 **Why:** When the close of a draft is a meeting offer, the natural next click is the calendar. Making Brian remind me to drop it in adds a manual step every send. The Calendly link is a fixed reflex, not a per-draft decision.
 
-**Rule:** **Any draft that offers a call, demo, intro, or meeting MUST include Brian's Calendly link inline.** Standard URL: `https://calendly.com/brian-hardwarefyi/30min`. Phrasing for Brian-as-sender: "My calendar's here: <url>" or "Grab time here: <url>". Phrasing for Kerri-as-sender: "Here's Brian's calendar link: <url>" (locked phrasing per [[../../agent-prompts/kerri-skill/references/voice]]). Never offer a call without the URL.
+**Rule:** **Any draft that offers a call, demo, intro, or meeting MUST include Brian's booking link inline.** Standard URL: `https://app.reclaim.ai/m/brian-derario/hardware-fyi-meeting` (Reclaim, Hardware FYI side, 30 min, Zoom; replaced the retired Calendly link 2026-06-19). Phrasing for Brian-as-sender: "My calendar's here: <url>" or "Grab time here: <url>". Phrasing for Kerri-as-sender: "Here's Brian's calendar link: <url>" (locked phrasing per [[../../agent-prompts/kerri-skill/references/voice]]). Never offer a call without the URL.
 
 ## [2026-05-24] Voice-rewrite from sent-mail corpus — not a job-specific lesson, a baseline reset
 

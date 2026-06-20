@@ -36,7 +36,7 @@ Active conversation. Sid Khullar (CEO, Aris Machina AB) is evaluating HWFYI spon
 
 ## What a good nudge looks like (when it becomes our court again)
 
-Reference the specific gaps Sid raised: non-primary slot format + creative help. Offer a 15-min call (calendly.com/brian-hardwarefyi/30min) OR a screen-share walkthrough of past partner-program issues. Never generic "checking in."
+Reference the specific gaps Sid raised: non-primary slot format + creative help. Offer a 15-min call (https://app.reclaim.ai/m/brian-derario/hardware-fyi-meeting) OR a screen-share walkthrough of past partner-program issues. Never generic "checking in."
 
 ## Linked
 - Company page: [[../companies/aris-machina]]

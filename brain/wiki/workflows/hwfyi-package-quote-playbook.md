@@ -11,7 +11,7 @@ How Brian writes a **post-call sponsor package quote**. Use this whenever the ne
 3. **Concrete content titles.** Give 1–2 *working article titles* they can picture, e.g. "Moving from prototype to product with safety in mind," "Safety Workflows for Startups." Never an abstract angle description.
 4. **2–3 packages, named Package A / B / C, anchored high → low.** Each is a **deliverable list with real product names + quantities + durations**, then a price. Put rate-card anchoring on the top tier.
 5. **Live example link + where their units sit.** Link a recent issue and point to the exact slots ("the Jiga ad is the Primary Placement; Tools From Our Sponsors is where your Partner Program placements live"). Show, don't quote a stat.
-6. **Simple close.** "Let me know if I can answer any other questions!" + `Brian`. **No Calendly here** — the ask is "review and reply," not a meeting (see Calendly rule below).
+6. **Simple close.** "Let me know if I can answer any other questions!" + `Brian`. **No booking link here** — the ask is "review and reply," not a meeting (see booking-link rule below).
 
 ## Package construction rules
 
@@ -47,9 +47,9 @@ This applies to every sponsor draft: replies to price pushback, follow-ups after
 
 Use this ladder as a default template for a similar early-stage technical sponsor; adjust to the account's history and budget.
 
-## Calendly rule (refined)
+## Booking-link rule (refined)
 
-Include Brian's Calendly **only when the ask is a meeting** (book/rebook a call, demo, intro). When the ask is "review these options and reply," close with "Let me know if I can answer any other questions!" — no link. (Supersedes the blanket "every meeting-ish draft needs Calendly" reading.) Link, when used: `https://calendly.com/brian-hardwarefyi/30min`.
+Include Brian's booking link **only when the ask is a meeting** (book/rebook a call, demo, intro). When the ask is "review these options and reply," close with "Let me know if I can answer any other questions!" — no link. (Supersedes the blanket "every meeting-ish draft needs a booking link" reading.) Link, when used: `https://app.reclaim.ai/m/brian-derario/hardware-fyi-meeting`.
 
 ## Related
 

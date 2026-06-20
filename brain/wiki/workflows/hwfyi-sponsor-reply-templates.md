@@ -74,7 +74,7 @@ Here are the other products we offer that I think you'd be interested in:
 
 <Product / category>: <1 short paragraph with audience size, lead list, attendee/registrant numbers, or timing>.
 
-Let me know when you have some time this week to jump on a call together and I'm adding my calendar here in case that's easier: https://calendly.com/brian-hardwarefyi/30min
+Let me know when you have some time this week to jump on a call together and I'm adding my calendar here in case that's easier: https://app.reclaim.ai/m/brian-derario/hardware-fyi-meeting
 
 Let me know if I can answer any other questions!
 

@@ -64,7 +64,7 @@ From the transcript, make an explicit list of everything Brian said he would sen
 3. Include ALL deliverables: in the body (data, packages, links) or as attachments (PDFs, spreadsheets, reports)
 4. Structure for the recipient's next step: they need to take this to their team and make a decision. Give them everything they need to do that in one email.
 5. Include a live issue link so they can see where placements sit
-6. Close per the playbook: "Let me know if I can answer any other questions" (no Calendly unless the ask is a meeting)
+6. Close per the playbook: "Let me know if I can answer any other questions" (no booking link unless the ask is a meeting)
 
 ## Phase 4: Completeness test (every draft, no exceptions)
 

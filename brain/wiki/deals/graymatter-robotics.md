@@ -30,7 +30,7 @@ AI-powered robotic finishing (sanding, polishing, painting). Cold outreach to Ra
 
 ## Pipeline state
 
-- **Status: active.** Rand pivoted to employer-brand angle and intro'd Obi. Kerri reply queued to engage Obi on recruiting/employer-brand partnership + Calendly. Pending Brian approval (H0059 Google Task).
+- **Status: active.** Rand pivoted to employer-brand angle and intro'd Obi. Kerri reply queued to engage Obi on recruiting/employer-brand partnership + a booking link. Pending Brian approval (H0059 Google Task).
 - **Last sender: them** (Rand's reply with Obi intro, Jun 9).
 
 ## Source
