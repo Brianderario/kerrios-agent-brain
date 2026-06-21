@@ -75,6 +75,7 @@ Read + write every run:
   }
   ```
 - `data/cold-do-not-contact.json` — array of emails/domains that asked to stop. Schema: `[ { "email": "x", "reason": "unsub | manual | brian-flagged", "addedAt": "ISO" } ]`
+- `data/cold-contacted-domains.json` — persistent cache of every domain we've ever cold-contacted or had two-way contact with (cold sends + mailbox sweep + discovered prior-contacts). The CHEAP first-pass dedup (STEP 3A) so we don't re-cold or waste draft budget on already-contacted companies the CRM doesn't know about. Schema: `{ description, updatedAt, source_counts, domains: string[] }`. Append a domain whenever the per-target email-history check discovers a new prior contact; the inbox sweep appends on send.
 
 Read-only:
 - `agent-prompts/kerri-skill/references/voice.md` — Brian's voice (apply every rule)
@@ -126,6 +127,7 @@ STEP 3 — DEDUP + ENRICH (per target, up to `budget`)
 For each target in the bounded queue slice until 10 qualified drafts are created, the cap is reached, 25 queue entries have been inspected, or the queue is exhausted:
 
 A) **Dedup checks** (in order, skip target if any hit):
+   - **Contacted-domains cache (CHEAP, check FIRST) — `data/cold-contacted-domains.json`.** If the target's domain is in this persistent cache (every domain we've ever cold-contacted or had two-way contact with), skip immediately and remove from queue — no Apollo, no per-target mailbox search needed. This is what keeps already-contacted companies (e.g. Brian's Jan 2026 Kinetic push, which never hit the CRM) from burning the scarce draft budget. The per-target email-history check below is still the backstop for anything the cache doesn't yet hold; whenever that check discovers a NEW prior contact, append the domain to `data/cold-contacted-domains.json` (and record it in `state.skipped[]`) so it's caught cheaply from then on.
    - Email exists in `cold-do-not-contact.json` → skip, remove from queue silently.
    - A Savant contact already exists for this email/company (`GET /api/v1/people?company_id=<id>`, the CRM system of record) → skip, log to `state.skipped[]`. (`brain/wiki/people/` is frozen — do not use it as the dedup source.)
    - Email in `data/jobs.json` internetMessageIds → already in active sweep flow, skip.

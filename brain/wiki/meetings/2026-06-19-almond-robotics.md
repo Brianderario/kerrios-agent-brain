@@ -16,12 +16,14 @@ scope: meeting · updated: 2026-06-19
 - Saba asked how much the community cares about "made in the US." Brian: it's the moment — sovereign supply chain is resonating strongly post-Reindustrialize; both attended Reindustrialize this week.
 
 ## Action items
-- **Brian → intro Saba to Benji** for organic newsletter coverage of Axle (executed via the post-call follow-up, Benji cc'd).
-- **Brian → send Saba pricing + details** for the July happy hour and SF Tech Week showcase (event showcase pricing TBD — Brian to confirm).
-- Benji to evaluate Axle for an organic write-up.
+- **Brian → intro Saba to Benji** for organic newsletter coverage of Axle. DONE 2026-06-20: Brian-signed intro sent (new "Intro:" thread, To saba@almondbot.com + benji@hardwarefyi.com). Plain intro, handed to Benji to decide on coverage.
+- **Brian → send Saba pricing + details** for the July happy hour and SF Tech Week showcase. DONE 2026-06-20: Brian-signed priced event menu sent to saba@almondbot.com (reply on Exhibitor/Demo thread, Saba only — paid lane). Pricing used (canonical, hardware-fyi.md): happy hour table $5K; SF Tech Week Supporting $6K / Presenting $15K. NOTE: the "pricing TBD" the EOD card flagged was wrong — pricing was already canonical; the EOD draft just left a placeholder.
+- Benji to evaluate Axle for an organic write-up (ball with Benji + Saba after the intro).
+- Deal H0156 advanced qualified → proposal_sent, value $6K (middle-of-the-road menu option) on 2026-06-20.
 
 ## Open questions
-- Event showcase pricing/options for the happy hour + SF Tech Week (not quoted on the call; Brian owns).
+- SF Tech Week per-tier deliverables: the Supporting ($6K) / Presenting ($15K) inclusions were itemized to Saba for the first time on 2026-06-20 (drafted by Kerri; see hardware-fyi.md events section). They are now client-facing for Almond but should be formalized into a canonical SFTW sponsor-tier sheet so every future quote + the SOW match.
+- Happy hour exact date (SFBCo soft holds 7/28-7/31, not locked; Benji owns venue thread H0031).
 
 ## Compact entity updates
 - Almond Robotics: Axle (dual-arm robot / dev kit) launched publicly week of 2026-06-15, made in SF, orders + ~20 demos in first week; founder-led social engine. Interested in organic newsletter coverage + in-person event showcase. (src: meetings/2026-06-19-almond-robotics.md)

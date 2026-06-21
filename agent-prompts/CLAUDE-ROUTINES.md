@@ -104,6 +104,12 @@ Lead research + cold outreach were promoted to live scheduled-tasks crons after 
 
 `kerri-sw-newsletter-writer` / `-editor` / `-marketing`. Boundary + approval rules per [[../brain/wiki/companies/standard-and-works]]. Not scheduled — driven by issue cadence; never auto-posts.
 
+**Audience growth (scheduled):**
+
+| Routine | cron | Prompt | Perceive → Propose → Gate → Act → Record → Improve |
+|---|---|---|---|
+| `kerri-sw-linkedin-connect` | `45 7 * * 1-5` | `kerri-sw-linkedin-connect/SKILL.md` | Relay 533-company hard-tech universe (`relay-builders-directory.md`) + curated investor seed + `data/sw-linkedin-connect/state.json` dedupe/cursors -> 20 net-new LinkedIn connects (15 company CEO/COO/CFO/founder + 5 investors) each with name + title + company + LinkedIn URL + one short paste-ready soft S&W note, sourced via Apollo (search then enrich by person id) -> **no external gate** (internal Kerri→Brian digest, same class as the morning brief; the only real action is Brian's manual connect) -> HTML email from kerri@hardwarefyi.com to brian@kerrihq.com -> append suggested ids+LinkedIn URLs + advance cursors in state.json + run ledger + `brain/log.md` line -> footer/ledger flag when roster nears exhaustion or net-found < 20 so Brian widens the universe. Read-only toward the world: never connects on LinkedIn, never emails anyone but Brian, no CRM/pipeline write. |
+
 ## Loop 7 · Self-improvement (autonomy ladder + draft quality)
 
 | Routine | cron | Prompt | Loop |
@@ -118,4 +124,4 @@ Prompts not yet authored; sequence last. Ari pod stays behind explicit approval-
 
 ## Activation checklist (HISTORICAL — activated 2026-05-29, Claude Code sole runner 2026-06-08)
 
-All routines are now live as Claude Code scheduled tasks. The 16 active tasks: `kerri-build-proposal`, `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `kerri-pipeline-staleness`, `kerri-revenue-standup`, `kerri-renewal-watchdog`, `standard-works-issue-writer`, `kerri-industry-intel`, `kerri-self-improve`. Codex automations should be disabled to prevent double-runs.
+All routines are now live as Claude Code scheduled tasks. The 17 active tasks: `kerri-build-proposal`, `kerri-inbox-sweep`, `kerri-morning-brief`, `kerri-morning-brief-retry`, `kerri-eod-meetings-review`, `kerri-brain-push`, `kerri-gap-sweep`, `kerri-lead-research`, `kerri-cold-outreach`, `kerri-pipeline-followup`, `kerri-pipeline-staleness`, `kerri-revenue-standup`, `kerri-renewal-watchdog`, `standard-works-issue-writer`, `kerri-industry-intel`, `kerri-self-improve`, `kerri-sw-linkedin-connect`. Codex automations should be disabled to prevent double-runs.

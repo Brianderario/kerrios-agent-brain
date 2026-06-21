@@ -222,6 +222,17 @@
    "cadenceDescription": "event-triggered (S/W newsletter issue cadence), not cron; never auto-posts",
    "evaluator": null,
    "stateFiles": []
+  },
+  {
+   "name": "kerri-sw-linkedin-connect",
+   "cron": "45 7 * * 1-5",
+   "core": false,
+   "monitored": false,
+   "cadenceDescription": "weekdays ~07:45 ET; emails Brian 20 net-new LinkedIn connects for Standard & Works (15 hard-tech company execs from the Relay 533-company universe + 5 investors) each with a paste-ready soft note. Read-only internal Kerri→Brian digest; never connects on LinkedIn and never emails anyone but Brian; sources via Apollo (search + enrich by person id). monitored:false by design (low-stakes convenience digest, not a send/revenue-critical target); can be promoted to heartbeat-weekday later",
+   "evaluator": null,
+   "stateFiles": [
+    "sw-linkedin-connect/state.json"
+   ]
   }
  ]
 }
