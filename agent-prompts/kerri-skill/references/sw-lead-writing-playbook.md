@@ -64,6 +64,8 @@ The subject names the single most consequential thing in the issue, stated plain
 - **The turn:** "Memory Prices Turned." (preview: "The bottom is louder than the rebound for hyperscaler capex.")
 Front-load the proper noun or number, keep it under ~6 strong words, and let the preview carry the "Plus" list or the second hook (the 6/18 preview did this: "Plus: a $9.7B copper mine clears Argentina, BNSF's $4B desert rail hub..."). Never let the preview repeat the subject.
 
+**No repeated syntactic templates (Zach rule, 2026-06-19).** Before finalizing the headline, check `data/sw-newsletter/state.json#recentTopics[*].leadHeadlineTemplate` for the last 2–3 issues. The Jun 16 and Jun 18 issues both used "X Trades Y for Z" — two consecutive issues with the same headline grammar. A fresh topic on a recycled construction still reads formulaic. The headline template check is a mandatory step in the STEP 7.5 adversarial critic pass; if a match is found, the headline must be rewritten to a different syntactic pattern before the draft ships.
+
 ## The "so what" bullet (the core skill)
 A reporting bullet states what happened. A framing bullet states what it changes for the reader's capital. The whole craft is that move. Bake the significance into the same sentence with a consequence clause after the fact: `[bold entity] did [thing], [which moves / which means / leaving / putting / so that] [second-order effect].` The fact is the setup; the clause after the comma is the value. If a bullet ends on the fact, it failed. The test: would a competing allocator already know this, and does the phrasing tell them something they would reprice on.
 
