@@ -1,12 +1,13 @@
 ---
 name: kerri-revenue-standup
 description: Friday ~4pm ET weekly revenue standup — scoreboard vs. $1M goal, pipeline velocity, outreach conversion, renewal radar, top 3 actions for next week
-schedule: Fridays ~16:00 ET weekly (Anthropic cloud routine; reports via Slack DM)
-# No report_interval_hours on purpose: this runs as a Claude Code cloud routine
-# (trig_01FPKyYXmY4goNNHdkdXLLSz) that reports via Slack DM, not create_agent_run,
-# so the Savant AgentHealthCheckJob cannot observe its runs. A null interval keeps it
-# out of the overdue scope (it was false-flagging "Agent overdue" every day). Re-add
-# ONLY if the cloud routine is wired to POST create_agent_run. See brain/wiki/agents/registry.md.
+schedule: Fridays ~16:00 ET weekly (local Claude Code scheduled task; reports into the Console)
+report_interval_hours: 192
+# Reports INTO the KMG Console, never Slack: STEP 6 files the scoreboard as a Console
+# task card, and STEP 8's heartbeat POSTs the run via create_agent_run, so the Console
+# AgentHealthCheckJob sees real runs and report_interval_hours (192h = weekly + buffer)
+# is valid. Brian moved this off the Slack cloud routine on 2026-06-23. See
+# brain/wiki/agents/registry.md.
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the weekly Friday revenue standup. Run all steps in order.
@@ -133,10 +134,10 @@ Based on all of the above, name the 3 highest-leverage things Brian should do or
 Priority order: **renewals > warm pipeline > inbound > cold outreach**. Always. A $10K renewal is worth more than fifty $10K cold emails because the close rate is 10x higher.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-STEP 6 — DELIVER
+STEP 6 — DELIVER (Console card, never Slack)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Send Brian a Slack DM (U09TLEXF70V) with the standup formatted as:
+File the standup as a card on Brian's KMG Console board so he reads it where he works. Never Slack, never text. Build the card body in this exact shape:
 
 ```
 📊 HWFYI WEEKLY REVENUE STANDUP — Week ending <date>
@@ -167,7 +168,16 @@ Second-touch: X eligible, X sent, X drafted | Notable: [company names or "none"]
 3. [Company — Person — $XX,XXX — specific action]
 ```
 
-Do NOT send a text. Kerri no longer texts Brian (the Sendblue text path was retired from Kerri on 2026-06-17; the separate Hermes agent owns texting now). The standup output above is the deliverable; do not call send-text-alert.mjs.
+Now file it on the Console board with `scripts/console-task-api.mjs` (uses `KERRIHQ_SYNC_TOKEN`):
+
+1. Write the body above to a temp file (preserves the formatting + emoji).
+2. Close last week's standup card so the board carries one standing card, not a weekly pile-up. Read `lastCardId` from `data/revenue-standup-state.json`; if it is set, close it:
+   `node scripts/console-task-api.mjs update --id <lastCardId> --status done --resolution superseded --resolution-payload-json '{"completion_proof":{"type":"weekly_rollover","note":"superseded by this week's standup"}}'`
+3. Create this week's card and capture the new id from the JSON response:
+   `node scripts/console-task-api.mjs create --title "📊 Weekly Revenue Standup — week ending <date>" --body-file <tmp> --status action_needed --agent-slug kerri-revenue-standup --external-ref "revenue-standup-<YYYY-MM-DD>"`
+4. Save the new card id as `lastCardId` in the STEP 7 state write.
+
+Never Slack, never text, never call send-text-alert.mjs. The Console card is the deliverable. The run itself is reported into the Console automatically by STEP 8's heartbeat (`create_agent_run`), so the Console reliability view + AgentHealthCheckJob see this run; you do not file a separate run here.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 7 — RECORD + IMPROVE
@@ -178,6 +188,7 @@ Append a compact entry to `data/revenue-standup-state.json` (create with schema 
 ```json
 {
   "schema": "revenue-standup-v1",
+  "lastCardId": "<Console task id of the most recent standup card, for the STEP 6 weekly rollover>",
   "standups": [
     {
       "date": "YYYY-MM-DD",
@@ -228,7 +239,7 @@ HARD RULES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 - This routine NEVER sends email, modifies CRM, creates deals, or drafts outreach.
-- It is read-only + Slack + text + state file. It measures and recommends; it does not act.
+- It is read-only + Console card + state file. It measures and recommends; it does not act.
 - HWFYI side only (no S/W financials in the standup).
 - Revenue claims must be source-backed. If a number can't be verified from the tracker/CRM, say so.
 - Do not invent dollar amounts for unpriced pipeline. TBD means TBD.
