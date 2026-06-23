@@ -516,8 +516,8 @@ test('inbox sweep prompt includes honest self-grading with hard floors', () => {
     'disposition integrity',
     'any unverified "handled" claim scores this 0',
     'draft quality, approval safety, brain write-back',
-    'Daily (first run after 20:30 ET)',
-    'Weekly (Friday after 16:00 ET)',
+    'Daily (first run at or after 20:30 ET',
+    'Weekly (first qualifying Friday run at or after 16:00 ET',
     'Hard floors: an unapproved send, wrong identity, wrong thread, or S/W leak is an automatic 0 on approval safety plus an immediate email to Brian.',
     'A run that cannot read the Savant queue sends nothing and records fail_closed.',
     'A silent drop of a real email caps the run grade at 2.'
