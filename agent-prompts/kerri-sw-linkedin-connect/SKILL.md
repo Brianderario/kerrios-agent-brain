@@ -55,7 +55,9 @@ Use the same Apollo `_conversation_ref` token on every Apollo call this run (gen
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 2 — THE CONNECT NOTE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-One short, soft note. **No personalization beyond the first name** (Brian's call). Just say you thought Standard & Works might be valuable for them. Keep every note **under 280 characters** (LinkedIn's connection-note cap is ~300).
+One short, soft note with a quick subscribe call to action. **No personalization beyond the first name** (Brian's call). Say you thought Standard & Works might be valuable for them, and point them to subscribe. Keep every note **under 300 characters** (LinkedIn's connection-note cap is ~300).
+
+A note on the link: LinkedIn does NOT make URLs clickable inside a connection-request note, so the note uses the bare, readable domain `standardandworks.com` (short, no wasted characters). The clickable, attribution-tagged link lives in the optional follow-up message below, which Brian sends once the person accepts (LinkedIn DOES hyperlink URLs in messages).
 
 Hard style rules (Brian's standing rules — these notes get pasted into LinkedIn, so treat them as outbound copy):
 - **No em dashes anywhere.** Use periods or commas.
@@ -65,9 +67,13 @@ Hard style rules (Brian's standing rules — these notes get pasted into LinkedI
 
 Rotate across these three interchangeable variants (assign round-robin across the 20 so 100/week aren't byte-identical, which LinkedIn flags). `{First}` = the person's first name:
 
-1. `Hi {First}, I help put together Standard & Works, a twice-weekly briefing on US capex and where America builds. Thought it might be useful for you. Would love to connect.`
-2. `Hi {First}, wanted to reach out. I work on Standard & Works, a twice-weekly read on US reindustrialization, manufacturing, defense and energy. Figured it'd be relevant to you, and I'd love to connect.`
-3. `Hi {First}, I work on Standard & Works, a briefing on where America builds across US capex, manufacturing and hard tech. Thought you'd find it worthwhile. Glad to connect.`
+1. `Hi {First}, I help put together Standard & Works, a twice-weekly briefing on US capex and where America builds. Thought it might be useful. You can subscribe free at standardandworks.com, and I'd love to connect.`
+2. `Hi {First}, I work on Standard & Works, a twice-weekly read on US reindustrialization, manufacturing, defense and energy. Figured it'd be relevant. Subscribe free at standardandworks.com. I'd love to connect.`
+3. `Hi {First}, I work on Standard & Works, a briefing on where America builds across US capex, manufacturing and hard tech. Subscribe free at standardandworks.com. Glad to connect.`
+
+**Optional follow-up message (after they accept the connection).** LinkedIn hyperlinks URLs in messages, so this is where the quick, one-click, attribution-tagged CTA lives. Show it in the digest next to the connect note so Brian can paste it once a request is accepted:
+
+`Thanks for connecting, {First}. If it's useful, you can get the twice-weekly Standard & Works briefing on US capex and where America builds for free here: https://www.standardandworks.com/?utm_source=linkedin&utm_medium=social&utm_campaign=brian-li`
 
 If Brian has edited the canonical note text in a prior run (look for `state.noteVariants`), use those instead of the three above.
 
@@ -78,11 +84,12 @@ Build a clean, scannable HTML email and write it to `output/sw-linkedin-connect/
 
 Layout:
 - **Header:** `Standard & Works — 20 LinkedIn connects for <Mon DD>`. One line of context: how to use it (open each link, send the request, paste the note). Universe progress: `Company {companyCursor} of 533 · {totalSuggested} suggested to date`.
-- **The note, shown once at the top** in a copy box, so Brian sees the template up front.
+- **The connect note AND the optional follow-up message, shown once at the top** in copy boxes, so Brian sees both templates up front.
 - **20 person cards**, numbered. Each card:
   - `Name` — `Title`, `Company` (+ sector tag if known)
   - A prominent clickable link: `Open LinkedIn profile ▸` → the person's `linkedin_url`
-  - The first-name-filled note in a monospace, easy-to-select box (so a triple-click copies it)
+  - The first-name-filled connect note in a monospace, easy-to-select box (so a triple-click copies it)
+  - Directly below it, the first-name-filled follow-up message (with the clickable subscribe link) in its own easy-to-select box, labeled `Follow-up after they accept`
   - Group the 5 investor cards under a small `Investors` subhead so the two lanes read clearly.
 - **Footer:** how the list was built (Relay 533-company universe + Apollo), dedupe count skipped this run, Apollo credits used (~candidate-count), and the next run. If the roster is within ~30 companies of the end, or the investor seed fully cycled, or the run netted fewer than 20, say so explicitly with the recommended next move (widen titles to CTO/VP, refresh the Relay VC tab, re-pull the roster).
 
