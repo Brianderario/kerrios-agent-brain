@@ -1,8 +1,12 @@
 ---
 name: kerri-revenue-standup
 description: Friday ~4pm ET weekly revenue standup — scoreboard vs. $1M goal, pipeline velocity, outreach conversion, renewal radar, top 3 actions for next week
-schedule: Friday ~16:00 ET (weekly)
-report_interval_hours: 192
+schedule: Fridays ~16:00 ET weekly (Anthropic cloud routine; reports via Slack DM)
+# No report_interval_hours on purpose: this runs as a Claude Code cloud routine
+# (trig_01FPKyYXmY4goNNHdkdXLLSz) that reports via Slack DM, not create_agent_run,
+# so the Savant AgentHealthCheckJob cannot observe its runs. A null interval keeps it
+# out of the overdue scope (it was false-flagging "Agent overdue" every day). Re-add
+# ONLY if the cloud routine is wired to POST create_agent_run. See brain/wiki/agents/registry.md.
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the weekly Friday revenue standup. Run all steps in order.

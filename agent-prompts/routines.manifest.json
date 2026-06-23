@@ -118,9 +118,9 @@
    "name": "kerri-revenue-standup",
    "cron": "0 16 * * 5",
    "core": false,
-   "monitored": true,
-   "cadenceDescription": "Friday ~16:00 ET; read-only scoreboard vs $1M (schedule activation pending Brian confirmation)",
-   "evaluator": "heartbeat-weekday",
+   "monitored": false,
+   "cadenceDescription": "Fridays ~16:00 ET weekly. Runs as an Anthropic cloud routine (trig_01FPKyYXmY4goNNHdkdXLLSz) since 2026-06-11; the local scheduled task is disabled. monitored:false on purpose — the cloud routine reports via Slack DM, not a local heartbeat or create_agent_run, so neither the local liveness check nor the Console AgentHealthCheckJob can observe it; monitoring locally only produced false dark/overdue alerts.",
+   "evaluator": null,
    "fireMinuteEt": 960,
    "graceMinutes": 180,
    "activeWeekdays": [

@@ -78,10 +78,12 @@ test('a STALE heartbeat does not weaken detection when bespoke stamp is fresher'
   assert.equal(find(rep, 'kerri-industry-intel').status, 'ok');
 });
 
-// ── heartbeat-weekday evaluator: the 6 newly-monitored routines ────────────────
+// ── heartbeat-weekday evaluator: the newly-monitored routines ──────────────────
 // 2026-06-09 is Tuesday. cold-outreach fires ~09:07 ET (weekdays), pipeline-followup
 // ~08:33 ET (Tue/Thu), lead-research ~18:13 ET (weekdays), morning-brief-retry ~07:18
-// ET (weekdays), revenue-standup Fri ~16:00, renewal-watchdog Wed ~10:00.
+// ET (weekdays), renewal-watchdog Wed ~10:00. (revenue-standup used this evaluator too
+// until it moved to an Anthropic cloud routine on 2026-06-11; it is now monitored:false
+// and excluded from local liveness — see the exclusion test below.)
 
 test('cold-outreach with a heartbeat today → ok', () => {
   const root = fixture({
@@ -150,14 +152,24 @@ test('pipeline-followup on a Thursday with a stale (yesterday) heartbeat → dar
   assert.equal(find(rep, 'kerri-pipeline-followup').status, 'dark');
 });
 
-test('revenue-standup on Friday after fire+grace with a heartbeat today → ok', () => {
+test('renewal-watchdog on Wednesday after fire+grace with a heartbeat today → ok', () => {
   const root = fixture({
     'routine-heartbeats.json': heartbeats({
-      'kerri-revenue-standup': { lastRunAt: '2026-06-12T20:00:00Z', lastStatus: 'ok', runCount: 1 }
+      'kerri-renewal-watchdog': { lastRunAt: '2026-06-10T14:00:00Z', lastStatus: 'ok', runCount: 1 }
     })
   });
-  const rep = run(root, '2026-06-12T21:00:00Z'); // Friday 17:00 ET, after 16:00 fire
-  assert.equal(find(rep, 'kerri-revenue-standup').status, 'ok');
+  const rep = run(root, '2026-06-10T18:00:00Z'); // Wednesday 14:00 ET, after 10:00 fire+grace, fresh beat today
+  assert.equal(find(rep, 'kerri-renewal-watchdog').status, 'ok');
+});
+
+// revenue-standup moved to an Anthropic cloud routine (2026-06-11) that reports via
+// Slack DM, not a local heartbeat, so the manifest marks it monitored:false. It must be
+// excluded from local liveness entirely (no false "dark"), even on a Friday past its old
+// fire time with no heartbeat present.
+test('revenue-standup (cloud routine, monitored:false) is excluded from local liveness', () => {
+  const root = fixture({});
+  const rep = run(root, '2026-06-12T21:00:00Z'); // Friday 17:00 ET, past its old 16:00 fire
+  assert.equal(find(rep, 'kerri-revenue-standup'), undefined);
 });
 
 test('renewal-watchdog on Wednesday, stale heartbeat past fire+grace → dark', () => {
