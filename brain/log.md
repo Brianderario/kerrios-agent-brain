@@ -1,3 +1,7 @@
+## [2026-06-23 22:13 ET] brain-push | 0010780 | Kerri
+
+Pushed 4 eligible files: 1 wiki meeting note (Kinetic/Ai4 scaling advisory), 2 routine-prompt evolutions (kerri-lead-research MapYourShow data-feed sourcing; kerri-sw-linkedin-connect shuffled cross-sector traversal), nightly Console CRM snapshot (companies.json, 517 cos). npm check OK + npm test 310/310; diff --check clean; no sensitive files staged. CRM snapshot+sheet mirror OK; Savant→git export 0 written/110 unchanged; git→Savant resync +1 created / 0 errors (both sources + 23 prompts). HELD (not auto-committed, SEND_AUTHORITY — need explicit reviewed commit): kerri-inbox-sweep/SKILL.md + its new references/invoice-on-win.md, kerri-skill/SKILL.md. Other dirty data/ runtime-state files left unstaged per allowlist. Grade 5.
+
 ## [2026-06-23 21:52 ET] gap-sweep | auto:1 pr:0 task:0 (1 updated) | Kerri
 Whole-system A–Q sweep clean bar one RECURRING class-J finding: kerri-industry-intel is armed+firing daily but never stamps a completed success (state frozen at 2026-06-19, 4d) — deduped against existing open cards 56fb37e5 + 093ba12f, updated not re-filed. Auto-fixed NOW.md (Last-action 7→3 entries; In-flight bloat flagged for interactive triage). npm check OK + npm test 310/310; gates PASS; baton fresh (0/0 vs origin); 0 leaks; approval queue oldest 4d (<5d). Grade 5.
 
