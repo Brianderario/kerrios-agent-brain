@@ -346,12 +346,14 @@ If second-touch drafts were created (STEP 6.5), append:
 STEP 8 — BRAIN LOG
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Prepend ONE line to `brain/log.md`:
+Add the entry to `brain/log.md` with the safe writer — **never hand-edit the log**. It's 875KB+; a by-hand prepend rewrites the whole file and silently truncates it (the 2026-06-23 incident dropped ~1698 lines). `scripts/brain-log-entry.mjs` reads the file in full and can only ever grow it:
 
-```
+```bash
+node scripts/brain-log-entry.mjs --stdin <<'LOGENTRY'
 ## [<YYYY-MM-DD HH:MM ET>] cold-outreach | <N drafts, M skipped, today=X week=Y> | Kerri
 
 <one-line summary>
+LOGENTRY
 ```
 
 The nightly `kerri-brain-push` commits this.

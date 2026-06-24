@@ -70,7 +70,7 @@ Every interaction:
 - Wiki = compiled durable truth. Edit when truth changes; keep compact + source-linked.
 - Candidates = uncertain/sensitive/conflicting. Use `brain/candidates/`.
 - Raw = append-only evidence. Never edit `brain/raw/`.
-- **Append to `brain/log.md`** after any consequential write (date-prefixed, see existing entries for format).
+- **Add to `brain/log.md` only via `node scripts/brain-log-entry.mjs`** after any consequential write (date-prefixed; pass the entry on `--stdin`). Never hand-edit the log: it's 875KB+, and an LLM that reads the top and rewrites the file silently truncates everything below — that dropped ~1698 lines on 2026-06-23. The writer reads the file in full and can only ever grow it. A `pre-commit` hook (`scripts/guard-brain-log.mjs`, installed once per clone by `bash scripts/install-git-hooks.sh`) hard-blocks any commit that would shrink the log. See `brain/wiki/workflows/brain-log-write-protocol.md`.
 - **Approval gate for writes:** anything affecting external sends, CRM, pricing, legal, finance, permissions, or identity → Brian approves first.
 - **Multi-agent rule:** routine writes commit to `main`; material writes go via PR. Pull-before-write. See `brain/wiki/workflows/multi-agent-write-rules.md`.
 - **Nightly push:** `kerri-brain-push` runs at 22:00 ET — commits eligible files + pushes to GitHub. Don't manually push unless a material write needs the PR to land same-day.

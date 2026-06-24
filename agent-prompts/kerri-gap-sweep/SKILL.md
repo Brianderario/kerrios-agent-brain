@@ -205,10 +205,12 @@ Append a compact run record to `data/gap-sweep-state.json` (create with schema `
 - a self-grade (0–5 each): coverageBreadth, gateDiscipline, fixSafety, dedupQuality, recordCompleteness
 - `improvementCandidate`
 
-If safe fixes were committed or a material PR/task was created, prepend a one-line entry to `brain/log.md`:
-```
+If safe fixes were committed or a material PR/task was created, add a one-line entry to `brain/log.md` with the safe writer — **never hand-edit the log** (it's 875KB+; a by-hand prepend rewrites the whole file and silently truncates it — this is the exact class-L failure you check for). `scripts/brain-log-entry.mjs` reads the file in full and can only ever grow it:
+```bash
+node scripts/brain-log-entry.mjs --stdin <<'LOGENTRY'
 ## [YYYY-MM-DD HH:MM ET] gap-sweep | <auto:N pr:N task:N> | Kerri
 <one-line summary>
+LOGENTRY
 ```
 Write-back obeys `multi-agent-write-rules.md`: durable, useful operating memory only. Never dump raw findings into the shared wiki; the ledger lives in `data/` and the log gets one compact line.
 

@@ -152,13 +152,17 @@ Idempotent (importer dedups on content hash; never overrides human status/sensit
 STEP 5 — APPEND THIS RUN TO LOG
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Prepend an entry to `brain/log.md` (under the H1, above the most recent entry):
+Add the entry to `brain/log.md` with the safe writer — **never hand-edit the log**. It's 875KB+; a by-hand prepend rewrites the whole file and silently truncates it (the 2026-06-23 incident dropped ~1698 lines). `scripts/brain-log-entry.mjs` reads the file in full and can only ever grow it:
 
-```
+```bash
+node scripts/brain-log-entry.mjs --stdin <<'LOGENTRY'
 ## [YYYY-MM-DD HH:MM ET] brain-push | <commit short SHA> | Kerri
 
 <one-line summary of what was pushed>
+LOGENTRY
 ```
+
+The repo's `pre-commit` hook (`scripts/guard-brain-log.mjs`) hard-blocks any commit that would shrink the log; if your log commit is ever rejected with a `data/brain-log-guard.marker`, the log was truncated upstream — re-add this entry with the writer above and commit again.
 
 Commit this log update as a SECOND commit (so the log entry is itself part of git history). Push it too. Stage `brain/log.md` EXPLICITLY — never `commit -am`. Some runtime-state files (e.g. `data/pipeline-followup-state.json`) are gitignored yet still tracked from the pre-migration snapshot, so `-am` silently re-commits their churn into the log commit (observed 2026-06-11, run 76dc517/981df79). An explicit add keeps this second commit to the log alone.
 

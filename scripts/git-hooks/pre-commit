@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# brain/log.md truncation guard (git pre-commit).
+#
+# Installed into .git/hooks/pre-commit by scripts/install-git-hooks.sh. Every commit in
+# this repo runs it — the brain-push and gap-sweep routines each `git commit` directly,
+# so a hook is the single chokepoint they all pass through. It blocks any commit that
+# would shrink brain/log.md + brain/log-archive (see scripts/guard-brain-log.mjs).
+#
+# Do NOT edit this copy under .git/hooks — it is generated. Edit the tracked source at
+# scripts/git-hooks/pre-commit and re-run scripts/install-git-hooks.sh.
+set -uo pipefail
+
+REPO="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+GUARD="$REPO/scripts/guard-brain-log.mjs"
+[ -f "$GUARD" ] || exit 0   # guard absent (old checkout) — never block a commit over a missing file
+
+# A hook's PATH can be minimal; find node deliberately.
+NODE="$(command -v node 2>/dev/null || true)"
+if [ -z "$NODE" ]; then
+  for c in /opt/homebrew/bin/node /usr/local/bin/node /usr/bin/node; do
+    [ -x "$c" ] && { NODE="$c"; break; }
+  done
+fi
+if [ -z "$NODE" ]; then
+  echo "pre-commit: node not found — brain-log truncation guard SKIPPED (commit allowed)." >&2
+  exit 0
+fi
+
+# --heal restores brain/log.md + log-archive from HEAD on a detected shrink, so a
+# truncation is reverted (index + worktree) rather than committed. Nonzero aborts.
+"$NODE" "$GUARD" --mode staged --heal --quiet
+exit $?

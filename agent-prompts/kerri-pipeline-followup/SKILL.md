@@ -316,12 +316,14 @@ Do NOT write any state changes if the Console task API failed mid-loop — fail 
 STEP 7 — BRAIN LOG
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-If any drafts OR close-outs happened, prepend ONE line to `brain/log.md`:
+If any drafts OR close-outs happened, add the entry to `brain/log.md` with the safe writer — **never hand-edit the log**. It's 875KB+; a by-hand prepend rewrites the whole file and silently truncates it (the 2026-06-23 incident dropped ~1698 lines). `scripts/brain-log-entry.mjs` reads the file in full and can only ever grow it:
 
-```
+```bash
+node scripts/brain-log-entry.mjs --stdin <<'LOGENTRY'
 ## [<YYYY-MM-DD HH:MM ET>] pipeline-followup | <X drafts, Y closed-dormant> | Kerri
 
 <one-line summary of which deals were touched>
+LOGENTRY
 ```
 
 The nightly `kerri-brain-push` (22:00 ET) commits this.
