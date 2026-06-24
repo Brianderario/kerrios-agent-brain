@@ -10,6 +10,14 @@ Every active or planned team agent that reads/writes this brain. Source of truth
 |---|---|---|---|
 | [[kerri]] | [[brian-derario]] | `agent-prompts/kerri-skill/SKILL.md` | Active |
 
+## Helper subagents (spawned on demand, not scheduled)
+
+| Subagent | Spawned by | Canonical prompt | Local shim | Status |
+|---|---|---|---|---|
+| `kerri-reply-drafter` | inbox sweep (and other drafting routines) | `agent-prompts/kerri-reply-drafter/SKILL.md` | `~/.claude/agents/kerri-reply-drafter.md` | Active (2026-06-24) |
+
+`kerri-reply-drafter` is Kerri's clean-room drafter: a fresh-context subagent that drafts ONE substantive customer/partner reply (read full chain → research the company → pick the play → draft in voice → self-critique → return a structured draft). It exists because reply quality collapses when drafting happens inside the sweep's saturated triage context (the Astrus/Xometry misses, 2026-06-24). It never sends and never mutates state; the calling routine keeps every gate, send, and write. The sweep's `DRAFTING` step delegates substantive external classes to it and runs its existing gates on the returned draft. Rollout: inbox sweep first; the same one-line delegation extends to pipeline-followup, renewal-watchdog, EOD, and post-call drafting next.
+
 ## Current runner posture
 
 As of 2026-06-08, **Claude Code is the sole operating runner** for Kerri. All scheduled routines run as persistent Claude Code scheduled tasks under `~/.claude/scheduled-tasks/`. Codex automations under `~/.codex/automations/` are retired and should be disabled to prevent double-runs. This supersedes [[../decisions/2026-05-25-codex-primary-operating-layer]] and the 2026-06-05 Codex re-entry. The agent identity and source of truth remain Kerri + KerriOS, not any runner's chat history.
