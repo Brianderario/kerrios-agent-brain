@@ -1,3 +1,6 @@
+## [2026-06-24 22:12 ET] brain-push | bb82113 | Kerri
+Pushed 2 KMG meeting pages (ExpoDevCo intro call, Imagine Milk video-edit quote), the inbox-sweep invoice-on-win spec, and the nightly companies.json snapshot (541 cos). Savant resync clean (kerrios_brain +3/~2, claude_memory +4/~4, prompts +2/~7, 0 errors). Held back agent-prompts/kerri-skill/SKILL.md (send-authority file, path + "Industrialist" label fixes) — left uncommitted for an explicit reviewed commit.
+
 ## [2026-06-24 21:55 ET] gap-sweep | auto:2 pr:0 task:0 | Kerri
 Whole-system health sweep: green. npm check + 324 tests pass; state-integrity, host (reaper up, 0 leaked, load 2.24), gate-integrity, approval-queue (RAILS OK, 0 stale), and CY2026 revenue wiring all healthy. AUTO-FIX: trimmed NOW.md baton (75->72 lines, commit 3bda979) + removed renewal-watchdog's 6/24 outage scratch file. Only operational note: kerri-renewal-watchdog read "dark" since 6/17 because a transient Bash safety-classifier outage (~25 min, 6/24 10:09 ET) blocked its network/script calls incl. the heartbeat; self-documented + self-healing (next run 7/1), nearest deadline (Eight Sleep 6/30) already drafted+queued, so no task/email. Logged the repeat infra-outage-blocks-a-routine pattern (cf. 6/15 Granola) as an improvement candidate (mitigate at a 3rd instance).
 
