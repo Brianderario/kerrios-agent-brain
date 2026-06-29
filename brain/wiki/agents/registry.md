@@ -9,6 +9,7 @@ Every active or planned team agent that reads/writes this brain. Source of truth
 | Agent | Owner | Canonical prompt | Status |
 |---|---|---|---|
 | [[kerri]] | [[brian-derario]] | `agent-prompts/kerri-skill/SKILL.md` | Active |
+| Oliver | [[brian-derario]] | `agent-prompts/oliver-sw-content-agent/SKILL.md` | Active on-demand Slack/content agent; no email tools |
 
 ## Helper subagents (spawned on demand, not scheduled)
 
@@ -38,7 +39,7 @@ As of 2026-06-15, the Savant console Agents page presents the routines as an org
 
 - **Sales (lead "Dex"), pure revenue pre-sale and post-sale:** inbox sweep (+weekend variant), cold outreach, lead research, pipeline follow-up, pipeline staleness, renewal + upsell watchdog, revenue standup, send-partner-contract.
 - **Ops (lead "Miles"), support + customer success + event management + internal machine:** morning brief (+retry), EOD meetings review, event logistics, brain push, gap sweep, self-improve, build proposal.
-- **Content (lead "Quill"), writing + the intel that feeds it:** S&W newsletter writer/editor/marketing, industry intel.
+- **Content (lead "Quill"), writing + the intel that feeds it:** S&W newsletter writer/editor/marketing, Oliver, industry intel.
 
 Desk definitions (Brian, 2026-06-15): Sales drives revenue only, both pre-sale and post-sale; Ops covers support, customer success, event management, and the internal machine; Content is writing plus the intel that feeds it. Event logistics is Ops (event management), not Sales; send-partner-contract is Sales (post-sale revenue).
 
@@ -89,6 +90,7 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 | 2 | S&W Newsletter Writer | Active Claude Code scheduled task for Monday/Wednesday issue prep and Beehiiv review staging. | 2nd ✅ |
 | 2b | S&W Newsletter Editor | Task-driven/editor-pass prompt. Used inside issue production when invoked; no standalone schedule. | shipped alongside #2 |
 | 2c | S&W Newsletter Marketing | Task-driven/on-demand prompt. Never auto-posts. | shipped alongside #2 |
+| 2d | Oliver S&W/KMG Content Agent | Active on-demand Slack agent for S&W newsletter work, Beehiiv review drafts, social copy, websites, and front-end design. Same non-email tools as Kerri; email disabled. | shipped alongside #2 |
 | 4 | Event Logistics | Active on demand. Venue/vendor research, inquiry drafting, RoS. Project-scoped per event. Seeded with stubs for sf-tech-week-2026, dc-maritime-defense-2026, kinetic-2027. | 3rd ✅ |
 | 3 | Inbound Sales Triage | Deferred (no inbound flow yet — Brian holds until volume justifies the playbook) | TBD |
 | 5 | Pipeline Follow-Up | Active Claude Code scheduled task, Tuesdays 8:33am ET. Warm Hardware FYI/KMG deal nudges only; approval-gated and never sends. | shipped |
@@ -126,6 +128,7 @@ Canonical prompts:
 - `kerri-sw-newsletter-writer`
 - `kerri-sw-newsletter-editor`
 - `kerri-sw-newsletter-marketing`
+- `oliver-sw-content-agent` (on-demand Slack/content agent, not scheduled; email tools disabled)
 
 Do not treat Zach's S&W internal operations as KerriOS company-brain data. Do preserve published issue facts, source notes, Brian/Zach suggestions, and production lessons according to the S&W boundary rules.
 

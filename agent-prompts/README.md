@@ -23,8 +23,12 @@ agent-prompts/
 │   └── SKILL.md
 ├── kerri-eod-meetings-review/ # Evening meeting-to-memory review
 │   └── SKILL.md
-└── kerri-brain-push/    # Nightly git commit + push of brain changes
-    └── SKILL.md
+├── kerri-brain-push/    # Nightly git commit + push of brain changes
+│   └── SKILL.md
+└── oliver-sw-content-agent/ # On-demand S&W/KMG content Slack agent, no email tools
+    ├── SKILL.md
+    └── references/
+        └── standard-works-kmg-writing-style.md
 ```
 
 ## How the shim pattern works
