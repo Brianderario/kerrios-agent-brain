@@ -7,7 +7,8 @@
    "name": "kerri-inbox-sweep",
    "cron": "*/15 6-23 * * 1-5",
    "core": true,
-   "monitored": true,
+   "monitored": false,
+   "retired": "2026-06-30: legacy codex inbox worker (com.kerri.inbox-worker) retired so the Savant inbox sweep solely owns HWFYI reply drafting; this evaluator watched the now-stale inbox-sweep-state.json and would false-alarm. See the duplicate-inbox-sweep-systems memory.",
    "cadenceDescription": "weekdays every 15 min, 06:00-22:45 ET; weekends one run 18:00 ET (fired by kerri-inbox-sweep-weekend, shared inbox-sweep-state.json — its weekend liveness is covered by this entry's evaluator)",
    "evaluator": "inbox-sweep",
    "stateFiles": [
