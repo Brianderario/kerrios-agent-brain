@@ -10,6 +10,8 @@ Asset-due reminders are **internal-only**: they go to **Benji and Brian** (Conso
 
 Brian, 2026-07-02 (Claude Code remote session): "On the savant console we should definitely not be sending Asset submission forms to our customers yet. The product is simply not ready. Please cancel that capability immediately. It should only go to Benji and me as a reminder not to the client."
 
+**Enforced in kerrihq-rails PR #315 (merge `48e9108`), deployed to Render 2026-07-02 21:55Z.** Client chase mailer deleted; `contact_email` disarmed (validation + stripped from forms/params/importers); prod data cleared (5 armed rows: Modelwise, Quilter, Xometry, Aris Machina x2 — addresses preserved in commitment notes); 💡 831f1ccd folded in (one open reminder card per commitment, 6 dupes collapsed). NOTE: before the fix landed, the 2026-07-02 13:00Z run had already emailed forms to lowri.davies@modelwise.ai and iryna@quilter.ai from info@hardwarefyi.com (the only client sends this path ever made); their portal links remain live — rotating those tokens is an open call for Brian. Savant brain record: fa1cc823 (candidate).
+
 ## The capability being cancelled
 
 - kerrihq-rails ships a `sponsor_asset_reminders` Solid Queue job (registered in the production scheduler on Render, fires **13:00Z daily**) — the "7-day asset chase" built with the newsletter inventory console (kerrihq-rails `a2924ba` + `c6b50b0`, live since 2026-06-11; see brain/log.md 2026-06-11 newsletter-inventory-console).
