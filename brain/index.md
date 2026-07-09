@@ -20,6 +20,12 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/savant-build-learnings]] — code-side Learnings + Pattern docs store; the build loop's compound step reads + appends here
 - [[wiki/workflows/savant-build-backlog]] — living queue of Savant product improvements (shipped/retired/candidate); the nightly build-proposal routine pulls the next undone slice from here so it stops repeating
 - [[wiki/workflows/audience-graph-project]] — scoped supervised build for the subscriber/audience moat (pillar 2); not an overnight item
+- [[wiki/workflows/kerri-training-system]] — living curriculum, source health, versioned assessments, and human review for Kerri's company fluency
+
+## Strategy & Training
+
+- [[wiki/strategy/kmg-direction-and-bets]] — current synthesis of KMG direction, active bets, decision lens, and open questions
+- `wiki/training/` — eight source-backed Kerri core modules covering company, people, portfolio, operating system, revenue, relationships, execution, and strategy
 
 ## Agents
 

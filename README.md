@@ -8,6 +8,7 @@ Scope of this repository (updated 2026-05-24):
 - canonical agent prompts (`agent-prompts/`) — every team agent's SKILL.md, so prompt evolution lives in git history
 - sanitized structured seed (`data/kerrios.agent-seed.json`) for fast cross-cutting context
 - supporting scripts (`scripts/`) — export, lint, future brain compilation
+- Kerri's living training curriculum (`brain/wiki/training/`) — source-backed modules mirrored into Savant with versioned assessments and human review
 
 Not in scope: runtime state (jobs queue, counters, live data store), credentials,
 text-message plumbing, S/W internal content. Those stay local-only (gitignored)

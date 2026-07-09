@@ -103,6 +103,7 @@ All sub-agents send as `kerri@hardwarefyi.com` (or `brian@hardwarefyi.com` for f
 | `send-partner-contract` | Skill, not a scheduled routine | Used for partner/SOW contract packet prep. Finance/legal/signature authority remains approval-gated. |
 | `kerri-event-logistics` | On-demand | Venue/vendor research, inquiry drafting, run-of-show support. |
 | `kerri-pipeline-followup` | Claude Code scheduled task (Tuesdays and Thursdays) | Deal follow-up drafting and state checks for warm deals where Brian/Kerri sent last; no direct sends. |
+| `kerri-company-training` | On-demand; weekly-capable in Savant | Works one due source-backed competency, submits evidence for human review, and never self-certifies. |
 
 ## Planned (not yet activated)
 

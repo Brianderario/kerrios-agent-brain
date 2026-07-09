@@ -25,6 +25,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/multi-agent-write-rules]]
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]]
 
+## "Train Kerri" / "what should Kerri know?" / "where are the brain gaps?" / "how does Kerri inform strategy?"
+
+- [[wiki/workflows/kerri-training-system]] — operating contract for curriculum, assessments, human review, and write-back
+- [[wiki/strategy/kmg-direction-and-bets]] — current strategic synthesis and open questions
+- `wiki/training/` — source-backed modules; in Savant open `Agents -> Kerri -> Training` to see readiness, stale sources, gaps, and attempts
+
 ## "Who is X?" (person)
 
 - KMG team + Zach: `wiki/people/<slug>.md` (brian-derario, ari-lewis, benji-chia, zach-silber)
