@@ -6,7 +6,7 @@
 ## Current baton — 2026-07-09 18:15 ET
 
 - **Kerri company training system is implemented and published for review.** Savant PR `kerrihq/kerrihq-rails#489` adds versioned assessments, permission-scoped curriculum/API/tools, the Kerri Academy human review screen, freshness/source-gap detection, and the no-self-certification gate. Commit `10bdc57`; 4,180 RSpec examples green, RuboCop/Brakeman/Zeïtwerk/assets green, browser assessment flow verified.
-- **The source curriculum is in brain PR `Brianderario/kerrios-agent-brain#22`.** Head `85ab8b7`; eight modules, KMG direction-and-bets synthesis, training workflow, executable `kerri-company-training` prompt, validator, and tests.
+- **The source curriculum is in brain PR `Brianderario/kerrios-agent-brain#22`.** Curriculum/prompt commit `85ab8b7`; eight modules, KMG direction-and-bets synthesis, training workflow, executable `kerri-company-training` prompt, validator, and tests.
 - **Dependency/order:** merge and deploy Rails PR #489 first, then merge brain PR #22 and run the normal KerriOS → Savant brain/prompt sync. Until both land, production Kerri does not have the curriculum or Training screen.
 - **Exact next action:** review/merge Rails #489, verify the Render web and worker services on the merge SHA plus `/up`, then merge brain #22, sync, and verify eight `training_module` records appear on Kerri's Training screen.
 
