@@ -46,3 +46,10 @@ training:
   assert.match(report.errors.join('\n'), /missing source brain\/wiki\/missing.md/);
 });
 
+test('the executable training prompt targets the chief-of-staff agent and preserves human certification', () => {
+  const prompt = fs.readFileSync(path.join(root, 'agent-prompts', 'kerri-company-training', 'SKILL.md'), 'utf8');
+
+  assert.match(prompt, /agent_slug: scheduled-ask-savant/);
+  assert.match(prompt, /Kerri never certifies herself/);
+  assert.match(prompt, /Never mark your own assessment passed/);
+});
