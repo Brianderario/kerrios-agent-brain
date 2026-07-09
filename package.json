@@ -6,11 +6,12 @@
   "description": "Sanitized KerriOS company brain for Kerri Media Group agents.",
   "scripts": {
     "export:agent-seed": "node scripts/export-agent-seed.mjs",
-    "check": "npm run check:syntax && npm run check:state && npm run check:docs && npm run check:manifest",
+    "check": "npm run check:syntax && npm run check:state && npm run check:docs && npm run check:manifest && npm run check:training",
     "check:syntax": "find scripts test -type f \\( -name '*.js' -o -name '*.mjs' \\) -print0 | xargs -0 -n 1 node --check",
     "check:state": "node scripts/check-state-integrity.mjs",
     "check:docs": "node scripts/check-doc-reality.mjs",
     "check:manifest": "node --test test/routine-manifest.test.js",
+    "check:training": "node scripts/validate-training-curriculum.mjs",
     "test": "node --test"
   },
   "engines": {

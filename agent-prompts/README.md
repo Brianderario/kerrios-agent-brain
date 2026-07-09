@@ -25,6 +25,8 @@ agent-prompts/
 │   └── SKILL.md
 ├── kerri-brain-push/    # Nightly git commit + push of brain changes
 │   └── SKILL.md
+├── kerri-company-training/ # Source-backed orientation + recertification
+│   └── SKILL.md
 └── oliver-sw-content-agent/ # On-demand S&W/KMG content Slack agent, no email tools
     ├── SKILL.md
     └── references/
@@ -52,3 +54,11 @@ When the skill fires, the local agent reads the canonical from this repo, follow
 Edit the canonical here. Commit + push. All teammates' agents pick up the change on next pull (nightly via `kerri-brain-push`, or on-demand).
 
 Material prompt changes (anything affecting external sends, approval gates, identity, or boundary rules) should be a PR, not a direct push to `main`.
+
+## Training Kerri
+
+`kerri-company-training` is the executable companion to the curriculum under
+`brain/wiki/training/`. It reads required records, works one due competency at
+a time, and submits an evidence-backed assessment to Savant. Model-submitted
+assessments always wait for human review; the prompt never grants Kerri the
+ability to certify herself or to turn a training answer into external authority.
