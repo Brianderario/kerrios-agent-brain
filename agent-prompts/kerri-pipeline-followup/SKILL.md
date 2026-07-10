@@ -152,7 +152,7 @@ STEP 1 — LOAD + FILTER DEALS
 STEP 2 — PROCESS DECISIONS FROM EXISTING PIPELINE TASKS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Savant's deterministic sender owns SEND on `📈 PIPELINE-` individual cards. The inbox sweep handles SKIP / REDO and reconciles Savant's verified send proof into `data/jobs.json` (`status: sent`, `sentAt`) and the Savant deal stage. This agent does not execute decisions itself. `last_contact_date` is therefore derived from jobs.json (STEP 1.3), not stored anywhere by this agent.
+Savant's deterministic sender owns SEND on `📈 PIPELINE-` cards. The inbox sweep handles SKIP / REDO and reconciles Savant's verified send proof into `data/jobs.json` (`status: sent`, `sentAt`) and the Savant deal stage. This agent does not execute decisions itself. `last_contact_date` is therefore derived from jobs.json (STEP 1.3), not stored anywhere by this agent.
 
 Reconcile this routine's cadence telemetry with what actually sent:
 - Scan `node scripts/console-task-api.mjs list --open --source rails --per-page 100` plus `data/jobs.json` for `📈 PIPELINE-` tasks/jobs. If a nudge this agent drafted was **skipped** by Brian (`resolution: skipped` / matching jobs.json status skipped): decrement `nudgeCount` in `state.perDealCounters[dealId]` and clear `lastNudgeDate` (it never went out, so the 7-day rate limit should not block the deal next run).
