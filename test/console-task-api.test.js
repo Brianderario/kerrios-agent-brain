@@ -127,6 +127,59 @@ test('task payload helpers map agent fields to Rails API fields', () => {
   });
 });
 
+test('reply task payloads preserve the exact mailbox thread route', () => {
+  const create = taskCreatePayload({
+    title: 'H0570 - Manny\'s - Venue estimate',
+    body: 'ACTION: send-reply\nSubject: Re: SF Tech Week venue estimate',
+    replyToMessageId: 'message-1',
+    replyToMailbox: 'Brian@HardwareFYI.com',
+    replyToConversationId: 'conversation-1'
+  });
+
+  assert.deepEqual(create.task.source_details, {
+    reply_to_message_id: 'message-1',
+    mailbox: 'brian@hardwarefyi.com',
+    email_conversation_id: 'conversation-1'
+  });
+});
+
+test('reply task payloads fail closed when the original message route is absent', () => {
+  assert.throws(
+    () => taskCreatePayload({
+      title: 'Reply to venue',
+      body: 'ACTION: send-reply\nSubject: Re: Venue'
+    }),
+    /--reply-to-message-id for a reply task/
+  );
+});
+
+test('a reply subject inferred from the task title also requires routing', () => {
+  assert.throws(
+    () => taskCreatePayload({
+      title: 'G0008 - Hotel - Re: Room block',
+      body: 'ACTION: send\nTo: hotel@example.com\nThanks'
+    }),
+    /--reply-to-message-id for a reply task/
+  );
+});
+
+test('reply route flags are parsed for the create command', () => {
+  assert.deepEqual(parseArgs([
+    'create',
+    '--reply-to-message-id',
+    'message-1',
+    '--reply-to-mailbox',
+    'Brian@HardwareFYI.com',
+    '--reply-to-conversation-id',
+    'conversation-1'
+  ]), {
+    command: 'create',
+    replyToMessageId: 'message-1',
+    replyToMailbox: 'Brian@HardwareFYI.com',
+    replyToConversationId: 'conversation-1'
+  });
+});
+
 test('task event payload helper records proof events with metadata', () => {
   const payload = taskEventPayload({
     eventType: 'sent',

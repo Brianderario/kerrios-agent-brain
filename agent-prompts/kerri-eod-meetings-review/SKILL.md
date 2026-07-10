@@ -250,12 +250,12 @@ Determine the property per counterparty:
 - S/W counterparty → `standard-works` (S prefix)
 - KMG / internal / vendor / general → `kerri-media-group` (G prefix)
 
-Use `node scripts/console-task-api.mjs create --status needs_approval --job-ref <jobId> --external-ref kerrios:eod:<jobId>:<calendarEventId-or-sha12> --agent-slug kerri-eod-meetings-review --property-slug <propertySlug> --title "<title>" --body-file <notes-file>`:
+For a verified existing chain, use `node scripts/console-task-api.mjs create --status needs_approval --job-ref <jobId> --external-ref kerrios:eod:<jobId>:<calendarEventId-or-sha12> --agent-slug kerri-eod-meetings-review --property-slug <propertySlug> --title "<title>" --body-file <notes-file> --reply-to-message-id <latestMessageId> --reply-to-mailbox <mailbox> --reply-to-conversation-id <conversationId>`. For a verified new message, omit the three reply flags. If a chain exists but any exact route value is missing, create a non-send `action_needed` route-repair card instead:
 - `title`: `🌙 <stable customer jobId> — <Counterparty> — <Meeting title (truncate at 50)>` (for example, `🌙 H0030 — CoLab — Hardware FYI x CoLab`). The visible Console task title MUST use the stable customer `jobId` from the customer-id protocol. Do not title approval tasks with `EOD-H01`, `EOD-H02`, or any other run-local counter; those labels reset by batch and look like duplicate job numbers.
 - `body`: exactly this format
   ```
-  ACTION: send
-  (line 1 is machine-read — leave as `send`; change to `redo` or `skip`. To approve: edit the DRAFT if needed and approve in Console.)
+  ACTION: <send-reply for an existing chain | send for a verified new message>
+  (line 1 is machine-read; change to `redo` or `skip`. To approve: edit the DRAFT if needed and approve in Console.)
   EOD source tag: EOD-<prefix><NN> for <YYYY-MM-DD> only. This is a run-local source tag, not the customer jobId.
 
   WHAT'S GOING ON
@@ -537,7 +537,7 @@ ERROR HANDLING
 - If Granola is reachable but returns 0 meetings for today → proceed; ALL meetings hit STEP 5C path (legit if Granola was off).
 - If Kerri Console task API fails → write everything to a fallback file `data/eod-fallback-<YYYY-MM-DD>.json` and send Brian one email heads-up.
 - If the brain wiki write fails → don't roll back the Console tasks; record the failure in the run log and send an email heads-up if Brian action is needed.
-- Never send emails directly. Drafts ONLY go to Kerri Console tasks. Inbox sweep picks up approved tasks and executes sends per its approval flow.
+- Never send emails directly. Drafts ONLY go to Kerri Console tasks. Savant's deterministic sender executes approved individual cards; the inbox sweep reconciles delivery proof and handles skip/redo decisions.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 HARD RULES

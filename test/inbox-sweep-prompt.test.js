@@ -80,10 +80,7 @@ test('inbox sweep prompt preserves approval gates and mailbox routing', () => {
     'kerri@hardwarefyi.com → `kerri-hardwarefyi-email`',
     'brian@hardwarefyi.com → `brian-hardwarefyi-email`',
     'brian@kerrihq.com → the Gmail connector',
-    // 2026-06-19 (Brian-approved): Kerri now SENDS as brian@kerrihq via gmail_send on an
-    // APPROVED task (replaces the old draft-only "never sends" rule). The load-bearing
-    // safety invariant is approval-gating, asserted here:
-    "Sending still requires Brian's approval of the task first",
+    "Savant's deterministic sender executes an approved individual task through its Gmail mailbox client.",
     'brian@standardandworks.com → the Superhuman connector',
     'Savant tasks API → `node scripts/console-task-api.mjs ...`',
     'APPROVAL CHANNEL: Savant production Tasks board',
@@ -225,7 +222,7 @@ test('console health attention only halts on structural queue failures', () => {
   assertAll(prompt, [
     'If health returns `status: attention`, inspect the failing checks before deciding.',
     'halt only when a structural/integrity check is failing',
-    '`stale_resolved_open` (resolved cards still open), `missing_send_subject`, `invalid_assignees`, `legacy_google_active`',
+    '`stale_resolved_open` (resolved cards still open), `missing_send_subject`, `reply_approvals_missing_thread_metadata`, `invalid_assignees`, `legacy_google_active`',
     'If the ONLY failing checks are the acknowledgement-hygiene pair `pending_decisions` and/or `agent_done_without_proof`, and all structural/integrity checks are clean, continue into STEP 2 and process/acknowledge those decisions',
     'are waiting for agent acknowledgement with a proof receipt, not that the board is structurally mismatched',
     '`agent_done_without_proof` is error-severity but is acknowledgement hygiene, not a structural mismatch: clear it by writing the missing receipt (`mark-applied`), never by halting the sweep.',
@@ -243,9 +240,21 @@ test('unmatched and EOD-sourced tasks fail closed instead of sending', () => {
     'never send, never blind-backfill',
     '⚠ ORPHAN — no jobs.json entry; needs interactive reconciliation',
     'EOD-sourced tasks (`🌙` titles / `EOD source tag:`) are sendable only when the EOD runner wrote the matching job with routing metadata',
-    'Existing-chain routing is mandatory: reply on the stored thread',
-    'if the stored route is missing or stale, send nothing and update the Savant task to `status=action_needed` with `⚠️ route needed` in the title/body'
+    'All three values come from the live mailbox read and must also match `job.routing`.',
+    'If any value is missing, do not create a send approval; create a non-send `action_needed` route-repair card instead.'
   ]);
+});
+
+test('Savant is the only executor for approved sends', () => {
+  assertAll(prompt, [
+    "Savant's deterministic sender is the ONLY executor for both individual drafts and bounded multi-draft batches.",
+    'Never call a mailbox send tool from this branch.',
+    'the inbox sweep only reconciles its verified proof.',
+    '--reply-to-message-id <latestMessageId>',
+    '--reply-to-mailbox <mailbox>',
+    '--reply-to-conversation-id <conversationId>'
+  ]);
+  assert.match(coldOutreachPrompt, /Savant's deterministic sender processes the approved SEND entries/);
 });
 
 // v1: ACTION-line semantics; deletion-is-not-approval was a Brian-decided branch
@@ -253,7 +262,7 @@ test('unmatched and EOD-sourced tasks fail closed instead of sending', () => {
 test('task decisions follow ACTION-line precedence and deletion is never approval', () => {
   assertAll(prompt, [
     'No exceptions, no inference of approval. Deletion of a task is closure, not approval.',
-    'ACTION: send | skip | redo | discuss',
+    'ACTION: send | send-reply | skip | redo | discuss',
     'PRECEDENCE: an ACTION of skip or redo wins over a generic approval signal',
     'an approved task with ACTION: skip is a deliberate close, not a send approval',
     'Savant task missing/deleted while the job is still pending → closure, NOT approval',
@@ -380,7 +389,7 @@ test('inbox sweep prompt suppresses repeated identical error alerts (email, not 
 // on send/skip/close, so the marker's lifecycle ends with the task.
 test('inbox sweep prompt protects redo provenance and new-reply markers', () => {
   assertAll(prompt, [
-    'diff the task-body DRAFT block (between `>>>>>>>` and `<<<<<<<`) against job.originalDraft',
+    "When Brian's `edited_body` differs from job.originalDraft, append the edit lesson to draft-learnings.md",
     'skip the lesson when notes carry a `DRAFT SOURCE:` provenance line from a Kerri redo',
     'rewrite the same Savant task body with `DRAFT SOURCE: inbox-sweep redo at <ET>`',
     'prefix the title 🆕 if not already. No duplicate task.'
@@ -426,7 +435,7 @@ test('inbox sweep performs CRM pipeline updates after revenue sends and replies'
     '`wants-to-do-deal` when they say they want to move forward or do a deal',
     '`declined`, `moving-on`, `not-doing-deal`, or `organic-only` for lost evidence',
     'A sent proposal email is not complete until the CRM update has succeeded',
-    'For every H-prefix sent job, immediately run the CRM PIPELINE AUTO-UPDATE rule below before marking the Savant task applied'
+    'Run the CRM PIPELINE AUTO-UPDATE, durable brain/log writeback, and grade signal from that verified proof.'
   ]);
 });
 
@@ -462,7 +471,7 @@ test('inbox sweep prompt mandates trust instrumentation on jobs and run grades',
   assertAll(prompt, [
     '"actionClass": "<one of the 8 classes below>"',
     '"originalDraft": "...", "sentDraft": null, "decidedAt": null',
-    'Update job (status sent, sentAt, sentDraft, decidedAt, approvalSource)',
+    'reconcile jobs.json to sent using the exact task proof',
     'job skipped, decidedAt stamped',
     'close the duplicate with decidedAt stamped'
   ]);

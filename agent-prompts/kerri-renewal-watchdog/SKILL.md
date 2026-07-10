@@ -32,7 +32,7 @@ When running a full scan, load only:
 - `data/renewal-watchdog-state.json` — prior scan state
 - Console company records (`crm_notes`) ONLY for the specific companies being evaluated (max 5, fetched one at a time)
 
-Do NOT load: full brain/wiki, NOW.md, voice.md, full brain/log.md, full lead pool, raw emails.
+Do NOT load: full brain/wiki, NOW.md, voice.md, full brain/log.md, full lead pool, or unrelated raw emails. A targeted full-thread read is mandatory for each of the at most five selected renewal candidates before drafting.
 
 Load `agent-prompts/kerri-skill/references/voice.md` ONLY when drafting renewal emails in STEP 3. Also load `brain/wiki/workflows/hwfyi-sales-writing-playbook.md` for the drafting craft (Part B persuasion + value / cost-of-inaction, Part C the renewal/upsell narrative arc and option anchoring, Part D sentence craft) and run its 10-point pre-send rubric on each renewal draft.
 
@@ -85,7 +85,7 @@ STEP 3 — DRAFT RENEWAL OUTREACH
 
 For each candidate (max 5 per run):
 
-1. Read the company's Console record if one exists (`GET /api/v1/companies?domain=<d>`, then `crm_notes` + deals) — one record per candidate. If none exists, note "no Console record" and draft from CRM data.
+1. Read the company's Console record if one exists (`GET /api/v1/companies?domain=<d>`, then `crm_notes` + deals) — one record per candidate. Search the chosen sender mailbox for the live relationship thread and read the best matching chain in full. If a chain exists, capture its exact newest message id, mailbox, and conversation/thread id. If no chain is found after a real search, record that proof and treat the outreach as a verified new message. If a chain exists but its exact route cannot be captured, do not create a send approval; create a non-send route-repair card.
 2. Load `agent-prompts/kerri-skill/references/voice.md` for drafting.
 3. Draft a personalized renewal/upsell email that:
    - References the specific prior relationship (what they bought, what value they got)
@@ -103,7 +103,7 @@ Post each as a Hardware FYI Console task:
 Task body uses this exact format (machine-readable for inbox-sweep approval handling):
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ACTION: send
+ACTION: <send-reply for an existing chain | send for a verified new message>
 (change to `skip` or `redo`. To approve: edit the DRAFT if needed and approve in Console.)
 Sends as <Kerri (kerri@hardwarefyi.com) | Brian (brian@hardwarefyi.com)>
 
@@ -124,7 +124,7 @@ Subject: <subject>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-Create the task with `node scripts/console-task-api.mjs create --status needs_approval --agent-slug kerri-renewal-watchdog --property-slug hardware-fyi --job-ref <jobId> --external-ref kerrios:renewal:<jobId>:<sha12>` and create a matching `data/jobs.json` entry with type `renewal`, routed through the inbox-sweep send pipeline using `consoleTaskId` and `consoleExternalRef`.
+For an existing chain, create the task with `node scripts/console-task-api.mjs create --status needs_approval --agent-slug kerri-renewal-watchdog --property-slug hardware-fyi --job-ref <jobId> --external-ref kerrios:renewal:<jobId>:<sha12> --reply-to-message-id <latestMessageId> --reply-to-mailbox <mailbox> --reply-to-conversation-id <conversationId>`. For a verified new message, omit the three reply flags. Create a matching `data/jobs.json` entry with type `renewal`, `consoleTaskId`, `consoleExternalRef`, and the same routing values so the inbox sweep can reconcile Savant's delivery proof.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 3.5 — ESCALATE STALLED RENEWALS

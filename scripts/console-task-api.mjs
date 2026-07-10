@@ -85,20 +85,44 @@ export async function consoleRequest({
 }
 
 export function taskCreatePayload(args) {
+  const title = required(args.title, '--title');
+  const body = args.bodyFile ? fs.readFileSync(args.bodyFile, 'utf8') : required(args.body, '--body or --body-file');
+  if (replyDraft(body, title)) {
+    required(args.replyToMessageId, '--reply-to-message-id for a reply task');
+    required(args.replyToMailbox, '--reply-to-mailbox for a reply task');
+  }
+  if (args.replyToMessageId || args.replyToMailbox || args.replyToConversationId) {
+    required(args.replyToMessageId, '--reply-to-message-id');
+    required(args.replyToMailbox, '--reply-to-mailbox');
+  }
+
+  const sourceDetails = compact({
+    reply_to_message_id: args.replyToMessageId,
+    mailbox: args.replyToMailbox?.trim().toLowerCase(),
+    email_conversation_id: args.replyToConversationId
+  });
   const task = {
-    title: required(args.title, '--title'),
-    body: args.bodyFile ? fs.readFileSync(args.bodyFile, 'utf8') : required(args.body, '--body or --body-file'),
+    title,
+    body,
     status: args.status || 'needs_approval',
     job_ref: args.jobRef,
     external_ref: args.externalRef,
     due_on: args.dueOn,
-    on_complete: onCompletePayload(args)
+    on_complete: onCompletePayload(args),
+    source_details: Object.keys(sourceDetails).length ? sourceDetails : undefined
   };
   return compact({
     task: compact(task),
     agent_slug: args.agentSlug,
     property_slug: args.propertySlug
   });
+}
+
+function replyDraft(body, title) {
+  const text = String(body || '');
+  return /^\s*ACTION:\s*send-reply\b/im.test(text) ||
+    /^\s*Subject:\s*Re:/im.test(text) ||
+    /(?:^|\s)Re:\s*\S/i.test(String(title || ''));
 }
 
 export function taskUpdatePayload(args) {
@@ -416,6 +440,15 @@ export function parseArgs(argv) {
         break;
       case '--property-slug':
         args.propertySlug = rest[++i];
+        break;
+      case '--reply-to-message-id':
+        args.replyToMessageId = rest[++i];
+        break;
+      case '--reply-to-mailbox':
+        args.replyToMailbox = rest[++i];
+        break;
+      case '--reply-to-conversation-id':
+        args.replyToConversationId = rest[++i];
         break;
       case '--note':
         args.note = rest[++i];
