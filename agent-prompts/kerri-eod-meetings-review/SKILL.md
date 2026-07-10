@@ -537,7 +537,7 @@ ERROR HANDLING
 - If Granola is reachable but returns 0 meetings for today → proceed; ALL meetings hit STEP 5C path (legit if Granola was off).
 - If Kerri Console task API fails → write everything to a fallback file `data/eod-fallback-<YYYY-MM-DD>.json` and send Brian one email heads-up.
 - If the brain wiki write fails → don't roll back the Console tasks; record the failure in the run log and send an email heads-up if Brian action is needed.
-- Never send emails directly. Drafts ONLY go to Kerri Console tasks. Savant's deterministic sender executes approved individual cards; the inbox sweep reconciles delivery proof and handles skip/redo decisions.
+- Never send emails directly. Drafts ONLY go to Kerri Console tasks. Savant's deterministic sender executes approved individual and isolated batch cards; the inbox sweep reconciles delivery proof and handles skip/redo decisions.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 HARD RULES

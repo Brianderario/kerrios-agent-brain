@@ -255,6 +255,8 @@ test('Savant is the only executor for approved sends', () => {
     '--reply-to-conversation-id <conversationId>'
   ]);
   assert.match(coldOutreachPrompt, /Savant's deterministic sender processes the approved SEND entries/);
+  assert.match(coldOutreachPrompt, /Savant's deterministic sender sends every draft still marked `SEND #n`/);
+  assert.doesNotMatch(coldOutreachPrompt, /inbox sweep (?:handles the actual sends|sends every draft|sends an approved)/i);
 });
 
 // v1: ACTION-line semantics; deletion-is-not-approval was a Brian-decided branch
