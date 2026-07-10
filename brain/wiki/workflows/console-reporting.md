@@ -1,8 +1,21 @@
 # Savant reporting protocol (formerly KMG Console / kerrihq-rails)
 
-scope: workflow · created: 2026-06-10 · updated: 2026-06-12 · status: **ACTIVE** (Savant production app is the approval queue)
+scope: workflow · created: 2026-06-10 · updated: 2026-07-09 · status: **ACTIVE** (Savant production app is the approval queue)
 
-Every scheduled KMG routine reports its runs to Savant (mission control) and files human-facing work onto the Tasks board there. Savant Tasks is the approval book of record. Do not create new Google Tasks approval items.
+Every scheduled KMG routine reports its runs to Savant (mission control) and files human-facing work onto the Tasks board there. Savant Tasks is the approval book of record. Google Tasks is read-only legacy history: do not create, edit, complete, or delete Google Tasks, and never use a Google Tasks checkbox as approval.
+
+## Non-negotiable write contract
+
+Every material scheduled-run task and email outcome is a paired write:
+
+1. Write the dynamic task/approval/decision/proof receipt into Savant.
+2. Write compact, source-linked relationship, company, or operating truth into
+   Savant brain/CRM and append the durable KerriOS log line in the same run.
+
+Do not copy raw email bodies or credentials into the brain. If the brain write
+fails, leave the Savant task open and record `brain writeback blocked` with the
+mailbox/thread/task source pointer. A run may not report the action complete
+until the pair is verified.
 
 ## Connection
 

@@ -46,6 +46,20 @@ P9. NO BARE PROMISES: CAPTURE BLOCKED WORK DURABLY. (Brian rule, 2026-06-19.) Ne
     - ANY REPLY THAT MUST GO OUT NOW states what is now tracked or waiting on whom, never "I'll send it later." The pre-send lint gate (check #5, `~/.claude/hooks/presend-lint.mjs`) hard-blocks any outbound body that promises a deliverable with nothing attached, on every path including this sweep's create_draft/reply_email calls; a block is the rule working, so convert the promise into one of the durable artifacts above and resend.
     Root cause this prevents: the Ironclad one-sheeter, where a holding "I'll send it" went out instead of the finished asset (2026-06-19). Reinforces the DRAFTING Definition-of-Done gate and step 6.
 
+P10. SAVANT-ONLY TASKS + SAME-RUN BRAIN WRITEBACK. (Brian hard rule,
+2026-07-09.) Savant Console is the single source of truth for every business
+task, approval, email confirmation, follow-up, and scheduled-run action.
+Google Tasks is read-only legacy history: never create, edit, complete, or
+delete a Google Task, and never treat a Google Tasks checkbox as approval.
+Every material email triage decision and every task create/update/decision must
+also write compact, source-linked truth back into Savant brain/CRM plus the
+durable KerriOS log in the same run. Store relationship/company facts in
+Savant brain/CRM and reusable operating corrections in agent memory; do not
+store raw email bodies or credentials. The task/email action is incomplete
+until both the Savant task event and brain writeback succeed. If writeback
+fails, keep the task open and mark an explicit `brain writeback blocked`
+failure with the source pointer; never silently finish one side only.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP -1 — SINGLE-RUN GUARD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -275,7 +289,7 @@ When a sweep observes a concrete improvement (repeated edits, brittle rule, auto
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 6 — SAVE STATE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Write inbox-sweep-state.json (cursors, seenMessageIds, error fields), job-counters.json, jobs.json, trackers.json, wiki pages touched, draft-learnings additions, and one brain/log.md line per material event.
+Write inbox-sweep-state.json (cursors, seenMessageIds, error fields), job-counters.json, jobs.json, trackers.json, wiki pages touched, draft-learnings additions, and one brain/log.md line per material event. Before closing the run, verify every material task/email event has both its Savant task/event receipt and compact Savant brain/CRM writeback. A missing brain writeback is a run error: leave the task open with `brain writeback blocked`, preserve the source pointer, and retry on the next sweep.
 
 seenMessageIds write rule: on a SUCCESSFUL run (cursor advancing), keep ONLY the IDs fetched and triaged during THIS run's lookback window — discard all IDs carried forward from prior runs' accumulated lists. The advancing cursor guarantees older messages won't be re-fetched, so prior-run IDs are useless for dedup and only inflate context on the next run. Cap at 100 as a safety ceiling. On an INCOMPLETE or ERROR run where the cursor does NOT advance, leave seenMessageIds unchanged. (This replaces the prior "cap 500" rule, which caused a context-bloat doom loop: both brian@ mailboxes hit 500 entries of ~100-char Graph IDs, adding ~100K characters of dead state to every STEP 1 load, exhausting the session context before STEP 6 could save state — the structural reason the weekend sweep has never completed in 209 runs.) Company writes already went to the Savant API during CUSTOMER LOOKUP; refresh the snapshot (`node scripts/console-crm-snapshot.mjs`) if any company was created or changed this run — never edit companies.json directly.
 
