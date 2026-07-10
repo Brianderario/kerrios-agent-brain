@@ -129,7 +129,7 @@ Based on all of the above, name the 3 highest-leverage things Brian should do or
 - **Name the company** and the person
 - **Name the dollar amount** at stake (or "TBD — needs pricing conversation")
 - **Name the action**: approve the draft, take the call, send the proposal, check the task
-- **Name the routine that executes it**: inbox sweep sends after approval, pipeline followup drafts nudges, manual Brian action needed
+- **Name the routine that executes it**: Savant deterministic sender delivers approved individual or isolated batch email, inbox sweep reconciles proof, pipeline followup drafts nudges, manual Brian action needed
 
 Priority order: **renewals > warm pipeline > inbound > cold outreach**. Always. A $10K renewal is worth more than fifty $10K cold emails because the close rate is 10x higher.
 

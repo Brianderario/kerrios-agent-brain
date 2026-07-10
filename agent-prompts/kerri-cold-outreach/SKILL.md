@@ -200,7 +200,7 @@ All of the morning's surviving drafts go into a SINGLE Kerri Console task — on
 
 Property: cold sponsor prospecting is HWFYI → `property_slug=hardware-fyi`. (Cross-property/general targets, rare for cold, → `kerri-media-group`. S/W is out of scope.) If a batch ever mixes properties, prefer one Hardware FYI batch task; note any non-HWFYI target inline.
 
-Create ONE task with `node scripts/console-task-api.mjs create --status needs_approval --agent-slug kerri-cold-outreach --property-slug hardware-fyi --job-ref COLD-<YYYY-MM-DD> --external-ref kerrios:cold:<YYYY-MM-DD>:<sha12>`:
+Create ONE task with `node scripts/console-task-api.mjs create --status needs_approval --agent-slug kerri-cold-outreach --property-slug hardware-fyi --job-ref COLD-<YYYY-MM-DD> --external-ref kerrios:cold:<YYYY-MM-DD>:<sha12>`. Savant's deterministic sender processes the approved SEND entries independently with per-draft receipts and honors SKIP/REDO controls; the inbox sweep only reconciles the verified batch proof:
 - `title`: `☀️ COLD BATCH <YYYY-MM-DD> — <N>/10 drafts`
 - `notes` (exact format — the machine-read tokens are: line-1 `ACTION:`, each `SEND #n`/`SKIP #n`/`REDO #n` control line, and each `>>>>>>>`/`<<<<<<<` delimiter pair):
   ```

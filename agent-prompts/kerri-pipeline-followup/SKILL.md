@@ -17,7 +17,7 @@ Central stage rule: Console deals are the pipeline status source of truth; the s
 HARD RULES (do not bypass — ever)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. **Never auto-send.** This agent stages drafts as Kerri Console tasks. The inbox-sweep handles actual send only after Brian approves the Console card (approved=true + approvalSource).
+1. **Never auto-send.** This agent stages drafts as Kerri Console tasks. Savant's deterministic sender executes an approved individual card; the inbox sweep only reconciles its proof into jobs.json and CRM state.
 2. **Conflict rule with inbox-sweep.** Pipeline ONLY acts on deals where `last_sender: us` (the ball is in their court and they've gone quiet). Inbox-sweep handles `last_sender: them`. Mutually exclusive. If a deal's last_sender is unclear or stale, skip.
 3. **Volume caps.** Max 5 new nudges per run total across all deals. Max 1 nudge per deal per 7 days. Counted in `data/pipeline-followup-state.json`. (Cadence is weekly, so "per run" ≈ "per week" — the 5-cap protects against a sudden burst of eligible deals all coming due the same Tuesday.)
 4. **Dormant means dormant.** Never nudge a deal that is `dormant` in `perDealCounters` (this routine paused it), or `closed_won`/`closed_lost` in Savant. To revive a dormant deal, Brian tells Kerri "re-engage <Company>" (clears the dormant flag); only then does it become eligible again.
@@ -56,7 +56,7 @@ Read + write every run:
     ]
   }
   ```
-- `data/jobs.json` — inbox-sweep state. Pipeline appends a new job entry per nudge draft so the inbox-sweep send path picks it up via consoleTaskId/consoleExternalRef.
+- `data/jobs.json` — send/reply reconciliation ledger. Pipeline appends a new job entry per nudge draft so the inbox sweep can reconcile Savant's delivery proof via consoleTaskId/consoleExternalRef.
 - `data/job-counters.json` — H/S/G counters. Pipeline does NOT bump counters; it reuses jobIds already assigned in the Console CRM.
 - `data/companies.json` — domain → {jobId, …}; a generated READ-ONLY snapshot of the KMG Console (the CRM of record). Use it for the in-memory domain map; the Console API is authoritative.
 
@@ -152,7 +152,7 @@ STEP 1 — LOAD + FILTER DEALS
 STEP 2 — PROCESS DECISIONS FROM EXISTING PIPELINE TASKS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The inbox-sweep handles SEND / SKIP / REDO on `📈 PIPELINE-` titled tasks the same way it handles any other approval (STEP 2 of kerri-inbox-sweep). This agent does NOT re-process those — the sweep owns send-side state, and it records the actual send into `data/jobs.json` (`status: sent`, `sentAt`) and the Savant deal stage. `last_contact_date` is therefore derived from jobs.json (STEP 1.3), not stored anywhere by this agent.
+Savant's deterministic sender owns SEND on `📈 PIPELINE-` individual cards. The inbox sweep handles SKIP / REDO and reconciles Savant's verified send proof into `data/jobs.json` (`status: sent`, `sentAt`) and the Savant deal stage. This agent does not execute decisions itself. `last_contact_date` is therefore derived from jobs.json (STEP 1.3), not stored anywhere by this agent.
 
 Reconcile this routine's cadence telemetry with what actually sent:
 - Scan `node scripts/console-task-api.mjs list --open --source rails --per-page 100` plus `data/jobs.json` for `📈 PIPELINE-` tasks/jobs. If a nudge this agent drafted was **skipped** by Brian (`resolution: skipped` / matching jobs.json status skipped): decrement `nudgeCount` in `state.perDealCounters[dealId]` and clear `lastNudgeDate` (it never went out, so the 7-day rate limit should not block the deal next run).
@@ -164,7 +164,7 @@ STEP 3 — DRAFT NUDGES (up to global budget)
 
 For each eligible deal (up to 5 total drafts this run):
 
-A) **Pull thread context.** Find the most recent job in `data/jobs.json` for the deal's company `jobId`. Read the latest message body referenced there (and use it as the source of the send route: `mailbox`, `sendFrom`, `replyTo`, `internetMessageIds`, last subject). If no thread context exists in jobs.json (e.g., a seeded deal that never went through the sweep), use the Savant deal's `notes` + the company's `crm_notes` (`GET /api/v1/companies/:id`) as context.
+A) **Pull and re-read thread context.** Find the most recent job in `data/jobs.json` for the deal's company `jobId`, then re-read that conversation in the live mailbox. Capture the exact newest message id, mailbox, and conversation/thread id; those are the task's immutable reply route. Use the full live thread as context and verify no newer sent reply already handled the nudge. If no thread context exists in jobs.json, search the chosen sender mailbox by the contact/company and likely subject before treating this as a new message. Use the Savant deal's `notes` + the company's `crm_notes` (`GET /api/v1/companies/:id`) as supplemental context, never as a substitute for a live route when a prior chain exists.
 
 B) **Determine nudge framing.** Reference the SPECIFIC last beat:
    - First nudge: "Sid, pulling together the format details and examples you asked for this week. Anything in particular you want me to prioritize (the partner-program in-newsletter unit, or example creatives)?"
@@ -180,9 +180,13 @@ C) **Apply voice rules** from `agent-prompts/kerri-skill/references/voice.md`:
    - Forward-looking close where natural.
    - No throat-clearing apology unless a real lapse occurred.
 
-D) **Subject line.** Reply-style: `Re: <last_message_subject>`. If `last_message_subject` is null (seeded deal with no thread context), use `<Company name> — quick follow-up` (still specific, no "checking in").
+D) **Subject line.** When a verified live chain exists, preserve its reply subject and use `Re: <last_message_subject>`. If a real mailbox search found no prior chain, use `<Company name> - quick follow-up`. Never manufacture `Re:` without the route.
 
 E) **Create the Console task.** One `node scripts/console-task-api.mjs create` call per nudge.
+
+   Existing thread command: `node scripts/console-task-api.mjs create --status needs_approval --agent-slug kerri-pipeline-followup --property-slug <propertySlug> --job-ref <jobId> --external-ref kerrios:pipeline:<jobId>:<sha12> --title "<title>" --body-file <notes-file> --reply-to-message-id <latestMessageId> --reply-to-mailbox <mailbox> --reply-to-conversation-id <conversationId>`.
+
+   Verified new-message command: use the same command without the three reply flags. If a prior chain exists but any route value is missing, create a non-send `action_needed` route-repair card instead of an approval.
 
    Property slug: `hardware-fyi` for HWFYI deals, `kerri-media-group` for KMG-general deals.
 
@@ -192,8 +196,8 @@ E) **Create the Console task.** One `node scripts/console-task-api.mjs create` c
    Body (EXACTLY this format — matches inbox-sweep's STEP 2 parser):
    ```
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ACTION: send
-   (line 1 is machine-read — leave as `send`; change to `redo` or `skip`. To approve: edit the DRAFT if needed and approve in Console.)
+   ACTION: <send-reply for an existing thread | send for a verified new message>
+   (line 1 is machine-read; change to `redo` or `skip`. To approve: edit the DRAFT if needed and approve in Console.)
    Sends as <send_from>
 
    WHAT'S GOING ON
@@ -213,7 +217,7 @@ E) **Create the Console task.** One `node scripts/console-task-api.mjs create` c
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    ```
 
-F) **Append a new job to jobs.json** so the inbox-sweep send path picks this up at next firing. Job schema (per `agent-prompts/kerri-inbox-sweep/SKILL.md`):
+F) **Append a new job to jobs.json** so the inbox sweep can reconcile Savant's delivery proof at its next firing. Job schema (per `agent-prompts/kerri-inbox-sweep/SKILL.md`):
    ```
    {
      "jobId": "<company jobId — reused, not bumped>",
@@ -344,7 +348,7 @@ Use `ok` when drafts or close-outs happened, `quiet` on a clean no-op. This is h
 SESSION NOTES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-- This agent runs in tandem with kerri-inbox-sweep but never directly sends. All sends go through the sweep's STEP 2 approval flow.
+- This agent runs in tandem with kerri-inbox-sweep but never directly sends. Approved individual cards are delivered by Savant's deterministic sender; the sweep reconciles proof and handles non-send decisions.
 - The new `source: pipeline-followup` field on jobs is purely informational — inbox-sweep treats it identically to source: inbox-sweep at send time.
 - The Kinetic 2026 sponsor seed is one-time. If the candidate roster is updated (e.g., 2027 sponsors added), new deals are created in Savant (`POST /api/v1/deals`); this agent does NOT re-seed.
 - S/W boundary: this agent never reads S-prefix deals or `brain/.local/` paths. If a future S/W pipeline mode is needed, build it as a separate agent with its own state file.

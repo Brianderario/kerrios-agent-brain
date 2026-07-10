@@ -69,14 +69,16 @@ agents should use for `health`, `list`, `show`, `create`, `update`, and
 3. Brian approves, skips, edits, or requests rewrite in production Savant.
    Rails archives approve/skip cards immediately and stores the decision in
    `resolution` / `resolution_payload`.
-4. The **inbox-sweep** polls
-   `node scripts/console-task-api.mjs list --resolved pending --per-page 100`.
-   It sends approved drafts through the existing guarded mailbox MCPs
-   (`approved=true` + `approvalSource`, auto-CC where required), skips skipped
-   jobs, and rewrites redo jobs.
-5. After applying a decision, inbox-sweep calls
-   `node scripts/console-task-api.mjs mark-applied --id <taskId> --note "<result>"`
-   so no approval can execute twice.
+4. Savant's deterministic sender claims approved individual and batch email cards, re-reads
+   the original message/thread, sends through the mailbox-specific client, and
+   atomically stamps `applied_at`, provider message id, and proof event. The
+   inbox sweep polls pending decisions to reconcile that proof into jobs.json and
+   CRM state, and it handles skip/redo decisions. Multi-draft batches are sent
+   as isolated messages with one receipt per SEND entry; SKIP and REDO entries
+   never leave the system.
+5. Agents call `node scripts/console-task-api.mjs mark-applied --id <taskId>
+   --note "<result>"` only after applying a non-send agent-owned decision. They never
+   overwrite the deterministic sender's proof.
 6. If the routine has concrete proof beyond the applied stamp, append it:
    `node scripts/console-task-api.mjs event --id <taskId> --event-type sent --note "<what happened>" --metadata-json '{"message_id":"..."}'`.
    These receipts appear in the task review page and the dashboard Proof Trail.
@@ -110,7 +112,7 @@ agents should use for `health`, `list`, `show`, `create`, `update`, and
 - The old Approvals page is now "Other approvals"; task items there are
   REVIEW-only and cannot approve/skip from summary context.
 - Approve buttons on the production board are REAL: an approve queues an
-  actual external send at the next sweep.
+  individual external send for Savant's deterministic sender.
 
 ## Legacy bridge status
 

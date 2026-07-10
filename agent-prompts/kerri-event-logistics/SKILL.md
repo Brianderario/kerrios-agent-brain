@@ -143,7 +143,7 @@ Brian says: "Kerri, draft inquiry to <X> for <event>." Or names multiple venues/
 For each target:
 
 1. Pull event context from state.json — date, city, headcount, vibe, budget ceiling (if shareable), any constraints (kosher catering, AV needs, accessibility).
-2. **Check for prior relationship.** If a Console company record exists (relationship context in `crm_notes`) or the brain has email history with this contact, mention it in the draft (e.g., "we worked with you on Kinetic 2026 last May — would love to revisit").
+2. **Check for prior relationship and live thread.** If a Console company record exists (relationship context in `crm_notes`) or the brain has email history with this contact, search the chosen sender mailbox and read the best matching full chain. When a chain exists, the card must use `ACTION: send-reply` and carry the exact newest message id, mailbox, and conversation/thread id. If no chain is found after a real search, use `ACTION: send`. If a chain exists but its route cannot be captured, file a non-send route-repair card. Mention the prior relationship in the draft when relevant.
 3. Apply `voice.md` (HWFYI voice — this is HWFYI/KMG side outbound). Direct, peer-tone, specific. Brian's sign-off.
 4. Draft body — 4–6 sentences:
    - Intro line (warm if relationship exists, neutral if cold; name the event and the slot)
@@ -155,9 +155,9 @@ For each target:
    - Use `brian@hardwarefyi.com` if it's a relationship-led venue (e.g., the Westin team knows Brian directly from Kinetic)
 6. **Post as Kerri Console task** under **Kerri MG** (events are KMG-side cross-cutting):
    - Title: `📅 EVENT-<slug>-NN — <Venue or Vendor name> inquiry`
-   - Body: ACTION line + event context + draft (same format as inbox sweep tasks — Console approve = send)
-   - Use `node scripts/console-task-api.mjs create --status needs_approval --agent-slug kerri-event-logistics --property-slug kerri-media-group --job-ref <jobId> --external-ref kerrios:event:<slug>:<jobId>:<sha12>`.
-7. **Update state.json#openInquiries** with `{ to, consoleTaskId, consoleExternalRef, sentAt: null }`. After Brian approves the task and inbox sweep sends, `sentAt` gets filled by the inbox sweep when it processes the cold-outreach-equivalent send.
+   - Body: `ACTION: send-reply` for an existing chain or `ACTION: send` for a verified new message, plus event context and the draft.
+   - Existing chain: use `node scripts/console-task-api.mjs create --status needs_approval --agent-slug kerri-event-logistics --property-slug kerri-media-group --job-ref <jobId> --external-ref kerrios:event:<slug>:<jobId>:<sha12> --reply-to-message-id <latestMessageId> --reply-to-mailbox <mailbox> --reply-to-conversation-id <conversationId>`. Verified new message: omit the three reply flags.
+7. **Update state.json#openInquiries** with `{ to, consoleTaskId, consoleExternalRef, sentAt: null }`. After Savant's deterministic sender delivers an approved individual task, the inbox sweep fills `sentAt` while reconciling the exact delivery proof.
 
 S/W boundary: If the event is a joint S/W + KMG event and the inquiry is for the S/W side (e.g., DC maritime defense event coordination with Zach's contacts), draft from `brian@standardandworks.com` via the Superhuman MCP and use S/W-side framing. Inquiry task goes in Kerri Console under `property_slug=standard-works`.
 

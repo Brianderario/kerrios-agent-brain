@@ -59,10 +59,11 @@ using the compatibility status `agent_working` with `resolution=approved` until
 delivery proof is applied. A skipped or completed card moves to `done`. A redo
 request reopens the internal work in Team Tasks with
 `resolution=redo_requested`, then the revised approval packet returns to the
-assigned owner's Tasks. Poll `node scripts/console-task-api.mjs list --resolved
-pending --per-page 100`. After applying a decision, call `node
-scripts/console-task-api.mjs mark-applied --id <taskId> --note "<what
-happened>"` so the decision is acknowledged and will not execute twice.
+assigned owner's Tasks. Savant's deterministic sender claims approved individual
+and isolated batch email cards and records per-message delivery proof itself. Poll `node
+scripts/console-task-api.mjs list --resolved pending --per-page 100` to reconcile
+that proof and to process agent-owned skip, redo, and suggestion decisions. Call `mark-applied` only after an agent-owned
+decision has actually been applied; never overwrite sender proof.
 
 ## 3a. Interactive sends clear their own card (Brian rule, 2026-06-15; hardened 2026-06-17)
 
@@ -82,7 +83,7 @@ It is **idempotent** (safe to re-run; already-closed cards/jobs are detected and
 
 **Why one command:** on 2026-06-17 an interactive send flipped `jobs.json` to sent but left the cards in `needs_approval` (re-approvable / re-sendable for ~12h). Doing the four steps by hand is what allowed the half-completion; `close-job` is card-first so a partial failure leaves the card closed (not re-approvable), never a `jobs.json`-only state the sweep would re-send.
 
-Do NOT use `mark-applied` here (that path is the sweep acknowledging its own approved send). **Safety (built into `close-job`):** `--status done` fires a card's server-side `on_complete` only when the payload is non-blank and `resolution != "skipped"` (`TaskCompletionAction.run!`); queued email-reply cards carry a blank `on_complete`, so closing is side-effect-free. If a card carries a non-blank `on_complete` (e.g. `create_deal`) whose effect you already performed by hand, `close-job` refuses with an instructive error — re-run with `--resolution skipped` (or clear it first via `update --clear-on-complete`).
+Do NOT use `mark-applied` here because `close-job` writes the complete interactive-send proof atomically. **Safety (built into `close-job`):** `--status done` fires a card's server-side `on_complete` only when the payload is non-blank and `resolution != "skipped"` (`TaskCompletionAction.run!`); queued email-reply cards carry a blank `on_complete`, so closing is side-effect-free. If a card carries a non-blank `on_complete` (e.g. `create_deal`) whose effect you already performed by hand, `close-job` refuses with an instructive error.
 
 ## 4. Adjustment requests
 
