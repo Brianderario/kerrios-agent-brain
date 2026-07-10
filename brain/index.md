@@ -46,6 +46,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/events/sf-tech-week-2026-sponsor-prospects]] — tiered SF Tech Week sponsor prospect list (Kinetic roster + advertisers + Tech Week-history research, 2026-06-02)
 - [[wiki/events/ai-for-hardware-vendor-universe]] — exhaustive ~350-vendor map of the software/AI-for-hardware stack across 9 floor lanes, for the proving-ground demo event; CRM-flagged existing vs net-new (2026-06-13, 7-agent sweep)
 - [[wiki/properties/savant]] — production KMG operating app formerly called Kerri/KMG Console (`kerrihq-rails` on Render); source of truth for CRM, tasks, approvals, revenue surfaces, newsletter inventory, agent runs, and permissioned brain records
+- [[wiki/workflows/savant-task-board-workflow]] — canonical task status keys, visible column names, approval outbox semantics, and scheduled-run routing
 
 ## Companies
 
@@ -63,7 +64,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-05-24-lead-research-launch]] — discovery sub-agent that feeds cold-outreach with multi-source enriched prospects (conferences, lookalikes, funding, hiring)
 - [[wiki/decisions/2026-05-24-sw-newsletter-chain-launch]] — sub-agent #2: S&W Industrialist newsletter chain (writer + editor + marketing). Kerri owns the writing Mon/Wed nights for Tue/Thu publish.
 - [[wiki/decisions/2026-05-25-codex-primary-operating-layer]] — ~~Codex primary~~ SUPERSEDED by [[wiki/decisions/2026-06-08-claude-code-sole-runner]]
-- [[wiki/decisions/2026-06-08-claude-code-sole-runner]] — Claude Code is the sole operating runner for all Kerri routines (supersedes Codex-primary decision)
+- [[wiki/decisions/2026-06-08-claude-code-sole-runner]] — historical runner decision, superseded operationally by the live Savant and Codex schedule registry described in [[wiki/agents/registry]]
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — KerriOS is the living company brain; Kerri climbs from approval-gated assistant to eventual decision authority.
 - [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — Brian's agent architecture distilled into role pods, feedback loops, and automation rebuild priorities.
 - [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — historical first rebuild; its Google Tasks rail is **superseded** by Savant

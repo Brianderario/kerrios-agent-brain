@@ -2,10 +2,12 @@
 
 KerriOS is the agent-readable company brain and policy layer for Kerri Media Group.
 
-Current runner posture: Claude Code is the sole runner for all Kerri work
-(interactive + scheduled) as of 2026-06-08. Codex is retired. This changes the
-runner, not the agent identity: Kerri remains Brian's chief of staff + KMG org
-brain, and this repo remains canonical.
+Current runner posture: Kerri work can run through Savant AgentSchedules, Codex
+automations, and interactive runners. The live Savant `/agents` surface and the
+Codex automation manager are the executable schedule authorities. Local Claude
+scheduled-task shims are compatibility mirrors, not an independent source of
+truth. The runner does not change the agent identity: Kerri remains Brian's
+chief of staff + KMG org brain, and this repo remains the durable policy mirror.
 
 KerriOS is the living company brain. Every meaningful interaction from email,
 Slack, Codex/iMessage, meetings, Drive docs, and operational work should feed

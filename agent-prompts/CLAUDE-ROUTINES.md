@@ -1,19 +1,42 @@
-# Claude Code Routines — Primary
+# Claude Code routine compatibility inventory
 
-scope: routine spec · updated: 2026-06-08 · author: Brian + Kerri
+scope: routine compatibility spec · updated: 2026-07-10 · author: Brian + Kerri
 
-Claude Code is the **sole scheduled runner** for all Kerri routines as of 2026-06-08. This file and [`kerri-skill/references/automations.md`](kerri-skill/references/automations.md) are now aligned — both describe the same Claude Code scheduled tasks. Codex automations under `~/.codex/automations/` are retired and should be disabled.
+This file documents the local Claude Code compatibility shims and their
+historical cadence. It is not the live executable schedule registry. Current
+schedules are the union of Savant AgentSchedules shown on `/agents` and enabled
+Codex automations shown by the Codex automation manager. A Claude shim that is
+used must load the same canonical prompt and task-board contract; it must not
+create a second independent cadence for work already owned by a live schedule.
 
 Organized by **role pod + operating loop**, per [[../brain/wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] (design implication: automations are grouped by pod and loop, never by old schedule names). The slide framework Brian shared 2026-05-29 is a 1:1 visual of that decision: every agent perceives the world, acts inside gates, and **constantly feeds data back to KerriOS**.
 
-## Substrate: Claude Code persistent scheduled-tasks MCP
+## Substrate: Claude Code persistent scheduled-tasks compatibility shims
 
-All routines run as **persistent `scheduled-tasks` MCP jobs** under `~/.claude/scheduled-tasks/<name>/SKILL.md` on Brian's MacBook. Each shim loads its canonical `agent-prompts/<name>/SKILL.md`. These are persistent and do not auto-expire.
+Compatibility shims live under `~/.claude/scheduled-tasks/<name>/SKILL.md` on
+Brian's MacBook and load canonical `agent-prompts/<name>/SKILL.md` files. Their
+presence does not prove that they are enabled or authoritative. Check Savant
+and the Codex automation manager before enabling or changing any local shim.
 
 Key operational facts:
 
 1. **Claude Code must be running for jobs to fire.** If the Mac is asleep or no session is open, nothing runs. `com.kerri.routine-liveness` (launchd, every 15m) catches a routine that has gone dark and records an alert to `data/routine-liveness-alerts.jsonl` (Kerri no longer texts Brian; the Sendblue path was retired from Kerri on 2026-06-17 and Hermes owns texting).
 2. **No expiry.** The scheduled-tasks MCP jobs are persistent. No re-arm job needed. `kerri-gap-sweep` class I + the liveness watchdog watch that tasks stay `enabled` and keep firing.
+
+## Task board routing, canonical 2026-07-10
+
+Every scheduled prompt and shim uses the stable status keys below. Visible
+headings may change, but these keys must not be renamed:
+
+- `needs_approval` → Brian's Tasks for decisions, missing information, and send authorization.
+- `action_needed` → Team Tasks for concrete work that can proceed now and for ordinary schedule result cards.
+- `waiting_reply` → Waiting / On Hold for outside replies and explicit holds.
+- `discuss` → Discuss for a real discussion.
+- `kerri_upgrades` → Kerri Upgrades for system improvements.
+- `agent_working` is never a scheduled destination. Approved to Send is system-managed after Brian approves a sendable card.
+- `NO_UPDATES` creates no task card.
+
+The full contract is [[../brain/wiki/workflows/savant-task-board-workflow]].
 
 ## Date & time handling — ET clock, never the harness `currentDate`
 

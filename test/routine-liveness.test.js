@@ -9,6 +9,13 @@ import { fileURLToPath } from 'node:url';
 import { decideRoutineAlerts } from '../scripts/routine-liveness-check.mjs';
 
 const script = fileURLToPath(new URL('../scripts/routine-liveness-check.mjs', import.meta.url));
+const manifest = JSON.parse(
+  fs.readFileSync(fileURLToPath(new URL('../agent-prompts/routines.manifest.json', import.meta.url)), 'utf8')
+);
+const inboxSweepMonitored = manifest.routines.some(
+  (routine) => routine.name === 'kerri-inbox-sweep' && routine.monitored
+);
+const inboxSweepTest = inboxSweepMonitored ? test : test.skip;
 
 function fixture(files) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'kerrios-liveness-'));
@@ -63,7 +70,7 @@ function run(root, now, extra = []) {
   return JSON.parse(r.stdout);
 }
 
-test('inbox-sweep fresh inside active window → healthy', () => {
+inboxSweepTest('inbox-sweep fresh inside active window → healthy', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-05-29T17:50:00Z')
   });
@@ -74,7 +81,7 @@ test('inbox-sweep fresh inside active window → healthy', () => {
   assert.deepEqual(rep.darkCore, []);
 });
 
-test('inbox-sweep stale inside active window → dark core, ok=false', () => {
+inboxSweepTest('inbox-sweep stale inside active window → dark core, ok=false', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-05-29T17:00:00Z')
   });
@@ -85,7 +92,7 @@ test('inbox-sweep stale inside active window → dark core, ok=false', () => {
   assert.deepEqual(rep.darkCore, ['kerri-inbox-sweep']);
 });
 
-test('inbox-sweep stale overnight → paused-ok (no false alarm)', () => {
+inboxSweepTest('inbox-sweep stale overnight → paused-ok (no false alarm)', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-05-30T01:00:00Z')
   });
@@ -95,7 +102,7 @@ test('inbox-sweep stale overnight → paused-ok (no false alarm)', () => {
   assert.equal(rep.ok, true);
 });
 
-test('inbox-sweep weekend before first checkpoint → ok', () => {
+inboxSweepTest('inbox-sweep weekend before first checkpoint → ok', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-06-05T22:00:00Z')
   });
@@ -109,7 +116,7 @@ test('inbox-sweep weekend before first checkpoint → ok', () => {
 // `0 18 * * 6,0`) writing the shared inbox-sweep-state.json. Pre-2026-06-13 the
 // weekend checkpoints were [10:00, 16:00]; the weekday/weekend split collapsed them
 // to one 18:00 run, so these assert the single-checkpoint model with a 35m grace.
-test('inbox-sweep weekend within the 18:00 fire+grace window → ok (no premature dark)', () => {
+inboxSweepTest('inbox-sweep weekend within the 18:00 fire+grace window → ok (no premature dark)', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-06-05T22:00:00Z') // stale: Fri 18:00 ET
   });
@@ -119,7 +126,7 @@ test('inbox-sweep weekend within the 18:00 fire+grace window → ok (no prematur
   assert.equal(rep.ok, true);
 });
 
-test('inbox-sweep weekend after missed 18:00 checkpoint → dark core', () => {
+inboxSweepTest('inbox-sweep weekend after missed 18:00 checkpoint → dark core', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-06-05T22:00:00Z') // last run Fri, none Sat
   });
@@ -130,7 +137,7 @@ test('inbox-sweep weekend after missed 18:00 checkpoint → dark core', () => {
   assert.deepEqual(rep.darkCore, ['kerri-inbox-sweep']);
 });
 
-test('inbox-sweep weekend after 18:00 success → ok', () => {
+inboxSweepTest('inbox-sweep weekend after 18:00 success → ok', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-06-06T22:10:00Z') // Sat 18:10 ET run
   });
@@ -140,7 +147,7 @@ test('inbox-sweep weekend after 18:00 success → ok', () => {
   assert.equal(rep.ok, true);
 });
 
-test('missing state file → unknown, not dark', () => {
+inboxSweepTest('missing state file → unknown, not dark', () => {
   const root = fixture({});
   const rep = run(root, '2026-05-29T18:00:00Z');
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
@@ -148,7 +155,7 @@ test('missing state file → unknown, not dark', () => {
   assert.equal(rep.ok, true); // unknown never trips the core alarm
 });
 
-test('--alert --dry-run surfaces the message without sending', () => {
+inboxSweepTest('--alert --dry-run surfaces the message without sending', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-05-29T17:00:00Z')
   });
@@ -160,7 +167,7 @@ test('--alert --dry-run surfaces the message without sending', () => {
 
 // --- morning relaunch grace: a self-healing gap must not page Brian ---
 
-test('inbox-sweep mildly stale DURING the morning relaunch window → ok (grace)', () => {
+inboxSweepTest('inbox-sweep mildly stale DURING the morning relaunch window → ok (grace)', () => {
   const root = fixture({
     // 45m stale at 07:10 ET (11:10Z) — inside the 06:45–07:45 ET widened budget of 50m.
     'inbox-sweep-state.json': sweepState('2026-06-04T10:25:00Z')
@@ -171,7 +178,7 @@ test('inbox-sweep mildly stale DURING the morning relaunch window → ok (grace)
   assert.equal(rep.ok, true);
 });
 
-test('same 45m staleness OUTSIDE the morning window → dark (normal 35m budget)', () => {
+inboxSweepTest('same 45m staleness OUTSIDE the morning window → dark (normal 35m budget)', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-06-04T17:15:00Z')
   });
@@ -185,7 +192,7 @@ test('same 45m staleness OUTSIDE the morning window → dark (normal 35m budget)
 // lastSuccessfulSweepAt for hours, so a healthy sweep read "unknown" and a dark one
 // would never have paged. The checker now also reads data/sweep-cadence.log.)
 
-test('per-mailbox lastSuccessfulSweepAt alone (no top-level updatedAt) → ok', () => {
+inboxSweepTest('per-mailbox lastSuccessfulSweepAt alone (no top-level updatedAt) → ok', () => {
   const state = sweepState('2026-05-29T17:50:00Z');
   delete state.updatedAt;
   const root = fixture({ 'inbox-sweep-state.json': state });
@@ -194,7 +201,7 @@ test('per-mailbox lastSuccessfulSweepAt alone (no top-level updatedAt) → ok', 
   assert.equal(sweep.status, 'ok');
 });
 
-test('legacy minimal shape (top-level updatedAt only) still works', () => {
+inboxSweepTest('legacy minimal shape (top-level updatedAt only) still works', () => {
   const root = fixture({
     'inbox-sweep-state.json': { schema: 'inbox-sweep-state-v1', updatedAt: '2026-05-29T17:50:00Z' }
   });
@@ -203,7 +210,7 @@ test('legacy minimal shape (top-level updatedAt only) still works', () => {
   assert.equal(sweep.status, 'ok');
 });
 
-test('degraded state (no timestamps anywhere) + fresh cadence log → ok via the log', () => {
+inboxSweepTest('degraded state (no timestamps anywhere) + fresh cadence log → ok via the log', () => {
   const root = fixture({
     'inbox-sweep-state.json': degradedSweepState(),
     'sweep-cadence.log': cadenceLine('2026-05-29T17:30:00Z') + cadenceLine('2026-05-29T17:50:00Z')
@@ -214,7 +221,7 @@ test('degraded state (no timestamps anywhere) + fresh cadence log → ok via the
   assert.equal(sweep.lastSuccessAt, '2026-05-29T17:50:00Z');
 });
 
-test('degraded state + STALE cadence log → dark (the log does not weaken detection)', () => {
+inboxSweepTest('degraded state + STALE cadence log → dark (the log does not weaken detection)', () => {
   const root = fixture({
     'inbox-sweep-state.json': degradedSweepState(),
     'sweep-cadence.log': cadenceLine('2026-05-29T17:00:00Z') // 60m stale at 14:00 ET
@@ -225,14 +232,14 @@ test('degraded state + STALE cadence log → dark (the log does not weaken detec
   assert.deepEqual(rep.darkCore, ['kerri-inbox-sweep']);
 });
 
-test('degraded state + no cadence log → unknown (the exact 2026-06-09 blind-spot shape)', () => {
+inboxSweepTest('degraded state + no cadence log → unknown (the exact 2026-06-09 blind-spot shape)', () => {
   const root = fixture({ 'inbox-sweep-state.json': degradedSweepState() });
   const rep = run(root, '2026-05-29T18:00:00Z');
   const sweep = rep.routines.find((x) => x.routine === 'kerri-inbox-sweep');
   assert.equal(sweep.status, 'unknown');
 });
 
-test('cadence log: malformed lead token ("undefined") is skipped, never trusted or fatal', () => {
+inboxSweepTest('cadence log: malformed lead token ("undefined") is skipped, never trusted or fatal', () => {
   const root = fixture({
     'inbox-sweep-state.json': degradedSweepState(),
     // The live log really contains a line whose lead token is the string "undefined".
@@ -246,7 +253,7 @@ test('cadence log: malformed lead token ("undefined") is skipped, never trusted 
   assert.equal(sweep.lastSuccessAt, '2026-05-29T17:50:00Z');
 });
 
-test('cadence log: only malformed lines → no stamp, stays unknown (no false ok)', () => {
+inboxSweepTest('cadence log: only malformed lines → no stamp, stays unknown (no false ok)', () => {
   const root = fixture({
     'inbox-sweep-state.json': degradedSweepState(),
     'sweep-cadence.log': 'undefined material | gap ~8min | grade 5\n'
@@ -256,7 +263,7 @@ test('cadence log: only malformed lines → no stamp, stays unknown (no false ok
   assert.equal(sweep.status, 'unknown');
 });
 
-test('max across sources: stale state stamps + fresher cadence log → the newest wins', () => {
+inboxSweepTest('max across sources: stale state stamps + fresher cadence log → the newest wins', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-05-29T16:00:00Z'), // 2h stale on its own
     'sweep-cadence.log': cadenceLine('2026-05-29T17:50:00Z') // but the log shows a 10m-fresh sweep
@@ -267,7 +274,7 @@ test('max across sources: stale state stamps + fresher cadence log → the newes
   assert.equal(sweep.lastSuccessAt, '2026-05-29T17:50:00Z');
 });
 
-test('max across sources: fresh state + older log → state wins, still ok', () => {
+inboxSweepTest('max across sources: fresh state + older log → state wins, still ok', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-05-29T17:50:00Z'),
     'sweep-cadence.log': cadenceLine('2026-05-29T16:00:00Z')
@@ -278,7 +285,7 @@ test('max across sources: fresh state + older log → state wins, still ok', () 
   assert.equal(sweep.lastSuccessAt, '2026-05-29T17:50:00Z');
 });
 
-test('short-form log stamps (e.g. 2026-06-09T19:18Z, as the live log writes) parse', () => {
+inboxSweepTest('short-form log stamps (e.g. 2026-06-09T19:18Z, as the live log writes) parse', () => {
   const root = fixture({
     'inbox-sweep-state.json': degradedSweepState(),
     'sweep-cadence.log': '2026-05-29T17:50Z quiet | gap ~11min | 4 mailboxes clean | grade 5\n'
@@ -478,7 +485,7 @@ test('decideRoutineAlerts: went unknown → NOT a false all-clear, alert stays o
 
 // --- alert dedup + recovery (end-to-end via CLI, dry-run so no real text is sent) ---
 
-test('CLI dedup: still-dark routine with an open alert produces NO new alert', () => {
+inboxSweepTest('CLI dedup: still-dark routine with an open alert produces NO new alert', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-05-29T17:00:00Z'),
     'routine-liveness-alert-state.json': { alerted: { 'kerri-inbox-sweep': { since: '2026-05-29T17:30:00Z' } } }
@@ -488,7 +495,7 @@ test('CLI dedup: still-dark routine with an open alert produces NO new alert', (
   assert.ok(rep.alertState.alerted['kerri-inbox-sweep']); // stays open
 });
 
-test('CLI recovery: open alert + now healthy → recovery ping, alert closed', () => {
+inboxSweepTest('CLI recovery: open alert + now healthy → recovery ping, alert closed', () => {
   const root = fixture({
     'inbox-sweep-state.json': sweepState('2026-05-29T17:55:00Z'), // fresh at 14:00 ET
     'routine-liveness-alert-state.json': { alerted: { 'kerri-inbox-sweep': { since: '2026-05-29T16:00:00Z' } } }
