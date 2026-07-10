@@ -127,9 +127,14 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 ## "What runner does Kerri use?"
 
-- [[wiki/decisions/2026-06-08-claude-code-sole-runner]] — Claude Code is the sole runner (supersedes Codex-primary)
+- [[wiki/agents/registry]] — current executable registry: Savant AgentSchedules plus enabled Codex automations
+- [[wiki/decisions/2026-06-08-claude-code-sole-runner]] — historical runner decision; no longer the executable truth
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — why KerriOS is the living brain and how autonomy advances
-- [[wiki/agents/registry]] — agent roster and canonical prompt locations
+
+## "Which task-board column should this work use?"
+
+- [[wiki/workflows/savant-task-board-workflow]] — stable status keys, current headings, Approved to Send rules, and scheduled-run routing
+- [[wiki/workflows/console-reporting]] — exact task, approval, proof, and brain writeback protocol
 
 ## "How autonomous is Kerri allowed to be?"
 

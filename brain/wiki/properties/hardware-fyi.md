@@ -1,6 +1,6 @@
 # Hardware FYI (HWFYI)
 
-scope: property · updated: 2026-06-12
+scope: property · updated: 2026-07-10
 
 ## Newsletter ad calendar — SOURCE OF TRUTH
 
@@ -28,7 +28,7 @@ KMG-owned media property. Industry newsletter + community + events for hardware 
 - **Active newsletter:** Hardware FYI newsletter -- twice weekly (Tue/Sat). Former names for the two editions ("The Analogue" for Tuesday, "Weekend Wire" for Saturday) are retired; sponsors see one newsletter.
 - **Event flagship:** [[kinetic]] (annual SF conference, last edition 2026-05-12 to 13)
 - **Job-prefix code in sweep:** `H####`
-- **Approval list (Google Tasks):** "Hardware FYI"
+- **Task and approval surface:** Savant Tasks. Approval cards use `needs_approval` and appear in the assigned owner's Tasks column; see [[../workflows/savant-task-board-workflow]].
 
 ## Mailbox routing
 

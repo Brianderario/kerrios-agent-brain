@@ -127,6 +127,8 @@ const PERSONAL_SHIM_PREFIX = 'brian-';
 // loose prefix match would let it.
 const ONE_TIME_SHIMS = new Set([
   'cloud-routines-dst-fix', // one-time Nov 1 2026 EDT→EST cron bump; retire after it runs
+  'hwfyi-2027-goal-kickoff', // one-time 2027 goal-setting kickoff before Sept 1
+  'verify-asset-reminder-run-2026-07-03', // dated post-deploy verification
 ]);
 
 test('every ~/.claude/scheduled-tasks shim has a manifest entry (skipped if dir absent)', (t) => {

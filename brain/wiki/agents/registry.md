@@ -1,6 +1,6 @@
 # KMG Agent Registry
 
-scope: agent index · updated: 2026-06-09
+scope: agent index · updated: 2026-07-10
 
 Every active or planned team agent that reads/writes this brain. Source of truth for "who is Kerri / who is Ari's agent / etc."
 
@@ -21,7 +21,12 @@ Every active or planned team agent that reads/writes this brain. Source of truth
 
 ## Current runner posture
 
-As of 2026-06-08, **Claude Code is the sole operating runner** for Kerri. All scheduled routines run as persistent Claude Code scheduled tasks under `~/.claude/scheduled-tasks/`. Codex automations under `~/.codex/automations/` are retired and should be disabled to prevent double-runs. This supersedes [[../decisions/2026-05-25-codex-primary-operating-layer]] and the 2026-06-05 Codex re-entry. The agent identity and source of truth remain Kerri + KerriOS, not any runner's chat history.
+The live executable registry is the union of Savant AgentSchedules on `/agents`
+and enabled Codex automations in the Codex automation manager. Local Claude
+scheduled-task entries are compatibility shims and historical inventory. They
+must not be treated as active without live verification, or enabled alongside
+an equivalent live cadence. The agent identity and source of truth remain Kerri
++ Savant/KerriOS, not any runner's chat history.
 
 ## Role-pod architecture
 
@@ -45,11 +50,36 @@ Desk definitions (Brian, 2026-06-15): Sales drives revenue only, both pre-sale a
 
 Source of truth for the grouping is `Agent::DESK_BY_SLUG` in kerrihq-rails (`app/models/agent.rb`); keep this section and that map in sync. Any routine with a canonical `agent-prompts/<slug>/SKILL.md` syncs to the console automatically; one not listed in the map falls back to the Ops desk so it still appears. The weekend inbox sweep has no separate canonical prompt (it reuses the inbox-sweep prompt on a weekend cron) so it is not a distinct console card. Naming and grouping approved by Brian 2026-06-15.
 
-## Local context folders (historical)
+## Local context folders and runner shims
 
-Legacy Codex automation context packs at `/Users/brianderario/Desktop/Codex Kerri Agent/` are no longer used. All routines now run from `~/.claude/scheduled-tasks/` shims that load canonical `agent-prompts/*/SKILL.md` prompts. Durable facts and decisions write back to KerriOS.
+Codex automations and Savant AgentSchedules load canonical operating context
+from KerriOS. Claude entries under `~/.claude/scheduled-tasks/` are compatibility
+shims that load canonical `agent-prompts/*/SKILL.md` prompts. Durable facts and
+decisions write back to Savant and this KerriOS mirror.
 
-## Scheduled tasks (Kerri runs these)
+## Live scheduled tasks, verified 2026-07-10
+
+Savant has two active schedules and no paused schedules:
+
+| Schedule | ID | Agent | Result column |
+|---|---|---|---|
+| Hardware FYI Daily Cold Outreach | `4e9cbb6d-3650-41b1-89a5-2fe0363d75ed` | `slack-vaughn-kerrihq` | Team Tasks (`action_needed`) |
+| Ironclad Maritime Summit Daily Cold Outreach | `d008ffd1-4407-4d74-8691-ed3b08aaf527` | `slack-vaughn-kerrihq` | Team Tasks (`action_needed`) |
+
+The enabled Codex automation registry contains these business routines:
+`brian-waiting-reply-and-warm-follow-up-chaser`,
+`ironclad-15-daily-sponsor-outreach-drafts`,
+`kerri-ceo-daily-revenue-push`, `kerri-cold-outreach`,
+`kerri-company-portfolio-control-tower`, `kerri-eod-meetings-review`,
+`kerri-inbox-sweep`, `kerri-morning-brief`,
+`kerri-renewal-and-expansion-radar`,
+`kerri-sponsor-fulfillment-and-collections-watchdog`,
+`kerri-weekly-operating-review`, and `standard-works-issue-production`.
+
+Every active prompt carries the canonical board routing in
+[[../workflows/savant-task-board-workflow]].
+
+## Historical Claude schedule inventory, not executable truth
 
 | Task | Cron | Canonical prompt |
 |---|---|---|
@@ -58,7 +88,7 @@ Legacy Codex automation context packs at `/Users/brianderario/Desktop/Codex Kerr
 | `kerri-morning-brief-retry` | 7:18am ET, weekdays, Claude Code scheduled task; guarded recovery only | `agent-prompts/kerri-morning-brief-retry/SKILL.md` |
 | `kerri-eod-meetings-review` | 6:30pm ET, weekdays, Claude Code scheduled task | `agent-prompts/kerri-eod-meetings-review/SKILL.md` |
 | `kerri-brain-push` | 10:00pm ET, daily, Claude Code scheduled task | `agent-prompts/kerri-brain-push/SKILL.md` |
-| `kerri-gap-sweep` | 9:41pm ET, daily, Claude Code scheduled task; checks Claude shims, repo/prompt/doc hygiene, and live operating state (Codex retired 2026-06-08, no Codex records remain in scope) | `agent-prompts/kerri-gap-sweep/SKILL.md` |
+| `kerri-gap-sweep` | 9:41pm ET, daily, historical Claude schedule; checks runner shims, repo/prompt/doc hygiene, and live operating state | `agent-prompts/kerri-gap-sweep/SKILL.md` |
 | `kerri-lead-research` | 6:13pm ET, weekdays, Claude Code scheduled task; maintains 25 ready prospects for the daily 10-outreach loop; cheap preflight/no-op quiet | `agent-prompts/kerri-lead-research/SKILL.md` |
 | `kerri-cold-outreach` | 9:07am ET, weekdays, Claude Code scheduled task; targets 10 approval-ready drafts, inspects at most 25 queue entries, never auto-sends | `agent-prompts/kerri-cold-outreach/SKILL.md` |
 | `kerri-pipeline-followup` | 8:33am ET, Tuesdays and Thursdays, Claude Code scheduled task; warm-deal nudges only, never auto-sends | `agent-prompts/kerri-pipeline-followup/SKILL.md` |
@@ -73,7 +103,8 @@ Legacy Codex automation context packs at `/Users/brianderario/Desktop/Codex Kerr
 
 2026-06-09 note: `kerri-industry-intel` added as 13th scheduled task. Phase 1 (free tier): TechCrunch RSS, Crunchbase News RSS, Google Alerts email digests, Apollo enrichment (max 5/day). Read-only + archive only, no sends. **Status as of 2026-06-09: scheduled but zero successful runs.** Diagnosis (2026-06-09 PM): the routine was only created and registered 2026-06-09 ~10:59 ET, after that day's 6:30am slot, so it has never had a scheduled fire opportunity; first fire is 2026-06-10 ~6:37am ET. Not a failure. Gap found and fixed the same day: `scripts/routine-liveness-check.mjs` did not monitor it at all (its registry covered only 5 routines), so a genuinely dark industry-intel would never have alerted; it now goes dark-alert if no successful run is recorded by 7:15am ET on a weekday (with bootstrap-day grace).
 
-2026-06-08 note: Claude Code is now the sole scheduled runner. All routines run as Claude Code persistent scheduled tasks. Codex automations are retired. Approval gates unchanged everywhere.
+2026-06-08 historical note: Claude Code was designated the sole scheduled
+runner at that time. The current executable truth is the live registry above.
 
 2026-06-23 note (off Slack, into the Console): Brian's call: no Kerri routine points at Slack anymore. **`kerri-revenue-standup` is back to a LOCAL Claude Code scheduled task** (Fridays ~4pm ET) that files its scoreboard as a Console task card and reports its run into the Console via the STEP 8 heartbeat (`create_agent_run`), so `report_interval_hours: 192` is valid again and the Console health-check sees real runs. The three Slack cloud routines created 2026-06-11 (`kerri-revenue-standup`, `kerri-morning-brief-fallback`, `kerri-eod-meetings-recap`) are being RETIRED: revenue-standup is replaced by the local task above, and the other two were Slack-only duplicators (their work already lands via the local EOD review + morning brief). Cloud routines can't be deleted by API, so Brian removes them at claude.ai/code/routines. Net: nothing reports via Slack.
 

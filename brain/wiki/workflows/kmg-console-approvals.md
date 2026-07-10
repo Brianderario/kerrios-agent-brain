@@ -46,7 +46,7 @@ Key files in kerrihq-rails:
 - `app/controllers/api/v1/task_queue_health_controller.rb` + `app/services/task_queue_health.rb` — visible queue mismatch health (`QUEUE: RAILS OK`, waiting decisions, stale checks)
 - `app/services/console_today.rb` — first-screen day cockpit read model: tasks, manual capture, schedule, revenue next actions, agent reliability, proof trail
 - `app/services/console_status.rb` — shared read model for shell/dashboard counts and queue health
-- `app/views/dashboard/index.html.erb` — Today cockpit plus Brian Tasks / Agent Activity / CRM-Pipeline / Queue Health operating surface
+- `app/views/dashboard/index.html.erb` — Today cockpit plus Brian's Tasks / Agent Activity / CRM-Pipeline / Queue Health operating surface
 - `app/views/shared/shell/_topbar.html.erb` — topbar task count and queue-state indicators
 - migration `20260611060000_add_resolution_payload_to_tasks.rb` — jsonb payload (edited draft body, redo guidance, skip reason, `applied_at` stamp)
 - migration `20260611153000_add_task_sources_and_events.rb` — explicit task source ownership and task proof events
@@ -105,7 +105,7 @@ agents should use for `health`, `list`, `show`, `create`, `update`, and
   approval producers have been updated to file Savant tasks directly.
 - The current Savant UX separates the three things Brian asked to keep clear:
   Brian's tasks, what agents are doing, and CRM/revenue/pipeline context.
-- Topbar shows the current Brian task count and queue-health state
+- Topbar shows the current Brian's Tasks count and queue-health state
   (`QUEUE: RAILS OK`, waiting decisions, or failing checks).
 - The old Approvals page is now "Other approvals"; task items there are
   REVIEW-only and cannot approve/skip from summary context.

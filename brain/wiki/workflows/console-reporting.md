@@ -1,6 +1,6 @@
 # Savant reporting protocol (formerly KMG Console / kerrihq-rails)
 
-scope: workflow · created: 2026-06-10 · updated: 2026-07-09 · status: **ACTIVE** (Savant production app is the approval queue)
+scope: workflow · created: 2026-06-10 · updated: 2026-07-10 · status: **ACTIVE** (Savant production app is the approval queue)
 
 Every scheduled KMG routine reports its runs to Savant (mission control) and files human-facing work onto the Tasks board there. Savant Tasks is the approval book of record. Google Tasks is read-only legacy history: do not create, edit, complete, or delete Google Tasks, and never use a Google Tasks checkbox as approval.
 
@@ -38,17 +38,31 @@ A run that crashes before reporting is caught by Savant's daily health check, wh
 
 ## 2. File tasks on the board
 
-When a routine needs Brian's attention, create a Savant task:
+Create a Savant task in the column that matches what can happen next:
 - `title`: same `<JOBID> — <Company> — <Subject>` format
-- `status`: `needs_approval` for approval-rail items; `action_needed` / `waiting_reply` / `discuss` per the situation
+- `status`: `needs_approval` → Brian's Tasks for decisions, information, and send authorization; `action_needed` → Team Tasks for concrete work; `waiting_reply` → Waiting / On Hold; `discuss` → Discuss; `kerri_upgrades` → Kerri Upgrades
 - `body`: ACTION line + context + draft
 - `job_ref`: the H/S/G jobId
 - `property_slug`: `hardware-fyi` | `kerri-media-group` | `standard-works`
 - `external_ref`: deterministic idempotency key, usually `kerrios:<routine>:<jobId>:<sha12>`
 
+Never create or move a card to `agent_working` as a destination. Approved to
+Send is the system-managed outbox for a sendable card after Brian approves it.
+Schedule summary cards default to `action_needed`, while the actual approval
+packet remains a separate `needs_approval` card. See
+[[savant-task-board-workflow]] for the complete compatibility contract.
+
 ## 3. Read approvals back
 
-Brian resolving a `needs_approval` card moves it to `done` with `resolution` = `approved` | `skipped`; redo leaves it open with `resolution=redo_requested`. Poll `node scripts/console-task-api.mjs list --resolved pending --per-page 100`. After applying a decision, call `node scripts/console-task-api.mjs mark-applied --id <taskId> --note "<what happened>"` so the decision is acknowledged and will not execute twice.
+Brian approving a sendable `needs_approval` card places it in Approved to Send
+using the compatibility status `agent_working` with `resolution=approved` until
+delivery proof is applied. A skipped or completed card moves to `done`. A redo
+request reopens the internal work in Team Tasks with
+`resolution=redo_requested`, then the revised approval packet returns to the
+assigned owner's Tasks. Poll `node scripts/console-task-api.mjs list --resolved
+pending --per-page 100`. After applying a decision, call `node
+scripts/console-task-api.mjs mark-applied --id <taskId> --note "<what
+happened>"` so the decision is acknowledged and will not execute twice.
 
 ## 3a. Interactive sends clear their own card (Brian rule, 2026-06-15; hardened 2026-06-17)
 
@@ -77,6 +91,7 @@ Do NOT use `mark-applied` here (that path is the sweep acknowledging its own app
 ## Related
 
 - [[agent-brain-protocol]] — the 4-step loop these reports feed
+- [[savant-task-board-workflow]] — canonical status keys, visible columns, and scheduled-run routing
 - [[google-tasks-improvement-suggestions]] — legacy relevance rules for improvement suggestions; delivery is now Savant tasks
 - Savant API docs: `/api_docs` in Savant (full tool list, 23 tools)
 

@@ -1,6 +1,6 @@
 # Kerri Media Group (KMG)
 
-scope: parent company · updated: 2026-05-24
+scope: parent company · updated: 2026-07-10
 
 The umbrella entity for all owned KMG media properties. Renamed from KerriHQ Inc. on 2026-05-23.
 
@@ -20,13 +20,15 @@ The umbrella entity for all owned KMG media properties. Renamed from KerriHQ Inc
 
 ## Recent Ops Notes
 
-- 2026-05-27: Ari Lewis sent Brian a finance/admin worklist for KMG and
-  Hardware FYI. Kerri routed the thread as G0006 to the Kerri MG Google Tasks
-  approval rail with a Gmail draft-only reply; no email was sent.
+- 2026-05-27 historical event: Ari Lewis sent Brian a finance/admin worklist
+  for KMG and Hardware FYI. The original Google Tasks approval route is now
+  superseded by Savant Tasks; no email was sent.
 
-## Approval list (Google Tasks)
+## Task and approval surface
 
-- "Kerri MG"
+- Savant Tasks is the only current surface.
+- `needs_approval` appears in the assigned owner's Tasks column.
+- See [[../workflows/savant-task-board-workflow]].
 
 ## Related
 
