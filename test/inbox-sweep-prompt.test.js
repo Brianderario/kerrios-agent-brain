@@ -55,6 +55,22 @@ test('operating principles cover all seven safety invariants', () => {
   ]);
 });
 
+test('Savant is the only task and approval surface and brain writeback is atomic with task and email work', () => {
+  assertAll(prompt, [
+    'P10. SAVANT-ONLY TASKS + SAME-RUN BRAIN WRITEBACK.',
+    'Savant Console is the single source of truth for every business',
+    'task, approval, email confirmation, follow-up, and scheduled-run action.',
+    'Google Tasks is read-only legacy history: never create, edit, complete, or',
+    'delete a Google Task, and never treat a Google Tasks checkbox as approval.',
+    'never treat a Google Tasks checkbox as approval',
+    'Every material email triage decision and every task create/update/decision must',
+    'also write compact, source-linked truth back into Savant brain/CRM plus the',
+    'The task/email action is incomplete',
+    'until both the Savant task event and brain writeback succeed.',
+    'brain writeback blocked'
+  ]);
+});
+
 // v1: "preserves approval gates and mailbox routing".
 // New home: REFERENCE section (connectors by name), SEND IDENTITY, S/W BOUNDARY,
 // STEP 8 error rules, SESSION NOTES.

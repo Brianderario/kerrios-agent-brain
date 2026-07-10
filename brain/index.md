@@ -20,6 +20,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/savant-build-learnings]] — code-side Learnings + Pattern docs store; the build loop's compound step reads + appends here
 - [[wiki/workflows/savant-build-backlog]] — living queue of Savant product improvements (shipped/retired/candidate); the nightly build-proposal routine pulls the next undone slice from here so it stops repeating
 - [[wiki/workflows/audience-graph-project]] — scoped supervised build for the subscriber/audience moat (pillar 2); not an overnight item
+- [[wiki/workflows/console-reporting]] — Savant-only task/approval reporting plus mandatory same-run brain writeback for scheduled tasks and email outcomes
 
 ## Agents
 
@@ -55,7 +56,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 ## Decisions
 
 - [[wiki/decisions/2026-05-23-kerrios-rebuild]] — clean KerriOS v2 + Kerri unified
-- [[wiki/decisions/2026-05-24-google-tasks-approval]] — inbox sweep approval moved to Google Tasks
+- [[wiki/decisions/2026-05-24-google-tasks-approval]] — historical Google Tasks approval decision; **superseded** by [[wiki/decisions/2026-07-09-savant-only-tasks-and-brain-writeback]]
 - [[wiki/decisions/2026-05-24-superhuman-sw-mailbox]] — S/W mailbox added under Superhuman
 - [[wiki/decisions/2026-05-24-brain-architecture]] — LLM-wiki-on-git architecture (this one)
 - [[wiki/decisions/2026-05-24-cold-outreach-launch]] — sub-agent #1 (cold outreach) shipped with hard volume caps
@@ -65,17 +66,18 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-06-08-claude-code-sole-runner]] — Claude Code is the sole operating runner for all Kerri routines (supersedes Codex-primary decision)
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]] — KerriOS is the living company brain; Kerri climbs from approval-gated assistant to eventual decision authority.
 - [[wiki/decisions/2026-05-25-agent-architecture-and-role-pods]] — Brian's agent architecture distilled into role pods, feedback loops, and automation rebuild priorities.
-- [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — first rebuilt Codex automation; inbox sweep routes email into KerriOS, Google Tasks approvals, and self-grading improvement loops.
+- [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — historical first rebuild; its Google Tasks rail is **superseded** by Savant
 - [[wiki/decisions/2026-05-26-agent-folder-master]] — local Codex Kerri Agent Master folder gives each role pod and subagent a pickable context pack for future automations.
 - [[wiki/decisions/2026-05-26-parallel-core-automation-bundle]] — second rebuild wave: EOD Meetings Review, Morning Brief, and Brain Push/Knowledge Hygiene activated together.
 - [[wiki/decisions/2026-06-09-autonomy-boundary]] — class-based auto-vs-ask split: internal-recipient-reply → AUTO-LOGGED, earned graduation ramp, 7-day approval escalation
-- [[wiki/decisions/2026-06-09-kerri-brian-comms]] — channel map: Google Tasks = approvals BOR, email = two-way backbone, text = interrupt lane only, Slack retired as the personal channel
+- [[wiki/decisions/2026-06-09-kerri-brian-comms]] — historical channel map; its Google Tasks approval rule is **superseded** by Savant
 - [[wiki/decisions/2026-06-10-info-mailbox-autonomous]] — info@hardwarefyi.com joins the inbox sweep via new `info-hardwarefyi-email` MCP; routine outreach + inbound handled autonomously (no auto-CC), commercial substance stays Brian's call
 - [[wiki/decisions/2026-06-11-benji-ea-board]] — Benji's EA board greenlit: benji@ joins the sweep, approvals live in his own mailbox (Drafts + send/edit/skip replies), private from Brian by default, Brian-CC opt-in only
 - [[wiki/decisions/2026-06-11-brain-console-storage-split]] — brain keeps how-we-work; Savant is the CRM of record (companies/contacts/deals); CRM Google Sheet demoted to one-way verification mirror
 - [[wiki/decisions/2026-06-11-console-brain-port]] — Savant hosts the permissioned brain: knowledge records with provenance, domain/sensitivity grants (Brian master, Ari finance/legal, Benji HWFYI/content, Zach S&W), scoped agents, approval proof trails, idempotent KerriOS importer (kerrihq-rails `77e061e`)
 - [[wiki/decisions/2026-06-17-savant-as-company-hub]] — **Savant becomes the single company hub end to end**: brain (knowledge + agent operating layer) source of truth moves to Savant, git demoted to automated backing store + runner disk copy; supersedes the read side of the 6/11 split; 5-phase build plan inside
 - [[wiki/decisions/2026-07-02-no-client-asset-submission-forms]] — **HARD RULE: Savant console never emails asset submission forms / asset-chase mail to customers** (product not ready, Brian 7/2); `sponsor_asset_reminders` reminders go to Benji + Brian only; client-email path to be hard-disabled in kerrihq-rails (queued interactive apply, folds in 831f1ccd dedup)
+- [[wiki/decisions/2026-07-09-savant-only-tasks-and-brain-writeback]] — **HARD RULE: Savant is the only business task/approval system; Google Tasks is read-only legacy history; every material task/email outcome writes back into the brain in the same run**
 
 ## Deals · Meetings · Candidates · Raw
 

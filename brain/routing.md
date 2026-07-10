@@ -138,10 +138,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 ## "How does the inbox sweep work?" / "What is the first rebuilt automation?"
 
-- [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — primary Codex inbox loop, progressive enrichment, approval rail, and self-grading
+- [[wiki/decisions/2026-07-09-savant-only-tasks-and-brain-writeback]] — current Savant-only approval rail and mandatory brain writeback
+- [[wiki/workflows/console-reporting]] — exact scheduled-run task/proof/brain write contract
+- [[wiki/decisions/2026-05-26-inbox-sweep-primary-automation]] — historical first rebuild; Google Tasks parts are superseded
 - [[wiki/decisions/2026-06-10-info-mailbox-autonomous]] — info@hardwarefyi.com mailbox: connector, no-auto-CC design, autonomous-handling scope
 - [[../agent-prompts/kerri-inbox-sweep/SKILL.md]] — canonical runnable prompt
-- [[wiki/decisions/2026-05-24-google-tasks-approval]] — Google Tasks approval mechanics
+- [[wiki/decisions/2026-05-24-google-tasks-approval]] — legacy history only; do not use for current work
 - [[wiki/workflows/customer-id-protocol]] — company/jobId lookup before every logged company action
 
 ## "How should Kerri or Codex suggest build improvements?"
@@ -183,4 +185,5 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 ## "What's currently being worked on?"
 
 - [[log]] — chronological recent events
-- Open Google Tasks lists (Hardware FYI / Standard & Works / Kerri MG) — in Brian's Google account, not in this repo
+- Savant Console `/tasks` — the live business task and approval queue
+- Savant brain/CRM plus [[log]] — paired durable writeback for material task and email outcomes
