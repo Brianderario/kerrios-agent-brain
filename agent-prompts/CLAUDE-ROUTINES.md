@@ -38,6 +38,18 @@ headings may change, but these keys must not be renamed:
 
 The full contract is [[../brain/wiki/workflows/savant-task-board-workflow]].
 
+## Email attachments contract — Drive ID or it doesn't send (canonical 2026-07-11)
+
+The approved-drafts sender runs on Render and can only attach **Google Drive** files. Any routine filing a sendable card that promises a file MUST:
+
+1. Ensure the file exists in Brian's Google Drive (upload first if it's only local — a local Mac path on the card is unreachable from the cloud sender and gets the card held with `attachments_unresolved`).
+2. Verify the upload: Drive `fileSize` must equal the local file's exact byte count (a 6.7MB PDF once silently truncated to 251 bytes on upload).
+3. Use a clean client-facing Drive filename (the recipient sees it verbatim).
+4. Declare on the card: `ATTACHMENTS TO SEND: <exact Drive filename> (Drive ID: <id>)`. Always include the Drive ID; never write a local path.
+5. Limits: 3 files/email; 25MB/file Graph, 20MB Gmail.
+
+Origin: Dassault/SOLIDWORKS follow-up held 2026-07-11 (card `3728e36d`) because the EOD routine declared a local Mac path. The legacy local send worker that could read Mac paths was retired 2026-06-30; Savant on Render is the only sender.
+
 ## Date & time handling — ET clock, never the harness `currentDate`
 
 Every `<YYYY-MM-DD>`, `<date>`, and `HH:MM ET` a routine writes — NOW.md baton, `brain/log.md`, commit messages, task titles, ledger/state keys, meeting + fallback filenames — is an **ET calendar date** and MUST be derived from the machine clock:

@@ -219,6 +219,7 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
 - **Revenue/sponsor context merge is mandatory before drafting.** If the meeting involves a Hardware FYI sponsor, advertiser, partner, event sponsor, paid media buyer, or sales prospect, do not draft from today's transcript alone. Before writing copy:
   - Read the counterparty's Savant company record (`crm_notes` + deals) plus the 1-3 most relevant Savant contacts (`GET /api/v1/people?company_id=<id>`).
   - Read `brain/wiki/workflows/hwfyi-cy2026-revenue-goal.md` and classify the follow-up as cash collected, pipeline advanced, product value improved, or revenue system improved.
+  - If the follow-up mentions a Hardware FYI price, package, discount, Happy Hour, or SF Tech Week sponsorship, read `brain/wiki/workflows/hwfyi-cy2026-pricing.md` before drafting. Use its standard prices and treat its discount floors as Brian-approval boundaries. Never substitute venue cost, total event revenue goals, a prior account's package, or the media kit for the canonical price table.
   - Search meeting memory for the same company and same non-Brian attendees from the last 30 days, especially sales/catalog/budget/timing calls.
   - Search sent mail for Brian's most recent message to the company/contact and for any promised catalog, package rundown, pricing, event, or content example.
   - Include the revenue classification and the concrete next revenue move in the Console task body.
@@ -240,6 +241,12 @@ If no follow-up is warranted, still write the meeting page (B) but skip the draf
 - Lead with the most concrete commitment (the deliverable, the date, or the answer).
 - Match length to relationship temperature (see voice.md table).
 - Sign off `Brian` on its own line.
+- **ATTACHMENT DISCIPLINE (the sender is cloud-only — local paths never work).** The approved-drafts sender (`SendApprovedDraftsJob`) runs on Render and can only attach **Google Drive** files. A local Mac path in the card's attachment block is unreachable there: the job holds the card (`held_reason: attachments_unresolved`) and the email does not go out (this stalled the Dassault/SOLIDWORKS follow-up, card `3728e36d`, 2026-07-11). When a draft promises a file:
+  1. The file must exist in Brian's Google Drive (brian@kerrihq.com). If it only exists locally, upload it to Drive first.
+  2. **Verify the upload byte-for-byte:** fetch the Drive file metadata and confirm `fileSize` equals the local file's exact byte count. Silent truncation is real — a 6.7MB prospectus once landed in Drive as 251 bytes ("Kinetic 2027 Sponsor Prospectus (V3 Rev B)", 2026-06-26).
+  3. The recipient sees the Drive filename. Use a clean client-facing name (`Kinetic 2027 Sponsor Prospectus.pdf`, never `... (V3) (4).pdf`); make a clean-named Drive copy if needed.
+  4. Declare on the card: `ATTACHMENTS TO SEND: <exact Drive filename> (Drive ID: <id>)` — **always include the Drive ID**, never a local path. Name-only declarations require exactly one exact-name Drive match and are fragile; the ID is authoritative.
+  5. Limits: 3 files max per email; 25MB/file on Graph mailboxes, 20MB on Gmail.
 
 **E) Post the draft as a Kerri Console task in the matching property:**
 
