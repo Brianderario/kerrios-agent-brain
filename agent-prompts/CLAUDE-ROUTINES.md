@@ -38,17 +38,16 @@ headings may change, but these keys must not be renamed:
 
 The full contract is [[../brain/wiki/workflows/savant-task-board-workflow]].
 
-## Email attachments contract — Drive ID or it doesn't send (canonical 2026-07-11)
+## Email attachments contract — canonical slugs, never a link (canonical 2026-07-12)
 
-The approved-drafts sender runs on Render and can only attach **Google Drive** files. Any routine filing a sendable card that promises a file MUST:
+Clients get clean, real file attachments. NEVER paste a Google Drive link, a Docs link, or a file path into an email body — the Render sender holds any client draft whose body contains a Drive/Docs link (`held_reason: attachments_unresolved`). To put a file on a send, declare it on the card and the sender attaches the real bytes:
 
-1. Ensure the file exists in Brian's Google Drive (upload first if it's only local — a local Mac path on the card is unreachable from the cloud sender and gets the card held with `attachments_unresolved`).
-2. Verify the upload: Drive `fileSize` must equal the local file's exact byte count (a 6.7MB PDF once silently truncated to 251 bytes on upload).
-3. Use a clean client-facing Drive filename (the recipient sees it verbatim).
-4. Declare on the card: `ATTACHMENTS TO SEND: <exact Drive filename> (Drive ID: <id>)`. Always include the Drive ID; never write a local path.
-5. Limits: 3 files/email; 25MB/file Graph, 20MB Gmail.
+1. **Curated files (the common case): use a canonical slug.** Call `list_canonical_attachments` to see the blessed set (Kinetic prospectus, Hardware FYI media kit, and similar). Declare `ATTACHMENTS TO SEND: <slug>` (e.g. `ATTACHMENTS TO SEND: kinetic_prospectus`, or `... : kinetic_prospectus and media_kit`). Bytes live in Savant/Postgres, already size- and integrity-checked, no Drive round-trip. This is the preferred path — no ids, no links, no size surprises.
+2. **A generated per-client report:** create it with the document tools, then declare `ATTACHMENTS TO SEND: <Client-facing name>.pdf (Document ID: <generated_document_id>)`.
+3. **A genuine one-off not in the registry:** put it in Brian's Google Drive with a clean client-facing filename, verify the Drive `fileSize` equals the source byte count (a 6.7MB PDF once truncated to 251 bytes on upload), then declare `ATTACHMENTS TO SEND: <filename> (Drive ID: <id>)`. If a one-off recurs, ask to add it to the canonical registry (`rake 'canonical_attachments:upsert[...]'`) so it becomes a slug.
+4. Never a local Mac path (unreachable from the cloud sender). Limits: 3 files/email; ≤20MB each (fits every mailbox).
 
-Origin: Dassault/SOLIDWORKS follow-up held 2026-07-11 (card `3728e36d`) because the EOD routine declared a local Mac path. The legacy local send worker that could read Mac paths was retired 2026-06-30; Savant on Render is the only sender.
+Origin: agents repeatedly sent Drive links, couldn't self-attach, or hit size limits (Dassault/SOLIDWORKS card `3728e36d`, 2026-07-11). Fixed by the CanonicalAttachment registry + slug resolution in `SendApprovedDraftsJob` (PR canonical-attachments, 2026-07-12).
 
 ## Date & time handling — ET clock, never the harness `currentDate`
 
