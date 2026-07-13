@@ -218,15 +218,19 @@ test('inbox sweep cross-checks live task status before trusting the listing', ()
   ]);
 });
 
-test('console health attention only halts on structural queue failures', () => {
+test('console health quarantines isolated reply-route failures without stopping the sweep', () => {
   assertAll(prompt, [
     'If health returns `status: attention`, inspect the failing checks before deciding.',
     'halt only when a structural/integrity check is failing',
-    '`stale_resolved_open` (resolved cards still open), `missing_send_subject`, `reply_approvals_missing_thread_metadata`, `invalid_assignees`, `legacy_google_active`',
-    'If the ONLY failing checks are the acknowledgement-hygiene pair `pending_decisions` and/or `agent_done_without_proof`, and all structural/integrity checks are clean, continue into STEP 2 and process/acknowledge those decisions',
+    '`stale_resolved_open` (resolved cards still open), `missing_send_subject`, `invalid_assignees`, `legacy_google_active`',
+    '`reply_approvals_missing_thread_metadata` is a card-scoped quarantine, not a sweep-wide stop',
+    'create or update one non-send `kerri_upgrades` route-repair card per offender',
+    'skip those cards completely, and continue the rest of the inbox sweep',
+    'If the health count cannot be matched exactly to identified live cards, halt because the unsafe scope is unknown.',
+    'If the ONLY other failing checks are the acknowledgement-hygiene pair `pending_decisions` and/or `agent_done_without_proof`, continue into STEP 2 and process/acknowledge those decisions',
     'are waiting for agent acknowledgement with a proof receipt, not that the board is structurally mismatched',
     '`agent_done_without_proof` is error-severity but is acknowledgement hygiene, not a structural mismatch: clear it by writing the missing receipt (`mark-applied`), never by halting the sweep.',
-    'If the only failing checks are the acknowledgement-hygiene pair `pending_decisions` and/or `agent_done_without_proof` (structural checks clean), process/acknowledge them in STEP 2 instead of deadlocking the queue.'
+    'A fully isolated `reply_approvals_missing_thread_metadata` failure quarantines only the malformed approval cards and does not stop mailbox reads, task monitoring, CRM fact updates, or cursor advancement for successfully swept mailboxes.'
   ]);
 });
 
