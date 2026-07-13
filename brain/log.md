@@ -1,3 +1,7 @@
+## [2026-07-13 11:24 EDT] inbox-sweep sponsor asset filing | Aris Machina | Codex
+
+Brian made sponsor-asset filing an autonomous inbox-sweep do-part. Filed William Steel's `HardwareFYI Aris PrimaryPlacement.png` from the verified brian@hardwarefyi.com thread into Aris Machina commitment `309975b2-b1ca-46f4-a223-b1a3f724cf3c`; verified 1920 x 1080 PNG and a fresh Savant hub state of `Assets complete`. Updated Team Task `5a3272d1-e417-4e6e-9fac-26ee03eb1880` so Benji can pull the filed asset and only the missing short headline remains. No email drafted or sent. Policy source: [[wiki/decisions/2026-07-13-inbox-sweep-autonomous-sponsor-asset-filing]].
+
 Attachment contract added: sendable cards declare Drive IDs, never local paths. Origin: Dassault card 3728e36d held attachments_unresolved 2026-07-11; fixed by uploading-free Drive-ID rewrite (clean copy 1xIKj5ur3q8N4XHYiw33R0jwJlpaVl2zW). CLAUDE-ROUTINES.md + kerri-eod-meetings-review SKILL.md updated.
 
 ## [2026-07-10 14:02 EDT] inbox-sweep | Xometry H0033 stale approval closed after Brian self-replied at 13:44 EDT; provider message AAMkAGJhN2E2NmQ2LTM4NjctNGM2Ni1hMmRiLWVhYjExNjA3MDNlNABGAAAAAADEP7lRuwWcRpeCdCUdFKjYBwCByPO64gIDQZ8ywlmI0FWjAAAAAAEMAACByPO64gIDQZ8ywlmI0FWjAABimmNCAAA= | Savant task f4682be7-d2ee-49ce-8b99-ff9bf56878da done/skipped; no Kerri send

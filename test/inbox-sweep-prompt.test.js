@@ -71,6 +71,28 @@ test('Savant is the only task and approval surface and brain writeback is atomic
   ]);
 });
 
+test('inbox sweep files matched sponsor assets autonomously with live Savant proof', () => {
+  assertAll(prompt, [
+    'P11. FILE DELIVERED SPONSOR ASSETS IN THE SAME RUN.',
+    'is a do-part, not a future task for Benji',
+    'do not create a task whose only action is to upload an asset the',
+    'Never send or draft a sponsor email merely',
+    '2A. SPONSOR-ASSET FILING (P11, before reply/task classification)',
+    'verify the company, live sponsor commitment, placement type, next run date',
+    'fetch the real attachment bytes through the correct mailbox connector',
+    'provider-reported size, decoded byte size, and content type',
+    'verify the file signature, decoded size, dimensions/aspect ratio',
+    'read the commitment/company assets or tested sponsor hub before writing',
+    'If the same asset is already present',
+    'prefer the Savant sponsor-asset API against the exact commitment',
+    'use the verified scoped sponsor portal URL from that live commitment',
+    'perform a fresh read after the write',
+    'A successful HTTP response without this read-after-write proof is not completion.',
+    'the filed asset must not be requested again',
+    'external-send approval rules remain unchanged.'
+  ]);
+});
+
 // v1: "preserves approval gates and mailbox routing".
 // New home: REFERENCE section (connectors by name), SEND IDENTITY, S/W BOUNDARY,
 // STEP 8 error rules, SESSION NOTES.

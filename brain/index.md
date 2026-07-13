@@ -79,6 +79,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/decisions/2026-06-17-savant-as-company-hub]] — **Savant becomes the single company hub end to end**: brain (knowledge + agent operating layer) source of truth moves to Savant, git demoted to automated backing store + runner disk copy; supersedes the read side of the 6/11 split; 5-phase build plan inside
 - [[wiki/decisions/2026-07-02-no-client-asset-submission-forms]] — **HARD RULE: Savant console never emails asset submission forms / asset-chase mail to customers** (product not ready, Brian 7/2); `sponsor_asset_reminders` reminders go to Benji + Brian only; client-email path to be hard-disabled in kerrihq-rails (queued interactive apply, folds in 831f1ccd dedup)
 - [[wiki/decisions/2026-07-09-savant-only-tasks-and-brain-writeback]] — **HARD RULE: Savant is the only business task/approval system; Google Tasks is read-only legacy history; every material task/email outcome writes back into the brain in the same run**
+- [[wiki/decisions/2026-07-13-inbox-sweep-autonomous-sponsor-asset-filing]] - **HARD RULE: inbox sweeps file matched sponsor creative into the live Savant commitment in the same run, with byte-level QA, idempotency, and read-after-write proof; external-send gates stay unchanged**
 
 ## Deals · Meetings · Candidates · Raw
 

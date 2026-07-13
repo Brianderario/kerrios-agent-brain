@@ -60,6 +60,18 @@ until both the Savant task event and brain writeback succeed. If writeback
 fails, keep the task open and mark an explicit `brain writeback blocked`
 failure with the source pointer; never silently finish one side only.
 
+P11. FILE DELIVERED SPONSOR ASSETS IN THE SAME RUN. (Brian hard rule,
+2026-07-13.) A sponsor attachment, ad copy block, CTA URL, logo, hero image, or
+document that can be matched unambiguously to a live Savant sponsor commitment
+is a do-part, not a future task for Benji. Download the actual attachment bytes
+from the correct mailbox, verify the file and placement requirements, and file
+the asset into Savant during this sweep. Do not stop after recording attachment
+metadata, and do not create a task whose only action is to upload an asset the
+sweep already has. A task may remain for a real production gap such as a missing
+headline, alt text, approval, ambiguous commitment, corrupt file, or failed
+read-after-write verification. Never send or draft a sponsor email merely
+because an asset was filed.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP -1 — SINGLE-RUN GUARD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -197,6 +209,16 @@ TRIAGE LADDER, per email, in order. The first matching rung disposes of the emai
        a. Bounces run the STEP 2b NDR check first.
        b. SUPERHUMAN SELF-REMINDER (AUTO-SKIP self-nudge; never a reply trigger). DETECT: the message is self-addressed (from == to == this mailbox's own owner address, with NO other To or Cc recipients) AND its body carries the Superhuman reminder marker: the literal text "This is a reminder from Superhuman Mail" or "Do not reply to this email", usually alongside a hidden display:none preview-text block and a mail.superhuman.com / r.superhuman.com reminder link. That is Brian nudging himself inside his own mail client, and the nudge already lives in his Superhuman app. DISPOSE as terminal automation noise: record it seen, STOP the ladder here, and never ingest it as new inbound, run DRAFTING on it, fall through to INTERNAL AUTOPILOT (rung 3), or create a reply, approval task, new job, tracker, or any *-reply actionClass off it. OPTIONAL follow-up signal, EXISTING artifact only: if stripping RE:/FW: from the subject maps it to an already-open job or tracker for that same thread, you may add a one-line "self-reminder nudge seen <ET> (via Superhuman)" note to that job/tracker so the live thread is not forgotten; if no such artifact exists, the skip simply stands. Do NOT manufacture a new job, task, tracker, or draft from the reminder. DISAMBIGUATION: the self-addressed-AND-marker test is required because a normal Superhuman-SENT email also carries an r.superhuman.com tracking pixel but goes to real outside recipients, so it is not self-addressed and is handled normally down the ladder. A self-addressed message WITHOUT the reminder marker (plain auto-CC loopback) is a plain skip. (Root cause of the Xometry H0033 miss, 2026-06-24: two brian→brian Superhuman self-reminders on the "Xometry <> Hardware FYI" thread were resurfaced into a warm-thread-holding-reply nudge card when no Xometry inbound was waiting on a reply; the real live item was Brian's own unanswered 6/17 target-brief request. The prior version of this rule told the sweep to resurface and fully handle these, which is exactly what created the spurious card.)
   2. DEDUP: internetMessageId already in jobs.json or seenMessageIds → record seen, move on. (Already-tracked is the one legitimate "no new artifact" outcome for human mail, because the artifact already exists.)
+  2A. SPONSOR-ASSET FILING (P11, before reply/task classification): when a sponsor sends creative for a booked placement, finish the filing before deciding whether the message also needs a reply or task.
+     - MATCH: verify the company, live sponsor commitment, placement type, next run date, and exact commitment or company asset surface. Use the live commitment/hub, not an inferred company-name guess. If multiple commitments could own the file, fail closed and create or update one `action_needed` card naming the ambiguity; never upload to a guessed record.
+     - DOWNLOAD: fetch the real attachment bytes through the correct mailbox connector. Preserve mailbox, conversation id, message id, attachment id, sender, received timestamp, original filename, provider-reported size, decoded byte size, and content type. Email metadata alone is not an uploaded asset.
+     - QA: verify the file signature, decoded size, dimensions/aspect ratio when the format supports it, and the booked product's creative requirements. Reject empty, corrupt, inline-signature, duplicate, or wrong-format files. A usable asset may still be filed when another component such as headline or alt text is missing; track only the remaining gap.
+     - IDEMPOTENCY: read the commitment/company assets or tested sponsor hub before writing. If the same asset is already present, record the existing asset as proof and do not upload a duplicate.
+     - FILE: prefer the Savant sponsor-asset API against the exact commitment. If the automation credential lacks `sponsor_assets:write`, use the verified scoped sponsor portal URL from that live commitment, preserving its session and authenticity token. Never invent a portal URL, substitute a Drive link, or expose the scoped portal outside internal task/proof records.
+     - PROVENANCE: store a concise source note on the asset with mailbox, conversation/message ids, original filename, sender/date, intended placement/date, verification results, and any remaining production gap. Do not dump the raw email body.
+     - VERIFY: perform a fresh read after the write. Completion requires the exact filename or text asset to appear on the live Savant company/commitment surface and the missing-assets checklist to update. A successful HTTP response without this read-after-write proof is not completion.
+     - ROUTE THE REMAINDER: update the existing Savant fulfillment card with the asset id or hub URL and verification proof. Close the card only when no real gap remains and brain/log writeback succeeds. If a headline, alt text, copy fix, or approval is still missing, keep one card open for that exact remainder and state that the filed asset must not be requested again.
+     - CONTINUE IF NEEDED: asset filing itself is an artifact for P3. If the same inbound contains another ask that warrants a reply or decision, continue down the ladder after filing; external-send approval rules remain unchanged.
   3. INTERNAL AUTOPILOT (P1): sender is trustedInternal AND no outside recipient anywhere on the chain → reply autonomously NOW, as a competent teammate:
      - Read the full thread, do the work the message asks for if it is doable inside this run (a question answered, a list compiled, a doc pointer found, a commitment captured), and reply with substance, not an ack.
      - Before drafting, run the P8 brain-log check: read NOW.md and grep brain/log.md for the thread's topic. If the work was already done or is in flight, say so — never report something as queued/pending that the log shows complete.
