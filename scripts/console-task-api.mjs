@@ -86,8 +86,23 @@ export async function consoleRequest({
 
 export function taskCreatePayload(args) {
   const title = required(args.title, '--title');
-  const body = args.bodyFile ? fs.readFileSync(args.bodyFile, 'utf8') : required(args.body, '--body or --body-file');
-  if (replyDraft(body, title)) {
+  // Structured filing (Brian, 2026-07-13): a sendable email rides as
+  // source_details.email_draft fields (from/to/cc/bcc/subject/body/overview),
+  // validated server-side at filing. The card body is rendered from the
+  // payload, so passing --body alongside it is rejected by the API; here we
+  // fail fast with the same rule.
+  let emailDraft;
+  if (args.emailDraftFile) {
+    emailDraft = JSON.parse(fs.readFileSync(args.emailDraftFile, 'utf8'));
+    if (args.body || args.bodyFile) {
+      throw new Error('Pass either --email-draft-file (structured email) or --body/--body-file (to-do / legacy), not both.');
+    }
+  }
+  const body = emailDraft
+    ? undefined
+    : (args.bodyFile ? fs.readFileSync(args.bodyFile, 'utf8') : required(args.body, '--body, --body-file, or --email-draft-file'));
+  const draftSubject = emailDraft?.subject || '';
+  if (replyDraft(body || draftSubject, title) || /^\s*(re|antw|aw):/i.test(draftSubject)) {
     required(args.replyToMessageId, '--reply-to-message-id for a reply task');
     required(args.replyToMailbox, '--reply-to-mailbox for a reply task');
   }
@@ -99,12 +114,14 @@ export function taskCreatePayload(args) {
   const sourceDetails = compact({
     reply_to_message_id: args.replyToMessageId,
     mailbox: args.replyToMailbox?.trim().toLowerCase(),
-    email_conversation_id: args.replyToConversationId
+    email_conversation_id: args.replyToConversationId,
+    email_draft: emailDraft
   });
   const task = {
     title,
     body,
     status: args.status || 'needs_approval',
+    assignee_email: args.assigneeEmail,
     job_ref: args.jobRef,
     external_ref: args.externalRef,
     due_on: args.dueOn,
@@ -393,8 +410,14 @@ export function parseArgs(argv) {
       case '--body-file':
         args.bodyFile = rest[++i];
         break;
+      case '--email-draft-file':
+        args.emailDraftFile = rest[++i];
+        break;
       case '--status':
         args.status = rest[++i];
+        break;
+      case '--assignee-email':
+        args.assigneeEmail = rest[++i];
         break;
       case '--job-ref':
         args.jobRef = rest[++i];
