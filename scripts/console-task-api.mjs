@@ -101,6 +101,15 @@ export function taskCreatePayload(args) {
   const body = emailDraft
     ? undefined
     : (args.bodyFile ? fs.readFileSync(args.bodyFile, 'utf8') : required(args.body, '--body, --body-file, or --email-draft-file'));
+  const completionFirst = completionEvidencePayload(args);
+  if (
+    args.agentSlug === 'kerri-inbox-sweep' &&
+    (args.status || 'needs_approval') === 'needs_approval' &&
+    emailDraft &&
+    vendorFactRequestDraft(emailDraft.body)
+  ) {
+    validateFactReconciliation(completionFirst?.fact_reconciliation, emailDraft.body);
+  }
   const draftSubject = emailDraft?.subject || '';
   if (replyDraft(body || draftSubject, title) || /^\s*(re|antw|aw):/i.test(draftSubject)) {
     required(args.replyToMessageId, '--reply-to-message-id for a reply task');
@@ -115,7 +124,8 @@ export function taskCreatePayload(args) {
     reply_to_message_id: args.replyToMessageId,
     mailbox: args.replyToMailbox?.trim().toLowerCase(),
     email_conversation_id: args.replyToConversationId,
-    email_draft: emailDraft
+    email_draft: emailDraft,
+    completion_first: completionFirst
   });
   const task = {
     title,
@@ -133,6 +143,56 @@ export function taskCreatePayload(args) {
     agent_slug: args.agentSlug,
     property_slug: args.propertySlug
   });
+}
+
+function vendorFactRequestDraft(body) {
+  const text = String(body || '').replace(/\s+/g, ' ');
+  const request = '(?:ask|confirm|could you|can you|please|send|resend|provide|share|clarify)';
+  const fact = '(?:proposal|contract|agreement|scope|quote|pricing|price|fees?|requirements?|quantit(?:y|ies)|availability|terms?|details?)';
+  return new RegExp(`${request}.{0,120}${fact}|${fact}.{0,120}${request}`, 'i').test(text);
+}
+
+function validateFactReconciliation(reconciliation, draftBody) {
+  if (!reconciliation || typeof reconciliation !== 'object' || Array.isArray(reconciliation)) {
+    throw new Error('Inbox vendor fact requests require completion evidence fact_reconciliation.');
+  }
+  const known = reconciliation.known_facts;
+  const unresolved = reconciliation.unresolved_facts;
+  const threads = reconciliation.related_threads_checked;
+  if (!Array.isArray(known) || known.length === 0 || known.some((item) => !item?.fact || !item?.source)) {
+    throw new Error('fact_reconciliation.known_facts requires non-empty { fact, source } entries.');
+  }
+  if (!Array.isArray(unresolved) || unresolved.length === 0 || unresolved.some((item) => !item?.fact || !item?.reason)) {
+    throw new Error('fact_reconciliation.unresolved_facts requires non-empty { fact, reason } entries.');
+  }
+  if (!Array.isArray(threads) || threads.length === 0 || threads.some((item) => !String(item || '').trim())) {
+    throw new Error('fact_reconciliation.related_threads_checked must be non-empty.');
+  }
+
+  const attachments = reconciliation.attachments_checked;
+  const attachmentNotApplicable = String(reconciliation.attachment_review_not_applicable || '').trim();
+  if (
+    (!Array.isArray(attachments) || attachments.length === 0) &&
+    !attachmentNotApplicable
+  ) {
+    throw new Error('fact_reconciliation requires attachments_checked or attachment_review_not_applicable.');
+  }
+  if (Array.isArray(attachments) && attachments.some((item) => !item?.name || !item?.source || !item?.result)) {
+    throw new Error('fact_reconciliation.attachments_checked requires { name, source, result } entries.');
+  }
+  if (/(?:proposal|quote|resend|latest|current)/i.test(String(draftBody || '')) && (!Array.isArray(attachments) || attachments.length === 0)) {
+    throw new Error('Proposal, quote, resend, latest, or current requests require an inspected attachment.');
+  }
+
+  const knownFacts = new Set(known.map((item) => normalizeFact(item.fact)));
+  const duplicate = unresolved.map((item) => normalizeFact(item.fact)).find((fact) => knownFacts.has(fact));
+  if (duplicate) {
+    throw new Error('fact_reconciliation cannot request a fact already listed as known.');
+  }
+}
+
+function normalizeFact(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
 function replyDraft(body, title) {
@@ -413,6 +473,12 @@ export function parseArgs(argv) {
       case '--email-draft-file':
         args.emailDraftFile = rest[++i];
         break;
+      case '--completion-evidence-json':
+        args.completionEvidenceJson = rest[++i];
+        break;
+      case '--completion-evidence-file':
+        args.completionEvidenceFile = rest[++i];
+        break;
       case '--status':
         args.status = rest[++i];
         break;
@@ -600,6 +666,14 @@ function compact(object) {
 function metadataPayload(args) {
   if (args.metadataJson) return JSON.parse(args.metadataJson);
   if (args.metadataFile) return JSON.parse(fs.readFileSync(args.metadataFile, 'utf8'));
+  return undefined;
+}
+
+function completionEvidencePayload(args) {
+  if (args.completionEvidenceJson) return JSON.parse(args.completionEvidenceJson);
+  if (args.completionEvidenceFile) {
+    return JSON.parse(fs.readFileSync(args.completionEvidenceFile, 'utf8'));
+  }
   return undefined;
 }
 

@@ -180,6 +180,90 @@ test('reply route flags are parsed for the create command', () => {
   });
 });
 
+test('inbox vendor fact requests require reconciled source evidence', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vendor-gap-'));
+  const draftFile = path.join(dir, 'draft.json');
+  fs.writeFileSync(draftFile, JSON.stringify({
+    to: 'venue@example.com',
+    subject: 'Re: Venue scope',
+    body: 'Please send the revised venue agreement and confirm current pricing.'
+  }));
+
+  assert.throws(
+    () => taskCreatePayload({
+      title: 'Request final venue agreement',
+      emailDraftFile: draftFile,
+      status: 'needs_approval',
+      agentSlug: 'kerri-inbox-sweep',
+      replyToMessageId: 'message-venue',
+      replyToMailbox: 'brian@hardwarefyi.com',
+      replyToConversationId: 'conversation-venue'
+    }),
+    /require completion evidence fact_reconciliation/
+  );
+});
+
+test('inbox vendor fact requests accept related threads and inspected attachments', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vendor-proof-'));
+  const draftFile = path.join(dir, 'draft.json');
+  fs.writeFileSync(draftFile, JSON.stringify({
+    to: 'venue@example.com',
+    subject: 'Re: Venue scope',
+    body: 'We have the current catering proposal. Please send the venue agreement and confirm cancellation terms.'
+  }));
+
+  const payload = taskCreatePayload({
+    title: 'Request unresolved venue contract terms',
+    emailDraftFile: draftFile,
+    status: 'needs_approval',
+    agentSlug: 'kerri-inbox-sweep',
+    replyToMessageId: 'message-venue',
+    replyToMailbox: 'brian@hardwarefyi.com',
+    replyToConversationId: 'conversation-venue',
+    completionEvidenceJson: JSON.stringify({
+      fact_reconciliation: {
+        known_facts: [{ fact: 'Catering proposal covers 125 guests.', source: 'June 30 proposal' }],
+        unresolved_facts: [{ fact: 'Venue cancellation terms.', reason: 'No venue agreement is on file.' }],
+        related_threads_checked: ['Venue thread', 'Catering thread'],
+        attachments_checked: [{ name: 'proposal.pdf', source: 'Catering thread', result: '125 guests verified' }]
+      }
+    })
+  });
+
+  assert.equal(payload.task.source_details.completion_first.fact_reconciliation.known_facts.length, 1);
+});
+
+test('inbox vendor fact requests reject facts listed as both known and unresolved', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vendor-duplicate-'));
+  const draftFile = path.join(dir, 'draft.json');
+  fs.writeFileSync(draftFile, JSON.stringify({
+    to: 'venue@example.com',
+    subject: 'Re: Venue scope',
+    body: 'Please send the current proposal and confirm the guest count.'
+  }));
+
+  assert.throws(
+    () => taskCreatePayload({
+      title: 'Confirm venue guest count',
+      emailDraftFile: draftFile,
+      status: 'needs_approval',
+      agentSlug: 'kerri-inbox-sweep',
+      replyToMessageId: 'message-venue',
+      replyToMailbox: 'brian@hardwarefyi.com',
+      replyToConversationId: 'conversation-venue',
+      completionEvidenceJson: JSON.stringify({
+        fact_reconciliation: {
+          known_facts: [{ fact: 'The proposal covers 125 guests.', source: 'Proposal page one' }],
+          unresolved_facts: [{ fact: 'The proposal covers 125 guests.', reason: 'Incorrectly treated as unresolved' }],
+          related_threads_checked: ['Venue thread'],
+          attachments_checked: [{ name: 'proposal.pdf', source: 'Venue thread', result: '125 guests verified' }]
+        }
+      })
+    }),
+    /cannot request a fact already listed as known/
+  );
+});
+
 test('task event payload helper records proof events with metadata', () => {
   const payload = taskEventPayload({
     eventType: 'sent',
