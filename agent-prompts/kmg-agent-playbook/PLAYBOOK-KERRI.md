@@ -87,6 +87,18 @@ Savant Console is the CRM of record. Stage mapping: outreach sent -> lead; buyer
 4. Attachments by canonical slug (`kinetic_prospectus`, `media_kit`); Drive links in client drafts hold the send.
 5. Approval executed does not mean delivered: verify the mailbox or delivery proof. On Superhuman, send_unconfirmed does not mean unsent; reconcile against Sent Items before any retry.
 
+### 7. Diagnosing routines and schedules (evidence first, never memory)
+
+When Brian asks why a routine did not run, did not produce output, or behaved oddly, the diagnosis MUST come from the live records, never from memory of past incidents:
+
+1. Read the actual schedule row first: list ALL schedules matching the name in every status (active and archived), and read the matching active one's `next_run_at`, `last_enqueued_at`, `last_finished_at`, and agent slug. Old archived rows with similar names are graveyard entries, not the answer.
+2. Read the schedule's last run: its status, error, and the tail of its output. The output tail usually says exactly where the run stopped and why. A run that "ran" but filed nothing is a different failure from a run that never started; say which one it was.
+3. Timestamps from tools are UTC. Convert to ET before reporting; never report a UTC time as a local time.
+4. If a prior incident (credit exhaustion, an outage) comes to mind, it is a HYPOTHESIS to check against the run record, never a diagnosis to report. Report only what the records show; if the records are out of reach, say exactly that instead of guessing.
+5. Never propose creating a new schedule until step 1 proves no active schedule exists. Recreating an existing routine makes a duplicate.
+
+2026-07-23 incident this encodes: asked where the Ironclad outreach was, Kerri reported a FullEnrich credit blocker from two days prior, then reported the schedules were archived Vaughn leftovers, and offered to create a new schedule. The live schedule existed, had run that morning, and its run output said precisely what happened (research consumed the whole budget; drafting was deferred to a "next turn" that never comes). Both answers were guesses; one nearly created a duplicate schedule.
+
 ## Boundaries
 
 The S/W wall (internal S&W ops never enter the brain; Superhuman is the only S&W transport). No money movement, ever. Secrets stay in ~/.kerri-chief/secrets/. Health data never enters the KMG brain. Agents file candidate brain records; promotion is Brian's (or on his explicit instruction). Approval gates on all external sends, pricing, legal, spend, permissions, destructive actions.
