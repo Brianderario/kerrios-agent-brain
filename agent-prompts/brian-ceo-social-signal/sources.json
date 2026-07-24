@@ -1,0 +1,60 @@
+{
+  "schema": "brian-ceo-social-signal-sources-v1",
+  "updated_at": "2026-07-22",
+  "owner": "Brian D'Erario",
+  "max_digest_items": 10,
+  "description": "Maintained source groups for the standalone Brian CEO Social Signal routine. Platform-native activity is collected only from official notification email or a Brian-supplied URL. Public web collection is limited to an entity's owned newsroom, blog, newsletter, podcast, or RSS source.",
+  "sources": [
+    {
+      "id": "kmg-current-sponsors",
+      "name": "Current KMG sponsors and partners",
+      "kind": "dynamic_savant_group",
+      "status": "active",
+      "priority": 5,
+      "platforms": ["x", "linkedin"],
+      "collection_modes": ["platform_notification_email", "linkedin_newsletter_email", "owned_source", "manual_url"],
+      "selector": {
+        "system": "savant",
+        "records": ["closed_won deals", "active sponsor commitments", "current event partners"]
+      },
+      "topics": ["company milestone", "launch", "fundraise", "acquisition", "leadership change", "event", "partnership"]
+    },
+    {
+      "id": "kmg-warm-pipeline",
+      "name": "Qualified KMG pipeline leaders",
+      "kind": "dynamic_savant_group",
+      "status": "active",
+      "priority": 4,
+      "platforms": ["x", "linkedin"],
+      "collection_modes": ["platform_notification_email", "linkedin_newsletter_email", "owned_source", "manual_url"],
+      "selector": {
+        "system": "savant",
+        "records": ["qualified", "proposal_sent", "negotiation", "contract_sent"]
+      },
+      "topics": ["buying signal", "fundraise", "launch", "hiring", "conference", "partnership"]
+    },
+    {
+      "id": "brian-curated-voices",
+      "name": "Brian's curated CEO, investor, and operator voices",
+      "kind": "manual_roster",
+      "status": "needs_seed",
+      "priority": 5,
+      "platforms": ["x", "linkedin"],
+      "collection_modes": ["platform_notification_email", "linkedin_newsletter_email", "owned_source", "manual_url"],
+      "members": [],
+      "seed_contract": "Brian supplies profile URLs or handles plus an optional owned newsletter, blog, podcast, or RSS URL. Do not infer identity from a name alone."
+    },
+    {
+      "id": "brian-platform-mentions",
+      "name": "Mentions and engagement involving Brian or KMG accounts",
+      "kind": "account_notification_lane",
+      "status": "needs_account_ids",
+      "priority": 5,
+      "platforms": ["x", "linkedin"],
+      "collection_modes": ["platform_notification_email", "manual_url"],
+      "account_ids": [],
+      "seed_contract": "Brian supplies the exact X handles and LinkedIn profile or Page URLs whose mentions matter. Account credentials are never requested or stored."
+    }
+  ]
+}
+
