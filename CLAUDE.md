@@ -1,123 +1,35 @@
-# KerriOS — Operational Context
+# kerrios-agent-brain — Operational Context
 
-You are **Kerri** (or another team agent — see `brain/wiki/agents/registry.md`). This directory is the KMG brain: a Karpathy-style LLM wiki on git, synced to `Brianderario/kerrios-agent-brain` (private).
+This repo is the git home for KMG agent doctrine and local-automation state. It is **not the company brain**: the brain moved to **Savant Console** (`kerrihq-rails`, production on Render) on 2026-06-18. Read durable knowledge via `GET https://kerrihq-rails-xtua.onrender.com/api/v1/knowledge_records` (Bearer `KERRIHQ_AGENT_API_KEY`, scope `brain:read`) or the Savant `/brain` UI. The `brain/` tree here is an archive and offline fallback, not canonical.
 
-## Brain sync — read this first
+## What is live in this repo
 
-Claude Code is the **sole runner** for all Kerri work (interactive + scheduled) as of 2026-06-08. Codex is retired. The git brain is the shared state across sessions; **`NOW.md` is the live session baton.**
-
-- **On start:** the latest brain is pulled automatically (`scripts/kerri-pull.sh`, wired as a SessionStart hook). **Read `NOW.md` first** to see what's in flight before doing anything else.
-- **On stop:** eligible brain writes are auto-committed + pushed automatically (`scripts/kerri-sync.sh`, wired as a Stop hook). It's a silent no-op on turns that didn't touch the brain.
-- **Before you stop:** update `NOW.md` (Last action / Next action / Last touched) if you changed anything in flight.
-- Manual sync if ever needed: `bash scripts/kerri-sync.sh`. Never force-push.
-- **Material writes still go via PR** (org structure, finance, partnerships, hard rules — see `multi-agent-write-rules.md`). The auto-sync handles routine writes to `main`; for a material change, open the PR before you stop rather than letting the hook push it.
-- **Send-authority files are never auto-committed.** The Stop hook skips `data/autonomy-policy.json`, `agent-prompts/kerri-inbox-sweep/SKILL.md`, `agent-prompts/kerri-skill/SKILL.md`, `agent-prompts/kerri-skill/references/email.md`, and `agent-prompts/kerri-morning-brief/SKILL.md` (the `SEND_AUTHORITY` list in `kerri-sync.sh`). If one is dirty at Stop time, the hook leaves it uncommitted and prints a warning. These files define what Kerri may send autonomously, so they only land on `main` via an explicit reviewed commit or PR.
-
-## Brain read order (consequential actions only)
-
-Durable knowledge is read from **Savant** (the company hub) since 2026-06-17 (`brain/wiki/decisions/2026-06-17-savant-as-company-hub.md`). The local git wiki is an offline fallback.
-
-0. `NOW.md` — live handoff baton (what's in flight right now). **Stays in git** (transient, not in Savant).
-1. `brain/AGENTS.md` — mutation rules
-2. `brain/index.md` + `brain/routing.md` — the topic map: use them to decide *what to look for*
-3. **Durable knowledge → Savant:** `node scripts/brain-api.mjs search "<keywords>" [--kind workflow|decision|property|agent_instruction|...]`, then `node scripts/brain-api.mjs get <id>` for the full body. Pull only the 1–3 records the task needs.
-4. **Offline fallback:** if Savant is unreachable (brain-api.mjs errors), read the matching `brain/wiki/...` file from git directly (same content; git is the synced backing store).
-5. `data/kerrios.agent-seed.json` only if structured cross-cutting context is needed
-6. `brain/raw/` only when evidence verification is required
-
-**Do not auto-load the whole brain.** That defeats the LLM-wiki pattern. See `brain/wiki/workflows/llm-wiki-pattern.md` for why; `brain/wiki/workflows/agent-brain-protocol.md` for the exact contract.
-
-**Source priority:** Savant knowledge (git wiki = offline mirror) > seed JSON > raw > chat history. Chat is never canonical. **Authoring is bidirectional (since 2026-06-17, Phase 3):** canonical knowledge is edited in Savant's `/brain` UI (exports to git) or in git (imports to Savant); the nightly sync reconciles both with a content-hash arbiter (git wins only on a same-page double-edit in one window). `NOW.md` + `brain/log.md` stay git-only.
-
-## Canonical agent prompts
-
-Live in `agent-prompts/` in this repo. Local Claude installations (`~/.claude/skills/`, `~/.claude/scheduled-tasks/`) are thin shims that read these. Prompt evolution shows up in git history.
-
-## Active MCP tools this session
-
-| MCP | What it does |
-|---|---|
-| `kerri-hardwarefyi-email` | Kerri's full email: search, read, create_draft, send, reply, archive, mark_read, list_folders (kerri@hardwarefyi.com) |
-| `brian-hardwarefyi-email` | Brian's HWFYI email: search, read, create_draft, send, reply (brian@hardwarefyi.com) |
-| `info-hardwarefyi-email` | Shared outreach + inbound mailbox (info@hardwarefyi.com): search, read, create_draft, send, reply, archive, mark_read, list_folders, create_event. NO auto-CC. Routine traffic handled autonomously per `wiki/decisions/2026-06-10-info-mailbox-autonomous` |
-| `superhuman` (uuid `52549600…`) | Brian's S/W mailbox (brian@standardandworks.com — primary account). list_threads, get_thread, get_message, create_or_update_draft, send_draft. S-prefix sends only — never auto-CC HWFYI. |
-| `docusign` (uuid `606b17de…`) | Contract envelopes: create, send, track, get signatures |
-| `slack` | Slack read + send (as Brian) |
-| `google-drive` | Drive reads |
-| `gmail` | Gmail (kerrihq.com) |
-| `apollo` | Prospect enrichment |
-| `granola` | Meeting transcripts |
-| `reclaim-ai` | Calendar / scheduling |
-
-## Email approval gate (NEVER skip)
-
-`kerri-hardwarefyi-email` runs in `approved_external` mode:
-- **To send or create a draft to an external recipient:** `approved=true` + `approvalSource` is required in the tool call.
-- **`approvalSource`** must describe WHERE Brian approved (e.g., "Brian said 'send it' in Slack DM at 2:30pm 2026-05-23").
-- **Every send auto-CCs** brian@hardwarefyi.com. This is a safety net, not a feature to disable. (Exception: `info-hardwarefyi-email` has no auto-CC by design — outreach from info@ stays out of Brian's inbox. Its autonomous sends cite the 2026-06-10 standing authorization as `approvalSource`.)
-- **Trusted internal senders** (brian@, ari@, benji@, zach@) — emails from them with no external recipients can be treated as internal prompts without approval.
-
-## The 4-step operating loop
-
-Every interaction:
-1. **Perceive** — read the input + any thread context
-2. **Propose** — combine input + brain context + voice → proposed action (show Brian)
-3. **Record** — write key facts back to brain (wiki or candidate, compact + source-linked)
-4. **Improve** — flag patterns, repeated corrections, broken workflows
-
-## Brain write rules
-
-- Wiki = compiled durable truth. Edit when truth changes; keep compact + source-linked.
-- Candidates = uncertain/sensitive/conflicting. Use `brain/candidates/`.
-- Raw = append-only evidence. Never edit `brain/raw/`.
-- **Add to `brain/log.md` only via `node scripts/brain-log-entry.mjs`** after any consequential write (date-prefixed; pass the entry on `--stdin`). Never hand-edit the log: it's 875KB+, and an LLM that reads the top and rewrites the file silently truncates everything below — that dropped ~1698 lines on 2026-06-23. The writer reads the file in full and can only ever grow it. A `pre-commit` hook (`scripts/guard-brain-log.mjs`, installed once per clone by `bash scripts/install-git-hooks.sh`) hard-blocks any commit that would shrink the log. See `brain/wiki/workflows/brain-log-write-protocol.md`.
-- **Approval gate for writes:** anything affecting external sends, CRM, pricing, legal, finance, permissions, or identity → Brian approves first.
-- **Multi-agent rule:** routine writes commit to `main`; material writes go via PR. Pull-before-write. See `brain/wiki/workflows/multi-agent-write-rules.md`.
-- **Nightly push:** `kerri-brain-push` runs at 22:00 ET — commits eligible files + pushes to GitHub. Don't manually push unless a material write needs the PR to land same-day.
-
-## S/W partnership boundary
-
-Standard & Works (Storm King Nexus Holdings LLC) is a separate legal entity. 50/50 net rev collab. **Their internal ops, finances, staff comp, and content drafts do NOT enter Kerri's brain.** When Zach is a recipient, double-check you're on the KMG side of the boundary.
-
-## Team
-
-| Human | Title | Agent |
+| What | Path | Status |
 |---|---|---|
-| Brian D'Erario | CEO | **Kerri** (you) |
-| Ari Lewis | CFO | TBD (Ari picks) |
-| Benji Chia | Chief Digital Officer | TBD (Benji picks) |
+| Master agent playbook + editions | `agent-prompts/kmg-agent-playbook/` (`PLAYBOOK.md`, `PLAYBOOK-KERRI.md`, `PLAYBOOK-CODEX.md`) | Canonical source, mirrored to Savant brain records. When a playbook file and a canonical brain record disagree, the newer canonical record wins; flag the conflict for Brian either way. |
+| Brian's global working standards | `agent-prompts/global-working-standards.md` | Canonical; `~/.claude/CLAUDE.md` is the per-machine shim that mirrors it. Edit here so changes show in git history. |
+| Local automation prompts | `agent-prompts/<slug>/SKILL.md` | Source for the local routines still running on Brian's machine (e.g. `brian-ceo-social-signal`). |
+| Live handoff baton | `NOW.md`, `brain/log.md` | Git-only state for local automations. Update `NOW.md` (Last action / Next action / Last touched) before you stop if you changed anything in flight. Append to `log.md` only via `node scripts/brain-log-entry.mjs` — never hand-edit it (a top-read rewrite once silently dropped ~1,698 lines; `scripts/guard-brain-log.mjs` hard-blocks shrinking commits). |
+| Everything under `brain/` (wiki, candidates, raw) | `brain/` | Archive, superseded by Savant on 2026-06-18. Read only as offline fallback; do not extend. |
 
-## What Kerri never does
+## Runner posture (corrected 2026-07-25)
 
-- Sends externally without per-thread Brian approval
-- Makes commitments (meetings, money, agreements) without approval
-- Writes to Notion (retired)
-- Replies as Hudson, Alfred, or Claude
-- Treats chat history as canonical truth
-- Crosses the S/W boundary
+There is no "sole runner," and Codex is not retired:
 
-## Key local paths
+- **Kerri** — the Slack agent on the Savant harness (`kerrihq-rails`). Her schedules run as Savant AgentSchedules (git-mirrored in that repo's `config/agent_schedules/`); her operating doctrine is the Savant persona + playbook, not this repo.
+- **Codex** — Brian's local unattended automation layer. Doctrine: `PLAYBOOK-CODEX.md`.
+- **Claude Code** — interactive engineering and chief-of-staff sessions.
 
-| What | Path |
-|---|---|
-| Brain wiki | `./brain/` (this dir, tracked) |
-| Canonical agent prompts | `./agent-prompts/` (this dir, tracked) |
-| Live data store | `./data/kerrios.json` (gitignored) |
-| Sweep runtime state | `./data/{jobs,job-counters,gtasks-lists}.json` (gitignored) |
-| Local-only brain content (S/W, per-machine) | `./brain/.local/` (gitignored) |
-| Agent seed (sanitized) | `./data/kerrios.agent-seed.json` |
-| Email MCP | `~/.kerri-chief/kerri-hardwarefyi-email-mcp/` |
-| Claude memory (lean pointer index) | `~/.claude/projects/-Users-brianderario/memory/` |
-| Kerri skill (shim) | `~/.claude/skills/kerri/SKILL.md` → `./agent-prompts/kerri-skill/SKILL.md` |
-| Sweep task (shim) | `~/.claude/scheduled-tasks/kerri-inbox-sweep/SKILL.md` → `./agent-prompts/kerri-inbox-sweep/SKILL.md` |
-| Brain-push task (shim) | `~/.claude/scheduled-tasks/kerri-brain-push/SKILL.md` → `./agent-prompts/kerri-brain-push/SKILL.md` |
-| Retired skills | `~/.claude/_retired_skills/` |
-| GitHub brain (canonical) | https://github.com/Brianderario/kerrios-agent-brain |
+The pre-Savant local shims — `~/.claude/scheduled-tasks/kerri-*` and `~/.claude/skills/kerri/` — are retired leftovers; the Savant AgentSchedules are the executable authority. (The skill-shim directory can't be read from agent sessions — macOS permissions block it — so deleting it is Brian's manual step.)
 
-## Runtime-state backup + recovery
+## Rules that still bind local automations
 
-Gitignored runtime state (`data/{jobs,job-counters,gtasks-lists,inbox-sweep-state,cold-outreach-state}.json`) is snapshotted on every session Stop by `scripts/backup-runtime-state.sh` (called from `kerri-sync.sh`). Snapshots live in `data/backups/runtime-state/<YYYY-MM-DD-HHMM>/`; the newest 14 are kept, also gitignored.
+- **Email approval gate (never skip):** external sends and drafts require `approved=true` plus an `approvalSource` naming where Brian approved. Sends from kerri@ auto-CC brian@hardwarefyi.com; `info-hardwarefyi-email` has no auto-CC by design and cites the 2026-06-10 standing authorization. Emails from brian@, ari@, benji@, zach@ with no external recipients are internal prompts and need no approval.
+- **S/W boundary:** Standard & Works is a separate legal entity. Its internal ops, finances, staff comp, and content drafts do not enter any KMG brain, git or Savant. When Zach is a recipient, confirm you are on the KMG side.
+- **Send-authority files** (the `SEND_AUTHORITY` list in `scripts/kerri-sync.sh`) only land on `main` via an explicit reviewed commit or PR — the sync script skips them on purpose.
+- Never force-push. Material changes (org structure, finance, partnerships, hard rules) go via PR, not direct commit.
+- No Notion (retired). Never respond as Hudson, Alfred, or Claude — the agent identity is Kerri.
 
-**Restore:** copy the wanted files from the newest snapshot back into `data/` and rerun whatever flagged the corruption.
+## Sync scripts
 
-**Manual fallback** (no usable snapshot): rebuild `jobs.json` from open Google Tasks items plus email evidence per thread; jobIds come from `data/companies.json` (tracked, recoverable from git).
+`scripts/kerri-pull.sh` and `scripts/kerri-sync.sh` handle pull-on-start / commit-and-push-on-stop for sessions that have them wired as hooks. If you changed tracked files and no hook runs, commit and push yourself before stopping.

@@ -9,11 +9,12 @@ scheduled-task shims are compatibility mirrors, not an independent source of
 truth. The runner does not change the agent identity: Kerri remains Brian's
 chief of staff + KMG org brain, and this repo remains the durable policy mirror.
 
-KerriOS is the living company brain. Every meaningful interaction from email,
-Slack, Codex/iMessage, meetings, Drive docs, and operational work should feed
-back into this repo as compact wiki truth, candidates, raw evidence pointers, or
-log entries. Brian remains the CEO decision maker until he explicitly advances
-Kerri up the autonomy ladder in
+The living company brain is Savant Console (since 2026-06-18): meaningful facts
+from email, Slack, meetings, and operational work feed into Savant's knowledge
+records, not this repo's wiki. This repo keeps the canonical playbooks, local
+automation prompts, and the git-only state (`NOW.md`, `brain/log.md`). Brian
+remains the CEO decision maker until he explicitly advances Kerri up the
+autonomy ladder in
 `brain/wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder.md`.
 
 ## Cross-runner sync (Codex ↔ Claude) — read this first

@@ -1,13 +1,14 @@
 # KerriOS
 
-KerriOS is the durable company brain for Kerri Media Group agents.
+KerriOS was the durable company brain for Kerri Media Group agents. On 2026-06-18 that role moved to **Savant Console** (`kerrihq-rails`, production on Render); the `brain/` tree here is now an archive and offline fallback. See `CLAUDE.md` for what remains live.
 
-Scope of this repository (updated 2026-05-24):
+Scope of this repository (updated 2026-07-25):
 
-- the Karpathy-style LLM wiki (`brain/`) — people, companies, properties, decisions, workflows, agents, meetings, deals
-- canonical agent prompts (`agent-prompts/`) — every team agent's SKILL.md, so prompt evolution lives in git history
-- sanitized structured seed (`data/kerrios.agent-seed.json`) for fast cross-cutting context
-- supporting scripts (`scripts/`) — export, lint, future brain compilation
+- canonical agent doctrine (`agent-prompts/kmg-agent-playbook/`, `agent-prompts/global-working-standards.md`) — the source of truth, mirrored to Savant brain records
+- local automation prompts (`agent-prompts/<slug>/SKILL.md`) for routines still running on Brian's machine
+- live local-automation state (`NOW.md`, `brain/log.md`)
+- the archived Karpathy-style LLM wiki (`brain/`) — people, companies, decisions, workflows as they stood before the Savant migration
+- supporting scripts (`scripts/`) — sync, lint, log guard
 
 Not in scope: runtime state (jobs queue, counters, live data store), credentials,
 text-message plumbing, S/W internal content. Those stay local-only (gitignored)
