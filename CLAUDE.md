@@ -17,7 +17,7 @@ This repo is the git home for KMG agent doctrine and local-automation state. It 
 There is no "sole runner," and Codex is not retired:
 
 - **Kerri** — the Slack agent on the Savant harness (`kerrihq-rails`). Her schedules run as Savant AgentSchedules (git-mirrored in that repo's `config/agent_schedules/`); her operating doctrine is the Savant persona + playbook, not this repo.
-- **Codex** — Brian's local unattended automation layer. Doctrine: `PLAYBOOK-CODEX.md`.
+- **Codex** — runs exactly ONE local automation: Standard & Works newsletter issue production (Mon/Wed 8pm ET). Its other 13 automations were archived 2026-07-20 (`~/.codex/automations/_archive/retired-20260720/`). Doctrine: `PLAYBOOK-CODEX.md`.
 - **Claude Code** — interactive engineering and chief-of-staff sessions.
 
 The pre-Savant local shims — `~/.claude/scheduled-tasks/kerri-*` and `~/.claude/skills/kerri/` — are retired leftovers; the Savant AgentSchedules are the executable authority. (The skill-shim directory can't be read from agent sessions — macOS permissions block it — so deleting it is Brian's manual step.)
