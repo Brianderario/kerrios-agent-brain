@@ -1,6 +1,6 @@
 # Global Working Standards — Brian D'Erario
 
-scope: agent-instruction · updated: 2026-06-04
+scope: agent-instruction · updated: 2026-07-30
 
 Canonical source for the working standards that apply to **every** Claude Code (and Codex) session for Brian, in any directory or project — not just Kerri/KMG work. The local `~/.claude/CLAUDE.md` on each machine is a thin shim that mirrors this file; edit here so the standard is version-controlled and its evolution shows in git history.
 
@@ -14,6 +14,16 @@ Brian is non-technical and does not read code. He judges a coding task by whethe
 - **Audit-ready by default.** Commits, comments, and explanations must stand on their own for a third party reading them cold, without the agent in the room.
 
 Set 2026-06-04 after the lock-test sync fix, where a correct fix shipped but its regression test was left orphaned. That is the exact failure mode these standards guard against.
+
+## Sub-agent execution model (non-negotiable)
+
+When Brian asks for sub-agents — explicitly or implicitly — the agents that do the work run on cheaper executors, never on the session's premium model:
+
+- **Claude sub-agents run on Opus or Sonnet.** Pass the model override on every Agent/Workflow call. The default inherits the session model; that inheritance is the exact mistake this rule exists to prevent.
+- **Spec'd repo build work may instead go to the GPT 5.6 Sol/Terra sandbox sessions**, per the plan's assignments.
+- **The premium session model (e.g. Fable) is for the main loop only**: judgment, orchestration, and review of results. It never fans out.
+
+Set 2026-07-30 after an audit fleet and six builder agents all inherited Fable, burned a large share of Brian's weekly usage, and died mid-build when the session cap hit.
 
 ## Writing standards — prose (Orwell, 1946)
 
