@@ -71,6 +71,26 @@ test('Savant is the only task and approval surface and brain writeback is atomic
   ]);
 });
 
+test('vendor fact requests reconcile related threads and attachments before drafting', () => {
+  assertAll(prompt, [
+    'P11. NEVER ASK AN OUTSIDE PARTY FOR FACTS WE ALREADY HOLD.',
+    'search every related conversation across the participating mailboxes',
+    'open every relevant attachment',
+    'One visible thread is not the complete',
+    'record.',
+    'ask the outside party only',
+    'for that remainder',
+    '`fact_reconciliation` inside',
+    '`known_facts`, `unresolved_facts`',
+    '`related_threads_checked`',
+    '`attachments_checked` or a specific',
+    '`attachment_review_not_applicable` reason',
+    'rejects a fact listed as both known and',
+    'unresolved',
+    "separate Christopher's Kitchen thread and June 30 proposal"
+  ]);
+});
+
 // v1: "preserves approval gates and mailbox routing".
 // New home: REFERENCE section (connectors by name), SEND IDENTITY, S/W BOUNDARY,
 // STEP 8 error rules, SESSION NOTES.
