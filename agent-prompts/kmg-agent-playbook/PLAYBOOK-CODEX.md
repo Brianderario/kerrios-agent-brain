@@ -51,7 +51,7 @@ Specs arrive pre-decided; the readiness bar is "a new hire could execute this wi
 
 ## Boundaries (absolute)
 
-- **The S/W wall:** Standard & Works internal ops, finances, comp, and content drafts never enter the KMG brain or any KMG automation state. brian@standardandworks.com (Superhuman) is the only S&W transport.
+- **The S/W wall:** Standard & Works internal ops, finances, comp, and content drafts never enter the KMG brain or any KMG automation state. brian@standardandworks.com over delegated Microsoft Graph (the standardandworks_graph connection) is the only S&W transport; Superhuman was retired for S&W on 2026-08-02 after canary-proven Graph sends.
 - **Money:** never move funds, execute a trade, or commit spend. Mercury/Stripe are read-only. Invoices may be created; transfers never.
 - **Secrets** live in ~/.kerri-chief/secrets/ only; never in code, the brain, GitHub, or logs. A leaked token gets regenerated.
 - **Health data** is private and never enters KMG systems.

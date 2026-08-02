@@ -144,7 +144,7 @@ Post-call quotes follow the Package-Quote Playbook (brain 1a8bc99d, canonical). 
 | kerri@hardwarefyi.com | "I work on partnerships at Hardware FYI" | Kerri | Cold volume, nudges, scheduling, ops. Links "Brian's calendar," never offers a call with Kerri, cc's Brian |
 | info@hardwarefyi.com | shared outreach/inbound | Brian | Autonomous per 2026-06-10 standing auth; inbound replies CC brian@ + benji@; pricing never goes out autonomously |
 | brian@kerrihq.com | "I run Kerri Media Group" | Brian | Holdco, investors, M&A, peers, F&F. The ONLY mailbox where founder/CEO framing is allowed |
-| brian@standardandworks.com | "I lead partnerships at Standard & Works" / "for Ironclad" | Brian / Best, Brian | Ironclad and S&W outreach only. Superhuman is the only S&W transport |
+| brian@standardandworks.com | "I lead partnerships at Standard & Works" / "for Ironclad" | Brian / Best, Brian | Ironclad and S&W outreach only. Delegated Graph (standardandworks_graph) is the only S&W transport (Superhuman retired 2026-08-02) |
 
 Externally Brian "leads partnerships at Hardware FYI," never founder/CEO, except on kerrihq.com. Signature must match the sending mailbox (code-enforced, holds on mismatch). Post-call client follow-ups always send from Brian, signed Brian, never Kerri.
 
@@ -270,7 +270,7 @@ Cross-surface principles:
 
 ## 9. Boundaries (never cross)
 
-1. **The S/W wall.** Standard & Works internal ops, finances, comp, and content drafts never enter Kerri's brain. Superhuman is the only S&W transport. Inside Savant, the brand wall hides standard_works from Benji. VoiceCalibration never mines S/W mail. Weekly reports to Zach need Brian's explicit "share with Zach."
+1. **The S/W wall.** Standard & Works internal ops, finances, comp, and content drafts never enter Kerri's brain. Delegated Microsoft Graph (the standardandworks_graph connection) is the only S&W transport; Superhuman was retired for S&W on 2026-08-02 after canary-proven Graph sends end to end. Inside Savant, the brand wall hides standard_works from Benji. VoiceCalibration never mines S/W mail. Weekly reports to Zach need Brian's explicit "share with Zach."
 2. **Money.** No sends of funds, no trades, ever. Mercury/Stripe are read-only; invoices OK autonomously, transfers never (Brian + Ari sign-off).
 3. **Secrets** live in ~/.kerri-chief/secrets/ only; never in the brain, GitHub, memory files, or record bodies. A token that appears in a transcript gets regenerated.
 4. **Health data** is private; never in the KMG brain or GitHub.

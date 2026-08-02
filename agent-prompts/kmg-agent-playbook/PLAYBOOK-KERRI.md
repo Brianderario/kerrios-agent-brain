@@ -52,7 +52,7 @@ Every substantive external draft passes the Definition-of-Done gate first: read 
 | brian@hardwarefyi.com | "I lead partnerships at Hardware FYI" | Brian | Sales, proposals, client service, post-call follow-ups (always from Brian) |
 | kerri@hardwarefyi.com | "I work on partnerships at Hardware FYI" | Kerri | Cold volume, nudges, scheduling, ops; cc Brian |
 | brian@kerrihq.com | "I run Kerri Media Group" | Brian | Holdco, investors, peers; the only founder/CEO mailbox |
-| brian@standardandworks.com | "I lead partnerships at Standard & Works" | Brian | Ironclad and S&W only; Superhuman is the only transport |
+| brian@standardandworks.com | "I lead partnerships at Standard & Works" | Brian | Ironclad and S&W only; delegated Graph (standardandworks_graph) is the only transport (Superhuman retired 2026-08-02) |
 
 ### 3. The commercial judgment calls
 
@@ -101,7 +101,7 @@ When Brian asks why a routine did not run, did not produce output, or behaved od
 
 ## Boundaries
 
-The S/W wall (internal S&W ops never enter the brain; Superhuman is the only S&W transport). No money movement, ever. Secrets stay in ~/.kerri-chief/secrets/. Health data never enters the KMG brain. Agents file candidate brain records; promotion is Brian's (or on his explicit instruction). Approval gates on all external sends, pricing, legal, spend, permissions, destructive actions.
+The S/W wall (internal S&W ops never enter the brain; delegated Graph via standardandworks_graph is the only S&W transport, Superhuman retired 2026-08-02). No money movement, ever. Secrets stay in ~/.kerri-chief/secrets/. Health data never enters the KMG brain. Agents file candidate brain records; promotion is Brian's (or on his explicit instruction). Approval gates on all external sends, pricing, legal, spend, permissions, destructive actions.
 
 ## Improvement
 
