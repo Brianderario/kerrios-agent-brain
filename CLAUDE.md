@@ -8,7 +8,7 @@ This repo is the git home for KMG agent doctrine and local-automation state. It 
 |---|---|---|
 | Master agent playbook + editions | `agent-prompts/kmg-agent-playbook/` (`PLAYBOOK.md`, `PLAYBOOK-KERRI.md`, `PLAYBOOK-CODEX.md`) | Canonical source, mirrored to Savant brain records. When a playbook file and a canonical brain record disagree, the newer canonical record wins; flag the conflict for Brian either way. |
 | Brian's global working standards | `agent-prompts/global-working-standards.md` | Canonical; `~/.claude/CLAUDE.md` is the per-machine shim that mirrors it. Edit here so changes show in git history. |
-| Local automation prompts | `agent-prompts/<slug>/SKILL.md` | Source for the local routines still running on Brian's machine (e.g. `brian-ceo-social-signal`). |
+| Local automation prompts | `agent-prompts/<slug>/SKILL.md` | Source for any explicitly approved local routines still running on Brian's machine. Production Kerri schedules belong in `kerrihq-rails`. |
 | Live handoff baton | `NOW.md`, `brain/log.md` | Git-only state for local automations. Update `NOW.md` (Last action / Next action / Last touched) before you stop if you changed anything in flight. Append to `log.md` only via `node scripts/brain-log-entry.mjs` — never hand-edit it (a top-read rewrite once silently dropped ~1,698 lines; `scripts/guard-brain-log.mjs` hard-blocks shrinking commits). |
 | Everything under `brain/` (wiki, candidates, raw) | `brain/` | Archive, superseded by Savant on 2026-06-18. Read only as offline fallback; do not extend. |
 
