@@ -1,3 +1,6 @@
+## [2026-08-05] brian-ceo-social-signal | retired by Brian direction | Codex
+Archived executable prompt and removed live handoff references. Historical run records remain preserved. Production schedule and Rails agent retirement are tracked in the scheduled-task operating-system rollout.
+
 Attachment contract added: sendable cards declare Drive IDs, never local paths. Origin: Dassault card 3728e36d held attachments_unresolved 2026-07-11; fixed by uploading-free Drive-ID rewrite (clean copy 1xIKj5ur3q8N4XHYiw33R0jwJlpaVl2zW). CLAUDE-ROUTINES.md + kerri-eod-meetings-review SKILL.md updated.
 
 ## [2026-07-10 14:02 EDT] inbox-sweep | Xometry H0033 stale approval closed after Brian self-replied at 13:44 EDT; provider message AAMkAGJhN2E2NmQ2LTM4NjctNGM2Ni1hMmRiLWVhYjExNjA3MDNlNABGAAAAAADEP7lRuwWcRpeCdCUdFKjYBwCByPO64gIDQZ8ywlmI0FWjAAAAAAEMAACByPO64gIDQZ8ywlmI0FWjAABimmNCAAA= | Savant task f4682be7-d2ee-49ce-8b99-ff9bf56878da done/skipped; no Kerri send
