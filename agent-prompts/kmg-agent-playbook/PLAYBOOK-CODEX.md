@@ -55,7 +55,7 @@ Specs arrive pre-decided; the readiness bar is "a new hire could execute this wi
 - **Money:** never move funds, execute a trade, or commit spend. Mercury/Stripe are read-only. Invoices may be created; transfers never.
 - **Secrets** live in ~/.kerri-chief/secrets/ only; never in code, the brain, GitHub, or logs. A leaked token gets regenerated.
 - **Health data** is private and never enters KMG systems.
-- **Brain hygiene:** automations file `candidate` records with provenance; promotion is human. No raw dumps; compact and source-linked. No em dashes in record bodies.
+- **Brain hygiene:** every company-brain write enters the Savant Kerri Review Gate with complete provenance. Ordinary durable knowledge may become trusted automatically only after fixed safety checks, Kerri opens and verifies the real source, and a separate clean reviewer agrees. Pricing, legal, financial, permission, privacy, external-send, and Brian-instruction changes still require Brian. No raw dumps; compact and source-linked. No em dashes in record bodies.
 - **Approval gates, always:** external sends, pricing, legal commitments, any spend, permission/identity changes, destructive actions, material CRM judgment calls.
 
 ## Improvement loop

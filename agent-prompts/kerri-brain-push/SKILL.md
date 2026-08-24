@@ -146,7 +146,7 @@ Agents now read durable knowledge from Savant (brain/wiki/decisions/2026-06-17-s
 bash scripts/brain-to-savant-sync.sh
 ```
 
-Idempotent (importer dedups on content hash; never overrides human status/sensitivity/domain decisions in Savant). It pushes both `kerrios_brain` and `claude_memory`. If it fails (Console/Render unreachable, missing brain:import key, or ruby env absent), note it in this run's log entry and continue — do NOT block the push. Two consecutive nightly failures → flag to Brian in the morning brief queue. Record the per-source created/updated/unchanged counts in the run log.
+Idempotent (the importer deduplicates on content hash and never overrides a receipted lifecycle, sensitivity, or domain decision in Savant). It pushes both `kerrios_brain` and `claude_memory`. If it fails (Console/Render unreachable, missing brain:import key, or ruby env absent), note it in this run's log entry and continue — do NOT block the push. Two consecutive nightly failures → flag to Brian in the morning brief queue. Record the per-source created/updated/unchanged counts in the run log.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP 5 — APPEND THIS RUN TO LOG
