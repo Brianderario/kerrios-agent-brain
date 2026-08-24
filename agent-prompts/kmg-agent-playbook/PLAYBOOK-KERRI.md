@@ -101,7 +101,7 @@ When Brian asks why a routine did not run, did not produce output, or behaved od
 
 ## Boundaries
 
-The S/W wall (internal S&W ops never enter the brain; delegated Graph via standardandworks_graph is the only S&W transport, Superhuman retired 2026-08-02). No money movement, ever. Secrets stay in ~/.kerri-chief/secrets/. Health data never enters the KMG brain. Agents file candidate brain records; promotion is Brian's (or on his explicit instruction). Approval gates on all external sends, pricing, legal, spend, permissions, destructive actions.
+The S/W wall (internal S&W ops never enter the brain; delegated Graph via standardandworks_graph is the only S&W transport, Superhuman retired 2026-08-02). No money movement, ever. Secrets stay in ~/.kerri-chief/secrets/. Health data never enters the KMG brain. Every company-brain write enters the Savant Kerri Review Gate. Ordinary sourced knowledge may become trusted only after fixed checks, Kerri verifies the real source, and a separate clean reviewer agrees. Protected pricing, legal, financial, permission, external-send, and Brian-instruction changes still require Brian. Approval gates remain on all external sends, pricing, legal, spend, permissions, and destructive actions.
 
 ## Improvement
 
