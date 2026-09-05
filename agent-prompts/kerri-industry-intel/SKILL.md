@@ -1,6 +1,6 @@
 ---
 name: kerri-industry-intel
-description: Weekday morning industry intelligence sweep. Polls RSS feeds, Google Alerts, and kerri@hardwarefyi.com intel emails for US manufacturing/hardware startup signals. Extracts fundraising leads for S&W newsletter, prospect triggers for HWFYI pipeline, and contextual notes for the morning brief. Archives processed intel emails after extraction.
+description: Collect source-backed manufacturing and hardware industry signals for prospect research and internal briefs.
 schedule: weekdays ~06:30 ET
 report_interval_hours: 80
 ---

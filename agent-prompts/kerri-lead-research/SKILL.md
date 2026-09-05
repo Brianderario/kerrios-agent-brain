@@ -1,6 +1,6 @@
 ---
 name: kerri-lead-research
-description: Multi-source sponsor-lead discovery for cold outreach, built to fill a thousands-deep pool. ICP = 4 lanes in priority order (companies selling software to US hardware manufacturers · lookalikes of proven sponsors · sponsors/exhibitors of major ME/EE & manufacturing conferences · hardware manufacturers with active engineering recruiting needs). No defense/aerospace/gov contractors. Sources — conference scrapes, Apollo lookalikes off Kinetic 2026 sponsors, recent-funding, marketing-hiring, engineering-recruiting signal, baseline ICP. Scores + dedups, writes the canonical lead pool (leads-master.json), mirrors to the CRM Sheet "Leads" tab, and tops up the cold-outreach queue with hook-enriched entries. Daily weekday-evening top-up + on-demand backfill.
+description: Find and qualify new Hardware FYI sponsor prospects for the outreach queue.
 schedule: weekdays ~18:13 ET
 report_interval_hours: 80
 ---
@@ -136,107 +136,16 @@ Scheduled runs must also leave the next morning with leads that can plausibly mo
 - `"Kerri, find me hardware companies that raised in May"` → funding-signal only
 - `"Kerri, lead research"` → all sources, default top-up budget
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SOURCE 1 — CONFERENCES (scrape + enrich)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Source procedures
 
-For each conference in `data/lead-research/conferences.json` (or just the one Brian named on-demand):
+After preflight shows work is needed, choose only the source lanes required by the invocation and queue condition. Read the corresponding procedure; do not load all six on a healthy scheduled run. Backfills use bulk/paginated endpoints with checkpoints under the common budgets and exclusion rules.
 
-1. If the conference entry has a `dataFeed` + `extraction` (MapYourShow-platform shows like Automate), use that FIRST — it's the reliable path. Curl the `dataFeed` JSON with a desktop browser User-Agent + `X-Requested-With: XMLHttpRequest` + `Referer: <sponsorsUrlHint>`, then parse per the entry's `extraction` note (e.g. MapYourShow → `DATA.results.exhibitor.hit[].fields` → `exhname_t`/`exhdesc_t`/`boothsdisplay_la`). One call returns the whole floor (Automate = ~1,200 exhibitors). Otherwise, WebFetch the `sponsorsUrlHint` URL and extract company names + (if listed) booth numbers, tier, website as a clean JSON array.
-2. If a plain `sponsorsUrlHint` WebFetch returns a JS shell or auth wall, check whether it's a MapYourShow site (host `*.mapyourshow.com`, or the page references `mapyourshow`): if so, derive the feed `https://<show>.mapyourshow.com/8_0/ajax/remote-proxy.cfm?action=search&searchtype=exhibitorgallery&searchsize=3000` and pull it as in step 1 (this turns most "degraded" JS directories into a working source — record the feed URL onto the conference entry's `dataFeed` so the next run skips the wall). Only if that also fails: fall back to the main conference URL for an "exhibitor list" passage; if still empty, mark the entry `degraded` + log to Slack and skip that conf for this run.
-3. For each company name extracted, attempt Apollo company match via `apollo_mixed_companies_search` with `q_organization_name`. Take the top match by employee-count + industry-fit heuristic.
-4. For each matched company, find ONE marketing/comms/growth contact via `apollo_mixed_people_api_search` with `person_titles: ["VP Marketing", "Head of Growth", "CMO", "Director of Marketing", "Head of Demand Generation", "Head of Brand", "Head of Communications"]` and the matched company's organization_id.
-5. Build candidate record:
-   ```
-   {
-     "email": "<from apollo>",
-     "name": "<from apollo>",
-     "title": "<from apollo>",
-     "company": "<canonical apollo name>",
-     "hookSeed": "exhibited at <conf-name> <year>",
-     "sources": ["conf:<conf-slug>"],
-     "score": <see scoring below>
-   }
-   ```
-6. Update `lastScrapedAt` for that conference in `conferences.json` (commit later).
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SOURCE 2 — LOOKALIKES (off existing relationships)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Seeds:
-- Parse `brain/candidates/2026-05-24-kinetic-2026-sponsor-roster.md` for the 23 Kinetic 2026 sponsor company names + emails
-- Any H-prefix company in the Console CRM (scan the read-only snapshot `data/companies.json` for HWFYI-scope records)
-
-For each seed company:
-1. Apollo-enrich the seed via `apollo_organizations_enrich` (use the domain) → get organization_id, industry, employee count, keywords.
-2. Search for similar companies via `apollo_mixed_companies_search` with the same `organization_industries`, `organization_num_employees_ranges` ±50%, and `q_organization_keywords` matching the seed's keywords. Limit 10 per seed.
-3. Filter results: drop the seed itself, drop dedup hits (per HARD RULES), drop companies that look like consultancies/services rather than product orgs.
-4. For each survivor, find one marketing contact (same person query as Source 1 STEP 4).
-5. Build candidate:
-   ```
-   {
-     "email": "<from apollo>",
-     "name": "<from apollo>",
-     "title": "<from apollo>",
-     "company": "<canonical>",
-     "hookSeed": "lookalike to <seed-company>, our Kinetic 2026 sponsor",
-     "sources": ["lookalike:<seed-slug>"],
-     "score": <see scoring>
-   }
-   ```
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SOURCE 3 — FUNDING SIGNAL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-1. `apollo_mixed_companies_search` with filters: `organization_latest_funding_round_dates_range: [last 60 days]`, `organization_industries: [hardware, electronics manufacturing, industrial automation, robotics, semiconductors, energy, clean technology, manufacturing, mechanical or industrial engineering, electrical/electronic manufacturing, computer hardware, automotive, 3d printing, nanotechnology, packaging and containers]`, `organization_num_employees_ranges: ["11-50", "51-200", "201-500"]`. **Do NOT include defense, aerospace, military, or government industries in this filter.** Defense companies that happen to also raise funding should not enter the pool through this source.
-2. For each result, get funding_amount, funding_round_type, funding_date.
-3. Find one marketing contact per company (as above).
-4. Build candidate:
-   ```
-   hookSeed: "raised $<amount> <round> on <date>"
-   sources: ["funding"]
-   ```
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SOURCE 4 — HIRING SIGNAL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-1. Build a target-company list from a base ICP search (or use the existing batch's company candidates from sources 1–3 as input).
-2. For each company, call `apollo_organizations_job_postings` and filter postings to titles in the marketing/growth/comms family.
-3. If ≥1 such posting exists: this company is staffing marketing. Find one existing marketing contact (may be the new role's reporting manager) via Source 1's people query.
-4. Build candidate:
-   ```
-   hookSeed: "hiring <role-title> as of <posted-date>"
-   sources: ["hiring"]
-   ```
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SOURCE 4B — ENGINEERING-RECRUITING SIGNAL (lane 4: manufacturers hiring engineers)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Distinct from SOURCE 4 (which looks for marketing hires as a buy signal): this source finds hardware manufacturers actively hiring ENGINEERS, because HWFYI's audience is the talent pool they need. These get the recruiting-angle pitch from cold-outreach.
-
-1. Build a target company list from an Apollo search: `organization_industries: [hardware, electronics manufacturing, robotics, industrial automation, semiconductors, automotive, 3d printing]`, `organization_num_employees_ranges: ["51-200", "201-500", "501-1000"]`, `country = US`. Apply HARD RULE 4 (no defense/aerospace/gov).
-2. For each company, call `apollo_organizations_job_postings` and filter to engineering titles: hardware, mechanical, electrical, firmware, embedded, manufacturing, process, test, or product engineer.
-3. If ≥2 such postings are active: this company is staffing engineering. Find one marketing/growth/BD contact via Source 1's people query (a talent/recruiting lead also works for this lane: "Head of Talent", "VP People", "Technical Recruiter" as fallback titles).
-4. Build candidate:
-   ```
-   hookSeed: "hiring <N> engineering roles (<top 1-2 titles>) as of <date>"
-   sources: ["recruiting-signal"]
-   lane: "recruiting-mfg"
-   ```
-5. These leads get the +15 recruiting-angle scoring bonus. Add +5 more if >3 open engineering roles.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-SOURCE 5 — APOLLO ICP (baseline)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-The original v1 cold-outreach discovery mode. Keep as a fallback / supplementary source:
-1. `apollo_mixed_people_api_search` with HWFYI ICP filters: `person_titles: ["VP Marketing", …]`, `organization_industries: [hardware, electronics, etc.]`, `organization_num_employees_ranges: ["11-200"]`, page size 30.
-2. Build candidates with `hookSeed: "<role> at <company> in <industry>"` and `sources: ["apollo-icp"]`.
-3. This source is weakest — only use when other sources are dry, or as a baseline floor.
+- [SOURCE 1 — CONFERENCES (scrape + enrich)](references/source-1.md)
+- [SOURCE 2 — LOOKALIKES (off existing relationships)](references/source-2.md)
+- [SOURCE 3 — FUNDING SIGNAL](references/source-3.md)
+- [SOURCE 4 — HIRING SIGNAL](references/source-4.md)
+- [SOURCE 4B — ENGINEERING-RECRUITING SIGNAL (lane 4: manufacturers hiring engineers)](references/source-4b.md)
+- [SOURCE 5 — APOLLO ICP (baseline)](references/source-5.md)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 MERGE + SCORE + DEDUP

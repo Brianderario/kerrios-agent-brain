@@ -25,7 +25,7 @@ Interpret the exit code:
 
 ## STEP 2 — RECOVER (only on exit 0)
 
-From that directory, read `NOW.md` first, then load and follow `agent-prompts/kerri-morning-brief/SKILL.md` exactly (reading referenced files relative to that path). Produce and deliver today's brief now — its STEP 0 preflight re-stamps the run and its STEP 4 `--finish` marks it complete, so this retry and the liveness safety net both register the recovery.
+From that directory, load and follow `agent-prompts/kerri-morning-brief/SKILL.md` exactly (reading referenced files relative to that path). Produce and deliver today's brief now — its STEP 0 preflight re-stamps the run and its STEP 4 `--finish` marks it complete, so this retry and the liveness safety net both register the recovery.
 
 Same hard gates as the primary brief: the email send requires `approved=true` + `approvalSource` per that prompt's send rules; do NOT auto-CC `brian@hardwarefyi.com` (the morning brief goes to `brian@kerrihq.com` only); do NOT send any text (Kerri no longer texts Brian; the Sendblue path was retired from Kerri on 2026-06-17).
 
@@ -43,4 +43,4 @@ node scripts/heartbeat.mjs --routine kerri-morning-brief-retry --status ok
 
 ## Runner
 
-RUNNER = Claude Code persistent scheduled task (`scheduled-tasks` MCP, weekday cron `15 7 * * 1-5`, fires ~07:18–07:20 ET after dispatch jitter). Do NOT emit the Codex `::inbox-item{...}` / `::archive{...}` closing directives — those are Codex-runner only. Durable output = the recovered brief's own named surfaces (HTML + email + `morning-brief-run-state.json` + grade) plus the log line above. When the STEP 1 guard returns not-needed there is no durable output, and that is correct.
+Runner and cadence come from the owning live schedule; this legacy local prompt does not authorize creating or enabling a retry. Do NOT emit the Codex `::inbox-item{...}` / `::archive{...}` closing directives — those are Codex-runner only. Durable output = the recovered brief's own named surfaces (HTML + email + `morning-brief-run-state.json` + grade) plus the log line above. When the STEP 1 guard returns not-needed there is no durable output, and that is correct.

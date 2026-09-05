@@ -10,21 +10,17 @@ This repo is the git home for KMG agent doctrine and local-automation state. It 
 | Brian's global working standards | `agent-prompts/global-working-standards.md` | Canonical; `~/.claude/CLAUDE.md` is the per-machine shim that mirrors it. Edit here so changes show in git history. |
 | Local automation prompts | `agent-prompts/<slug>/SKILL.md` | Source for any explicitly approved local routines still running on Brian's machine. Production Kerri schedules belong in `kerrihq-rails`. |
 | Live handoff baton | `NOW.md`, `brain/log.md` | Git-only state for local automations. Update `NOW.md` (Last action / Next action / Last touched) before you stop if you changed anything in flight. Append to `log.md` only via `node scripts/brain-log-entry.mjs` — never hand-edit it (a top-read rewrite once silently dropped ~1,698 lines; `scripts/guard-brain-log.mjs` hard-blocks shrinking commits). |
-| Everything under `brain/` (wiki, candidates, raw) | `brain/` | Archive, superseded by Savant on 2026-06-18. Read only as offline fallback; do not extend. |
+| Archived wiki, candidates and raw sources (excluding the local activity log above) | `brain/` | Archive, superseded by Savant on 2026-06-18. Read only as offline fallback; do not extend. |
 
-## Runner posture (corrected 2026-07-25)
+## Runner ownership
 
-There is no "sole runner," and Codex is not retired:
+Savant AgentSchedules own Savant runs; the Codex automation manager owns Codex runs. Inspect the live owner to establish enabled state, cadence, model, and delivery permissions. Local Claude scheduled-task shims and this repository's `schedule` metadata are compatibility records, not executable authority. Do not infer activation from a file or maintain a second schedule from an old list.
 
-- **Kerri** — the Slack agent on the Savant harness (`kerrihq-rails`). Her schedules run as Savant AgentSchedules (git-mirrored in that repo's `config/agent_schedules/`); her operating doctrine is the Savant persona + playbook, not this repo.
-- **Codex** — runs exactly ONE local automation: Standard & Works newsletter issue production (Mon/Wed 8pm ET). Its other 13 automations were archived 2026-07-20 (`~/.codex/automations/_archive/retired-20260720/`). Doctrine: `PLAYBOOK-CODEX.md`.
-- **Claude Code** — interactive engineering and chief-of-staff sessions.
-
-The pre-Savant local shims — `~/.claude/scheduled-tasks/kerri-*` and `~/.claude/skills/kerri/` — are retired leftovers; the Savant AgentSchedules are the executable authority. (The skill-shim directory can't be read from agent sessions — macOS permissions block it — so deleting it is Brian's manual step.)
+Interactive sessions can use Codex or Claude Code. The runner does not change the Kerri identity or business boundaries. Read the relevant workflow only when the task needs it.
 
 ## Rules that still bind local automations
 
-- **Email approval gate (never skip):** external sends and drafts require `approved=true` plus an `approvalSource` naming where Brian approved. Sends from kerri@ auto-CC brian@hardwarefyi.com; `info-hardwarefyi-email` has no auto-CC by design and cites the 2026-06-10 standing authorization. Emails from brian@, ari@, benji@, zach@ with no external recipients are internal prompts and need no approval.
+- **Email approval gate (never skip):** external sends require `approved=true` plus an `approvalSource` naming where Brian approved. Sends from kerri@ auto-CC brian@hardwarefyi.com; `info-hardwarefyi-email` has no auto-CC by design and cites the 2026-06-10 standing authorization. Emails from brian@, ari@, benji@, zach@ with no external recipients are internal prompts and need no approval.
 - **S/W boundary:** Standard & Works is a separate legal entity. Its internal ops, finances, staff comp, and content drafts do not enter any KMG brain, git or Savant. When Zach is a recipient, confirm you are on the KMG side.
 - **Send-authority files** (the `SEND_AUTHORITY` list in `scripts/kerri-sync.sh`) only land on `main` via an explicit reviewed commit or PR — the sync script skips them on purpose.
 - Never force-push. Material changes (org structure, finance, partnerships, hard rules) go via PR, not direct commit.
@@ -32,4 +28,4 @@ The pre-Savant local shims — `~/.claude/scheduled-tasks/kerri-*` and `~/.claud
 
 ## Sync scripts
 
-`scripts/kerri-pull.sh` and `scripts/kerri-sync.sh` handle pull-on-start / commit-and-push-on-stop for sessions that have them wired as hooks. If you changed tracked files and no hook runs, commit and push yourself before stopping.
+`scripts/kerri-pull.sh` and `scripts/kerri-sync.sh` handle pull-on-start / commit-and-push-on-stop for sessions that have them wired as hooks. Verify actual Git state before reporting synchronization. Keep material policy and send-authority edits in the reviewed commit/PR path; do not push unrelated working-tree changes through a routine sync.

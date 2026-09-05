@@ -50,8 +50,7 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
     'Codex-era note',
     'Under Claude Code, skip them',
     'data/morning-brief-state.json',
-    'SELF-GRADE',
-    'GPT-5.5'
+    'SELF-GRADE'
   ]) {
     assert.match(files.morning + files.automations, new RegExp(escapeRegExp(required), 'i'));
   }
@@ -141,19 +140,6 @@ test('brain push validates before committing and excludes runtime state', () => 
   assert.doesNotMatch(files.brainPush, /ending with exactly two raw directive lines/i);
 });
 
-test('core automation bundle is registered as GPT-5.5 high', () => {
-  for (const required of [
-    'kerri-morning-brief',
-    'kerri-eod-meetings-review',
-    'kerri-brain-push',
-    'GPT-5.5 high',
-    'Durable output policy',
-    'closing directives are no longer needed',
-    'Parallel Core Automation Bundle'
-  ]) {
-    assert.match(files.automations + files.registry + files.decision, new RegExp(escapeRegExp(required), 'i'));
-  }
-});
 
 test('Hardware FYI revenue goal is wired into active revenue automations', () => {
   const requiredPromptTexts = [
@@ -205,7 +191,7 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     '1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk'
   ]) {
     assert.match(
-      files.revenueGoal + files.gapCloseTargets + files.dailyOutreachLoop + files.automations + files.registry + files.hardwareFyi + files.revenueGoalScript,
+      files.revenueGoal + files.gapCloseTargets + files.dailyOutreachLoop + files.leadResearch + files.coldOutreach + files.pipeline + files.registry + files.hardwareFyi + files.revenueGoalScript,
       new RegExp(escapeRegExp(required), 'i')
     );
   }
@@ -231,8 +217,7 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     );
   }
 
-  assert.match(files.automations + files.registry, /Pipeline follow-up.*8:33am ET/is);
-  assert.match(files.automations + files.registry, /never (auto-)?sends?/i);
+  assert.match(files.pipeline, /never (auto-)?sends?/i);
   assert.match(files.revenueGoalScript, /seed-contract-breakdown/);
   assert.match(files.revenueGoalScript, /PIPELINE_SEED_ROWS/);
   assert.match(files.revenueGoalScript, /OPEN_PIPELINE_STATUSES/);

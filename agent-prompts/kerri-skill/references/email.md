@@ -1,48 +1,15 @@
-# Kerri Email Identity & Send Rules
+# Email drafting and delivery boundaries
 
-## Active mailbox
+Follow the current KMG playbook and the owning live email workflow. This reference does not grant send permission or activate a legacy sweep.
 
-**`kerri@hardwarefyi.com`** — Microsoft 365 / Graph, wired through the custom Outlook MCP. Decided 2026-05-23.
+- Kerri's identity is `kerri@hardwarefyi.com`. Match the actual intended sender and mailbox; never use retired identities or substitute Brian as the recipient of client mail. Scope mailbox access to the task and configured workflow, not an old v1/v2 rollout list. `zach@standardandworks.com` and personal mail are outside a generic KMG sweep.
+- Generic mailbox requests prefer the custom Kerri email connection. Use current mail-store reads for coverage/context and the guarded native provider path for exact bodies, routing, attachments, Sent proof, or documented gaps. Discover current tool capabilities; do not hardcode a historical MCP identifier.
+- Prepare complete external drafts in Savant Tasks, with validated structured fields, deterministic `external_ref`, exact sender/To/CC, original mailbox/message/conversation route for replies, and promised attachments. Missing route metadata holds the draft; it never justifies silently starting a new thread. Provider-native drafts are not a review surface.
+- Brian's approval is per thread and per action: `approved=true` plus an `approvalSource`. Internal-only standing exceptions apply only when the current playbook/workflow explicitly permits the exact identity and every recipient. Mixed or ambiguous recipients fail closed.
+- Before dispatch or retry, reconcile the exact task/thread against sent, skipped, and handled state and native Sent Items. An uncertain transport result is not proof of failure. Never blind-retry. A second email requires fresh explicit approval (`SECOND SEND APPROVED BY BRIAN`); a stale checked task is insufficient.
+- Savant's deterministic sender owns approved task execution and writes `applied_at`, provider message proof, and sent events. Agents reconcile that proof; never duplicate its send or overwrite its receipts. Mark an action sent only after native proof.
+- An explicitly authorized interactive send must close the matching approval card and paired work so it cannot send again. For a legacy job handled through this repo, use the existing atomic `console-task-api.mjs close-job --job <jobId> --message-id <id> --note <result>` command and verify completion. Do not replace it with separate manual state writes.
+- Reuse the existing company/job identity. When maintaining an explicitly selected legacy local workflow, preserve its job/card pairing and synchronize changed draft copies in the same flow. `jobs.json` is compatibility state; the exact approved Savant draft and provider receipt remain authoritative. If copies disagree or reconciliation fails, hold and report the conflict.
+- Standard & Works work stays in its owning workspace with its approved `brian@standardandworks.com` transport. Never copy its private drafts or operations into KMG job state. No send, pricing, contract, money, permissions, or identity boundary is relaxed by this reference.
 
-- Read-only by default (`SEND_AS=NONE`).
-- All drafts route to Brian for per-thread approval before send.
-- `kerri@kerrimediagroup.com` deferred until/if KMG domain is provisioned later. `kerri@kerrihq.com` is not used for Kerri.
-
-## Outlook MCP tools (Microsoft Graph)
-
-The custom Outlook MCP server (`mcp__7595b333-52b3-44c3-bb57-8bb4f7fd5ae7`) exposes the email-related tools Kerri uses:
-- `outlook_email_search` — search inbox / threads
-- `outlook_calendar_search` — calendar lookups
-- `chat_message_search` — Teams chat (if applicable)
-- (Drafting / sending tools — check current MCP capabilities before writing the email-sweep prompt)
-
-## Mailbox scope
-
-**v1 (now):** kerri@hardwarefyi.com only.
-**v2 (later, after v1 proven):** Add brian@kerrihq.com (Gmail) and brian@hardwarefyi.com (Graph).
-
-**Kerri does NOT sweep:**
-- `zach@standardandworks.com` — S/W partnership boundary
-- `brianderario@gmail.com` — personal, not part of KMG operations
-
-## Send rules
-
-- **Read-only by default.** `SEND_AS=NONE`.
-- **All drafts route to Brian first** as Kerri Console approval items (the BOR). Slack is retired as the draft channel; texts are the interrupt lane, never the approval surface.
-- **Brian approves per-thread.** Approval is thread-scoped; the next thread needs its own approval.
-- **One exception (Brian decision 2026-06-09):** `internal-recipient-reply` jobs may auto-send under the AUTO-LOGGED path in `agent-prompts/kerri-inbox-sweep/SKILL.md`, governed by `data/autonomy-policy.json` — every recipient must be on the trustedInternal list, Kerri identity only, H/G prefix only, fail closed to ask on any doubt. Notification = auto-CC + morning-brief Auto-Logged section.
-- **Send identity choices** (when approved):
-  - **As Kerri** (from kerri@hardwarefyi.com) — when the conversation is operational coordination, Kerri-to-counterparty.
-  - **As Brian** (from brian@kerrihq.com or brian@hardwarefyi.com) — when the message is from Brian personally. Match the inbound thread's domain when possible.
-
-## Domain → provider matrix
-
-| Domain | Provider | MCP |
-|---|---|---|
-| kerrihq.com | Gmail | Gmail MCP (already connected) |
-| hardwarefyi.com | Microsoft 365 / Graph | Outlook MCP (already connected) |
-| standardandworks.com | Zach's separate | Out of scope |
-
-## Retired addresses (NEVER send from these)
-
-- `hudson@hardwarefyi.com` — Hudson retired 2026-05-23. Inbound forwards to kerri@hardwarefyi.com only.
+For current task construction/reconciliation mechanics, inspect the owning workflow and the helper's actual CLI syntax. The [legacy inbox prompt](../../kerri-inbox-sweep/SKILL.md) is relevant only when explicitly maintaining that compatibility workflow. Use [voice guidance](voice.md) when drafting; retain the playbook's low-noise reporting and exact-attachment requirements.
