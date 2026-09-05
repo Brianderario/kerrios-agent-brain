@@ -1,6 +1,6 @@
 ---
 name: kerri-gap-sweep
-description: Daily independent whole-system health & hygiene sweep — scans the KerriOS repo, prompts, shims, and scripts for code/workflow gaps AND checks that the operating system is actually running smoothly (routines fired and succeeded, runners are synced, state files are intact, connectors are reachable, the host isn't leaking sessions, safety gates are intact, the approval queue isn't stale). Auto-fixes only the unambiguously-safe mechanical gaps, PRs the material ones, files Brian a task for what needs a decision, escalates safety/operational findings, and records a health ledger back to the brain.
+description: Inspect local workflow health and instruction drift; fix safe mechanical gaps and surface material decisions.
 schedule: daily 21:41 ET
 report_interval_hours: 30
 ---

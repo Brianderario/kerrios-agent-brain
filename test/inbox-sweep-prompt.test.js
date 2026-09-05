@@ -20,10 +20,6 @@ const prompt = fs.readFileSync(
   new URL('../agent-prompts/kerri-inbox-sweep/SKILL.md', import.meta.url),
   'utf8'
 );
-const automationDoc = fs.readFileSync(
-  new URL('../agent-prompts/kerri-skill/references/automations.md', import.meta.url),
-  'utf8'
-);
 const coldOutreachPrompt = fs.readFileSync(
   new URL('../agent-prompts/kerri-cold-outreach/SKILL.md', import.meta.url),
   'utf8'
@@ -122,8 +118,6 @@ test('inbox sweep prompt blocks overlapping scheduled runs before loading contex
     'The TTL is not permission to overlap.'
   ]);
 
-  assert.match(automationDoc, /inbox-sweep-lock\.mjs/);
-  assert.match(automationDoc, /overlapping runs exit silently/i);
 });
 
 // New P1 invariant (Brian decision 2026-06-10 PM): internal teammates are answered
@@ -362,10 +356,6 @@ test('inbox sweep prompt no longer texts Brian — Console + email only', () => 
   assert.doesNotMatch(prompt, /ending with exactly two raw directive lines/i);
   assert.doesNotMatch(prompt, /::inbox-item|::archive/);
 
-  assert.match(automationDoc, /Kerri no longer texts Brian/);
-  assert.doesNotMatch(automationDoc, /send-text-alert\.mjs --message/);
-  assert.match(automationDoc, /Durable output policy/);
-  assert.match(automationDoc, /Codex.*closing directives are no longer needed/);
 });
 
 // v1: "suppresses repeated identical error texts". The REPEATED FAILURE ALERT DEDUPE
@@ -384,9 +374,6 @@ test('inbox sweep prompt suppresses repeated identical error alerts (email, not 
     'errorAlertSuppressed'
   ]);
 
-  assert.match(automationDoc, /Repeated identical connector errors are still deduped/);
-  assert.match(automationDoc, /first occurrence recorded/);
-  assert.match(automationDoc, /silent fail-closed grading/);
 });
 
 // v1: "protects redo provenance and stale-task markers". "DRAFT SOURCE: Codex
@@ -406,6 +393,19 @@ test('inbox sweep prompt protects redo provenance and new-reply markers', () => 
 // handling was dropped by d052b09 (only the ☀️ COLD BATCH path remains). "Do NOT
 // change the cold cap counters" became "Cap counters were already incremented at
 // draft time".
+test('cold batch reconciliation requires delivery proof without sending or overwriting receipts', () => {
+  const batch = prompt.split('COLD BATCH (title starts `☀️ COLD BATCH`)')[1]?.split('STEP 2b')[0];
+  assert.ok(batch, 'the cold batch reconciliation branch must exist');
+  assertAll(batch, [
+    "Savant's deterministic sender is the ONLY executor.",
+    'Never call a mailbox send tool from this branch.',
+    "Require the exact approved entry's provider message receipt and applied state",
+    'Only after that proof, move drafted→sent',
+    "Do not duplicate or overwrite Savant's applied/sent receipt."
+  ]);
+  assert.doesNotMatch(batch, /gate, then send|mark-applied --note/);
+});
+
 test('inbox sweep prompt updates cold outreach state after approved sends', () => {
   assertAll(prompt, [
     'COLD BATCH (title starts `☀️ COLD BATCH`)',
@@ -594,14 +594,6 @@ test('cold outreach prompt keeps first-touch emails short and partnership-focuse
   assert.doesNotMatch(coldOutreachPrompt, /3–5 sentences/);
 });
 
-test('automation reference points at Claude Code primary inbox sweep', () => {
-  assert.match(automationDoc, /Claude Code Primary/);
-  assert.match(automationDoc, /Inbox Sweep \(#2\) = ACTIVE in Claude Code/);
-  assert.match(automationDoc, /agent-prompts\/kerri-inbox-sweep\/SKILL\.md/);
-  assert.match(automationDoc, /inbox-sweep-grades\.json/);
-  assert.match(automationDoc, /every 15 minutes/i);
-  assert.doesNotMatch(automationDoc, /six active .*shards/i);
-});
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

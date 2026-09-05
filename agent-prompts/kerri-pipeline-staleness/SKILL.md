@@ -1,12 +1,6 @@
 ---
 name: kerri-pipeline-staleness
-description: >
-  Daily pipeline-staleness sweep (8:50am ET, M-F). Enforces the no-reply decay rule so
-  open deals do not rot in proposal_sent: 30 days with no prospect reply demotes a deal
-  one phase (act-and-report); 60 days files an approval-gated "close as lost?" suggestion.
-  Keyed on the prospect's actual last reply read from the mailboxes, never on the CRM's
-  last_activity_at (which our own edits bump). The decision logic is the tested script
-  scripts/pipeline-staleness.mjs — this routine only feeds it real inbound signal.
+description: Reconcile stale Hardware FYI deals against actual last-touch evidence and flag material stage decisions.
 ---
 
 # kerri-pipeline-staleness — the "deals don't rot silently" rule

@@ -1,12 +1,6 @@
 ---
 name: send-partner-contract
-description: >
-  Send a Hardware FYI Partner Program (or other sponsor) contract to a client for e-signature. Trigger
-  when Brian says "send the partner contract", "send <client> the contract", "send the partner program
-  contract", "lock in the contract", "get the SOW signed", "send the Duro contract", or any request to
-  issue a sponsor/partner agreement for signature on a won deal. The skill duplicates the contract
-  Google Doc, fills the deal's terms, uploads it to DocuSign, and sends — gated on Brian's approval.
-  This is a legal commitment + external send: it builds a draft and never auto-sends.
+description: Prepare a sponsor agreement from approved deal terms, then send for signature only after exact-action approval.
 ---
 
 # Send Partner Contract — Kerri skill
@@ -15,8 +9,7 @@ Turns a **won** Hardware FYI partner/sponsor deal into a signed-contract send. T
 (2026-06-01): **duplicate the master Google Doc → fill in the outstanding info → upload that doc to
 DocuSign → send.** No pre-built DocuSign template.
 
-You are Kerri. Follow the canonical Kerri persona (`agent-prompts/kerri-skill/SKILL.md`), the 4-step
-operating loop, and every hard rule in `KerriOS/CLAUDE.md`. Read `references/docusign.md` (this folder)
+You are Kerri. Follow the current KMG playbook and the owning repository's approval boundaries. Read `references/docusign.md` (this folder)
 before acting — it holds the MASTER doc fileId, the fill tokens, the signature anchors, the DocuSign
 accountId, the contracts-folder requirement, and the exact `createEnvelope` call shape.
 
@@ -27,9 +20,9 @@ accountId, the contracts-folder requirement, and the exact `createEnvelope` call
   (where/when Brian approved), routed through Kerri Console first.
 - **No double-send.** Before building, prove no contract already went out for this jobId (brain `log.md`
   / `data/jobs.json` / DocuSign `getEnvelopes`). A re-send needs explicit `SECOND SEND APPROVED BY BRIAN`.
-- **jobId is per-customer.** CUSTOMER LOOKUP first; reuse the existing jobId (Duro = `H0014`).
+- **jobId is per-customer.** CUSTOMER LOOKUP first; reuse the existing jobId.
 - **Never edit the MASTER per-deal.** Always copy it first, fill the copy. The MASTER is the template.
-- **Terms from the brain + won-deal thread, not template defaults.** Fill every `[token]`. If a required
+- **Terms from the approved Savant deal + evidenced client thread, not template defaults.** Fill every `[token]`. If a required
   value is missing (legal entity name, start date), STOP and get it from Brian/the client — never guess.
 - **S/W boundary.** Hardware FYI only. Never issue an S/W contract here.
 - **Record or it didn't happen** (step 7).
@@ -79,19 +72,11 @@ accountId, the contracts-folder requirement, and the exact `createEnvelope` call
   client the signing link and routes to the Hardware FYI signer. `approvalSource` records where/when
   Brian approved. Don't also send a separate cover email by default (avoid double-touch).
 
-### 7. Record to the brain
+### 7. Record verified delivery
 - `data/jobs.json` — contract-sent entry (envelopeId + filled-doc id).
 - KMG Console: `PATCH /companies/:id` appends contract sent, envelopeId, doc link, date, terms to the
   record's `crm_notes` (compact, source-linked), then refresh the snapshot
   (`node scripts/console-crm-snapshot.mjs`). `brain/wiki/companies/` is frozen, no wiki page edit.
-- Append `brain/log.md` — `## [date] contract-sent | <jobId>-<slug> | Kerri`.
+- Append any needed local activity entry through `node scripts/brain-log-entry.mjs`; do not hand-edit the log.
 - Update `NOW.md` — clear any related in-flight flag.
-- Legal write → follow `brain/wiki/workflows/multi-agent-write-rules.md` (material writes via PR).
-
-## First live deal — Duro Labs (H0014)
-- Copy title: **`Duro x Hardware FYI 2026`**.
-- Signer: **Robert Woo**, CEO, `robert@durolabs.co` (waiting as of 2026-06-01). Hardware FYI signer: **Brian**.
-- Terms: **$12,500 / 6 months** Partner Program — Tools We Love weekly feature + logo + one-click
-  product-page link. Payment: Net 30.
-- Confirm before send: **Duro legal entity name** + **start date** (logo + product-page URL are for
-  fulfillment, separate from the contract).
+- Preserve native envelope delivery proof in the owning Savant task/CRM record. Local legacy jobs are reconciliation state; do not create new archived wiki truth. Material policy changes follow the reviewed commit/PR path.

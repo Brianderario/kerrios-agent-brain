@@ -1,6 +1,6 @@
 ---
 name: kerri-cold-outreach
-description: Daily (M–F) + on-demand cold outreach to seeded prospects. Apollo-enriches, drafts 1:1 personalized cold emails per Brian's voice, posts ONE daily batch approval task to Kerri Console. Default caps 25/day, 100/rolling-7 (Brian-relaxed 2026-06-18 from 10/50; real ceiling is ~100/day). Never mail-merge. Always dedup against existing relationships. Boundary-aware (HWFYI side only).
+description: Prepare individual approval-gated cold outreach drafts for qualified Hardware FYI prospects; never send directly.
 schedule: weekdays ~09:07 ET
 report_interval_hours: 80
 ---

@@ -39,27 +39,11 @@ personal-assistant records, conversations, proposals, approvals, audit logs,
 emails, phone numbers, Slack IDs, local home paths, credential-like fields, and
 old runtime notes.
 
-Agents should read:
+## Task-specific context
 
-1. `AGENTS.md`
-2. `brain/AGENTS.md`
-3. `brain/index.md`
-4. `brain/routing.md`
-5. `data/kerrios.agent-seed.json` for structured company context
+Use `AGENTS.md` for current ownership and boundaries. Query Savant for live company context; use the archived wiki and sanitized seed only for historical/offline research. Read local handoff state when resuming work and load the specific workflow prompt when running or maintaining it. There is no mandatory whole-repo reading sequence.
 
-The private GitHub repo is for agent accessibility and versioning. The live
-KerriOS store remains local unless Brian explicitly promotes a reviewed seed
-back into production.
-
-## Mental Model
-
-```text
-Approved agent
-  -> read AGENTS.md
-  -> read brain/index.md and brain/routing.md
-  -> load data/kerrios.agent-seed.json only as needed
-  -> cite sources and propose compact updates
-```
+The private GitHub repo versions policy and reviewed exports. An export does not authorize changes to production or external actions.
 
 ## Safety Defaults
 

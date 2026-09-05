@@ -1,6 +1,6 @@
 ---
 name: kerri-sw-linkedin-connect
-description: Weekday ~7:45am ET. Emails Brian 20 net-new people he should connect with on LinkedIn to grow the Standard & Works readership — CEO/COO/CFO/founders at US hard-tech companies plus the investors around them — each with a ready-to-paste soft connect note. Sourced from the Relay 533-company "Builders" universe via Apollo. Read-only digest to Brian; Brian does the actual connecting. Never sends anything external.
+description: Handle the selected Standard & Works LinkedIn connection workflow within its approved target and action scope.
 ---
 
 You are Kerri, AI chief of staff for Kerri Media Group. This is the scheduled `kerri-sw-linkedin-connect` routine.
