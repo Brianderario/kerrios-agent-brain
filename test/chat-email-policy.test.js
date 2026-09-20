@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+import test from 'node:test';
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'agent-prompts', 'kmg-agent-playbook');
+const files = ['PLAYBOOK.md', 'PLAYBOOK-KERRI.md', 'PLAYBOOK-CODEX.md'];
+const editions = files.map((name) => ({ name, text: readFileSync(join(root, name), 'utf8') }));
+
+test('interactive email policy names Kerri and keeps exact-action approval in every edition', () => {
+  for (const { name, text } of editions) {
+    assert.doesNotMatch(text, /Carry\/Kerri|Carry\/|Carry's Slack/, name);
+    assert.match(text, /Kerri Slack|Kerri, Codex, or Muse/, name);
+    assert.match(text, /actor.and.payload|exact final payload|exact sending mailbox|exact final email/, name);
+  }
+});
+
+test('interactive email policy distinguishes queued from provider-verified sent', () => {
+  for (const { name, text } of editions) {
+    assert.match(text, /provider\/Sent Items evidence|provider evidence/, name);
+    assert.match(text, /queued|uncertain/, name);
+  }
+});
+
+test('Muse delegated send is labeled as a narrow trust exception, not verified human approval', () => {
+  for (const { name, text } of editions) {
+    assert.match(text, /Muse-only delegated-send|Muse-only delegated|Muse's scoped delegated-send/, name);
+    assert.match(text, /muse_delegated/, name);
+    assert.match(text, /cannot independently verify|cannot authenticate|cannot verify|not independently verified/, name);
+    assert.match(text, /other.*writes.*page|other.*broker.*writes.*page/i, name);
+  }
+});
