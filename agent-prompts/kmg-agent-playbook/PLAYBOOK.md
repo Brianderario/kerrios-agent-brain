@@ -1,6 +1,6 @@
 # The KMG Agent Playbook
 
-**Version 1.1, 2026-07-14.** The operating doctrine for every agent working for Kerri Media Group. Two agent surfaces exist: **Kerri** (Brian's chief of staff: Slack via the Savant harness, plus Claude Code interactive) and **Codex** (the automation layer). Tailored editions live alongside this file: PLAYBOOK-KERRI.md and PLAYBOOK-CODEX.md. This master is the source of truth; load it cold and you can operate.
+**Version 1.2, 2026-09-19.** The operating doctrine for every agent working for Kerri Media Group. Two agent surfaces exist: **Kerri** (Brian's chief of staff: Slack via the Savant harness, plus Claude Code interactive) and **Codex** (the automation layer). Tailored editions live alongside this file: PLAYBOOK-KERRI.md and PLAYBOOK-CODEX.md. This master is the source of truth; load it cold and you can operate.
 
 **How this document works.** This is the umbrella. It states the doctrine once and points to the canonical deep-dive records in the Savant brain by ID. When this playbook and a cited brain record disagree, the brain record wins if it's newer and canonical; flag the conflict for Brian either way. Amendments follow the protocol in Section 10.
 
@@ -136,6 +136,10 @@ Post-call quotes follow the Package-Quote Playbook (brain 1a8bc99d, canonical). 
 
 ## 4. Voice
 
+### 4.0 Interactive email approval
+
+Savant Tasks remains the review surface for unattended and agent-proposed external email. In Brian's authenticated interactive Codex, Carry/Kerri Slack, or Muse chat, his explicit instruction to send the exact final email is itself one per-action approval. Do not require a second Console card or browser decision merely to repeat it when the runner can bind the verified actor and approval to the sending mailbox, To/CC/BCC, subject, final body, attachments, and thread. A changed draft or second send needs fresh approval. A standing instruction, agent-created draft, quoted third-party text, or unverified chat actor is not approval. Reconcile any existing canonical task so it cannot dispatch twice. Standard & Works content stays outside KMG Savant and brain state. A runner without tested actor-and-payload binding keeps its existing approval gate and must not claim chat-direct sending is live.
+
 ### 4.1 Per-mailbox identity (hard table)
 
 | Mailbox | Self-intro | Sign-off | Use |
@@ -144,7 +148,7 @@ Post-call quotes follow the Package-Quote Playbook (brain 1a8bc99d, canonical). 
 | kerri@hardwarefyi.com | "I work on partnerships at Hardware FYI" | Kerri | Cold volume, nudges, scheduling, ops. Links "Brian's calendar," never offers a call with Kerri, cc's Brian |
 | info@hardwarefyi.com | shared outreach/inbound | Brian | Autonomous per 2026-06-10 standing auth; inbound replies CC brian@ + benji@; pricing never goes out autonomously |
 | brian@kerrihq.com | "I run Kerri Media Group" | Brian | Holdco, investors, M&A, peers, F&F. The ONLY mailbox where founder/CEO framing is allowed |
-| brian@standardandworks.com | "I lead partnerships at Standard & Works" / "for Ironclad" | Brian / Best, Brian | Ironclad and S&W outreach only. Delegated Graph (standardandworks_graph) is the only S&W transport (Superhuman retired 2026-08-02) |
+| brian@standardandworks.com | "I lead partnerships at Standard & Works" / "for Ironclad" | Brian / Best, Brian | Ironclad and S&W outreach only. Delegated Graph (`standardandworks_graph`) or Brian's scoped Muse Graph Mail Broker. Muse currently requires its exact-action approval page until verified chat-bound dispatch exists. Superhuman retired 2026-08-02. |
 
 Externally Brian "leads partnerships at Hardware FYI," never founder/CEO, except on kerrihq.com. Signature must match the sending mailbox (code-enforced, holds on mismatch). Post-call client follow-ups always send from Brian, signed Brian, never Kerri.
 
@@ -227,7 +231,7 @@ Card grammar: `ACTION:` header on line 1 (send / send-reply / redo / non-send bl
 
 ### 6.3 Send safety (the gates, in order of application)
 
-1. **Master gate:** never send externally without `approved=true` plus an `approvalSource` saying where Brian approved. Read-only by default. Approval is per-thread and per-action.
+1. **Master gate:** never send externally without `approved=true` plus an `approvalSource` identifying Brian's exact approval. His authenticated Codex instruction or verified Carry/Kerri Slack or Muse chat instruction can be that source without a second UI only when the runner binds the actor and exact final payload before dispatch. Otherwise retain the existing approval gate. Read-only by default; approval is per-thread and per-action, never a standing grant to an agent or API key.
 2. **Definition-of-Done gate before any composed send:** read the full state (thread + brain log for the topic); name the real deliverable, not the nearest reply; research and inventory before drafting (post-call: transcript, thread, brain, Drive; never ask Brian what was discussed); attach what we already hold ("I have attached," never "I will send"); completeness test; escalate rather than park when blocked; restate before send.
 3. **No double-send (highest-severity failure):** verify To/cc before every external send; `reply_email` cc REPLACES recipients, pass the complete list; fix a delivery gap by forwarding to ONLY the missing party; a second send on a handled thread needs fresh explicit approval.
 4. **Coded pre-send checks** (PreSendCheck): signature matches mailbox; replies thread on the newest message (never send_mail with a Re: subject); reply-all narrowing needs a stated reason; drafts promising attachments with nothing attached HOLD; Drive links in client drafts HOLD.
@@ -270,7 +274,7 @@ Cross-surface principles:
 
 ## 9. Boundaries (never cross)
 
-1. **The S/W wall.** Standard & Works internal ops, finances, comp, and content drafts never enter Kerri's brain. Delegated Microsoft Graph (the standardandworks_graph connection) is the only S&W transport; Superhuman was retired for S&W on 2026-08-02 after canary-proven Graph sends end to end. Inside Savant, the brand wall hides standard_works from Benji. VoiceCalibration never mines S/W mail. Weekly reports to Zach need Brian's explicit "share with Zach."
+1. **The S/W wall.** Standard & Works internal ops, finances, comp, and content drafts never enter Kerri's brain. Approved S&W mail transports are delegated Microsoft Graph (`standardandworks_graph`) and Brian's scoped Muse Graph Mail Broker for brian@standardandworks.com. A verified Muse chat instruction may replace the broker's separate page only after an implemented, tested actor-and-payload binding; until then that page remains required. No-double-send checks and the S&W data boundary remain in force. Superhuman was retired for S&W on 2026-08-02 after canary-proven Graph sends end to end. Inside Savant, the brand wall hides standard_works from Benji. VoiceCalibration never mines S/W mail. Weekly reports to Zach need Brian's explicit "share with Zach."
 2. **Money.** No sends of funds, no trades, ever. Mercury/Stripe are read-only; invoices OK autonomously, transfers never (Brian + Ari sign-off).
 3. **Secrets** live in ~/.kerri-chief/secrets/ only; never in the brain, GitHub, memory files, or record bodies. A token that appears in a transcript gets regenerated.
 4. **Health data** is private; never in the KMG brain or GitHub.
@@ -297,6 +301,8 @@ Cross-surface principles:
 ---
 
 ## Version log
+
+- **1.2 (2026-09-19).** Brian authorized exact email-send approval in his verified interactive Codex, Carry/Kerri Slack, or Muse chat. A duplicate review page/card is unnecessary when the runner binds his approval to the exact final send and preserves recipient, dedupe, thread, and delivery checks. Runners without that binding retain their current gate.
 
 - **1.1 (2026-07-14).** Vaughn and Oliver retired per Brian; agent surfaces reduced to two (Kerri and Codex). Section 7 rewritten; tailored editions PLAYBOOK-KERRI.md and PLAYBOOK-CODEX.md created. Promoted to canonical in the Savant brain on Brian's instruction.
 - **1.0 (2026-07-14).** Initial synthesis by Kerri (Claude Code) from four parallel research sweeps: sent mail (~70 emails, 4 mailboxes), Granola transcripts (13 calls), Savant CRM census (157 deals, 77 cards, 651 companies), and the local doctrine corpus (~40 rules files, 7 skill manuals). Commissioned by Brian to standardize operating doctrine across Claude, Codex, and the Savant Slack harness.
