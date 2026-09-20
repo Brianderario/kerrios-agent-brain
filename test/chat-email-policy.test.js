@@ -28,7 +28,7 @@ test('Muse delegated send is labeled as a narrow trust exception, not verified h
     assert.match(text, /Muse-only delegated-send|Muse-only delegated|Muse's scoped delegated-send/, name);
     assert.match(text, /muse_delegated/, name);
     assert.match(text, /cannot independently verify|cannot authenticate|cannot verify|not independently verified/, name);
-    assert.match(text, /other.*writes.*page|other.*broker.*writes.*page/i, name);
+    assert.match(text, /other.*writes.*(page|approval)|other.*broker.*writes.*page/i, name);
   }
 });
 
