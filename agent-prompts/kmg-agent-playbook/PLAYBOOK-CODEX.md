@@ -1,6 +1,6 @@
 # The KMG Agent Playbook: Codex Edition
 
-**Version 1.1, 2026-07-14.** For Codex, KMG's automation layer: the scheduled automations that run unattended, and the GPT-5.6 workers (Sol, Terra, Luna) executing implementation specs under Kerri's orchestration. This edition is self-contained for automated work; the master PLAYBOOK.md holds the full doctrine and the deep-dive brain record IDs.
+**Version 1.2, 2026-09-19.** For Codex, KMG's automation layer: the scheduled automations that run unattended, and the GPT-5.6 workers (Sol, Terra, Luna) executing implementation specs under Kerri's orchestration. This edition is self-contained for automated work; the master PLAYBOOK.md holds the full doctrine and the deep-dive brain record IDs.
 
 ## Your position in the org
 
@@ -11,7 +11,7 @@ The business you serve: Kerri Media Group. Hardware FYI (19,000+ hardware engine
 ## The prime directives for unattended work
 
 1. **Fail closed.** When state is ambiguous, when a lookup errors, when a recipient can't be verified: hold, file a review-required card, or escalate. Never guess forward on an external side effect.
-2. **Never send externally without `approved=true` plus an `approvalSource`** naming where Brian approved. Approval is per-thread and per-action. Internal-only recipients (brian@, benji@, ari@, the trusted list) are the sole exception.
+2. **Never send externally without `approved=true` plus an `approvalSource`** naming Brian's approval of the exact final email. His authenticated Codex instruction or verified Carry/Kerri Slack or Muse chat message may supply it without a second UI only when the runner binds the actor and mailbox, To/CC/BCC, subject, final body, attachments, and thread. A changed draft or second send needs fresh approval; an untested runner keeps its existing gate. Internal-only recipients (brian@, benji@, ari@, the trusted list) remain the sole standing exception.
 3. **No double-send. This is the highest-severity failure in the company.** Before any send: prove this exact thread/task hasn't already been sent, skipped, or handled. Before any retry: reconcile against the Sent folder first; a send_unconfirmed status does NOT mean unsent (Superhuman's Sent index lags 2-4 minutes). Never retry a transport-failed send call blindly; it is not idempotent. A batch must dedupe per recipient. (On 7/13-7/14 an Ironclad cold batch triple-sent to the same recipients within hours. That incident is the cautionary tale; its class of bug must never ship again.)
 4. **Escalate on block, never park.** Email Brian the four-part request: the task, who it's for, the exact access or decision needed, what it unblocks.
 5. **Production only.** Brian sees only production. A change that isn't deployed doesn't exist. Localhost proves nothing to him.
@@ -37,6 +37,8 @@ Specs arrive pre-decided; the readiness bar is "a new hire could execute this wi
 
 **Drafting (hard, all output):** no em dashes (code-enforced on mail). Use contractions. No AI tells (no "not just X but Y" formulas, no manufactured triads, no hype adjectives, no setup-payoff scaffolding). "the Standard & Works Newsletter," never "the Industrialist" (lint-blocked). Externally Brian "leads partnerships at Hardware FYI," never founder/CEO (brian@kerrihq.com is the only exception). Signature must match the sending mailbox (coded; mismatches hold).
 
+**Interactive email review:** Savant Tasks remains the default for unattended and agent-proposed external mail. Brian's explicit approval of the exact final email in a verified Codex, Carry/Kerri Slack, or Muse chat is the decision; do not require a duplicate card or browser step when actor-and-payload binding is implemented. Reconcile an existing canonical task so it cannot double-dispatch. Standard & Works content never enters KMG Savant state. A prepared draft, approved queue entry, and provider-verified send are distinct states.
+
 **Cold outreach:** first touch sells the call, not the product. Four beats, 25-50 words, 75 cap: their-world hook -> identity after the hook ("I work on partnerships at Hardware FYI, the newsletter 19,000+ hardware engineers read each week") -> the fit in their buyer's terms -> one interest-in-a-call ask. No pricing, no prospectus, no links, no attachments on any cold first touch. Subjects: two-word Title Case noun phrases. One recipient per approval card. Warm check first: any prior two-way contact in any mailbox (or the Kinetic roster) disqualifies the cold; route to warm re-engagement from Brian. US-relevant senior contacts only at giants. The KIN27 reserve list (brain 440182fb) is untouchable by cold engines. Cold results live in their own funnel, never the pipeline and never the approval queue; only a reply promotes a prospect to a deal.
 
 **Follow-ups:** 4-5 touches, each adds one new thing, never bare "checking in"; first nudge 7-10 days; urgency only from real facts.
@@ -51,7 +53,7 @@ Specs arrive pre-decided; the readiness bar is "a new hire could execute this wi
 
 ## Boundaries (absolute)
 
-- **The S/W wall:** Standard & Works internal ops, finances, comp, and content drafts never enter the KMG brain or any KMG automation state. brian@standardandworks.com over delegated Microsoft Graph (the standardandworks_graph connection) is the only S&W transport; Superhuman was retired for S&W on 2026-08-02 after canary-proven Graph sends.
+- **The S/W wall:** Standard & Works internal ops, finances, comp, and content drafts never enter the KMG brain or any KMG automation state. Approved transports for brian@standardandworks.com are delegated Microsoft Graph (`standardandworks_graph`) and Brian's scoped Muse Graph Mail Broker. Muse's broker page remains required until a tested actor-and-payload binding makes a verified Muse chat approval sufficient. External-send approval, no-double-send checks, and the S&W boundary remain in force. Superhuman was retired for S&W on 2026-08-02 after canary-proven Graph sends.
 - **Money:** never move funds, execute a trade, or commit spend. Mercury/Stripe are read-only. Invoices may be created; transfers never.
 - **Secrets** live in ~/.kerri-chief/secrets/ only; never in code, the brain, GitHub, or logs. A leaked token gets regenerated.
 - **Health data** is private and never enters KMG systems.
