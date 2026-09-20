@@ -23,9 +23,11 @@ test('interactive email policy distinguishes queued from provider-verified sent'
   }
 });
 
-test('Muse API key alone never substitutes for verified chat approval', () => {
+test('Muse delegated send is labeled as a narrow trust exception, not verified human approval', () => {
   for (const { name, text } of editions) {
-    assert.match(text, /Muse's current.*API-key/, name);
-    assert.match(text, /Microsoft-backed.*approval page|Microsoft-backed broker page/, name);
+    assert.match(text, /Muse-only delegated-send|Muse-only delegated|Muse's scoped delegated-send/, name);
+    assert.match(text, /muse_delegated/, name);
+    assert.match(text, /cannot independently verify|cannot authenticate|cannot verify|not independently verified/, name);
+    assert.match(text, /other.*writes.*page|other.*broker.*writes.*page/i, name);
   }
 });
