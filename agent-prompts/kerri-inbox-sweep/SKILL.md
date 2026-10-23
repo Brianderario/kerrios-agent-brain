@@ -60,6 +60,30 @@ until both the Savant task event and brain writeback succeed. If writeback
 fails, keep the task open and mark an explicit `brain writeback blocked`
 failure with the source pointer; never silently finish one side only.
 
+P11. NEVER ASK AN OUTSIDE PARTY FOR FACTS WE ALREADY HOLD. (Brian correction,
+2026-07-14.) Before drafting a request for a proposal, contract, agreement,
+scope, quote, price, fee, quantity, availability, requirement, term, detail, or
+resend, search every related conversation across the participating mailboxes
+and open every relevant attachment. One visible thread is not the complete
+record. Reconcile the newest vendor source documents against the live task,
+CRM, event, fulfillment, and brain records; a current attachment in a separate
+vendor thread outranks a stale checklist or an older attachment. State what is
+known, identify only the unresolved remainder, and ask the outside party only
+for that remainder. Never claim `Completed: read the complete chain` unless all
+related threads and attachments were actually opened.
+
+Every structured vendor fact request must carry `fact_reconciliation` inside
+its completion evidence with non-empty `known_facts`, `unresolved_facts`,
+`related_threads_checked`, and either `attachments_checked` or a specific
+`attachment_review_not_applicable` reason. Each known fact names its source;
+each unresolved fact states why it remains unresolved. A proposal, quote,
+resend, latest-version, or current-version request always requires at least one
+inspected attachment. The filing guard rejects a fact listed as both known and
+unresolved. Root cause this prevents: the Dogpatch draft copied the master
+card's generic proof checklist after reading the venue chain, but failed to
+open the separate Christopher's Kitchen thread and June 30 proposal, so it
+asked the vendors to restate the already-proven 125-person catering scope.
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STEP -1 — SINGLE-RUN GUARD
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
