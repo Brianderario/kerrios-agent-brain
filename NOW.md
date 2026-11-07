@@ -1,7 +1,56 @@
 # NOW - live session baton
 
+## 2026-11-07 Savant simplification build loop (Claude Code, interactive, Brian-authorized)
+
+Last action: 03:15 ET. All 38 kerrihq-rails PRs and 7 savant-desktop PRs from the 11-06 simplification plan are merged and live (web main 5500e392, Mac main f94bd5a); 7 dead Render env vars deleted; prod cleanup task `retire:code_shipping_state` run; run worktrees and test DBs removed. Ledger: `data/build-loop-runs/2026-11-06.md`. Report: `~/Desktop/Claude Files/Savant/2026-11-06 Savant simplification run report.md`.
+
+Next action (Brian): install `~/Desktop/Claude Files/Savant/2026-11-06 Savant for Mac/Savant.app`; revoke the old code-shipping GitHub token; OK the table-drop migration. Next pass (any session): converge the remaining 26 native MCP tool classes (outreach WIP on local branch `simplify-one-tool-system-outreach`), then agent.rb split / prompt loader / agents source of truth.
+
+## 2026-09-20 Interactive email approval across Codex, Kerri, and Muse
+
+Brian authorized a conversation-first email goal across Codex, Kerri on Slack, and Muse: show the complete proposed email, let Brian say "send it" in the same authenticated conversation, dispatch once through the guarded path, verify provider/Sent Items evidence, and continue. The final mailbox, To/CC/BCC, subject, body, attachments, and thread must be bound to that approval; a changed draft or second send requires a fresh decision. No-double-send, recipient, pre-send, delivery-verification, and Standard & Works isolation rules remain in force. The master and tailored local playbooks, local Codex playbook, and Kerri email skills were updated on 2026-09-19.
+
+This is policy, not a verified live three-surface send. Codex has guarded send connectors and may use explicit exact-message approval in this task. Kerri's Slack tools prepare canonical Savant email cards; Brian can already approve a card from Slack chat with a revision-and-digest-bound decision, which queues the send worker, but that is not direct transport or verified delivery. Kerri's prompt correction merged in Rails PR #1100 and was verified live on both Render web and worker at `faa1acd30681cc2019c1132d307e164923cbbcb6`; CI passed and `/up` returned HTTP 200. That verifies deployment, not an end-to-end email send. Muse's custom API-key connector has no verifiable user identity or per-action approval attestation available to the broker, so its Microsoft-backed approval page remains mandatory. No mail was sent or pending Muse proposal approved in this policy update. Do not remove the Muse page based only on the connector bearer key or a claimed chat instruction.
+
+Next: playbook policy PR #33 merged at `823c3b07461fe37a0ed44191d3517f958d763ff5`; Rails PR #1100 merged and deployed as above. Verify any actual send through the provider receipt. Investigate a Muse-supported authenticated per-action attestation or native connector path before offering chat-direct send there. Savant brain record synchronization failed on 2026-09-19 because one MCP connection requires reauthentication and the other raises `undefined method 'property' for OauthApiKeyAdapter` even on reads. Do not claim the canonical brain record has been updated. Preserve unrelated dirty worktree changes.
+
+2026-09-20 correction in progress: the agent is Kerri. Local playbooks and the Codex email skill now use Kerri. Reviewed policy changes are proposed in PR #34 (`kerrios-agent-brain`), and Kerri's post-approval task receipt visibility/prompt correction is proposed in Rails PR #1102. Neither PR is merged or deployed. The intended chat flow is exact draft, Brian says "send it," one guarded dispatch, provider/Sent Items verification, then move on. Muse's API-key connector still cannot attest Brian's exact chat approval to the broker, so its Microsoft-backed approval page remains mandatory; no pending Darin proposal was approved or sent here.
+
+## 2026-09-09 Savant email filing documentation
+
+Last action: Added a proposed-email filing cheat sheet to agent-prompts/kerri-skill/references/email.md, with inline guidance in all three playbook editions and the local Codex playbook. Clarifies recipient body versus internal context, structured preparation/revision, attachments, readback, and the cold-outreach exception. Documentation only; existing unrelated edits preserved.
+
+Next action: Local guidance is written. Cloud schedule prompt consumption and canonical remote playbook synchronization remain unverified; no scheduled run or existing email card was changed.
+
+Last touched: 2026-09-09, Codex interactive, at Brian's request.
+
+
+## 2026-09-02 OpusFab approval revision
+
+Last action: Revised Savant task 72e9e2a9-ec9f-46c7-b124-a561aafb11ed around a small September secondary newsletter test driving quote requests, with recurring placements contingent on performance. Canonical media_kit retained; from Brian Hardware FYI to Jared Haw, CC Benji. Duplicate 92fc845d-7a4a-484d-b2d3-3c3b71761103 closed as consolidated.
+
+Next action: Brian reviews the canonical approval. No email sent, pricing quoted, or inventory reserved. Recheck availability before any commitment. Benji's call details were supplied by Brian; Slack transcript was not located. Savant brain writeback returned a classification/access error; source context and blocker remain on the task.
+
+Last touched: 2026-09-02 23:35 ET, Codex interactive. Live authority: https://savant.kerrihq.com/organizations/c7ec4a59-c794-492a-aa61-d926ee8c61d1/tasks/72e9e2a9-ec9f-46c7-b124-a561aafb11ed
+
 > Short current-state handoff only. Durable truth goes in `brain/wiki/`; running history goes in `brain/log.md`.
 > Runner: live schedules are Savant AgentSchedules (16 active, git-mirrored in kerrihq-rails config/agent_schedules/). Codex runs exactly ONE automation: S&W newsletter issue production (Mon/Wed 8pm ET). Claude scheduled-task entries are retired shims.
+
+## 2026-08-29 Alfred Hermes handoff
+
+Synced: Brian's existing Hermes default profile is being converted from the stale Kerri identity to Alfred, his Slack-based personal executive assistant.
+
+Source of truth: Live Hermes CLI state under `~/.hermes/`, the Alfred Slack app `A0BUG9VKQ1W` in KerriHQ, and Brian's 2026-08-29 instruction in the Codex task.
+
+Updated context: Alfred owns reminders, current-source research, newsletter research and drafting support, and Trove growth preparation. Kerri retains sponsor sales, commercial outreach, CRM and pipeline operations, Savant approvals, pricing, contracts, and KerriOS company-brain authority.
+
+Current state: Alfred's Slack bot and app tokens are installed in Hermes, Slack DMs are enabled, and Hermes uses the signed-in local Ollama API at `127.0.0.1` with `glm-5.3-flash:cloud`. The supplied direct-cloud API key failed live authentication, has been removed from Hermes, and should be rotated because it was pasted into chat. The single launchd gateway has been restarted and is running; Slack authenticated as `@alfred` in KerriHQ and Socket Mode connected. The obsolete Slack home-channel setting was removed after it produced a `not_in_channel` startup notification error. One-to-one DMs are in scope; group DMs are not configured.
+
+Next runner action: Re-read the live Hermes gateway and Slack state before claiming Alfred is responding. Use a Brian-initiated DM for the first end-to-end test. Do not send a test message as Brian without explicit approval.
+
+Do not repeat: Do not start a second Hermes gateway with the same Slack tokens. Do not grant Alfred Kerri's sales, CRM, approval, or company-brain mutation authority.
+
+Verification: `hermes config check` passed, `hermes doctor` reports all checks passed, the identity/model smoke test passed through the local Ollama route, a live `web_search` test returned `RESEARCH_OK`, and `hermes gateway status` confirmed the launchd service is running. The `hermes-slack` toolset includes `cronjob`, and `hermes cron list` succeeds with zero current jobs. Final end-to-end proof remains a Brian-initiated one-to-one Slack DM; do not manufacture that receipt by sending as Brian.
 
 **2026-07-10 task-board alignment:** stable status keys now map to Brian's Tasks, Team Tasks, Discuss, Waiting / On Hold, Kerri Upgrades, and system-managed Approved to Send. See `brain/wiki/workflows/savant-task-board-workflow.md`.
 
