@@ -181,7 +181,7 @@ scope: meeting · updated: <YYYY-MM-DD>
 - [[company-slug]]: <one-line fact update, if any new>
 ```
 
-Cap each meeting page at ~2KB. Don't dump raw transcripts. Don't include S/W internal content (if the meeting touches S/W, the page goes under `brain/.local/meetings/` instead — gitignored).
+Cap each meeting page at ~2KB. Don't dump raw transcripts. S&W meetings are written like any other, tagged to the Standard & Works brand (property_slug "standard-and-works") so the brand wall hides them from Benji (Brian, 2026-09-28).
 
 **B) Update Savant contacts + company records** (if material new facts emerged):
 
@@ -546,7 +546,7 @@ HARD RULES
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 - Do NOT send any email. This task only drafts and queues.
-- Do NOT cross the S/W boundary into the shared brain (S/W meetings → `brain/.local/`).
+- Never write S&W meeting content untagged or anywhere Benji can see it; always tag it Standard & Works.
 - Do NOT dump raw transcripts into the wiki. Compact + source-linked only.
 - Do NOT speak in Kerri's voice servile/butler-toned. See `voice.md`.
 - Do NOT auto-load the full brain — read only the 1–3 pages each step needs.

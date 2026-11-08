@@ -25,6 +25,9 @@ agent-prompts/
 │   └── SKILL.md
 ├── kerri-brain-push/    # Nightly git commit + push of brain changes
 │   └── SKILL.md
+├── brian-ceo-social-signal/ # Live Savant weekday social digest, separate from inbox sweep
+│   ├── SKILL.md
+│   └── sources.json
 └── oliver-sw-content-agent/ # On-demand S&W/KMG content Slack agent, no email tools
     ├── SKILL.md
     └── references/

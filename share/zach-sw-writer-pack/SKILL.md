@@ -1,11 +1,6 @@
 ---
 name: sw-article-writer
-description: >
-  Write Standard & Works pieces in the established S&W voice: standalone articles,
-  newsletter issues, and ranking/award franchise pieces (state competitiveness,
-  sector ratings). Trigger whenever Zach asks to draft, outline, edit, tighten, or
-  punch up any Standard & Works piece, or asks for headline options, a lead,
-  section bullets, or a research pool for a piece.
+description: Apply the shared Standard & Works editorial standard when drafting or reviewing an issue.
 ---
 
 # Standard & Works Article Writer

@@ -94,8 +94,10 @@ See [[../candidates/2026-05-24-kinetic-2026-sponsor-roster]] — 23 sponsor comp
 - 2026-05-26: Phirum Men / Westin St. Francis sent a separate post-event thank-you and confirmed the Area GM survey remains open through June 2, 2026. Kerri updated H0020 instead of creating a duplicate task.
 - 2026-05-24: seeded; sponsor renewal pipeline active
 
-## Sponsor prospectus (2026-06-10)
+## Sponsor prospectus (verified 2026-07-10)
 
 - **Editable source (Canva):** "Kinetic 2027 Sponsor Prospectus", design id `DAHMNfE04aM`, 8 pages, imported from `kinetic-2027-prospectus-redesigned.pdf` (Rev B) so Brian + Benji can edit. Includes full pricing (à la carte menu, tier thresholds $60K/$30K/$10K) — pricing is intentional in the prospectus, unlike the media kit.
 - Import-induced word-spacing artifacts in body text were repaired and verified across all 8 pages on import day.
-- Source PDF remains at `~/Downloads/kinetic-2027-prospectus-redesigned.pdf`.
+- **Canonical send-ready PDF:** `data/attachments/kinetic-2027-sponsor-prospectus.pdf` (8 pages, 6,700,167 bytes, SHA-256 `bbe22a5e49699e09ef70299c7feee9ff088e762eb15ef20dd19252154e3365b6`).
+- Brian's supplied file `~/Downloads/Decks & Media Kits/Kinetic 2027 Sponsor Prospectus (V3) (4).pdf` was verified byte-for-byte identical to the canonical send-ready PDF on 2026-07-10.
+- **Single-source rule:** This is the only sendable Kinetic 2027 prospectus in the brain attachment store. Do not select older downloads, backups, redesign exports, or Canva-import intermediates for sponsor email.

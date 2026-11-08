@@ -19,7 +19,7 @@ This is a **function of the inbox sweep, not a standalone routine** (Brian, 2026
 From the sweep's CRM PIPELINE AUTO-UPDATE step, immediately after a won classification, call this function **only when ALL hold**:
 1. The signal is won evidence (`signed` / `accepted` / `booked-revenue`).
 2. **This run is the one that transitions the deal to `closed_won`** (it was NOT already `closed_won` before this run). Never call it on a deal that was already won.
-3. The deal's company `jobId` prefix is `H` or `G` (never `S` — S/W bills separately and stays out of Kerri's brain).
+3. The deal's company `jobId` prefix is `H` or `G` (never `S` — S&W bills separately).
 4. Real execution evidence is in hand: the signed contract PDF on the thread, or a DocuSign `completed` envelope for the company. No executed contract → do NOT email an invoice; leave a one-line deal note ("won, awaiting executed contract before invoice") and move on.
 
 ## HARD RULES

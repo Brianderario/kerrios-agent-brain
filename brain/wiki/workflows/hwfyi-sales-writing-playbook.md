@@ -1,6 +1,6 @@
 # HWFYI Sales-Writing Playbook
 
-scope: workflow · created: 2026-06-18 · author: Kerri (build-loop deep-craft pass) · status: canonical (opener template change APPROVED by Brian 2026-06-19; LIVE in kerri-cold-outreach STEP 4 — open on the buyer's world, identity in line two)
+scope: workflow · created: 2026-06-18 · author: Kerri (build-loop deep-craft pass) · status: canonical (recipient-first opener approved 2026-06-19; fixed sentence order removed 2026-08-11 after replied-thread review)
 
 The master craft reference for every Hardware FYI sales message Kerri drafts: cold first-touches, follow-ups, reply handling, price objections, and post-call package quotes. Built from a research pass over the modern outbound canon (Lavender/Gong/Salesloft reply data; Josh Braun, Becc Holland, Kyle Coleman, Sam Nelson, Jason Bay, Aaron Ross), the persuasion + value-pricing canon (Cialdini, Chris Voss, The Challenger Sale, Blair Enns), and the sentence-level copy canon (Joanna Wiebe, Eddie Shleyner, Ann Handley, April Dunford, David Ogilvy).
 
@@ -26,19 +26,22 @@ Drafting routines that should load this: [[../../agent-prompts/kerri-cold-outrea
 
 ## PART A — THE COLD FIRST-TOUCH (and follow-ups)
 
-### A1. The structure (the upgrade)
+### A1. The reply-winning ingredients
 
 The old cold template opened about us ("I'm Kerri, I work on partnerships at Hardware FYI. We're a media company..."). The reply data is blunt: opening about yourself is the number-one reply-killer, and "I'd love to have a conversation" is the number-three. Leading with our identity also buries the one thing the buyer cares about, which is themselves.
 
-The fix keeps everything Brian values (honest identification, the real audience proof, a warm 1:1 tone, no footer) and only changes the ORDER and the ask. Open on their world, identify in one tight line, tie our audience to their goal, ask for interest not time.
+The fix keeps everything Brian values: honest identification, real audience proof, a warm 1:1 tone, and no footer. Replied KMG cold threads share ingredients, not an identical four-sentence order:
 
-The four-beat cold first-touch:
-1. **Their world (1 line).** A specific, true observation about them or their situation. This earns the second line.
-2. **Who we are (1 line, compressed).** "I lead partnerships at Hardware FYI, the newsletter 19,000+ hardware engineers and engineering leaders read each week." Identity and proof in one breath, after the hook, not before it.
-3. **The fit (1 line).** Tie our audience to their specific goal (their buyers, or their hires). One sentence, concrete.
-4. **One low-friction ask (1 line).** An interest CTA or a value offer, never "I'd love a conversation" and never a meeting time on a cold first touch.
+1. **A real reaction.** Start with a specific, true observation and say why it matters in ordinary language. This should prove the writer read the source.
+2. **Their concrete stake.** Tie the observation to the buyer, hire, program, or market the recipient actually cares about.
+3. **An honest reason for the note.** Introduce Hardware FYI and verified audience proof where it naturally explains the connection. Identity can share a sentence or paragraph with the fit.
+4. **One human ask.** Ask whether a call is worthwhile. Do not propose a time, use generic "I'd love to connect" language, include a booking link, or copy the same CTA across a batch.
 
-Total: 4-5 short sentences, under ~75 words, then `Best,` / sign-off. Same as today's length rule, sharper order.
+Hard media rule: a cold first touch contains no link or attachment of any kind.
+Event pages, booking links, examples, media kits, prospectuses, and collateral
+wait until the recipient replies positively.
+
+Usually 4-5 short sentences, under ~75 words, then `Best,` / sign-off. Vary the sentence count, identity placement, and rhythm enough that the batch reads as individual notes.
 
 ### A2. Opener patterns (pick one; the first line must earn the second)
 
@@ -58,14 +61,15 @@ True 1:1 research does not scale; relevance does. Write one strong email per SEG
 3. **Firmographic:** semiconductor vs robotics vs industrial software.
 4. **Demographic:** CTO vs demand-gen lead vs head of talent.
 
-The move is always **observation → implication → ask**. Observation: "You launched a dev kit in March." Implication: "Dev-kit adoption lives or dies on whether design engineers ever hear about it." Ask: "Worth seeing who in our reader base is already in that buying seat?" State the implication as THEIR stake, not as a lesson (a teaching/informative tone cuts replies ~26% in Lavender's data).
+The reasoning move is **observation → implication → ask**, but it is not a literal paragraph template. Observation: "You launched a dev kit in March." Implication: "Dev-kit adoption lives or dies on whether design engineers ever hear about it." Ask: "Worth seeing who in our reader base is already in that buying seat?" State the implication as THEIR stake, not as a lesson (a teaching/informative tone cuts replies ~26% in Lavender's data).
 
 ### A4. The one CTA (Gong data; Braun's one-goal rule)
 
-One ask per email, always. Hierarchy, best to worst:
-- **Value offer (strongest):** give something, do not take a meeting. "Want the breakdown of which five robotics vendors our readers engaged with most last quarter?"
-- **Interest-based (2x the reply rate of a specific time ask):** "Worth a look?" / "Open to seeing if our readers match your target accounts?"
-- **Time-based (weakest on a first touch):** avoid "Do you have 15 minutes Thursday?" until they have shown interest.
+One ask per email, always. On a cold first touch, use an interest-in-a-call
+question such as "If that sounds relevant, would you be open to a quick call?"
+or "Interested in setting up a call to talk it through?" Do not propose a
+specific time and do not include a booking link. Once they engage, the reply can
+carry the appropriate scheduling link.
 
 Aaron Ross's fallback when you may have the wrong person: "If audience fit is not your call, who owns it?" Never stack two asks.
 
@@ -73,7 +77,7 @@ Aaron Ross's fallback when you may have the wrong person: "If audience fit is no
 
 - **25-50 words is the target, ~75 the hard cap.** Under 75 words gets ~83% more replies.
 - **Reading grade 3-5.** Short Anglo-Saxon words, one idea per sentence. (Grade 8+ tanks replies.)
-- **Write for the phone, with real whitespace (Brian, 2026-06-18 — hard rule).** Put a BLANK LINE between every beat so the email is scannable in one glance: greeting, then the hook, then who-we-are plus the fit, then the one CTA, then the sign-off, each its own short paragraph. Never run the beats together as one block. In particular, the "I work on partnerships" identity line is its own paragraph, spaced from the opener. Bunched, wall-of-text drafts are a fail even when the words are good.
+- **Write for the phone, with real whitespace (Brian, 2026-06-18 — hard rule).** Use short paragraphs so the email is scannable in one glance. Never run the whole note together as one block. Identity may share a paragraph with the fit when that sounds natural; there is no mandatory line-two paragraph.
 
 ### A6. Subject lines (Lavender; Salesloft)
 
@@ -172,12 +176,12 @@ Run this on every sales draft (the drafter writes to it; a critic pass checks ag
 1. **Opens on THEM.** First sentence is about the buyer's world, not about us. (A1, A8.1)
 2. **One specific, true relevance token.** A real trigger/technographic/firmographic signal, not "engineers are hard to reach." No invented facts. (A3)
 3. **Audience-fit, not product, on a first touch.** ([[feedback_first_touch_audience_fit]])
-4. **Exactly one CTA**, interest- or value-based on a cold touch (not a time ask). (A4)
-5. **Length, grade, and SPACING:** under ~75 words on a cold touch, reading grade 3-5, and laid out for a phone with a blank line between each beat (greeting / hook / identity + fit / CTA / sign-off), each its own short paragraph, never one bunched block. (A5)
+4. **Exactly one CTA:** ask whether they are interested in a call; do not propose a time or include a booking link. (A4)
+5. **Length, grade, and SPACING:** under ~75 words on a cold touch, reading grade 3-5, and laid out in short phone-readable paragraphs, never one bunched block. Across a batch, vary sentence count and paragraph rhythm. (A5)
 6. **Subject** is a short neutral noun phrase, Title Case, no question/number/emoji/first name. (A6)
 7. **Value framed in the buyer's terms,** never display metrics; price (if any) is downstream of value. (B3, C3, [[feedback_sales_value_first]])
 8. **Price objections reframed, never defended/itemized/pre-discounted.** (B5, [[feedback_no_price_negotiation]])
-9. **No em dashes; no AI-writing tells** (especially the negation formula, rule-of-three, hype adjectives, Wikipedia voice, setup-payoff). ([[feedback_no_emdashes]], [[feedback_no_ai_tells]])
+9. **No link or attachment on a first touch; no em dashes; no AI-writing tells** (especially the negation formula, rule-of-three, hype adjectives, Wikipedia voice, setup-payoff). ([[feedback_no_emdashes]], [[feedback_no_ai_tells]])
 10. **Sign-off matches sender; Brian's external title is "leads partnerships."** ([[feedback_sender_signature_match]], [[feedback_brian_external_title]])
 
 ---
@@ -196,7 +200,7 @@ BEFORE (current cold-outreach STEP 4 template):
 
 Fails rubric 1 (opens about us), 4 (soft "conversation" ask), 2 (generic fit), 3 (no real token).
 
-AFTER (this playbook) — note the blank line between every beat:
+AFTER (this playbook) — one valid expression of the ingredients:
 > Subject: Recruiting Reach
 >
 > Jane,
@@ -210,7 +214,7 @@ AFTER (this playbook) — note the blank line between every beat:
 > Best,
 > Kerri
 
-Passes all ten. Opens on their hiring trigger, identity in its own line-two paragraph (spaced from the opener), audience tied to their goal (hiring), one value-offer CTA, ~70 words, a blank line between each beat so it scans on a phone, neutral two-word subject, no em dashes, no AI tells, sign-off matches sender.
+Passes all ten. Opens on their hiring trigger, ties the audience to their goal, uses one value-offer CTA, stays near 70 words, scans on a phone, uses a neutral two-word subject, avoids em dashes and AI tells, and matches the sign-off to the sender. It is an example, not a batch template.
 
 ### Price-objection reply
 

@@ -1,19 +1,10 @@
-# KerriOS Brain Instructions
+# Historical brain and local handoff state
 
-This vault is the human-readable KerriOS company brain. As of 2026-06-17 durable knowledge is read from **Savant** (the company hub, see [[wiki/decisions/2026-06-17-savant-as-company-hub]]); this git vault is the offline fallback + backing store.
+Savant owns current company knowledge. This directory is an archive and offline fallback, except `log.md`, which remains the git-only local activity log.
 
-Read order for agents:
-
-1. [[index]] + [[routing]] — the topic map: decide *what to look for*
-2. [[log]] — recent in-flight activity (stays in git, not Savant)
-3. One to three routed knowledge records from Savant: `node scripts/brain-api.mjs search "<keywords>"` then `get <id>`
-4. Offline fallback: if Savant is unreachable, read the matching `wiki/...` page from this vault directly
-5. Raw source files only when evidence is required
-
-Mutation rules:
-
-- Raw sources are append-only evidence.
-- Wiki pages are compiled synthesis maintained by agents.
-- Candidates hold uncertain, conflicting, sensitive, or unowned claims.
-- Durable writes that affect external sends, pricing, legal, finance, permissions, identity, or material CRM judgment calls require Brian approval. Source-backed CRM bookkeeping is act-and-report: when live evidence clearly proves a pipeline stage change, update the Console CRM, verify the result, and log the evidence instead of asking Brian to do clerical stage maintenance.
-- Do not use chat thread memory as a substitute for reviewed KerriOS memory.
+- Search `index.md` or `routing.md` only when historical/offline context is needed, then read the matching records. Raw sources are evidence, not current operational state.
+- Query Savant for current records and confirm approvals, CRM changes, money, inventory, and delivery against their owning live sources. If unavailable, label fallback facts as stale and hold consequential actions that need current proof.
+- Do not add company facts, candidates, raw dumps, or new wiki pages here. Write compact source-backed facts through the registered Savant identity under the current KMG playbook.
+- Preserve archived source provenance. Do not rewrite historical records to make them appear current.
+- Append local activity to `log.md` only with `node scripts/brain-log-entry.mjs` from the repository root; never truncate or rewrite it.
+- Standard & Works private operations, finances, compensation, and content drafts stay outside KMG brain and automation state. Approval requirements for sends, pricing, legal, money, permissions, and material CRM judgments remain in force.

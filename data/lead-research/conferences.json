@@ -1,7 +1,7 @@
 {
-  "version": 2,
-  "updatedAt": "2026-05-29",
-  "notes": "Conference sponsor/exhibitor pages to scrape for hardware-aligned prospects (ICP lane 2). Each entry: name, type, sponsor/exhibitor list URL, scrape strategy, lastScrapedAt. Add/edit as Brian discovers more relevant events. Defense-only and S/W-only conferences are intentionally excluded — those would belong in a separate S/W lead-research agent. 2026-05-29: expanded with major mechanical/electrical engineering + manufacturing shows per Brian's broadened ICP. Note many sponsor pages are JS-rendered or auth-walled (see degraded flags) and need a Chrome/Puppeteer scrape path, not plain WebFetch.",
+  "version": 3,
+  "updatedAt": "2026-06-23",
+  "notes": "Conference sponsor/exhibitor pages to scrape for hardware-aligned prospects (ICP lane 3). Each entry: name, type, sponsor/exhibitor list URL, scrape strategy, lastScrapedAt. Add/edit as Brian discovers more relevant events. Defense-only and S/W-only conferences are intentionally excluded — those would belong in a separate S/W lead-research agent. 2026-05-29: expanded with major mechanical/electrical engineering + manufacturing shows per Brian's broadened ICP. Note many sponsor pages are JS-rendered or auth-walled (see degraded flags) and need a Chrome/Puppeteer scrape path, not plain WebFetch. 2026-06-23: MapYourShow-platform shows (Automate confirmed; IMTS and several A3/Informa shows likely) expose a JSON exhibitor feed that beats WebFetch on their JS directories — use the per-conference \"dataFeed\"/\"extraction\" fields when present (see the Automate entry for the working pattern). A whole show floor that pays to exhibit = thousands of audience-fit prospects; this lane was under-mined because the directories defeated plain WebFetch.",
   "conferences": [
     {
       "slug": "designcon",
@@ -41,13 +41,16 @@
     },
     {
       "slug": "automate",
-      "name": "AUTOMATE",
+      "name": "Automate",
       "type": "automation-robotics",
       "url": "https://www.automateshow.com",
-      "sponsorsUrlHint": "https://www.automateshow.com/exhibitor-list",
-      "geography": "US (Detroit)",
-      "notes": "Industrial automation, robotics, machine vision. Run by A3.",
-      "lastScrapedAt": null
+      "platform": "mapyourshow",
+      "sponsorsUrlHint": "https://automate26.mapyourshow.com/8_0/explore/exhibitor-gallery.cfm",
+      "dataFeed": "https://automate26.mapyourshow.com/8_0/ajax/remote-proxy.cfm?action=search&searchtype=exhibitorgallery&searchsize=3000",
+      "extraction": "MapYourShow JS directory: the public exhibitor-gallery/exhibitor-list pages render client-side and return an empty shell to WebFetch (and www.automateshow.com/exhibitor* 403s bots). Pull the JSON dataFeed instead with a desktop browser User-Agent + header 'X-Requested-With: XMLHttpRequest' + 'Referer: <sponsorsUrlHint>'; parse DATA.results.exhibitor.hit[].fields → exhname_t (company), exhdesc_t (description), boothsdisplay_la[0] (booth, strip the trailing literal 'randomstring'). No website/domain field is returned — resolve the domain via apollo_mixed_companies_search by name. The per-edition host is automate<YY>.mapyourshow.com; confirm the year's subdomain from automateshow.com before scraping.",
+      "geography": "US (rotates Detroit/Chicago; 2026 = McCormick Place, Chicago)",
+      "notes": "North America's largest automation show, run by A3. ~1,207 exhibitors in 2026 — robotics, cobots, machine vision, motion control, AMR/AGV, grippers/EOAT, sensors, industrial AI/software. Top-tier ICP lane-3 source (paid exhibitors = audience-fit sponsors). 2026 dates June 22-25.",
+      "lastScrapedAt": "2026-06-23"
     },
     {
       "slug": "semiconwest",

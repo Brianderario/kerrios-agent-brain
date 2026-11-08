@@ -11,7 +11,11 @@
     "check:state": "node scripts/check-state-integrity.mjs",
     "check:docs": "node scripts/check-doc-reality.mjs",
     "check:manifest": "node --test test/routine-manifest.test.js",
+    "check:training": "node scripts/validate-training-curriculum.mjs",
     "test": "node --test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.1"
   },
   "engines": {
     "node": ">=20"

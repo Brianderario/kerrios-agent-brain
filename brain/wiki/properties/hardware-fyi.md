@@ -50,20 +50,26 @@ Industry-base focused. Semiconductors, robotics, EVs, energy, defense, advanced 
 
 Tracked under [[wiki/deals/]]. Apollo enrichment cadence in [[partnership-research-monthly]] (TBD).
 
-## Sponsor product formats (as of 2026-05-26)
+## Sponsor product formats and canonical CY2026 pricing
 
-Two packages on the Hardware FYI newsletter. Use these consistently in sponsor conversations.
+Use [[../workflows/hwfyi-cy2026-pricing]] as the canonical line-item price table for every Hardware FYI quote. Brian supplied and designated that workbook as authoritative on 2026-07-09. Historical proposals below are examples of package shape and voice, not current pricing authority.
 
 ### Current format
 
-- **Primary Placement** — $1,500 line-item placement anchor for quote-menu conversations. Older package anchors were $10K / 6 sends or $6K / 3 sends; use the current line-item anchor when Brian asks for product-by-product pricing. Full ad unit (image + copy + CTA) inside the Hardware FYI newsletter. Reference example: [Colab ad in "what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say).
-- **Partner Program** — $12.5K / 6 months standard. **Sold in flexible durations** — Brian uses **2-month and 3-month** terms inside package bundles (observed in the 2026-05-29 Modelwise quote), not only the 6-mo standard. Sales-list format: Partner Program (6 Months); 2x per week feature in Tools We Love; 3x Primary Placement, with one usable during an approved one-month trial; logo in the Partner Program sponsor image + on the website. Reference examples below.
-- **Custom Content / Custom Content Article** — **starts at $5,000** (Brian-corrected 2026-06-18 on the H0059 GrayMatter quote). This **supersedes the earlier $2.5K figure**, which was stale — **do not quote $2,500**. A full editorial feature where Benji captures the company/customer story; runs as content, not an ad. Price scales up from $5K with scope/execution; research reports are a separate, higher product (below).
-- **Custom research report** — starts at $6K.
+- **Primary newsletter placement** — $1,500 standard; $900 discount floor. Per-issue primary placement for broad awareness or launch promotion. Reference example: [Colab ad in "what the datasheets don't say"](https://hardwarefyi.substack.com/p/what-the-datasheets-dont-say).
+- **Partner program** — $12,000 standard for six months; $8,000 discount floor; $2,500 per month when purchased individually. Recurring presence / H2 sponsor relationship.
+- **Webinar** — $5,000 standard; $3,000 discount floor. Per webinar for lead generation and education.
+- **Sponsored article** — $4,000 standard; $3,000 discount floor; $5,000 premium / upside. Founder-, product-, or story-driven content.
+- **Business breakdown** — $10,000. Deep sponsored business teardown / executive analysis.
+- **Happy hour** — $5,000 standard; $3,500 discount floor; four sponsor units per event.
+- **SF Tech Week Presenting** — $20,000 standard; $12,000 discount floor; two available. Includes fireside chat, presenting sponsorship, table, and lead list.
+- **SF Tech Week Supporting** — $7,500 standard; $5,000 discount floor; four available. Includes supporting sponsorship, table, and lead list.
+
+Discount floors are not automatically authorized quotes. Any price below standard stays in `Needs Brian` until Brian explicitly approves it for that account.
 
 ### Package quoting (observed practice, 2026-05-29)
 
-When Brian quotes a post-call sponsor, he sends **2–3 mixed-product bundles (Package A/B/C), anchored high → low**, with **rate-card anchoring on the top tier** (e.g., `$20K ($25K rate card pricing)`). Pricing is holistic/rounded, not strict line-item (e.g., **3x Primary Placements ≈ $5K**). Full pattern: [[../workflows/hwfyi-package-quote-playbook]].
+When Brian quotes a post-call sponsor, he sends **2–3 mixed-product bundles (Package A/B/C), anchored high → low**, with rate-card anchoring on the top tier. Pricing can be holistic and rounded, but every line item and discount must reconcile to [[../workflows/hwfyi-cy2026-pricing]] before the package is presented. Full pattern: [[../workflows/hwfyi-package-quote-playbook]].
 
 ### Reference example issues
 
@@ -87,14 +93,15 @@ Newsletter placements are awareness-leaning even when CTA-driven. When a sponsor
 - **Floor:** 125 attendees guaranteed (per Brian, 2026-05-25).
 - **Ceiling:** up to 250 attendees when the content is strong enough to drive organic share.
 - Sponsor's effective product is the attendee list + the warm intros from a live audience that opted in for the topic.
-- **Line-item price:** $5K when Brian asks for product-by-product pricing.
+- **Line-item price:** $5,000 standard; $3,000 discount floor.
 - **Sales guardrail:** Kerri may quote the standalone webinar price in product line-item menus. Do not quote bundle price or discount percentage in sponsor drafts unless the price is already approved in that exact thread or a current pricing record is added here.
 
 ### Happy hours
 - **Range:** 200–500 leads per event.
 - Highest-yield lead-gen product HWFYI runs. Use these as the centerpiece of any lead-volume conversation.
-- **Table sponsorship — $5,000 standalone** (Brian-set 2026-06-17 on the H0059 GrayMatter quote; first time the quarterly SF happy hour was priced as a standalone line rather than bundled into a larger package). Sponsor gets a table + swag/demo presence, ~150–300 attendees (students through mid-level engineers — strongest in-person fit for a **recruiting / new-grad / intern** buyer), and the full attendee lead list afterward. Prior precedent only bundled "2x happy hour" into $25K+ packages (Summit Interconnect 2026-05-29); this is the canonical à-la-carte number now. SF Tech Week event remains the more senior, priced event ($15K Presenting / $6K Supporting).
-- **SF Tech Week tier inclusions (first itemized to a client 2026-06-20, Almond Robotics / H0156; drafted by Kerri, NOT yet formally confirmed by Brian as a canonical rate-card):** Supporting ($6K) = demo space at the event, logo on event materials, guest passes for the sponsor's team, full attendee list afterward. Presenting ($15K) = everything in Supporting plus headline/presenting billing, a short speaking slot, premium demo placement, and a newsletter mention promoting the event. Before this, no SFTW tier deliverables were documented anywhere (brain, media kit, Drive, or the Duro SOW, which only listed "Presenting Sponsorship $20K" with no line items). FORMALIZE: confirm these inclusions with Brian and build a canonical SFTW sponsor-tier sheet so every quote and SOW matches. Price variance to resolve: Almond was quoted Presenting at the canonical $15K; Duro's bundled SOW valued Presenting at $20K.
+- **Happy hour sponsorship — $5,000 standard / $3,500 discount floor.** Four sponsor units per event. The sponsor gets local community and buyer access; any promised audience size, table setup, swag/demo presence, or lead-list terms must be verified in the live event record before send.
+- **SF Tech Week Presenting — $20,000 standard / $12,000 discount floor.** Two available. Canonical inclusions: fireside chat, presenting sponsorship, table, and lead list.
+- **SF Tech Week Supporting — $7,500 standard / $5,000 discount floor.** Four available. Canonical inclusions: supporting sponsorship, table, and lead list.
 
 ### Bundle pattern — "near-lead-guarantee" offer
 

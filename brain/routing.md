@@ -25,6 +25,12 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - [[wiki/workflows/multi-agent-write-rules]]
 - [[wiki/decisions/2026-05-25-living-brain-and-autonomy-ladder]]
 
+## "Train Kerri" / "what should Kerri know?" / "where are the brain gaps?" / "how does Kerri inform strategy?"
+
+- [[wiki/workflows/kerri-training-system]] — operating contract for curriculum, assessments, human review, and write-back
+- [[wiki/strategy/kmg-direction-and-bets]] — current strategic synthesis and open questions
+- `wiki/training/` — source-backed modules; in Savant open `Agents -> Kerri -> Training` to see readiness, stale sources, gaps, and attempts
+
 ## "Who is X?" (person)
 
 - KMG team + Zach: `wiki/people/<slug>.md` (brian-derario, ari-lewis, benji-chia, zach-silber)
@@ -50,6 +56,10 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 - `brian@standardandworks.com` → Superhuman.
 - `brian@hardwarefyi.com` and `kerri@hardwarefyi.com` → custom local Outlook MCP.
 - Match the exact account Brian names before searching or reading mail. Do not treat Gmail, Superhuman, and Outlook as interchangeable.
+
+## "How should I enrich a contact?" / "Can I find a prospect's phone number?"
+
+- [[wiki/workflows/contact-enrichment-policy]] — standing rule: work-email-only enrichment by default; never request, enrich, export, store, or use phone numbers unless Brian explicitly asks for a phone-number lookup in the current request.
 
 ## "How do routines report runs / file tasks to Savant?"
 
@@ -78,9 +88,14 @@ Topic → file map. Use this to find the right wiki page without reading the ful
 
 ## "How do I quote a sponsor package / pricing / tiers?" / "post-call package options" / "how much for X"
 
+- [[wiki/workflows/hwfyi-cy2026-pricing]] — **CANONICAL CY2026 LINE-ITEM PRICES AND FLOORS. Read first for every Hardware FYI quote.** It supersedes historical proposal examples and inferred event economics.
 - [[wiki/workflows/hwfyi-package-quote-playbook]] — **MANDATORY read before writing or editing any sponsor price/package/tier.** Bundle construction rules (never a single Primary Placement; placements come in multiples and scale with the tier), high→low anchoring, the Modelwise reference ladder, and the "new prices need Brian's confirmation" gate.
 - [[wiki/properties/hardware-fyi]] — canonical product list + rate-card pricing
 - [[wiki/workflows/hwfyi-sponsor-reply-templates]] — sibling: product-education reply (buyer asks "what's included?")
+
+## "What is Ironclad sponsorship pricing?" / "Ironclad sponsor menu" / "how much for an Ironclad panel, dinner, fireside, lanyard, badge, or booth?"
+
+- [[wiki/events/ironclad-maritime-summit-2026]] — **CANONICAL IRONCLAD SPONSORSHIP MENU.** Use the supplied PDF prices, deliverables, and availability; do not substitute Hardware FYI, Kinetic, Frontier, or SF Tech Week pricing.
 
 ## "What happened in meeting X?"
 

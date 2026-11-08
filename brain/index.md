@@ -11,6 +11,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/definition-of-done-gate]] — THE pre-send gate (7 steps): read full state, name the real deliverable, research+inventory, attach, completeness, escalate-not-park, restate. Umbrella over the brain-log/followups/attach/escalate fragment rules. From the 2026-06-17 retro.
 - [[wiki/workflows/draft-learnings]] — accumulated lessons from Kerri's draft edits
 - [[wiki/workflows/hwfyi-sponsor-reply-templates]] — reusable Hardware FYI sponsor reply structures based on Brian's sent emails
+- [[wiki/workflows/hwfyi-cy2026-pricing]] — canonical Hardware FYI CY2026 line-item prices, discount floors, and quoting rules from Brian's supplied workbook
 - [[wiki/workflows/hwfyi-cy2026-revenue-goal]] — standing $1M CY2026 Hardware FYI revenue operating goal and automation mapping
 - [[wiki/workflows/mcp-tool-add-checklist]] — definition + handler discipline when extending MCP servers (born from the 2026-05-24 gtasks bug)
 - [[wiki/workflows/customer-id-protocol]] — universal per-customer jobId lookup; ALL automations + ad-hoc drafts run this before any company/jobId write
@@ -21,6 +22,12 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/workflows/savant-build-backlog]] — living queue of Savant product improvements (shipped/retired/candidate); the nightly build-proposal routine pulls the next undone slice from here so it stops repeating
 - [[wiki/workflows/audience-graph-project]] — scoped supervised build for the subscriber/audience moat (pillar 2); not an overnight item
 - [[wiki/workflows/console-reporting]] — Savant-only task/approval reporting plus mandatory same-run brain writeback for scheduled tasks and email outcomes
+- [[wiki/workflows/kerri-training-system]] — living curriculum, source health, versioned assessments, and human review for Kerri's company fluency
+
+## Strategy & Training
+
+- [[wiki/strategy/kmg-direction-and-bets]] — current synthesis of KMG direction, active bets, decision lens, and open questions
+- `wiki/training/` — eight source-backed Kerri core modules covering company, people, portfolio, operating system, revenue, relationships, execution, and strategy
 
 ## Agents
 
@@ -44,6 +51,7 @@ This is the catalog. One line per page. Read [[routing]] for the topic map; read
 - [[wiki/properties/kinetic]] — annual SF conference
 - [[wiki/events/kinetic-2026]] — year-one event (May 2026, SF); post-event deliverables incl. canonical photos link
 - [[wiki/events/sf-tech-week-2026-sponsor-prospects]] — tiered SF Tech Week sponsor prospect list (Kinetic roster + advertisers + Tech Week-history research, 2026-06-02)
+- [[wiki/events/ironclad-maritime-summit-2026]] — canonical October 27 Ironclad event facts, sponsorship prices, deliverables, and availability from Brian's supplied PDF
 - [[wiki/events/ai-for-hardware-vendor-universe]] — exhaustive ~350-vendor map of the software/AI-for-hardware stack across 9 floor lanes, for the proving-ground demo event; CRM-flagged existing vs net-new (2026-06-13, 7-agent sweep)
 - [[wiki/properties/savant]] — production KMG operating app formerly called Kerri/KMG Console (`kerrihq-rails` on Render); source of truth for CRM, tasks, approvals, revenue surfaces, newsletter inventory, agent runs, and permissioned brain records
 - [[wiki/workflows/savant-task-board-workflow]] — canonical task status keys, visible column names, approval outbox semantics, and scheduled-run routing

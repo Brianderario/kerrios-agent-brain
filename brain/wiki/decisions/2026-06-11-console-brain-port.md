@@ -12,9 +12,9 @@ scope: decision · updated: 2026-06-12 · authority: Brian (implementation promp
 kerrihq-rails commit `77e061e` (branch `kerri/brain-port`, merged to main) added the permissioned brain layer to Savant, then known as the Console:
 
 - **Domains + permission grants** — explicit per-user and per-agent access (domain, record kind, source, sensitivity ceiling, action list). Brian = master via owner membership; Ari = finance/legal breadth; Benji = Hardware FYI + content; Zach = Standard & Works only. Agents get the intersection of their own grants and their owner's.
-- **Knowledge records** — durable facts imported from this repo with provenance (path, content hash, timestamps) and lifecycle (imported → candidate → canonical, stale, superseded). Candidates need human promotion.
+- **Knowledge records** — durable facts imported from this repo with provenance (path, content hash, timestamps) and lifecycle (imported → candidate → canonical, stale, superseded). Ordinary sourced knowledge may become canonical only after the fixed Savant safety checks, Kerri's real-source review, and a separate clean review all pass. Protected policy still needs Brian.
 - **Source registry** — 14 sources (this repo, tracker sheet, mailboxes, Granola, Beehiiv, Slack, ...) with sync policy + health.
-- **Approval requests with proof trails** — first-class decision records for sends/pricing/finance/legal/publication/memory promotion; only the responsible human decides; execution proof recorded.
+- **Approval requests with proof trails** — first-class decision records for sends, pricing, finance, legal, publication, protected brain-policy changes, and other protected commitments; only the responsible human decides; execution proof recorded.
 - **KerriOS importer** — dry-run/apply, idempotent, conservative: skips credentials, `data/` runtime state, frozen legacy company/people pages, agent prompts (AgentPromptSyncJob path unchanged), S&W internals, transcripts; raw/ imports pointer-only; secret-shaped strings scrubbed.
 - **API** — `brain:*` and `approvals:*` scopes; agents read/write via `agent_slug` and are capped by their grants; agents can only file candidate memory.
 

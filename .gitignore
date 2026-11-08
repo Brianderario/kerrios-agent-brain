@@ -32,6 +32,7 @@ data/eod-conferences-*.json
 data/presend-lint.log
 data/morning-brief-state.json
 data/morning-brief-run-state.json
+data/social-signal-state.json
 data/morning-brief-fallback-*.md
 data/brain-push-state.json
 data/brain-push-fallback-*.md

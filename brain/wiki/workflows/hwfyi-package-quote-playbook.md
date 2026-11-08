@@ -1,8 +1,10 @@
 # HWFYI Package-Quote Playbook
 
-scope: workflow · updated: 2026-06-11 · source: Brian's sent Modelwise email 2026-05-29 (H0023), the gold-standard package-quote reply; Brian rule on price objections 2026-06-11 (NTOP)
+scope: workflow · updated: 2026-07-09 · source: Brian's sent Modelwise email 2026-05-29 (H0023) for package shape and voice; [[hwfyi-cy2026-pricing]] for current prices and floors; Brian rule on price objections 2026-06-11 (NTOP)
 
 How Brian writes a **post-call sponsor package quote**. Use this whenever the next step in a sponsor thread is "here are the ways we could work together + price." This is the format Kerri's drafts (sweep, EOD, and interactive) kept getting wrong — they produced abstract, single-product, list-priced "tiers." Brian writes concrete, mixed-product **bundles**. Match the pattern below.
+
+**Pricing hard gate:** Read [[hwfyi-cy2026-pricing]] before drafting. It is the current authority for line-item standard prices, discount floors, and SF Tech Week pricing. Sent-email examples in this playbook show package construction and voice only; they do not override the canonical table.
 
 ## The shape (in order)
 
@@ -17,12 +19,12 @@ How Brian writes a **post-call sponsor package quote**. Use this whenever the ne
 
 - **Bundle, don't single-product.** Each package mixes products (e.g., Primary Placements + Custom Article + a Partner Program term). Avoid one-product "tiers" with branded names.
 - **Never a single Primary Placement on a line — placements come in multiples, and the count scales with the tier.** A package never offers just one Primary Placement; the entry tier is multiple placements (e.g., 3x Primary), and higher tiers carry more placements + a Partner Program term. (Reinforced 2026-06-01 on H0024 Neural Concept, where the first draft put one placement per tier.)
-- **Use real product names:** Primary Newsletter Placement, Custom Content Article, Partner Program ("Tools We Love"), Webinar, Custom Research Report.
-- **Flex Partner Program duration** — 2-month, 3-month, or 6-month, not only the 6-mo/$12.5K standard.
-- **Anchor high → low with rate card.** Lead with the richest package and show value on it, e.g. `$20K ($25K rate card pricing)`. Stepping down to a clean entry package is fine ($5–6K).
+- **Use canonical product names:** Primary Newsletter Placement, Partner Program, Webinar, Sponsored Article, Business Breakdown, Happy Hour, SF Tech Week Presenting, and SF Tech Week Supporting.
+- **Partner Program duration:** the canonical unit is six months at $12,000 standard, with $2,500 per month when individually purchased. Shorter bundle terms require explicit account-level approval.
+- **Anchor high → low with rate card.** Lead with the richest package and show value on it. Build the rate-card value from [[hwfyi-cy2026-pricing]] rather than copying a historical package total.
 - **HARD RULE — discount ladder: the top package is the most expensive AND carries the deepest discount, and the discount % shrinks at every step down** (Brian rule, 2026-06-17). The biggest package must be the best deal, or you remove the reason to buy up. Discount % = (rate card − price) / rate card. So with a fixed price ladder, the top tier needs the highest rate-card-to-price ratio, the next tier a lower one, and so on. **To widen the top tier's discount, ADD product to it** (more placements, an extra content piece, an added vertical) to raise its rate-card value — never fix the order by shrinking a lower tier's discount or cutting the top price. Worked example (Xometry H0033, 2026-06-17): A $75K / $100K rate card = 25% off; B $50K / $62K = 19.4%; C $25K / $30K = 16.7%. A first draft that had B discounting deeper than A was the failure this rule prevents.
 - **Lead with content; don't over-stuff.** For early-GTM / first campaigns, keep it to content + newsletter products. Don't bolt on a webinar/event unless the buyer's goal calls for it — that was a model failure on Modelwise.
-- **Pricing is holistic, not strict line-item.** Brian rounds and bundles for a clean number (e.g., 3x Primary ≈ $5K). Don't force exact line-item sums; don't refuse to bundle/discount. Quote the package price.
+- **Pricing can be holistic, but it must reconcile.** Brian rounds and bundles for a clean number. Show the package price, but calculate the rate-card value from the canonical CY2026 table and do not cross the discount floor without Brian's explicit approval.
 - **Check the ad-calendar Sheet before committing run timing.** Hardware FYI newsletter Tue/Sat slot availability lives in the canonical Sheet (see [[../properties/hardware-fyi]] "Newsletter schedule — SOURCE OF TRUTH"). Re-read it live before promising specific publish/run dates; don't quote dates from memory.
 - **New package prices need Brian's confirmation.** If you're templating prices Brian hasn't set for that account, flag it in the task PRICING NOTE and don't treat the draft as auto-sendable.
 
@@ -39,13 +41,13 @@ How Brian writes a **post-call sponsor package quote**. Use this whenever the ne
 
 This applies to every sponsor draft: replies to price pushback, follow-ups after a quote, and renewal conversations.
 
-## Reference: Brian's Modelwise packages (2026-05-29)
+## Historical reference: Brian's Modelwise packages (2026-05-29)
 
 - **Package A — $20K ($25K rate card):** 6x Primary Newsletter Placements + 1x Custom Content Article + 3-Month Partner Program ("Tools We Love").
 - **Package B — $12K:** 4x Primary Newsletter Placements + 2-Month Partner Program.
 - **Package C — $5K:** 3x Primary Placements.
 
-Use this ladder as a default template for a similar early-stage technical sponsor; adjust to the account's history and budget.
+Use this ladder only as a reference for structure, ordering, and tone. Its account-specific May 2026 totals are not the current price source. Rebuild every new ladder from [[hwfyi-cy2026-pricing]], the account's goals, and Brian's approval.
 
 ## Booking-link rule (refined)
 
@@ -54,5 +56,6 @@ Include Brian's booking link **only when the ask is a meeting** (book/rebook a c
 ## Related
 
 - [[hwfyi-sponsor-reply-templates]] — product-education reply (buyer asks "what's included?")
+- [[hwfyi-cy2026-pricing]] — canonical current prices and discount floors
 - [[draft-learnings]] — H0023 Modelwise sent-vs-draft lesson
 - [[../properties/hardware-fyi]] — canonical product list + pricing

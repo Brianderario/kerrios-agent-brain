@@ -66,18 +66,10 @@ Savant has two active schedules and no paused schedules:
 | Hardware FYI Daily Cold Outreach | `4e9cbb6d-3650-41b1-89a5-2fe0363d75ed` | `slack-vaughn-kerrihq` | Team Tasks (`action_needed`) |
 | Ironclad Maritime Summit Daily Cold Outreach | `d008ffd1-4407-4d74-8691-ed3b08aaf527` | `slack-vaughn-kerrihq` | Team Tasks (`action_needed`) |
 
-The enabled Codex automation registry contains these business routines:
-`brian-waiting-reply-and-warm-follow-up-chaser`,
-`ironclad-15-daily-sponsor-outreach-drafts`,
-`kerri-ceo-daily-revenue-push`, `kerri-cold-outreach`,
-`kerri-company-portfolio-control-tower`, `kerri-eod-meetings-review`,
-`kerri-inbox-sweep`, `kerri-morning-brief`,
-`kerri-renewal-and-expansion-radar`,
-`kerri-sponsor-fulfillment-and-collections-watchdog`,
-`kerri-weekly-operating-review`, and `standard-works-issue-production`.
-
-Every active prompt carries the canonical board routing in
-[[../workflows/savant-task-board-workflow]].
+No legacy Codex KMG automation registry is authoritative. The live Codex
+registry was cleared on August 11, 2026 for a clean rebuild. New schedule
+definitions must come only from `/Users/brianderario/Desktop/Codex Kerri
+Agent/KMG Fresh Automation System` after Brian approves the completed set.
 
 ## Historical Claude schedule inventory, not executable truth
 

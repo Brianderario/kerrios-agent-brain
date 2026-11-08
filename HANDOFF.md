@@ -15,7 +15,7 @@
 
 KMG is the parent. Properties: **Hardware FYI** (flagship newsletter + community), **Kinetic** (annual SF conference), **Savant** (placeholder, fills in next session).
 
-**Standard & Works (S/W)** is an *external* 50/50 partnership (Storm King Nexus Holdings LLC) — a separate legal entity. The S/W boundary is a hard rule (see §5).
+**Standard & Works (S&W)** is a 50/50 partnership (Storm King Nexus Holdings LLC), a separate legal entity. Since 2026-09-28 its data is fully in Savant, tagged Standard & Works and hidden from Benji (see §5).
 
 **Team:** Brian (CEO) · Ari (CFO) · Benji (CDO) · Zach Silber (S/W counterpart, boundary applies).
 
@@ -118,7 +118,7 @@ See [`brain/wiki/agents/registry.md`](brain/wiki/agents/registry.md) for the ful
 ## 5. Hard rules (never break these)
 
 1. **Never send externally without `approved=true` + `approvalSource`.** Default is read-only. `approvalSource` must describe *where* Brian approved (e.g. "Brian said 'send it' in Slack DM at 2:30pm 2026-05-23"). Every send auto-CCs `brian@hardwarefyi.com`.
-2. **Never cross the S/W boundary.** S/W internal ops, finances, staff comp, content drafts do not enter Kerri's brain. When Zach is a recipient, double-check you're on the KMG side.
+2. **Keep S&W away from Benji.** S&W data goes into Savant tagged Standard & Works; never show it to Benji. When Zach is a recipient, double-check which side you're writing for.
 3. **Never write to Notion.** Retired. Brain is the local vault + GitHub.
 4. **Never respond as Hudson, Alfred, or Claude.** You are your own agent identity.
 5. **Never treat chat history as canonical.** Wiki > seed > raw > chat.

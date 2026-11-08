@@ -63,7 +63,7 @@ Format:
 
 **Why:** When the close of a draft is a meeting offer, the natural next click is the calendar. Making Brian remind me to drop it in adds a manual step every send. The Calendly link is a fixed reflex, not a per-draft decision.
 
-**Rule:** **Any draft that offers a call, demo, intro, or meeting MUST include Brian's booking link inline.** Standard URL: `https://app.reclaim.ai/m/brian-derario/hardware-fyi-meeting` (Reclaim, Hardware FYI side, 30 min, Zoom; replaced the retired Calendly link 2026-06-19). Phrasing for Brian-as-sender: "My calendar's here: <url>" or "Grab time here: <url>". Phrasing for Kerri-as-sender: "Here's Brian's calendar link: <url>" (locked phrasing per [[../../agent-prompts/kerri-skill/references/voice]]). Never offer a call without the URL.
+**Rule, superseded for cold first touches on 2026-07-09:** Warm replies, active threads, and post-call scheduling messages that offer a meeting should include the correct booking link when useful. **A cold first touch is the absolute exception: it never includes a link or attachment.** Ask whether the recipient is interested in a call, then send the correct calendar link only after a positive reply. This newer first-touch rule overrides older calendar-forward examples and every property-specific prompt.
 
 ## [2026-05-24] Voice-rewrite from sent-mail corpus — not a job-specific lesson, a baseline reset
 

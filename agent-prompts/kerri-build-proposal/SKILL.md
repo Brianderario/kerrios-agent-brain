@@ -1,6 +1,6 @@
 ---
 name: kerri-build-proposal
-description: Nightly 11pm ET build-run proposal — reconciles the living build backlog (savant-build-backlog.md), pulls the next genuinely-new overnight Savant slice (revenue first, never a shipped/retired/recently-proposed one), composes the exact build-loop prompt, and emails it to Brian for a one-word go. Created 2026-06-12 on Brian's standing instruction (iMessage); made backlog-driven 2026-06-17 to stop repeating proposals.
+description: Prepare the next unattended Savant build proposal from the maintained backlog, avoiding already shipped or previously proposed work.
 schedule: daily ~23:00 ET
 report_interval_hours: 30
 ---

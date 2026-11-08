@@ -21,5 +21,5 @@ The nightly brain-push reconciles both directions with each record's content has
 ## Unchanged
 
 - **Chat is never canonical.** Chat and email threads are evidence and working context; they become durable truth only when a reviewed Savant record (or its git mirror) is written.
-- **Raw evidence** stays append-only (`brain/raw/`, mirrored as `source_pointer` records). **Uncertain claims** stay `candidates/` until a human promotes them in Savant.
+- **Raw evidence** stays append-only (`brain/raw/`, mirrored as `source_pointer` records). **Uncertain claims** enter Savant's candidate review state and receive one final result through the fixed safety checks, Kerri source review, and separate clean review. Protected policy routes to Brian.
 - **The S/W boundary, approval gates, phantom-data rule, and send-authority protections all hold**, in both sync directions.

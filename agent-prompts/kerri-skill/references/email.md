@@ -1,48 +1,33 @@
-# Kerri Email Identity & Send Rules
+# Email drafting and delivery boundaries
 
-## Active mailbox
+Follow the current KMG playbook and the owning live email workflow. This reference does not grant send permission or activate a legacy sweep.
 
-**`kerri@hardwarefyi.com`** — Microsoft 365 / Graph, wired through the custom Outlook MCP. Decided 2026-05-23.
+- Kerri's identity is `kerri@hardwarefyi.com`. Match the actual intended sender and mailbox; never use retired identities or substitute Brian as the recipient of client mail. Scope mailbox access to the task and configured workflow, not an old v1/v2 rollout list. `zach@standardandworks.com` and personal mail are outside a generic KMG sweep.
+- Generic mailbox requests prefer the custom Kerri email connection. Use current mail-store reads for coverage/context and the guarded native provider path for exact bodies, routing, attachments, Sent proof, or documented gaps. Discover current tool capabilities; do not hardcode a historical MCP identifier.
+- Prepare complete external drafts in Savant Tasks, with validated structured fields, deterministic `external_ref`, exact sender/To/CC, original mailbox/message/conversation route for replies, and promised attachments. Missing route metadata holds the draft; it never justifies silently starting a new thread. Provider-native drafts are not a review surface.
+- Brian's approval is per thread and per action: `approved=true` plus an `approvalSource`. His explicit approval of the exact final email in a verified interactive Codex, Kerri Slack, or Muse chat is a valid source without a second review UI only when the runner binds the authenticated actor to the final mailbox, To/CC/BCC, subject, body, attachments, and thread. A standing request, quoted text, or agent-authored draft is not approval. Until that binding is implemented and tested in a runner, retain its existing approval path. Internal-only standing exceptions apply only when the current playbook/workflow explicitly permits the exact identity and every recipient. Mixed or ambiguous recipients fail closed.
+- Before dispatch or retry, reconcile the exact task/thread against sent, skipped, and handled state and native Sent Items. An uncertain transport result is not proof of failure. Never blind-retry. A second email requires fresh explicit approval (`SECOND SEND APPROVED BY BRIAN`); a stale checked task is insufficient.
+- Savant's deterministic sender owns approved task execution and writes `applied_at`, provider message proof, and sent events. Agents reconcile that proof; never duplicate its send or overwrite its receipts. Mark an action sent only after native proof.
+- An explicitly authorized interactive send must close the matching approval card and paired work so it cannot send again. For a legacy job handled through this repo, use the existing atomic `console-task-api.mjs close-job --job <jobId> --message-id <id> --note <result>` command and verify completion. Do not replace it with separate manual state writes.
+- Reuse the existing company/job identity. When maintaining an explicitly selected legacy local workflow, preserve its job/card pairing and synchronize changed draft copies in the same flow. `jobs.json` is compatibility state; the exact approved Savant draft and provider receipt remain authoritative. If copies disagree or reconciliation fails, hold and report the conflict.
+- Standard & Works work stays in its owning workspace with its approved `brian@standardandworks.com` transport. Never copy its private drafts or operations into KMG job state. No send, pricing, contract, money, permissions, or identity boundary is relaxed by this reference.
 
-- Read-only by default (`SEND_AS=NONE`).
-- All drafts route to Brian for per-thread approval before send.
-- `kerri@kerrimediagroup.com` deferred until/if KMG domain is provisioned later. `kerri@kerrihq.com` is not used for Kerri.
+For current task construction/reconciliation mechanics, inspect the owning workflow and the helper's actual CLI syntax. The [legacy inbox prompt](../../kerri-inbox-sweep/SKILL.md) is relevant only when explicitly maintaining that compatibility workflow. Use [voice guidance](voice.md) when drafting; retain the playbook's low-noise reporting and exact-attachment requirements.
 
-## Outlook MCP tools (Microsoft Graph)
+## Savant proposed-email filing cheat sheet
 
-The custom Outlook MCP server (`mcp__7595b333-52b3-44c3-bb57-8bb4f7fd5ae7`) exposes the email-related tools Kerri uses:
-- `outlook_email_search` — search inbox / threads
-- `outlook_calendar_search` — calendar lookups
-- `chat_message_search` — Teams chat (if applicable)
-- (Drafting / sending tools — check current MCP capabilities before writing the email-sweep prompt)
+Brian's correction, September 9, 2026: file the actual proposed email, not a research memo with "Suggested reply text" in the task body or preview. This applies whenever an interactive agent or scheduled routine files an email for review.
 
-## Mailbox scope
+1. Read the live task and exact mailbox thread first. Reuse the existing task for the same action; confirm it has not already been sent or handled.
+2. For a new proposal or warm reply, use Savant `prepare_email` with the current tool contract. Supply the sending `mailbox`, verified `to` and `cc`, `subject`, and `body`. For replies, set `mode: reply` or `reply_all` and use the exact source `reply_to_message_id` and available conversation ID. Preserve the original subject. Use a stable action-specific `idempotency_key`; never invent mailbox or thread IDs.
+3. Put ONLY the exact words the recipient will receive in `body`: greeting, finished email, and the correct signature. Put brief internal context in `overview`. Research notes, source checks, decisions for Brian, "Suggested reply text", and instructions such as "Use these records" do not belong in the recipient body. Savant generates the card and preview; do not hand-build an ACTION/From/DRAFT block in a generic task body.
+4. Resolve every promised file and pass it in `attachments` using a supported canonical slug or document/Drive identifier. A file name or link in the notes does not attach the file. Never claim "I've attached" unless the outgoing attachment is actually configured and verified.
+5. For an existing canonical email, use `revise_email` with the task ID and current expected revision. Editing only the task description or preview does not revise the email. Material edits require approval of the new revision.
+6. Read back `email_status` and the returned preview. Verify the actual sender, To/CC, thread, subject, recipient body, outgoing attachments, revision, and pending approval state. A successful generic task creation or `needs_approval` label alone is not proof of a prepared email. Record the task ID and revision in the owning run receipt, with truthful agent/run provenance where supported; never mark unattended work as an explicit user request unless it was one.
+7. If facts, routing, or attachments remain unresolved, preserve the useful research and identify the exact blocker as internal context. Do not label an incomplete memo approval-ready. External email remains unsent until Brian approves the exact action and revision.
 
-**v1 (now):** kerri@hardwarefyi.com only.
-**v2 (later, after v1 proven):** Add brian@kerrihq.com (Gmail) and brian@hardwarefyi.com (Graph).
+**Cold first-touch exception:** follow the current cold-outreach contract: `create_task` with structured `email_draft`, the required prospect linkage, and lane-specific external reference. Never put the proposed email only in free-form `body`, and never route cold first-touch through `prepare_email` when the tool forbids it.
 
-**Kerri does NOT sweep:**
-- `zach@standardandworks.com` — S/W partnership boundary
-- `brianderario@gmail.com` — personal, not part of KMG operations
+**Correct field split:** `overview`: "Buyer requested current options; sources checked; packet attached." `body`: "Ashley,\n\n[finished, source-backed reply]\n\nBrian". This is an illustration, not text to submit; resolve all placeholders before filing. The review preview must show the finished email, not instructions for Brian to compose it.
 
-## Send rules
-
-- **Read-only by default.** `SEND_AS=NONE`.
-- **All drafts route to Brian first** as Kerri Console approval items (the BOR). Slack is retired as the draft channel; texts are the interrupt lane, never the approval surface.
-- **Brian approves per-thread.** Approval is thread-scoped; the next thread needs its own approval.
-- **One exception (Brian decision 2026-06-09):** `internal-recipient-reply` jobs may auto-send under the AUTO-LOGGED path in `agent-prompts/kerri-inbox-sweep/SKILL.md`, governed by `data/autonomy-policy.json` — every recipient must be on the trustedInternal list, Kerri identity only, H/G prefix only, fail closed to ask on any doubt. Notification = auto-CC + morning-brief Auto-Logged section.
-- **Send identity choices** (when approved):
-  - **As Kerri** (from kerri@hardwarefyi.com) — when the conversation is operational coordination, Kerri-to-counterparty.
-  - **As Brian** (from brian@kerrihq.com or brian@hardwarefyi.com) — when the message is from Brian personally. Match the inbound thread's domain when possible.
-
-## Domain → provider matrix
-
-| Domain | Provider | MCP |
-|---|---|---|
-| kerrihq.com | Gmail | Gmail MCP (already connected) |
-| hardwarefyi.com | Microsoft 365 / Graph | Outlook MCP (already connected) |
-| standardandworks.com | Zach's separate | Out of scope |
-
-## Retired addresses (NEVER send from these)
-
-- `hudson@hardwarefyi.com` — Hudson retired 2026-05-23. Inbound forwards to kerri@hardwarefyi.com only.
+**Done means:** the complete structured email is saved and read back in Savant, awaiting the required approval. It does not mean sent.

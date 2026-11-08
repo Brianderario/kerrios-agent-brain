@@ -19,7 +19,7 @@ Durable knowledge is sourced from **Savant** (the company hub) as of [[../decisi
 
 ## Write protocol (any new fact, decision, or learning)
 
-Canonical knowledge has two authoring surfaces since 2026-06-17: humans edit in Savant's `/brain` UI (those edits export to git automatically), and agents/humans edit the git files below (which import to Savant). Either way the content lands in both. Agents writing brand-new durable knowledge still create the git file per the table below (it imports to Savant on the next sync), or file a candidate via `POST /api/v1/knowledge_records` (status `candidate`) for human promotion. The paths below are still authoritative for where a git write goes:
+Canonical knowledge has two authoring surfaces since 2026-06-17: humans edit in Savant's `/brain` UI (those edits export to git automatically), and agents/humans edit the git files below (which import to Savant). Either way, every proposed company fact enters Savant through the same review gate. Ordinary sourced knowledge becomes trusted only after fixed safety checks, Kerri opens the real source, and a separate clean reviewer agrees. Protected policy routes to Brian. The paths below are still authoritative for where a git write goes:
 
 | Type of write | Where it lands | Approval gate |
 |---|---|---|

@@ -1,6 +1,14 @@
 # Standard & Works Newsletter Production Rules
 
-scope: workflow · updated: 2026-05-26
+scope: workflow · updated: 2026-07-02
+
+## Oliver And Agent Read Order
+
+Oliver, the KerriHQ Slack app for Standard & Works and KMG content work, should read this record in full before writing the next Standard & Works issue. In Savant, find it with `search_brain` and then load the complete body with `read_brain_record`; search result summaries are not enough for production.
+
+For substantial writing, also read the brain record `Standard & Works newsletter production rules (Oliver's operating spec)` for Oliver's Slack persona shorthand and `The Standard & Works writing framework` for the hook-first writing loop. If those records conflict with this page, this production-rules page, Brian's newest dated instruction, and the actual sent Standard & Works issues win.
+
+This record is the durable production reference for future agents. Do not treat legacy local voice rebuilds, older "Industrialist" labels, or generic content-agent prompts as the source of truth.
 
 ## Canonical Voice Source
 

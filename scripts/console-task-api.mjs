@@ -101,6 +101,8 @@ export function taskCreatePayload(args) {
   const body = emailDraft
     ? undefined
     : (args.bodyFile ? fs.readFileSync(args.bodyFile, 'utf8') : required(args.body, '--body, --body-file, or --email-draft-file'));
+  const completionFirst = completionEvidencePayload(args);
+  validateCompletionFirstInboxCard({ args, title, body, emailDraft, completionFirst });
   const draftSubject = emailDraft?.subject || '';
   if (replyDraft(body || draftSubject, title) || /^\s*(re|antw|aw):/i.test(draftSubject)) {
     required(args.replyToMessageId, '--reply-to-message-id for a reply task');
@@ -115,7 +117,8 @@ export function taskCreatePayload(args) {
     reply_to_message_id: args.replyToMessageId,
     mailbox: args.replyToMailbox?.trim().toLowerCase(),
     email_conversation_id: args.replyToConversationId,
-    email_draft: emailDraft
+    email_draft: emailDraft,
+    completion_first: completionFirst
   });
   const task = {
     title,
@@ -133,6 +136,125 @@ export function taskCreatePayload(args) {
     agent_slug: args.agentSlug,
     property_slug: args.propertySlug
   });
+}
+
+export function validateCompletionFirstInboxCard({ args, title, body, emailDraft, completionFirst }) {
+  const isInboxApproval = args.agentSlug === 'kerri-inbox-sweep' &&
+    (args.status || 'needs_approval') === 'needs_approval';
+  if (!isInboxApproval) return;
+
+  if (!completionFirst || typeof completionFirst !== 'object' || Array.isArray(completionFirst)) {
+    throw new Error('Inbox needs_approval cards require --completion-evidence-file or --completion-evidence-json.');
+  }
+  for (const field of ['completed_internal_actions', 'remaining_human_actions', 'options_considered', 'sources_checked']) {
+    const value = completionFirst[field];
+    if (!Array.isArray(value) || value.length === 0 || value.some((item) => !String(item || '').trim())) {
+      throw new Error(`Inbox completion evidence requires a non-empty ${field} array.`);
+    }
+  }
+  if (completionFirst.remaining_human_actions.length !== 1) {
+    throw new Error('Inbox completion evidence must reduce remaining_human_actions to exactly one action.');
+  }
+  if (!String(completionFirst.recommendation || '').trim()) {
+    throw new Error('Inbox completion evidence requires a recommendation.');
+  }
+
+  if (emailDraft) {
+    for (const field of ['to', 'subject', 'body', 'overview']) {
+      if (!String(emailDraft[field] || '').trim()) {
+        throw new Error(`Inbox structured reply requires email_draft.${field}.`);
+      }
+    }
+    required(args.replyToMessageId, '--reply-to-message-id for an inbox reply');
+    required(args.replyToMailbox, '--reply-to-mailbox for an inbox reply');
+    required(args.replyToConversationId, '--reply-to-conversation-id for an inbox reply');
+    if (!/^\s*Completed:/im.test(emailDraft.overview) || !/^\s*Recommendation:/im.test(emailDraft.overview)) {
+      throw new Error('Inbox email_draft.overview must include Completed: and Recommendation:.');
+    }
+    if (vendorFactRequestDraft(emailDraft.body)) {
+      validateFactReconciliation(completionFirst.fact_reconciliation, emailDraft.body);
+    }
+    return;
+  }
+
+  const text = String(body || '');
+  if (!/^\s*ACTION:\s*request-info\b/im.test(text)) {
+    throw new Error('Inbox needs_approval cards must be a structured email draft or ACTION: request-info packet.');
+  }
+  for (const label of ['Completed:', 'Options:', 'Recommendation:', 'Blocked on:', 'On approval:']) {
+    if (!new RegExp(`^\\s*${label.replace(':', '\\:')}`, 'im').test(text)) {
+      throw new Error(`Inbox request-info packet requires ${label}`);
+    }
+  }
+  const vague = /\b(?:no reply is drafted|ping Codex|Brian should reply|decide what(?: business context)? to share)\b/i;
+  if (vague.test(`${title}\n${text}`)) {
+    throw new Error('Inbox request-info packet contains a prohibited vague handoff.');
+  }
+}
+
+function vendorFactRequestDraft(text) {
+  const request = '(?:confirm|send|provide|share|resend|clarify|verify|let us know)';
+  const fact = '(?:proposal|contract|agreement|scope|quote|pricing|fees?|requirements?|quantit(?:y|ies)|availability|terms?|details?)';
+  const value = String(text || '');
+  return new RegExp(`\\b${request}\\b[\\s\\S]{0,120}\\b${fact}\\b`, 'i').test(value) ||
+    new RegExp(`\\b${fact}\\b[\\s\\S]{0,120}\\b${request}\\b`, 'i').test(value);
+}
+
+function validateFactReconciliation(reconciliation, draftBody) {
+  if (!reconciliation || typeof reconciliation !== 'object' || Array.isArray(reconciliation)) {
+    throw new Error('Inbox vendor fact requests require completion evidence fact_reconciliation.');
+  }
+
+  for (const field of ['known_facts', 'unresolved_facts', 'related_threads_checked']) {
+    const value = reconciliation[field];
+    if (!Array.isArray(value) || value.length === 0) {
+      throw new Error(`Inbox fact_reconciliation requires a non-empty ${field} array.`);
+    }
+  }
+
+  for (const entry of reconciliation.known_facts) {
+    if (!entry || typeof entry !== 'object' || !String(entry.fact || '').trim() || !String(entry.source || '').trim()) {
+      throw new Error('Inbox fact_reconciliation.known_facts entries require fact and source.');
+    }
+  }
+  for (const entry of reconciliation.unresolved_facts) {
+    if (!entry || typeof entry !== 'object' || !String(entry.fact || '').trim() || !String(entry.reason || '').trim()) {
+      throw new Error('Inbox fact_reconciliation.unresolved_facts entries require fact and reason.');
+    }
+  }
+  if (reconciliation.related_threads_checked.some((entry) => !String(entry || '').trim())) {
+    throw new Error('Inbox fact_reconciliation.related_threads_checked cannot contain blank entries.');
+  }
+
+  const attachments = reconciliation.attachments_checked;
+  const noAttachmentReason = String(reconciliation.attachment_review_not_applicable || '').trim();
+  if ((!Array.isArray(attachments) || attachments.length === 0) && !noAttachmentReason) {
+    throw new Error('Inbox fact_reconciliation requires attachments_checked or attachment_review_not_applicable.');
+  }
+  if (Array.isArray(attachments)) {
+    for (const entry of attachments) {
+      if (!entry || typeof entry !== 'object' ||
+          !String(entry.name || '').trim() || !String(entry.source || '').trim() || !String(entry.result || '').trim()) {
+        throw new Error('Inbox fact_reconciliation.attachments_checked entries require name, source, and result.');
+      }
+    }
+  }
+  if (/\b(?:proposal|quote|resend|latest|current)\b/i.test(String(draftBody || '')) &&
+      (!Array.isArray(attachments) || attachments.length === 0)) {
+    throw new Error('Inbox proposal or quote requests require at least one inspected attachment in fact_reconciliation.');
+  }
+
+  const known = new Set(reconciliation.known_facts.map((entry) => normalizeFact(entry.fact)));
+  const duplicated = reconciliation.unresolved_facts
+    .map((entry) => normalizeFact(entry.fact))
+    .find((fact) => known.has(fact));
+  if (duplicated) {
+    throw new Error('Inbox fact_reconciliation cannot request a fact already listed as known.');
+  }
+}
+
+function normalizeFact(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
 function replyDraft(body, title) {
@@ -155,7 +277,30 @@ export function taskUpdatePayload(args) {
   ]) {
     if (args[argName] !== undefined) payload[apiName] = args[argName];
   }
+  let emailDraft;
+  if (args.emailDraftFile) {
+    emailDraft = JSON.parse(fs.readFileSync(args.emailDraftFile, 'utf8'));
+    if (args.body || args.bodyFile) {
+      throw new Error('Pass either --email-draft-file or --body/--body-file, not both.');
+    }
+  }
   if (args.bodyFile) payload.body = fs.readFileSync(args.bodyFile, 'utf8');
+  const completionFirst = completionEvidencePayload(args);
+  validateCompletionFirstInboxCard({
+    args,
+    title: args.title || '',
+    body: payload.body,
+    emailDraft,
+    completionFirst
+  });
+  const sourceDetails = compact({
+    reply_to_message_id: args.replyToMessageId,
+    mailbox: args.replyToMailbox?.trim().toLowerCase(),
+    email_conversation_id: args.replyToConversationId,
+    email_draft: emailDraft,
+    completion_first: completionFirst
+  });
+  if (Object.keys(sourceDetails).length) payload.source_details = sourceDetails;
   if (args.resolutionPayloadJson) payload.resolution_payload = JSON.parse(args.resolutionPayloadJson);
   if (args.resolutionPayloadFile) {
     payload.resolution_payload = JSON.parse(fs.readFileSync(args.resolutionPayloadFile, 'utf8'));
@@ -413,6 +558,12 @@ export function parseArgs(argv) {
       case '--email-draft-file':
         args.emailDraftFile = rest[++i];
         break;
+      case '--completion-evidence-json':
+        args.completionEvidenceJson = rest[++i];
+        break;
+      case '--completion-evidence-file':
+        args.completionEvidenceFile = rest[++i];
+        break;
       case '--status':
         args.status = rest[++i];
         break;
@@ -600,6 +751,14 @@ function compact(object) {
 function metadataPayload(args) {
   if (args.metadataJson) return JSON.parse(args.metadataJson);
   if (args.metadataFile) return JSON.parse(fs.readFileSync(args.metadataFile, 'utf8'));
+  return undefined;
+}
+
+function completionEvidencePayload(args) {
+  if (args.completionEvidenceJson) return JSON.parse(args.completionEvidenceJson);
+  if (args.completionEvidenceFile) {
+    return JSON.parse(fs.readFileSync(args.completionEvidenceFile, 'utf8'));
+  }
   return undefined;
 }
 

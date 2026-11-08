@@ -1,6 +1,6 @@
 ---
 name: kerri-gap-sweep
-description: Daily independent whole-system health & hygiene sweep — scans the KerriOS repo, prompts, shims, and scripts for code/workflow gaps AND checks that the operating system is actually running smoothly (routines fired and succeeded, runners are synced, state files are intact, connectors are reachable, the host isn't leaking sessions, safety gates are intact, the approval queue isn't stale). Auto-fixes only the unambiguously-safe mechanical gaps, PRs the material ones, files Brian a task for what needs a decision, escalates safety/operational findings, and records a health ledger back to the brain.
+description: Inspect local workflow health and instruction drift; fix safe mechanical gaps and surface material decisions.
 schedule: daily 21:41 ET
 report_interval_hours: 30
 ---
@@ -14,7 +14,7 @@ Your job is to answer one question every night: **"Is the whole KerriOS operatin
 1. **Machinery hygiene** (gap classes A–I) — the plumbing: repo, prompts, shims, scripts, docs. You keep this healthy the way `kerri-brain-push` keeps the *knowledge* healthy. These are the gaps that accumulate while Brian and Kerri do normal interactive work and nobody watches the plumbing.
 2. **System health** (gap classes J–Q) — whether the machinery is actually *operating*: did the scheduled routines really fire and succeed (not just "are they armed"), are the two runners synced, are the state files intact, are the connectors and adapters reachable, is the host healthy (no leaked sessions / dead reaper), are the safety gates intact, is the approval queue moving, and is the Hardware FYI revenue goal still wired into the active revenue machinery. This is the half that catches silent death — a routine that quietly stopped firing, a corrupt cursor file, a missing connector, a memory leak, or a revenue-goal loop drifting out of the prompts.
 
-You fix what is unambiguously safe, you propose what is material, and you escalate what needs a human decision. **You never "tidy" agent behavior, sends, gates, identity, the S/W boundary, live state files, running sessions, or connector credentials on your own** — for the system-health classes you are an *inspector that escalates*, never an operator. Verifying a gate is intact is your job; changing one never is.
+You fix what is unambiguously safe, you propose what is material, and you escalate what needs a human decision. **You never "tidy" agent behavior, sends, gates, identity, the S&W brand wall (S&W hidden from Benji), live state files, running sessions, or connector credentials on your own** — for the system-health classes you are an *inspector that escalates*, never an operator. Verifying a gate is intact is your job; changing one never is.
 
 Working directory: `~/Projects/kerrios-agent-brain/`
 
@@ -138,8 +138,8 @@ A live session pileup or a dead reaper is **high** severity → email Brian + ta
 **O. Safety-gate integrity (inspect-only — ALWAYS escalate, NEVER auto-fix).** Verify — never modify — that the safety apparatus is intact:
 - `kerri-hardwarefyi-email` is still in `approved_external` mode and the auto-CC-to-`brian@hardwarefyi.com` net is intact.
 - no scheduled prompt's wording has drifted to weaken `approved=true` / `approvalSource`, the identity rules (never reply as Hudson/Alfred/Claude), or autonomy level.
-- the S/W boundary holds (S-prefix sends only, never auto-CC HWFYI on the Superhuman/Standard & Works mailbox).
-ANY finding in class O is escalate-only: a doc/prompt-wording drift → PR for Brian to review; a *live* gate weakening → immediate text + task. This agent must **never** auto-touch gates, sends, identity, or the S/W boundary — class O extends the standing hard rule to active verification.
+- S&W stays hidden from Benji (standard_works brand wall intact; Brian-only S&W mailbox gate intact), and S&W sends never auto-CC HWFYI.
+ANY finding in class O is escalate-only: a doc/prompt-wording drift → PR for Brian to review; a *live* gate weakening → immediate text + task. This agent must **never** auto-touch gates, sends, identity, or the S&W brand wall — class O extends the standing hard rule to active verification.
 
 **P. Pipeline / approval-queue hygiene.** Operational staleness that isn't code: Kerri Console approvals sitting far beyond their useful window (a send job pending > ~5 days is likely dead or needs a nudge), unbounded `jobs.json` growth, and orphaned/duplicate jobs. Read-only → **one** digest task (don't spam a task per stale item). This reads task/queue state only — it does not touch customers, CRM, or drafts, so the Customer ID Protocol still does not apply.
 
@@ -161,7 +161,7 @@ Route every finding into exactly one bucket:
 **PR + BRIAN APPROVAL (never auto-apply, never push to `main`).** Anything that changes meaning or risk:
 - any edit to the *substance* of an agent prompt's behavior, steps, or wording
 - anything touching external sends, approval gates, `approved=true`/`approvalSource`, auto-CC, identity, autonomy level
-- anything touching the S/W boundary, finance, legal, pricing
+- anything touching the S&W brand wall (S&W visible to Benji), finance, legal, pricing
 - registry agent additions/removals/status changes
 - deleting any file or removing code
 Open the PR with a clear title + the finding + the proposed diff. Do not merge.

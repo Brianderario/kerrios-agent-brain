@@ -20,10 +20,6 @@ const prompt = fs.readFileSync(
   new URL('../agent-prompts/kerri-inbox-sweep/SKILL.md', import.meta.url),
   'utf8'
 );
-const automationDoc = fs.readFileSync(
-  new URL('../agent-prompts/kerri-skill/references/automations.md', import.meta.url),
-  'utf8'
-);
 const coldOutreachPrompt = fs.readFileSync(
   new URL('../agent-prompts/kerri-cold-outreach/SKILL.md', import.meta.url),
   'utf8'
@@ -68,6 +64,99 @@ test('Savant is the only task and approval surface and brain writeback is atomic
     'The task/email action is incomplete',
     'until both the Savant task event and brain writeback succeed.',
     'brain writeback blocked'
+  ]);
+});
+
+test('decision cards research the real constraint, compare branches, and recommend an executable answer', () => {
+  assertAll(prompt, [
+    'P12. DECISION CARDS MUST CONTAIN A DECISION.',
+    'inspect the live control surface that',
+    'owns the constraint, enumerate the materially different branches',
+    'recommend one branch in the title',
+    'and first paragraph',
+    'distinguish moving a deliverable',
+    'from moving its booked placement or event date; quantify which existing slots',
+    'sponsors, or commitments would be displaced. The card must include the proposed',
+    'execution or reply for the recommended branch.',
+    'asks Brian to choose between "approve" and "keep the',
+    'current timing" is incomplete'
+  ]);
+});
+
+test('completion-first inbox work finishes safe actions and files only last-mile approvals', () => {
+  assertAll(prompt, [
+    'P13. COMPLETE THE SAFE WORK BEFORE ASKING BRIAN.',
+    'bring each real inbound as close',
+    'to completion as possible without Brian',
+    'complete every',
+    'safe internal action available from live sources',
+    'compare viable branches against the live control surface',
+    'displacement and sponsor consequences',
+    'For an Aris Machina-style delay request',
+    'recommend a content-only move when the',
+    'live schedule supports it',
+    'For a Modelwise-style placement request',
+    'preserve',
+    'unaffected sold placements and use a genuinely open equivalent slot',
+    'update supported fulfillment, CRM, and brain',
+    'facts and stage the complete reply before Brian sees the card',
+    'Reduce the remainder to one irreversible human action.',
+    'create a validated structured email draft on the existing thread',
+    'The overview',
+    'must state `Completed:` and `Recommendation:`',
+    '`ACTION: request-info` with exactly',
+    '`Completed:`, `Options:`, `Recommendation:`, `Blocked on:`, and',
+    '`On approval:`',
+    'Never file `decide what to share`, `no reply is drafted`,',
+    '`Brian should reply`, or `ping Codex`',
+    '`remaining_human_actions` must contain exactly one item.',
+    'it never approves or sends an external email.'
+  ]);
+});
+
+test('vendor fact requests reconcile related threads and attachments before drafting', () => {
+  assertAll(prompt, [
+    'P14. NEVER ASK AN OUTSIDE PARTY FOR FACTS WE ALREADY HOLD.',
+    'search every related conversation across the participating mailboxes',
+    'open every relevant attachment',
+    'One visible',
+    'thread is not the complete',
+    'record.',
+    'ask the outside party only',
+    'for that remainder',
+    '`fact_reconciliation` inside',
+    '`known_facts`, `unresolved_facts`',
+    '`related_threads_checked`',
+    '`attachments_checked` or a specific',
+    '`attachment_review_not_applicable` reason',
+    'rejects a fact listed as both known and',
+    'unresolved',
+    "separate Christopher's Kitchen thread and June 30 proposal"
+  ]);
+});
+
+test('Zach story submissions are found across mailboxes and routed into the current S/W issue', () => {
+  assertAll(prompt, [
+    "P15. ZACH'S STANDARD & WORKS STORY SUBMISSIONS ARE SAME-DAY EDITORIAL WORK.",
+    '`zach@standardandworks.com` or Zach Silber',
+    '`kerri@hardwarefyi.com`, `brian@kerrihq.com`, and',
+    '`brian@standardandworks.com`',
+    'This named cross-route search is required even',
+    'when the normal cursor or mailbox routing would otherwise skip an account.',
+    'A lead-worthy submission replaces the lead, subject, dek, opener,',
+    'thumbnail, source notes, and argument audit',
+    'A submission that is not lead-worthy becomes one',
+    'strong linked sentence at the bottom of the appropriate reader-facing lower',
+    'section.',
+    'If the issue has already been published, place the item in the next',
+    'eligible issue instead of modifying or duplicating the sent issue.',
+    'publish, schedule, send, or post.',
+    'STANDARD & WORKS DATA-WALL EXCEPTION TO P3, P9, P10, AND STEP 6',
+    'Never write',
+    'that protected content to Savant, CRM, KMG automation state, NOW.md, or',
+    'KerriOS `brain/log.md`.',
+    'Search proof must cover every named mailbox route',
+    'before reporting that no Zach submission exists.'
   ]);
 });
 
@@ -122,8 +211,6 @@ test('inbox sweep prompt blocks overlapping scheduled runs before loading contex
     'The TTL is not permission to overlap.'
   ]);
 
-  assert.match(automationDoc, /inbox-sweep-lock\.mjs/);
-  assert.match(automationDoc, /overlapping runs exit silently/i);
 });
 
 // New P1 invariant (Brian decision 2026-06-10 PM): internal teammates are answered
@@ -258,8 +345,8 @@ test('Savant is the only executor for approved sends', () => {
     '--reply-to-mailbox <mailbox>',
     '--reply-to-conversation-id <conversationId>'
   ]);
-  assert.match(coldOutreachPrompt, /Savant's deterministic sender processes the approved SEND entries/);
-  assert.match(coldOutreachPrompt, /Savant's deterministic sender sends every draft still marked `SEND #n`/);
+  assert.match(coldOutreachPrompt, /When Brian approves an individual recipient card, Savant's deterministic sender sends that card's one draft/);
+  assert.match(coldOutreachPrompt, /One approval authorizes one recipient send only/);
   assert.doesNotMatch(coldOutreachPrompt, /inbox sweep (?:handles the actual sends|sends every draft|sends an approved)/i);
 });
 
@@ -362,10 +449,6 @@ test('inbox sweep prompt no longer texts Brian — Console + email only', () => 
   assert.doesNotMatch(prompt, /ending with exactly two raw directive lines/i);
   assert.doesNotMatch(prompt, /::inbox-item|::archive/);
 
-  assert.match(automationDoc, /Kerri no longer texts Brian/);
-  assert.doesNotMatch(automationDoc, /send-text-alert\.mjs --message/);
-  assert.match(automationDoc, /Durable output policy/);
-  assert.match(automationDoc, /Codex.*closing directives are no longer needed/);
 });
 
 // v1: "suppresses repeated identical error texts". The REPEATED FAILURE ALERT DEDUPE
@@ -384,9 +467,6 @@ test('inbox sweep prompt suppresses repeated identical error alerts (email, not 
     'errorAlertSuppressed'
   ]);
 
-  assert.match(automationDoc, /Repeated identical connector errors are still deduped/);
-  assert.match(automationDoc, /first occurrence recorded/);
-  assert.match(automationDoc, /silent fail-closed grading/);
 });
 
 // v1: "protects redo provenance and stale-task markers". "DRAFT SOURCE: Codex
@@ -406,6 +486,19 @@ test('inbox sweep prompt protects redo provenance and new-reply markers', () => 
 // handling was dropped by d052b09 (only the ☀️ COLD BATCH path remains). "Do NOT
 // change the cold cap counters" became "Cap counters were already incremented at
 // draft time".
+test('cold batch reconciliation requires delivery proof without sending or overwriting receipts', () => {
+  const batch = prompt.split('COLD BATCH (title starts `☀️ COLD BATCH`)')[1]?.split('STEP 2b')[0];
+  assert.ok(batch, 'the cold batch reconciliation branch must exist');
+  assertAll(batch, [
+    "Savant's deterministic sender is the ONLY executor.",
+    'Never call a mailbox send tool from this branch.',
+    "Require the exact approved entry's provider message receipt and applied state",
+    'Only after that proof, move drafted→sent',
+    "Do not duplicate or overwrite Savant's applied/sent receipt."
+  ]);
+  assert.doesNotMatch(batch, /gate, then send|mark-applied --note/);
+});
+
 test('inbox sweep prompt updates cold outreach state after approved sends', () => {
   assertAll(prompt, [
     'COLD BATCH (title starts `☀️ COLD BATCH`)',
@@ -460,9 +553,21 @@ test('EOD meetings review converts commercial meeting signals into Savant CRM st
 test('cold outreach suppression records opt-outs permanently and converts warm replies', () => {
   assertAll(prompt, [
     'data/cold-do-not-contact.json',
-    'Suppression is idempotent and permanent',
-    '#replied with sentiment positive/neutral/negative',
+    'Savant suppression is idempotent and permanent',
+    'record-reply --job-ref <JOBID> --sentiment <sentiment>',
+    'The server auto-promotes a positive reply into one lead-stage deal',
+    'do not create a deal or call another path to create one',
+    'set-status --job-ref <JOBID> --status bounced',
     'a decline is not a DNC'
+  ]);
+});
+
+test('inbox sweep records verified cold sends with the isolated outreach credential', () => {
+  assertAll(prompt, [
+    'record-send --job-ref <JOBID> --sent-at <provider ISO8601 sent_at>',
+    'A missing prospect or failed funnel write makes reconciliation partial and retryable',
+    '`scripts/console-outreach-api.mjs` is the isolated cold-funnel helper.',
+    'It uses only `CODEX_OUTREACH_API_KEY`'
   ]);
 });
 
@@ -587,21 +692,13 @@ test('cold outreach prompt keeps first-touch emails short and partnership-focuse
     'NEVER open about us',
     'I work on partnerships at Hardware FYI, the newsletter over 19,000 hardware engineers and engineering leaders read each week.',
     'under ~75 words at reading grade 3-5',
-    'exactly one interest/value CTA (not a time ask)'
+    'exactly one question asking whether they are interested in a call'
   ]);
   // The retired identity-first opener must never regress back in.
   assert.doesNotMatch(coldOutreachPrompt, /I'm Kerri, and I work on partnerships at Hardware FYI\./);
   assert.doesNotMatch(coldOutreachPrompt, /3–5 sentences/);
 });
 
-test('automation reference points at Claude Code primary inbox sweep', () => {
-  assert.match(automationDoc, /Claude Code Primary/);
-  assert.match(automationDoc, /Inbox Sweep \(#2\) = ACTIVE in Claude Code/);
-  assert.match(automationDoc, /agent-prompts\/kerri-inbox-sweep\/SKILL\.md/);
-  assert.match(automationDoc, /inbox-sweep-grades\.json/);
-  assert.match(automationDoc, /every 15 minutes/i);
-  assert.doesNotMatch(automationDoc, /six active .*shards/i);
-});
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

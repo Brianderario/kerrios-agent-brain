@@ -351,7 +351,7 @@ SESSION NOTES
 - This agent runs in tandem with kerri-inbox-sweep but never directly sends. Approved individual cards are delivered by Savant's deterministic sender; the sweep reconciles proof and handles non-send decisions.
 - The new `source: pipeline-followup` field on jobs is purely informational — inbox-sweep treats it identically to source: inbox-sweep at send time.
 - The Kinetic 2026 sponsor seed is one-time. If the candidate roster is updated (e.g., 2027 sponsors added), new deals are created in Savant (`POST /api/v1/deals`); this agent does NOT re-seed.
-- S/W boundary: this agent never reads S-prefix deals or `brain/.local/` paths. If a future S/W pipeline mode is needed, build it as a separate agent with its own state file.
+- Scope: this agent handles KMG deals only and does not read S-prefix (S&W) deals or `brain/.local/` paths. An S&W pipeline mode would be a separate agent. (S&W data itself is fine in Savant, tagged Standard & Works and hidden from Benji.)
 - Voice discipline: if a draft "feels like a templated nudge" — regenerate. If the second regeneration still feels generic, SKIP the deal that run and log to state.skipped[] with reason "couldn't find a non-generic angle this run."
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

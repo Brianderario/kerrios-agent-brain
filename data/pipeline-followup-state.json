@@ -1,13 +1,8 @@
 {
   "schema": "v1",
-  "lastRunAt": "2026-06-11T12:45:51.694Z",
+  "lastRunAt": "2026-06-23T12:48:00.000Z",
   "seeded": true,
   "perDealCounters": {
-    "colab-software": {
-      "lastNudgeDate": "2026-06-10",
-      "nudgeCount": 1,
-      "lastTaskId": "MEpHVTZUNlZ5YU5OVjAzVA"
-    },
     "neural-concept": {
       "lastNudgeDate": "2026-06-10",
       "nudgeCount": 1,
@@ -29,9 +24,57 @@
       "lastTaskId": "bnlYdlpKcy1Kb3Y2VmpnWA"
     },
     "xscape-photonics": {
-      "lastNudgeDate": "2026-06-11",
-      "nudgeCount": 1,
+      "lastNudgeDate": null,
+      "nudgeCount": 0,
       "lastTaskId": "azVUUlVRTUo5bWx5R1g4Sg"
+    },
+    "5b57313c-06fd-49f5-aa71-4229d1870aa7": {
+      "jobId": "H0082",
+      "relationshipTier": "warm",
+      "lastNudgeDate": "2026-06-16",
+      "nudgeCount": 1,
+      "dormant": false,
+      "lastTaskId": "4ebeb090-b1fd-4d14-9534-2ca8182ab0f3"
+    },
+    "085d4fb4-4af1-48df-9bd7-eb6c597f178e": {
+      "jobId": "H0162",
+      "relationshipTier": "warm",
+      "lastNudgeDate": "2026-06-18",
+      "nudgeCount": 1,
+      "dormant": false,
+      "lastTaskId": "229e1a4b-289e-4ebb-80f5-ac07bd84966a"
+    },
+    "3c23f5e7-6698-4aed-8336-f4ff18efba71": {
+      "jobId": "H0030",
+      "relationshipTier": "warm",
+      "lastNudgeDate": "2026-06-23",
+      "nudgeCount": 2,
+      "dormant": false,
+      "lastTaskId": "f5eb98a1-ef2a-410b-95c4-a1fb35ebd6af"
+    },
+    "1736c752-136b-4553-ae64-2f89f87e40dd": {
+      "jobId": "H0028",
+      "relationshipTier": "warm",
+      "lastNudgeDate": "2026-06-23",
+      "nudgeCount": 2,
+      "dormant": false,
+      "lastTaskId": "5c8580c8-7279-48d2-b9ec-e9073fb503bf"
+    },
+    "52d95626-ca9e-4e1f-bbd5-4c1d52790ea5": {
+      "jobId": "H0024",
+      "relationshipTier": "warm",
+      "lastNudgeDate": "2026-06-23",
+      "nudgeCount": 2,
+      "dormant": false,
+      "lastTaskId": "a87b0b73-20f6-470f-adc4-3df5e37d8c4b"
+    },
+    "0c045f7a-11c8-43ce-a087-cea581357a4a": {
+      "jobId": "H0071",
+      "relationshipTier": "warm",
+      "lastNudgeDate": "2026-06-23",
+      "nudgeCount": 2,
+      "dormant": false,
+      "lastTaskId": "73bec2bb-817e-4ebe-aa15-916b5cdbb4b0"
     }
   },
   "drafted": [
@@ -70,7 +113,61 @@
       "draftedAt": "2026-06-11T12:45:51.694Z",
       "gtasksTaskId": "azVUUlVRTUo5bWx5R1g4Sg",
       "jobId": "H0121"
+    },
+    {
+      "slug": "simplexity",
+      "draftedAt": "2026-06-16T12:48:35.679Z",
+      "consoleTaskId": "4ebeb090-b1fd-4d14-9534-2ca8182ab0f3",
+      "consoleExternalRef": "kerrios:pipeline:H0082:23d9c393cd0e",
+      "jobId": "H0082"
+    },
+    {
+      "slug": "augury",
+      "draftedAt": "2026-06-18T12:45:00.000Z",
+      "consoleTaskId": "229e1a4b-289e-4ebb-80f5-ac07bd84966a",
+      "consoleExternalRef": "kerrios:pipeline:H0162:f85a1c748165",
+      "jobId": "H0162"
+    },
+    {
+      "slug": "summit-interconnect",
+      "draftedAt": "2026-06-23T12:48:00.000Z",
+      "consoleTaskId": "5c8580c8-7279-48d2-b9ec-e9073fb503bf",
+      "consoleExternalRef": "kerrios:pipeline:H0028:459f0929bd25",
+      "jobId": "H0028"
+    },
+    {
+      "slug": "colab-software",
+      "draftedAt": "2026-06-23T12:48:00.000Z",
+      "consoleTaskId": "f5eb98a1-ef2a-410b-95c4-a1fb35ebd6af",
+      "consoleExternalRef": "kerrios:pipeline:H0030:7226098ac880",
+      "jobId": "H0030"
+    },
+    {
+      "slug": "neural-concept",
+      "draftedAt": "2026-06-23T12:48:00.000Z",
+      "consoleTaskId": "a87b0b73-20f6-470f-adc4-3df5e37d8c4b",
+      "consoleExternalRef": "kerrios:pipeline:H0024:22dbc69beebd",
+      "jobId": "H0024"
+    },
+    {
+      "slug": "plexus",
+      "draftedAt": "2026-06-23T12:48:00.000Z",
+      "consoleTaskId": "73bec2bb-817e-4ebe-aa15-916b5cdbb4b0",
+      "consoleExternalRef": "kerrios:pipeline:H0071:cb309031eb41",
+      "jobId": "H0071"
     }
   ],
-  "skipped": []
+  "skipped": [
+    {
+      "slug": "squint",
+      "skippedAt": "2026-06-18T12:45:00.000Z",
+      "reason": "H0160 jobs.json entry is an internal Benji thread, not a Squint prospect thread (jobId collision) - no safe prospect context to nudge"
+    },
+    {
+      "slug": "c-infinity",
+      "skippedAt": "2026-06-23T12:48:00.000Z",
+      "reason": "H0119 just received a thorough post-call follow-up 2026-06-17 (6d ago) via EOD-meetings-review, to a PR intermediary (mskabich@pcecommunications.com); re-nudging now risks pushiness + double-touch. Borderline-eligible, deferred."
+    }
+  ],
+  "deferred": []
 }

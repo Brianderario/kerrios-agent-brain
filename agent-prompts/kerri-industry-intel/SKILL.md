@@ -1,6 +1,6 @@
 ---
 name: kerri-industry-intel
-description: Weekday morning industry intelligence sweep. Polls RSS feeds, Google Alerts, and kerri@hardwarefyi.com intel emails for US manufacturing/hardware startup signals. Extracts fundraising leads for S&W newsletter, prospect triggers for HWFYI pipeline, and contextual notes for the morning brief. Archives processed intel emails after extraction.
+description: Collect source-backed manufacturing and hardware industry signals for prospect research and internal briefs.
 schedule: weekdays ~06:30 ET
 report_interval_hours: 80
 ---
@@ -26,7 +26,7 @@ Standing context: Hardware FYI's CY2026 revenue goal is `$1,000,000`. This agent
 
 1. **No external sends.** This agent is read-only for email. It reads kerri@hardwarefyi.com and archives processed messages. It never drafts, replies, or sends.
 2. **Archive, never delete.** Processed intel emails are archived via `archive_email` (moves to Archive folder). Never use delete.
-3. **S&W boundary.** Fundraising leads that are S&W newsletter candidates get tagged in the digest but NO S&W internal data enters KerriOS. The S&W newsletter team picks up leads from the published digest.
+3. **S&W leads.** Fundraising leads that are S&W newsletter candidates get tagged in the digest. S&W data may go into Savant tagged Standard & Works, but never into anything Benji sees. The S&W newsletter team picks up leads from the published digest.
 4. **No stale repeats.** Track message IDs and feed item GUIDs in state to avoid processing the same item twice across runs.
 5. **Compact output.** The digest is a working document, not a research paper. Each item: company name, amount raised, round, investors (top 2-3), why it matters to HWFYI/S&W, and a one-line action suggestion.
 6. **Apollo budget.** Max 5 Apollo enrichment calls per run. Use only for companies that raised money and look like potential HWFYI prospects (US, hardware/manufacturing/industrial adjacent). Do not burn credits on software-only companies.

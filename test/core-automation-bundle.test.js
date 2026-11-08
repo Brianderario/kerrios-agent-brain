@@ -29,12 +29,80 @@ const files = {
     new URL('../brain/wiki/workflows/hwfyi-daily-10-outreach-loop.md', import.meta.url),
     'utf8'
   ),
+  contactEnrichmentPolicy: fs.readFileSync(
+    new URL('../brain/wiki/workflows/contact-enrichment-policy.md', import.meta.url),
+    'utf8'
+  ),
   revenueGoalScript: fs.readFileSync(new URL('../scripts/hwfyi-revenue-goal-sheet.mjs', import.meta.url), 'utf8'),
   decision: fs.readFileSync(
     new URL('../brain/wiki/decisions/2026-05-26-parallel-core-automation-bundle.md', import.meta.url),
     'utf8'
   )
 };
+
+test('cold outreach creates one approval card per recipient', () => {
+  for (const required of [
+    'POST ONE APPROVAL CARD PER RECIPIENT',
+    'Create exactly one Savant `needs_approval` card per recipient',
+    'One approval authorizes one recipient send only',
+    'Never combine recipients or DRAFT sections in one approval card',
+    'kerrios:cold:individual:<H####>:<YYYY-MM-DD>',
+    'Every drafted entry has its own task id and external reference'
+  ]) {
+    assert.match(files.coldOutreach, new RegExp(escapeRegExp(required), 'i'));
+  }
+
+  assert.match(files.dailyOutreachLoop, /one Hardware FYI Savant `needs_approval` card per recipient/i);
+  assert.doesNotMatch(files.coldOutreach, /All of a morning's drafts go into ONE daily batch task/i);
+  assert.doesNotMatch(files.coldOutreach, /Brian approves once per day, not once per email/i);
+});
+
+test('cold outreach uses FullEnrich exclusively for contact data', () => {
+  for (const required of [
+    'FullEnrich is the exclusive contact-data provider',
+    'fullenrich.search_people',
+    'fullenrich.enrich_bulk',
+    'fullenrich.enrich_search_contact',
+    'fullenrich.get_enrichment_results',
+    'contact.work_emails',
+    'Do not call Apollo'
+  ]) {
+    assert.match(files.coldOutreach, new RegExp(escapeRegExp(required), 'i'));
+  }
+
+  assert.doesNotMatch(files.coldOutreach, /apollo_(people|organizations|mixed|emailer)/i);
+  assert.match(files.dailyOutreachLoop, /FullEnrich is the exclusive contact-search and verified work-email provider/i);
+});
+
+test('contact enrichment never requests phone data without Brian explicitly asking', () => {
+  const policy = files.coldOutreach + files.dailyOutreachLoop + files.contactEnrichmentPolicy;
+
+  for (const required of [
+    'Never enrich phone numbers',
+    'Never request, search for, enrich, export, store, or use anyone\'s phone number',
+    '`contact.phones` is prohibited',
+    'current, explicit instruction from Brian',
+    'never infer permission from an outreach, contact, prospecting, or enrichment request'
+  ]) {
+    assert.match(policy, new RegExp(escapeRegExp(required), 'i'));
+  }
+});
+
+test('cold outreach records drafted funnel rows without changing approval-card mechanics', () => {
+  for (const required of [
+    'list_outreach_queue',
+    'list-suppressions',
+    'record-drafts --file <rows.json>',
+    'status: "drafted"',
+    'idempotent on `job_ref`, then `contact_email`',
+    'record-send --job-ref <H####>',
+    'add-suppression'
+  ]) {
+    assert.match(files.coldOutreach, new RegExp(escapeRegExp(required), 'i'));
+  }
+  assert.match(files.coldOutreach, /After all existing recipient cards are filed unchanged/);
+  assert.match(files.coldOutreach, /Keep these local JSON dedup and suppression files active through the two-week parallel window/);
+});
 
 test('morning brief prompt is approval-safe and writes compact state', () => {
   for (const required of [
@@ -50,8 +118,7 @@ test('morning brief prompt is approval-safe and writes compact state', () => {
     'Codex-era note',
     'Under Claude Code, skip them',
     'data/morning-brief-state.json',
-    'SELF-GRADE',
-    'GPT-5.5'
+    'SELF-GRADE'
   ]) {
     assert.match(files.morning + files.automations, new RegExp(escapeRegExp(required), 'i'));
   }
@@ -141,19 +208,6 @@ test('brain push validates before committing and excludes runtime state', () => 
   assert.doesNotMatch(files.brainPush, /ending with exactly two raw directive lines/i);
 });
 
-test('core automation bundle is registered as GPT-5.5 high', () => {
-  for (const required of [
-    'kerri-morning-brief',
-    'kerri-eod-meetings-review',
-    'kerri-brain-push',
-    'GPT-5.5 high',
-    'Durable output policy',
-    'closing directives are no longer needed',
-    'Parallel Core Automation Bundle'
-  ]) {
-    assert.match(files.automations + files.registry + files.decision, new RegExp(escapeRegExp(required), 'i'));
-  }
-});
 
 test('Hardware FYI revenue goal is wired into active revenue automations', () => {
   const requiredPromptTexts = [
@@ -205,7 +259,7 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     '1mXauTrY5fTgQURfCE1VU2u65hc5nxd6waRVss-mcgYk'
   ]) {
     assert.match(
-      files.revenueGoal + files.gapCloseTargets + files.dailyOutreachLoop + files.automations + files.registry + files.hardwareFyi + files.revenueGoalScript,
+      files.revenueGoal + files.gapCloseTargets + files.dailyOutreachLoop + files.leadResearch + files.coldOutreach + files.pipeline + files.registry + files.hardwareFyi + files.revenueGoalScript,
       new RegExp(escapeRegExp(required), 'i')
     );
   }
@@ -215,7 +269,7 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     'cheap preflight',
     'Inspect at most 25 queue entries',
     'queue already has at least 25 ready',
-    'no raw Apollo',
+    'raw FullEnrich',
     'no raw enrichment dumps',
     'company fit:',
     'person fit:',
@@ -231,8 +285,7 @@ test('Hardware FYI revenue goal is wired into active revenue automations', () =>
     );
   }
 
-  assert.match(files.automations + files.registry, /Pipeline follow-up.*8:33am ET/is);
-  assert.match(files.automations + files.registry, /never (auto-)?sends?/i);
+  assert.match(files.pipeline, /never (auto-)?sends?/i);
   assert.match(files.revenueGoalScript, /seed-contract-breakdown/);
   assert.match(files.revenueGoalScript, /PIPELINE_SEED_ROWS/);
   assert.match(files.revenueGoalScript, /OPEN_PIPELINE_STATUSES/);
