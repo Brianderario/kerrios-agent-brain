@@ -1,5 +1,11 @@
 # NOW - live session baton
 
+## 2026-11-07 Savant next pass (Claude Code, interactive, Brian-authorized 09:35 ET)
+
+Last action: 09:55 ET. Ledger `data/build-loop-runs/2026-11-07.md` opened. Five Opus workers running in worktrees off kerrihq-rails main d94ee9a9: W1 outreach/newsletter/agent-run/retire-brain tools onto the executor, W2 operations tools + admin-gate audit + final `app/tools` deletion, W3 agent.rb split / prompt loader / DB agent registry, W4 Ask Stop interrupt / modal counter / connector route wall, W5 StickyNoteItem->Task and AgentProgram fold. A separate agent is pruning Claude memory (backup in `~/Desktop/Claude Files/Private/2026-11-07 memory backup/`).
+
+Next action: review each PR with an independent Opus reviewer, merge one at a time, verify both Render services live; then local cleanup (merged `simplify-*`/`retire-*` branches, savant-desktop `.cargo-target-smoke`, old review DB); report to `~/Desktop/Claude Files/Savant/2026-11-07 Savant next pass report.md`.
+
 ## 2026-11-07 Savant simplification build loop (Claude Code, interactive, Brian-authorized)
 
 Last action: 03:15 ET. All 38 kerrihq-rails PRs and 7 savant-desktop PRs from the 11-06 simplification plan are merged and live (web main 5500e392, Mac main f94bd5a); 7 dead Render env vars deleted; prod cleanup task `retire:code_shipping_state` run; run worktrees and test DBs removed. Ledger: `data/build-loop-runs/2026-11-06.md`. Report: `~/Desktop/Claude Files/Savant/2026-11-06 Savant simplification run report.md`.
